@@ -24,9 +24,9 @@ def grdproject(
     spacing: float | str | Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -64,8 +64,6 @@ def grdproject(
     inverse : bool
         When set to ``True`` transforms grid from rectangular to geographical
         [Default is ``False``].
-    $projection
-    $region
     center
         If ``True``, let the projected coordinates be relative to the projection center
         [Default is relative to the lower left corner]. Optionally, set offsets
@@ -87,6 +85,8 @@ def grdproject(
         Append **c**, **i**, or **p** to indicate that centimeters, inches, or
         points should be the projected measure unit. Cannot be used with
         ``scaling``.
+    $projection
+    $region
     $verbose
     $interpolation
     $registration

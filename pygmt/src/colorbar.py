@@ -21,10 +21,10 @@ def colorbar(  # noqa: PLR0913
     shading: float | Sequence[float] | bool = False,
     log: bool = False,
     scale: float | None = None,
-    projection: str | None = None,
     box: Box | bool = False,
-    frame: str | Sequence[str] | bool = False,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -72,8 +72,6 @@ def colorbar(  # noqa: PLR0913
 
     Parameters
     ----------
-    frame : str or list
-        Set colorbar boundary frame, labels, and axes attributes.
     $cmap
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
@@ -138,6 +136,10 @@ def colorbar(  # noqa: PLR0913
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
+    $projection
+    $region
+    frame : str or list
+        Set colorbar boundary frame, labels, and axes attributes.
     $verbose
     $panel
     $perspective

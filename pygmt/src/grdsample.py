@@ -30,9 +30,9 @@ def grdsample(
     toggle: bool = False,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
@@ -66,12 +66,12 @@ def grdsample(
     $grid
     $outgrid
     $spacing
-    $region
     toggle
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
         *Note**: ``toggle`` and ``registration`` are mutually exclusive.
+    $region
     $verbose
     $coltypes
     $interpolation

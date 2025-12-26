@@ -100,6 +100,7 @@ def filter1d(
         Indicate which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
         [Default is ``0``].
+    $verbose
 
     Returns
     -------

@@ -90,11 +90,11 @@ def blockmean(  # noqa: PLR0913
     outfile: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""

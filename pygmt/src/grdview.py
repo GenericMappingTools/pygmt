@@ -40,8 +40,8 @@ def grdview(  # noqa: PLR0913
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -78,15 +78,6 @@ def grdview(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    region : str or list
-        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
-        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
-        use for the 3-D axes [Default is the region given by the input grid].
-    $projection
-    zscale/zsize
-        Set z-axis scaling or z-axis size.
-    $frame
     cmap : str
         The name of the color palette table to use.
     drape_grid : str or :class:`xarray.DataArray`
@@ -133,6 +124,15 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
+    $projection
+    zscale/zsize
+        Set z-axis scaling or z-axis size.
+    region : str or list
+        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+        Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
+        with ``perspective``, optionally append */zmin/zmax* to indicate the range to
+        use for the 3-D axes [Default is the region given by the input grid].
+    $frame
     $verbose
     $panel
     $coltypes

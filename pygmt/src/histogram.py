@@ -45,8 +45,8 @@ def histogram(
     self,
     data: PathLike | TableLike,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -75,9 +75,6 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    $projection
-    $region
-    $frame
     $cmap
     fill : str
          Set color or pattern for filling bars [Default is no fill].
@@ -146,6 +143,9 @@ def histogram(
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    $projection
+    $region
+    $frame
     $verbose
     $binary
     $nodata

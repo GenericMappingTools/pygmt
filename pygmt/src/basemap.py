@@ -21,10 +21,10 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 def basemap(
     self,
     projection: str | None = None,
-    zsize: float | str | None = None,
     zscale: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,

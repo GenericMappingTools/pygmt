@@ -19,8 +19,8 @@ def ternary(  # noqa: PLR0913
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -65,6 +65,7 @@ def ternary(  # noqa: PLR0913
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
+    $frame
     $cmap
     $fill
     alabel
