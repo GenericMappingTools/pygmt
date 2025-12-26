@@ -93,8 +93,8 @@ def grdfilter(
           *width* in km, Spherical distance calculation.
     $spacing
     nans
-        Determine how NaN-values in the input grid affect the filtered output. Choose
-        one of:
+        Determine how NaN-values in the input grid affect the filtered output grid.
+        Choose one of:
 
         - ``"ignore"``: Ignore all NaNs in the calculation of filtered value [Default].
         - ``"replace"``: Similar to ``"ignore"`` except if the input node was NaN then
