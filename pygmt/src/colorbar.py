@@ -153,7 +153,7 @@ def colorbar(  # noqa: PLR0913
     >>> # Call the colorbar method for the plot
     >>> fig.colorbar(
     ...     # Set cmap to the "roma" CPT
-    ...     cmap="roma",
+    ...     cmap="SCM/roma",
     ...     # Label the x-axis "Velocity" and the y-axis "m/s"
     ...     frame=["x+lVelocity", "y+lm/s"],
     ... )

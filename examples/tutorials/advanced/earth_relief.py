@@ -52,14 +52,14 @@ fig.show()
 # Using the *geo* CPT:
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="geo")
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
 fig.show()
 
 # %%
 # Using the *relief* CPT:
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="relief")
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/relief")
 fig.show()
 
 
@@ -76,7 +76,7 @@ fig.show()
 # ``"y+lm"`` sets the y-axis label.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="geo")
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
 fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
 
@@ -96,7 +96,7 @@ fig.show()
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
+fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="gmt/geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 

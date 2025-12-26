@@ -24,7 +24,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-pygmt.makecpt(cmap="roma", series=[0, 4, 1])
+pygmt.makecpt(cmap="SCM/roma", series=[0, 4, 1])
 
 with fig.subplot(
     nrows=2,
