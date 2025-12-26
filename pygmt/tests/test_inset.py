@@ -54,6 +54,18 @@ def test_inset_default_position():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_inset_default_position.png")
+def test_inset_width_from_projection_region():
+    """
+    Test that the inset can infer width from projection and region.
+    """
+    fig = Figure()
+    fig.basemap(region="MG+r2", frame="afg")
+    with fig.inset(projection="G47/-20/3.5c", region="g", box=True):
+        fig.basemap(region="g", projection="G47/-20/?", frame="afg")
+    return fig
+
+
 @pytest.mark.mpl_image_compare(filename="test_inset_aliases.png")
 def test_inset_deprecated_position():
     """

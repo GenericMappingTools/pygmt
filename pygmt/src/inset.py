@@ -74,8 +74,8 @@ def inset(
         If not specified, defaults to the Bottom Left corner of the plot.
     width
     height
-        Width and height of the inset. Width must be specified and height is set to be
-        equal to width if not specified.
+        Width and height of the inset. Width must be specified unless ``projection`` and
+        ``region`` are given, and height is set to be equal to width if not specified.
     box
         Draw a background box behind the inset. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -132,8 +132,12 @@ def inset(
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
     )
 
-    # width is mandatory.
-    if width is None and not isinstance(position, str):
+    # width is mandatory unless both projection and region are given.
+    if (
+        not isinstance(position, str)
+        and width is None
+        and (projection is None or region is None)
+    ):
         msg = "Parameter 'width' must be specified."
         raise GMTInvalidInput(msg)
 
