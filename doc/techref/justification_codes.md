@@ -105,7 +105,7 @@ Script showing justification codes for plot embellishments, e.g., a colorbar.
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
-fig.colorbar(cmap="buda", frame=0, position="jMC+w10c/2c+h")
+fig.colorbar(cmap="SCM/buda", frame=0, position="jMC+w10c/2c+h")
 
 for code in codes:
     fig.text(
