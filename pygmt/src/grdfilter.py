@@ -125,8 +125,8 @@ def grdfilter(
     --------
     >>> from pathlib import Path
     >>> import pygmt
-    >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file and
-    >>> # return a filtered field (saved as netCDF)
+    >>> # Apply a median filter of 600 km (full width) to the @earth_relief_30m_g grid
+    >>> # and return a filtered grid (saved as netCDF file).
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
