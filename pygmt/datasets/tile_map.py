@@ -27,6 +27,7 @@ except ImportError:
 import numpy as np
 import xarray as xr
 
+__doctest_skip__ = ["load_tile_map"]
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
