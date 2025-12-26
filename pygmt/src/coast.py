@@ -28,13 +28,13 @@ def coast(  # noqa: PLR0913
     shorelines: bool | str | Sequence[int | str] = False,
     box: Box | bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -72,11 +72,7 @@ def coast(  # noqa: PLR0913
 
     Parameters
     ----------
-    $projection
-    $region
-        *Required if this is the first plot command.*
     $area_thresh
-    $frame
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -196,10 +192,14 @@ def coast(  # noqa: PLR0913
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
+    $projection
+    $region
+        *Required if this is the first plot command.*
+    $frame
+    $verbose
     $panel
     $perspective
     $transparency
-    $verbose
 
     Example
     -------

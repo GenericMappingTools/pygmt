@@ -46,8 +46,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -133,9 +133,6 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    $projection
-    $region
-        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -167,6 +164,10 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
+    $projection
+    $region
+        *Required if this is the first plot command.*
+    $frame
     $verbose
     $aspatial
     $panel

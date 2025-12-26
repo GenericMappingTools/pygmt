@@ -160,8 +160,8 @@ def grdfill(  # noqa: PLR0913
             instead. The parameter will be removed in v0.19.0.
 
     $region
-    $coltypes
     $verbose
+    $coltypes
 
     Returns
     -------

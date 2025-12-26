@@ -39,8 +39,8 @@ def rose(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -87,14 +87,6 @@ def rose(  # noqa: PLR0913
     length/azimuth : float or 1-D arrays
         Length and azimuth values, or arrays of length and azimuth
         values.
-
-    orientation : bool
-        Specify that the input data are orientation data (i.e., have a
-        180 degree ambiguity) instead of true 0-360 degree directions
-        [Default is 0-360 degrees]. We compensate by counting each record
-        twice: First as azimuth and second as azimuth +180. Ignored if
-        ``region`` is given as (-90, 90) or (0, 180).
-
     region : str or list
         *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
@@ -102,6 +94,18 @@ def rose(  # noqa: PLR0913
         Here, *r0* is 0 and *r1* is the maximal length in units.
         For *az0* and *az1*, specify either (-90, 90) or (0, 180) for
         half circle plot or (0, 360) for full circle.
+    frame : str
+         Set map boundary frame and axes attributes. Remember that *x*
+         here is radial distance and *y* is azimuth. The y label may be
+         used to plot a figure caption. The scale bar length is determined
+         by the radial gridline spacing.
+
+    orientation : bool
+        Specify that the input data are orientation data (i.e., have a
+        180 degree ambiguity) instead of true 0-360 degree directions
+        [Default is 0-360 degrees]. We compensate by counting each record
+        twice: First as azimuth and second as azimuth +180. Ignored if
+        ``region`` is given as (-90, 90) or (0, 180).
 
     diameter : str
          Set the diameter of the rose diagram. If not given,
@@ -116,12 +120,6 @@ def rose(  # noqa: PLR0913
          Normalize input radii (or bin counts if ``sector`` is used)
          by the largest value so all radii (or bin counts) range from 0
          to 1.
-
-    frame : str
-         Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The y label may be
-         used to plot a figure caption. The scale bar length is determined
-         by the radial gridline spacing.
 
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to
