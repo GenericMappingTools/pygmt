@@ -1,0 +1,6 @@
+outs:
+- md5: 9bcab5655f53bfef48ffe0c0c9e41273
+  size: 10755
+  isexec: true
+  hash: md5
+  path: test_histogram_barwidth_baroffset.png
