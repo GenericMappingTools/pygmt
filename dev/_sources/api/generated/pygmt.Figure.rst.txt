@@ -9,7 +9,7 @@ pygmt.Figure
 .. rubric:: Attributes
 
 
-.. autoproperty::
+.. autoattribute::
     Figure.region
 
 
