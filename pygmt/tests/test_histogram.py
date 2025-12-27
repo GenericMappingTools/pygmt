@@ -18,7 +18,7 @@ def fixture_data(request):
 
 
 @pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(filename="test_histogram.png")
 def test_histogram(data):
     """
     Test plotting a histogram using a sequence of integers from a table.
