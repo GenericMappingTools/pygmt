@@ -17,7 +17,7 @@ fig = pygmt.Figure()
 fig.coast(region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a")
 # Create an inset, placing it in the Top Left (TL) corner with a width of 3.5 cm and
 # x- and y-offsets of 0.2 cm. The clearance is set to 0, and the border is "gold" with a
-# pen size of 1.5 points.
+# pen thickness of 1.5 points.
 with fig.inset(
     position=Position("TL", offset=0.2),
     width=3.5,
