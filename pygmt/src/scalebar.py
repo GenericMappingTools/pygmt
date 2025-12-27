@@ -22,7 +22,7 @@ def scalebar(  # noqa: PLR0913
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
     height: float | str | None = None,
-    scale_position: float | Sequence[float] | bool = False,
+    scale_at: float | Sequence[float] | bool = False,
     label: str | bool = False,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     unit: bool = False,
@@ -58,10 +58,10 @@ def scalebar(  # noqa: PLR0913
         **n**: nautical miles; **u**: US Survey foot.
     height
         Height of the scale bar. Only works when ``fancy=True``. [Default is ``"5p"``].
-    scale_position
-        Specify the location where on a geographic map the scale applies. It can be:
+    scale_at
+        Specify the location where the map scale is calculated. It can be:
 
-        - *slat*: Map scale is calculated for latitude *slat*
+        - *slat*: Map scale is calculated for latitude *slat*.
         - (*slon*, *slat*): Map scale is calculated for latitude *slat* and longitude
           *slon*, which is useful for oblique projections.
         - ``True``: Map scale is calculated for the middle of the map.
@@ -116,7 +116,7 @@ def scalebar(  # noqa: PLR0913
             "length": length,
             "height": height,
             "label_alignment": label_alignment,
-            "scale_position": scale_position,
+            "scale_at": scale_at,
             "fancy": fancy,
             "label": label,
             "unit": unit,
@@ -140,7 +140,7 @@ def scalebar(  # noqa: PLR0913
                 prefix="+a",
                 mapping={"left": "l", "right": "r", "top": "t", "bottom": "b"},
             ),
-            Alias(scale_position, name="scale_position", prefix="+c", sep="/", size=2),
+            Alias(scale_at, name="scale_at", prefix="+c", sep="/", size=2),
             Alias(fancy, name="fancy", prefix="+f"),
             Alias(label, name="label", prefix="+l"),
             Alias(unit, name="unit", prefix="+u"),
