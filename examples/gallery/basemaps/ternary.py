@@ -22,7 +22,7 @@ data = pygmt.datasets.load_sample_data(name="rock_compositions")
 
 # Define a colormap to be used for the values given in the fourth column
 # of the input dataset
-pygmt.makecpt(cmap="batlow", series=[0, 80, 10])
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 80, 10])
 
 fig.ternary(
     data,

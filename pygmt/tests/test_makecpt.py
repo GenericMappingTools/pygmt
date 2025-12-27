@@ -35,7 +35,7 @@ def test_makecpt_plot_points(points):
     Use static color palette table to change color of points.
     """
     fig = Figure()
-    makecpt(cmap="rainbow")
+    makecpt(cmap="gmt/rainbow")
     fig.plot(
         x=points[:, 0],
         y=points[:, 1],
@@ -53,7 +53,7 @@ def test_makecpt_plot_colorbar(position):
     Use static color palette table to plot a colorbar.
     """
     fig = Figure()
-    makecpt(cmap="relief")
+    makecpt(cmap="gmt/relief")
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -64,7 +64,7 @@ def test_makecpt_plot_colorbar_scaled_with_series(position):
     Use static color palette table scaled to a min/max series and plot it on a colorbar.
     """
     fig = Figure()
-    makecpt(cmap="oleron", series=[0, 1000])
+    makecpt(cmap="SCM/oleron", series=[0, 1000])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -101,7 +101,7 @@ def test_makecpt_truncated_zlow_zhigh(position):
     Use static color palette table that is truncated to z-low and z-high.
     """
     fig = Figure()
-    makecpt(cmap="rainbow", truncate=[0.15, 0.85], series=[0, 1000])
+    makecpt(cmap="gmt/rainbow", truncate=[0.15, 0.85], series=[0, 1000])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -112,7 +112,7 @@ def test_makecpt_reverse_color_only(position):
     Use static color palette table with its colors reversed.
     """
     fig = Figure()
-    makecpt(cmap="earth", reverse=True, series=[0, 1000])
+    makecpt(cmap="gmt/earth", reverse=True, series=[0, 1000])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -123,7 +123,7 @@ def test_makecpt_reverse_color_and_zsign(position):
     Use static color palette table with both its colors and z-value sign reversed.
     """
     fig = Figure()
-    makecpt(cmap="earth", reverse="cz", series=[0, 1000])
+    makecpt(cmap="gmt/earth", reverse="cz", series=[0, 1000])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -146,7 +146,7 @@ def test_makecpt_categorical(position):
     Use static color palette table that is categorical.
     """
     fig = Figure()
-    makecpt(cmap="categorical", categorical=True, series=[0, 6, 1])
+    makecpt(cmap="gmt/categorical", categorical=True, series=[0, 6, 1])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -157,7 +157,7 @@ def test_makecpt_cyclic(position):
     Use static color palette table that is cyclic.
     """
     fig = Figure()
-    makecpt(cmap="cork", cyclic=True)
+    makecpt(cmap="SCM/cork", cyclic=True)
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 
@@ -167,4 +167,4 @@ def test_makecpt_categorical_and_cyclic():
     Use incorrect setting by setting both categorical and cyclic to True.
     """
     with pytest.raises(GMTInvalidInput):
-        makecpt(cmap="batlow", categorical=True, cyclic=True)
+        makecpt(cmap="SCM/batlow", categorical=True, cyclic=True)

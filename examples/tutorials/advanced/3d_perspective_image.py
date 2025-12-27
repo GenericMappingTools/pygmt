@@ -50,7 +50,7 @@ fig.grdview(
     # Set the surftype to "surface"
     surftype="s",
     # Set the CPT to "geo"
-    cmap="geo",
+    cmap="gmt/geo",
 )
 fig.show()
 
@@ -66,7 +66,7 @@ fig.grdview(
     projection="M15c",
     zsize="1.5c",
     surftype="s",
-    cmap="geo",
+    cmap="gmt/geo",
     plane=1000,  # Set the plane elevation to 1,000 meters
     facade_fill="gray",  # Color the facade in "gray"
 )
@@ -89,7 +89,7 @@ fig.grdview(
     projection="M15c",
     zsize="1.5c",
     surftype="s",
-    cmap="geo",
+    cmap="gmt/geo",
     plane=1000,
     facade_fill="gray",
     # Set the contour pen thickness to 0.1 points

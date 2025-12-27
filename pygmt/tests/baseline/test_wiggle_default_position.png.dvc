@@ -1,0 +1,5 @@
+outs:
+- md5: 362640b4554c7e5097340c578a672988
+  size: 16058
+  hash: md5
+  path: test_wiggle_default_position.png

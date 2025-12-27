@@ -164,7 +164,7 @@ def grdimage(  # noqa: PLR0913
     >>> fig = pygmt.Figure()
     >>> # pass in the grid and set the CPT to "geo"
     >>> # set the projection to Mollweide and the size to 10 cm
-    >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
+    >>> fig.grdimage(grid=grid, cmap="gmt/geo", projection="W10c", frame="ag")
     >>> # show the plot
     >>> fig.show()
     """

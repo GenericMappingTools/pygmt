@@ -50,7 +50,7 @@ fig = pygmt.Figure()
 
 # Set up colormap for the crustal age
 pygmt.config(COLOR_NAN="lightgray")
-pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
