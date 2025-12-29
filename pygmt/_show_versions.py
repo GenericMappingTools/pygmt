@@ -9,12 +9,12 @@ import platform
 import shutil
 import subprocess
 import sys
-from importlib.metadata import PackageNotFoundError, requires, version
+from importlib.metadata import PackageNotFoundError, metadata, requires, version
 from typing import TextIO
 
 from packaging.requirements import Requirement
 from packaging.version import Version
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
 # Get semantic version through setuptools-scm
 __version__ = f"v{version('pygmt')}"  # e.g. v0.1.2.dev3+g0ab3cd78
@@ -108,6 +108,36 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
+def _get_dep_info() -> dict[str, str]:
+    """
+    Get version information of PyGMT's dependencies.
+    """
+    dep_info = {
+        Requirement(v).name: _get_module_version(Requirement(v).name)
+        for v in requires("pygmt")
+    }
+    dep_info.update(
+        {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
+    )
+    return dep_info
+
+
+def _get_dep_specifier() -> dict[str, str]:
+    """
+    Get version specifiers of PyGMT's dependencies.
+    """
+    dep_specifier = {
+        Requirement(v).name: str(Requirement(v).specifier) for v in requires("pygmt")
+    }
+    dep_specifier.update(
+        {
+            "python": metadata("pygmt")["Requires-Python"],
+            "gmt": f">={required_gmt_version}",
+        }
+    )
+    return dep_specifier
+
+
 def show_versions(file: TextIO | None = sys.stdout) -> None:
     """
     Print various dependency versions which are useful when submitting bug reports.
@@ -128,11 +158,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    requirements = [Requirement(v).name for v in requires("pygmt")]  # type: ignore[union-attr]
-    dep_info = {name: _get_module_version(name) for name in requirements}
-    dep_info.update(
-        {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
-    )
+    dep_info = _get_dep_info()
 
     lines = []
     lines.append("PyGMT information:")
