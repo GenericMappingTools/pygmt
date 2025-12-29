@@ -96,7 +96,7 @@ def scalebar(  # noqa: PLR0913
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Box, Position
+    >>> from pygmt.params import Position
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
