@@ -1,8 +1,8 @@
 # Changelog
 
-## Release v0.18.0 (20YY/MM/DD)
+## Release v0.18.0 (2026/01/06)
 
-[![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.18080259.svg)](https://doi.org/10.5281/zenodo.18080259)
 
 ### Highlights
 
@@ -79,7 +79,11 @@
 
 ### Contributors
 
-[@Chuan1937](https://github.com/Chuan1937), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+- [Dongdong Tian](https://github.com/seisman)
+- [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+- [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+- [Xingchen He](https://github.com/Chuan1937)
 
 ---
 
