@@ -195,8 +195,8 @@ def colorbar(  # noqa: PLR0913
         Reverse the positive direction of the bar.
     nan_rectangle
         Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or
-        :term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a string
-        is given, use that string as the label for the NaN color.
+        :gmt-term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a 
+        string is given, use that string as the label for the NaN color.
     nan_rectangle_position
         Set the position of the NaN rectangle. Choose from ``"start"`` or ``"end"``.
         [Default is ``"start"``].
@@ -206,7 +206,7 @@ def colorbar(  # noqa: PLR0913
         ``"background"`` to draw only one triangle. The back- and/or foreground colors
         are taken from the **B** and **F** entries in the CPT. If no such entries exist,
         then the system default colors for **B** and **F** are used instead (
-        :term:`COLOR_BACKGROUND` and :term:`COLOR_FOREGROUND`).
+        :gmt-term:`COLOR_BACKGROUND` and :gmt-term:`COLOR_FOREGROUND`).
     sidebar_triangles_height
         Height of the sidebar triangles [Default is half the bar width].
     move_text
