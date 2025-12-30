@@ -145,10 +145,6 @@ def colorbar(  # noqa: PLR0913
 
     $aliases
        - B = frame
-       - D = position, **+w**: length/width, **+h**/**+v**: orientation,
-         **+r**: reverse, **+n**: nan_rectangle/nan_rectangle_position,
-         **+e**: sidebar_triangles/scalebar_triangles_height,
-         **+m**: move_text/label_as_column
        - F = box
        - G = truncate
        - I = shading
@@ -160,6 +156,14 @@ def colorbar(  # noqa: PLR0913
        - c = panel
        - p = perspective
        - t = transparency
+
+    .. hlist::
+       :columns: 1
+
+       - D = position, **+w**: length/width, **+h**/**+v**: orientation,
+         **+r**: reverse, **+n**: nan_rectangle/nan_rectangle_position,
+         **+e**: sidebar_triangles/scalebar_triangles_height,
+         **+m**: move_text/label_as_column
 
     Parameters
     ----------
