@@ -27,7 +27,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45
 fig = pygmt.Figure()
 
 # Define a colormap to be used for topography
-pygmt.makecpt(cmap="terra", series=[-7000, 7000])
+pygmt.makecpt(cmap="gmt/terra", series=[-7000, 7000])
 
 # Define figure configuration
 pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")

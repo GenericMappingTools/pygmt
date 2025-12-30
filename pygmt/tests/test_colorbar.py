@@ -16,7 +16,7 @@ def test_colorbar():
     Create a simple colorbar.
     """
     fig = Figure()
-    fig.colorbar(cmap="rainbow", position="x0c/0c+w4c", frame=True)
+    fig.colorbar(cmap="gmt/rainbow", position="x0c/0c+w4c", frame=True)
     return fig
 
 
@@ -27,7 +27,7 @@ def test_colorbar_shading_list():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 2], projection="X10c/2c", frame="a")
-    fig.colorbar(cmap="geo", shading=[-0.7, 0.2], frame=True)
+    fig.colorbar(cmap="gmt/geo", shading=[-0.7, 0.2], frame=True)
     return fig
 
 

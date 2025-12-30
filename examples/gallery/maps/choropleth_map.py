@@ -29,7 +29,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-19.5, 53, -37.5, 38], projection="M10c", frame="+n")
 
 # First, we define the colormap to fill the polygons based on the "POP_EST" column.
-pygmt.makecpt(cmap="acton", series=(0, 100), reverse=True)
+pygmt.makecpt(cmap="SCM/acton", series=(0, 100), reverse=True)
 
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.

@@ -1,0 +1,5 @@
+outs:
+- md5: 510cf7715a4059cf65cb0917aabacc8d
+  size: 34733
+  hash: md5
+  path: test_image_height_no_width.png

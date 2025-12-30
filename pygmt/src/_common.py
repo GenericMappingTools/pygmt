@@ -190,8 +190,7 @@ class _FocalMechanismConvention:
 
             Doesn't apply to the conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
         """
-        # TODO(Python>=3.12): Simplify to "convention in _FocalMechanismConventionCode".
-        if convention in _FocalMechanismConventionCode.__members__.values():
+        if convention in _FocalMechanismConventionCode:
             # Convention is specified via the actual single-letter convention code.
             self.code = _FocalMechanismConventionCode(convention)
             # Parse the convention from the convention code name.
