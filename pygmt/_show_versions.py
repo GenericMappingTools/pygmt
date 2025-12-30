@@ -108,13 +108,13 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
-def _get_dep_info() -> dict[str, str]:
+def _get_dep_info() -> dict[str, str | None]:
     """
     Get version information of PyGMT's dependencies.
     """
     dep_info = {
         Requirement(v).name: _get_module_version(Requirement(v).name)
-        for v in requires("pygmt")
+        for v in requires("pygmt")  # type: ignore[union-attr]
     }
     dep_info.update(
         {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
@@ -127,7 +127,8 @@ def _get_dep_specifier() -> dict[str, str]:
     Get version specifiers of PyGMT's dependencies.
     """
     dep_specifier = {
-        Requirement(v).name: str(Requirement(v).specifier) for v in requires("pygmt")
+        Requirement(v).name: str(Requirement(v).specifier)
+        for v in requires("pygmt")  # type: ignore[union-attr]
     }
     dep_specifier.update(
         {
