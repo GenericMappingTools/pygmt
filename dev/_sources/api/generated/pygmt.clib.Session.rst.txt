@@ -9,10 +9,10 @@ pygmt.clib.Session
 .. rubric:: Attributes
 
 
-.. autoproperty::
+.. autoattribute::
     Session.info
 
-.. autoproperty::
+.. autoattribute::
     Session.session_pointer
 
 

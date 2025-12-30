@@ -99,7 +99,7 @@ fig.show()
 # Filling the quadrants
 # ---------------------
 #
-# Use the parameters ``compressionfill`` and ``extensionfill`` to fill the quadrants
+# Use the parameters ``compression_fill`` and ``extension_fill`` to fill the quadrants
 # with different colors or :class:`patterns <pygmt.params.Pattern>`.
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -110,8 +110,8 @@ fig.meca(
     longitude=-2,
     latitude=0,
     depth=0,
-    compressionfill="darkorange",
-    extensionfill="cornsilk",
+    compression_fill="darkorange",
+    extension_fill="cornsilk",
 )
 
 fig.meca(
@@ -120,8 +120,8 @@ fig.meca(
     longitude=2,
     latitude=0,
     depth=0,
-    compressionfill=Pattern(8),
-    extensionfill=Pattern(31),
+    compression_fill=Pattern(8),
+    extension_fill=Pattern(31),
     outline=True,
 )
 
@@ -168,8 +168,8 @@ fig.show()
 # both, ``"1"`` to the first, and ``"2"`` to the second nodal plane(s). Only the
 # circumference and the specified nodal plane(s) are plotted, i.e. the quadrants
 # remain unfilled (transparent). We can make use of the stacking concept of (Py)GMT,
-# and use ``nodal`` in combination with the ``outline``, ``compressionfill`` /
-# ``extensionfill`` and ``pen`` parameters.
+# and use ``nodal`` in combination with the ``outline``, ``compression_fill`` /
+# ``extension_fill`` and ``pen`` parameters.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -186,11 +186,11 @@ fig.meca(
 # Plot the same beachball three times with different settings:
 # (i) Fill the compressive quadrants
 # (ii) Plot the first nodal plane and the circumference in darkorange
-# (iii) Plot the circumfence in black on top; use "-" to not fill the quadrants
+# (iii) Plot the circumference in black on top; use "-" to not fill the quadrants
 for kwargs in [
-    {"compressionfill": "lightorange"},
+    {"compression_fill": "lightorange"},
     {"nodal": "1/1p,darkorange"},
-    {"compressionfill": "-", "extensionfill": "-", "pen": "1p,gray30"},
+    {"compression_fill": "-", "extension_fill": "-", "pen": "1p,gray30"},
 ]:
     fig.meca(
         spec=aki_single,
@@ -211,10 +211,10 @@ fig.show()
 # is an ASCII file with columns for ``plot_longitude`` and ``plot_latitude``, the
 # ``offset`` parameter has to be set to ``True``. Besides just drawing a line between
 # the beachball and the event location, a small circle can be plotted at the event
-# location by appending **+s** and the descired circle diameter. The connecting line as
+# location by appending **+s** and the desired circle diameter. The connecting line as
 # well as the outline of the circle are plotted with the  setting of pen, or can be
 # adjusted separately. The fill of the small circle corresponds to the fill of the
-# compressive quadrantes.
+# compressive quadrants.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection=projection, frame=frame)
@@ -238,7 +238,7 @@ fig.meca(
     plot_longitude=1,
     plot_latitude=2,
     offset="+p1p,darkorange+s0.25c",
-    compressionfill="lightorange",
+    compression_fill="lightorange",
 )
 
 fig.show()
@@ -284,13 +284,13 @@ aki_multiple = pd.DataFrame(
 # parameter. Additionally, the location of the label relative to the beachball [Default
 # is ``"TC"``, i.e., Top Center] can be changed by appending **+j** and an offset can
 # be applied by appending **+o** with values for *dx*\ /*dy*. Add a colored [Default is
-# white] box behind the label via the label ``labelbox``. Force a fixed size of the
+# white] box behind the label via the parameter ``label_box``. Force a fixed size of the
 # beachball by appending **+m** to the argument passed to the ``scale`` parameter.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
-fig.meca(spec=aki_multiple, scale="0.4c+m+f5p", labelbox="white@30", offset="+s0.1c")
+fig.meca(spec=aki_multiple, scale="0.4c+m+f5p", label_box="white@30", offset="+s0.1c")
 
 fig.show()
 
@@ -301,21 +301,21 @@ fig.show()
 #
 # The beachball can be sized and colored by the quantities given as ``magnitude`` and
 # ``depth``, e.g., by moment magnitude or hypocentral depth, respectively. Use the
-# parameter ``cmap`` to pass the descired colormap. Now, the fills of the small circles
+# parameter ``cmap`` to pass the desired colormap. Now, the fills of the small circles
 # indicating the event locations are given by the colormap.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Set up colormap and colorbar for hypocentral depth
-pygmt.makecpt(cmap="lajolla", series=[0, 20])
+pygmt.makecpt(cmap="SCM/lajolla", series=[0, 20])
 fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.meca(
     spec=aki_multiple,
     scale="0.4c+f5p",
     offset="0.2p,gray30+s0.1c",
-    labelbox="white@30",
+    label_box="white@30",
     cmap=True,
     outline="0.2p,gray30",
 )

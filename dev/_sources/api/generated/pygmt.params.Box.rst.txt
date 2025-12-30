@@ -4,38 +4,8 @@ pygmt.params.Box
 .. currentmodule:: pygmt.params
 
 .. autoclass:: Box
-
-
-.. rubric:: Attributes
-
-
-.. autoproperty::
-    Box.clearance
-
-.. autoproperty::
-    Box.fill
-
-.. autoproperty::
-    Box.inner_gap
-
-.. autoproperty::
-    Box.inner_pen
-
-.. autoproperty::
-    Box.pen
-
-.. autoproperty::
-    Box.radius
-
-.. autoproperty::
-    Box.shade_fill
-
-.. autoproperty::
-    Box.shade_offset
-
-
-
-
+    :members:
+    :member-order: bysource
 
 .. minigallery:: pygmt.params.Box
     :add-heading:
