@@ -108,35 +108,31 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
+def _get_dep() -> list[Requirement]:
+    """
+    Get requirements of the PyGMT package.
+    """
+    return [Requirement(v) for v in requires("pygmt")]  # type: ignore[union-attr]
+
+
 def _get_dep_version() -> dict[str, str | None]:
     """
     Get version information of PyGMT's dependencies.
     """
-    dep_info = {
-        Requirement(v).name: _get_module_version(Requirement(v).name)
-        for v in requires("pygmt")  # type: ignore[union-attr]
+    return {req.name: _get_module_version(req.name) for req in _get_dep()} | {
+        "gdal": _get_gdal_version(),
+        "ghostscript": _get_ghostscript_version(),
     }
-    dep_info.update(
-        {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
-    )
-    return dep_info
 
 
 def _get_dep_specifier() -> dict[str, str]:
     """
     Get version specifiers of PyGMT's dependencies.
     """
-    dep_specifier = {
-        Requirement(v).name: str(Requirement(v).specifier)
-        for v in requires("pygmt")  # type: ignore[union-attr]
+    return {req.name: str(req.specifier) for req in _get_dep()} | {
+        "python": metadata("pygmt")["Requires-Python"],
+        "gmt": f">={required_gmt_version}",
     }
-    dep_specifier.update(
-        {
-            "python": metadata("pygmt")["Requires-Python"],
-            "gmt": f">={required_gmt_version}",
-        }
-    )
-    return dep_specifier
 
 
 def show_versions(file: TextIO | None = sys.stdout) -> None:
