@@ -108,7 +108,7 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
-def _get_dep_info() -> dict[str, str | None]:
+def _get_dep_version() -> dict[str, str | None]:
     """
     Get version information of PyGMT's dependencies.
     """
@@ -159,7 +159,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    dep_info = _get_dep_info()
+    dep_version = _get_dep_version()
 
     lines = []
     lines.append("PyGMT information:")
@@ -167,11 +167,11 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
     lines.append("System information:")
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
-    lines.extend([f"  {key}: {val}" for key, val in dep_info.items()])
+    lines.extend([f"  {key}: {val}" for key, val in dep_version.items()])
     lines.append("GMT library information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
-    if warnmsg := _check_ghostscript_version(dep_info["ghostscript"]):
+    if warnmsg := _check_ghostscript_version(dep_version["ghostscript"]):
         lines.append("WARNING:")
         lines.append(f"  {warnmsg}")
 
