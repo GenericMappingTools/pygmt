@@ -25,6 +25,7 @@ tags: [remove-input]
 Script showing the justification codes used in GMT / PyGMT.
 """
 import pygmt
+from pygmt.params import Position
 
 size = 5
 x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
@@ -105,7 +106,14 @@ Script showing justification codes for plot embellishments, e.g., a colorbar.
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
-fig.colorbar(cmap="SCM/buda", frame=0, position="jMC+w10c/2c+h")
+fig.colorbar(
+    cmap="SCM/buda",
+    frame=0,
+    position="MC",
+    length=10,
+    width=2,
+    orientation="horizontal"
+)
 
 for code in codes:
     fig.text(
