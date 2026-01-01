@@ -5,6 +5,7 @@ Test Figure.colorbar.
 import pytest
 from pygmt import Figure
 from pygmt.alias import AliasSystem
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.params.position import Position
 from pygmt.src.colorbar import _alias_option_D
 
@@ -16,7 +17,12 @@ def test_colorbar():
     Create a simple colorbar.
     """
     fig = Figure()
-    fig.colorbar(cmap="gmt/rainbow", position="x0c/0c+w4c", frame=True)
+    fig.colorbar(
+        cmap="gmt/rainbow",
+        position=Position((0, 0), cstype="plotcoords"),
+        length=4,
+        frame=True,
+    )
     return fig
 
 
@@ -63,3 +69,36 @@ def test_colorbar_alias_D():  # noqa: N802
 
     assert alias_wrapper(move_text=["annotations", "label", "unit"]) == "+malu"
     assert alias_wrapper(label_as_column=True) == "+mc"
+
+
+@pytest.mark.mpl_image_compare(filename="test_colorbar.png")
+def test_colorbar_position_deprecated_syntax():
+    """
+    Check that passing the deprecated GMT CLI syntax string to 'position' works.
+    """
+    fig = Figure()
+    fig.colorbar(cmap="gmt/rainbow", position="x0/0+w4c", frame=True)
+    return fig
+
+
+def test_image_position_mixed_syntax():
+    """
+    Test that mixing deprecated GMT CLI syntax string with new parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", length="4c")
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", width="0.5c")
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", orientation="horizontal")
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", reverse=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", nan_rectangle=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", sidebar_triangles=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", move_text=["label"])
+    with pytest.raises(GMTInvalidInput):
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", label_as_column=True)
