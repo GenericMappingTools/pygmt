@@ -8,6 +8,7 @@ statistics based on a cumulative distribution function.
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 # %%
 # Load sample data
@@ -56,7 +57,12 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -125,7 +131,12 @@ with fig.subplot(
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -174,7 +185,12 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -239,7 +255,12 @@ with fig.subplot(
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
