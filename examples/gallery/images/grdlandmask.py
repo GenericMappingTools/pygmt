@@ -34,6 +34,6 @@ fig.basemap(region=region, projection="M12c", frame=True)
 pygmt.makecpt(cmap="SCM/batlow", series=(0, 1, 1), color_model="+cwater,land")
 
 fig.grdimage(grid=grid, cmap=True)
-fig.colorbar(position=Position("MR", cstype="outside", offset=(0.5, 0)), width="8c")
+fig.colorbar(position=Position("MR", cstype="outside", offset=(0.5, 0)), length=8)
 
 fig.show()

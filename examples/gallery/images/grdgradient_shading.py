@@ -20,6 +20,7 @@ of each point.
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45])
@@ -59,6 +60,12 @@ with fig.subplot(
                 panel=True,
             )
 
-fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
+fig.colorbar(
+    position=Position("BC", cstype="outside"),
+    length=10,
+    width=0.25,
+    orientation="horizontal",
+    frame="xa2000f500+lElevation (m)",
+)
 
 fig.show()
