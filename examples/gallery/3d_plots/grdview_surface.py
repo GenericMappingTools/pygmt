@@ -18,7 +18,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 import numpy as np
 import pygmt
 import xarray as xr
-from pygmt.helpers import Position
+from pygmt.params import Position
 
 
 # Define an interesting function of two variables, see:

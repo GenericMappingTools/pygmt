@@ -14,7 +14,7 @@ sample dataset via ``cmap=True``.
 
 # %%
 import pygmt
-from pygmt.helpers import Position
+from pygmt.params import Position
 
 fig = pygmt.Figure()
 
