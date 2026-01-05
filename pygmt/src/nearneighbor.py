@@ -62,7 +62,7 @@ def nearneighbor(
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_nearneighbor.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_nearneighbor.png
        :width: 300 px
        :align: center
 

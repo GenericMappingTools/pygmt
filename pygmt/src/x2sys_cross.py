@@ -16,6 +16,7 @@ from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     unique_name,
     use_alias,
@@ -58,6 +59,7 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
+@deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
     C="runtimes",
@@ -67,7 +69,7 @@ def tempfile_from_dftrack(track, suffix):
     T="tag",
     Q="coe",
     W="numpoints",
-    Z="trackvalues",
+    Z="track_values",
 )
 def x2sys_cross(
     tracks=None,
@@ -182,7 +184,7 @@ def x2sys_cross(
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
 
-    trackvalues : bool
+    track_values : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
 

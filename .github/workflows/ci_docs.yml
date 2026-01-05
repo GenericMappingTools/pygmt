@@ -72,7 +72,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -91,7 +91,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.13
+            python=3.14
             gmt=6.6.0
             ghostscript=10.06.0
             numpy
@@ -150,7 +150,7 @@ jobs:
           cd ../..
 
       - name: Upload PDF as artifact for previewing on pull requests
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
           name: artifact-pygmt-docs-pdf
@@ -168,7 +168,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

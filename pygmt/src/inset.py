@@ -6,24 +6,37 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
-from pygmt.params import Box
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
+from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
+@deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
+@use_alias(C="clearance")
+@kwargs_to_strings(C="sequence")
 @contextlib.contextmanager
-@use_alias(D="position", M="margin")
-@kwargs_to_strings(D="sequence", M="sequence")
 def inset(
     self,
-    projection: str | None = None,
-    region: Sequence[float | str] | str | None = None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    width: float | str | None = None,
+    height: float | str | None = None,
     box: Box | bool = False,
     no_clip: bool = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -31,13 +44,15 @@ def inset(
     r"""
     Manage figure inset setup and completion.
 
-    This method sets the position, frame, and margins for a smaller figure
-    inside of the larger figure. Plotting methods that are called within the
+
+    This method carves out a sub-region of the current plot canvas and restrict further
+    plotting to that section of the canvas. Plotting methods that are called within the
     context manager are added to the inset figure.
 
     Full GMT docs at :gmt-docs:`inset.html`.
 
     $aliases
+       - D = position, **+w**: width/height
        - F = box
        - J = projection
        - N = no_clip
@@ -46,51 +61,27 @@ def inset(
 
     Parameters
     ----------
-    position : str or list
-        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \
-        | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [/*height*][**+j**\ *justify*]\
-        [**+o**\ *dx*\ [/*dy*]].
+    position
+        Position of the inset on the plot. It can be specified in multiple ways:
 
-        *This is the only required parameter.*
-        Define the map inset rectangle on the map. Specify the rectangle
-        in one of three ways:
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x- and y-coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        Append **g**\ *lon*/*lat* for map (user) coordinates,
-        **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        :doc:`2-character justification code </techref/justification_codes>`
-        that refers to the (invisible)
-        projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
-        bounding box coordinates, or **x**\ *x*/*y* for plot
-        coordinates (inches, centimeters, points, append unit).
-        All but **x** requires both ``region`` and ``projection`` to be
-        specified. You can offset the reference point via
-        **+o**\ *dx*/*dy* in the direction implied by *code* or
-        **+j**\ *justify*.
-
-        Alternatively, give *west/east/south/north* of geographic
-        rectangle bounded by parallels and meridians; append **+r** if the
-        coordinates instead are the lower left and upper right corners of
-        the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
-        rectangle in projected coordinates and optionally
-        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
-
-        Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
-        in plot coordinates (inches, centimeters, etc.). By default, the
-        anchor point on the scale is assumed to be the bottom left corner
-        (**BL**), but this can be changed by appending **+j** followed by a
-        :doc:`2-character justification code </techref/justification_codes>`
-        *justify*.
-        **Note**: If **j** is used then *justify* defaults to the same
-        as *refpoint*, if **J** is used then *justify* defaults to the
-        mirror opposite of *refpoint*. Specify inset box attributes via
-        the ``box`` parameter [Default is outline only].
+        If not specified, defaults to the Bottom Left corner of the plot.
+    width
+    height
+        Width and height of the inset. Width must be specified unless ``projection`` and
+        ``region`` are given, and height is set to be equal to width if not specified.
     box
         Draw a background box behind the inset. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    margin : float, str, or list
+    clearance : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -102,38 +93,60 @@ def inset(
     no_clip
         Do **not** clip features extruding outside the inset frame boundaries [Default
         is ``False``].
-    $region
+
     $projection
+    $region
     $verbose
 
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Box
+    >>> from pygmt.params import Box, Position
     >>>
-    >>> # Create the larger figure
     >>> fig = pygmt.Figure()
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
-    >>> # Use a "with" statement to initialize the inset context manager
+    >>> # Use a "with" statement to initialize the inset context manager.
     >>> # Setting the position to Top Left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box=Box(pen="green")):
-    ...     # Map elements under the "with" statement are plotted in the inset
+    >>> with fig.inset(
+    ...     position=Position("TL", offset=0.2),
+    ...     width="3.5c",
+    ...     clearance=0,
+    ...     box=Box(pen="green"),
+    ... ):  # Map elements under the "with" statement are plotted in the inset
     ...     fig.coast(
     ...         region="g",
-    ...         projection="G47/-20/3.5c",
+    ...         projection="G47/-20/?",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
     ...     )
-    ...
-    >>> # Map elements outside the "with" statement are plotted in the main
-    >>> # figure
-    >>> fig.logo(position="jBR+o0.2c+w3c")
+    >>> # Map elements outside the "with" statement are plotted in the main figure
+    >>> fig.logo(position=Position("BR", offset=0.2), width="3c")
     >>> fig.show()
     """
     self._activate_figure()
 
+    position = _parse_position(
+        position,
+        kwdict={"width": width, "height": height},
+        default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+    )
+
+    # width is mandatory unless both projection and region are given.
+    if (
+        not isinstance(position, str)
+        and width is None
+        and (projection is None or region is None)
+    ):
+        msg = "Parameter 'width' must be specified."
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(width, name="width", prefix="+w"),  # +wwidth/height
+            Alias(height, name="height", prefix="/"),
+        ],
         F=Alias(box, name="box"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
