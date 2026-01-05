@@ -104,7 +104,7 @@ def test_grdview_with_cmap_for_image_plot(xrgrid):
     Run grdview by passing in a grid and setting a colormap for producing an image plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="i")
+    fig.grdview(grid=xrgrid, cmap="SCM/oleron", surftype="i")
     return fig
 
 
@@ -115,7 +115,7 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
     monochrome plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="s+m")
+    fig.grdview(grid=xrgrid, cmap="SCM/oleron", surftype="s+m")
     return fig
 
 
@@ -127,7 +127,11 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
+        grid=xrgrid,
+        cmap="SCM/oleron",
+        surftype="s",
+        perspective=[225, 30],
+        zscale=0.005,
     )
     return fig
 
@@ -182,7 +186,7 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="relief", surftype="s", contour_pen="0.5p,black,dashed"
+        grid=xrgrid, cmap="gmt/relief", surftype="s", contour_pen="0.5p,black,dashed"
     )
     return fig
 
@@ -194,7 +198,9 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", mesh_pen="0.5p,black,dashed")
+    fig.grdview(
+        grid=xrgrid, cmap="gmt/relief", surftype="sm", mesh_pen="0.5p,black,dashed"
+    )
     return fig
 
 
@@ -243,7 +249,7 @@ def test_grdview_drapegrid_dataarray(xrgrid):
 
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, drape_grid=drape_grid, cmap="oleron", surftype="c", frame=True
+        grid=xrgrid, drape_grid=drape_grid, cmap="SCM/oleron", surftype="c", frame=True
     )
     return fig
 
