@@ -122,7 +122,7 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Build GMT on Windows
-        shell: cmd
+        shell: pwsh
         run: |
           cd gmt/
           mkdir build
