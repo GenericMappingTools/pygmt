@@ -182,7 +182,7 @@ def colorbar(  # noqa: PLR0913
     length
     width
         Length and width of the colorbar. If length is given with a unit ``%`` then it
-        is in percentage of the corrresponding plot side dimension (i.e., plot width for
+        is in percentage of the corresponding plot side dimension (i.e., plot width for
         a horizontal colorbar, or plot height for a vertical colorbar). If width is
         given with unit ``%`` then it is in percentage of the bar length. [Length
         default to 80% of the corresponding plot side dimension, and width default to
