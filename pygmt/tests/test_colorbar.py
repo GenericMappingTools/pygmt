@@ -59,12 +59,11 @@ def test_colorbar_alias_D():  # noqa: N802
     assert alias_wrapper(nan=True) == "+n"
     assert alias_wrapper(nan=True, nan_position="end") == "+N"
 
-    assert alias_wrapper(sidebar_triangles=True) == "+e"
-    assert alias_wrapper(sidebar_triangles="foreground") == "+ef"
-    assert alias_wrapper(sidebar_triangles="background") == "+eb"
-    assert (
-        alias_wrapper(sidebar_triangles=True, sidebar_triangles_height=0.3) == "+e0.3"
-    )
+    assert alias_wrapper(fg_triangle=True, bg_triangle=True) == "+e"
+    assert alias_wrapper(fg_triangle=True) == "+ef"
+    assert alias_wrapper(bg_triangle=True) == "+eb"
+    argstr = alias_wrapper(fg_triangle=True, bg_triangle=True, triangle_height=0.3)
+    assert argstr == "+e0.3"
 
     assert alias_wrapper(move_text=["annotations", "label", "unit"]) == "+malu"
     assert alias_wrapper(label_as_column=True) == "+mc"
@@ -77,8 +76,8 @@ def test_colorbar_alias_D():  # noqa: N802
         reverse=True,
         nan=True,
         nan_position="start",
-        sidebar_triangles="background",
-        sidebar_triangles_height=0.2,
+        bg_triangle=True,
+        triangle_height=0.2,
         move_text=["annotations", "unit"],
         label_as_column=True,
     )
@@ -111,7 +110,9 @@ def test_image_position_mixed_syntax():
     with pytest.raises(GMTInvalidInput):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", nan=True)
     with pytest.raises(GMTInvalidInput):
-        fig.colorbar(cmap="gmt/rainbow", position="x0/0", sidebar_triangles=True)
+        fig.colorbar(
+            cmap="gmt/rainbow", position="x0/0", fg_triangle=True, bg_triangle=True
+        )
     with pytest.raises(GMTInvalidInput):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", move_text=["label"])
     with pytest.raises(GMTInvalidInput):
