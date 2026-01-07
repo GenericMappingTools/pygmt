@@ -178,7 +178,7 @@ def colorbar(  # noqa: PLR0913
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the Bottom Center outside of the plot.
+        If not specified, defaults to bottom-center outside of the plot.
     length
     width
         Length and width of the colorbar. If length is given with a unit ``%`` then it
