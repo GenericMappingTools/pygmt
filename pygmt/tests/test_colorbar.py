@@ -46,8 +46,7 @@ def test_colorbar_alias_D():  # noqa: N802
         """
         A wrapper function for testing the parameters of -D option.
         """
-        aliasdict = AliasSystem(D=_alias_option_D(**kwargs))
-        return aliasdict.get("D")
+        return AliasSystem(D=_alias_option_D(**kwargs)).get("D")
 
     argstr = alias_wrapper(position=Position("TL", offset=0.2), length=4, width=0.5)
     assert argstr == "jTL+o0.2+w4/0.5"
@@ -69,6 +68,21 @@ def test_colorbar_alias_D():  # noqa: N802
 
     assert alias_wrapper(move_text=["annotations", "label", "unit"]) == "+malu"
     assert alias_wrapper(label_as_column=True) == "+mc"
+
+    argstr = alias_wrapper(
+        position=Position("BR", offset=(0.1, 0.2)),
+        length=5,
+        width=0.4,
+        orientation="vertical",
+        reverse=True,
+        nan_rectangle=True,
+        nan_rectangle_position="start",
+        sidebar_triangles="background",
+        sidebar_triangles_height=0.2,
+        move_text=["annotations", "unit"],
+        label_as_column=True,
+    )
+    assert argstr == "jBR+o0.1/0.2+w5/0.4+v+r+n+eb0.2+mauc"
 
 
 @pytest.mark.mpl_image_compare(filename="test_colorbar.png")
