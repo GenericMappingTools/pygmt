@@ -6,6 +6,7 @@
 
 ### Highlights
 
+* 🎉 Eighteenth minor release of PyGMT 🎉
 * Add the Position class for GMT embellishment placement ([#4212](https://github.com/GenericMappingTools/pygmt/pull/4212))
 * Five new or updated gallery examples ([#4231](https://github.com/GenericMappingTools/pygmt/pull/4231), [#4229](https://github.com/GenericMappingTools/pygmt/pull/4229), [#4228](https://github.com/GenericMappingTools/pygmt/pull/4228), [#4265](https://github.com/GenericMappingTools/pygmt/pull/4265), [#4214](https://github.com/GenericMappingTools/pygmt/pull/4214))
 
