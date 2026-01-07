@@ -63,6 +63,7 @@
 ### Maintenance
 
 * fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
+* SPEC 0: Bump minimum supported version to Python 3.12 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248))
 * SPEC 0: Bump minimum supported version to NumPy 2.0 and Xarray 2024.5 ([#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
 * Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
 * Intros / Tutorials / Gallery: Include folder in colormap name ([#4311](https://github.com/GenericMappingTools/pygmt/pull/4311))
