@@ -22,8 +22,7 @@
 * Figure.legend: Add parameters position/width/height/line_spacing to specify legend position and properties ([#4046](https://github.com/GenericMappingTools/pygmt/pull/4046))
 * Figure.legend: Add aliases for -S (scale) and -B (frame) ([#4254](https://github.com/GenericMappingTools/pygmt/pull/4254))
 * Figure.inset: Add parameters position/width/height to specify inset position and dimensions ([#4047](https://github.com/GenericMappingTools/pygmt/pull/4047))
-* Figure.image: Add the parameter 'invert' for option -I ([#4089](https://github.com/GenericMappingTools/pygmt/pull/4089))
-* Figure.image: Add the frame parameter for option -B ([#4301](https://github.com/GenericMappingTools/pygmt/pull/4301))
+* Figure.image: Add aliases for -I (invert) and -B (frame) ([#4089](https://github.com/GenericMappingTools/pygmt/pull/4089), [#4301](https://github.com/GenericMappingTools/pygmt/pull/4301))
 * Figure.image: Add parameters position/width/height/dpi/replicate to control image position and properties ([#4045](https://github.com/GenericMappingTools/pygmt/pull/4045))
 * Figure.histogram: Split parameter bar_width into bar_width and bar_offset ([#4316](https://github.com/GenericMappingTools/pygmt/pull/4316))
 * Figure.grdview: Improve parameters plane/facade_fill/facade_pen to set the plane and facade ([#4235](https://github.com/GenericMappingTools/pygmt/pull/4235))
@@ -39,18 +38,16 @@
 * Figure.grdview: Deprecate parameter drapegrid to drape_grid (Will be removed in v0.20.0) ([#4276](https://github.com/GenericMappingTools/pygmt/pull/4276))
 * Figure.histogram: Deprecate parameter barwidth to bar_width (Will be removed in v0.20.0) ([#4279](https://github.com/GenericMappingTools/pygmt/pull/4279))
 * Figure.inset: Deprecate parameter margin to clearance (Will be removed in v0.20.0) ([#4296](https://github.com/GenericMappingTools/pygmt/pull/4296))
-* Figure.meca: Deprecate parameters compressionfill/extensionfill to compression_fill/extension_fill (Will be removed in v0.20.0) ([#4269](https://github.com/GenericMappingTools/pygmt/pull/4269))
-* Figure.meca: Deprecate parameter labelbox to label_box (Will be removed in v0.20.0) ([#4274](https://github.com/GenericMappingTools/pygmt/pull/4274))
-* pygmt.select: Deprecate parameter gridmask to mask_grid (Will be removed in v0.20.0) ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283))
-* pygmt.select: Deprecate parameter mask to mask_values (Will be removed in v0.20.0) ([#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
+* Figure.meca: Deprecate parameters compressionfill/extensionfill/labelbox to compression_fill/extension_fill/label_box (Will be removed in v0.20.0) ([#4269](https://github.com/GenericMappingTools/pygmt/pull/4269), [#4274](https://github.com/GenericMappingTools/pygmt/pull/4274))
+* pygmt.select: Deprecate parameter gridmask/mask to mask_grid/mask_values (Will be removed in v0.20.0) ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283),  [#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
 * pygmt.surface: Deprecate parameter maxradius to max_radius (Will be removed in v0.20.0) ([#4300](https://github.com/GenericMappingTools/pygmt/pull/4300))
-* Figure.velo: Deprecate parameters uncertaintyfill to uncertainty_fill (Will be removed in v0.20.0) ([#4272](https://github.com/GenericMappingTools/pygmt/pull/4272))
+* Figure.velo: Deprecate parameter uncertaintyfill to uncertainty_fill (Will be removed in v0.20.0) ([#4272](https://github.com/GenericMappingTools/pygmt/pull/4272))
 * Figure.wiggle: Deprecate parameters fillnegative/fillpositive to negative_fill/positive_fill (Will be removed in v0.20.0) ([#4271](https://github.com/GenericMappingTools/pygmt/pull/4271))
 * pygmt.x2sys_cross: Deprecate parameter trackvalues to track_values (Will be removed in v0.20.0) ([#4282](https://github.com/GenericMappingTools/pygmt/pull/4282))
 
 ### Bug Fixes
 
-* load_earth_relief: Clarify that 03s/01s resolutions are available for iggp source only ([#4192](https://github.com/GenericMappingTools/pygmt/pull/4192))
+* load_earth_relief: Clarify that 03s/01s resolutions are available for IGPP source only ([#4192](https://github.com/GenericMappingTools/pygmt/pull/4192))
 * geopandas: Fix UnicodeEncodeError on Windows for geopandas.GeoDataFrame with non-ASCII characters ([#4224](https://github.com/GenericMappingTools/pygmt/pull/4224))
 * Figure.grdview: Fix the default z-plane to the grid z minimum when plane is set to True or only facede_fill/facede_pen is set ([#4287](https://github.com/GenericMappingTools/pygmt/pull/4287))
 
