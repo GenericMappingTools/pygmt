@@ -2,30 +2,18 @@ r"""
 Colorbar
 ========
 
-The :meth:`pygmt.Figure.colorbar` method creates a color scalebar.
-The colormap is set via the ``cmap`` parameter. A full list of available
-color palette tables can be found at :gmt-docs:`reference/cpts.html`.
-Use the ``frame`` parameter to add labels to the **x** and **y** axes
-of the colorbar by appending **+l** followed by the desired text. To add
-and adjust the annotations (**a**) and ticks (**f**) append the letter
-followed by the desired interval. The placement of the colorbar is set
-via the ``position`` parameter. There are the following options:
-
-- **j/J**: placed inside/outside the plot bounding box using a
-  :doc:`2-character justification code </techref/justification_codes>`, e.g.,
-  ``position="jTR"`` for Top Right.
-- **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
-  170° East, latitude 45° South.
-- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
-  from anchor point.
-- **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
-
-Note that the anchor point defaults to Bottom Left (**BL**). Append ``+h`` to
-``position`` to get a horizontal colorbar instead of a vertical one (``+v``).
+The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. The colormap is set
+via the ``cmap`` parameter. A full list of available color palette tables can be found
+at :gmt-docs:`reference/cpts.html`. Use the ``frame`` parameter to add labels to the
+**x** and **y** axes of the colorbar by appending **+l** followed by the desired text.
+To add and adjust the annotations (**a**) and ticks (**f**) append the letter followed
+by the desired interval. The placement of the colorbar is set by passing a
+:class:`pygmt.params.Position` object to the ``position`` parameter.
 """
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
@@ -41,9 +29,12 @@ fig.colorbar(cmap="SCM/roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
 # Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
     cmap="SCM/batlow",
-    # Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,
-    # with a length/width (+w) of 4 cm by 0.5 cm, and plotted horizontally (+h)
-    position="g0.3/8.7+w4c/0.5c+h",
+    # A horizontal colorbar positioned at map coordinates (0.3, 8.7), with a
+    # length of 4 cm and width of 0.5 cm.
+    position=Position((0.3, 8.7), cstype="mapcoords"),
+    length=4,
+    width=0.5,
+    orientation="horizontal",
     box=True,
     frame=["x+lTemperature", "y+l°C"],
     scale=100,
@@ -53,13 +44,17 @@ fig.colorbar(
 # Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
     cmap="SCM/oleron",
-    # Colorbar placed outside the plot bounding box (J) at Middle Right (MR),
-    # offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,
-    # with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)
-    position="JMR+o1c/0c+w7c/0.5c+n+mc",
+    # Colorbar placed at Middle Right (MR) outside the plot bounding box, offset by 1 cm
+    # horizontally and 0 cm vertically from anchor point, with a length of 7 cm and
+    # width of 0.5 cm, and a rectangle for NaN values.
     # Note that the label 'Elevation' is moved to the opposite side and plotted
-    # vertically as a column of text using '+mc' in the position parameter
-    # above
+    # vertically as a column of text.
+    position=Position("MR", cstype="outside", offset=(1, 0)),
+    length=7,
+    width=0.5,
+    nan_rectangle=True,
+    move_text=["annotations", "label"],
+    label_as_column=True,
     frame=["x+lElevation", "y+lm"],
     scale=10,
 )
@@ -76,10 +71,11 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed inside the plot bounding box (j) in the Bottom Left (BL) corner,
-    # with an offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from the anchor
-    # point, and plotted horizontally (+h)
-    position="jBL+o0.5c/0.8c+h",
+    # Colorbar placed at the Bottom Left (BL) corner inside the plot bounding box, with
+    # an offset by 0.5 cm horizontally and 0.8 cm vertically from the anchor point, and
+    # plotted horizontally.
+    position=Position("BL", offset=(0.5, 0.8)),
+    orientation="horizontal",
     box=True,
     # Divide colorbar into equal-sized rectangles
     equalsize=0.5,
