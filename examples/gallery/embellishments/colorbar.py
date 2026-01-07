@@ -52,7 +52,7 @@ fig.colorbar(
     position=Position("MR", cstype="outside", offset=(1, 0)),
     length=7,
     width=0.5,
-    nan_rectangle=True,
+    nan=True,
     move_text=["annotations", "label"],
     label_as_column=True,
     frame=["x+lElevation", "y+lm"],
