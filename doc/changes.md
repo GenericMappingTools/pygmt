@@ -62,11 +62,8 @@
 ### Maintenance
 
 * fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
-* SPEC 0: Bump minimum supported version to Python 3.12 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248))
-* SPEC 0: Bump minimum supported version to NumPy 2.0 and Xarray 2024.5 ([#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
+* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and Xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
 * Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
-* Intros / Tutorials / Gallery: Include folder in colormap name ([#4311](https://github.com/GenericMappingTools/pygmt/pull/4311))
-* Fix deprecated string[pyarrow_numpy] in test_to_numpy_pandas_string ([#4186](https://github.com/GenericMappingTools/pygmt/pull/4186))
 * DOC: Update naming convention in contributors guide: separate words in parameter names by underscores ([#4284](https://github.com/GenericMappingTools/pygmt/pull/4284))
 * CI: Test NumPy 2.4 in the GMT Tests workflow ([#4319](https://github.com/GenericMappingTools/pygmt/pull/4319))
 * CI: Migrate the welcome bot to GitHub Actions ([#4149](https://github.com/GenericMappingTools/pygmt/pull/4149))
