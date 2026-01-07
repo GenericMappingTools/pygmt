@@ -78,11 +78,11 @@
 
 ### Contributors
 
-- [Dongdong Tian](https://github.com/seisman)
-- [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-- [Wei Ji Leong](https://github.com/weiji14)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
-- [Xingchen He](https://github.com/Chuan1937)
+* [Xingchen He](https://github.com/Chuan1937)
 
 ---
 
