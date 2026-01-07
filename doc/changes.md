@@ -54,11 +54,11 @@
 
 ### Documentation
 
+* Add example for geopandas point geometry: Use cities in Europe from Natural Earth ([#4231](https://github.com/GenericMappingTools/pygmt/pull/4231))
+* Update example for geopandas line geometry: Use Natural Earth dataset, change to Asia ([#4229](https://github.com/GenericMappingTools/pygmt/pull/4229))
+* Update example for geopandas polygon geometry: Use the Natural Earth dataset, change to Africa ([#4228](https://github.com/GenericMappingTools/pygmt/pull/4228))
+* Advanced tutorial "Legends": Add example for adjusting line spacing ([#4265](https://github.com/GenericMappingTools/pygmt/pull/4265))
 * Tutorial "Plotting data points": Add legend for size coding ([#4214](https://github.com/GenericMappingTools/pygmt/pull/4214))
-* Example for geopandas polygon geometry: Use the Natural Earth dataset, change to Africa ([#4228](https://github.com/GenericMappingTools/pygmt/pull/4228))
-* Example for geopandas line geometry: Use Natural Earth dataset, change to Asia ([#4229](https://github.com/GenericMappingTools/pygmt/pull/4229))
-* Advanced tutorial on legends: Add example for adjusting line spacing ([#4265](https://github.com/GenericMappingTools/pygmt/pull/4265))
-* Add gallery example for geopandas point geometry (cities in Europe from Natural Earth) ([#4231](https://github.com/GenericMappingTools/pygmt/pull/4231))
 
 ### Maintenance
 
