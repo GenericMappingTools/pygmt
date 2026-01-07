@@ -98,7 +98,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 
 # Download an PNG image of the flag of the EU using rasterio and load it into a
 # xarray.DataArray
-url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
+url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
