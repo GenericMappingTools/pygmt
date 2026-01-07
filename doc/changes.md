@@ -29,23 +29,22 @@
 
 ### Deprecations
 
-* pygmt.x2sys_cross: Deprecate parameter trackvalues to track_values (Will be removed in v0.20.0) ([#4282](https://github.com/GenericMappingTools/pygmt/pull/4282))
-* pygmt.surface: Deprecate parameter maxradius to max_radius (Will be removed in v0.20.0)  ([#4300](https://github.com/GenericMappingTools/pygmt/pull/4300))
-* pygmt.select: Deprecate parameter mask to mask_values (Will be removed in v0.20.0) ([#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
-* pygmt.select: Deprecate parameter gridmask to mask_grid (Will be removed in v0.20.0)  ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283))
-* pygmt.grdsample: Deprecate parameter 'translate' to 'toggle' (remove in v0.21.0) ([#4187](https://github.com/GenericMappingTools/pygmt/pull/4187))
-* pygmt.grdlandmask: Deprecate parameters bordervalues/maskvalues to broder_values/mask_values (Will be removed in v0.20.0) ([#4281](https://github.com/GenericMappingTools/pygmt/pull/4281))
-* pygmt.grdfill: Deprecate parameters splinefill/constantfill/neighborfill/gridfill to spline_fill/constant_fill/neighbor_fill/grid_fill (Will be removed in v0.20.0) ([#4273](https://github.com/GenericMappingTools/pygmt/pull/4273))
-* SPEC 0: Bump minimum supported version to Python 3.12 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248))
 * Figure: Remove the deprecated _preprocess method (Deprecated since v0.16.0) ([#4146](https://github.com/GenericMappingTools/pygmt/pull/4146))
-* Figure.wiggle: Deprecate parameters fillnegative/fillpositive to negative_fill/positive_fill (Will be removed in v0.20.0) ([#4271](https://github.com/GenericMappingTools/pygmt/pull/4271))
-* Figure.velo: Deprecate parameters uncertaintyfill to uncertainty_fill (Will be removed in v0.20.0)  ([#4272](https://github.com/GenericMappingTools/pygmt/pull/4272))
-* Figure.meca: Deprecate parameters compressionfill/extensionfill to compression_fill/extension_fill (Will be removed in v0.20.0) ([#4269](https://github.com/GenericMappingTools/pygmt/pull/4269))
-* Figure.meca: Deprecate parameter labelbox to label_box (Will be removed in v0.20.0) ([#4274](https://github.com/GenericMappingTools/pygmt/pull/4274))
-* Figure.inset: Deprecate parameter margin to clearance (Will be removed in v0.20.0) ([#4296](https://github.com/GenericMappingTools/pygmt/pull/4296))
-* Figure.histogram: Deprecate parameter barwidth to bar_width (Will be removed in v0.20.0)  ([#4279](https://github.com/GenericMappingTools/pygmt/pull/4279))
+* pygmt.grdfill: Deprecate parameters splinefill/constantfill/neighborfill/gridfill to spline_fill/constant_fill/neighbor_fill/grid_fill (Will be removed in v0.20.0) ([#4273](https://github.com/GenericMappingTools/pygmt/pull/4273))
+* pygmt.grdlandmask: Deprecate parameters bordervalues/maskvalues to broder_values/mask_values (Will be removed in v0.20.0) ([#4281](https://github.com/GenericMappingTools/pygmt/pull/4281))
+* pygmt.grdsample: Deprecate parameter 'translate' to 'toggle' (Will be removed in v0.21.0) ([#4187](https://github.com/GenericMappingTools/pygmt/pull/4187))
 * Figure.grdview: Deprecate parameters contourpen/facadepen/meshpen to contour_pen/facade_pen/mesh_pen (Will be removed in v0.20.0) ([#4260](https://github.com/GenericMappingTools/pygmt/pull/4260))
 * Figure.grdview: Deprecate parameter drapegrid to drape_grid (Will be removed in v0.20.0) ([#4276](https://github.com/GenericMappingTools/pygmt/pull/4276))
+* Figure.histogram: Deprecate parameter barwidth to bar_width (Will be removed in v0.20.0) ([#4279](https://github.com/GenericMappingTools/pygmt/pull/4279))
+* Figure.inset: Deprecate parameter margin to clearance (Will be removed in v0.20.0) ([#4296](https://github.com/GenericMappingTools/pygmt/pull/4296))
+* Figure.meca: Deprecate parameters compressionfill/extensionfill to compression_fill/extension_fill (Will be removed in v0.20.0) ([#4269](https://github.com/GenericMappingTools/pygmt/pull/4269))
+* Figure.meca: Deprecate parameter labelbox to label_box (Will be removed in v0.20.0) ([#4274](https://github.com/GenericMappingTools/pygmt/pull/4274))
+* pygmt.select: Deprecate parameter gridmask to mask_grid (Will be removed in v0.20.0) ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283))
+* pygmt.select: Deprecate parameter mask to mask_values (Will be removed in v0.20.0) ([#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
+* pygmt.surface: Deprecate parameter maxradius to max_radius (Will be removed in v0.20.0) ([#4300](https://github.com/GenericMappingTools/pygmt/pull/4300))
+* Figure.velo: Deprecate parameters uncertaintyfill to uncertainty_fill (Will be removed in v0.20.0) ([#4272](https://github.com/GenericMappingTools/pygmt/pull/4272))
+* Figure.wiggle: Deprecate parameters fillnegative/fillpositive to negative_fill/positive_fill (Will be removed in v0.20.0) ([#4271](https://github.com/GenericMappingTools/pygmt/pull/4271))
+* pygmt.x2sys_cross: Deprecate parameter trackvalues to track_values (Will be removed in v0.20.0) ([#4282](https://github.com/GenericMappingTools/pygmt/pull/4282))
 
 ### Bug Fixes
 
