@@ -23,8 +23,8 @@ def _alias_option_D(  # noqa: N802, PLR0913
     width=None,
     orientation=None,
     reverse=None,
-    nan_rectangle=None,
-    nan_rectangle_position=None,
+    nan=None,
+    nan_position=None,
     sidebar_triangles=None,
     sidebar_triangles_height=None,
     move_text=None,
@@ -69,9 +69,9 @@ def _alias_option_D(  # noqa: N802, PLR0913
         ),
         Alias(reverse, name="reverse", prefix="+r"),
         Alias(
-            nan_rectangle,
-            name="nan_rectangle",
-            prefix="+n" if nan_rectangle_position in {"start", None} else "+N",
+            nan,
+            name="nan",
+            prefix="+n" if nan_position in {"start", None} else "+N",
         ),
         Alias(
             sidebar_triangles,
@@ -98,8 +98,8 @@ def colorbar(  # noqa: PLR0913
     width: float | str | None = None,
     orientation: Literal["horizontal", "vertical"] | None = None,
     reverse: bool = False,
-    nan_rectangle: bool | str = False,
-    nan_rectangle_position: Literal["start", "end"] | None = None,
+    nan: bool | str = False,
+    nan_position: Literal["start", "end"] | None = None,
     sidebar_triangles: bool | Literal["foreground", "background"] = False,
     sidebar_triangles_height: float | None = None,
     move_text: Sequence[str] | None = None,
@@ -161,7 +161,7 @@ def colorbar(  # noqa: PLR0913
        :columns: 1
 
        - D = position, **+w**: length/width, **+h**/**+v**: orientation,
-         **+r**: reverse, **+n**: nan_rectangle/nan_rectangle_position,
+         **+r**: reverse, **+n**: nan/nan_position,
          **+e**: sidebar_triangles/scalebar_triangles_height,
          **+m**: move_text/label_as_column
 
@@ -193,11 +193,11 @@ def colorbar(  # noqa: PLR0913
         ``cstype="outside"`` or ``cstype="inside"``, then horizontal is the default].
     reverse
         Reverse the positive direction of the bar.
-    nan_rectangle
+    nan
         Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or
         :gmt-term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a
         string is given, use that string as the label for the NaN color.
-    nan_rectangle_position
+    nan_position
         Set the position of the NaN rectangle. Choose from ``"start"`` or ``"end"``.
         [Default is ``"start"``].
     sidebar_triangles
@@ -293,8 +293,8 @@ def colorbar(  # noqa: PLR0913
             "width": width,
             "orientation": orientation,
             "reverse": reverse,
-            "nan_rectangle": nan_rectangle,
-            "nan_rectangle_position": nan_rectangle_position,
+            "nan": nan,
+            "nan_position": nan_position,
             "sidebar_triangles": sidebar_triangles,
             "sidebar_triangles_height": sidebar_triangles_height,
             "move_text": move_text,
@@ -310,8 +310,8 @@ def colorbar(  # noqa: PLR0913
             width=width,
             orientation=orientation,
             reverse=None,
-            nan_rectangle=None,
-            nan_rectangle_position=None,
+            nan=None,
+            nan_position=None,
             sidebar_triangles=None,
             sidebar_triangles_height=None,
             move_text=None,

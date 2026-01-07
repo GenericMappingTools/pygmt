@@ -56,8 +56,8 @@ def test_colorbar_alias_D():  # noqa: N802
 
     assert alias_wrapper(reverse=True) == "+r"
 
-    assert alias_wrapper(nan_rectangle=True) == "+n"
-    assert alias_wrapper(nan_rectangle=True, nan_rectangle_position="end") == "+N"
+    assert alias_wrapper(nan=True) == "+n"
+    assert alias_wrapper(nan=True, nan_position="end") == "+N"
 
     assert alias_wrapper(sidebar_triangles=True) == "+e"
     assert alias_wrapper(sidebar_triangles="foreground") == "+ef"
@@ -75,8 +75,8 @@ def test_colorbar_alias_D():  # noqa: N802
         width=0.4,
         orientation="vertical",
         reverse=True,
-        nan_rectangle=True,
-        nan_rectangle_position="start",
+        nan=True,
+        nan_position="start",
         sidebar_triangles="background",
         sidebar_triangles_height=0.2,
         move_text=["annotations", "unit"],
@@ -109,7 +109,7 @@ def test_image_position_mixed_syntax():
     with pytest.raises(GMTInvalidInput):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", reverse=True)
     with pytest.raises(GMTInvalidInput):
-        fig.colorbar(cmap="gmt/rainbow", position="x0/0", nan_rectangle=True)
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", nan=True)
     with pytest.raises(GMTInvalidInput):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", sidebar_triangles=True)
     with pytest.raises(GMTInvalidInput):
