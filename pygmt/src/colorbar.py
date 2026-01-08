@@ -34,42 +34,39 @@ def _alias_option_D(  # noqa: N802, PLR0913
     """
     Return a list of Alias objects for the -D option.
     """
-    # Parse the 'move_text' and 'label_as_column' parameters for the +m modifier.
+    # Build the +e modifier from fg_triangle/bg_triangle/triangle_height
+    if fg_triangle and bg_triangle:
+        modifier_e = ""
+    elif fg_triangle:
+        modifier_e = "f"
+    elif bg_triangle:
+        modifier_e = "b"
+    else:
+        modifier_e = None
+    if modifier_e is not None and triangle_height is not None:
+        modifier_e = f"{modifier_e}{triangle_height}"
+
+    # Build the +m modifier from move_text/label_as_column
+    modifier_m = None
     if move_text or label_as_column:
         modifier_m = ""
-        _valids = {"annotations", "label", "unit"}
 
-        match move_text:
-            case None:
-                pass
-            case str() if move_text in _valids:
-                modifier_m = move_text[0]
-            case Sequence() if is_nonstr_iter(move_text) and all(
-                v in _valids for v in move_text
+        _valids = {"annotations", "label", "unit"}
+        if move_text is not None:
+            if (isinstance(move_text, str) and move_text not in _valids) or (
+                is_nonstr_iter(move_text) and not all(v in _valids for v in move_text)
             ):
-                modifier_m = "".join(item[0] for item in move_text)
-            case _:
                 raise GMTValueError(
                     move_text,
                     description="move_text",
                     choices=_valids,
                 )
+            if isinstance(move_text, str):
+                modifier_m = move_text[0]
+            elif is_nonstr_iter(move_text):
+                modifier_m = "".join(item[0] for item in move_text)
         if label_as_column:
             modifier_m += "c"
-    else:
-        modifier_m = None
-
-    # Parse the 'fg_triangle'/'bg_triangle'/'triangle_height' parameters for the +e
-    # modifier.
-    _sidebar_triangles = None
-    if fg_triangle and bg_triangle:
-        _sidebar_triangles = ""
-    elif fg_triangle:
-        _sidebar_triangles = "f"
-    elif bg_triangle:
-        _sidebar_triangles = "b"
-    if _sidebar_triangles is not None and triangle_height is not None:
-        _sidebar_triangles = f"{_sidebar_triangles}{triangle_height}"
 
     return [
         Alias(position, name="position"),
@@ -87,7 +84,7 @@ def _alias_option_D(  # noqa: N802, PLR0913
             prefix="+n" if nan_position in {"start", None} else "+N",
         ),
         Alias(
-            _sidebar_triangles,
+            modifier_e,
             name="fg_triangle/bg_triangle/triangle_height",
             prefix="+e",
         ),
