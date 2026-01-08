@@ -61,14 +61,14 @@
 
 ### Maintenance
 
-* fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
-* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and Xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
-* Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
-* DOC: Update naming convention in contributors guide: separate words in parameter names by underscores ([#4284](https://github.com/GenericMappingTools/pygmt/pull/4284))
-* CI: Test NumPy 2.4 in the GMT Tests workflow ([#4319](https://github.com/GenericMappingTools/pygmt/pull/4319))
-* CI: Migrate the welcome bot to GitHub Actions ([#4149](https://github.com/GenericMappingTools/pygmt/pull/4149))
-* CI: Add a new workflow to cache dvc cache ([#4184](https://github.com/GenericMappingTools/pygmt/pull/4184))
 * Add support for Python 3.14 ([#4150](https://github.com/GenericMappingTools/pygmt/pull/4150))
+* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and Xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
+* DOC: Update naming convention in contributors guide: Separate words in parameter names by underscores ([#4284](https://github.com/GenericMappingTools/pygmt/pull/4284))
+* fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
+* Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
+* CI: Add a new workflow to cache dvc cache ([#4184](https://github.com/GenericMappingTools/pygmt/pull/4184))
+* CI: Migrate the welcome bot to GitHub Actions ([#4149](https://github.com/GenericMappingTools/pygmt/pull/4149))
+* CI: Test NumPy 2.4 in the GMT Tests workflow ([#4319](https://github.com/GenericMappingTools/pygmt/pull/4319))
 * Add an issue template for wrapping GMT modules ([#4152](https://github.com/GenericMappingTools/pygmt/pull/4152))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.17.0...v0.18.0>
