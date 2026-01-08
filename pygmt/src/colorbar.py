@@ -106,7 +106,7 @@ def colorbar(  # noqa: PLR0913
     bg_triangle: bool = False,
     fg_triangle: bool = False,
     triangle_height: float | None = None,
-    move_text: Sequence[str] | None = None,
+    move_text: Literal["annotations", "label", "unit"] | Sequence[str] | None = None,
     label_as_column: bool = False,
     box: Box | bool = False,
     truncate: Sequence[float] | None = None,

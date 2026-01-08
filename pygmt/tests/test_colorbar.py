@@ -62,11 +62,17 @@ def test_colorbar_alias_D():  # noqa: N802
     assert alias_wrapper(fg_triangle=True, bg_triangle=True) == "+e"
     assert alias_wrapper(fg_triangle=True) == "+ef"
     assert alias_wrapper(bg_triangle=True) == "+eb"
+    assert alias_wrapper(fg_triangle=True, triangle_height=0.4) == "+ef0.4"
     argstr = alias_wrapper(fg_triangle=True, bg_triangle=True, triangle_height=0.3)
     assert argstr == "+e0.3"
 
+    assert alias_wrapper(move_text="annotations") == "+ma"
+    assert alias_wrapper(move_text="label") == "+ml"
+    assert alias_wrapper(move_text="unit") == "+mu"
     assert alias_wrapper(move_text=["annotations", "label", "unit"]) == "+malu"
     assert alias_wrapper(label_as_column=True) == "+mc"
+    argstr = alias_wrapper(move_text=["annotations", "label"], label_as_column=True)
+    assert argstr == "+malc"
 
     argstr = alias_wrapper(
         position=Position("BR", offset=(0.1, 0.2)),
