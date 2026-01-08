@@ -22,14 +22,14 @@ def _alias_option_D(  # noqa: N802, PLR0913
     length=None,
     width=None,
     orientation=None,
-    reverse=None,
-    nan=None,
+    reverse=False,
+    nan=False,
     nan_position=None,
     fg_triangle=False,
     bg_triangle=False,
     triangle_height=None,
     move_text=None,
-    label_as_column=None,
+    label_as_column=False,
 ):
     """
     Return a list of Alias objects for the -D option.
@@ -104,7 +104,7 @@ def colorbar(  # noqa: PLR0913
     width: float | str | None = None,
     orientation: Literal["horizontal", "vertical"] | None = None,
     reverse: bool = False,
-    nan: bool | str = False,
+    nan: bool = False,
     nan_position: Literal["start", "end"] | None = None,
     bg_triangle: bool = False,
     fg_triangle: bool = False,
