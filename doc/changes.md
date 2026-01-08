@@ -39,7 +39,7 @@
 * Figure.histogram: Deprecate parameter barwidth to bar_width (Will be removed in v0.20.0) ([#4279](https://github.com/GenericMappingTools/pygmt/pull/4279))
 * Figure.inset: Deprecate parameter margin to clearance (Will be removed in v0.20.0) ([#4296](https://github.com/GenericMappingTools/pygmt/pull/4296))
 * Figure.meca: Deprecate parameters compressionfill/extensionfill/labelbox to compression_fill/extension_fill/label_box (Will be removed in v0.20.0) ([#4269](https://github.com/GenericMappingTools/pygmt/pull/4269), [#4274](https://github.com/GenericMappingTools/pygmt/pull/4274))
-* pygmt.select: Deprecate parameter gridmask/mask to mask_grid/mask_values (Will be removed in v0.20.0) ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283),  [#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
+* pygmt.select: Deprecate parameter gridmask/mask to mask_grid/mask_values (Will be removed in v0.20.0) ([#4283](https://github.com/GenericMappingTools/pygmt/pull/4283), [#4288](https://github.com/GenericMappingTools/pygmt/pull/4288))
 * pygmt.surface: Deprecate parameter maxradius to max_radius (Will be removed in v0.20.0) ([#4300](https://github.com/GenericMappingTools/pygmt/pull/4300))
 * Figure.velo: Deprecate parameter uncertaintyfill to uncertainty_fill (Will be removed in v0.20.0) ([#4272](https://github.com/GenericMappingTools/pygmt/pull/4272))
 * Figure.wiggle: Deprecate parameters fillnegative/fillpositive to negative_fill/positive_fill (Will be removed in v0.20.0) ([#4271](https://github.com/GenericMappingTools/pygmt/pull/4271))
