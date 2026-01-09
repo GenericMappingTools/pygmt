@@ -199,11 +199,13 @@ def colorbar(  # noqa: PLR0913
         Reverse the positive direction of the bar.
     nan
         Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or
-        :gmt-term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a
-        string is given, use that string as the label for the NaN color.
+        :gmt-term:`COLOR_NAN` if no such entry) at the start or end of the colorbar
+        (controlled via ``nan_position``). If a string is given, use that string as the
+        label for the NaN color.
     nan_position
-        Set the position of the NaN rectangle. Choose from ``"start"`` or ``"end"``.
-        [Default is ``"start"``].
+        Set the position of the NaN rectangle. Choose either ``"start"`` or ``"end"`` to
+        place the NaN color rectangle at the start or end of the colorbar [Default is
+        ``"start"``].
     bg_triangle
     fg_triangle
         If ``True``, draw a sidebar triangle for the back- or foreground color [Default
