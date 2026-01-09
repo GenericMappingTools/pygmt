@@ -267,7 +267,7 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     $projection
     $region
-    frame : str or list
+    frame
         Set colorbar boundary frame, labels, and axes attributes.
     $verbose
     $panel
