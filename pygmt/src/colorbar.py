@@ -22,41 +22,51 @@ def _alias_option_D(  # noqa: N802, PLR0913
     length=None,
     width=None,
     orientation=None,
-    reverse=None,
-    nan=None,
+    reverse=False,
+    nan=False,
     nan_position=None,
-    sidebar_triangles=None,
-    sidebar_triangles_height=None,
+    fg_triangle=False,
+    bg_triangle=False,
+    triangle_height=None,
     move_text=None,
-    label_as_column=None,
+    label_as_column=False,
 ):
     """
     Return a list of Alias objects for the -D option.
     """
-    # Parse the 'move_text' and 'label_as_column' parameters for the +m modifier.
+    # Build the +e modifier from fg_triangle/bg_triangle/triangle_height
+    if fg_triangle and bg_triangle:
+        modifier_e = ""
+    elif fg_triangle:
+        modifier_e = "f"
+    elif bg_triangle:
+        modifier_e = "b"
+    else:
+        modifier_e = None
+    if modifier_e is not None and triangle_height is not None:
+        modifier_e = f"{modifier_e}{triangle_height}"
+
+    # Build the +m modifier from move_text/label_as_column
+    modifier_m = None
     if move_text or label_as_column:
         modifier_m = ""
-        _valids = {"annotations", "label", "unit"}
 
-        match move_text:
-            case None:
-                pass
-            case str() if move_text in _valids:
-                modifier_m = move_text[0]
-            case Sequence() if is_nonstr_iter(move_text) and all(
-                v in _valids for v in move_text
+        _valids = {"annotations", "label", "unit"}
+        if move_text is not None:
+            if (isinstance(move_text, str) and move_text not in _valids) or (
+                is_nonstr_iter(move_text) and not all(v in _valids for v in move_text)
             ):
-                modifier_m = "".join(item[0] for item in move_text)
-            case _:
                 raise GMTValueError(
                     move_text,
                     description="move_text",
                     choices=_valids,
                 )
+            if isinstance(move_text, str):
+                modifier_m = move_text[0]
+            elif is_nonstr_iter(move_text):
+                modifier_m = "".join(item[0] for item in move_text)
         if label_as_column:
             modifier_m += "c"
-    else:
-        modifier_m = None
 
     return [
         Alias(position, name="position"),
@@ -74,17 +84,10 @@ def _alias_option_D(  # noqa: N802, PLR0913
             prefix="+n" if nan_position in {"start", None} else "+N",
         ),
         Alias(
-            sidebar_triangles,
-            name="sidebar_triangles",
+            modifier_e,
+            name="fg_triangle/bg_triangle/triangle_height",
             prefix="+e",
-            mapping={
-                True: True,
-                False: False,
-                "foreground": "f",
-                "background": "b",
-            },
         ),
-        Alias(sidebar_triangles_height, name="sidebar_triangles_height"),
         Alias(modifier_m, name="move_text/label_as_column", prefix="+m"),
     ]
 
@@ -98,11 +101,12 @@ def colorbar(  # noqa: PLR0913
     width: float | str | None = None,
     orientation: Literal["horizontal", "vertical"] | None = None,
     reverse: bool = False,
-    nan: bool | str = False,
+    nan: bool = False,
     nan_position: Literal["start", "end"] | None = None,
-    sidebar_triangles: bool | Literal["foreground", "background"] = False,
-    sidebar_triangles_height: float | None = None,
-    move_text: Sequence[str] | None = None,
+    bg_triangle: bool = False,
+    fg_triangle: bool = False,
+    triangle_height: float | None = None,
+    move_text: Literal["annotations", "label", "unit"] | Sequence[str] | None = None,
     label_as_column: bool = False,
     box: Box | bool = False,
     truncate: Sequence[float] | None = None,
@@ -162,7 +166,7 @@ def colorbar(  # noqa: PLR0913
 
        - D = position, **+w**: length/width, **+h**/**+v**: orientation,
          **+r**: reverse, **+n**: nan/nan_position,
-         **+e**: sidebar_triangles/scalebar_triangles_height,
+         **+e**: fg_triangle/bg_triangle/triangle_height,
          **+m**: move_text/label_as_column
 
     Parameters
@@ -195,20 +199,23 @@ def colorbar(  # noqa: PLR0913
         Reverse the positive direction of the bar.
     nan
         Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or
-        :gmt-term:`COLOR_NAN` if no such entry) at the start of the colorbar. If a
-        string is given, use that string as the label for the NaN color.
+        :gmt-term:`COLOR_NAN` if no such entry) at the start or end of the colorbar
+        (controlled via ``nan_position``). If a string is given, use that string as the
+        label for the NaN color.
     nan_position
-        Set the position of the NaN rectangle. Choose from ``"start"`` or ``"end"``.
-        [Default is ``"start"``].
-    sidebar_triangles
-        Draw sidebar triangles for back- and/or foreground colors. If set to ``True``,
-        both triangles are drawn. Alternatively, set it to ``"foreground"`` or
-        ``"background"`` to draw only one triangle. The back- and/or foreground colors
-        are taken from the **B** and **F** entries in the CPT. If no such entries exist,
-        then the system default colors for **B** and **F** are used instead (
-        :gmt-term:`COLOR_BACKGROUND` and :gmt-term:`COLOR_FOREGROUND`).
-    sidebar_triangles_height
-        Height of the sidebar triangles [Default is half the bar width].
+        Set the position of the NaN rectangle. Choose either ``"start"`` or ``"end"`` to
+        place the NaN color rectangle at the start or end of the colorbar [Default is
+        ``"start"``].
+    bg_triangle
+    fg_triangle
+        If ``True``, draw a sidebar triangle for the back- or foreground color [Default
+        are no triangles]. The back- and/or foreground colors are taken from the **B**
+        and **F** entries in the CPT. If no such entries exist, then the system default
+        colors for **B** and **F** are used instead (:gmt-term:`COLOR_BACKGROUND` and
+        :gmt-term:`COLOR_FOREGROUND`).
+    triangles_height
+        Height of the sidebar triangles for back- and foreground colors [Default is half
+        the bar width].
     move_text
         Move text (annotations, label, and unit) to opposite side. Accept a sequence of
         strings containing one or more of ``"annotations"``, ``"label"``, and
@@ -260,7 +267,7 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     $projection
     $region
-    frame : str or list
+    frame
         Set colorbar boundary frame, labels, and axes attributes.
     $verbose
     $panel
@@ -295,8 +302,9 @@ def colorbar(  # noqa: PLR0913
             "reverse": reverse,
             "nan": nan,
             "nan_position": nan_position,
-            "sidebar_triangles": sidebar_triangles,
-            "sidebar_triangles_height": sidebar_triangles_height,
+            "bg_triangle": bg_triangle,
+            "fg_triangle": fg_triangle,
+            "triangle_height": triangle_height,
             "move_text": move_text,
             "label_as_column": label_as_column,
         },
@@ -312,8 +320,9 @@ def colorbar(  # noqa: PLR0913
             reverse=None,
             nan=None,
             nan_position=None,
-            sidebar_triangles=None,
-            sidebar_triangles_height=None,
+            bg_triangle=bg_triangle,
+            fg_triangle=fg_triangle,
+            triangle_height=triangle_height,
             move_text=None,
             label_as_column=None,
         ),
