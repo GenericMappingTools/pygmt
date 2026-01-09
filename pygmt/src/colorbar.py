@@ -48,6 +48,7 @@ def _alias_option_D(  # noqa: N802, PLR0913
 
     # Build the +m modifier from move_text/label_as_column
     modifier_m = None
+    print(move_text)
     if move_text or label_as_column:
         modifier_m = ""
 
@@ -67,6 +68,8 @@ def _alias_option_D(  # noqa: N802, PLR0913
                 modifier_m = "".join(item[0] for item in move_text)
         if label_as_column:
             modifier_m += "c"
+
+    print(modifier_m)
 
     return [
         Alias(position, name="position"),
@@ -317,14 +320,14 @@ def colorbar(  # noqa: PLR0913
             length=length,
             width=width,
             orientation=orientation,
-            reverse=None,
-            nan=None,
-            nan_position=None,
+            reverse=reverse,
+            nan=nan,
+            nan_position=nan_position,
             bg_triangle=bg_triangle,
             fg_triangle=fg_triangle,
             triangle_height=triangle_height,
-            move_text=None,
-            label_as_column=None,
+            move_text=move_text,
+            label_as_column=label_as_column,
         ),
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
