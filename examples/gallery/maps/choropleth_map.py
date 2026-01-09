@@ -41,9 +41,9 @@ fig.colorbar(
     frame="x+lPopulation (millions)",
     position=Position("ML", offset=(2, -2.5)),
     length=5,
-    sidebar_triangles="foreground",
-    sidebar_triangles_height=0.2,
-    move_text=["label"],
+    fg_triangle=True,
+    triangle_height=0.2,
+    move_text="label",
 )
 
 fig.show()
