@@ -48,7 +48,6 @@ def _alias_option_D(  # noqa: N802, PLR0913
 
     # Build the +m modifier from move_text/label_as_column
     modifier_m = None
-    print(move_text)
     if move_text or label_as_column:
         modifier_m = ""
 
@@ -68,8 +67,6 @@ def _alias_option_D(  # noqa: N802, PLR0913
                 modifier_m = "".join(item[0] for item in move_text)
         if label_as_column:
             modifier_m += "c"
-
-    print(modifier_m)
 
     return [
         Alias(position, name="position"),
