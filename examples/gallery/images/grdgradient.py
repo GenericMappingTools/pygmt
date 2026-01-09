@@ -30,7 +30,7 @@ pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 
 # --------------- plotting the original Data Elevation Model -----------
 
-pygmt.makecpt(cmap="gray", series=[200, 4000, 10])
+pygmt.makecpt(cmap="gmt/gray", series=[200, 4000, 10])
 fig.grdimage(
     grid=grid,
     projection="M12c",
@@ -45,7 +45,7 @@ fig.colorbar(position="JML+o1.4c/0c+w7c/0.5c", frame=["xa1000f500+lElevation", "
 # Shift plot origin of the second map by 12.5 cm in x-direction
 fig.shift_origin(xshift="12.5c")
 
-pygmt.makecpt(cmap="gray", series=[-1.5, 0.3, 0.01])
+pygmt.makecpt(cmap="gmt/gray", series=[-1.5, 0.3, 0.01])
 fig.grdimage(
     grid=dgrid,
     projection="M12c",

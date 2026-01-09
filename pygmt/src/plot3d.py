@@ -14,7 +14,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _data_geometry_is_point
@@ -39,11 +38,9 @@ from pygmt.src._common import _data_geometry_is_point
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     l="label",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma")
 def plot3d(  # noqa: PLR0912, PLR0913
     self,
     data: PathLike | TableLike | None = None,
@@ -64,6 +61,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
@@ -89,7 +87,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     Full GMT docs at :gmt-docs:`plot3d.html`.
 
-    {aliases}
+    $aliases
        - A = straight_line
        - B = frame
        - J = projection
@@ -98,13 +96,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
-        Either a data file name, a 2-D {table-classes}.
+        Either a data file name, a 2-D $table_classes.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
     x/y/z : float or 1-D arrays
@@ -120,10 +119,10 @@ def plot3d(  # noqa: PLR0912, PLR0913
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {projection}
+    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
-    {region}
+    $region
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -149,13 +148,13 @@ def plot3d(  # noqa: PLR0912, PLR0913
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    {frame}
-    {cmap}
+    $frame
+    $cmap
     offset : str
         *dx*/*dy*\ [/*dz*].
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
-    {fill}
+    $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float, bool, or 1-D array
@@ -190,8 +189,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
         the foreground are plotted after items in the background.
     style : str
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
-    {verbose}
-    {pen}
+    $verbose
+    $pen
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -201,21 +200,21 @@ def plot3d(  # noqa: PLR0912, PLR0913
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {aspatial}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
+    $aspatial
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``/``z``.
-    {wrap}
+    $wrap
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
@@ -284,6 +283,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )

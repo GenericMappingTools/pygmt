@@ -141,7 +141,7 @@ def test_plot_colors(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="cubhelix",
+        cmap="cpt-city/cubhelix",
         frame="af",
     )
     return fig
@@ -180,7 +180,7 @@ def test_plot_colors_sizes(data, region):
         region=region,
         projection="X10c",
         style="cc",
-        cmap="copper",
+        cmap="matlab/copper",
         frame="af",
     )
     return fig
@@ -199,7 +199,7 @@ def test_plot_colors_sizes_proj(data, region):
         fill=data[:, 2],
         size=0.5 * data[:, 2],
         style="cc",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -293,7 +293,7 @@ def test_plot_sizes_colors_transparencies():
         style="cc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
     )
     return fig
@@ -348,7 +348,7 @@ def test_plot_matrix_color(data):
         region=[10, 70, -5, 10],
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
+        cmap="gmt/rainbow",
         frame="a",
     )
     return fig

@@ -25,7 +25,7 @@ fig.basemap(
     projection="M12c",
     frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
 )
-fig.grdimage(grid=grid, cmap="oleron")
+fig.grdimage(grid=grid, cmap="SCM/oleron")
 
 # Shift plot origin of the second map by "width of the first map + 0.5 cm"
 # in x-direction

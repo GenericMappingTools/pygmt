@@ -116,5 +116,5 @@ def test_subplot_outside_plotting_positioning():
     with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
-    fig.colorbar(position="JBC+w5c+h", cmap="turbo", frame=True)
+    fig.colorbar(position="JBC+w5c+h", cmap="google/turbo", frame=True)
     return fig

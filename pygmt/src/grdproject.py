@@ -10,25 +10,18 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
-@use_alias(
-    D="spacing",
-    E="dpi",
-    F="scaling",
-    I="inverse",
-    M="unit",
-    n="interpolation",
-)
-@kwargs_to_strings(D="sequence")
+@use_alias(E="dpi", F="scaling", I="inverse", M="unit", n="interpolation")
 def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     center: Sequence[float | str] | bool = False,
+    spacing: float | str | Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
@@ -56,8 +49,9 @@ def grdproject(
 
     Full GMT docs at :gmt-docs:`grdproject.html`.
 
-    {aliases}
+    $aliases
        - C = center
+       - D = spacing
        - J = projection
        - R = region
        - V = verbose
@@ -65,20 +59,20 @@ def grdproject(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     inverse : bool
         When set to ``True`` transforms grid from rectangular to geographical
         [Default is ``False``].
-    {projection}
-    {region}
+    $projection
+    $region
     center
         If ``True``, let the projected coordinates be relative to the projection center
         [Default is relative to the lower left corner]. Optionally, set offsets
         (*dx*, *dy*) in the projected units to be added (or subtracted when ``inverse``
         is set) to (from) the projected coordinates, such as false eastings and
         northings for particular projection zones [Default is ``(0, 0)``].
-    {spacing}
+    $spacing
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
@@ -93,9 +87,9 @@ def grdproject(
         Append **c**, **i**, or **p** to indicate that centimeters, inches, or
         points should be the projected measure unit. Cannot be used with
         ``scaling``.
-    {verbose}
-    {interpolation}
-    {registration}
+    $verbose
+    $interpolation
+    $registration
 
     Returns
     -------
@@ -122,6 +116,7 @@ def grdproject(
 
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),
+        D=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         J=projection,
         R=region,

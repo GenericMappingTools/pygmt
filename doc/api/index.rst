@@ -215,6 +215,7 @@ Class-style Parameters
     Box
     Frame
     Pattern
+    Position
 
 Enums
 -----
