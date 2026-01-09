@@ -3,9 +3,10 @@ The Axes, Axis, and Frame classes for specifying the frame.
 """
 
 import dataclasses
-from typing import Any, Literal
+from typing import Literal
 
 from pygmt.alias import Alias
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.params.base import BaseParam
 
 
@@ -15,9 +16,10 @@ class Axis(BaseParam):
     Class for setting up one axis of a plot.
     """
 
-    #: Intervals for annotations and major tick spacing, minor tick spacing, and/or
-    #: grid line spacing.
-    interval: float | str
+    #: Intervals for annotations, ticks and grid lines.
+    annotation: float | None = None
+    tick: float | None = None
+    grid: float | None = None
 
     #: Plot slanted annotations (for Cartesian plots only), where *angle* is measured
     #: with respect to the horizontal and must be in the -90 <= *angle* <= 90 range.
@@ -61,7 +63,9 @@ class Axis(BaseParam):
     @property
     def _aliases(self):
         return [
-            Alias(self.interval, name="interval"),
+            Alias(self.annotation, name="annotation", prefix="a"),
+            Alias(self.tick, name="tick", prefix="f"),
+            Alias(self.grid, name="grid", prefix="g"),
             Alias(self.angle, name="angle", prefix="+a"),
             Alias(
                 self.skip_edge,
@@ -79,23 +83,15 @@ class Axis(BaseParam):
 
 
 @dataclasses.dataclass(repr=False)
-class Axes(BaseParam):
+class _Axes(BaseParam):
     """
-    Class for specifying the frame of a plot.
+    A private class to build the Axes part of the Frame class.
     """
 
-    #: Specify which axes to draw and their attributes.
+    # Refer to the Frame class for full documentation.
     axes: str | None = None
-
-    #: Fill for the interior of the canvas [Default is no fill]. This also sets fill
-    #: for the two back-walls in 3-D plots.
     fill: str | None = None
-
-    #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
-
-    #: The subtitle string beneath the title [Default is no subtitle]. This requires
-    #: ``title`` to be set.
     subtitle: str | None = None
 
     @property
@@ -114,18 +110,92 @@ class Frame(BaseParam):
     Class for setting up the frame of a plot.
     """
 
-    axes: Any = None
-    xaxis: Any = None
-    yaxis: Any = None
-    zaxis: Any = None
+    #: Specify the attributes for each axis.
+    #:
+    #: ``axis`` means specifying the same attributes for all axes.
+    #: ``x``, ``y``, ``z`` mean specifying attributes for the x-, y-, and z-axes,
+    #: respectively, while ``xp``, ``yp``, ``zp`` mean specifying attributes for the
+    #: x-, y-, and z-axes' primary axes, and ``xs``, ``ys``, ``zs`` mean specifying
+    #: attributes for the x-, y-, and z-axes' secondary axes.
+    axis: Axis | None = None
+    x: Axis | None = None
+    y: Axis | None = None
+    z: Axis | None = None
+    xp: Axis | None = None
+    yp: Axis | None = None
+    zp: Axis | None = None
+    xs: Axis | None = None
+    ys: Axis | None = None
+    zs: Axis | None = None
+
+    #: Specify which axes to draw and their attributes.
+    axes: str | None = None
+
+    #: Fill for the interior of the canvas [Default is no fill]. This also sets fill
+    #: for the two back-walls in 3-D plots.
+    fill: str | None = None
+
+    #: The title string centered above the plot frame [Default is no title].
+    title: str | None = None
+
+    #: The subtitle string beneath the title [Default is no subtitle]. This requires
+    #: ``title`` to be set.
+    subtitle: str | None = None
+
+    def _validate(self):
+        """
+        Validate the parameters.
+        """
+        # Can't specify both axis and individual axes.
+        if self.axis is not None and any(
+            getattr(self, k) is not None
+            for k in [
+                "x",
+                "y",
+                "z",
+                "xp",
+                "yp",
+                "zp",
+                "xs",
+                "ys",
+                "zs",
+            ]
+        ):
+            msg = (
+                "Cannot specify both 'axis' and individual axes ('x', 'y', 'z', etc.)."
+            )
+            raise GMTInvalidInput(msg)
+        if self.x is not None and (self.xp is not None or self.xs is not None):
+            msg = "Cannot specify both 'x' and 'xp'/'xs'."
+            raise GMTInvalidInput(msg)
+        if self.y is not None and (self.yp is not None or self.ys is not None):
+            msg = "Cannot specify both 'y' and 'yp'/'ys'."
+            raise GMTInvalidInput(msg)
+        if self.z is not None and (self.zp is not None or self.zs is not None):
+            msg = "Cannot specify both 'z' and 'zp'/'zs'."
+            raise GMTInvalidInput(msg)
 
     @property
     def _aliases(self):
         return [
-            Alias(self.axes),
-            Alias(self.xaxis, prefix="x"),
-            Alias(self.yaxis, prefix="y"),
-            Alias(self.zaxis, prefix="z"),
+            Alias(self.axis, name="axis"),
+            Alias(self.x, prefix="x"),
+            Alias(self.y, prefix="y"),
+            Alias(self.z, prefix="z"),
+            Alias(self.xp, prefix="px"),
+            Alias(self.yp, prefix="py"),
+            Alias(self.zp, prefix="pz"),
+            Alias(self.xs, prefix="sx"),
+            Alias(self.ys, prefix="sy"),
+            Alias(self.zs, prefix="sz"),
+            Alias(
+                _Axes(
+                    axes=self.axes,
+                    fill=self.fill,
+                    title=self.title,
+                    subtitle=self.subtitle,
+                )
+            ),
         ]
 
     def __iter__(self):
