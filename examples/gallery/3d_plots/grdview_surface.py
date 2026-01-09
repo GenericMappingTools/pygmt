@@ -57,7 +57,7 @@ fig.grdview(
     shading="+a45",
 )
 
-# Add colorbar for gridded data at the Middle Right corner.
+# Add colorbar for gridded data in the Middle Right corner.
 fig.colorbar(frame="a2f1", position=Position("MR", cstype="outside"))
 
 fig.show()

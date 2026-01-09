@@ -30,7 +30,7 @@ fig.colorbar(cmap="SCM/roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
 fig.colorbar(
     cmap="SCM/batlow",
     # A horizontal colorbar positioned at map coordinates (0.3, 8.7), with a
-    # length of 4 cm and width of 0.5 cm.
+    # length of 4 cm and a width of 0.5 cm.
     position=Position((0.3, 8.7), cstype="mapcoords"),
     length=4,
     width=0.5,
@@ -71,7 +71,7 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed at the Bottom Left (BL) corner inside the plot bounding box, with
+    # Colorbar placed in the Bottom Left (BL) corner inside the plot bounding box, with
     # an offset by 0.5 cm horizontally and 0.8 cm vertically from the anchor point, and
     # plotted horizontally.
     position=Position("BL", offset=(0.5, 0.8)),
