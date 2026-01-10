@@ -61,9 +61,9 @@ def grdclip(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    {region}
+    $grid
+    $outgrid
+    $region
     above
         Pass a sequence of two values in the form of (*high*, *above*), to set all node
         values greater than *high* to *above*.
@@ -81,7 +81,7 @@ def grdclip(
         (e.g., list of lists or 2-D numpy array) to replace different old values with
         different new values. This is mostly useful when your data are known to be
         integer values.
-    {verbose}
+    $verbose
 
     Returns
     -------
@@ -102,13 +102,13 @@ def grdclip(
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
-    [183.5, 1807.0]
+    [np.float32(183.5), np.float32(1807.0)]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
     >>> # values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Report the minimum and maximum data values
     >>> [new_grid.data.min(), new_grid.data.max()]
-    [0.0, 10000.0]
+    [np.float32(0.0), np.float32(10000.0)]
     """
     if all(v is None for v in (above, below, between, replace)):
         msg = (

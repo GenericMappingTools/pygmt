@@ -26,20 +26,18 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
         with:
           persist-credentials: false
 
-      # Setup Python
-      - name: Set up Python
-        uses: actions/setup-python@v6.0.0
+      - name: Set up Python and install dependencies
+        uses: actions/setup-python@v6.1.0
         with:
-          python-version: '3.13'
+          python-version: '3.14'
+          pip-install: ruff prek
 
-      - name: Install packages
-        run: |
-          python -m pip install ruff prek
-          python -m pip list
+      - name: List installed packages
+        run: python -m pip list
 
       - name: Formatting check (ruff + prek)
         run: |

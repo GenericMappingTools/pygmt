@@ -104,6 +104,13 @@ def _to_string(
     >>> _to_string(("12p", "34p"), prefix="+o", sep="/")
     '+o12p/34p'
 
+    >>> # Works for parameters that accept Sequence and Mappable objects.
+    >>> # E.g., project -Lw|lmin/lmax.
+    >>> _to_string("limit", sep="/", size=2, mapping={"limit": "w"})
+    'w'
+    >>> _to_string((12, 34), sep="/", size=2, mapping={"limit": "w"})
+    '12/34'
+
     >>> _to_string(["xaf", "yaf", "WSen"])
     ['xaf', 'yaf', 'WSen']
 
@@ -294,12 +301,14 @@ class AliasSystem(UserDict):
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
 
-    def add_common(self, **kwargs):
+    def add_common(self, **kwargs):  # noqa: PLR0912
         """
         Add common parameters to the alias dictionary.
         """
         for key, value in kwargs.items():
             match key:
+                case "B":
+                    alias = Alias(value, name="frame")
                 case "J":
                     alias = Alias(value, name="projection")
                 case "R":
@@ -320,6 +329,18 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "i":
+                    alias = Alias(value, name="incols", sep=",")
+                case "r":
+                    alias = Alias(
+                        value,
+                        name="registration",
+                        mapping={"gridline": "g", "pixel": "p"},
+                    )
+                case "o":
+                    alias = Alias(value, name="outcols", sep=",")
+                case "p":
+                    alias = Alias(value, name="perspective", sep="/", size={2, 3})
                 case "t":
                     alias = Alias(value, name="transparency")
                 case "x":

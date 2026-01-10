@@ -16,7 +16,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     non_ascii_to_octal,
     use_alias,
 )
@@ -24,7 +23,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="clearance",
     D="offset",
     G="fill",
@@ -34,10 +32,8 @@ from pygmt.helpers import (
     f="coltypes",
     h="header",
     it="use_word",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(p="sequence")
 def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
@@ -50,11 +46,13 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -76,13 +74,15 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     Full GMT docs at :gmt-docs:`text.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -136,8 +136,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
@@ -170,21 +170,21 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
-    {verbose}
-    {aspatial}
-    {panel}
-    {find}
-    {coltypes}
-    {header}
+    $verbose
+    $aspatial
+    $panel
+    $find
+    $coltypes
+    $header
     use_word : int
         Select a specific word from the trailing text, with the first
         word being 0 [Default is the entire trailing text]. No numerical
         columns can be specified.
-    {perspective}
-    {transparency}
+    $perspective
+    $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
         but this option is only valid if using ``x``/``y`` and ``text``.
-    {wrap}
+    $wrap
     """
     self._activate_figure()
 
@@ -278,10 +278,12 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

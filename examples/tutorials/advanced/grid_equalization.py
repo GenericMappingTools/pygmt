@@ -35,7 +35,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[500, 3540], cmap="turku")
+pygmt.makecpt(series=[500, 3540], cmap="SCM/turku")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Digital Elevation Model"
@@ -104,7 +104,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Linear distribution"
@@ -154,7 +154,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[-4.5, 4.5], cmap="vik")
+pygmt.makecpt(series=[-4.5, 4.5], cmap="SCM/vik")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Normal distribution"
@@ -218,7 +218,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Quadratic distribution"

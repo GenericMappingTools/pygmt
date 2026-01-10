@@ -6,15 +6,10 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -23,19 +18,19 @@ from pygmt.helpers import (
     Ff="figsize",
     Fs="subsize",
     A="autolabel",
-    B="frame",
     C="clearance",
-    M="margins",
     SC="sharex",
     SR="sharey",
-    T="title",
 )
-@kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence")
+@kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(
     self,
-    nrows=1,
-    ncols=1,
+    nrows: int = 1,
+    ncols: int = 1,
+    margins: float | str | Sequence[float | str] | None = None,
+    title: str | None = None,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -52,16 +47,19 @@ def subplot(
 
     Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
+       - M = margins
        - R = region
+       - T = title
        - V = verbose
 
     Parameters
     ----------
-    nrows : int
+    nrows
         Number of vertical rows of the subplot grid.
-    ncols : int
+    ncols
         Number of horizontal columns of the subplot grid.
     figsize : list
         Specify the final figure dimensions as [*width*, *height*].
@@ -94,7 +92,6 @@ def subplot(
         lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is
         Arabic numerals]. Append **+v** to increase tag numbers vertically down columns
         [Default is horizontally across rows].
-    {frame}
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -107,23 +104,20 @@ def subplot(
         side and 2 cm on south side). Such space will be left untouched by
         the main map plotting but can be accessed by methods that plot
         scales, bars, text, etc.
-    {projection}
-    margins : str or list
-        This is margin space that is added between neighboring subplots (i.e.,
-        the interior margins) in addition to the automatic space added for tick
-        marks, annotations, and labels. The margins can be specified as either:
+    margins
+        Margin space that is added between neighboring subplots (i.e., the interior
+        margins) in addition to the automatic space added for tick marks, annotations,
+        and labels. The margins can be specified as either:
 
         - a single value (for same margin on all sides). E.g. ``"5c"``.
-        - a pair of values (for setting separate horizontal and vertical
-          margins). E.g. ``["5c", "3c"]``.
-        - a set of four values (for setting separate left, right, bottom, and
-          top margins). E.g. ``["1c", "2c", "3c", "4c"]``.
+        - a pair of values (for separate horizontal and vertical margins). E.g.,
+          ``("5c", "3c")``.
+        - a set of four values (for separate left, right, bottom, and top margins).
+          E.g., ``("1c", "2c", "3c", "4c")``.
 
-        The actual gap created is always a sum of the margins for the two
-        opposing sides (e.g., east plus west or south plus north margins)
-        [Default is half the primary annotation font size, giving the full
-        annotation font size as the default gap].
-    {region}
+        The actual gap created is always a sum of the margins for the two opposing sides
+        (e.g., east plus west or south plus north margins) [Default is half the primary
+        annotation font size, giving the full annotation font size as the default gap].
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
@@ -152,11 +146,14 @@ def subplot(
         - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
-    title : str
-        While individual subplots can have titles (see ``sharex``/``sharey`` or
-        ``frame``), the entire figure may also have an overarching *heading*
-        [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
-    {verbose}
+    title
+        Set the overarching heading of the entire figure [Default is no heading]. Font
+        is determined by :gmt-term:`FONT_HEADING`. Individual subplot can have titles
+        set by ``sharex``/``sharey`` or ``frame``.
+    $projection
+    $region
+    $frame
+    $verbose
     """
     self._activate_figure()
 
@@ -172,7 +169,11 @@ def subplot(
         msg = "Please provide either one of 'figsize' or 'subsize' only."
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        M=Alias(margins, name="margins", sep="/", size=(2, 4)),
+        T=Alias(title, name="title"),
+    ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
@@ -201,10 +202,9 @@ def subplot(
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(A="fixedlabel", C="clearance")
-@kwargs_to_strings(panel="sequence_comma")
 def set_panel(
     self,
-    panel=None,
+    panel: int | Sequence[int] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -220,22 +220,21 @@ def set_panel(
     both dimensions then you must specify ``projection="x"`` [The default
     ``projection="X"`` will fill the subplot by using unequal scales].
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters
     ----------
-    panel : str or list
-        *row,col*\|\ *index*.
-        Sets the current subplot until further notice. **Note**: First *row*
-        or *col* is 0, not 1. If not given we go to the next subplot by order
-        specified via ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an
-        alternative, you may bypass using :meth:`pygmt.Figure.set_panel` and
-        instead supply the common option **panel**\ =[*row,col*] to the first
-        plot command you issue in that subplot. GMT maintains information about
-        the current figure and subplot. Also, you may give the one-dimensional
-        *index* instead which starts at 0 and follows the row or column order
-        set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
+    panel
+        *index* or (*row*, *col*).
+        Sets the current subplot until further notice. **Note**: First *row* or *col* is
+        0, not 1. If not given we go to the next subplot by order specified via
+        ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may bypass
+        using :meth:`pygmt.Figure.set_panel` and instead supply the common option
+        **panel**\ =(*row*, *col*) to the first plot command you issue in that subplot.
+        GMT maintains information about the current figure and subplot. Also, you may
+        give the one-dimensional *index* instead which starts at 0 and follows the row
+        or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
 
     fixedlabel : str
         Overrides the automatic labeling with the given string. No modifiers
@@ -255,7 +254,7 @@ def set_panel(
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
 
-    {verbose}
+    $verbose
     """
     self._activate_figure()
 
@@ -266,6 +265,11 @@ def set_panel(
 
     with Session() as lib:
         lib.call_module(
-            module="subplot", args=["set", str(panel), *build_arg_list(aliasdict)]
+            module="subplot",
+            args=[
+                "set",
+                Alias(panel, name="panel", sep=",", size=2)._value,
+                *build_arg_list(aliasdict),
+            ],
         )
         yield
