@@ -74,16 +74,6 @@ def test_grdview_alias_Q():  # noqa: N802
 
 
 @pytest.mark.mpl_image_compare
-def test_grdview_grid_dataarray(xrgrid):
-    """
-    Run grdview by passing in a grid as an xarray.DataArray.
-    """
-    fig = Figure()
-    fig.grdview(grid=xrgrid)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_grdview_surftype(grid):
     """
     Test grdview with different surftype values.
@@ -167,6 +157,16 @@ def test_grdview_mesh_pen_and_mesh_fill(grid):
     with fig.subplot(nrows=1, ncols=3, subsize=("5c", "5c"), margins=0):
         for surftype in ["mesh", "waterfall_x", "waterfall_y"]:
             fig.grdview(surftype=surftype, **args)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_grid_dataarray(xrgrid):
+    """
+    Run grdview by passing in a grid as an xarray.DataArray.
+    """
+    fig = Figure()
+    fig.grdview(grid=xrgrid)
     return fig
 
 

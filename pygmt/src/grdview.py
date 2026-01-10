@@ -107,7 +107,7 @@ def grdview(  # noqa: PLR0913
        - JZ = zsize
        - N = plane, facade_fill
        - R = region
-       - Q = surftype, dpi, mesh_fill, nan_transparent, monochrome
+       - Q = surftype, dpi, mesh_fill, nan_transparent, **+m**: monochrome
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
