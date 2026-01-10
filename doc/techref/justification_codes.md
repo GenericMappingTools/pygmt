@@ -112,7 +112,7 @@ fig.colorbar(
     position="MC",
     length=10,
     width=2,
-    orientation="horizontal"
+    orientation="horizontal",
 )
 
 for code in codes:
