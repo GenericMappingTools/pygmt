@@ -193,8 +193,9 @@ def colorbar(  # noqa: PLR0913
         to 4% of the bar length].
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
-        [Default is vertical, unless ``position`` is set to bottom-center or top-center with
-        ``cstype="outside"`` or ``cstype="inside"``, then horizontal is the default].
+        [Default is vertical, unless ``position`` is set to bottom-center or top-center
+        with ``cstype="outside"`` or ``cstype="inside"``, then horizontal is the
+        default].
     reverse
         Reverse the positive direction of the bar.
     nan
