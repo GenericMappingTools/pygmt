@@ -35,12 +35,12 @@ fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars
 # Colorbar is placed at Bottom Center (BC) by default if no position is given
 # Add quantity and unit as labels ("+l") to the x and y axes
 # Add annotations ("+a") in steps of 0.5 and ticks ("+f") in steps of 0.1
-fig.colorbar(cmap="roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
+fig.colorbar(cmap="SCM/roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
 
 # ============
 # Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
-    cmap="batlow",
+    cmap="SCM/batlow",
     # Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,
     # with a length/width (+w) of 4 cm by 0.5 cm, and plotted horizontally (+h)
     position="g0.3/8.7+w4c/0.5c+h",
@@ -52,7 +52,7 @@ fig.colorbar(
 # ============
 # Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
-    cmap="oleron",
+    cmap="SCM/oleron",
     # Colorbar placed outside the plot bounding box (J) at Middle Right (MR),
     # offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,
     # with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)
@@ -68,7 +68,7 @@ fig.colorbar(
 # Create a colorbar suitable for categorical data - hawaii
 # Set up the colormap
 pygmt.makecpt(
-    cmap="hawaii",
+    cmap="SCM/hawaii",
     series=[0, 3, 1],
     # Comma-separated string for the annotations of the colorbar
     color_model="+cA,B,C,D",

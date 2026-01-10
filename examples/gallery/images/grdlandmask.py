@@ -30,7 +30,7 @@ fig.basemap(region=region, projection="M12c", frame=True)
 # use color_model="+cwater,land" to write the discrete color palette
 # "batlow" in categorical format and add water/land as annotations for the
 # colorbar.
-pygmt.makecpt(cmap="batlow", series=(0, 1, 1), color_model="+cwater,land")
+pygmt.makecpt(cmap="SCM/batlow", series=(0, 1, 1), color_model="+cwater,land")
 
 fig.grdimage(grid=grid, cmap=True)
 fig.colorbar(position="JMR+o0.5c/0c+w8c")

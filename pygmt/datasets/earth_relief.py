@@ -66,11 +66,11 @@ def load_earth_relief(
     omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution
     based on the current region and projection settings.
 
-    This dataset comes with a color palette table (CPT) file, ``geo``. To use the
-    dataset-specific CPT when plotting the dataset, explicitly set ``cmap="geo"``,
-    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
-    the file name in a grid plotting method, the dataset-specific CPT file is used
-    automatically unless another CPT is specified.
+    This dataset comes with a color palette table (CPT) file, ``gmt/geo``. To use the
+    dataset-specific CPT when plotting the dataset, explicitly set ``cmap="gmt/geo"``,
+    otherwise GMT's default CPT (*google/turbo*) will be used. If the dataset is
+    referenced by the file name in a grid plotting method, the dataset-specific CPT file
+    is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.

@@ -203,7 +203,7 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     fig = Figure()
     fig.grdview(
         grid=xrgrid,
-        cmap="oleron",
+        cmap="SCM/oleron",
         surftype="surface",
         perspective=[225, 30],
         zscale=0.005,
@@ -261,7 +261,10 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="relief", surftype="surface", contour_pen="0.5p,black,dashed"
+        grid=xrgrid,
+        cmap="gmt/relief",
+        surftype="surface",
+        contour_pen="0.5p,black,dashed",
     )
     return fig
 
@@ -275,7 +278,7 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     fig = Figure()
     fig.grdview(
         grid=xrgrid,
-        cmap="relief",
+        cmap="gmt/relief",
         surftype="surface+mesh",
         mesh_pen="0.5p,black,dashed",
     )
@@ -329,7 +332,7 @@ def test_grdview_drapegrid_dataarray(xrgrid):
     fig.grdview(
         grid=xrgrid,
         drape_grid=drape_grid,
-        cmap="oleron",
+        cmap="SCM/oleron",
         surftype="image",
         nan_transparent=True,
         frame=True,

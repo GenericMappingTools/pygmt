@@ -176,7 +176,7 @@ def grdview(  # noqa: PLR0913
     ...     # Set "surface plot" to color the surface via a CPT
     ...     surftype="surface",
     ...     # Specify CPT to "geo"
-    ...     cmap="geo",
+    ...     cmap="gmt/geo",
     ... )
     >>> # Show the plot
     >>> fig.show()
