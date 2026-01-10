@@ -189,11 +189,11 @@ def colorbar(  # noqa: PLR0913
         is in percentage of the corresponding plot side dimension (i.e., plot width for
         a horizontal colorbar, or plot height for a vertical colorbar). If width is
         given with unit ``%`` then it is in percentage of the bar length. [Length
-        default to 80% of the corresponding plot side dimension, and width default to
-        4% of the bar length].
+        defaults to 80% of the corresponding plot side dimension, and width defaults
+        to 4% of the bar length].
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
-        [Default is vertical, unless position is set to bottom-center or top-center with
+        [Default is vertical, unless ``position`` is set to bottom-center or top-center with
         ``cstype="outside"`` or ``cstype="inside"``, then horizontal is the default].
     reverse
         Reverse the positive direction of the bar.
@@ -208,18 +208,18 @@ def colorbar(  # noqa: PLR0913
         ``"start"``].
     bg_triangle
     fg_triangle
-        If ``True``, draw a sidebar triangle for the back- or foreground color [Default
-        are no triangles]. The back- and/or foreground colors are taken from the **B**
+        If ``True``, draw triangles for the back- or foreground colors [Default is
+        no triangles]. The back- and/or foreground colors are taken from the **B**
         and **F** entries in the CPT. If no such entries exist, then the system default
         colors for **B** and **F** are used instead (:gmt-term:`COLOR_BACKGROUND` and
         :gmt-term:`COLOR_FOREGROUND`).
     triangles_height
-        Height of the sidebar triangles for back- and foreground colors [Default is half
-        the bar width].
+        Height of the triangles for back- and foreground colors [Default is half
+        of the bar width].
     move_text
         Move text (annotations, label, and unit) to opposite side. Accept a sequence of
         strings containing one or more of ``"annotations"``, ``"label"``, and
-        ``"unit"``. The default placement of these texts depends on the colorbar
+        ``"unit"``. The default placements of these texts depend on the colorbar
         orientation and position.
     label_as_column
         Print a vertical label as a column of characters (does not work with special

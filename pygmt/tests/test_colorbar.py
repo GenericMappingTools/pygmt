@@ -120,6 +120,6 @@ def test_image_position_mixed_syntax():
             cmap="gmt/rainbow", position="x0/0", fg_triangle=True, bg_triangle=True
         )
     with pytest.raises(GMTInvalidInput):
-        fig.colorbar(cmap="gmt/rainbow", position="x0/0", move_text=["label"])
+        fig.colorbar(cmap="gmt/rainbow", position="x0/0", move_text="label")
     with pytest.raises(GMTInvalidInput):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", label_as_column=True)
