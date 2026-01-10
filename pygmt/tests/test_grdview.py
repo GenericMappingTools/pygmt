@@ -96,21 +96,14 @@ def test_grdview_surftype(grid):
         "perspective": (-150, 25),
         "zsize": "1.0c",
     }
-
     fig = Figure()
-    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
-        for surftype in [
-            "mesh",
-            "surface",
-            "surface+mesh",
-            "image",
-            "waterfall_x",
-            "waterfall_y",
-        ]:
-            if surftype in {"surface", "surface+mesh"}:
-                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
-            else:
-                fig.grdview(surftype=surftype, **args)
+    with fig.subplot(nrows=2, ncols=3, subsize=(5, 5), margins=(0, -1)):
+        fig.grdview(surftype="surface", cmap="SCM/oleron", **args)
+        fig.grdview(surftype="surface+mesh", cmap="SCM/oleron", **args)
+        fig.grdview(surftype="image", **args)
+        fig.grdview(surftype="mesh", **args)
+        fig.grdview(surftype="waterfall_x", **args)
+        fig.grdview(surftype="waterfall_y", **args)
     return fig
 
 
@@ -149,11 +142,9 @@ def test_grdview_monochrome(grid):
     }
     fig = Figure()
     with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
-        for surftype in ["mesh", "surface", "surface+mesh"]:
-            if surftype in {"surface", "surface+mesh"}:
-                fig.grdview(surftype=surftype, cmap="SCM/oleron", **args)
-            else:
-                fig.grdview(surftype=surftype, **args)
+        fig.grdview(surftype="surface", cmap="SCM/oleron", **args)
+        fig.grdview(surftype="surface+mesh", cmap="SCM/oleron", **args)
+        fig.grdview(surftype="mesh", **args)
     return fig
 
 
@@ -221,23 +212,6 @@ def test_grdview_with_perspective_and_zsize(xrgrid):
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, perspective=[225, 30], zsize="10c")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
-    """
-    Run grdview by passing in a grid and setting a colormap for producing a surface plot
-    with a 3-D perspective viewpoint.
-    """
-    fig = Figure()
-    fig.grdview(
-        grid=xrgrid,
-        cmap="SCM/oleron",
-        surftype="surface",
-        perspective=[225, 30],
-        zscale=0.005,
-    )
     return fig
 
 
@@ -400,10 +374,12 @@ def test_grdview_mixed_syntax(gridfile):
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
-        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", dpi=300)
+        fig.grdview(grid=gridfile, cmap="SCM/oleron", surftype="i", dpi=300)
     with pytest.raises(GMTInvalidInput):
-        fig.grdview(grid=gridfile, cmap="oleron", surftype="m", mesh_fill="red")
+        fig.grdview(grid=gridfile, cmap="SCM/oleron", surftype="m", mesh_fill="red")
     with pytest.raises(GMTInvalidInput):
-        fig.grdview(grid=gridfile, cmap="oleron", surftype="s", monochrome=True)
+        fig.grdview(grid=gridfile, cmap="SCM/oleron", surftype="s", monochrome=True)
     with pytest.raises(GMTInvalidInput):
-        fig.grdview(grid=gridfile, cmap="oleron", surftype="i", nan_transparent=True)
+        fig.grdview(
+            grid=gridfile, cmap="SCM/oleron", surftype="i", nan_transparent=True
+        )
