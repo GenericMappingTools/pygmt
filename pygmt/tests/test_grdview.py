@@ -72,6 +72,17 @@ def test_grdview_alias_Q():  # noqa: N802
     assert alias_wrapper(surftype="surface", monochrome=True) == "s+m"
     assert alias_wrapper(surftype="surface+mesh", monochrome=True) == "sm+m"
 
+    # Check backward compatibility
+    assert alias_wrapper(surftype="s") == "s"
+    assert alias_wrapper(surftype="m") == "m"
+    assert alias_wrapper(surftype="sm") == "sm"
+    assert alias_wrapper(surftype="mx") == "mx"
+    assert alias_wrapper(surftype="my") == "my"
+    assert alias_wrapper(surftype="i") == "i"
+    assert alias_wrapper(surftype="c") == "c"
+    assert alias_wrapper(surftype="mblue+m") == "mblue+m"
+    assert alias_wrapper(surftype="i150") == "i150"
+
 
 @pytest.mark.mpl_image_compare
 def test_grdview_surftype(grid):
