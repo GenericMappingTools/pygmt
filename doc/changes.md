@@ -18,6 +18,7 @@
 
 * AliasSystem: Migrate the 'registration' parameter to the new alias system and support descriptive arguments ([#4182](https://github.com/GenericMappingTools/pygmt/pull/4182))
 * pygmt.grdfilter: Let the parameter 'nans' support descriptive arguments ([#4310](https://github.com/GenericMappingTools/pygmt/pull/4310))
+* Figure.colorbar: Add position/length/width and more parameters to specify colorbar position and properties ([#4048](https://github.com/GenericMappingTools/pygmt/pull/4048))
 * Figure.grdview: Improve parameters plane/facade_fill/facade_pen to set the plane and facade ([#4235](https://github.com/GenericMappingTools/pygmt/pull/4235))
 * Figure.histogram: Split parameter bar_width into bar_width and bar_offset ([#4316](https://github.com/GenericMappingTools/pygmt/pull/4316))
 * Figure.inset: Add parameters position/width/height to specify inset position and dimensions ([#4047](https://github.com/GenericMappingTools/pygmt/pull/4047))
