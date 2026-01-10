@@ -113,6 +113,8 @@ def wiggle(  # noqa: PLR0913
         $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
+<<<<<<< HEAD
+=======
 
     position
         Position of the vertical scale on the plot. It can be specified in multiple

@@ -22,9 +22,9 @@ from pygmt.helpers import (
 def info(
     data: PathLike | TableLike,
     spacing: Sequence[float] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> np.ndarray | str:
@@ -70,7 +70,6 @@ def info(
         **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
-
     $verbose
     $aspatial
     $incols

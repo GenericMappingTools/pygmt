@@ -44,11 +44,11 @@ from pygmt.helpers import (
 def histogram(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
-    projection: str | None = None,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -78,9 +78,6 @@ def histogram(  # noqa: PLR0913
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    $projection
-    $region
-    $frame
     $cmap
     fill : str
          Set color or pattern for filling bars [Default is no fill].
@@ -148,6 +145,9 @@ def histogram(  # noqa: PLR0913
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    $projection
+    $region
+    $frame
     $verbose
     $binary
     $nodata
