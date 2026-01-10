@@ -25,7 +25,6 @@ tags: [remove-input]
 Script showing the justification codes used in GMT / PyGMT.
 """
 import pygmt
-from pygmt.params import Position
 
 size = 5
 x1 = [-size, 0, size, size, size, 0, -size, -size, 0]
