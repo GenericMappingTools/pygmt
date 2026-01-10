@@ -689,7 +689,7 @@ def test_my_plotting_case():
     Test that my plotting method works.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="gmt/geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="gmt/geo")
     return fig_ref, fig_test
 ```

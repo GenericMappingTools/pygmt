@@ -123,7 +123,7 @@ def view(central_lon):
     fig = pygmt.Figure()
     # Set up a colormap for the elevation in meters
     pygmt.makecpt(
-        cmap="oleron",
+        cmap="SCM/oleron",
         # minimum, maximum, step
         series=[int(grd_relief.data.min()) - 1, int(grd_relief.data.max()) + 1, 100],
     )

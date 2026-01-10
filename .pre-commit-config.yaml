@@ -16,7 +16,7 @@ repos:
       - id: chmod
         args: ["644"]
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.14.2
+    rev: v1.19.0
     hooks:
       - id: zizmor
 

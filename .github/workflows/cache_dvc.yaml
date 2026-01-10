@@ -52,7 +52,7 @@ jobs:
           dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       - name: Upload DVC cache as artifacts to GitHub
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: dvc-cache
           include-hidden-files: true

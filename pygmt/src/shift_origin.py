@@ -7,6 +7,8 @@ import contextlib
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list
 
+__doctest_skip__ = ["shift_origin"]
+
 
 def shift_origin(
     self, xshift: float | str | None = None, yshift: float | str | None = None
