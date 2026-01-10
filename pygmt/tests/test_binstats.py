@@ -8,6 +8,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import binstats
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -51,6 +52,38 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.mean(), 4227489)
 
 
+def test_binstats_quantile_range_validation():
+    """
+    Tests the input validation that quantile is between 0 and 100.
+    """
+    with pytest.raises(GMTInvalidInput):
+        binstats(
+            data="@capitals.gmt",
+            spacing=5,
+            statistic="quantile",
+            quantile_value=175,
+            search_radius="1000k",
+            aspatial="2=population",
+            region="g",
+        )
+
+
+def test_binstats_quantile_int_validation():
+    """
+    Tests the input validation that quantile has a numeric value.
+    """
+    with pytest.raises(GMTInvalidInput):
+        binstats(
+            data="@capitals.gmt",
+            spacing=5,
+            statistic="quantile",
+            quantile_value="test",
+            search_radius="1000k",
+            aspatial="2=population",
+            region="g",
+        )
+
+
 def test_binstats_quantile():
     """
     Test binstats quantile statistic functionality.
@@ -59,7 +92,7 @@ def test_binstats_quantile():
         data="@capitals.gmt",
         spacing=5,
         statistic="quantile",
-        quantile_value=75,
+        quantile_value="75",
         search_radius="1000k",
         aspatial="2=population",
         region="g",

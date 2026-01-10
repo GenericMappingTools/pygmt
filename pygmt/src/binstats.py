@@ -9,6 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
@@ -166,7 +167,15 @@ def binstats(
     )
     aliasdict.merge(kwargs)
     if statistic == "quantile":
-        aliasdict["C"] += f"{quantile_value}"
+        quantile_error_message = "quantile_value must be a value between 0 and 100."
+        try:
+            quantile_value_float = float(quantile_value)
+        except (ValueError, TypeError):
+            raise GMTInvalidInput(quantile_error_message) from None
+        if 0 <= quantile_value_float <= 100:
+            aliasdict["C"] += f"{quantile_value_float}"
+        else:
+            raise GMTInvalidInput(quantile_error_message) from None
 
     with Session() as lib:
         with (
