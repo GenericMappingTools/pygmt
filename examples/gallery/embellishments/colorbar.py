@@ -48,7 +48,7 @@ fig.colorbar(
     # horizontally and 0 cm vertically from anchor point, with a length of 7 cm and
     # width of 0.5 cm, and a rectangle for NaN values.
     # Note that the label 'Elevation' is moved to the opposite side and plotted
-    # vertically as a column of text.
+    # vertically as a column of characters.
     position=Position("MR", cstype="outside", offset=(1, 0)),
     length=7,
     width=0.5,
