@@ -9,6 +9,7 @@ from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
 from pygmt._typing import PathLike
+from pygmt.src import ClipAccessor
 
 try:
     import IPython
@@ -128,6 +129,15 @@ class Figure:
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
+
+    @property
+    def clip(self) -> ClipAccessor:
+        """
+        Set up a clipping path and only plot data inside/outside it.
+
+        See :class:`pygmt.src.clip.ClipAccessor <ClipAccessor>` for the usage.
+        """
+        return ClipAccessor(self)
 
     def savefig(
         self,
