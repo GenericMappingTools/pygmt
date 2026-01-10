@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v0.18.0 (2026/01/06)
+## Release v0.18.0 (2026/01/12)
 
 [![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.18080259.svg)](https://doi.org/10.5281/zenodo.18080259)
 
