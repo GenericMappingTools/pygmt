@@ -1,0 +1,5 @@
+outs:
+- md5: f4bc6e6818d9889f6c729993dbfa8cfe
+  size: 22012
+  hash: md5
+  path: test_scatter_fills.png

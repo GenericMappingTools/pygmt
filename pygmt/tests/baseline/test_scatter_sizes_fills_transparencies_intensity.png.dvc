@@ -1,0 +1,5 @@
+outs:
+- md5: f0282431c7ef8d95c870e1c3b6bcdfbd
+  size: 21231
+  hash: md5
+  path: test_scatter_sizes_fills_transparencies_intensity.png
