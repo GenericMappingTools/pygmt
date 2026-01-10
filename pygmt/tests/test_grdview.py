@@ -4,9 +4,11 @@ Test Figure.grdview.
 
 import pytest
 from pygmt import Figure, grdcut
+from pygmt.alias import AliasSystem
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.src.grdview import _alias_option_Q
 
 
 @pytest.fixture(scope="module", name="region")
@@ -41,6 +43,34 @@ def fixture_xrgrid(grid, region):
     Load the xarray.DataArray grid from the sample earth_relief file.
     """
     return grdcut(grid=grid, region=region)
+
+
+def test_grdview_alias_Q():  # noqa: N802
+    """
+    Test the parameters for the -Q option.
+    """
+
+    def alias_wrapper(**kwargs):
+        """
+        A wrapper function for testing the parameters of -Q option.
+        """
+        return AliasSystem(Q=_alias_option_Q(**kwargs)).get("Q")
+
+    # Test surftype
+    assert alias_wrapper(surftype="surface") == "s"
+    assert alias_wrapper(surftype="mesh") == "m"
+    assert alias_wrapper(surftype="surface+mesh") == "sm"
+    assert alias_wrapper(surftype="waterfall_x") == "mx"
+    assert alias_wrapper(surftype="waterfall_y") == "my"
+    assert alias_wrapper(surftype="image") == "i"
+
+    assert alias_wrapper(surftype="image", nan_transparent=True) == "c"
+    assert alias_wrapper(surftype="image", dpi=150) == "i150"
+    assert alias_wrapper(surftype="image", dpi=150, nan_transparent=True) == "c150"
+
+    assert alias_wrapper(surftype="mesh", mesh_fill="blue") == "mblue"
+    assert alias_wrapper(surftype="surface", monochrome=True) == "s+m"
+    assert alias_wrapper(surftype="surface+mesh", monochrome=True) == "sm+m"
 
 
 @pytest.mark.mpl_image_compare

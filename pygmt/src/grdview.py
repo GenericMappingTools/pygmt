@@ -17,6 +17,44 @@ from pygmt.src.grdinfo import grdinfo
 __doctest_skip__ = ["grdview"]
 
 
+def _alias_option_Q(  # noqa: N802
+    surftype=None, dpi=None, mesh_fill=None, monochrome=False, nan_transparent=False
+):
+    """
+    Helper function to build the Alias list for the -Q option.
+    """
+    _surftype_mapping = {
+        "surface": "s",
+        "mesh": "m",
+        "surface+mesh": "sm",
+        "image": "c" if nan_transparent is True else "i",
+        "waterfall_x": "mx",
+        "waterfall_y": "my",
+    }
+    # Previously, 'surftype' was aliased to Q.
+    _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
+
+    if _old_surftype_syntax and any(
+        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
+    ):
+        msg = (
+            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
+            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
+        )
+        raise GMTInvalidInput(msg)
+
+    return [
+        Alias(
+            surftype,
+            name="surftype",
+            mapping=_surftype_mapping if not _old_surftype_syntax else None,
+        ),
+        Alias(dpi, name="dpi"),
+        Alias(mesh_fill, name="mesh_fill"),
+        Alias(monochrome, name="monochrome", prefix="+m"),
+    ]
+
+
 @fmt_docstring
 @deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
@@ -34,7 +72,7 @@ def grdview(  # noqa: PLR0913
     nan_transparent: bool = False,
     monochrome: bool = False,
     contour_pen: str | None = None,
-    mesh_fill: float | None = None,
+    mesh_fill: str | None = None,
     mesh_pen: str | None = None,
     plane: float | bool = False,
     facade_fill: str | None = None,
@@ -196,27 +234,6 @@ def grdview(  # noqa: PLR0913
         )
         raise GMTInvalidInput(msg)
 
-    _surftype_mapping = {
-        "surface": "s",
-        "mesh": "m",
-        "surface+mesh": "sm",
-        "image": "c" if nan_transparent is True else "i",
-        "waterfall_x": "mx",
-        "waterfall_y": "my",
-    }
-
-    # Previously, 'surftype' was aliased to Q.
-    _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
-
-    if _old_surftype_syntax and any(
-        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
-    ):
-        msg = (
-            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
-            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
-        )
-        raise GMTInvalidInput(msg)
-
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
         plane = True
@@ -236,16 +253,13 @@ def grdview(  # noqa: PLR0913
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
-        Q=[
-            Alias(
-                surftype,
-                name="surftype",
-                mapping=_surftype_mapping if not _old_surftype_syntax else None,
-            ),
-            Alias(dpi, name="dpi"),
-            Alias(mesh_fill, name="mesh_fill"),
-            Alias(monochrome, name="monochrome", prefix="+m"),
-        ],
+        Q=_alias_option_Q(
+            surftype=surftype,
+            dpi=dpi,
+            mesh_fill=mesh_fill,
+            monochrome=monochrome,
+            nan_transparent=nan_transparent,
+        ),
         N=[
             Alias(plane, name="plane"),
             Alias(facade_fill, name="facade_fill", prefix="+g"),
