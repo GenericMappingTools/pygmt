@@ -81,6 +81,7 @@
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Xingchen He](https://github.com/Chuan1937)
+* [Will Schlitzer](https://github.com/willschlitzer)
 
 ---
 
