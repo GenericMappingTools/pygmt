@@ -13,33 +13,6 @@ from pygmt.params import Position
 from pygmt.src._common import _parse_position
 
 
-def _parse_fills(positive_fill, negative_fill):
-    """
-    Parse the positive_fill and negative_fill parameters.
-
-    >>> _parse_fills("red", "blue")
-    ['red+p', 'blue+n']
-    >>> _parse_fills(None, "blue")
-    'blue+n'
-    >>> _parse_fills("red", None)
-    'red+p'
-    >>> _parse_fills(None, None)
-    """
-    _fills = []
-    if positive_fill is not None:
-        _fills.append(positive_fill + "+p")
-    if negative_fill is not None:
-        _fills.append(negative_fill + "+n")
-
-    match len(_fills):
-        case 0:
-            return None
-        case 1:
-            return _fills[0]
-        case 2:
-            return _fills
-
-
 @fmt_docstring
 @deprecate_parameter(
     "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
@@ -113,7 +86,6 @@ def wiggle(  # noqa: PLR0913
         $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-
     position
         Position of the vertical scale on the plot. It can be specified in multiple
         ways:
@@ -172,8 +144,6 @@ def wiggle(  # noqa: PLR0913
         default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
     )
 
-    _fills = _parse_fills(positive_fill, negative_fill)
-
     aliasdict = AliasSystem(
         D=[
             Alias(position, name="position"),
@@ -186,7 +156,10 @@ def wiggle(  # noqa: PLR0913
             ),
             Alias(label, name="label", prefix="+l"),
         ],
-        G=Alias(_fills, name="positive_fill/negative_fill"),
+        G=[
+            Alias(positive_fill, name="positive_fill", suffix="+p"),
+            Alias(negative_fill, name="negative_fill", suffix="+n"),
+        ],
     ).add_common(
         B=frame,
         J=projection,
