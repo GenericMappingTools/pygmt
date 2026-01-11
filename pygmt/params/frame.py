@@ -3,6 +3,7 @@ The Axes, Axis, and Frame classes for specifying the frame.
 """
 
 import dataclasses
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias
@@ -93,6 +94,12 @@ class _Axes(BaseParam):
     fill: str | None = None
     title: str | None = None
     subtitle: str | None = None
+    box: bool = False
+    pen: str | bool = False
+    yzfill: str | None = None
+    xzfill: str | None = None
+    xyfill: str | None = None
+    pole: Sequence[float | str] | None = None
 
     @property
     def _aliases(self):
@@ -101,6 +108,12 @@ class _Axes(BaseParam):
             Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
             Alias(self.subtitle, name="subtitle", prefix="+s"),
+            Alias(self.box, name="box", prefix="+b"),
+            Alias(self.pen, name="pen", prefix="+w"),
+            Alias(self.yzfill, name="yzfill", prefix="+y"),
+            Alias(self.xzfill, name="xzfill", prefix="+x"),
+            Alias(self.xyfill, name="xyfill", prefix="+z"),
+            Alias(self.pole, name="pole", prefix="+o"),
         ]
 
 
@@ -141,6 +154,25 @@ class Frame(BaseParam):
     #: The subtitle string beneath the title [Default is no subtitle]. This requires
     #: ``title`` to be set.
     subtitle: str | None = None
+
+    #: [For 3-D plots only] Draw the foreground lines of the 3-D cube .
+    box: bool = False
+
+    #: [For 3-D plots only] If ``True``, draw the outlines of the x-z and y-z planes.
+    #: Set pen to specify different pen attributes [default is
+    #: :gmt-term:`MAP_GRID_PEN_PRIMARY`].
+    pen: str | bool = False
+
+    #: Fill the y-z, x-z, or x-y planes with specified color/pattern.
+    yzfill: str | None = None
+    xzfill: str | None = None
+    xyfill: str | None = None
+
+    #: Specify another pole (*lon*, *lat) to produce oblique gridlines about the
+    #: specified pole rather than the default [default references to the North pole].
+    #: Ignored if no gridlines are requested. Note: One cannot specify oblique gridlines
+    #: for non-geographic projections as well as the oblique Mercator projection.
+    pole: Sequence[float | str] | None = None
 
     def _validate(self):
         """
@@ -194,6 +226,12 @@ class Frame(BaseParam):
                     fill=self.fill,
                     title=self.title,
                     subtitle=self.subtitle,
+                    box=self.box,
+                    pen=self.pen,
+                    yzfill=self.yzfill,
+                    xzfill=self.xzfill,
+                    xyfill=self.xyfill,
+                    pole=self.pole,
                 )
             ),
         ]
