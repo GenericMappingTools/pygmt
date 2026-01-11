@@ -113,7 +113,7 @@ Andre Belem
 ::::
 
 ::::{grid-item-card} PyGMT-HOWTO
-:link: https://tktmyd.github.io/pygmt-howto-jp/pygmt
+:link: https://tktmyd.github.io/pygmt-howto-jp/
 :text-align: center
 :margin: 0 3 0 0
 
