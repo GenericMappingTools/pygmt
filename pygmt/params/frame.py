@@ -163,12 +163,16 @@ class Frame(BaseParam):
     #: :gmt-term:`MAP_GRID_PEN_PRIMARY`].
     pen: str | bool = False
 
-    #: Fill the y-z, x-z, or x-y planes with specified color/pattern.
+    #: Fill the y-z plane with specified color/pattern.
     yzfill: str | None = None
+
+    #: Fill the x-z plane with specified color/pattern.
     xzfill: str | None = None
+
+    #: Fill the x-y plane with specified color/pattern.
     xyfill: str | None = None
 
-    #: Specify another pole (*lon*, *lat) to produce oblique gridlines about the
+    #: Specify another pole (*lon*, *lat*) to produce oblique gridlines about the
     #: specified pole rather than the default [default references to the North pole].
     #: Ignored if no gridlines are requested. Note: One cannot specify oblique gridlines
     #: for non-geographic projections as well as the oblique Mercator projection.
