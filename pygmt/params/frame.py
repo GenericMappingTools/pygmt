@@ -52,8 +52,7 @@ class Axis(BaseParam):
 
     #: Add a leading text prefix for axis annotation (e.g., dollar sign for plots
     #: related to money) (for Cartesian plots only). For geographic maps the addition
-    #: of degree symbols, etc. is automatic and controlled by
-    #: :gmt-term:`FORMAT_GEO_MAP`.
+    #: of degree symbols is automatic and controlled by :gmt-term:`FORMAT_GEO_MAP`.
     prefix: str | None = None
 
     #: Append a unit to the annotations (for Cartesian plots only). For geographic maps
@@ -79,6 +78,7 @@ class Axis(BaseParam):
             Alias(self.hlabel, name="hlabel", prefix="+L"),
             Alias(self.alt_label, name="alt_label", prefix="+s"),
             Alias(self.alt_hlabel, name="alt_hlabel", prefix="+S"),
+            Alias(self.prefix, name="prefix", prefix="+p"),
             Alias(self.unit, name="unit", prefix="+u"),
         ]
 
@@ -113,7 +113,7 @@ class _Axes(BaseParam):
             Alias(self.yzfill, name="yzfill", prefix="+y"),
             Alias(self.xzfill, name="xzfill", prefix="+x"),
             Alias(self.xyfill, name="xyfill", prefix="+z"),
-            Alias(self.pole, name="pole", prefix="+o"),
+            Alias(self.pole, name="pole", prefix="+o", sep="/", size=2),
         ]
 
 
