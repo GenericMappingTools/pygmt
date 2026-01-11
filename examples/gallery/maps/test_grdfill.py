@@ -1,5 +1,5 @@
 """
-Grdfill
+grdfill
 =======
 
 xxx
@@ -17,3 +17,6 @@ filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill="c20")
 
 # %%
 filled_grid = pygmt.grdfill(grid=earth_relief_holes, constant_fill="c20")
+
+# %%
+hole_grid = pygmt.grdfill(grid=earth_relief_holes, no_data="42")
