@@ -89,7 +89,7 @@ def grdproject(  # noqa: PLR0913
         projected meters. To specify other units, set it to ``"f"`` (feet),
         ``"k"`` (kilometers), ``"M"`` (statute miles), ``"n"`` (nautical miles),
         ``"u"`` (US survey feet), ``"i"`` (inches), ``"c"`` (centimeters), or
-        ``"p"`` (points). Without ``scaling``, the output (or input, see ``inverse``) is 
+        ``"p"`` (points). Without ``scaling``, the output (or input, see ``inverse``) is
         in the units specified by :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
     $projection
     $region
