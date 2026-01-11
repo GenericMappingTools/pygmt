@@ -86,7 +86,7 @@ def grdproject(  # noqa: PLR0913
         :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with ``scaling``.
     scaling
         Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual
-        projected meters. To specify other units, set it to **f** (feet),
+        projected meters. To specify other units, set it to ``"f"`` (feet),
         **k** (kilometers), **M** (statute miles), **n** (nautical miles),
         **u** (US survey feet), **i** (inches), **c** (centimeters), or **p** (points).
         Without ``scaling``, the output (or input, see ``inverse``) are in the units
