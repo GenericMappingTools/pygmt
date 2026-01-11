@@ -42,17 +42,15 @@ def choropleth(
     --------
     >>> import geopandas as gpd
     >>> import pygmt
-    >>> gdf = gpd.read_file(
-    ...     "https://geodacenter.github.io/data-and-lab/data/airbnb.zip"
+    >>> world = gpd.read_file(
+    ...     "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
     ... )
+    >>> world["POP_EST"] *= 1e-6  # Population in millions
+
     >>> fig = pygmt.Figure()
-    >>> pygmt.makecpt(
-    ...     cmap="acton",
-    ...     series=[gdf["population"].min(), gdf["population"].max(), 10],
-    ...     continuous=True,
-    ...     reverse=True,
-    ... )
-    >>> fig.choropleth(gdf, column="population", pen="0.3p,gray10")
+    >>> fig.basemap(region=[-19.5, 53, -38, 37.5], projection="M15c", frame=True)
+    >>> pygmt.makecpt(cmap="bilbao", series=(0, 270, 10), reverse=True)
+    >>> fig.choropleth(world, column="POP_EST", pen="0.3p,gray10")
     >>> fig.colorbar(frame=True)
     >>> fig.show()
     """
