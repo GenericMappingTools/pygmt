@@ -62,8 +62,8 @@ with fig.subplot(
 
 fig.colorbar(
     position=Position("BC", cstype="outside"),
-    length=10,
-    width=0.25,
+    length=14,
+    width=0.4,
     orientation="horizontal",
     frame="xa2000f500+lElevation (m)",
 )
