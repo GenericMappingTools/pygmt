@@ -8,7 +8,6 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
@@ -19,9 +18,9 @@ __doctest_skip__ = ["scalebar"]
 @fmt_docstring
 def scalebar(  # noqa: PLR0913
     self,
-    position: Position | Sequence[float | str] | AnchorCode | None = None,
-    length: float | str | None = None,
+    length: float | str,
     height: float | str | None = None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
     scale_at: float | Sequence[float] | bool = False,
     label: str | bool = False,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
@@ -40,6 +39,12 @@ def scalebar(  # noqa: PLR0913
 
     Parameters
     ----------
+    length
+        Length of the scale bar in km. Append a suffix to specify different units. Valid
+        units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute mile;
+        **n**: nautical miles; **u**: US Survey foot.
+    height
+        Height of the scale bar. Only works when ``fancy=True``. [Default is ``"5p"``].
     position
         Position of the scale bar on the plot. It can be specified in multiple ways:
 
@@ -52,12 +57,6 @@ def scalebar(  # noqa: PLR0913
 
         If not specified, defaults to the Bottom Left corner of the plot with a 0.2-cm
         and 0.4-cm offset in the x- and y-directions, respectively.
-    length
-        Length of the scale bar in km. Append a suffix to specify different units. Valid
-        units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute mile;
-        **n**: nautical miles; **u**: US Survey foot.
-    height
-        Height of the scale bar. Only works when ``fancy=True``. [Default is ``"5p"``].
     scale_at
         Specify the location where the map scale is calculated. It can be:
 
@@ -100,8 +99,8 @@ def scalebar(  # noqa: PLR0913
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, -30, 30], projection="M10c", frame=True)
     >>> fig.scalebar(
-    ...     position=Position((10, 10), cstype="mapcoords"),
     ...     length=1000,
+    ...     position=Position((10, 10), cstype="mapcoords"),
     ...     fancy=True,
     ...     label="Scale",
     ...     unit=True,
@@ -110,24 +109,12 @@ def scalebar(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Parse the 'position' parameter.
+    # No need to check conflicts with other parameters since it's a new function.
     position = _parse_position(
         position,
-        kwdict={
-            "length": length,
-            "height": height,
-            "label_alignment": label_alignment,
-            "scale_at": scale_at,
-            "fancy": fancy,
-            "label": label,
-            "unit": unit,
-            "vertical": vertical,
-        },
         default=Position("BL", offset=(0.2, 0.4)),  # Default to "BL" with offset.
     )
-
-    if length is None:
-        msg = "Parameter 'length' must be specified."
-        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
