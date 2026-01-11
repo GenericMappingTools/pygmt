@@ -2,6 +2,7 @@
 basemap - Plot base maps and frames.
 """
 
+import warnings
 from collections.abc import Sequence
 from typing import Literal
 
@@ -11,20 +12,15 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    L="map_scale",
-    F="box",
-    Td="rose",
-    Tm="compass",
-    f="coltypes",
-)
-def basemap(
+@use_alias(F="box", Td="rose", Tm="compass", f="coltypes")
+def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
     zsize: float | str | None = None,
     zscale: float | str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    map_scale: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -50,6 +46,7 @@ def basemap(
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - L = map_scale
        - R = region
        - V = verbose
        - c = panel
@@ -64,10 +61,13 @@ def basemap(
     $region
         *Required if this is the first plot command.*
     $frame
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*.
+    map_scale
         Draw a simple map scale centered on the reference point specified.
+
+        .. deprecated:: 0.18.0
+
+            The ``map_scale`` parameter is deprecated and will be removed in a
+            future version. Use :meth:`pygmt.Figure.scalebar` instead.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -100,9 +100,19 @@ def basemap(
     """
     self._activate_figure()
 
+    if kwargs.get("L", map_scale) is not None:
+        warnings.warn(
+            "The 'map_scale' parameter in 'Figure.basemap' is deprecated in v0.18.0 and "
+            "will be removed in a future version. "
+            "To add a scale bar, use 'Figure.scalebar' instead.",
+            FutureWarning,
+            stacklevel=3,
+        )
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        L=Alias(map_scale, name="map_scale"),
     ).add_common(
         B=frame,
         J=projection,

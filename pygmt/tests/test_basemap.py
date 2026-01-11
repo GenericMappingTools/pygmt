@@ -121,12 +121,13 @@ def test_basemap_map_scale():
     Create a map with a map scale.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        map_scale="jMC+c26.5+w10k+f+l",
-    )
+    with pytest.warns(FutureWarning):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            map_scale="jMC+c26.5+w10k+f+l",
+        )
     return fig
 
 
