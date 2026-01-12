@@ -37,7 +37,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -49,7 +49,7 @@ jobs:
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.13
+            python=3.14
             gmt=6.6.0
             numpy
             pandas

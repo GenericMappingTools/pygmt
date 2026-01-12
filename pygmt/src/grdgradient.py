@@ -7,35 +7,28 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdgradient"]
 
 
 @fmt_docstring
 @use_alias(
-    A="azimuth",
     D="direction",
-    E="radiance",
     N="normalize",
     Q="tiles",
     S="slope_file",
     f="coltypes",
     n="interpolation",
 )
-@kwargs_to_strings(A="sequence", E="sequence")
 def grdgradient(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    azimuth: float | Sequence[float] | None = None,
+    radiance: Sequence[float] | str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -49,22 +42,24 @@ def grdgradient(
 
     Full GMT docs at :gmt-docs:`grdgradient.html`.
 
-    {aliases}
+    $aliases
+       - A = azimuth
+       - E = radiance
        - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    azimuth : float, str, or list
-        *azim*\ [/*azim2*].
+    $grid
+    $outgrid
+    azimuth
+        *azim* or (*azim*, *azim2*).
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
         north (the positive y-direction) toward east (the positive x-direction). The
         negative of the directional derivative,
-        :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \
-        \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields
+        :math:`-(\frac{dz}{dx}\sin(\mbox{azim}) + \
+        \frac{dz}{dy}\cos(\mbox{azim}))`, is found; negation yields
         positive values when the slope of :math:`z(x,y)` is downhill in the
         *azim* direction, the correct sense for shading the illumination of an
         image by a light source above the x,y plane shining from the *azim*
@@ -87,9 +82,9 @@ def grdgradient(
         - **o**: Report orientations (0-180) rather than directions (0-360).
         - **n**: Add 90 degrees to all angles (e.g., to give local strikes of
           the surface).
-    radiance : str or list
-        [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
-        *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
+    radiance
+        (*azim*, *elev*) or [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*]
+        [**+d**\ *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with
         :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The
         Lambertian Reflection assumes an ideal surface that reflects all the
@@ -114,18 +109,18 @@ def grdgradient(
         given, it is set to the average of :math:`g`. The following forms are
         supported:
 
-        - **True**: Normalize using :math:`g_n = \mbox{{amp}}\
-          (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`
+        - **True**: Normalize using math:`g_n = \mbox{amp}\
+          (\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})`
         - **e**: Normalize using a cumulative Laplace distribution yielding:
-          :math:`g_n = \mbox{{amp}}(1 - \
-          \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where
+          :math:`g_n = \mbox{amp}(1 - \
+          \exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}`, where
           :math:`\sigma` is estimated using the L1 norm of
-          :math:`(g - \mbox{{offset}})` if it is not given.
+          :math:`(g - \mbox{offset})` if it is not given.
         - **t**: Normalize using a cumulative Cauchy distribution yielding:
           :math:`g_n = \
-          \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \
-          \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated
-          using the L2 norm of :math:`(g - \mbox{{offset}})` if it is not
+          \frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \
+          \mbox{offset}}{\sigma}))` where :math:`\sigma` is estimated
+          using the L2 norm of :math:`(g - \mbox{offset})` if it is not
           given.
 
         As a final option, you may add **+a**\ *ambient* to add *ambient* to
@@ -141,13 +136,13 @@ def grdgradient(
         grid output is not needed for this run then do not specify
         ``outgrid``. For subsequent runs, just use **r** to read these
         values. Using **R** will read then delete the statistics file.
-    {region}
+    $region
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {verbose}
-    {coltypes}
-    {interpolation}
+    $verbose
+    $coltypes
+    $interpolation
 
     Returns
     -------
@@ -172,14 +167,21 @@ def grdgradient(
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
         msg = "Must specify normalize if tiles is specified."
         raise GMTInvalidInput(msg)
-    if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
+    if (
+        kwargs.get("A", azimuth) is None
+        and kwargs.get("D") is None
+        and kwargs.get("E", radiance) is None
+    ):
         msg = (
             "At least one of the following parameters must be specified: "
             "azimuth, direction, or radiance."
         )
         raise GMTInvalidInput(msg)
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        A=Alias(azimuth, name="azimuth", sep="/", size=2),
+        E=Alias(radiance, name="radiance", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )

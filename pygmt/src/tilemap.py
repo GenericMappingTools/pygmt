@@ -9,7 +9,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 try:
     from xyzservices import TileProvider
@@ -18,14 +18,7 @@ except ImportError:
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    E="dpi",
-    I="shading",
-    Q="nan_transparent",
-    p="perspective",
-)
-@kwargs_to_strings(p="sequence")
+@use_alias(E="dpi", I="shading", Q="nan_transparent")
 def tilemap(  # noqa: PLR0913
     self,
     region: Sequence[float],
@@ -38,10 +31,12 @@ def tilemap(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -57,12 +52,14 @@ def tilemap(  # noqa: PLR0913
     ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
        - M = monochrome
        - N = no_clip
        - V = verbose
        - c = panel
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -90,8 +87,8 @@ def tilemap(  # noqa: PLR0913
           tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
-          URL need to be ``{{x}}``, ``{{y}}``, ``{{z}}``, respectively. E.g.
-          ``https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png``.
+          URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
+          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -137,10 +134,12 @@ def tilemap(  # noqa: PLR0913
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

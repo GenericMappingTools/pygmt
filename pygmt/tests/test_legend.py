@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 
@@ -45,20 +45,6 @@ T so we may have to adjust the box height to get the right size box.
 
 
 @pytest.mark.mpl_image_compare
-def test_legend_position():
-    """
-    Test positioning the legend with different coordinate systems.
-    """
-    fig = Figure()
-    fig.basemap(region=[-2, 2, -2, 2], frame=True)
-    positions = ["jTR+jTR", "g0/1", "n0.2/0.2", "x4i/2i/2i"]
-    for i, position in enumerate(positions):
-        fig.plot(x=[0], y=[0], style="p10p", label=i)
-        fig.legend(position=position, box=True)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_legend_default_position():
     """
     Test using the default legend position.
@@ -87,7 +73,7 @@ def test_legend_entries():
     )
     fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
-    fig.legend(position="JTR+jTR")
+    fig.legend(position="TR")
     return fig
 
 
@@ -100,7 +86,7 @@ def test_legend_specfile(legend_spec):
         Path(specfile.name).write_text(legend_spec, encoding="utf-8")
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-        fig.legend(specfile.name, position="JTM+jCM+w5i")
+        fig.legend(specfile.name, position="MC", width="5i")
         return fig
 
 
@@ -112,7 +98,48 @@ def test_legend_stringio(legend_spec):
     spec = io.StringIO(legend_spec)
     fig = Figure()
     fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
-    fig.legend(spec, position="JTM+jCM+w5i")
+    fig.legend(spec, position="MC", width="5i")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_legend_width_height():
+    """
+    Test legend with specified width and height.
+    """
+    spec = io.StringIO(
+        """
+S 0.1i c 0.15i p300/12 0.25p 0.3i This circle is hachured
+S 0.1i e 0.15i yellow 0.25p 0.3i This ellipse is yellow
+S 0.1i w 0.15i green 0.25p 0.3i This wedge is green
+S 0.1i f0.1i+l+t 0.25i blue 0.25p 0.3i This is a fault
+S 0.1i - 0.15i - 0.25p,- 0.3i A dashed contour
+S 0.1i v0.1i+a40+e 0.25i magenta 0.25p 0.3i This is a vector
+S 0.1i i 0.15i cyan 0.25p 0.3i This triangle is boring
+"""
+    )
+    fig = Figure()
+    fig.basemap(projection="x1c", region=[0, 20, 0, 20], frame="g1")
+    # Default width and height
+    fig.legend(spec, position="TL", box=True)
+
+    # Width only
+    fig.legend(spec, position="TC", width="6c", box=True)
+    # Width as percentage of plot width
+    fig.legend(spec, position="TR", width="25%", box=True)
+
+    # Height only, with automatic width
+    fig.legend(spec, position="ML", height="4.5c", box=True)
+    # Height as percentage of legend width
+    fig.legend(spec, position="BL", height="75%", box=True)
+
+    # Both width and height
+    fig.legend(spec, position="MC", width="6c", height="4.5c", box=True)
+    # Height as percentage of legend width
+    fig.legend(spec, position="BC", width="6c", height="75%", box=True)
+    # Width as percentage of plot width and height as percentage of legend width
+    fig.legend(spec, position="BR", width="25%", height="75%", box=True)
+
     return fig
 
 
@@ -126,3 +153,30 @@ def test_legend_fails():
 
     with pytest.raises(GMTTypeError):
         fig.legend(spec=[1, 2])
+
+
+@pytest.mark.mpl_image_compare(filename="test_legend_specfile.png")
+def test_legend_position_deprecated_syntax(legend_spec):
+    """
+    Test using a deprecated syntax for legend position.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    fig.legend(spec, position="JMC+jMC+w5i")
+    return fig
+
+
+def test_legend_position_mixed_syntax(legend_spec):
+    """
+    Test using a mixed syntax for legend position.
+    """
+    spec = io.StringIO(legend_spec)
+    fig = Figure()
+    fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec, position="jTL", width="5i")
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec, position="jTL", height="5i")
+    with pytest.raises(GMTInvalidInput):
+        fig.legend(spec, position="jTL", line_spacing=2.0)

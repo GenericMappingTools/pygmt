@@ -9,25 +9,23 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="normalize",
     S="search_radius",
     W="weight",
     a="aspatial",
     b="binary",
     h="header",
-    i="incols",
 )
-@kwargs_to_strings(I="sequence", i="sequence_comma")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     statistic: Literal[
         "mean",
         "mad",
@@ -51,6 +49,7 @@ def binstats(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -66,17 +65,19 @@ def binstats(
 
     Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
-    {aliases}
+    $aliases
        - C = statistic
+       - I = spacing
        - R = region
        - V = verbose
+       - i = incols
        - r = registration
 
     Parameters
     ----------
     data
-        A file name of an ASCII data table or a 2-D {table-classes}.
-    {outgrid}
+        A file name of an ASCII data table or a 2-D $table_classes.
+    $outgrid
     statistic
         Choose the statistic that will be computed per node based on the points that are
         within *radius* distance of the node. Select one of:
@@ -115,14 +116,14 @@ def binstats(
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {header}
-    {incols}
-    {registration}
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $header
+    $incols
+    $registration
 
     Returns
     -------
@@ -156,9 +157,11 @@ def binstats(
                 "sum": "z",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
         V=verbose,
+        i=incols,
         r=registration,
     )
     aliasdict.merge(kwargs)

@@ -9,26 +9,26 @@ import pandas as pd
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(B="frame", p="perspective")
-@kwargs_to_strings(p="sequence")
-def solar(
+def solar(  # noqa: PLR0913
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     fill: str | None = None,
     pen: str | None = None,
     projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -39,7 +39,12 @@ def solar(
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - B = frame
        - G = fill
        - J = projection
        - R = region
@@ -48,6 +53,7 @@ def solar(
        - W = pen
        - c = panel
        - t = transparency
+       - p = perspective
 
     Parameters
     ----------
@@ -68,17 +74,17 @@ def solar(
         integer number of hours (e.g., -8 or +5); fractional hours are truncated
         towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
         current UTC date and time].
-    {region}
-    {projection}
-    {frame}
+    $region
+    $projection
+    $frame
     fill
         Set color or pattern for filling terminators [Default is no fill].
     pen
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
 
     Example
     -------
@@ -139,10 +145,12 @@ def solar(
         ],
         W=Alias(pen, name="pen"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)

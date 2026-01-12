@@ -10,12 +10,11 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -52,23 +51,21 @@ class triangulate:  # noqa: N801
     @staticmethod
     @fmt_docstring
     @use_alias(
-        I="spacing",
         b="binary",
         d="nodata",
         e="find",
         f="coltypes",
         h="header",
-        i="incols",
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", i="sequence_comma")
-    def regular_grid(
+    def regular_grid(  # noqa: PLR0913
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
         z=None,
         outgrid: PathLike | None = None,
+        spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
@@ -76,6 +73,7 @@ class triangulate:  # noqa: N801
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
+        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -101,10 +99,12 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
-        {aliases}
+        $aliases
+           - I = spacing
            - J = projection
            - R = region
            - V = verbose
+           - i = incols
            - r = registration
 
         Parameters
@@ -114,26 +114,26 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
-        {projection}
-        {region}
-        {spacing}
-        {outgrid}
+            $table_classes.
+        $projection
+        $region
+        $spacing
+        $outgrid
             The interpolation is performed in the original coordinates, so if
             your triangles are close to the poles you are better off projecting
             all data to a local coordinate system before using ``triangulate``
             (this is true of all gridding routines) or instead select
             :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
-        {verbose}
-        {binary}
-        {nodata}
-        {find}
-        {coltypes}
-        {header}
-        {incols}
-        {registration}
-        {skiprows}
-        {wrap}
+        $verbose
+        $binary
+        $nodata
+        $find
+        $coltypes
+        $header
+        $incols
+        $registration
+        $skiprows
+        $wrap
 
         Returns
         -------
@@ -150,10 +150,13 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        aliasdict = AliasSystem().add_common(
+        aliasdict = AliasSystem(
+            I=Alias(spacing, name="spacing", sep="/", size=2),
+        ).add_common(
             R=region,
             J=projection,
             V=verbose,
+            i=incols,
             r=registration,
         )
         aliasdict.merge(kwargs)
@@ -174,18 +177,15 @@ class triangulate:  # noqa: N801
     @staticmethod
     @fmt_docstring
     @use_alias(
-        I="spacing",
         b="binary",
         d="nodata",
         e="find",
         f="coltypes",
         h="header",
-        i="incols",
         s="skiprows",
         w="wrap",
     )
-    @kwargs_to_strings(I="sequence", i="sequence_comma")
-    def delaunay_triples(
+    def delaunay_triples(  # noqa: PLR0913
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
@@ -193,6 +193,7 @@ class triangulate:  # noqa: N801
         *,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
+        spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
@@ -200,6 +201,7 @@ class triangulate:  # noqa: N801
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
+        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -218,10 +220,12 @@ class triangulate:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`triangulate.html`
 
-        {aliases}
+        $aliases
+           - I = spacing
            - J = projection
            - R = region
            - V = verbose
+           - i = incols
            - r = registration
 
         Parameters
@@ -231,20 +235,20 @@ class triangulate:  # noqa: N801
         data
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
-            {table-classes}.
-        {projection}
-        {region}
-        {output_type}
-        {outfile}
-        {verbose}
-        {binary}
-        {nodata}
-        {find}
-        {coltypes}
-        {header}
-        {incols}
-        {skiprows}
-        {wrap}
+            $table_classes.
+        $projection
+        $region
+        $output_type
+        $outfile
+        $verbose
+        $binary
+        $nodata
+        $find
+        $coltypes
+        $header
+        $incols
+        $skiprows
+        $wrap
 
         Returns
         -------
@@ -265,10 +269,13 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        aliasdict = AliasSystem().add_common(
+        aliasdict = AliasSystem(
+            I=Alias(spacing, name="spacing", sep="/", size=2),
+        ).add_common(
             J=projection,
             R=region,
             V=verbose,
+            i=incols,
             r=registration,
         )
         aliasdict.merge(kwargs)

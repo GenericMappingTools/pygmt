@@ -77,14 +77,14 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
            - R = region
            - V = verbose
 
         Parameters
         ----------
-        {grid}
-        {outgrid}
+        $grid
+        $outgrid
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
@@ -94,8 +94,8 @@ class grdhisteq:  # noqa: N801
             range.
         quadratic: bool
             Perform quadratic equalization [Default is linear].
-        {region}
-        {verbose}
+        $region
+        $verbose
 
         Returns
         -------
@@ -175,22 +175,22 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
            - R = region
            - V = verbose
 
         Parameters
         ----------
-        {grid}
-        {output_type}
-        {outfile}
+        $grid
+        $output_type
+        $outfile
         divisions : int
             Set the number of divisions of the data range.
         quadratic : bool
             Perform quadratic equalization [Default is linear].
-        {region}
-        {verbose}
-        {header}
+        $region
+        $verbose
+        $header
 
         Returns
         -------

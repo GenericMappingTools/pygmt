@@ -10,18 +10,22 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", I="spacing")
-@kwargs_to_strings(I="sequence")
+@deprecate_parameter("maskvalues", "mask_values", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "bordervalues", "border_values", "v0.18.0", remove_version="v0.20.0"
+)
+@use_alias(A="area_thresh")
 def grdlandmask(
     outgrid: PathLike | None = None,
-    maskvalues: Sequence[float] | None = None,
-    bordervalues: bool | float | Sequence[float] | None = None,
+    spacing: Sequence[float | str] | None = None,
+    mask_values: Sequence[float] | None = None,
+    border_values: bool | float | Sequence[float] | None = None,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
@@ -43,10 +47,11 @@ def grdlandmask(
 
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
-    {aliases}
+    $aliases
        - D = resolution
-       - E = bordervalues
-       - N = maskvalues
+       - E = border_values
+       - I = spacing
+       - N = mask_values
        - R = region
        - V = verbose
        - r = registration
@@ -54,10 +59,10 @@ def grdlandmask(
 
     Parameters
     ----------
-    {outgrid}
-    {spacing}
-    {region}
-    {area_thresh}
+    $outgrid
+    $spacing
+    $region
+    $area_thresh
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
@@ -67,15 +72,15 @@ def grdlandmask(
         mask file using one resolution is not guaranteed to remain inside [or outside]
         when a different resolution is selected. If ``None``, the low resolution is used
         by default.
-    maskvalues
+    mask_values
         Set the values that will be assigned to nodes, in the form of [*wet*, *dry*], or
         [*ocean*, *land*, *lake*, *island*, *pond*]. Default is ``[0, 1, 0, 1, 0]``
         (i.e., ``[0, 1]``), meaning that all "wet" nodes will be assigned a value of 0
         and all "dry" nodes will be assigned a value of 1. Values can be any number, or
         one of ``None``, ``"NaN"``, and ``np.nan`` for setting nodes to NaN.
 
-        Use ``bordervalues`` to control how nodes on feature boundaries are handled.
-    bordervalues
+        Use ``border_values`` to control how nodes on feature boundaries are handled.
+    border_values
         Sets the behavior for nodes that fall exactly on a polygon boundary. Valid
         values are:
 
@@ -90,9 +95,9 @@ def grdlandmask(
 
         Values can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
         setting nodes to NaN.
-    {verbose}
-    {registration}
-    {cores}
+    $verbose
+    $registration
+    $cores
 
     Returns
     -------
@@ -110,7 +115,7 @@ def grdlandmask(
     >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if kwargs.get("I") is None or kwargs.get("R", region) is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         msg = "Both 'region' and 'spacing' must be specified."
         raise GMTInvalidInput(msg)
 
@@ -127,8 +132,9 @@ def grdlandmask(
                 "crude": "c",
             },
         ),
-        N=Alias(maskvalues, name="maskvalues", sep="/", size=(2, 5)),
-        E=Alias(bordervalues, name="bordervalues", sep="/", size=4),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+        N=Alias(mask_values, name="mask_values", sep="/", size=(2, 5)),
+        E=Alias(border_values, name="border_values", sep="/", size=4),
     ).add_common(
         R=region,
         V=verbose,

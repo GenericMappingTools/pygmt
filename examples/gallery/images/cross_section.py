@@ -14,7 +14,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 # Define region of study area
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
@@ -37,16 +37,20 @@ fig.basemap(region=region_map, projection="M12c", frame="af")
 grid_map = pygmt.datasets.load_earth_relief(resolution="10m", region=region_map)
 
 # Plot the downloaded grid with color-coding based on the elevation
-fig.grdimage(grid=grid_map, cmap="oleron")
+fig.grdimage(grid=grid_map, cmap="SCM/oleron")
 
 # Add a colorbar for the elevation
 fig.colorbar(
-    # Place the colorbar inside the plot (lowercase "j") in the Bottom Right (BR)
-    # corner with an offset ("+o") of 0.7 centimeters and 0.3 centimeters in x- or y-
-    # directions, respectively; move the x-label above the horizontal colorbar ("+ml")
-    position="jBR+o0.7c/0.8c+h+w5c/0.3c+ml",
+    # Place the colorbar inside the plot in the Bottom Right (BR) corner with an offset
+    # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively;
+    # move the x-label above the horizontal colorbar.
+    position=Position("BR", offset=(0.7, 0.8)),
+    length=5,
+    width=0.3,
+    orientation="horizontal",
+    move_text="label",
     # Add a box around the colobar, filled in white and a 30 % transparency, with a
-    # 0.8-points thick, black, outline.
+    # 0.8-point thick, black, outline.
     box=Box(pen="0.8p,black", fill="white@30"),
     # Add x- and y-labels ("+l")
     frame=["x+lElevation", "y+lm"],
@@ -103,7 +107,7 @@ fig.plot(
     x=[0, 15],
     y=[0, 0],
     fill="lightblue",  # Fill the polygon in "lightblue"
-    pen="0.25p,black,solid",  # Draw a 0.25-points thick, black, solid outline
+    pen="0.25p,black,solid",  # Draw a 0.25-point thick, black, solid outline
     close="+y-8000",  # Force closed polygon
 )
 
