@@ -14,6 +14,7 @@ def cache_data() -> None:
         # List of GMT remote datasets.
         "@earth_age_01d_g",
         "@earth_age_30m_g",
+        "@earth_age_10m_g",
         "@earth_day_01d_p",
         "@earth_dist_01d_g",
         "@earth_dist_30m_g",
@@ -112,6 +113,7 @@ def cache_data() -> None:
         "@RidgeTest.prj",
         "@RidgeTest.shp",
         "@RidgeTest.shx",
+        "@SOEST_block4.png",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
         "@capitals.gmt",
