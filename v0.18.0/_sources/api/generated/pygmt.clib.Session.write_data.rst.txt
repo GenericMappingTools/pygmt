@@ -1,0 +1,13 @@
+pygmt.clib.Session.write\_data
+==============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.write_data
+
+.. minigallery:: pygmt.clib.Session.write_data
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

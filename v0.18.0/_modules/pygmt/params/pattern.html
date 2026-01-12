@@ -1,0 +1,313 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.params.pattern &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//latest/_modules/pygmt/params/pattern.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1104f2bf"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       v0.18.0
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.params.pattern</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.params.pattern</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The Pattern class for specifying bit and hachure patterns.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParam</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Pattern&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Pattern">
+<a class="viewcode-back" href="../../../api/generated/pygmt.params.Pattern.html#pygmt.params.Pattern">[docs]</a>
+<span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pattern</span><span class="p">(</span><span class="n">BaseParam</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for specifying bit and hachure patterns.</span>
+
+<span class="sd">    This class allows users to specify predefined bit-patterns or custom 1-, 8-, or</span>
+<span class="sd">    24-bit image raster files to fill symbols and polygons in various PyGMT plotting</span>
+<span class="sd">    methods. The patterns can be customized with different resolution and different</span>
+<span class="sd">    foreground and background colors. The foreground and background colors can also be</span>
+<span class="sd">    inverted.</span>
+
+<span class="sd">    GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are</span>
+<span class="sd">    numbered from 1 to 90, and shown below:</span>
+
+<span class="sd">    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_App_E.png</span>
+<span class="sd">       :alt: The 90 predefined bit-patterns provided with GMT</span>
+<span class="sd">       :width: 75%</span>
+<span class="sd">       :align: center</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Draw a global map with land areas filled with pattern 15 in a light red background</span>
+<span class="sd">    and 200 dpi resolution:</span>
+
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.params import Pattern</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig.coast(</span>
+<span class="sd">    ...     region=&quot;g&quot;,</span>
+<span class="sd">    ...     projection=&quot;H10c&quot;,</span>
+<span class="sd">    ...     frame=True,</span>
+<span class="sd">    ...     land=Pattern(15, bgcolor=&quot;lightred&quot;, dpi=200),</span>
+<span class="sd">    ...     shorelines=True,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: The pattern to use. It can be specified in two forms:</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64</span>
+    <span class="c1">#:   bit-patterns. [Default is 1].</span>
+    <span class="c1">#: - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating</span>
+    <span class="c1">#:   images using image raster files.</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">PathLike</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1">#: Resolution of the pattern in dots per inch (DPI) [Default is 300].</span>
+    <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The background color for predefined bit-patterns or 1-bit images.</span>
+    <span class="c1">#: Setting either ``bgcolor`` or ``fgcolor`` to an empty string will yield a</span>
+    <span class="c1">#: transparent background/foreground where only the foreground/background pixels</span>
+    <span class="c1">#: will be painted. [Default is white for background and black for foreground].</span>
+    <span class="n">bgcolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The foreground color for predefined bit-patterns or 1-bit images.</span>
+    <span class="n">fgcolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: If ``True``, the pattern will be bit-inverted, i.e., white and black areas will</span>
+    <span class="c1">#: be interchanged (only applies to predefined bit-patterns or 1-bit images).</span>
+    <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Integer pattern number must be in the range 1-90.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pattern number&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Parameter &#39;pattern&#39; must be an integer in the range 1-90 &quot;</span>
+                    <span class="s2">&quot;or the name of a 1-, 8-, or 24-bit image raster file.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># fgcolor and bgcolor cannot both be empty.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fgcolor</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fgcolor</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="si">=}</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">_value</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;fgcolor and bgcolor&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;fgcolor and bgcolor cannot both be empty.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aliases for the Pattern class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pattern&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;P&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">invert</span> <span class="k">else</span> <span class="s2">&quot;p&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bgcolor&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+b&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fgcolor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fgcolor&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+f&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+r&quot;</span><span class="p">),</span>
+        <span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.18.0">v0.18.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Jan 11, 2026.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

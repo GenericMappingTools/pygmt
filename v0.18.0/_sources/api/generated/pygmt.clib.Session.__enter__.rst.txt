@@ -1,0 +1,13 @@
+pygmt.clib.Session.\_\_enter\_\_
+================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.__enter__
+
+.. minigallery:: pygmt.clib.Session.__enter__
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

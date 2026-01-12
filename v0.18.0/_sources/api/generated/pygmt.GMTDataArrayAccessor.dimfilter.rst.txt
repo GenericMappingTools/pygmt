@@ -1,0 +1,13 @@
+pygmt.GMTDataArrayAccessor.dimfilter
+====================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTDataArrayAccessor.dimfilter
+
+.. minigallery:: pygmt.GMTDataArrayAccessor.dimfilter
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

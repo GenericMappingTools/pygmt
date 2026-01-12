@@ -1,0 +1,440 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.grdfill &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//latest/_modules/pygmt/src/grdfill.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1104f2bf"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       v0.18.0
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.src.grdfill</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.grdfill</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">grdfill - Interpolate across holes in a grid.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">deprecate_parameter</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdfill&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_params</span><span class="p">(</span>
+    <span class="n">constant_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">neighbor_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spline_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">inquire</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate the fill/inquire parameters.</span>
+
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(inquire=True)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(mode=&quot;c20.0&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0, grid_fill=&quot;bggrid.nc&quot;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0, inquire=True)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params()</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_fill_params</span> <span class="o">=</span> <span class="s2">&quot;&#39;constant_fill&#39;/&#39;grid_fill&#39;/&#39;neighbor_fill&#39;/&#39;spline_fill&#39;&quot;</span>
+    <span class="c1"># The deprecated &#39;mode&#39; parameter is given.</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;The &#39;mode&#39; parameter is deprecated since v0.15.0 and will be removed in &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;v0.19.0. Use </span><span class="si">{</span><span class="n">_fill_params</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">n_given</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+        <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">constant_fill</span><span class="p">,</span>
+            <span class="n">grid_fill</span><span class="p">,</span>
+            <span class="n">neighbor_fill</span><span class="p">,</span>
+            <span class="n">spline_fill</span><span class="p">,</span>
+            <span class="n">inquire</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_given</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># More than one mutually exclusive parameter is given.</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Parameters </span><span class="si">{</span><span class="n">_fill_params</span><span class="si">}</span><span class="s2">/&#39;inquire&#39;/&#39;mode&#39; are mutually exclusive.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_given</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># No parameters are given.</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Need to specify parameter </span><span class="si">{</span><span class="n">_fill_params</span><span class="si">}</span><span class="s2"> for filling holes or &quot;</span>
+            <span class="s2">&quot;&#39;inquire&#39; for inquiring the bounds of each hole.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="grdfill">
+<a class="viewcode-back" href="../../../api/generated/pygmt.grdfill.html#pygmt.grdfill">[docs]</a>
+<span class="nd">@fmt_docstring</span>
+<span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &#39;no_data&#39; parameter.</span>
+<span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &#39;mode&#39; parameter.</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;no_data&quot;</span><span class="p">,</span> <span class="s2">&quot;hole&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.15.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.19.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;constantfill&quot;</span><span class="p">,</span> <span class="s2">&quot;constant_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;gridfill&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;neighborfill&quot;</span><span class="p">,</span> <span class="s2">&quot;neighbor_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;splinefill&quot;</span><span class="p">,</span> <span class="s2">&quot;spline_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdfill</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">constant_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_fill</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">neighbor_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">spline_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">inquire</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">hole</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpolate across holes in a grid.</span>
+
+<span class="sd">    Read a grid that presumably has unfilled holes that the user wants to fill in some</span>
+<span class="sd">    fashion. Holes are identified by NaN values but this criteria can be changed via the</span>
+<span class="sd">    ``hole`` parameter. There are several different algorithms that can be used to</span>
+<span class="sd">    replace the hole values. If no holes are found the original unchanged grid is</span>
+<span class="sd">    returned.</span>
+
+<span class="sd">    Full GMT docs at :gmt-docs:`grdfill.html`.</span>
+
+<span class="sd">    $aliases</span>
+<span class="sd">       - Ac = constant_fill</span>
+<span class="sd">       - Ag = grid_fill</span>
+<span class="sd">       - An = neighbor_fill</span>
+<span class="sd">       - As = spline_fill</span>
+<span class="sd">       - L = inquire</span>
+<span class="sd">       - N = hole</span>
+<span class="sd">       - R = region</span>
+<span class="sd">       - V = verbose</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
+<span class="sd">    constant_fill</span>
+<span class="sd">        Fill the holes with a constant value. Specify the constant value to use.</span>
+<span class="sd">    grid_fill</span>
+<span class="sd">        Fill the holes with values sampled from another (possibly coarser) grid. Specify</span>
+<span class="sd">        the grid (a file name or an :class:`xarray.DataArray`) to use for the fill.</span>
+<span class="sd">    neighbor_fill</span>
+<span class="sd">        Fill the holes with the nearest neighbor. Specify the search radius in pixels.</span>
+<span class="sd">        If set to ``True``, the default search radius will be used</span>
+<span class="sd">        (:math:`r^2 = \sqrt{n^2 + m^2}`, where (*n,m*) are the node dimensions of the</span>
+<span class="sd">        grid).</span>
+<span class="sd">    spline_fill</span>
+<span class="sd">        Fill the holes with a bicubic spline. Specify the tension value to use. If set</span>
+<span class="sd">        to ``True``, no tension will be used.</span>
+<span class="sd">    hole</span>
+<span class="sd">        Set the node value used to identify a point as a member of a hole [Default is</span>
+<span class="sd">        NaN].</span>
+<span class="sd">    inquire</span>
+<span class="sd">        Output the bounds of each hole. The bounds are returned as a 2-D numpy array in</span>
+<span class="sd">        the form of (west, east, south, north). No grid fill takes place and ``outgrid``</span>
+<span class="sd">        is ignored.</span>
+<span class="sd">    mode</span>
+<span class="sd">        Specify the hole-filling algorithm to use. Choose from **c** for constant fill</span>
+<span class="sd">        and append the constant value, **n** for nearest neighbor (and optionally append</span>
+<span class="sd">        a search radius in pixels [default radius is :math:`r^2 = \sqrt{ X^2 + Y^2 }`,</span>
+<span class="sd">        where (*X,Y*) are the node dimensions of the grid]), or **s** for bicubic spline</span>
+<span class="sd">        (optionally append a *tension* parameter [Default is no tension]).</span>
+
+<span class="sd">        .. deprecated:: 0.15.0</span>
+<span class="sd">            Use ``constant_fill``, ``grid_fill``, ``neighbor_fill``, or ``spline_fill``</span>
+<span class="sd">            instead. The parameter will be removed in v0.19.0.</span>
+
+<span class="sd">    $region</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $verbose</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        If ``inquire`` is ``True``, return the bounds of each hole as a 2-D numpy array.</span>
+<span class="sd">        Otherwise, the return type depends on whether the ``outgrid`` parameter is set:</span>
+
+<span class="sd">        - :class:`xarray.DataArray` if ``outgrid`` is not set</span>
+<span class="sd">        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by</span>
+<span class="sd">          ``outgrid``)</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    Fill holes in a bathymetric grid with a constant value of 20.</span>
+
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # Load a bathymetric grid with missing data</span>
+<span class="sd">    &gt;&gt;&gt; earth_relief_holes = pygmt.datasets.load_sample_data(name=&quot;earth_relief_holes&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # Fill the holes with a constant value of 20</span>
+<span class="sd">    &gt;&gt;&gt; filled_grid = pygmt.grdfill(grid=earth_relief_holes, constant_fill=20)</span>
+
+<span class="sd">    Inquire the bounds of each hole.</span>
+
+<span class="sd">    &gt;&gt;&gt; pygmt.grdfill(grid=earth_relief_holes, inquire=True)</span>
+<span class="sd">    array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],</span>
+<span class="sd">           [6.16666667, 7.83333333, 0.5       , 2.5       ]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Validate the fill/inquire parameters.</span>
+    <span class="n">_validate_params</span><span class="p">(</span>
+        <span class="n">constant_fill</span><span class="p">,</span> <span class="n">grid_fill</span><span class="p">,</span> <span class="n">neighbor_fill</span><span class="p">,</span> <span class="n">spline_fill</span><span class="p">,</span> <span class="n">inquire</span><span class="p">,</span> <span class="n">mode</span>
+    <span class="p">)</span>
+
+    <span class="c1"># _validate_params has already ensured that only one of the parameters is set.</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mode&quot;</span><span class="p">),</span>
+        <span class="n">Ac</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">constant_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;constant_fill&quot;</span><span class="p">),</span>
+        <span class="c1"># For grid_fill, append the actual or virtual grid file name later.</span>
+        <span class="n">Ag</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">grid_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;grid_fill&quot;</span><span class="p">),</span>
+        <span class="n">An</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">neighbor_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;neighbor_fill&quot;</span><span class="p">),</span>
+        <span class="n">As</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spline_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spline_fill&quot;</span><span class="p">),</span>
+        <span class="n">L</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">inquire</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inquire&quot;</span><span class="p">),</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">hole</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;hole&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inquire</span><span class="p">:</span>  <span class="c1"># Inquire mode.</span>
+                <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">vouttbl</span><span class="p">:</span>
+                    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                        <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdfill&quot;</span><span class="p">,</span>
+                        <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_dataset</span><span class="p">(</span>
+                        <span class="n">vfname</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;numpy&quot;</span>
+                    <span class="p">)</span>
+
+            <span class="c1"># Fill mode.</span>
+            <span class="k">with</span> <span class="p">(</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+                    <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid_fill</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span> <span class="k">as</span> <span class="n">vbggrd</span><span class="p">,</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">grid_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># Fill by a grid. Append the actual or virtual grid file name.</span>
+                    <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;Ag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vbggrd</span>
+                <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdfill&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.18.0">v0.18.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Jan 11, 2026.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
