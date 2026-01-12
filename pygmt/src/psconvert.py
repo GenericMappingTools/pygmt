@@ -143,4 +143,14 @@ def psconvert(
     aliasdict.merge(kwargs)
 
     with Session() as lib:
+        # Check PS_CONVERT settings: PyGMT calls psconvert explicitly,
+        # so inject default options here if the user didn't override them.
+        if ps_convert_config := lib.get_default("PS_CONVERT"):
+            for option in ps_convert_config.split(","):
+                opt = option.strip()
+                if opt:
+                    flag, value = opt[0], opt[1:]
+                    if flag not in aliasdict:
+                        aliasdict[flag] = value
+
         lib.call_module(module="psconvert", args=build_arg_list(aliasdict))
