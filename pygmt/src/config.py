@@ -22,6 +22,11 @@ class config:  # noqa: N801
             ...
 
     Full GMT defaults list at :gmt-docs:`gmt.conf.html`.
+
+    .. note::
+
+        :gmt-term:`PS_CONVERT` is ignored by PyGMT. To use the parameters, set them in
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
