@@ -1,14 +1,19 @@
 """
 3-D bar plot
 ============
+
 Based on GMT EXAMPLE 08
+
 https://docs.generic-mapping-tools.org/6.6/gallery/ex08.html
+
 Convert grid to table: :func:`pygmt.grd2xyz`
-Plot in 3-D via bars: meth:`pygmt.Figure.plot3d`
+
+Plot in 3-D via bars: :meth:`pygmt.Figure.plot3d`
 """
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 region = [141, 147, 36, 43]
 grd2tab = pygmt.grd2xyz("@earth_relief_10m", region=region)
@@ -34,6 +39,14 @@ fig.plot3d(
     style=f"o0.34c+b{z_min}",  # bars o, base +b
     perspective=True,
 )
-fig.colorbar(frame="xa1000f500+lElevation / m", position="jTR+o1.8c+v+w7c+ml")
+fig.colorbar(
+    frame=["xa1000f500+lElevation", "y+lm"],
+    # position="jTR+o1.8c+v+w7c+ml",
+    position=Position("TR", cstype="inside", offset=1.8),
+    orientation="vertical",
+    length=7,
+    move_text="label",
+    label_as_column=True,
+)
 
 fig.show()
