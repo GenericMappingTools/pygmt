@@ -8,6 +8,7 @@ statistics based on a cumulative distribution function.
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 # %%
 # Load sample data
@@ -35,7 +36,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[500, 3540], cmap="turku")
+pygmt.makecpt(series=[500, 3540], cmap="SCM/turku")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Digital Elevation Model"
@@ -56,7 +57,12 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -104,7 +110,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Linear distribution"
@@ -125,7 +131,12 @@ with fig.subplot(
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -154,7 +165,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[-4.5, 4.5], cmap="vik")
+pygmt.makecpt(series=[-4.5, 4.5], cmap="SCM/vik")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Normal distribution"
@@ -174,7 +185,12 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -218,7 +234,7 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Quadratic distribution"
@@ -239,7 +255,12 @@ with fig.subplot(
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3

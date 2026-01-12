@@ -190,8 +190,7 @@ class _FocalMechanismConvention:
 
             Doesn't apply to the conventions ``"aki"``, ``"gcmt"``, and ``"partial"``.
         """
-        # TODO(Python>=3.12): Simplify to "convention in _FocalMechanismConventionCode".
-        if convention in _FocalMechanismConventionCode.__members__.values():
+        if convention in _FocalMechanismConventionCode:
             # Convention is specified via the actual single-letter convention code.
             self.code = _FocalMechanismConventionCode(convention)
             # Parse the convention from the convention code name.
@@ -346,7 +345,7 @@ def _parse_position(
         case str() if position in _valid_anchors:  # Anchor code
             position = Position(position, cstype="inside")
         case str():  # Raw GMT command string.
-            if any(v is not None for v in kwdict.values()):
+            if any(v is not None and v is not False for v in kwdict.values()):
                 msg = (
                     "Parameter 'position' is given with a raw GMT command string, and "
                     f"conflicts with parameters {', '.join(repr(c) for c in kwdict)}."

@@ -14,6 +14,7 @@ sample dataset via ``cmap=True``.
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 fig = pygmt.Figure()
 
@@ -22,7 +23,7 @@ data = pygmt.datasets.load_sample_data(name="rock_compositions")
 
 # Define a colormap to be used for the values given in the fourth column
 # of the input dataset
-pygmt.makecpt(cmap="batlow", series=[0, 80, 10])
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 80, 10])
 
 fig.ternary(
     data,
@@ -40,7 +41,8 @@ fig.ternary(
     ],
 )
 
-# Add a colorbar indicating the values given in the fourth column of
-# the input dataset
-fig.colorbar(position="JBC+o0c/1.5c", frame="x+lPermittivity")
+# Add a colorbar indicating the values given in the fourth column of the input dataset
+fig.colorbar(
+    position=Position("BC", cstype="outside", offset=(0, 1.5)), frame="x+lPermittivity"
+)
 fig.show()

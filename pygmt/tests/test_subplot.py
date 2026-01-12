@@ -5,6 +5,7 @@ Test Figure.subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.params import Position
 
 
 @pytest.mark.benchmark
@@ -116,5 +117,11 @@ def test_subplot_outside_plotting_positioning():
     with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
-    fig.colorbar(position="JBC+w5c+h", cmap="turbo", frame=True)
+    fig.colorbar(
+        position=Position("BC", cstype="outside"),
+        length=5,
+        orientation="horizontal",
+        cmap="google/turbo",
+        frame=True,
+    )
     return fig
