@@ -112,8 +112,8 @@ def grdclip(
     """
     if all(v is None for v in (above, below, between, replace)):
         msg = (
-            "Must specify at least one of the following parameters: ",
-            "'above', 'below', 'between', or 'replace'.",
+            "Must specify at least one of the following parameters: "
+            "'above', 'below', 'between', or 'replace'."
         )
         raise GMTInvalidInput(msg)
 
