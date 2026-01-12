@@ -148,9 +148,21 @@ def psconvert(
         if ps_convert_config := lib.get_default("PS_CONVERT"):
             for option in ps_convert_config.split(","):
                 opt = option.strip()
-                if opt:
-                    flag, value = opt[0], opt[1:]
-                    if flag not in aliasdict:
-                        aliasdict[flag] = value
+                if not opt:
+                    continue
+                # Validate option format: expect a single-character flag followed
+                # by an optional value (e.g., "A", "E300").
+                if not opt[0].isalpha():
+                    raise GMTValueError(
+                        opt,
+                        description="PS_CONVERT option",
+                        reason=(
+                            "Invalid PS_CONVERT configuration: each option must "
+                            "start with a letter flag followed by an optional value."
+                        ),
+                    )
+                flag, value = opt[0], opt[1:]
+                if flag not in aliasdict:
+                    aliasdict[flag] = value
 
         lib.call_module(module="psconvert", args=build_arg_list(aliasdict))
