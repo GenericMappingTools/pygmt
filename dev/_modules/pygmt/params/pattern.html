@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/params/pattern.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -182,30 +182,10 @@
 <span class="sd">    GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are</span>
 <span class="sd">    numbered from 1 to 90, and shown below:</span>
 
-<span class="sd">    .. figure:: https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png</span>
+<span class="sd">    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_App_E.png</span>
 <span class="sd">       :alt: The 90 predefined bit-patterns provided with GMT</span>
 <span class="sd">       :width: 75%</span>
 <span class="sd">       :align: center</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    pattern</span>
-<span class="sd">        The pattern to use. It can be specified in two forms:</span>
-
-<span class="sd">        - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64</span>
-<span class="sd">          bit-patterns. [Default is 1].</span>
-<span class="sd">        - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating</span>
-<span class="sd">          images using image raster files.</span>
-<span class="sd">    dpi</span>
-<span class="sd">        Resolution of the pattern in dots per inch (DPI) [Default is 300].</span>
-<span class="sd">    bgcolor/fgcolor</span>
-<span class="sd">        The background/foreground color for predefined bit-patterns or 1-bit images.</span>
-<span class="sd">        Setting either to an empty string will yield a transparent background/foreground</span>
-<span class="sd">        where only the foreground/background pixels will be painted. [Default is white</span>
-<span class="sd">        for background and black for foreground].</span>
-<span class="sd">    invert</span>
-<span class="sd">        If ``True``, the pattern will be bit-inverted, i.e., white and black areas will</span>
-<span class="sd">        be interchanged (only applies to predefined bit-patterns or 1-bit images).</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -225,10 +205,28 @@
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1">#: The pattern to use. It can be specified in two forms:</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: - An integer in the range of 1-90, corresponding to one of 90 predefined 64x64</span>
+    <span class="c1">#:   bit-patterns. [Default is 1].</span>
+    <span class="c1">#: - Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating</span>
+    <span class="c1">#:   images using image raster files.</span>
     <span class="n">pattern</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">PathLike</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1">#: Resolution of the pattern in dots per inch (DPI) [Default is 300].</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The background color for predefined bit-patterns or 1-bit images.</span>
+    <span class="c1">#: Setting either ``bgcolor`` or ``fgcolor`` to an empty string will yield a</span>
+    <span class="c1">#: transparent background/foreground where only the foreground/background pixels</span>
+    <span class="c1">#: will be painted. [Default is white for background and black for foreground].</span>
     <span class="n">bgcolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: The foreground color for predefined bit-patterns or 1-bit images.</span>
     <span class="n">fgcolor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">#: If ``True``, the pattern will be bit-inverted, i.e., white and black areas will</span>
+    <span class="c1">#: be interchanged (only applies to predefined bit-patterns or 1-bit images).</span>
     <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -279,10 +277,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

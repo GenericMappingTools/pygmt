@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.clib.Session.write_data.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -221,19 +221,19 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). See the
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). See the
 <code class="docutils literal notranslate"><span class="pre">FAMILIES</span></code> attribute for valid names. Don’t use the
 <code class="docutils literal notranslate"><span class="pre">GMT_VIA_VECTOR</span></code> or <code class="docutils literal notranslate"><span class="pre">GMT_VIA_MATRIX</span></code> constructs for this. Use
 <code class="docutils literal notranslate"><span class="pre">GMT_IS_VECTOR</span></code> and <code class="docutils literal notranslate"><span class="pre">GMT_IS_MATRIX</span></code> instead.</p></li>
-<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). See the
+<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). See the
 <code class="docutils literal notranslate"><span class="pre">GEOMETRIES</span></code> attribute for valid names.</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – How the data is to be written to the file. This option varies
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – How the data is to be written to the file. This option varies
 depending on the given family. See the GMT API documentation for
 details.</p></li>
-<li><p><strong>wesn</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> or </em><em>numpy array</em>) – [xmin, xmax, ymin, ymax, zmin, zmax] of the data. Must have 6
+<li><p><strong>wesn</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> or </em><em>numpy array</em>) – [xmin, xmax, ymin, ymax, zmin, zmax] of the data. Must have 6
 elements.</p></li>
-<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The output file name.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a>) – Pointer to the data container created by
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The output file name.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a>) – Pointer to the data container created by
 <a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create_data</span></code></a>.</p></li>
 </ul>
 </dd>
@@ -242,7 +242,7 @@ elements.</p></li>
     non-zero status code.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -261,10 +261,10 @@ elements.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

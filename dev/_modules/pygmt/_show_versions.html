@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/_show_versions.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,12 +163,12 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">requires</span><span class="p">,</span> <span class="n">version</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">requires</span><span class="p">,</span> <span class="n">version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextIO</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">packaging.requirements</span><span class="w"> </span><span class="kn">import</span> <span class="n">Requirement</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">packaging.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">Version</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span><span class="p">,</span> <span class="n">required_gmt_version</span>
 
 <span class="c1"># Get semantic version through setuptools-scm</span>
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="s1">&#39;pygmt&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
@@ -262,6 +262,33 @@
     <span class="k">return</span> <span class="kc">None</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_dep</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Requirement</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get requirements of the PyGMT package.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)]</span>  <span class="c1"># type: ignore[union-attr]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_dep_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get version information of PyGMT&#39;s dependencies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">_get_module_version</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">_get_dep</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
+        <span class="s2">&quot;gdal&quot;</span><span class="p">:</span> <span class="n">_get_gdal_version</span><span class="p">(),</span>
+        <span class="s2">&quot;ghostscript&quot;</span><span class="p">:</span> <span class="n">_get_ghostscript_version</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_dep_specifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get version specifiers of PyGMT&#39;s dependencies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">specifier</span><span class="p">)</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">_get_dep</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
+        <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)[</span><span class="s2">&quot;Requires-Python&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;gmt&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&gt;=</span><span class="si">{</span><span class="n">required_gmt_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+
 <div class="viewcode-block" id="show_versions">
 <a class="viewcode-back" href="../../api/generated/pygmt.show_versions.html#pygmt.show_versions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_versions</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -284,11 +311,7 @@
         <span class="s2">&quot;executable&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
         <span class="s2">&quot;machine&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
     <span class="p">}</span>
-    <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)]</span>  <span class="c1"># type: ignore[union-attr]</span>
-    <span class="n">dep_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">_get_module_version</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">requirements</span><span class="p">}</span>
-    <span class="n">dep_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;gdal&quot;</span><span class="p">:</span> <span class="n">_get_gdal_version</span><span class="p">(),</span> <span class="s2">&quot;ghostscript&quot;</span><span class="p">:</span> <span class="n">_get_ghostscript_version</span><span class="p">()}</span>
-    <span class="p">)</span>
+    <span class="n">dep_version</span> <span class="o">=</span> <span class="n">_get_dep_version</span><span class="p">()</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PyGMT information:&quot;</span><span class="p">)</span>
@@ -296,11 +319,11 @@
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;System information:&quot;</span><span class="p">)</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sys_info</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Dependency information:&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dep_info</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dep_version</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">)</span>
     <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_get_clib_info</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 
-    <span class="k">if</span> <span class="n">warnmsg</span> <span class="o">:=</span> <span class="n">_check_ghostscript_version</span><span class="p">(</span><span class="n">dep_info</span><span class="p">[</span><span class="s2">&quot;ghostscript&quot;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">warnmsg</span> <span class="o">:=</span> <span class="n">_check_ghostscript_version</span><span class="p">(</span><span class="n">dep_version</span><span class="p">[</span><span class="s2">&quot;ghostscript&quot;</span><span class="p">]):</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;WARNING:&quot;</span><span class="p">)</span>
         <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">warnmsg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -316,10 +339,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/x2sys_cross.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -170,6 +170,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">unique_name</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
@@ -214,6 +215,7 @@
 <div class="viewcode-block" id="x2sys_cross">
 <a class="viewcode-back" href="../../../api/generated/pygmt.x2sys_cross.html#pygmt.x2sys_cross">[docs]</a>
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;trackvalues&quot;</span><span class="p">,</span> <span class="s2">&quot;track_values&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;combitable&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;runtimes&quot;</span><span class="p">,</span>
@@ -223,7 +225,7 @@
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;coe&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;numpoints&quot;</span><span class="p">,</span>
-    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;trackvalues&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;track_values&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">x2sys_cross</span><span class="p">(</span>
     <span class="n">tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -246,7 +248,7 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 
@@ -315,7 +317,7 @@
 <span class="sd">        Use **e** for external COEs only, and **i** for internal COEs only</span>
 <span class="sd">        [Default is all COEs].</span>
 
-<span class="sd">    {region}</span>
+<span class="sd">    $region</span>
 
 <span class="sd">    speed : str or list</span>
 <span class="sd">        **l**\|\ **u**\|\ **h**\ *speed*.</span>
@@ -332,13 +334,13 @@
 <span class="sd">        speed of 0, upper speed of 10, and disable heading calculations for</span>
 <span class="sd">        speeds below 5.</span>
 
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 
 <span class="sd">    numpoints : int</span>
 <span class="sd">        Give the maximum number of data points on either side of the crossover</span>
 <span class="sd">        to use in the spline interpolation [Default is 3].</span>
 
-<span class="sd">    trackvalues : bool</span>
+<span class="sd">    track_values : bool</span>
 <span class="sd">        Report the values of each track at the crossover [Default reports the</span>
 <span class="sd">        crossover value and the mean value].</span>
 
@@ -435,10 +437,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

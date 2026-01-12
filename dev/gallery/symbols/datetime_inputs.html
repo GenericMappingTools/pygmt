@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/symbols/datetime_inputs.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,7 +37,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Multi-parameter symbols" href="multi_parameter_symbols.html" />
+    <link rel="next" title="GeoPandas: Plotting points with Point or MultiPoint geometry" href="points_cities.html" />
     <link rel="prev" title="Custom symbols" href="custom_symbols.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Datetime inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="points_cities.html">GeoPandas: Plotting points with Point or MultiPoint geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multi_parameter_symbols.html">Multi-parameter symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points.html">Points</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_transparency.html">Points with varying transparency</a></li>
@@ -109,7 +110,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -200,13 +201,13 @@ to download the full example code.</p>
 <span id="sphx-glr-gallery-symbols-datetime-inputs-py"></span><h1>Datetime inputs<a class="headerlink" href="#datetime-inputs" title="Link to this heading"></a></h1>
 <p>Datetime inputs of the following types are supported in PyGMT:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a></p></li>
 <li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>: datetimes included in an <em>xarray.DataArray</em></p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>: datetimes included in an <em>xarray.DataArray</em></p></li>
 <li><p>raw datetime strings in
 <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> (e.g.
 <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DD&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DDTHH&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DDTHH:MM:SS&quot;</span></code>)</p></li>
-<li><p>Python built-in <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.date</span></code></a></p></li>
+<li><p>Python built-in <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.date</span></code></a></p></li>
 </ul>
 <p>We can pass datetime inputs based on one of the types listed above directly to
 the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> parameters of e.g. the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method.</p>
@@ -260,7 +261,7 @@ in the form [<em>date_min</em>, <em>date_max</em>, <em>ymin</em>, <em>ymax</em>]
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.126 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.119 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-datetime-inputs-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/23c046089b572e846186523db9de526a/datetime_inputs.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">datetime_inputs.ipynb</span></code></a></p>
@@ -281,16 +282,16 @@ in the form [<em>date_min</em>, <em>date_max</em>, <em>ymin</em>, <em>ymax</em>]
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="custom_symbols.html" class="btn btn-neutral float-left" title="Custom symbols" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="multi_parameter_symbols.html" class="btn btn-neutral float-right" title="Multi-parameter symbols" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="points_cities.html" class="btn btn-neutral float-right" title="GeoPandas: Plotting points with Point or MultiPoint geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.x2sys_init.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -188,7 +188,7 @@
 <h1>pygmt.x2sys_init<a class="headerlink" href="#pygmt-x2sys-init" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.x2sys_init">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">x2sys_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/x2sys_init.html#x2sys_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.x2sys_init" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">x2sys_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/x2sys_init.html#x2sys_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.x2sys_init" title="Link to this definition"></a></dt>
 <dd><p>Initialize a new x2sys track database.</p>
 <p>Serves as the starting point for x2sys and initializes a set of data bases
 that are particular to one kind of track data. These data, their associated
@@ -207,12 +207,12 @@ x2sys can keep track of your settings.</p>
 <li><p>G = discontinuity</p></li>
 </ul>
 </td><td><ul class="simple">
-<li><p>I = spacing</p></li>
 <li><p>N = units</p></li>
 <li><p>W = gap</p></li>
+<li><p>j = distcalc</p></li>
 </ul>
 </td><td><ul class="simple">
-<li><p>j = distcalc</p></li>
+<li><p>I = spacing</p></li>
 <li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
 </ul>
@@ -220,8 +220,8 @@ x2sys can keep track of your settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The unique name of this data type x2sys TAG.</p></li>
-<li><p><strong>fmtfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>Format definition file prefix for this data set (see
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The unique name of this data type x2sys TAG.</p></li>
+<li><p><strong>fmtfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>Format definition file prefix for this data set (see
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/supplements/x2sys/x2sys_init.html#format-definition-files">GMT’s Format Definition Files</a>
 for more information). Specify full path if the file is not in the
 current directory.</p>
@@ -236,20 +236,20 @@ current directory.</p>
 <li><p><strong>geoz</strong> (same, with one z-column).</p></li>
 </ul>
 </p></li>
-<li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Specify the file extension (suffix) for these data files. If not
+<li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Specify the file extension (suffix) for these data files. If not
 given we use the format definition file prefix as the suffix (see
 <code class="docutils literal notranslate"><span class="pre">fmtfile</span></code>).</p></li>
-<li><p><strong>discontinuity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <strong>d</strong>|<strong>g</strong>.
+<li><p><strong>discontinuity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <strong>d</strong>|<strong>g</strong>.
 Select geographical coordinates. Append <strong>d</strong> for discontinuity at the
 Dateline (makes longitude go from -180° E to +180° E) or <strong>g</strong> for
 discontinuity at Greenwich (makes longitude go from 0° E to 360° E
 [Default]). If not given we assume the data are Cartesian.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>dx</em>[/<em>dy</em>].
+<li><p><strong>spacing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>dx</em>[/<em>dy</em>].
 <em>dx</em> and optionally <em>dy</em> is the grid spacing. Append <strong>m</strong> to
 indicate minutes or <strong>s</strong> to indicate seconds for geographic data.
 These spacings refer to the binning used in the track bin-index data
 base.</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><em>unit</em>.
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><em>unit</em>.
 Set the units used for distance and speed when requested by other
 programs. Append <strong>d</strong> for distance or <strong>s</strong> for speed, then give the
 desired <em>unit</em> as:</p>
@@ -265,17 +265,17 @@ desired <em>unit</em> as:</p>
 <p>[Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <code class="docutils literal notranslate"><span class="pre">discontinuity</span></code> is
 set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (e.g., for Cartesian units)].</p>
 </p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
-<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
 Give <strong>t</strong> or <strong>d</strong> and append the corresponding maximum time gap (in
 user units; this is typically seconds [Default is infinity]), or
 distance (for units, see <code class="docutils literal notranslate"><span class="pre">units</span></code>) gap [Default is infinity]) allowed
 between the two data points immediately on either side of a crossover.
 If these limits are exceeded then a data gap is assumed and no COE will
 be determined.</p></li>
-<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Determine how spherical distances are calculated
+<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Determine how spherical distances are calculated
 [<a class="reference internal" href="../../techref/common_parameters.html#term-distcalc"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
@@ -296,10 +296,10 @@ be determined.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/basemaps/ternary.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -95,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#base-maps">Base maps</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="double_y_axes.html">Double Y-axes graph</a></li>
@@ -194,9 +194,10 @@ shows how to plot circles with a diameter of 0.1 centimeters
 at the positions listed in the first three columns of the sample dataset
 <code class="docutils literal notranslate"><span class="pre">rock_compositions</span></code>, with default annotations and gridline spacings, using
 the specified labeling defined via <code class="docutils literal notranslate"><span class="pre">alabel</span></code>, <code class="docutils literal notranslate"><span class="pre">blabel</span></code>, and <code class="docutils literal notranslate"><span class="pre">clabel</span></code>.
-Points are colored based on the values given in the fourth columns of the
+Points are colored based on the values given in the fourth column of the
 sample dataset via <code class="docutils literal notranslate"><span class="pre">cmap=True</span></code>.</p>
 <img src="../../_images/sphx_glr_ternary_001.png" srcset="../../_images/sphx_glr_ternary_001.png" alt="ternary" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
@@ -205,7 +206,7 @@ sample dataset via <code class="docutils literal notranslate"><span class="pre">
 
 <span class="c1"># Define a colormap to be used for the values given in the fourth column</span>
 <span class="c1"># of the input dataset</span>
-<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;batlow&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/batlow&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 
 <a href="../../api/generated/pygmt.Figure.ternary.html#pygmt.Figure.ternary" title="pygmt.Figure.ternary" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">ternary</span></a><span class="p">(</span>
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span>
@@ -223,13 +224,14 @@ sample dataset via <code class="docutils literal notranslate"><span class="pre">
     <span class="p">],</span>
 <span class="p">)</span>
 
-<span class="c1"># Add a colorbar indicating the values given in the fourth column of</span>
-<span class="c1"># the input dataset</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;JBC+o0c/1.5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;x+lPermittivity&quot;</span><span class="p">)</span>
+<span class="c1"># Add a colorbar indicating the values given in the fourth column of the input dataset</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BC&quot;</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)),</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;x+lPermittivity&quot;</span>
+<span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.200 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.188 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-basemaps-ternary-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/7799e5971b8f76a924cbdeeba65748d7/ternary.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ternary.ipynb</span></code></a></p>
@@ -256,10 +258,10 @@ sample dataset via <code class="docutils literal notranslate"><span class="pre">
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

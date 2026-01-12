@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/symbols/custom_symbols.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Custom symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datetime_inputs.html">Datetime inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="points_cities.html">GeoPandas: Plotting points with Point or MultiPoint geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multi_parameter_symbols.html">Multi-parameter symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points.html">Points</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_transparency.html">Points with varying transparency</a></li>
@@ -108,7 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -204,11 +205,11 @@ passing the corresponding symbol name together with the <strong>k</strong> short
 five exemplary ones. The symbols are shown underneath their corresponding names.
 For the remaining symbols see the GMT Technical Reference
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/custom-symbols.html">https://docs.generic-mapping-tools.org/6.6/reference/custom-symbols.html</a>.</p>
-<p>Beside these built-in custom symbols GMT allows users to define their own custom
+<p>Besides these built-in custom symbols, GMT allows users to define their own custom
 symbols. For this, a specific macro language is used. A detailed introduction can
 be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/custom-symbols.html#the-macro-language">https://docs.generic-mapping-tools.org/6.6/reference/custom-symbols.html#the-macro-language</a>. After
 defining such a symbol it can be used in the same way as a built-in custom symbol.</p>
-<p><em>Please note</em>: Custom symbols can not be used in auto-legends yet.</p>
+<p><em>Please note</em>: Custom symbols cannot be used in auto-legends yet.</p>
 <img src="../../_images/sphx_glr_custom_symbols_001.png" srcset="../../_images/sphx_glr_custom_symbols_001.png" alt="custom symbols" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -241,7 +242,7 @@ defining such a symbol it can be used in the same way as a built-in custom symbo
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.143 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.136 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-custom-symbols-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8a6f6b844718e8ba2dad2f7fff2c95de/custom_symbols.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">custom_symbols.ipynb</span></code></a></p>
@@ -268,10 +269,10 @@ defining such a symbol it can be used in the same way as a built-in custom symbo
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

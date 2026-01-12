@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/meca.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -168,8 +168,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FocalMechanismConvention</span>
@@ -270,19 +270,23 @@
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;labelbox&quot;</span><span class="p">,</span> <span class="s2">&quot;label_box&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;extensionfill&quot;</span><span class="p">,</span> <span class="s2">&quot;extension_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;compressionfill&quot;</span><span class="p">,</span> <span class="s2">&quot;compression_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;extensionfill&quot;</span><span class="p">,</span>
-    <span class="n">Fr</span><span class="o">=</span><span class="s2">&quot;labelbox&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;compressionfill&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;extension_fill&quot;</span><span class="p">,</span>
+    <span class="n">Fr</span><span class="o">=</span><span class="s2">&quot;label_box&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;compression_fill&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;outline&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nodal&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">meca</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">spec</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span><span class="p">,</span>
@@ -297,11 +301,13 @@
     <span class="n">event_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_clip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -328,7 +334,7 @@
 <span class="sd">           | *mantissa*, *exponent*</span>
 <span class="sd">         - | angles in degrees;</span>
 <span class="sd">           | seismic moment is</span>
-<span class="sd">           | :math:`mantissa * 10 ^ {{exponent}}`</span>
+<span class="sd">           | :math:`mantissa * 10 ^ {exponent}`</span>
 <span class="sd">           | in dyn cm</span>
 <span class="sd">       * - ``&quot;mt&quot;``</span>
 <span class="sd">         - seismic moment tensor</span>
@@ -336,7 +342,7 @@
 <span class="sd">           | *mrt*, *mrf*, *mtf*,</span>
 <span class="sd">           | *exponent*</span>
 <span class="sd">         - | moment components</span>
-<span class="sd">           | in :math:`10 ^ {{exponent}}` dyn cm</span>
+<span class="sd">           | in :math:`10 ^ {exponent}` dyn cm</span>
 <span class="sd">       * - ``&quot;partial&quot;``</span>
 <span class="sd">         - partial focal mechanism</span>
 <span class="sd">         - | *strike1*, *dip1*, *strike2*,</span>
@@ -350,18 +356,20 @@
 <span class="sd">           | *n_value*, *n_azimuth*, *n_plunge*,</span>
 <span class="sd">           | *p_value*, *p_azimuth*, *p_plunge*,</span>
 <span class="sd">           | *exponent*</span>
-<span class="sd">         - | values in :math:`10 ^ {{exponent}}` dyn cm;</span>
+<span class="sd">         - | values in :math:`10 ^ {exponent}` dyn cm;</span>
 <span class="sd">           | azimuths and plunges in degrees</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - N = no_clip</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - S = scale/convention/component</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
@@ -444,7 +452,7 @@
 <span class="sd">        length must match the number of events. This parameter is only used if ``spec``</span>
 <span class="sd">        is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing</span>
 <span class="sd">        ``event_name`` labels in ``spec``.</span>
-<span class="sd">    labelbox : bool or str</span>
+<span class="sd">    label_box : bool or str</span>
 <span class="sd">        [*fill*].</span>
 <span class="sd">        Draw a box behind the label if given via ``event_name``. Use *fill* to give a</span>
 <span class="sd">        fill color [Default is ``&quot;white&quot;``].</span>
@@ -456,12 +464,12 @@
 <span class="sd">        is drawn. Use **+s**\ *size* to plot a small circle at the initial location and</span>
 <span class="sd">        to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to</span>
 <span class="sd">        set the pen attributes for this feature [Default is set via ``pen``]. The fill</span>
-<span class="sd">        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to</span>
+<span class="sd">        of the circle is set via ``compression_fill`` or ``cmap``, i.e., corresponds to</span>
 <span class="sd">        the fill of the compressive quadrants.</span>
-<span class="sd">    compressionfill : str</span>
+<span class="sd">    compression_fill : str</span>
 <span class="sd">        Set color or pattern for filling compressive quadrants [Default is ``&quot;black&quot;``].</span>
 <span class="sd">        This setting also applies to the fill of the circle defined via ``offset``.</span>
-<span class="sd">    extensionfill : str</span>
+<span class="sd">    extension_fill : str</span>
 <span class="sd">        Set color or pattern for filling extensive quadrants [Default is ``&quot;white&quot;``].</span>
 <span class="sd">    pen : str</span>
 <span class="sd">        Set (default) pen attributes for all lines related to the beachball [Default is</span>
@@ -495,13 +503,13 @@
 <span class="sd">    no_clip</span>
 <span class="sd">        Do **not** skip symbols that fall outside the frame boundaries [Default is</span>
 <span class="sd">        ``False``, i.e., plot symbols inside the frame boundaries only].</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {frame}</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="c1"># Determine the focal mechanism convention from the input data or parameters.</span>
@@ -528,10 +536,12 @@
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">no_clip</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -551,10 +561,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

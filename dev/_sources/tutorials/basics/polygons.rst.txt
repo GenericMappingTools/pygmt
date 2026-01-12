@@ -71,7 +71,7 @@ Set up sample data points as NumPy arrays for the x- and y-values.
 Create a Cartesian plot via the :meth:`pygmt.Figure.basemap` method. Pass arrays to
 the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot` method. Without
 further adjustments, lines are drawn between the data points. By default, the lines
-are 0.25-points thick, black, and solid. In this example, the data points are chosen
+are 0.25-point thick, black, and solid. In this example, the data points are chosen
 to make the lines form a polygon.
 
 .. GENERATED FROM PYTHON SOURCE LINES 34-40
@@ -109,7 +109,7 @@ argument passed to ``pen`` is one string with the comma-separated optional value
 
     fig = pygmt.Figure()
     fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-    # Use a 2-points thick, darkred, dashed outline
+    # Use a 2-point thick, darkred, dashed outline
     fig.plot(x=x, y=y, pen="2p,darkred,dashed")
     fig.show()
 
@@ -244,7 +244,7 @@ When using the ``fill`` parameter, the polygon is automatically closed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.518 seconds)
+   **Total running time of the script:** (0 minutes 0.506 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_polygons.py:

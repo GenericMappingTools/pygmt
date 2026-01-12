@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/inset.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,24 +160,37 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;inset&quot;</span><span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;margin&quot;</span><span class="p">,</span> <span class="s2">&quot;clearance&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="s2">&quot;margin&quot;</span><span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">inset</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">no_clip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -185,13 +198,15 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manage figure inset setup and completion.</span>
 
-<span class="sd">    This method sets the position, frame, and margins for a smaller figure</span>
-<span class="sd">    inside of the larger figure. Plotting methods that are called within the</span>
+
+<span class="sd">    This method carves out a sub-region of the current plot canvas and restrict further</span>
+<span class="sd">    plotting to that section of the canvas. Plotting methods that are called within the</span>
 <span class="sd">    context manager are added to the inset figure.</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`inset.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - D = position, **+w**: width/height</span>
 <span class="sd">       - F = box</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - N = no_clip</span>
@@ -200,51 +215,27 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    position : str or list</span>
-<span class="sd">        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*]] \</span>
-<span class="sd">        | [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
-<span class="sd">        **+w**\ *width*\ [/*height*][**+j**\ *justify*]\</span>
-<span class="sd">        [**+o**\ *dx*\ [/*dy*]].</span>
+<span class="sd">    position</span>
+<span class="sd">        Position of the inset on the plot. It can be specified in multiple ways:</span>
 
-<span class="sd">        *This is the only required parameter.*</span>
-<span class="sd">        Define the map inset rectangle on the map. Specify the rectangle</span>
-<span class="sd">        in one of three ways:</span>
+<span class="sd">        - A :class:`pygmt.params.Position` object to fully control the reference point,</span>
+<span class="sd">          anchor point, and offset.</span>
+<span class="sd">        - A sequence of two values representing the x- and y-coordinates in plot</span>
+<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``(&quot;1c&quot;, &quot;2c&quot;)``.</span>
+<span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
+<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
 
-<span class="sd">        Append **g**\ *lon*/*lat* for map (user) coordinates,</span>
-<span class="sd">        **j**\ *code* or **J**\ *code* for setting the *refpoint* via a</span>
-<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
-<span class="sd">        that refers to the (invisible)</span>
-<span class="sd">        projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)</span>
-<span class="sd">        bounding box coordinates, or **x**\ *x*/*y* for plot</span>
-<span class="sd">        coordinates (inches, centimeters, points, append unit).</span>
-<span class="sd">        All but **x** requires both ``region`` and ``projection`` to be</span>
-<span class="sd">        specified. You can offset the reference point via</span>
-<span class="sd">        **+o**\ *dx*/*dy* in the direction implied by *code* or</span>
-<span class="sd">        **+j**\ *justify*.</span>
-
-<span class="sd">        Alternatively, give *west/east/south/north* of geographic</span>
-<span class="sd">        rectangle bounded by parallels and meridians; append **+r** if the</span>
-<span class="sd">        coordinates instead are the lower left and upper right corners of</span>
-<span class="sd">        the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding</span>
-<span class="sd">        rectangle in projected coordinates and optionally</span>
-<span class="sd">        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].</span>
-
-<span class="sd">        Append **+w**\ *width*\ [/*height*] of bounding rectangle or box</span>
-<span class="sd">        in plot coordinates (inches, centimeters, etc.). By default, the</span>
-<span class="sd">        anchor point on the scale is assumed to be the bottom left corner</span>
-<span class="sd">        (**BL**), but this can be changed by appending **+j** followed by a</span>
-<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
-<span class="sd">        *justify*.</span>
-<span class="sd">        **Note**: If **j** is used then *justify* defaults to the same</span>
-<span class="sd">        as *refpoint*, if **J** is used then *justify* defaults to the</span>
-<span class="sd">        mirror opposite of *refpoint*. Specify inset box attributes via</span>
-<span class="sd">        the ``box`` parameter [Default is outline only].</span>
+<span class="sd">        If not specified, defaults to the Bottom Left corner of the plot.</span>
+<span class="sd">    width</span>
+<span class="sd">    height</span>
+<span class="sd">        Width and height of the inset. Width must be specified unless ``projection`` and</span>
+<span class="sd">        ``region`` are given, and height is set to be equal to width if not specified.</span>
 <span class="sd">    box</span>
 <span class="sd">        Draw a background box behind the inset. If set to ``True``, a simple rectangular</span>
 <span class="sd">        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,</span>
 <span class="sd">        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other</span>
 <span class="sd">        box properties.</span>
-<span class="sd">    margin : float, str, or list</span>
+<span class="sd">    clearance : float, str, or list</span>
 <span class="sd">        This is clearance that is added around the inside of the inset.</span>
 <span class="sd">        Plotting will take place within the inner region only. The margins</span>
 <span class="sd">        can be a single value, a pair of values separated (for setting</span>
@@ -256,38 +247,60 @@
 <span class="sd">    no_clip</span>
 <span class="sd">        Do **not** clip features extruding outside the inset frame boundaries [Default</span>
 <span class="sd">        is ``False``].</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {verbose}</span>
+
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; from pygmt.params import Box</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.params import Box, Position</span>
 <span class="sd">    &gt;&gt;&gt;</span>
-<span class="sd">    &gt;&gt;&gt; # Create the larger figure</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig.coast(region=&quot;MG+r2&quot;, water=&quot;lightblue&quot;, shorelines=&quot;thin&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # Use a &quot;with&quot; statement to initialize the inset context manager</span>
+<span class="sd">    &gt;&gt;&gt; # Use a &quot;with&quot; statement to initialize the inset context manager.</span>
 <span class="sd">    &gt;&gt;&gt; # Setting the position to Top Left and a width of 3.5 centimeters</span>
-<span class="sd">    &gt;&gt;&gt; with fig.inset(position=&quot;jTL+w3.5c+o0.2c&quot;, margin=0, box=Box(pen=&quot;green&quot;)):</span>
-<span class="sd">    ...     # Map elements under the &quot;with&quot; statement are plotted in the inset</span>
+<span class="sd">    &gt;&gt;&gt; with fig.inset(</span>
+<span class="sd">    ...     position=Position(&quot;TL&quot;, offset=0.2),</span>
+<span class="sd">    ...     width=&quot;3.5c&quot;,</span>
+<span class="sd">    ...     clearance=0,</span>
+<span class="sd">    ...     box=Box(pen=&quot;green&quot;),</span>
+<span class="sd">    ... ):  # Map elements under the &quot;with&quot; statement are plotted in the inset</span>
 <span class="sd">    ...     fig.coast(</span>
 <span class="sd">    ...         region=&quot;g&quot;,</span>
-<span class="sd">    ...         projection=&quot;G47/-20/3.5c&quot;,</span>
+<span class="sd">    ...         projection=&quot;G47/-20/?&quot;,</span>
 <span class="sd">    ...         land=&quot;gray&quot;,</span>
 <span class="sd">    ...         water=&quot;white&quot;,</span>
 <span class="sd">    ...         dcw=&quot;MG+gred&quot;,</span>
 <span class="sd">    ...     )</span>
-<span class="sd">    ...</span>
-<span class="sd">    &gt;&gt;&gt; # Map elements outside the &quot;with&quot; statement are plotted in the main</span>
-<span class="sd">    &gt;&gt;&gt; # figure</span>
-<span class="sd">    &gt;&gt;&gt; fig.logo(position=&quot;jBR+o0.2c+w3c&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # Map elements outside the &quot;with&quot; statement are plotted in the main figure</span>
+<span class="sd">    &gt;&gt;&gt; fig.logo(position=Position(&quot;BR&quot;, offset=0.2), width=&quot;3c&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
+    <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">},</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Position</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;plotcoords&quot;</span><span class="p">),</span>  <span class="c1"># Default to (0,0) in plotcoords</span>
+    <span class="p">)</span>
+
+    <span class="c1"># width is mandatory unless both projection and region are given.</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="p">(</span><span class="n">projection</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Parameter &#39;width&#39; must be specified.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+w&quot;</span><span class="p">),</span>  <span class="c1"># +wwidth/height</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
         <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">no_clip</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
@@ -315,10 +328,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

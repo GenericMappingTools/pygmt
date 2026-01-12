@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/basics/polygons.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -194,7 +194,7 @@ to download the full example code.</p>
 <p>This tutorial focuses on input data given as NumPy arrays. Besides NumPy arrays,
 array-like objects are supported. Here, a polygon is a closed shape defined by a series
 of data points with x- and y-coordinates, connected by line segments, with the start and
-end points being identical. For plotting a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object with
+end points being identical. For plotting a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object with
 polygon geometries, e.g., to create a choropleth map, see the gallery example
 <a class="reference internal" href="../../gallery/maps/choropleth_map.html"><span class="doc">Choropleth map</span></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -211,7 +211,7 @@ polygon geometries, e.g., to create a choropleth map, see the gallery example
 <p>Create a Cartesian plot via the <a class="reference internal" href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a> method. Pass arrays to
 the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> parameters of the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method. Without
 further adjustments, lines are drawn between the data points. By default, the lines
-are 0.25-points thick, black, and solid. In this example, the data points are chosen
+are 0.25-point thick, black, and solid. In this example, the data points are chosen
 to make the lines form a polygon.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -224,7 +224,7 @@ argument passed to <code class="docutils literal notranslate"><span class="pre">
 <em>width</em>,<em>color</em>,<em>style</em>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1"># Use a 2-points thick, darkred, dashed outline</span>
+<span class="c1"># Use a 2-point thick, darkred, dashed outline</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,darkred,dashed&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -273,7 +273,7 @@ points do not form a polygon.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_polygons_005.png" srcset="../../_images/sphx_glr_polygons_005.png" alt="polygons" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.518 seconds)</p>
+<img src="../../_images/sphx_glr_polygons_005.png" srcset="../../_images/sphx_glr_polygons_005.png" alt="polygons" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.506 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-polygons-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/64cd87364197b1ab190f7cecf8bc50e5/polygons.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">polygons.ipynb</span></code></a></p>
@@ -301,10 +301,10 @@ points do not form a polygon.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

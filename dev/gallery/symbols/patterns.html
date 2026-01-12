@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/symbols/patterns.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datetime_inputs.html">Datetime inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="points_cities.html">GeoPandas: Plotting points with Point or MultiPoint geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="multi_parameter_symbols.html">Multi-parameter symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points.html">Points</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_transparency.html">Points with varying transparency</a></li>
@@ -108,7 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -203,15 +204,15 @@ polygons, and other areas, via the <code class="docutils literal notranslate"><s
 <ul class="simple">
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a>: Land and water masses via <code class="docutils literal notranslate"><span class="pre">land</span></code> and <code class="docutils literal notranslate"><span class="pre">water</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.histogram</span></code></a>: Histogram bars via <code class="docutils literal notranslate"><span class="pre">fill</span></code></p></li>
-<li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.meca</span></code></a>: Focal mechanisms via <code class="docutils literal notranslate"><span class="pre">compressionfill</span></code> and
-<code class="docutils literal notranslate"><span class="pre">extensionfill</span></code></p></li>
+<li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.meca</span></code></a>: Focal mechanisms via <code class="docutils literal notranslate"><span class="pre">compression_fill</span></code> and
+<code class="docutils literal notranslate"><span class="pre">extension_fill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>: Symbols and polygons via <code class="docutils literal notranslate"><span class="pre">fill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.rose</span></code></a>: Histogram sectors via <code class="docutils literal notranslate"><span class="pre">fill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.solar</span></code></a>: Day-light terminators via <code class="docutils literal notranslate"><span class="pre">fill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.ternary.html#pygmt.Figure.ternary" title="pygmt.Figure.ternary"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.ternary</span></code></a>: Symbols via <code class="docutils literal notranslate"><span class="pre">fill</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.velo.html#pygmt.Figure.velo" title="pygmt.Figure.velo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.velo</span></code></a>: Uncertainty wedges and velocity error ellipses via
-<code class="docutils literal notranslate"><span class="pre">uncertaintyfill</span></code></p></li>
-<li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.wiggle.html#pygmt.Figure.wiggle" title="pygmt.Figure.wiggle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.wiggle</span></code></a>: Anomalies via <code class="docutils literal notranslate"><span class="pre">fillpositive</span></code> and <code class="docutils literal notranslate"><span class="pre">fillnegative</span></code></p></li>
+<code class="docutils literal notranslate"><span class="pre">uncertainty_fill</span></code></p></li>
+<li><p><a class="reference internal" href="../../api/generated/pygmt.Figure.wiggle.html#pygmt.Figure.wiggle" title="pygmt.Figure.wiggle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.wiggle</span></code></a>: Anomalies via <code class="docutils literal notranslate"><span class="pre">positive_fill</span></code> and <code class="docutils literal notranslate"><span class="pre">negative_fill</span></code></p></li>
 </ul>
 <p>GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
 custom 1-, 8-, or 24-bit image raster files can also be used as patterns.</p>
@@ -255,7 +256,7 @@ background colors. The foreground and background colors can also be inverted.</p
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.241 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.231 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f0502c003b4111f3ef83f527adf9b3e8/patterns.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">patterns.ipynb</span></code></a></p>
@@ -282,10 +283,10 @@ background colors. The foreground and background colors can also be inverted.</p
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

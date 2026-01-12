@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/image.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -159,36 +159,44 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span><span class="p">,</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;bitcolor&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">image</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;bitcolor&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">image</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">imagefile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
-    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">replicate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">monochrome</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot raster or EPS images.</span>
 
-<span class="sd">    Reads Encapsulated PostScript (EPS) or raster image files and plots them. The</span>
-<span class="sd">    image can be scaled arbitrarily, and 1-bit raster images can be:</span>
+<span class="sd">    Reads an Encapsulated PostScript file or a raster image file and plot it on a map.</span>
+<span class="sd">    The image can be scaled arbitrarily, and 1-bit raster images can be:</span>
 
-<span class="sd">    - inverted, i.e., black pixels (on) becomes white (off) and vice versa.</span>
+<span class="sd">    - inverted, i.e., black pixels (on) become white (off) and vice versa.</span>
 <span class="sd">    - colorized, by assigning different foreground and background colors.</span>
 <span class="sd">    - made transparent where either the back- or foreground is painted.</span>
 
@@ -200,13 +208,17 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`image.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
+<span class="sd">       - D = position, **+w**: width/height, **+r**: dpi, **+n**: replicate</span>
 <span class="sd">       - F = box</span>
+<span class="sd">       - I = invert</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - M = monochrome</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
@@ -215,13 +227,34 @@
 <span class="sd">        An Encapsulated PostScript (EPS) file or a raster image file. An EPS file must</span>
 <span class="sd">        contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,</span>
 <span class="sd">        or 32 bits and is read via GDAL.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    position : str</span>
-<span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\</span>
-<span class="sd">        **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\</span>
-<span class="sd">        [**+n**\ *nx*\ [/*ny*]]\ [**+o**\ *dx*\ [/*dy*]].</span>
-<span class="sd">        Set reference point on the map for the image.</span>
+<span class="sd">    position</span>
+<span class="sd">        Position of the GMT logo on the plot. It can be specified in multiple ways:</span>
+
+<span class="sd">        - A :class:`pygmt.params.Position` object to fully control the reference point,</span>
+<span class="sd">          anchor point, and offset.</span>
+<span class="sd">        - A sequence of two values representing the x- and y-coordinates in plot</span>
+<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``(&quot;1c&quot;, &quot;2c&quot;)``.</span>
+<span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
+<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
+
+<span class="sd">        If not specified, defaults to the Bottom Left corner of the plot (position</span>
+<span class="sd">        ``(0, 0)`` with anchor ``&quot;BL&quot;``).</span>
+<span class="sd">    width</span>
+<span class="sd">    height</span>
+<span class="sd">        Width (and height) of the image in plot coordinates (inches, cm, etc.). If</span>
+<span class="sd">        ``height`` (or ``width``) is set to 0, then the original aspect ratio of the</span>
+<span class="sd">        image is maintained. If ``width`` (or ``height``) is negative, the absolute</span>
+<span class="sd">        value is used to interpolate image to the device resolution using the PostScript</span>
+<span class="sd">        image operator. If neither dimensions nor ``dpi`` are set then revert to the</span>
+<span class="sd">        default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].</span>
+<span class="sd">    dpi</span>
+<span class="sd">        Set the dpi of the image in dots per inch, or append **c** to indicate this is</span>
+<span class="sd">        dots per cm.</span>
+<span class="sd">    replicate</span>
+<span class="sd">        *nx* or (*nx*, *ny*).</span>
+<span class="sd">        Replicate the (scaled) image *nx* times in the horizontal direction, and *ny*</span>
+<span class="sd">        times in the vertical direction. If a single integer *nx* is given, *ny* = *nx*.</span>
+<span class="sd">        [Default is (1, 1)].</span>
 <span class="sd">    box</span>
 <span class="sd">        Draw a background box behind the image. If set to ``True``, a simple rectangular</span>
 <span class="sd">        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,</span>
@@ -238,21 +271,51 @@
 <span class="sd">    monochrome</span>
 <span class="sd">        Convert color image to monochrome grayshades using the (television)</span>
 <span class="sd">        YIQ-transformation.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">    invert</span>
+<span class="sd">        Invert 1-bit image before plotting, i.e., black pixels (on) become white (off)</span>
+<span class="sd">        and vice versa. Ignored if used with color images.</span>
+
+<span class="sd">        **Note**: There was an upstream GMT bug, so this feature may not work correctly</span>
+<span class="sd">        for some 1-bit images for GMT&lt;=6.6.0.</span>
+<span class="sd">        See `PR #8837 &lt;https://github.com/GenericMappingTools/gmt/pull/8837&gt;`__.</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
+    <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span> <span class="s2">&quot;dpi&quot;</span><span class="p">:</span> <span class="n">dpi</span><span class="p">,</span> <span class="s2">&quot;replicate&quot;</span><span class="p">:</span> <span class="n">replicate</span><span class="p">},</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Position</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;plotcoords&quot;</span><span class="p">),</span>  <span class="c1"># Default to (0,0) in plotcoords</span>
+    <span class="p">)</span>
+
+    <span class="c1"># width is required when only height is given.</span>
+    <span class="k">if</span> <span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+w&quot;</span><span class="p">),</span>  <span class="c1"># +wwidth/height</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">replicate</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;replicate&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+n&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+r&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
         <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>
         <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">monochrome</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">invert</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;invert&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -271,10 +334,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

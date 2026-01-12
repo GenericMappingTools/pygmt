@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.clib.Session.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -246,7 +246,7 @@ session and destroy it in the end to clean up memory.</p>
 MUST be used with an open session (inside a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). If creating GMT data
 structures to communicate data, put that code inside the same <code class="docutils literal notranslate"><span class="pre">with</span></code> block as the
 API calls that will use the data.</p>
-<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>).
+<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>).
 If the environment variable <a class="reference internal" href="../../techref/environment_variables.html#term-GMT_LIBRARY_PATH"><span class="xref std std-term">GMT_LIBRARY_PATH</span></a> is set, will look for the
 shared library in the directory specified by it.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute holds a ctypes pointer to the currently open
@@ -261,7 +261,8 @@ session.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_static_earth_relief</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers.testing</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_static_earth_relief</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTTempFile</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_static_earth_relief</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
@@ -283,16 +284,16 @@ session.</p>
 </dd></dl>
 
 <p class="rubric">Attributes</p>
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pygmt.clib.Session.info">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pygmt.clib.Session.info" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pygmt.clib.Session.info" title="Link to this definition"></a></dt>
 <dd><p>Dictionary with the GMT version and default paths and parameters.</p>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py attribute">
 <dt class="sig sig-object py" id="pygmt.clib.Session.session_pointer">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">session_pointer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><span class="pre">c_void_p</span></a></em><a class="headerlink" href="#pygmt.clib.Session.session_pointer" title="Link to this definition"></a></dt>
-<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer to the current open GMT session.</p>
+<span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">session_pointer</span></span><a class="headerlink" href="#pygmt.clib.Session.session_pointer" title="Link to this definition"></a></dt>
+<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer to the current open GMT session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError" title="pygmt.exceptions.GMTCLibNoSessionError"><strong>GMTCLibNoSessionError</strong></a> – If trying to access without a currently open GMT session (i.e., outside of
@@ -359,7 +360,7 @@ session.</p>
 <td><p>Store a 2-D numpy array as a matrix inside a virtual file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_stringio.html#pygmt.clib.Session.virtualfile_from_stringio" title="pygmt.clib.Session.virtualfile_from_stringio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_stringio</span></code></a>(stringio)</p></td>
-<td><p>Store a <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object in a virtual file.</p></td>
+<td><p>Store a <a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">io.StringIO</span></code></a> object in a virtual file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors" title="pygmt.clib.Session.virtualfile_from_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_vectors</span></code></a>(vectors)</p></td>
 <td><p>Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.</p></td>
@@ -374,7 +375,7 @@ session.</p>
 <td><p>Output a tabular dataset stored in a virtual file to a different format.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster" title="pygmt.clib.Session.virtualfile_to_raster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_to_raster</span></code></a>(vfname[, ...])</p></td>
-<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
+<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.write_data</span></code></a>(family, geometry, mode, ...)</p></td>
 <td><p>Write a GMT data container to a file.</p></td>
@@ -395,10 +396,10 @@ session.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

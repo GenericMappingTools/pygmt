@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/images/image.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,7 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="track_sampling.html">Sampling along tracks</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -199,20 +199,22 @@ to download the full example code.</p>
 many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via
 the <code class="docutils literal notranslate"><span class="pre">imagefile</span></code> parameter or simply use the filename as the first argument. You can
 also use a full URL pointing to your desired image. The <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter allows
-us to set a reference point on the map for the image.</p>
+us to place the image at a specific location on the plot.</p>
 <img src="../../_images/sphx_glr_image_001.png" srcset="../../_images/sphx_glr_image_001.png" alt="image" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Place and center (&quot;+jCM&quot;) the image &quot;needle.jpg&quot; provided by GMT to the position</span>
-<span class="c1"># (&quot;+g&quot;) 1/1 on the current plot, scale it to a width of 8 centimeters (&quot;+w&quot;) and draw</span>
-<span class="c1"># a rectangular border around it</span>
+<span class="c1"># Place the center of the image &quot;needle.jpg&quot; provided by GMT to the position (1, 1) on</span>
+<span class="c1"># the current plot, scale it to a width of 8 centimeters and draw a rectangular border</span>
+<span class="c1"># around it.</span>
 <a href="../../api/generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">image</span></a><span class="p">(</span>
     <span class="n">imagefile</span><span class="o">=</span><span class="s2">&quot;https://oceania.generic-mapping-tools.org/cache/needle.jpg&quot;</span><span class="p">,</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g1/1+w8c+jCM&quot;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;mapcoords&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;MC&quot;</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;8c&quot;</span><span class="p">,</span>
     <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -222,7 +224,7 @@ us to set a reference point on the map for the image.</p>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;needle.jpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.563 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.109 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-image-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6ef0d9e15dd7547721a2378987ce444c/image.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">image.ipynb</span></code></a></p>
@@ -249,10 +251,10 @@ us to set a reference point on the map for the image.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.x2sys_cross.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -212,7 +212,7 @@ of the map projections prior to calculating the COE.</p>
 <li><p>W = numpoints</p></li>
 </ul>
 </td><td><ul class="simple">
-<li><p>Z = trackvalues</p></li>
+<li><p>Z = track_values</p></li>
 <li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
 </ul>
@@ -232,20 +232,20 @@ default to $GMT_SHAREDIR/x2sys]. (<strong>Note</strong>: MGD77 files will also b
 via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via
 $GMT_SHAREDIR/mgg/gmtfile_paths).</p>
 </p></li>
-<li><p><strong>outfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The file name for the output ASCII txt file to store the table in.</p></li>
-<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Specify the x2sys TAG which identifies the attributes of this data
+<li><p><strong>outfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The file name for the output ASCII txt file to store the table in.</p></li>
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Specify the x2sys TAG which identifies the attributes of this data
 type.</p></li>
-<li><p><strong>combitable</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Only process the pair-combinations found in the file <em>combitable</em>
+<li><p><strong>combitable</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Only process the pair-combinations found in the file <em>combitable</em>
 [Default process all possible combinations among the specified files].
 The file <em>combitable</em> is created by <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/supplements/x2sys/x2sys_get.html#l">x2sys_get’s -L option</a>.</p></li>
-<li><p><strong>runtimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Compute and append the processing run-time for each pair to the
+<li><p><strong>runtimes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Compute and append the processing run-time for each pair to the
 progress message (use <code class="docutils literal notranslate"><span class="pre">runtimes=True</span></code>). Pass in a file name (e.g.
 <code class="docutils literal notranslate"><span class="pre">runtimes=&quot;file.txt&quot;</span></code>) to save these run-times to file. The idea here
 is to use the knowledge of run-times to split the main process in a
 number of sub-processes that can each be launched in a different
 processor of your multi-core machine. See the MATLAB function
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt/blob/master/src/x2sys/">split_file4coes.m</a>.</p></li>
-<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <strong>S</strong>|<strong>N</strong>.
+<li><p><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <strong>S</strong>|<strong>N</strong>.
 Control how geographic coordinates are handled (Cartesian data are
 unaffected). By default, we determine if the data are closer to one
 pole than the other, and then we use a cylindrical polar conversion to
@@ -257,7 +257,7 @@ for the south or north pole, respectively. The conversion is used
 because the algorithm used to find crossovers is inherently a
 Cartesian algorithm that can run into trouble with data that has large
 longitudinal range at higher latitudes.</p></li>
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>l</strong>|<strong>a</strong>|<strong>c</strong>.
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p><strong>l</strong>|<strong>a</strong>|<strong>c</strong>.
 Sets the interpolation mode for estimating values at the crossover.
 Choose among:</p>
 <ul>
@@ -266,11 +266,11 @@ Choose among:</p>
 <li><p><strong>c</strong>: Cubic spline interpolation.</p></li>
 </ul>
 </p></li>
-<li><p><strong>coe</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Use <strong>e</strong> for external COEs only, and <strong>i</strong> for internal COEs only
+<li><p><strong>coe</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Use <strong>e</strong> for external COEs only, and <strong>i</strong> for internal COEs only
 [Default is all COEs].</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>speed</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><strong>l</strong>|<strong>u</strong>|<strong>h</strong><em>speed</em>.
+<li><p><strong>speed</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <p><strong>l</strong>|<strong>u</strong>|<strong>h</strong><em>speed</em>.
 Defines window of track speeds. If speeds are outside this window we do
 not calculate a COE. Specify:</p>
 <ul>
@@ -284,15 +284,15 @@ calculates headings regardless of speed].</p></li>
 speed of 0, upper speed of 10, and disable heading calculations for
 speeds below 5.</p>
 </p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
-<li><p><strong>numpoints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Give the maximum number of data points on either side of the crossover
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>numpoints</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Give the maximum number of data points on either side of the crossover
 to use in the spline interpolation [Default is 3].</p></li>
-<li><p><strong>trackvalues</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Report the values of each track at the crossover [Default reports the
+<li><p><strong>track_values</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Report the values of each track at the crossover [Default reports the
 crossover value and the mean value].</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>crossover_errors</em> – Table containing crossover error information. A <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object
@@ -316,10 +316,10 @@ will be stored in file set by <code class="docutils literal notranslate"><span c
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

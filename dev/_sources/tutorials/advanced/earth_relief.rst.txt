@@ -119,8 +119,8 @@ projections, see :doc:`/techref/projections`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 44-50
 
-Set a color map
----------------
+Set a colormap
+--------------
 
 :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of the
 figure. Examples of common CPTs for Earth relief are shown below. A full list of CPTs
@@ -136,7 +136,7 @@ Using the *geo* CPT:
 
 
     fig = pygmt.Figure()
-    fig.grdimage(grid=grid, projection="R12c", cmap="geo")
+    fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
     fig.show()
 
 
@@ -161,7 +161,7 @@ Using the *relief* CPT:
 
 
     fig = pygmt.Figure()
-    fig.grdimage(grid=grid, projection="R12c", cmap="relief")
+    fig.grdimage(grid=grid, projection="R12c", cmap="gmt/relief")
     fig.show()
 
 
@@ -179,8 +179,8 @@ Using the *relief* CPT:
 
 .. GENERATED FROM PYTHON SOURCE LINES 67-77
 
-Add a color bar
----------------
+Add a colorbar
+--------------
 
 The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
@@ -196,7 +196,7 @@ sets the axis interval to 2,500, ``"x+lElevation"`` sets the x-axis label, and
 
 
     fig = pygmt.Figure()
-    fig.grdimage(grid=grid, projection="R12c", cmap="geo")
+    fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
     fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
     fig.show()
 
@@ -234,7 +234,7 @@ The example below uses data with a 10 arc-minutes resolution, and plots it on a
 
     grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
     fig = pygmt.Figure()
-    fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
+    fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="gmt/geo")
     fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
     fig.show()
 
@@ -253,7 +253,7 @@ The example below uses data with a 10 arc-minutes resolution, and plots it on a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.248 seconds)
+   **Total running time of the script:** (0 minutes 1.202 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_earth_relief.py:

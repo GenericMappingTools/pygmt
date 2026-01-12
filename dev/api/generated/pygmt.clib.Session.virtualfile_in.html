@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.clib.Session.virtualfile_in.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -220,13 +220,13 @@ on.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>check_kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><em>None</em>) – Used to validate the type of data that can be passed in. Choose
+<li><p><strong>check_kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><em>None</em>) – Used to validate the type of data that can be passed in. Choose
 from ‘raster’, ‘vector’, or None. Default is None (no validation).</p></li>
 <li><p><strong>data</strong> (default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Any raster or vector data format. This could be a file name or
 path, a raster grid, a vector matrix/arrays, or other supported
 data input.</p></li>
 <li><p><strong>x/y/z</strong> (<em>1-D arrays</em><em> or </em><em>None</em>) – x, y, and z columns as numpy arrays.</p></li>
-<li><p><strong>required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – <p>Set to True when ‘data’ or (‘x’ and ‘y’) is required. Set to False when
+<li><p><strong>required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p>Set to True when ‘data’ or (‘x’ and ‘y’) is required. Set to False when
 dealing with optional virtual files. Default is True.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version v0.16.0: </span>The parameter ‘required_data’ is renamed to ‘required’. The parameter
@@ -235,14 +235,14 @@ dealing with optional virtual files. Default is True.</p>
 </p></li>
 <li><p><strong>mincols</strong> (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>) – Number of minimum required columns. Default is 2 (i.e. require x and y
 columns).</p></li>
-<li><p><strong>required_z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – <p>State whether the ‘z’ column is required.</p>
+<li><p><strong>required_z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p>State whether the ‘z’ column is required.</p>
 <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version v0.16.0: </span>The parameter ‘required_z’ will be removed in v0.20.0. Use parameter
 ‘mincols’ instead. E.g., <code class="docutils literal notranslate"><span class="pre">required_z=True</span></code> is equivalent to
 <code class="docutils literal notranslate"><span class="pre">mincols=3</span></code>.</p>
 </div>
 </p></li>
-<li><p><strong>extra_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><em>1-D arrays</em>) – <p>A list of numpy arrays in addition to x, y, and z. All of these arrays must
+<li><p><strong>extra_arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><em>1-D arrays</em>) – <p>A list of numpy arrays in addition to x, y, and z. All of these arrays must
 be of the same size as the x/y/z arrays.</p>
 <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version v0.16.0: </span>The parameter ‘extra_arrays’ will be removed in v0.20.0. Prepare and pass
@@ -293,10 +293,10 @@ name of this virtualfile using <code class="docutils literal notranslate"><span 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

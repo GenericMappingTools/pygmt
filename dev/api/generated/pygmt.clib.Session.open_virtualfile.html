@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.clib.Session.open_virtualfile.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -224,15 +224,15 @@ is provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DATASET&quot;</span></code>). Should be the
+<li><p><strong>family</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DATASET&quot;</span></code>). Should be the
 same as the one you used to create your data structure.</p></li>
-<li><p><strong>geometry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_POINT&quot;</span></code>). Should be the
+<li><p><strong>geometry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_POINT&quot;</span></code>). Should be the
 same as the one you used to create your data structure.</p></li>
-<li><p><strong>direction</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Either <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IN&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;GMT_OUT&quot;</span></code> to indicate if passing data to GMT or
+<li><p><strong>direction</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Either <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IN&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;GMT_OUT&quot;</span></code> to indicate if passing data to GMT or
 getting it out of GMT, respectively. By default, GMT can modify the data you
 pass in. Add modifier <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_REFERENCE&quot;</span></code> to tell GMT the data are
 read-only, or <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DUPLICATE&quot;</span></code> to tell GMT to duplicate the data.</p></li>
-<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">c_void_p</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – The ctypes void pointer to the GMT data structure. For output (i.e.,
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">c_void_p</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>) – The ctypes void pointer to the GMT data structure. For output (i.e.,
 <code class="docutils literal notranslate"><span class="pre">direction=&quot;GMT_OUT&quot;</span></code>), it can be <code class="docutils literal notranslate"><span class="pre">None</span></code> to have GMT automatically
 allocate the output GMT data structure.</p></li>
 </ul>
@@ -241,7 +241,7 @@ allocate the output GMT data structure.</p></li>
 <dd class="field-even"><p><em>vfname</em> – The name of the virtual file that you can pass to a GMT module.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -286,10 +286,10 @@ allocate the output GMT data structure.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

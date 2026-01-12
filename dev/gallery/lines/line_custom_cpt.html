@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/lines/line_custom_cpt.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -111,7 +111,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -218,7 +218,7 @@ setting the <code class="docutils literal notranslate"><span class="pre">pen</sp
 <span class="c1"># Create a custom CPT with the batlow CPT and 10 discrete z-values (colors),</span>
 <span class="c1"># use color_model=&quot;+c0-9&quot; to write the color palette in categorical format and</span>
 <span class="c1"># add labels (0) to (9) for the colorbar legend</span>
-<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;batlow&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color_model</span><span class="o">=</span><span class="s2">&quot;+c0-9&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/batlow&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color_model</span><span class="o">=</span><span class="s2">&quot;+c0-9&quot;</span><span class="p">)</span>
 
 <span class="c1"># Plot 10 lines and set a different z-value for each line</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">zvalue</span></a> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
@@ -230,7 +230,7 @@ setting the <code class="docutils literal notranslate"><span class="pre">pen</sp
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.224 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.216 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-line-custom-cpt-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4401c0ecca107e4222ff2d8ef6a4a9e5/line_custom_cpt.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">line_custom_cpt.ipynb</span></code></a></p>
@@ -257,10 +257,10 @@ setting the <code class="docutils literal notranslate"><span class="pre">pen</sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

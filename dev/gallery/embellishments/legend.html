@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/legend.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -95,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -196,18 +196,18 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="legend">
 <span id="sphx-glr-gallery-embellishments-legend-py"></span><h1>Legend<a class="headerlink" href="#legend" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a> method can automatically create a legend for
-symbols plotted using <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>. A legend entry is only added
-when the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter is used to state the desired text. Optionally,
-to adjust the legend, users can append different modifiers. A list of all
-available modifiers can be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full</a>. To create a
-multiple-column legend <strong>+N</strong> is used with the desired number of columns.
-For more complicated legends, users may want to write an ASCII file with
-instructions for the layout of the legend items and pass it to the <code class="docutils literal notranslate"><span class="pre">spec</span></code>
-parameter of <a class="reference internal" href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a>. For details on how to set up such a
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a> method can automatically create a legend for symbols
+plotted using <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>. A legend entry is only added when the <code class="docutils literal notranslate"><span class="pre">label</span></code>
+parameter is used to state the desired text. Optionally, to adjust the legend, users can
+append different modifiers. A list of all available modifiers can be found at
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full</a>. To create a multiple-column legend <strong>+N</strong> is used with the
+desired number of columns. For more complicated legends, users may want to write an
+ASCII file with instructions for the layout of the legend items and pass it to the
+<code class="docutils literal notranslate"><span class="pre">spec</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.legend</span></code></a>. For details on how to set up such a
 file, please see the GMT documentation at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/legend.html#legend-codes">https://docs.generic-mapping-tools.org/6.6/legend.html#legend-codes</a>.</p>
 <img src="../../_images/sphx_glr_legend_001.png" srcset="../../_images/sphx_glr_legend_001.png" alt="legend" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <span class="c1"># Set up some test data</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
@@ -230,13 +230,11 @@ file, please see the GMT documentation at <a class="extlink-gmt-docs reference e
 
 <span class="c1"># Use the label parameter to state the text label for the legend entry</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y1</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,green3&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;sin(x)+1.1&quot;</span><span class="p">)</span>
-
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y2</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;c0.07c&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;dodgerblue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;cos(x)+1.1&quot;</span><span class="p">)</span>
 
-<span class="c1"># Add a legend to the plot; place it within the plot bounding box with both</span>
-<span class="c1"># reference (&quot;J&quot;) and anchor (&quot;+j&quot;) points being the Top Right (TR) corner and an</span>
-<span class="c1"># offset of 0.2 centimeters in x- and y-directions; surround the legend with a box</span>
-<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;JTR+jTR+o0.2c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Add a legend to the plot at the Top Right (TR) corner with a 0.2-cm offset in x- and</span>
+<span class="c1"># y-directions; surround the legend with a box.</span>
+<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;TR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># -----------------------------------------------------------------------------</span>
 <span class="c1"># Bottom: Horizontal legend (here two columns)</span>
@@ -246,14 +244,14 @@ file, please see the GMT documentation at <a class="extlink-gmt-docs reference e
 
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y4</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;s0.07c&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;cos(x/2)-1.1&quot;</span><span class="p">)</span>
 
-<span class="c1"># For a multi-column legend, users have to provide the width via &quot;+w&quot;, here it is</span>
-<span class="c1"># set to 6 centimeters; reference and anchor points are the Bottom Right (BR) corner</span>
-<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;JBR+jBR+o0.2c+w6c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># For a multi-column legend, users have to provide the width, here it is set to 6 cm;</span>
+<span class="c1"># the legend is placed at the Bottom Right (BR) corner.</span>
+<a href="../../api/generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;6c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.141 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.139 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-legend-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c797eaeff023e168f1e4e6c10b25f3f7/legend.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">legend.ipynb</span></code></a></p>
@@ -280,10 +278,10 @@ file, please see the GMT documentation at <a class="extlink-gmt-docs reference e
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

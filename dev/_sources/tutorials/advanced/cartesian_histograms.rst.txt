@@ -188,7 +188,7 @@ outer outlines of the bars are drawn, and no internal bars are visible.
         frame=["WSne", "xaf10", "ya1f1+lCounts"],
         data=data02,
         series=10,
-        # Draw a 1.5-points thick, dashed outline in "orange"
+        # Draw a 1.5-point thick, dashed outline in "orange"
         pen="1.5p,orange,dashed",
         histtype=0,
         stairs=True,
@@ -473,7 +473,7 @@ Limitations of histograms with stacked bars are:
 Grouped bars
 ------------
 
-By setting the ``barwidth`` parameter in respect to the values passed to the
+By setting the ``bar_width`` parameter in respect to the values passed to the
 ``series`` parameter histograms with grouped bars can be created.
 
 Limitations of histograms with grouped bars are:
@@ -481,7 +481,7 @@ Limitations of histograms with grouped bars are:
 - Careful setting width and position of the bars in respect to the bin width
 - Difficult to see the variations of the single data sets
 
-.. GENERATED FROM PYTHON SOURCE LINES 330-370
+.. GENERATED FROM PYTHON SOURCE LINES 330-371
 
 .. code-block:: Python
 
@@ -503,9 +503,9 @@ Limitations of histograms with grouped bars are:
         histtype=0,
         # Calculate the bar width in respect to the bin width, here for two data sets half
         # of the bin width
-        # Offset ("+o") the bars to align each bar with the left limit of the corresponding
-        # bin
-        barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
+        bar_width=binwidth / 2,
+        # Offset the bars to align each bar with the left limit of the corresponding bin
+        bar_offset=-binwidth / 4,
         label="data01",
     )
 
@@ -516,7 +516,8 @@ Limitations of histograms with grouped bars are:
         fill="orange",
         pen="1p,darkgray,solid",
         histtype=0,
-        barwidth=f"{binwidth / 2}+o{binwidth / 4}",
+        bar_width=binwidth / 2,
+        bar_offset=binwidth / 4,
         label="data02",
     )
 
@@ -540,7 +541,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.264 seconds)
+   **Total running time of the script:** (0 minutes 1.195 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:

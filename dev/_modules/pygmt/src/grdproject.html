@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdproject.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,10 +161,10 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdproject&quot;</span><span class="p">]</span>
 
@@ -172,22 +172,19 @@
 <div class="viewcode-block" id="grdproject">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdproject.html#pygmt.grdproject">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
-    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;scaling&quot;</span><span class="p">,</span>
-    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;inverse&quot;</span><span class="p">,</span>
-    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span>
-    <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-    <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdproject</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdproject</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">center</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">inverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">unit</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scaling</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -195,62 +192,66 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Forward and inverse map transformation of grids.</span>
 
-<span class="sd">    This method will project a geographical gridded data set onto a</span>
-<span class="sd">    rectangular grid. If ``inverse`` is ``True``, it will project a</span>
-<span class="sd">    rectangular coordinate system to a geographic system. To obtain the value</span>
-<span class="sd">    at each new node, its location is inversely projected back onto the input</span>
-<span class="sd">    grid after which a value is interpolated between the surrounding input</span>
-<span class="sd">    grid values. By default bi-cubic interpolation is used. Aliasing is</span>
-<span class="sd">    avoided by also forward projecting the input grid nodes. If two or more</span>
-<span class="sd">    nodes are projected onto the same new node, their average will dominate in</span>
-<span class="sd">    the calculation of the new node value. Interpolation and aliasing is</span>
-<span class="sd">    controlled with the ``interpolation`` parameter. The new node spacing may</span>
-<span class="sd">    be determined in one of several ways by specifying the grid spacing,</span>
-<span class="sd">    number of nodes, or resolution. Nodes not constrained by input data are</span>
-<span class="sd">    set to NaN. The ``region`` parameter can be used to select a map region</span>
-<span class="sd">    large or smaller than that implied by the extent of the grid file.</span>
+<span class="sd">    This method will project a geographical gridded data set onto a rectangular grid. If</span>
+<span class="sd">    ``inverse`` is ``True``, it will project a rectangular coordinate system to a</span>
+<span class="sd">    geographic system. To obtain the value at each new node, its location is inversely</span>
+<span class="sd">    projected back onto the input grid after which a value is interpolated between the</span>
+<span class="sd">    surrounding input grid values. By default bi-cubic interpolation is used. Aliasing</span>
+<span class="sd">    is avoided by also forward projecting the input grid nodes. If two or more nodes are</span>
+<span class="sd">    projected onto the same new node, their average will dominate in the calculation of</span>
+<span class="sd">    the new node value. Interpolation and aliasing is controlled with the</span>
+<span class="sd">    ``interpolation`` parameter. The new node spacing may be determined in one of</span>
+<span class="sd">    several ways by specifying the grid spacing, number of nodes, or resolution. Nodes</span>
+<span class="sd">    not constrained by input data are set to NaN. The ``region`` parameter can be used</span>
+<span class="sd">    to select a map region large or smaller than that implied by the extent of the grid</span>
+<span class="sd">    file.</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdproject.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - C = center</span>
+<span class="sd">       - D = spacing</span>
+<span class="sd">       - E = dpi</span>
+<span class="sd">       - F = scaling</span>
+<span class="sd">       - I = inverse</span>
 <span class="sd">       - J = projection</span>
+<span class="sd">       - M = unit</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - r = registration</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {outgrid}</span>
-<span class="sd">    inverse : bool</span>
-<span class="sd">        When set to ``True`` transforms grid from rectangular to geographical</span>
-<span class="sd">        [Default is ``False``].</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    center : str or list</span>
-<span class="sd">        [*dx*, *dy*].</span>
-<span class="sd">        Let projected coordinates be relative to projection center [Default</span>
-<span class="sd">        is relative to lower left corner]. Optionally, add offsets in the</span>
-<span class="sd">        projected units to be added (or subtracted when ``inverse`` is set) to</span>
-<span class="sd">        (from) the projected coordinates, such as false eastings and</span>
-<span class="sd">        northings for particular projection zones [Default is ``[0, 0]``].</span>
-<span class="sd">    {spacing}</span>
-<span class="sd">    dpi : int</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
+<span class="sd">    center</span>
+<span class="sd">        If ``True``, let the projected coordinates be relative to the projection center</span>
+<span class="sd">        [Default is relative to the lower left corner]. Optionally, set offsets</span>
+<span class="sd">        (*dx*, *dy*) in the projected units to be added (or subtracted when ``inverse``</span>
+<span class="sd">        is set) to (from) the projected coordinates, such as false eastings and</span>
+<span class="sd">        northings for particular projection zones [Default is ``(0, 0)``].</span>
+<span class="sd">    $spacing</span>
+<span class="sd">    dpi</span>
 <span class="sd">        Set the resolution for the new grid in dots per inch.</span>
-<span class="sd">    scaling : str</span>
-<span class="sd">        [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\</span>
-<span class="sd">        **k**\|\ **M**\|\ **n**\|\ **u**].</span>
-<span class="sd">        Force 1:1 scaling, i.e., output or input data are in actual projected</span>
-<span class="sd">        meters [**e**]. To specify other units, append **f** (feet),</span>
-<span class="sd">        **k** (kilometers), **M** (statute miles), **n** (nautical miles),</span>
-<span class="sd">        **u** (US survey feet), **i** (inches), **c** (centimeters), or</span>
-<span class="sd">        **p** (points).</span>
-<span class="sd">    unit : str</span>
-<span class="sd">        Append **c**, **i**, or **p** to indicate that centimeters, inches, or</span>
-<span class="sd">        points should be the projected measure unit. Cannot be used with</span>
-<span class="sd">        ``scaling``.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {interpolation}</span>
-<span class="sd">    {registration}</span>
+<span class="sd">    inverse</span>
+<span class="sd">        When set to ``True``, do the inverse transformation, from rectangular to</span>
+<span class="sd">        geographical [Default is ``False``].</span>
+<span class="sd">    unit</span>
+<span class="sd">        Set the projected measure unit. Valid values are ``&quot;c&quot;`` (centimeters),</span>
+<span class="sd">        ``&quot;i&quot;`` (inches), and ``&quot;p&quot;`` (points) [Default is set by</span>
+<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with ``scaling``.</span>
+<span class="sd">    scaling</span>
+<span class="sd">        Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual</span>
+<span class="sd">        projected meters. To specify other units, set it to ``&quot;f&quot;`` (feet),</span>
+<span class="sd">        ``&quot;k&quot;`` (kilometers), ``&quot;M&quot;`` (statute miles), ``&quot;n&quot;`` (nautical miles),</span>
+<span class="sd">        ``&quot;u&quot;`` (US survey feet), ``&quot;i&quot;`` (inches), ``&quot;c&quot;`` (centimeters), or</span>
+<span class="sd">        ``&quot;p&quot;`` (points). Without ``scaling``, the output (or input, see ``inverse``) is</span>
+<span class="sd">        in the units specified by :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $interpolation</span>
+<span class="sd">    $registration</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -271,14 +272,22 @@
 <span class="sd">    &gt;&gt;&gt; # Project the geographic gridded data onto a rectangular grid</span>
 <span class="sd">    &gt;&gt;&gt; new_grid = pygmt.grdproject(grid=grid, projection=&quot;M10c&quot;, region=region)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">projection</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The projection must be specified.&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Parameter &#39;projection&#39; must be specified.&quot;</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">),</span>
+        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">scaling</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;scaling&quot;</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">inverse</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inverse&quot;</span><span class="p">),</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -303,10 +312,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

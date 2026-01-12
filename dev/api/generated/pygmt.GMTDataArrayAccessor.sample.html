@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTDataArrayAccessor.sample.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -199,10 +199,10 @@
 <h1>pygmt.GMTDataArrayAccessor.sample<a class="headerlink" href="#pygmt-gmtdataarrayaccessor-sample" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.GMTDataArrayAccessor.sample">
-<span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.sample" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toggle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.sample" title="Link to this definition"></a></dt>
 <dd><p>Resample a grid onto a new lattice.</p>
 <p>This reads a grid file and interpolates it to create a new grid
-file. It can change the registration with <code class="docutils literal notranslate"><span class="pre">translate</span></code> or
+file. It can change the registration with <code class="docutils literal notranslate"><span class="pre">toggle</span></code> or
 <code class="docutils literal notranslate"><span class="pre">registration</span></code>, change the grid-spacing or number of nodes with
 <code class="docutils literal notranslate"><span class="pre">spacing</span></code>, and set a new sub-region using <code class="docutils literal notranslate"><span class="pre">region</span></code>. A bicubic
 [Default], bilinear, B-spline or nearest-neighbor interpolation is set
@@ -210,38 +210,37 @@ with <code class="docutils literal notranslate"><span class="pre">interpolation<
 <p>When <code class="docutils literal notranslate"><span class="pre">region</span></code> is omitted, the output grid will cover the same region as
 the input grid. When <code class="docutils literal notranslate"><span class="pre">spacing</span></code> is omitted, the grid spacing of the
 output grid will be the same as the input grid. Either <code class="docutils literal notranslate"><span class="pre">registration</span></code> or
-<code class="docutils literal notranslate"><span class="pre">translate</span></code> can be used to change the grid registration. When omitted,
+<code class="docutils literal notranslate"><span class="pre">toggle</span></code> can be used to change the grid registration. When omitted,
 the output grid will have the same registration as the input grid.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/grdsample.html">https://docs.generic-mapping-tools.org/6.6/grdsample.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p>I = spacing</p></li>
-<li><p>T = translate</p></li>
 <li><p>f = coltypes</p></li>
-</ul>
-</td><td><ul class="simple">
 <li><p>n = interpolation</p></li>
-<li><p>r = registration</p></li>
-<li><p>R = region</p></li>
+<li><p>I = spacing</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>r = registration</p></li>
 <li><p>x = cores</p></li>
 </ul>
 </td></tr></table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
-<li><p><strong>outgrid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the output netCDF grid file. If not specified, will return an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
+<li><p><strong>outgrid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the output netCDF grid file. If not specified, will return an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
 applying basic data operations to the output grid, see
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full</a> for the available modifiers.</p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><em>x_inc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>y_inc</em>[<strong>+e</strong>|<strong>n</strong>]].
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <p><em>x_inc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>y_inc</em>[<strong>+e</strong>|<strong>n</strong>]].
 <em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing.</p>
 <ul>
 <li><p><strong>Geographical (degrees) coordinates</strong>: Optionally, append an
@@ -269,17 +268,17 @@ pixel-registered grid; see <a class="extlink-gmt-docs reference external" href="
 the registration have already been initialized; use <code class="docutils literal notranslate"><span class="pre">spacing</span></code> and
 <code class="docutils literal notranslate"><span class="pre">registration</span></code> to override these values.</p>
 </p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>translate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Translate between grid and pixel registration; if the input is
-grid-registered, the output will be pixel-registered and vice-versa.</p></li>
-<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – [<strong>g</strong>|<strong>p</strong>].
-Set registration to <strong>g</strong>ridline or <strong>p</strong>ixel.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
-<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+<li><p><strong>toggle</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Toggle between grid and pixel registration; if the input is grid-registered, the
+output will be pixel-registered and vice-versa. This is a <em>destructive</em> grid
+change; see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/options.html#switch-registrations">https://docs.generic-mapping-tools.org/6.6/reference/options.html#switch-registrations</a>.
+<em>Note*</em>: <code class="docutils literal notranslate"><span class="pre">toggle</span></code> and <code class="docutils literal notranslate"><span class="pre">registration</span></code> are mutually exclusive.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
 Specify data types of input and/or output columns (time or geographical
 data). Full documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#f-full</a>.</p></li>
-<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
+<li><p><strong>interpolation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>[<strong>b</strong>|<strong>c</strong>|<strong>l</strong>|<strong>n</strong>][<strong>+a</strong>][<strong>+b</strong><em>BC</em>][<strong>+c</strong>][<strong>+t</strong><em>threshold</em>].
 Select interpolation mode for grids. You can select the type of spline used:</p>
 <ul>
 <li><p><strong>b</strong> for B-spline</p></li>
@@ -288,7 +287,10 @@ Select interpolation mode for grids. You can select the type of spline used:</p>
 <li><p><strong>n</strong> for nearest-neighbor</p></li>
 </ul>
 </p></li>
-<li><p><strong>cores</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Specify the number of active cores to be used in any OpenMP-enabled
+<li><p><strong>registration</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'gridline'</span></code>, <code class="docutils literal notranslate"><span class="pre">'pixel'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Select gridline or pixel node registration. Valid values are <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code>, and bool. GMT default is gridline registration. If
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, select pixel registration.</p></li>
+<li><p><strong>cores</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Specify the number of active cores to be used in any OpenMP-enabled
 multi-threaded algorithms. By default, all available cores are used. Set a
 positive number <em>n</em> to use <em>n</em> cores (if too large it will be truncated to
 the maximum cores available); or set a negative number <em>-n</em> to select
@@ -296,12 +298,12 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p><em>ret</em> – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in the file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -317,7 +319,7 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a new grid from an input grid, change the registration,</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># and set both x- and y-spacings to 0.5 arc-degrees</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">new_grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdsample</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">translate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdsample</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -336,10 +338,10 @@ the maximum cores available); or set a negative number <em>-n</em> to select
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

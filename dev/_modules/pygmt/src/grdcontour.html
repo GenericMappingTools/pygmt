@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdcontour.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -179,7 +179,6 @@
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;interval&quot;</span><span class="p">,</span> <span class="s2">&quot;levels&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.12.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.16.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;annotation&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;levels&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;label_placement&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;limit&quot;</span><span class="p">,</span>
@@ -188,18 +187,19 @@
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdcontour</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -209,16 +209,18 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdcontour.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
+<span class="sd">    $grid</span>
 <span class="sd">    levels : float, list, or str</span>
 <span class="sd">        Specify the contour lines to generate.</span>
 
@@ -246,16 +248,16 @@
 <span class="sd">        Do not draw contours with less than `cut` number of points.</span>
 <span class="sd">    resample : str or int</span>
 <span class="sd">        Resample smoothing factor.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {frame}</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
 <span class="sd">    label_placement : str</span>
 <span class="sd">        [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\</span>
 <span class="sd">        *args*.</span>
 <span class="sd">        Control the placement of labels along the quoted lines. It supports</span>
 <span class="sd">        five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for</span>
 <span class="sd">        details.</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    pen : str or list</span>
 <span class="sd">        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].</span>
 <span class="sd">        *type*, if present, can be **a** for annotated contours or **c** for regular</span>
@@ -266,8 +268,8 @@
 <span class="sd">        contour lines are taken from the CPT (see ``levels``). If **+cf** is</span>
 <span class="sd">        appended the colors from the CPT file are applied to the contour annotations.</span>
 <span class="sd">        Select **+c** for both effects.</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {coltypes}</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $coltypes</span>
 <span class="sd">    label : str</span>
 <span class="sd">        Add a legend entry for the contour being plotted. Normally, the</span>
 <span class="sd">        annotated contour is selected for the legend. You can select the</span>
@@ -275,8 +277,8 @@
 <span class="sd">        to be of the format [*annotcontlabel*][/*contlabel*]. If either</span>
 <span class="sd">        label contains a slash (/) character then use ``|`` as the</span>
 <span class="sd">        separator for the two labels instead.</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -320,10 +322,12 @@
                 <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -343,10 +347,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

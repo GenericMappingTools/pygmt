@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdtrack.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -197,14 +197,12 @@
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">g</span><span class="o">=</span><span class="s2">&quot;gap&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
     <span class="n">j</span><span class="o">=</span><span class="s2">&quot;distcalc&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-    <span class="n">o</span><span class="o">=</span><span class="s2">&quot;outcols&quot;</span><span class="p">,</span>
     <span class="n">s</span><span class="o">=</span><span class="s2">&quot;skiprows&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdtrack</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">points</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -214,6 +212,8 @@
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">outcols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -235,19 +235,21 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdtrack.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - o = outcols</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
+<span class="sd">    $grid</span>
 
 <span class="sd">    points</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
-<span class="sd">    {output_type}</span>
-<span class="sd">    {outfile}</span>
+<span class="sd">        $table_classes.</span>
+<span class="sd">    $output_type</span>
+<span class="sd">    $outfile</span>
 <span class="sd">    newcolname : str</span>
 <span class="sd">        Required if ``points`` is a :class:`pandas.DataFrame`. The name for the</span>
 <span class="sd">        new column in the track :class:`pandas.DataFrame` table where the</span>
@@ -351,7 +353,7 @@
 <span class="sd">        nearest distance nodes along the cross-profiles. We write 13 output</span>
 <span class="sd">        columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,</span>
 <span class="sd">        distl, lonr, latr, distr, width*.</span>
-<span class="sd">    {region}</span>
+<span class="sd">    $region</span>
 <span class="sd">    no_skip : bool</span>
 <span class="sd">        Do *not* skip points that fall outside the domain of the grid(s)</span>
 <span class="sd">        [Default only output points within the grid domain].</span>
@@ -409,22 +411,22 @@
 <span class="sd">        spherical degrees. Use *radius* to change the unit and give *radius* =</span>
 <span class="sd">        0 if you do not want to limit the radius search. To instead replace the</span>
 <span class="sd">        input point with the coordinates of the nearest node, append **+p**.</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    z_only : bool</span>
 <span class="sd">        Only write out the sampled z-values [Default writes all columns].</span>
-<span class="sd">    {aspatial}</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {find}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {gap}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {distcalc}</span>
-<span class="sd">    {interpolation}</span>
-<span class="sd">    {outcols}</span>
-<span class="sd">    {skiprows}</span>
-<span class="sd">    {wrap}</span>
+<span class="sd">    $aspatial</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $find</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $gap</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $distcalc</span>
+<span class="sd">    $interpolation</span>
+<span class="sd">    $outcols</span>
+<span class="sd">    $skiprows</span>
+<span class="sd">    $wrap</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -473,6 +475,8 @@
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">o</span><span class="o">=</span><span class="n">outcols</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -505,10 +509,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

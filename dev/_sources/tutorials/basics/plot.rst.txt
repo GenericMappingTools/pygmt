@@ -27,11 +27,14 @@ datasets through the :mod:`pygmt.datasets` package. If you don't have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually ``~/.gmt/cache``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-15
+.. GENERATED FROM PYTHON SOURCE LINES 13-18
 
 .. code-block:: Python
 
+    import io
+
     import pygmt
+    from pygmt.params import Position
 
 
 
@@ -40,13 +43,13 @@ the first time you use them (usually ``~/.gmt/cache``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-19
+.. GENERATED FROM PYTHON SOURCE LINES 19-22
 
 For example, let's load the sample dataset of tsunami generating earthquakes
 around Japan using :func:`pygmt.datasets.load_sample_data`.
 The data are loaded as a :class:`pandas.DataFrame`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-23
+.. GENERATED FROM PYTHON SOURCE LINES 22-26
 
 .. code-block:: Python
 
@@ -147,11 +150,11 @@ The data are loaded as a :class:`pandas.DataFrame`.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-25
+.. GENERATED FROM PYTHON SOURCE LINES 27-28
 
 Set the region for the plot to be slightly larger than the data bounds.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-33
+.. GENERATED FROM PYTHON SOURCE LINES 28-36
 
 .. code-block:: Python
 
@@ -176,12 +179,12 @@ Set the region for the plot to be slightly larger than the data bounds.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-36
+.. GENERATED FROM PYTHON SOURCE LINES 37-39
 
 We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
 earthquake epicenters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-43
+.. GENERATED FROM PYTHON SOURCE LINES 39-46
 
 .. code-block:: Python
 
@@ -204,7 +207,7 @@ earthquake epicenters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-52
+.. GENERATED FROM PYTHON SOURCE LINES 47-60
 
 We used the style ``c0.3c`` which means "circles with a diameter of 0.3
 centimeters". The ``pen`` parameter controls the outline of the symbols and
@@ -215,7 +218,12 @@ array to the ``size`` parameter. Because the magnitude is on a logarithmic
 scale, it helps to show the differences by scaling the values using a power
 law.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-66
+A legend for the size of the circles can not be added automatically. But users can
+create an :class:`io.StringIO` object, which can be passed to the ``spec`` parameter
+of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutorial
+:doc:`multiple-column legend </tutorials/advanced/legends>`.
+
+.. GENERATED FROM PYTHON SOURCE LINES 60-78
 
 .. code-block:: Python
 
@@ -231,6 +239,10 @@ law.
         fill="white",
         pen="black",
     )
+    legend = io.StringIO(
+        "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
+    )
+    fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
     fig.show()
 
 
@@ -245,7 +257,7 @@ law.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-79
+.. GENERATED FROM PYTHON SOURCE LINES 79-90
 
 Notice that we didn't include the size in the ``style`` parameter this time,
 just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
@@ -259,8 +271,7 @@ the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 also plot a colorbar showing the colormap used in the plot.
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 79-96
+.. GENERATED FROM PYTHON SOURCE LINES 90-110
 
 .. code-block:: Python
 
@@ -268,7 +279,9 @@ also plot a colorbar showing the colormap used in the plot.
     fig = pygmt.Figure()
     fig.basemap(region=region, projection="M15c", frame=True)
     fig.coast(land="black", water="skyblue")
-    pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
+    pygmt.makecpt(
+        cmap="matplotlib/viridis", series=[data.depth_km.min(), data.depth_km.max()]
+    )
     fig.plot(
         x=data.longitude,
         y=data.latitude,
@@ -279,6 +292,7 @@ also plot a colorbar showing the colormap used in the plot.
         pen="black",
     )
     fig.colorbar(frame="xaf+lDepth (km)")
+    fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
     fig.show()
 
 
@@ -296,7 +310,7 @@ also plot a colorbar showing the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.769 seconds)
+   **Total running time of the script:** (0 minutes 1.523 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:

@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdgradient.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,16 +161,10 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">args_in_kwargs</span><span class="p">,</span>
-    <span class="n">build_arg_list</span><span class="p">,</span>
-    <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
-    <span class="n">use_alias</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdgradient&quot;</span><span class="p">]</span>
 
@@ -179,19 +173,18 @@
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient">[docs]</a>
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;radiance&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;slope_file&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdgradient</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">azimuth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">radiance</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -205,22 +198,24 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdgradient.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - A = azimuth</span>
+<span class="sd">       - E = radiance</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {outgrid}</span>
-<span class="sd">    azimuth : float, str, or list</span>
-<span class="sd">        *azim*\ [/*azim2*].</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
+<span class="sd">    azimuth</span>
+<span class="sd">        *azim* or (*azim*, *azim2*).</span>
 <span class="sd">        Azimuthal direction for a directional derivative; *azim* is the</span>
 <span class="sd">        angle in the x,y plane measured in degrees positive clockwise from</span>
 <span class="sd">        north (the positive y-direction) toward east (the positive x-direction). The</span>
 <span class="sd">        negative of the directional derivative,</span>
-<span class="sd">        :math:`-(\frac{{dz}}{{dx}}\sin(\mbox{{azim}}) + \</span>
-<span class="sd">        \frac{{dz}}{{dy}}\cos(\mbox{{azim}}))`, is found; negation yields</span>
+<span class="sd">        :math:`-(\frac{dz}{dx}\sin(\mbox{azim}) + \</span>
+<span class="sd">        \frac{dz}{dy}\cos(\mbox{azim}))`, is found; negation yields</span>
 <span class="sd">        positive values when the slope of :math:`z(x,y)` is downhill in the</span>
 <span class="sd">        *azim* direction, the correct sense for shading the illumination of an</span>
 <span class="sd">        image by a light source above the x,y plane shining from the *azim*</span>
@@ -243,9 +238,9 @@
 <span class="sd">        - **o**: Report orientations (0-180) rather than directions (0-360).</span>
 <span class="sd">        - **n**: Add 90 degrees to all angles (e.g., to give local strikes of</span>
 <span class="sd">          the surface).</span>
-<span class="sd">    radiance : str or list</span>
-<span class="sd">        [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\</span>
-<span class="sd">        *diffuse*][**+p**\ *specular*][**+s**\ *shine*].</span>
+<span class="sd">    radiance</span>
+<span class="sd">        (*azim*, *elev*) or [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*]</span>
+<span class="sd">        [**+d**\ *diffuse*][**+p**\ *specular*][**+s**\ *shine*].</span>
 <span class="sd">        Compute Lambertian radiance appropriate to use with</span>
 <span class="sd">        :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The</span>
 <span class="sd">        Lambertian Reflection assumes an ideal surface that reflects all the</span>
@@ -270,18 +265,18 @@
 <span class="sd">        given, it is set to the average of :math:`g`. The following forms are</span>
 <span class="sd">        supported:</span>
 
-<span class="sd">        - **True**: Normalize using :math:`g_n = \mbox{{amp}}\</span>
-<span class="sd">          (\frac{{g - \mbox{{offset}}}}{{max(|g - \mbox{{offset}}|)}})`</span>
+<span class="sd">        - **True**: Normalize using math:`g_n = \mbox{amp}\</span>
+<span class="sd">          (\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})`</span>
 <span class="sd">        - **e**: Normalize using a cumulative Laplace distribution yielding:</span>
-<span class="sd">          :math:`g_n = \mbox{{amp}}(1 - \</span>
-<span class="sd">          \exp{{(\sqrt{{2}}\frac{{g - \mbox{{offset}}}}{{\sigma}}))}}`, where</span>
+<span class="sd">          :math:`g_n = \mbox{amp}(1 - \</span>
+<span class="sd">          \exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}`, where</span>
 <span class="sd">          :math:`\sigma` is estimated using the L1 norm of</span>
-<span class="sd">          :math:`(g - \mbox{{offset}})` if it is not given.</span>
+<span class="sd">          :math:`(g - \mbox{offset})` if it is not given.</span>
 <span class="sd">        - **t**: Normalize using a cumulative Cauchy distribution yielding:</span>
 <span class="sd">          :math:`g_n = \</span>
-<span class="sd">          \frac{{2(\mbox{{amp}})}}{{\pi}}(\tan^{{-1}}(\frac{{g - \</span>
-<span class="sd">          \mbox{{offset}}}}{{\sigma}}))` where :math:`\sigma` is estimated</span>
-<span class="sd">          using the L2 norm of :math:`(g - \mbox{{offset}})` if it is not</span>
+<span class="sd">          \frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \</span>
+<span class="sd">          \mbox{offset}}{\sigma}))` where :math:`\sigma` is estimated</span>
+<span class="sd">          using the L2 norm of :math:`(g - \mbox{offset})` if it is not</span>
 <span class="sd">          given.</span>
 
 <span class="sd">        As a final option, you may add **+a**\ *ambient* to add *ambient* to</span>
@@ -297,13 +292,13 @@
 <span class="sd">        grid output is not needed for this run then do not specify</span>
 <span class="sd">        ``outgrid``. For subsequent runs, just use **r** to read these</span>
 <span class="sd">        values. Using **R** will read then delete the statistics file.</span>
-<span class="sd">    {region}</span>
+<span class="sd">    $region</span>
 <span class="sd">    slope_file : str</span>
 <span class="sd">        Name of output grid file with scalar magnitudes of gradient vectors.</span>
 <span class="sd">        Requires ``direction`` but makes ``outgrid`` optional.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {interpolation}</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $interpolation</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -328,14 +323,21 @@
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Must specify normalize if tiles is specified.&quot;</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="n">radiance</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s2">&quot;At least one of the following parameters must be specified: &quot;</span>
             <span class="s2">&quot;azimuth, direction, or radiance.&quot;</span>
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">radiance</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;radiance&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
     <span class="p">)</span>
@@ -362,10 +364,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

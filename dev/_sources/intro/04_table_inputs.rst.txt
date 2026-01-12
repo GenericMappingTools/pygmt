@@ -195,7 +195,7 @@ GMT and PyGMT do not support natively.
 
  .. code-block:: none
 
-    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/pyogrio/geopandas.py:710: UserWarning: 'crs' was not provided.  The output dataset will not have projection information defined and may not be usable in other systems.
+    /home/runner/micromamba/envs/pygmt/lib/python3.14/site-packages/pyogrio/geopandas.py:917: UserWarning: 'crs' was not provided.  The output dataset will not have projection information defined and may not be usable in other systems.
       write(
 
 
@@ -258,7 +258,7 @@ source and analysis requirements.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.451 seconds)
+   **Total running time of the script:** (0 minutes 0.427 seconds)
 
 
 .. _sphx_glr_download_intro_04_table_inputs.py:

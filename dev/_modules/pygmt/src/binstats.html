@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/binstats.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,7 +163,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">TableLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 
 <div class="viewcode-block" id="binstats">
@@ -171,20 +171,17 @@
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">E</span><span class="o">=</span><span class="s2">&quot;empty&quot;</span><span class="p">,</span>
-    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;search_radius&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span>
     <span class="n">a</span><span class="o">=</span><span class="s2">&quot;aspatial&quot;</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
-    <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">binstats</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">statistic</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
         <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
         <span class="s2">&quot;mad&quot;</span><span class="p">,</span>
@@ -205,8 +202,10 @@
     <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
     <span class="n">quantile_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -222,16 +221,19 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`gmtbinstats.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - C = statistic</span>
+<span class="sd">       - I = spacing</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - r = registration</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data</span>
-<span class="sd">        A file name of an ASCII data table or a 2-D {table-classes}.</span>
-<span class="sd">    {outgrid}</span>
+<span class="sd">        A file name of an ASCII data table or a 2-D $table_classes.</span>
+<span class="sd">    $outgrid</span>
 <span class="sd">    statistic</span>
 <span class="sd">        Choose the statistic that will be computed per node based on the points that are</span>
 <span class="sd">        within *radius* distance of the node. Select one of:</span>
@@ -270,14 +272,14 @@
 <span class="sd">        computed while the count will be the sum of the weights instead of</span>
 <span class="sd">        number of points. If the weights are actually uncertainties</span>
 <span class="sd">        (one sigma) then append **+s** and weight = 1/sigma.</span>
-<span class="sd">    {spacing}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {aspatial}</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {registration}</span>
+<span class="sd">    $spacing</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $aspatial</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $registration</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -311,9 +313,12 @@
                 <span class="s2">&quot;sum&quot;</span><span class="p">:</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">statistic</span> <span class="o">==</span> <span class="s2">&quot;quantile&quot;</span><span class="p">:</span>
@@ -340,10 +345,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

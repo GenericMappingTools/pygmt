@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/3d_plots/scatter3d.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -96,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#d-plots">3D Plots</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">3-D scatter plots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdview_surface.html">Plotting a surface</a></li>
 </ul>
@@ -238,7 +238,7 @@ the vertical exaggeration factor.</p>
 <span class="c1"># palette &quot;cubhelix&quot; in categorical format and add the species names as</span>
 <span class="c1"># annotations for the colorbar</span>
 <a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cubhelix&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;cpt-city/cubhelix&quot;</span><span class="p">,</span>
     <span class="c1"># Use the minimum and maximum of the categorical number code</span>
     <span class="c1"># to set the lowest_value and the highest_value of the CPT</span>
     <span class="n">series</span><span class="o">=</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
@@ -283,7 +283,7 @@ the vertical exaggeration factor.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.599 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.410 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-plots-scatter3d-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6bd357dc31326ee70b4c2e749bdc67b1/scatter3d.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">scatter3d.ipynb</span></code></a></p>
@@ -310,10 +310,10 @@ the vertical exaggeration factor.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

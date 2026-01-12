@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/select.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -166,6 +166,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
@@ -178,14 +179,16 @@
 <div class="viewcode-block" id="select">
 <a class="viewcode-back" href="../../../api/generated/pygmt.select.html#pygmt.select">[docs]</a>
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_values&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;gridmask&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_grid&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;dist2pt&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;gridmask&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;mask_grid&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;dist2line&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;mask_values&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;z_subregion&quot;</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
@@ -193,12 +196,10 @@
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">g</span><span class="o">=</span><span class="s2">&quot;gap&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
-    <span class="n">o</span><span class="o">=</span><span class="s2">&quot;outcols&quot;</span><span class="p">,</span>
     <span class="n">s</span><span class="o">=</span><span class="s2">&quot;skiprows&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
@@ -210,6 +211,8 @@
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">outcols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -233,20 +236,22 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`gmtselect.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - D = resolution</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - o = outcols</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
-<span class="sd">    {output_type}</span>
-<span class="sd">    {outfile}</span>
-<span class="sd">    {area_thresh}</span>
+<span class="sd">        $table_classes.</span>
+<span class="sd">    $output_type</span>
+<span class="sd">    $outfile</span>
+<span class="sd">    $area_thresh</span>
 <span class="sd">    dist2pt : str</span>
 <span class="sd">        *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.</span>
 <span class="sd">        Pass all records whose locations are within *dist* of any of the</span>
@@ -282,9 +287,9 @@
 <span class="sd">        &lt;reference/file-formats.html#optional-segment-header-records&gt;`</span>
 <span class="sd">        *polygonfile*. For spherical polygons (lon, lat), make sure no</span>
 <span class="sd">        consecutive points are separated by 180 degrees or more in longitude.</span>
-<span class="sd">    gridmask : str</span>
+<span class="sd">    mask_grid : str</span>
 <span class="sd">        Pass all locations that are inside the valid data area of the grid</span>
-<span class="sd">        *gridmask*. Nodes that are outside are either NaN or zero.</span>
+<span class="sd">        *mask_grid*. Nodes that are outside are either NaN or zero.</span>
 <span class="sd">    reverse : str</span>
 <span class="sd">        [**cflrsz**].</span>
 <span class="sd">        Reverse the sense of the test for each of the criteria specified:</span>
@@ -292,35 +297,33 @@
 <span class="sd">        - **c** select records NOT inside any point&#39;s circle of influence.</span>
 <span class="sd">        - **f** select records NOT inside any of the polygons.</span>
 <span class="sd">        - **g** will pass records inside the cells with z equal zero of the</span>
-<span class="sd">          grid mask in ``gridmask``.</span>
+<span class="sd">          *mask_grid* in ``mask_grid``.</span>
 <span class="sd">        - **l** select records NOT within the specified distance of any line.</span>
 <span class="sd">        - **r** select records NOT inside the specified rectangular region.</span>
-<span class="sd">        - **s** select records NOT considered inside as specified by ``mask``</span>
+<span class="sd">        - **s** select records NOT considered inside as specified by ``mask_values``</span>
 <span class="sd">          (and ``area_thresh``, ``resolution``).</span>
 <span class="sd">        - **z** select records NOT within the range specified by</span>
 <span class="sd">          ``z_subregion``.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    mask : str or list</span>
-<span class="sd">        Pass all records whose location is inside specified geographical</span>
-<span class="sd">        features. Specify if records should be skipped (s) or kept (k) using</span>
-<span class="sd">        1 of 2 formats:</span>
+<span class="sd">    $projection</span>
+<span class="sd">    mask_values : str or list</span>
+<span class="sd">        Pass all records whose location is inside specified geographical features.</span>
+<span class="sd">        Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:</span>
 
 <span class="sd">        - *wet/dry*.</span>
 <span class="sd">        - *ocean/land/lake/island/pond*.</span>
 
-<span class="sd">        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry</span>
-<span class="sd">        land].</span>
+<span class="sd">        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry land].</span>
 <span class="sd">    resolution</span>
-<span class="sd">        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset</span>
-<span class="sd">        to use. The available resolutions from highest to lowest are: ``&quot;full&quot;``,</span>
-<span class="sd">        ``&quot;high&quot;``, ``&quot;intermediate&quot;``, ``&quot;low&quot;``, and ``&quot;crude&quot;``, which drops by 80%</span>
-<span class="sd">        between levels. Alternatively, choose ``&quot;auto&quot;`` to automatically select the</span>
-<span class="sd">        most suitable resolution given the chosen region. Note that because the</span>
-<span class="sd">        coastlines differ in details, a node in a mask file using one resolution is not</span>
-<span class="sd">        guaranteed to remain inside [or outside] when a different resolution is</span>
+<span class="sd">        Ignored unless ``mask_values`` is set. Select the resolution of the coastline</span>
+<span class="sd">        dataset to use. The available resolutions from highest to lowest are:</span>
+<span class="sd">        ``&quot;full&quot;``, ``&quot;high&quot;``, ``&quot;intermediate&quot;``, ``&quot;low&quot;``, and ``&quot;crude&quot;``, which</span>
+<span class="sd">        drops by 80% between levels. Alternatively, choose ``&quot;auto&quot;`` to automatically</span>
+<span class="sd">        select the most suitable resolution given the chosen region. Note that because</span>
+<span class="sd">        the coastlines differ in details, a node in a mask file using one resolution is</span>
+<span class="sd">        not guaranteed to remain inside [or outside] when a different resolution is</span>
 <span class="sd">        selected. If ``None``, the low resolution is used by default.</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    z_subregion : str or list</span>
 <span class="sd">        *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].</span>
 <span class="sd">        Pass all records whose 3rd column (*z*; *col* = 2) lies within the</span>
@@ -340,16 +343,16 @@
 <span class="sd">        and **+i** reverses the tests to pass record with *z* value NOT in the</span>
 <span class="sd">        given range. Finally, if **+c** is not used then it is automatically</span>
 <span class="sd">        incremented for each new ``z_subregion`` argument, starting with 2.</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {find}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {gap}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {outcols}</span>
-<span class="sd">    {skiprows}</span>
-<span class="sd">    {wrap}</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $find</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $gap</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $outcols</span>
+<span class="sd">    $skiprows</span>
+<span class="sd">    $wrap</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -393,6 +396,8 @@
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">o</span><span class="o">=</span><span class="n">outcols</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -421,10 +426,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

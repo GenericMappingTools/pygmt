@@ -32,7 +32,7 @@ Specifying the same scale for the ``projection`` and ``zscale`` parameters
 ensures equal axis scaling. The ``shading`` parameter specifies illumination;
 here we choose an azimuth of 45° with ``shading="+a45"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-67
+.. GENERATED FROM PYTHON SOURCE LINES 18-64
 
 
 
@@ -50,6 +50,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     import numpy as np
     import pygmt
     import xarray as xr
+    from pygmt.params import Position
 
 
     # Define an interesting function of two variables, see:
@@ -78,29 +79,25 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     SCALE = 0.5  # in centimeters
     fig.grdview(
         data,
-        # Set annotations and gridlines in steps of five, and
-        # tick marks in steps of one
+        # Set annotations and gridlines in steps of five, and tick marks in steps of one
         frame=["a5f1g5", "za5f1g5"],
         projection=f"x{SCALE}c",
         zscale=f"{SCALE}c",
         surftype="s",
-        cmap="roma",
+        cmap="SCM/roma",
         perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
         shading="+a45",
     )
 
-    # Add colorbar for gridded data
-    fig.colorbar(
-        frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
-        position="JMR",  # Place colorbar in the Middle Right (MR) corner
-    )
+    # Add colorbar for gridded data in the Middle Right corner.
+    fig.colorbar(frame="a2f1", position=Position("MR", cstype="outside"))
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.099 seconds)
+   **Total running time of the script:** (0 minutes 2.955 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:

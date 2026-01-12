@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/tile_map.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -181,6 +181,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_tile_map&quot;</span><span class="p">]</span>
 <span class="n">__doctest_requires__</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">&quot;load_tile_map&quot;</span><span class="p">):</span> <span class="p">[</span><span class="s2">&quot;contextily&quot;</span><span class="p">]}</span>
 
 
@@ -278,12 +279,12 @@
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; raster.sizes</span>
 <span class="sd">    Frozen({&#39;band&#39;: 3, &#39;y&#39;: 256, &#39;x&#39;: 512})</span>
-<span class="sd">    &gt;&gt;&gt; raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE</span>
+<span class="sd">    &gt;&gt;&gt; raster.coords</span>
 <span class="sd">    Coordinates:</span>
-<span class="sd">      * band         (band) uint8... 1 2 3</span>
-<span class="sd">      * y            (y) float64... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07</span>
-<span class="sd">      * x            (x) float64... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
-<span class="sd">        spatial_ref  int... 0</span>
+<span class="sd">      * band         (band) uint8 3B 1 2 3</span>
+<span class="sd">      * y            (y) float64 2kB -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07</span>
+<span class="sd">      * x            (x) float64 4kB -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
+<span class="sd">        spatial_ref  int64 8B 0</span>
 <span class="sd">    &gt;&gt;&gt; # CRS is set only if rioxarray is available</span>
 <span class="sd">    &gt;&gt;&gt; if hasattr(raster, &quot;rio&quot;):</span>
 <span class="sd">    ...     raster.rio.crs.to_string()</span>
@@ -360,10 +361,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

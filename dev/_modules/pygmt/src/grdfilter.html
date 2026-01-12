@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfilter.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,30 +161,27 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdfilter&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="grdfilter">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdfilter.html#pygmt.grdfilter">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span>
-    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span>
-    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;nans&quot;</span><span class="p">,</span>
-    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;toggle&quot;</span><span class="p">,</span>
-    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
-    <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdfilter</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">nans</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">toggle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -203,15 +200,19 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdfilter.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - I = spacing</span>
+<span class="sd">       - N = nans</span>
 <span class="sd">       - R = region</span>
+<span class="sd">       - T = toggle</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - r = registration</span>
 <span class="sd">       - x = cores</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {outgrid}</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
 <span class="sd">    filter : str</span>
 <span class="sd">        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\</span>
 <span class="sd">        [/*width2*\][*modifiers*].</span>
@@ -246,24 +247,26 @@
 <span class="sd">          calculation.</span>
 <span class="sd">        - ``&quot;5&quot;``: grid (x,y) in Mercator ``projection=&quot;m1&quot;`` img units,</span>
 <span class="sd">          *width* in km, Spherical distance calculation.</span>
+<span class="sd">    $spacing</span>
+<span class="sd">    nans</span>
+<span class="sd">        Determine how NaN-values in the input grid affect the filtered output grid.</span>
+<span class="sd">        Choose one of:</span>
 
-<span class="sd">    {spacing}</span>
-<span class="sd">    nans : str or float</span>
-<span class="sd">        **i**\|\ **p**\|\ **r**.</span>
-<span class="sd">        Determine how NaN-values in the input grid affect the filtered output.</span>
-<span class="sd">        Use **i** to ignore all NaNs in the calculation of the filtered value</span>
-<span class="sd">        [Default]. **r** is same as **i** except if the input node was NaN then</span>
-<span class="sd">        the output node will be set to NaN (only applies if both grids are</span>
-<span class="sd">        co-registered). **p** will force the filtered value to be NaN if any</span>
-<span class="sd">        grid nodes with NaN-values are found inside the filter circle.</span>
-<span class="sd">    {region}</span>
-<span class="sd">    toggle : bool</span>
-<span class="sd">        Toggle the node registration for the output grid to get the opposite of</span>
+<span class="sd">        - ``&quot;ignore&quot;``: Ignore all NaNs in the calculation of filtered value [Default].</span>
+<span class="sd">        - ``&quot;replace&quot;``: Similar to ``&quot;ignore&quot;`` except if the input node was NaN then</span>
+<span class="sd">          the output node will be set to NaN (only applied if both grids are</span>
+<span class="sd">          co-registered).</span>
+<span class="sd">        - ``&quot;preserve&quot;``: Force the filtered value to be NaN if any grid nodes with</span>
+<span class="sd">          NaN-values are found inside the filter circle.</span>
+<span class="sd">    toggle</span>
+<span class="sd">        Toggle the node registration for the output grid so as to become the opposite of</span>
 <span class="sd">        the input grid [Default gives the same registration as the input grid].</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {registration}</span>
-<span class="sd">    {cores}</span>
+<span class="sd">        Alternatively, use ``registration`` to set the registration explicitly.</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $registration</span>
+<span class="sd">    $cores</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -278,8 +281,8 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file</span>
-<span class="sd">    &gt;&gt;&gt; # and return a filtered field (saved as netCDF)</span>
+<span class="sd">    &gt;&gt;&gt; # Apply a median filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
+<span class="sd">    &gt;&gt;&gt; # and return a filtered grid (saved as netCDF file).</span>
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfilter(</span>
 <span class="sd">    ...     grid=&quot;@earth_relief_30m_g&quot;,</span>
 <span class="sd">    ...     filter=&quot;m600&quot;,</span>
@@ -289,14 +292,21 @@
 <span class="sd">    ...     outgrid=&quot;filtered_pacific.nc&quot;,</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; Path(&quot;filtered_pacific.nc&quot;).unlink()  # Cleanup file</span>
-<span class="sd">    &gt;&gt;&gt; # Apply a Gaussian smoothing filter of 600 km to the input DataArray</span>
-<span class="sd">    &gt;&gt;&gt; # and return a filtered DataArray with the smoothed field</span>
+<span class="sd">    &gt;&gt;&gt; # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return</span>
+<span class="sd">    &gt;&gt;&gt; # a filtered DataArray with the smoothed grid.</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief()</span>
 <span class="sd">    &gt;&gt;&gt; smooth_field = pygmt.grdfilter(grid=grid, filter=&quot;g600&quot;, distance=&quot;4&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
+            <span class="n">nans</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;nans&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ignore&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">}</span>
+        <span class="p">),</span>
+        <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">toggle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;toggle&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="n">cores</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -322,10 +332,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

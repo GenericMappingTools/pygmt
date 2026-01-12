@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/shift_origin.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,6 +161,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;shift_origin&quot;</span><span class="p">]</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">shift_origin</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">xshift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">yshift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -192,11 +194,11 @@
 <span class="sd">    to other units via :gmt-term:`PROJ_LENGTH_UNIT`. Optionally, append the length unit</span>
 <span class="sd">    (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.</span>
 
-<span class="sd">    For *xshift*, a special character **w** can also be used, which represents the</span>
-<span class="sd">    bounding box **width** of the previous plot. The full syntax is</span>
-<span class="sd">    [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f* and divisor</span>
-<span class="sd">    *d* can be used to compute an offset that may be adjusted further by ±\ *xoff*.</span>
-<span class="sd">    Assuming that the previous plot has a width of 10 centimeters, here are some example</span>
+<span class="sd">    For *xshift*, character **w** can be used, which represents the bounding box</span>
+<span class="sd">    **width** of the last plotting object. The full syntax is</span>
+<span class="sd">    [[±][*f*]\ **w**\ [/*d*]±]\ *xoff*, where optional signs, factor *f* and divisor *d*</span>
+<span class="sd">    can be used to compute an offset that may be adjusted further by ±\ *xoff*. Assuming</span>
+<span class="sd">    that the last plotting object has a width of 10 centimeters, here are some example</span>
 <span class="sd">    values for *xshift*:</span>
 
 <span class="sd">    - ``&quot;w&quot;``: x-shift is 10 cm</span>
@@ -204,11 +206,11 @@
 <span class="sd">    - ``&quot;2w+3c&quot;``: x-shift is 2*10+3=23 cm</span>
 <span class="sd">    - ``&quot;w/2-2c&quot;``: x-shift is 10/2-2=3 cm</span>
 
-<span class="sd">    Similarly, for *yshift*, a special character **h** can also be used, which is the</span>
-<span class="sd">    bounding box **height** of the previous plot.</span>
+<span class="sd">    Similarly, for *yshift*, character **h** can be used, which is the bounding box</span>
+<span class="sd">    **height** of the last plotting object.</span>
 
-<span class="sd">    **Note**: The previous plot bounding box refers to the last object plotted, which</span>
-<span class="sd">    may be a basemap, image, logo, legend, colorbar, etc.</span>
+<span class="sd">    **Note**: The last plotting object can be a basemap, image, logo, legend, colorbar,</span>
+<span class="sd">    etc.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -289,10 +291,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

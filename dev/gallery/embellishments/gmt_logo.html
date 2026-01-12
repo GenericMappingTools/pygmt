@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/gmt_logo.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -95,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -198,18 +198,18 @@ to download the full example code.</p>
 <span id="sphx-glr-gallery-embellishments-gmt-logo-py"></span><h1>GMT logo<a class="headerlink" href="#gmt-logo" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.logo</span></code></a> method allows to place the GMT logo on a figure.</p>
 <img src="../../_images/sphx_glr_gmt_logo_001.png" srcset="../../_images/sphx_glr_gmt_logo_001.png" alt="gmt logo" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X6c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Add the GMT logo in the Top Right (TR) corner of the current plot, scaled up to be 3</span>
 <span class="c1"># centimeters wide and offset by 0.3 cm in x-direction and 0.6 cm in y-direction.</span>
-<a href="../../api/generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">logo</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jTR+o0.3c/0.6c+w3c&quot;</span><span class="p">)</span>
-
+<a href="../../api/generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">logo</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;TR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">)),</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;3c&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.212 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.205 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-gmt-logo-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/85ff2edb21e65ac1ce07cdea7ac5542e/gmt_logo.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">gmt_logo.ipynb</span></code></a></p>
@@ -236,10 +236,10 @@ to download the full example code.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

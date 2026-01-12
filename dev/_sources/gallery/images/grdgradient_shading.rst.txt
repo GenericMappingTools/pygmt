@@ -36,7 +36,7 @@ along a certain azimuth angle, then adjusts the brightness value of the color
 according to the positive/negative of the azimuthal gradient and the amplitude
 of each point.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-65
+.. GENERATED FROM PYTHON SOURCE LINES 22-72
 
 
 
@@ -64,6 +64,7 @@ of each point.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Position
 
     # Load the 3 arc-minutes global relief grid in the target area around Caucasus
     grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45])
@@ -71,7 +72,7 @@ of each point.
     fig = pygmt.Figure()
 
     # Define a colormap to be used for topography
-    pygmt.makecpt(cmap="terra", series=[-7000, 7000])
+    pygmt.makecpt(cmap="gmt/terra", series=[-7000, 7000])
 
     # Define figure configuration
     pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")
@@ -103,14 +104,20 @@ of each point.
                     panel=True,
                 )
 
-    fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
+    fig.colorbar(
+        position=Position("BC", cstype="outside"),
+        length=14,
+        width=0.4,
+        orientation="horizontal",
+        frame="xa2000f500+lElevation (m)",
+    )
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.132 seconds)
+   **Total running time of the script:** (0 minutes 4.245 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient_shading.py:

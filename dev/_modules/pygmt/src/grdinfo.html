@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdinfo.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,13 +161,12 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -177,17 +176,16 @@
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;per_column&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;geographic&quot;</span><span class="p">,</span>
-    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;force_scan&quot;</span><span class="p">,</span>
     <span class="n">M</span><span class="o">=</span><span class="s2">&quot;minmax_pos&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nearest_multiple&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdinfo</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tiles</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -200,14 +198,16 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdinfo.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - D = tiles</span>
+<span class="sd">       - I = spacing</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {region}</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $region</span>
 <span class="sd">    per_column : str or bool</span>
 <span class="sd">        **n**\|\ **t**.</span>
 <span class="sd">        Format the report using tab-separated fields on a single line. The</span>
@@ -219,7 +219,7 @@
 <span class="sd">        columns. The registration is either 0 (gridline) or 1 (pixel), while</span>
 <span class="sd">        gtype is either 0 (Cartesian) or 1 (geographic). The default value is</span>
 <span class="sd">        ``False``. This cannot be called if ``geographic`` is also set.</span>
-<span class="sd">    tiles : str or list</span>
+<span class="sd">    tiles</span>
 <span class="sd">        *xoff*\ [/*yoff*][**+i**].</span>
 <span class="sd">        Divide a single grid&#39;s domain (or the ``region`` domain, if no grid</span>
 <span class="sd">        given) into tiles of size dx times dy (set via ``spacing``). You can</span>
@@ -233,7 +233,7 @@
 <span class="sd">        Report grid domain and x/y-increments in world mapping format.</span>
 <span class="sd">        The default value is ``False``. This cannot be called if</span>
 <span class="sd">        ``per_column`` is also set.</span>
-<span class="sd">    spacing : str or list</span>
+<span class="sd">    spacing</span>
 <span class="sd">        *dx*\ [/*dy*]\|\ **b**\|\ **i**\|\ **r**.</span>
 <span class="sd">        Report the min/max of the region to the nearest multiple of dx and dy,</span>
 <span class="sd">        and output this in the form w/e/s/n (unless ``per_column`` is set). To</span>
@@ -270,15 +270,18 @@
 <span class="sd">        absolute value of the two extremes, append **+s**. We report the</span>
 <span class="sd">        result via the text string *zmin/zmax* or *zmin/zmax/dz*</span>
 <span class="sd">        (if *dz* was given) as expected by :func:`pygmt.makecpt`.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {coltypes}</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $coltypes</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    info : str</span>
 <span class="sd">        A string with information about the grid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
     <span class="p">)</span>
@@ -304,10 +307,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

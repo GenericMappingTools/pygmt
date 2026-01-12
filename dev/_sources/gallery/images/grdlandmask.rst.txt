@@ -22,9 +22,9 @@ Create 'wet-dry' mask grid
 ==========================
 
 The :func:`pygmt.grdlandmask` function allows setting all nodes on land
-or water to a specified value using the ``maskvalues`` parameter.
+or water to a specified value using the ``mask_values`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-37
+.. GENERATED FROM PYTHON SOURCE LINES 10-40
 
 
 
@@ -50,6 +50,7 @@ or water to a specified value using the ``maskvalues`` parameter.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Position
 
     fig = pygmt.Figure()
 
@@ -60,7 +61,9 @@ or water to a specified value using the ``maskvalues`` parameter.
     # masses.
     # Use shoreline data with (l)ow resolution and set the grid spacing to
     # 5 arc-minutes in x- and y-directions.
-    grid = pygmt.grdlandmask(region=region, spacing="5m", maskvalues=[0, 1], resolution="l")
+    grid = pygmt.grdlandmask(
+        region=region, spacing="5m", mask_values=[0, 1], resolution="l"
+    )
 
     # Plot clipped grid
     fig.basemap(region=region, projection="M12c", frame=True)
@@ -70,17 +73,17 @@ or water to a specified value using the ``maskvalues`` parameter.
     # use color_model="+cwater,land" to write the discrete color palette
     # "batlow" in categorical format and add water/land as annotations for the
     # colorbar.
-    pygmt.makecpt(cmap="batlow", series=(0, 1, 1), color_model="+cwater,land")
+    pygmt.makecpt(cmap="SCM/batlow", series=(0, 1, 1), color_model="+cwater,land")
 
     fig.grdimage(grid=grid, cmap=True)
-    fig.colorbar(position="JMR+o0.5c/0c+w8c")
+    fig.colorbar(position=Position("MR", cstype="outside", offset=(0.5, 0)), length=8)
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.188 seconds)
+   **Total running time of the script:** (0 minutes 0.177 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdlandmask.py:

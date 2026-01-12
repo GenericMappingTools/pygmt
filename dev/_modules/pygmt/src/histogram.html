@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/histogram.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,18 +160,24 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">TableLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;barwidth&quot;</span><span class="p">,</span> <span class="s2">&quot;bar_width&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;annotate&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;barwidth&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;extreme&quot;</span><span class="p">,</span>
@@ -185,21 +191,24 @@
     <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
     <span class="n">e</span><span class="o">=</span><span class="s2">&quot;find&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
     <span class="n">l</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">histogram</span><span class="p">(</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">histogram</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bar_width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bar_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -207,26 +216,30 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`histogram.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
+<span class="sd">       - E = bar_width, bar_offset</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a Python list, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {frame}</span>
-<span class="sd">    {cmap}</span>
+<span class="sd">        $table_classes.</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $cmap</span>
 <span class="sd">    fill : str</span>
 <span class="sd">         Set color or pattern for filling bars [Default is no fill].</span>
-<span class="sd">    {pen}</span>
-<span class="sd">    {panel}</span>
+<span class="sd">    $pen</span>
+<span class="sd">    $panel</span>
 <span class="sd">    annotate : bool or str</span>
 <span class="sd">        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].</span>
 <span class="sd">        Annotate each bar with the count it represents. Append any of the</span>
@@ -235,15 +248,14 @@
 <span class="sd">        annotation font; use **+o** to change the offset between bar and</span>
 <span class="sd">        label [Default is ``&quot;6p&quot;``]; use **+r** to rotate the labels from</span>
 <span class="sd">        horizontal to vertical.</span>
-<span class="sd">    barwidth : float or str</span>
-<span class="sd">        *width*\ [**+o**\ *offset*].</span>
+<span class="sd">    bar_width</span>
 <span class="sd">        Use an alternative histogram bar width than the default set via</span>
-<span class="sd">        ``series``, and optionally shift all bars by an *offset*. Here</span>
-<span class="sd">        *width* is either an alternative width in data units, or the user may</span>
-<span class="sd">        append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a</span>
-<span class="sd">        fixed dimension instead. Optionally, all bins may be shifted along the</span>
-<span class="sd">        axis by *offset*. As for *width*, it may be given in data units of</span>
-<span class="sd">        plot dimension units by appending the relevant unit.</span>
+<span class="sd">        ``series``. Give either an alternative width in data units, or the user</span>
+<span class="sd">        may append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a</span>
+<span class="sd">        fixed dimension instead.</span>
+<span class="sd">    bar_offset</span>
+<span class="sd">        Shift all bars along the axis by *offset*. It may be given in data units</span>
+<span class="sd">        of plot dimension units by appending the relevant unit.</span>
 <span class="sd">    center : bool</span>
 <span class="sd">        Center bin on each value. [Default is left edge].</span>
 <span class="sd">    distribution : bool, float, or str</span>
@@ -290,24 +302,36 @@
 
 <span class="sd">        To use weights provided as a second data column instead of pure counts,</span>
 <span class="sd">        append **+w**.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {find}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {label}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
-<span class="sd">    {wrap}</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $find</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $label</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
+<span class="sd">    $wrap</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="k">if</span> <span class="n">bar_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bar_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Setting &#39;bar_offset&#39; requires setting &#39;bar_width&#39;.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">E</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">bar_width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bar_width&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">bar_offset</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bar_offset&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+o&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -327,10 +351,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

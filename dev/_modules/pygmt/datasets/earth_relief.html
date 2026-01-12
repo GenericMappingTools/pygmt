@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/earth_relief.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -203,7 +203,6 @@
 
 <span class="sd">       Earth relief datasets (topography and bathymetry).</span>
 
-
 <span class="sd">    This function downloads the dataset from the GMT data server, caches it in a user</span>
 <span class="sd">    data directory (usually ``~/.gmt/server/earth/earth_relief``,</span>
 <span class="sd">    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,</span>
@@ -214,8 +213,8 @@
 <span class="sd">    The dataset can also be accessed by specifying a file name in any grid processing</span>
 <span class="sd">    function or plotting method, using the following file name format:</span>
 <span class="sd">    **@**\ *earth_relief_type*\_\ *res*\_\ *reg*. *earth_relief_type* is the GMT name</span>
-<span class="sd">    for the dataset. The available options are **earth_relief**\, **earth_gebco**\,</span>
-<span class="sd">    **earth_gebcosi**\, and **earth_synbath**\. *res* is the grid resolution; *reg* is</span>
+<span class="sd">    for the dataset. The available options are **earth_relief**, **earth_gebco**,</span>
+<span class="sd">    **earth_gebcosi**, and **earth_synbath**. *res* is the grid resolution; *reg* is</span>
 <span class="sd">    the grid registration type (**p** for pixel registration, **g** for gridline</span>
 <span class="sd">    registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the</span>
 <span class="sd">    gridline-registered grid will be loaded for grid processing functions and the</span>
@@ -223,11 +222,11 @@
 <span class="sd">    omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution</span>
 <span class="sd">    based on the current region and projection settings.</span>
 
-<span class="sd">    This dataset comes with a color palette table (CPT) file, ``geo``. To use the</span>
-<span class="sd">    dataset-specific CPT when plotting the dataset, explicitly set ``cmap=&quot;geo&quot;``,</span>
-<span class="sd">    otherwise GMT&#39;s default CPT (*turbo*) will be used. If the dataset is referenced by</span>
-<span class="sd">    the file name in a grid plotting method, the dataset-specific CPT file is used</span>
-<span class="sd">    automatically unless another CPT is specified.</span>
+<span class="sd">    This dataset comes with a color palette table (CPT) file, ``gmt/geo``. To use the</span>
+<span class="sd">    dataset-specific CPT when plotting the dataset, explicitly set ``cmap=&quot;gmt/geo&quot;``,</span>
+<span class="sd">    otherwise GMT&#39;s default CPT (*google/turbo*) will be used. If the dataset is</span>
+<span class="sd">    referenced by the file name in a grid plotting method, the dataset-specific CPT file</span>
+<span class="sd">    is used automatically unless another CPT is specified.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-relief.html` for more details about available</span>
 <span class="sd">    datasets, including version information and references.</span>
@@ -244,32 +243,32 @@
 <span class="sd">    registration</span>
 <span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
 <span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``None``, which means</span>
-<span class="sd">        ``&quot;gridline&quot;`` for all resolutions except ``&quot;15s&quot;`` which is ``&quot;pixel&quot;``</span>
-<span class="sd">        only.</span>
+<span class="sd">        ``&quot;gridline&quot;`` for all resolutions except ``&quot;15s&quot;`` which is ``&quot;pixel&quot;`` only.</span>
 <span class="sd">    data_source</span>
 <span class="sd">        Select the source for the Earth relief data. Available options are:</span>
 
-<span class="sd">        - ``&quot;igpp&quot;``: IGPP Earth Relief. See</span>
-<span class="sd">          :gmt-datasets:`earth-relief.html`.</span>
-<span class="sd">        - ``&quot;synbath&quot;``: IGPP Earth Relief dataset that uses stastical</span>
-<span class="sd">          properties of young seafloor to provide a more realistic relief</span>
-<span class="sd">          of young areas with small seamounts.</span>
-<span class="sd">        - ``&quot;gebco&quot;``: GEBCO Earth Relief with only observed relief and</span>
-<span class="sd">          inferred relief via altimetric gravity. See</span>
-<span class="sd">          :gmt-datasets:`earth-gebco.html`.</span>
+<span class="sd">        - ``&quot;igpp&quot;``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.</span>
+<span class="sd">        - ``&quot;synbath&quot;``: IGPP Earth Relief dataset that uses stastical properties of</span>
+<span class="sd">          young seafloor to provide a more realistic relief of young areas with small</span>
+<span class="sd">          seamounts.</span>
+<span class="sd">        - ``&quot;gebco&quot;``: GEBCO Earth Relief with only observed relief and inferred relief</span>
+<span class="sd">          via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.</span>
 <span class="sd">        - ``&quot;gebcosi&quot;``: GEBCO Earth Relief that gives sub-ice (si) elevations.</span>
+
+<span class="sd">        **Notes**: Only the ``&quot;igpp&quot;`` data source provides the highest resolutions</span>
+<span class="sd">        ``&quot;03s&quot;`` and ``&quot;01s&quot;``.</span>
 <span class="sd">    use_srtm</span>
-<span class="sd">        By default, the land-only SRTM tiles from NASA are used to generate the</span>
-<span class="sd">        ``&quot;03s&quot;`` and ``&quot;01s&quot;`` grids, and the missing ocean values are filled</span>
-<span class="sd">        by up-sampling the SRTM15 tiles which have a resolution of 15</span>
-<span class="sd">        arc-seconds (i.e., ``&quot;15s&quot;``). If True, will only load the original</span>
-<span class="sd">        land-only SRTM tiles. Only works when ``data_source=&quot;igpp&quot;``.</span>
+<span class="sd">        For the resolutions ``&quot;03s&quot;`` and ``&quot;01s&quot;``, by default the land-only SRTM tiles</span>
+<span class="sd">        from NASA are used along with up-sampled SRTM15 tiles (with a resolution of 15</span>
+<span class="sd">        arc-seconds) to fill in the missing ocean values. If set to ``True``, only the</span>
+<span class="sd">        original land-only SRTM tiles are loaded without filling in the ocean values.</span>
+<span class="sd">        Only available for ``data_source=&quot;igpp&quot;``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    grid</span>
-<span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in</span>
-<span class="sd">        degrees. Relief is in meters.</span>
+<span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief</span>
+<span class="sd">        is in meters.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
@@ -279,7 +278,6 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
 <span class="sd">    &gt;&gt;&gt; # Load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief()</span>
@@ -299,10 +297,18 @@
 <span class="sd">    ...     use_srtm=True,</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># resolutions of original land-only SRTM tiles from NASA</span>
-    <span class="n">land_only_srtm_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
+    <span class="c1"># Resolutions of original land-only SRTM tiles from NASA.</span>
+    <span class="n">srtm_resolutions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Map data source to prefix</span>
+    <span class="c1"># 03s and 01s resolutions are only available for data source &quot;igpp&quot;.</span>
+    <span class="k">if</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">srtm_resolutions</span> <span class="ow">and</span> <span class="n">data_source</span> <span class="o">!=</span> <span class="s2">&quot;igpp&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+            <span class="n">data_source</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;data source&quot;</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Resolution </span><span class="si">{</span><span class="n">resolution</span><span class="si">!r}</span><span class="s2"> is only available for data source &#39;igpp&#39;.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Determine the dataset prefix.</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;igpp&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_relief&quot;</span><span class="p">,</span>
         <span class="s2">&quot;gebco&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebco&quot;</span><span class="p">,</span>
@@ -315,24 +321,17 @@
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;earth relief data source&quot;</span><span class="p">,</span>
             <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;igpp&quot;</span><span class="p">,</span> <span class="s2">&quot;gebco&quot;</span><span class="p">,</span> <span class="s2">&quot;gebcosi&quot;</span><span class="p">,</span> <span class="s2">&quot;synbath&quot;</span><span class="p">],</span>
         <span class="p">)</span>
-    <span class="c1"># Use SRTM or not.</span>
-    <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">land_only_srtm_resolutions</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">data_source</span> <span class="o">!=</span> <span class="s2">&quot;igpp&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
-                <span class="n">data_source</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;data source&quot;</span><span class="p">,</span>
-                <span class="n">reason</span><span class="o">=</span><span class="p">(</span>
-                    <span class="s2">&quot;Option &#39;use_srtm=True&#39; doesn&#39;t work with data source &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_source</span><span class="si">!r}</span><span class="s2">. Please set &#39;data_source&#39; to &#39;igpp&#39;.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
+    <span class="c1"># Use original land-only SRTM tiles.</span>
+    <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">srtm_resolutions</span><span class="p">:</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief&quot;</span>
-    <span class="c1"># Choose earth relief dataset</span>
+
+    <span class="c1"># Choose earth relief dataset name.</span>
     <span class="k">match</span> <span class="n">data_source</span><span class="p">:</span>
         <span class="k">case</span> <span class="s2">&quot;igpp&quot;</span> <span class="o">|</span> <span class="s2">&quot;synbath&quot;</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;earth_igpp&quot;</span>
         <span class="k">case</span> <span class="s2">&quot;gebco&quot;</span> <span class="o">|</span> <span class="s2">&quot;gebcosi&quot;</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;earth_gebco&quot;</span>
+
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
@@ -352,10 +351,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

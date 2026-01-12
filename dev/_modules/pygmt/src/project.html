@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/project.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -156,18 +156,18 @@
 <span class="sd">project - Project data onto lines or great circles, or generate tracks.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">TableLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
@@ -178,27 +178,26 @@
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;endpoint&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;generate&quot;</span><span class="p">,</span>
-    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;length&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;flat_earth&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;sort&quot;</span><span class="p">,</span>
-    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;pole&quot;</span><span class="p">,</span>
-    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">W</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">project</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">project</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
     <span class="n">outfile</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">center</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">endpoint</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;limit&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pole</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -243,9 +242,9 @@
 
 <span class="sd">    Data can be selectively windowed by using the ``length`` and ``width``</span>
 <span class="sd">    parameters. If ``width`` is used, the projection width is set to use only</span>
-<span class="sd">    data with :math:`w_{{min}} &lt; q &lt; w_{{max}}`. If ``length`` is set, then</span>
+<span class="sd">    data with :math:`w_{min} &lt; q &lt; w_{max}`. If ``length`` is set, then</span>
 <span class="sd">    the length is set to use only those data with</span>
-<span class="sd">    :math:`l_{{min}} &lt; p &lt; l_{{max}}`. If the ``endpoint`` parameter</span>
+<span class="sd">    :math:`l_{min} &lt; p &lt; l_{max}`. If the ``endpoint`` parameter</span>
 <span class="sd">    has been used to define the projection, then ``length=&quot;w&quot;`` may be used to</span>
 <span class="sd">    window the length of the projection to exactly the span from O to B.</span>
 
@@ -255,10 +254,10 @@
 <span class="sd">    x-axis. azimuth = 90 - theta.</span>
 
 <span class="sd">    No assumptions are made regarding the units for</span>
-<span class="sd">    :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.</span>
+<span class="sd">    :math:`x, y, r, s, p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`.</span>
 <span class="sd">    If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must</span>
 <span class="sd">    be in degrees and</span>
-<span class="sd">    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`</span>
+<span class="sd">    :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`</span>
 <span class="sd">    will be in km.</span>
 
 <span class="sd">    Calculations of specific great-circle and geodesic distances or for</span>
@@ -267,7 +266,12 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`project.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - C = center</span>
+<span class="sd">       - E = endpoint</span>
+<span class="sd">       - L = length</span>
+<span class="sd">       - T = pole</span>
+<span class="sd">       - W = width</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
@@ -275,23 +279,21 @@
 <span class="sd">    data</span>
 <span class="sd">        Pass in (x, y, z) or (longitude, latitude, elevation) values by</span>
 <span class="sd">        providing a file name to an ASCII data table, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
-<span class="sd">    {output_type}</span>
-<span class="sd">    {outfile}</span>
+<span class="sd">        $table_classes.</span>
+<span class="sd">    $output_type</span>
+<span class="sd">    $outfile</span>
 
-<span class="sd">    center : str or list</span>
-<span class="sd">        *cx*/*cy*.</span>
-<span class="sd">        Set the origin of the projection, in Definition 1 or 2. If</span>
-<span class="sd">        Definition 3 is used, then *cx/cy* are the coordinates of a</span>
-<span class="sd">        point through which the oblique zero meridian (:math:`p = 0`) should</span>
-<span class="sd">        pass. The *cx/cy* is not required to be 90 degrees from the pole.</span>
-
+<span class="sd">    center</span>
+<span class="sd">        Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1</span>
+<span class="sd">        or 2. If Definition 3 is used, then (*cx*, *cy*) are the coordinates of a point</span>
+<span class="sd">        through which the oblique zero meridian (:math:`p = 0`) should pass.</span>
+<span class="sd">        (*cx*, *cy*) is not required to be 90 degrees from the pole set by ``pole``.</span>
 <span class="sd">    azimuth : float or str</span>
 <span class="sd">        Define the azimuth of the projection (Definition 1).</span>
 
-<span class="sd">    endpoint : str or list</span>
-<span class="sd">        *bx*/*by*.</span>
-<span class="sd">        Define the end point of the projection path (Definition 2).</span>
+<span class="sd">    endpoint</span>
+<span class="sd">        (*bx*, *by*).</span>
+<span class="sd">        Set the end point of the projection path (Definition 2).</span>
 
 <span class="sd">    convention : str</span>
 <span class="sd">        Specify the desired output using any combination of **xyzpqrs**, in</span>
@@ -313,43 +315,36 @@
 <span class="sd">        through *cx*/*cy*, append **+c** to compute the required colatitude.</span>
 <span class="sd">        Use ``center`` and ``endpoint`` to generate a circle that goes</span>
 <span class="sd">        through the center and end point. Note, in this case the center and</span>
-<span class="sd">        end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.</span>
+<span class="sd">        end point cannot be farther apart than :math:`2|\mbox{colat}|`.</span>
 <span class="sd">        Finally, if you append **+h** then we will report the position of</span>
 <span class="sd">        the pole as part of the segment header [Default is no header].</span>
 <span class="sd">        **Note**: No input is read and the value of ``data``, ``x``, ``y``,</span>
 <span class="sd">        and ``z`` is ignored if ``generate`` is used.</span>
-
-<span class="sd">    length : str or list</span>
-<span class="sd">        [**w**\|\ *l_min*/*l_max*].</span>
-<span class="sd">        Project only those data whose *p* coordinate is</span>
-<span class="sd">        within :math:`l_{{min}} &lt; p &lt; l_{{max}}`. If ``endpoint`` has been set,</span>
-<span class="sd">        then you may alternatively use **w** to stay within the distance from</span>
-<span class="sd">        ``center`` to ``endpoint``.</span>
-
+<span class="sd">    length</span>
+<span class="sd">        (*lmin*, *lmax*) or ``&quot;limit&quot;``.</span>
+<span class="sd">        Project only those data whose *p* coordinate is within</span>
+<span class="sd">        :math:`l_{min} &lt; p &lt; l_{max}`. If ``endpoint`` has been set, then you may</span>
+<span class="sd">        alternatively set it to ``&quot;limit&quot;`` to stay within the distance from ``center``</span>
+<span class="sd">        to ``endpoint``.</span>
 <span class="sd">    flat_earth : bool</span>
 <span class="sd">        Make a Cartesian coordinate transformation in the plane.</span>
 <span class="sd">        [Default is ``False``; plane created with spherical trigonometry.]</span>
 
 <span class="sd">    unit : bool</span>
 <span class="sd">        Set units for :math:`x, y, r, s` to degrees and</span>
-<span class="sd">        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.</span>
+<span class="sd">        :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}` to km.</span>
 <span class="sd">        [Default is ``False``; all arguments use the same units]</span>
 
 <span class="sd">    sort : bool</span>
 <span class="sd">        Sort the output into increasing :math:`p` order. Useful when projecting</span>
 <span class="sd">        random data into a sequential profile.</span>
-
-<span class="sd">    pole : str or list</span>
-<span class="sd">        *px*/*py*.</span>
-<span class="sd">        Set the position of the rotation pole of the projection.</span>
-<span class="sd">        (Definition 3).</span>
-
-<span class="sd">    {verbose}</span>
-
-<span class="sd">    width : str or list</span>
-<span class="sd">        *w_min*/*w_max*.</span>
-<span class="sd">        Project only those data whose :math:`q` coordinate is</span>
-<span class="sd">        within :math:`w_{{min}} &lt; q &lt; w_{{max}}`.</span>
+<span class="sd">    pole</span>
+<span class="sd">        (*px*, *py*).</span>
+<span class="sd">        Set the position of the rotation pole of the projection. (Definition 3).</span>
+<span class="sd">    width</span>
+<span class="sd">        (*w_min*, *w_max*).</span>
+<span class="sd">        Specify width controls for the projected points. Project only those points whose</span>
+<span class="sd">        q coordinate is within :math:`w_{min} &lt; q &lt; w_{max}`.</span>
 
 <span class="sd">    ellipse : str</span>
 <span class="sd">        *major*/*minor*/*azimuth* [**+e**\|\ **n**].</span>
@@ -368,8 +363,8 @@
 <span class="sd">        For the Cartesian ellipse (which requires ``flat_earth``), the</span>
 <span class="sd">        *direction* is counter-clockwise from the horizontal instead of an</span>
 <span class="sd">        *azimuth*.</span>
-
-<span class="sd">    {coltypes}</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $coltypes</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -381,8 +376,8 @@
 <span class="sd">        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set</span>
 <span class="sd">          (depends on ``output_type``)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The &#39;center&#39; parameter must be specified.&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Parameter &#39;center&#39; must be specified.&quot;</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The &#39;data&#39; parameter must be specified unless &#39;generate&#39; is used.&quot;</span>
@@ -397,7 +392,13 @@
     <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">column_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;rsp&quot;</span><span class="p">)</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;endpoint&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">L</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="s2">&quot;w&quot;</span><span class="p">}),</span>
+        <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">pole</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -435,10 +436,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

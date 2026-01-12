@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/contributing.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="_static/documentation_options.js?v=ce5548fe"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -707,10 +707,10 @@ throughout the whole project. Don’t worry if you forget to do it. Our continuo
 integration systems will warn us and you can make a new commit with the formatted code.
 Even better, you can just write <code class="docutils literal notranslate"><span class="pre">/format</span></code> in the first line of any comment in a
 pull request to lint the code automatically.</p>
-<p>When wrapping a new alias, use an underscore to separate words bridged by vowels
-(aeiou), such as <code class="docutils literal notranslate"><span class="pre">no_skip</span></code> and <code class="docutils literal notranslate"><span class="pre">z_only</span></code>. Do not use an underscore to separate
-words bridged only by consonants, such as <code class="docutils literal notranslate"><span class="pre">distcalc</span></code>, and <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>. This
-convention is not applied by the code checking tools, but the PyGMT maintainers
+<p>When introducing a new parameter name, use an underscore to separate words. This improves
+readability and aligns with the <a class="reference external" href="https://peps.python.org/pep-0008/">PEP 8 style guide</a>.
+For common shortcuts no underscore is needed, e.g., <code class="docutils literal notranslate"><span class="pre">surftype</span></code>, <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>, or <code class="docutils literal notranslate"><span class="pre">timefmt</span></code>.
+This convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.</p>
 <p>When working on a tutorial or a gallery plot, it is good practice to use code
 block separators to split a long script into multiple blocks. The separators also
@@ -890,8 +890,8 @@ Here’s an example:</p>
 <span class="sd">    Test that my plotting method works.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">Figure</span><span class="p">()</span>
-    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
-    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">)</span>
+    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span>
 </pre></div>
 </div>
@@ -912,10 +912,10 @@ Here’s an example:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

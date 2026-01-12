@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.psconvert.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -224,7 +224,7 @@ using parameter <code class="docutils literal notranslate"><span class="pre">pre
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Adjust the BoundingBox and HiResBoundingBox to the minimum
+<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Adjust the BoundingBox and HiResBoundingBox to the minimum
 required by the image content. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>. Append <strong>+u</strong> to
 first remove any GMT-produced time-stamps. Append <strong>+r</strong> to
 <em>round</em> the HighResBoundingBox instead of using the <code class="docutils literal notranslate"><span class="pre">ceil</span></code>
@@ -232,17 +232,17 @@ function. This is going against Adobe Law but can be useful when
 creating very small images where the difference of one pixel
 might matter. If <code class="docutils literal notranslate"><span class="pre">verbose</span></code> is used we also report the
 dimensions of the final illustration.</p></li>
-<li><p><strong>gs_path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Full path to the Ghostscript executable.</p></li>
-<li><p><strong>gs_option</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Specify one or a list of custom options that will be passed on to Ghostscript
+<li><p><strong>gs_path</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Full path to the Ghostscript executable.</p></li>
+<li><p><strong>gs_option</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Specify one or a list of custom options that will be passed on to Ghostscript
 as is.</p></li>
-<li><p><strong>dpi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set raster resolution in dpi [Default is 720 for PDF, 300 for others]. <strong>Note</strong>:
+<li><p><strong>dpi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set raster resolution in dpi [Default is 720 for PDF, 300 for others]. <strong>Note</strong>:
 Ghostscript limits the final width and height pixel dimensions of a raster file
 to be less than or equal to 65536.</p></li>
-<li><p><strong>prefix</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Force the output file name. By default output names are constructed using the
+<li><p><strong>prefix</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Force the output file name. By default output names are constructed using the
 input names as base, which are appended with an appropriate extension. Use this
 parameter to provide a different name, but without extension. Extension is still
 determined automatically.</p></li>
-<li><p><strong>resize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>+m</strong><em>margins</em>][<strong>+s</strong>[<strong>m</strong>]<em>width</em>[/<em>height</em>]][<strong>+S</strong><em>scale</em>].
+<li><p><strong>resize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>+m</strong><em>margins</em>][<strong>+s</strong>[<strong>m</strong>]<em>width</em>[/<em>height</em>]][<strong>+S</strong><em>scale</em>].
 Adjust the BoundingBox and HiResBoundingBox by scaling and/or
 adding margins. Append <strong>+m</strong> to specify extra margins to extend
 the bounding box. Give either one (uniform), two (x and y) or four
@@ -258,18 +258,18 @@ and the new <em>width</em> is only imposed if the original figure width
 exceeds it. Append /<em>height</em> to also impose a maximum height in
 addition to the width. Alternatively, append <strong>+S</strong><em>scale</em> to
 scale the image by a constant factor.</p></li>
-<li><p><strong>bb_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set optional BoundingBox fill color, fading, or draw the outline
+<li><p><strong>bb_style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set optional BoundingBox fill color, fading, or draw the outline
 of the BoundingBox. Append <strong>+f</strong><em>fade</em> to fade the entire plot
 towards black (100%) [no fading, 0]. Append <strong>+g</strong><em>paint</em> to
 paint the BoundingBox behind the illustration and append <strong>+p</strong>[<em>pen</em>] to draw the BoundingBox outline (append a pen or accept
 the default pen of <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black,solid&quot;</span></code>). <strong>Note</strong>: If both <strong>+g</strong> and
 <strong>+f</strong> are used then we use <em>paint</em> as the fade color instead of
 black. Append <strong>+i</strong> to enforce gray-shades by using ICC profiles.</p></li>
-<li><p><strong>anti_aliasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – [<strong>g</strong>|<strong>p</strong>|<strong>t</strong>][<strong>1</strong>|<strong>2</strong>|<strong>4</strong>].
+<li><p><strong>anti_aliasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>g</strong>|<strong>p</strong>|<strong>t</strong>][<strong>1</strong>|<strong>2</strong>|<strong>4</strong>].
 Set the anti-aliasing options for <strong>g</strong>raphics or <strong>t</strong>ext.
 Append the size of the subsample box (1, 2, or 4) [Default is
 <code class="docutils literal notranslate"><span class="pre">&quot;4&quot;</span></code>]. [Default is no anti-aliasing (same as bits = 1).]</p></li>
-<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Set the output format, where <strong>b</strong> means BMP, <strong>e</strong> means EPS,
+<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set the output format, where <strong>b</strong> means BMP, <strong>e</strong> means EPS,
 <strong>E</strong> means EPS with PageSize command, <strong>f</strong> means PDF, <strong>F</strong> means
 multi-page PDF, <strong>j</strong> means JPEG, <strong>g</strong> means PNG, <strong>G</strong> means
 transparent PNG (untouched regions are transparent), <strong>m</strong> means
@@ -280,7 +280,7 @@ combined with any of the other formats. For example, <strong>ef</strong> creates
 both an EPS and a PDF file. Using <strong>F</strong> creates a multi-page PDF
 file from the list of input PS or PDF files. It requires the
 <code class="docutils literal notranslate"><span class="pre">prefix</span></code> parameter.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
@@ -300,10 +300,10 @@ file from the list of input PS or PDF files. It requires the
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

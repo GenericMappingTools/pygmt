@@ -56,7 +56,7 @@ setting the ``pen`` color.
     # Create a custom CPT with the batlow CPT and 10 discrete z-values (colors),
     # use color_model="+c0-9" to write the color palette in categorical format and
     # add labels (0) to (9) for the colorbar legend
-    pygmt.makecpt(cmap="batlow", series=[0, 9, 1], color_model="+c0-9")
+    pygmt.makecpt(cmap="SCM/batlow", series=[0, 9, 1], color_model="+c0-9")
 
     # Plot 10 lines and set a different z-value for each line
     for zvalue in range(10):
@@ -70,7 +70,7 @@ setting the ``pen`` color.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.224 seconds)
+   **Total running time of the script:** (0 minutes 0.216 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_line_custom_cpt.py:

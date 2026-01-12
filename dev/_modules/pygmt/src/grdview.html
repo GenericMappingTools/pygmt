@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdview.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,41 +160,47 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">packaging.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">deprecate_parameter</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdinfo</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdview&quot;</span><span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;contourpen&quot;</span><span class="p">,</span> <span class="s2">&quot;contour_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;facadepen&quot;</span><span class="p">,</span> <span class="s2">&quot;facade_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;meshpen&quot;</span><span class="p">,</span> <span class="s2">&quot;mesh_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;drapegrid&quot;</span><span class="p">,</span> <span class="s2">&quot;drape_grid&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">Jz</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">,</span>
-    <span class="n">JZ</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;drapegrid&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;plane&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;drape_grid&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;surftype&quot;</span><span class="p">,</span>
-    <span class="n">Wc</span><span class="o">=</span><span class="s2">&quot;contourpen&quot;</span><span class="p">,</span>
-    <span class="n">Wm</span><span class="o">=</span><span class="s2">&quot;meshpen&quot;</span><span class="p">,</span>
-    <span class="n">Wf</span><span class="o">=</span><span class="s2">&quot;facadepen&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdview</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdview</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+    <span class="n">contour_pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mesh_pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">facade_fill</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">facade_pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">zscale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">zsize</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -208,38 +214,41 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdview.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - J = projection</span>
+<span class="sd">       - Jz = zscale</span>
+<span class="sd">       - JZ = zsize</span>
+<span class="sd">       - N = plane, facade_fill</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - Wc = contour_pen</span>
+<span class="sd">       - Wf = facade_pen</span>
+<span class="sd">       - Wm = mesh_pen</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
+<span class="sd">    $grid</span>
 <span class="sd">    region : str or list</span>
 <span class="sd">        *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].</span>
 <span class="sd">        Specify the :doc:`region &lt;/tutorials/basics/regions&gt;` of interest. When used</span>
 <span class="sd">        with ``perspective``, optionally append */zmin/zmax* to indicate the range to</span>
 <span class="sd">        use for the 3-D axes [Default is the region given by the input grid].</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    zscale/zsize : float or str</span>
+<span class="sd">    $projection</span>
+<span class="sd">    zscale/zsize</span>
 <span class="sd">        Set z-axis scaling or z-axis size.</span>
-<span class="sd">    {frame}</span>
+<span class="sd">    $frame</span>
 <span class="sd">    cmap : str</span>
 <span class="sd">        The name of the color palette table to use.</span>
-<span class="sd">    drapegrid : str or :class:`xarray.DataArray`</span>
+<span class="sd">    drape_grid : str or :class:`xarray.DataArray`</span>
 <span class="sd">        The file name or a :class:`xarray.DataArray` of the image grid to be draped on</span>
 <span class="sd">        top of the relief provided by ``grid`` [Default determines colors from ``grid``]</span>
-<span class="sd">        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drapegrid`` only</span>
-<span class="sd">        provides the information pertaining to colors, which (if ``drapegrid`` is a</span>
+<span class="sd">        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only</span>
+<span class="sd">        provides the information pertaining to colors, which (if ``drape_grid`` is a</span>
 <span class="sd">        grid) will be looked-up via the CPT (see ``cmap``).</span>
-<span class="sd">    plane : float or str</span>
-<span class="sd">        *level*\ [**+g**\ *fill*].</span>
-<span class="sd">        Draw a plane at this z-level. If the optional color is provided via the **+g**</span>
-<span class="sd">        modifier, and the projection is not oblique, the frontal facade between the</span>
-<span class="sd">        plane and the data perimeter is colored.</span>
 <span class="sd">    surftype : str</span>
 <span class="sd">        Specify cover type of the grid. Select one of following settings:</span>
 
@@ -252,29 +261,38 @@
 
 <span class="sd">        For any of these choices, you may force a monochrome image by appending the</span>
 <span class="sd">        modifier **+m**.</span>
-<span class="sd">    contourpen : str</span>
+<span class="sd">    contour_pen</span>
 <span class="sd">        Draw contour lines on top of surface or mesh (not image). Append pen attributes</span>
 <span class="sd">        used for the contours.</span>
-<span class="sd">    meshpen : str</span>
+<span class="sd">    mesh_pen</span>
 <span class="sd">        Set the pen attributes used for the mesh. You must also select ``surftype`` of</span>
 <span class="sd">        **m** or **sm** for meshlines to be drawn.</span>
-<span class="sd">    facadepen :str</span>
-<span class="sd">        Set the pen attributes used for the facade. You must also select ``plane`` for</span>
-<span class="sd">        the facade outline to be drawn.</span>
-<span class="sd">    shading : str</span>
+<span class="sd">    plane</span>
+<span class="sd">        Draw a plane at the specified z-level. If ``True``, defaults to the minimum</span>
+<span class="sd">        value in the grid. However, if ``region`` was used to set *zmin/zmax* then</span>
+<span class="sd">        *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and</span>
+<span class="sd">        ``facade_fill`` to control the appearance of the plane.</span>
+<span class="sd">        **Note**: For GMT&lt;=6.6.0, *zmin* set in ``region`` has no effect due to a GMT</span>
+<span class="sd">        bug.</span>
+<span class="sd">    facade_fill</span>
+<span class="sd">        Fill for the frontal facade between the plane specified by ``plane`` and the</span>
+<span class="sd">        data perimeter.</span>
+<span class="sd">    facade_pen</span>
+<span class="sd">        Set the pen attributes used for the facade.</span>
+<span class="sd">    shading : str or float</span>
 <span class="sd">        Provide the name of a grid file with intensities in the (-1,+1) range, or a</span>
 <span class="sd">        constant intensity to apply everywhere (affects the ambient light).</span>
 <span class="sd">        Alternatively, derive an intensity grid from the main input data grid by using</span>
 <span class="sd">        :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and</span>
 <span class="sd">        **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that</span>
 <span class="sd">        function, or just give **+d** to select the default arguments [Default is</span>
-<span class="sd">        &quot;+a-45+nt1+m0&quot;].</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {interpolation}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">        ``&quot;+a-45+nt1+m0&quot;``].</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $interpolation</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -303,18 +321,46 @@
 <span class="sd">    ...     # Set &quot;surface plot&quot; to color the surface via a CPT</span>
 <span class="sd">    ...     surftype=&quot;s&quot;,</span>
 <span class="sd">    ...     # Specify CPT to &quot;geo&quot;</span>
-<span class="sd">    ...     cmap=&quot;geo&quot;,</span>
+<span class="sd">    ...     cmap=&quot;gmt/geo&quot;,</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="c1"># Enable &#39;plane&#39; if &#39;facade_fill&#39; or &#39;facade_pen&#39; are set</span>
+    <span class="k">if</span> <span class="n">plane</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="p">(</span><span class="n">facade_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">facade_pen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="n">plane</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838</span>
+    <span class="c1"># Fix the plane value to be the grid minimum if plane=True.</span>
+    <span class="c1"># Notes:</span>
+    <span class="c1"># 1. It&#39;s the minimum of the grid, not a subset of the grid defined by &#39;region&#39;.</span>
+    <span class="c1"># 2. The GMT docs says &quot;if -R was used to set zmin/zmax then we use that value if</span>
+    <span class="c1">#    it is less than the grid minimum value.&quot;. We can&#39;t add a workaround for this</span>
+    <span class="c1">#    case since we can&#39;t parse zmin/zmax from &#39;region&#39; if &#39;region&#39; was set in</span>
+    <span class="c1">#    previous plotting commands.</span>
+    <span class="c1"># TODO(GMT&gt;6.6.0): Remove this workaround.</span>
+    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.6.0&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">plane</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">plane</span> <span class="o">=</span> <span class="n">grdinfo</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">per_column</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">Jz</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zscale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">),</span>
+        <span class="n">JZ</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zsize</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">),</span>
+        <span class="n">N</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">plane</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;plane&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">facade_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;facade_fill&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+g&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">Wc</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">contour_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;contour_pen&quot;</span><span class="p">),</span>
+        <span class="n">Wf</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">facade_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;facade_pen&quot;</span><span class="p">),</span>
+        <span class="n">Wm</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">mesh_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mesh_pen&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -340,10 +386,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -33,7 +33,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
+.. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -85,7 +85,7 @@ and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.206 seconds)
+   **Total running time of the script:** (0 minutes 0.198 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py:

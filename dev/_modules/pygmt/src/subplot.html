@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/subplot.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,15 +160,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span><span class="p">,</span> <span class="n">GMTValueError</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">build_arg_list</span><span class="p">,</span>
-    <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
-    <span class="n">use_alias</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
 
 
 <span class="nd">@fmt_docstring</span>
@@ -177,19 +172,19 @@
     <span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span>
     <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;subsize&quot;</span><span class="p">,</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;autolabel&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span>
-    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;margins&quot;</span><span class="p">,</span>
     <span class="n">SC</span><span class="o">=</span><span class="s2">&quot;sharex&quot;</span><span class="p">,</span>
     <span class="n">SR</span><span class="o">=</span><span class="s2">&quot;sharey&quot;</span><span class="p">,</span>
-    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">subplot</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">nrows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">ncols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">margins</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -206,16 +201,19 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`subplot.html#synopsis-begin-mode`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - J = projection</span>
+<span class="sd">       - M = margins</span>
 <span class="sd">       - R = region</span>
+<span class="sd">       - T = title</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    nrows : int</span>
+<span class="sd">    nrows</span>
 <span class="sd">        Number of vertical rows of the subplot grid.</span>
-<span class="sd">    ncols : int</span>
+<span class="sd">    ncols</span>
 <span class="sd">        Number of horizontal columns of the subplot grid.</span>
 <span class="sd">    figsize : list</span>
 <span class="sd">        Specify the final figure dimensions as [*width*, *height*].</span>
@@ -226,28 +224,28 @@
 
 <span class="sd">    autolabel : bool or str</span>
 <span class="sd">        [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\</span>
-<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]</span>
-<span class="sd">        [**+v**].</span>
-<span class="sd">        Specify automatic tagging of each subplot. Append either a number or</span>
-<span class="sd">        letter [a]. This sets the tag of the first, top-left subplot and others</span>
-<span class="sd">        follow sequentially. Surround the number or letter by parentheses on</span>
-<span class="sd">        any side if these should be typeset as part of the tag. Use</span>
-<span class="sd">        **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed</span>
-<span class="sd">        in the subplot [TL]. **Note**: **+j** sets the justification of the</span>
-<span class="sd">        tag to *refpoint* (suitable for interior tags) while **+J** instead</span>
-<span class="sd">        selects the mirror opposite (suitable for exterior tags). Append</span>
-<span class="sd">        **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a</span>
-<span class="sd">        surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%</span>
-<span class="sd">        of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to</span>
-<span class="sd">        paint the tag&#39;s text box with *fill* [no painting]. Append</span>
-<span class="sd">        **+o**\ *dx*\ [/*dy*] to offset the tag&#39;s reference point in the</span>
-<span class="sd">        direction implied by the justification [4p/4p, i.e., 20% of the</span>
-<span class="sd">        :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to draw the outline of</span>
-<span class="sd">        the tag&#39;s text box using selected *pen* [no outline]. Append **+r** to</span>
-<span class="sd">        typeset your tag numbers using lowercase Roman numerals; use **+R** for</span>
-<span class="sd">        uppercase Roman numerals [Arabic numerals]. Append **+v** to increase</span>
-<span class="sd">        tag numbers vertically down columns [horizontally across rows].</span>
-<span class="sd">    {frame}</span>
+<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]\ [**+v**].</span>
+<span class="sd">        Specify automatic tagging of each subplot. Append either a number or letter</span>
+<span class="sd">        [Default is ``&quot;a&quot;``]. This sets the tag of the first, top-left subplot and</span>
+<span class="sd">        others follow sequentially. Surround the number or letter by parentheses on</span>
+<span class="sd">        any side if these should be typeset as part of the tag [Default is ``&quot;)&quot;``].</span>
+<span class="sd">        Use **+j**\|\ **J** for setting *refpoint* via a</span>
+<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
+<span class="sd">        to specify where the tag should be placed in the subplot [Default is ``&quot;TL&quot;``</span>
+<span class="sd">        for the Top Left corner]. **Note**: **+j** sets the justification of the tag</span>
+<span class="sd">        to *refpoint* (suitable for interior tags) while **+J** instead selects the</span>
+<span class="sd">        mirror opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to</span>
+<span class="sd">        set the clearance between the tag and a surrounding text box requested via</span>
+<span class="sd">        **+g** or **+p** [Default is ``&quot;3p/3p&quot;``, i.e., 15 % of the</span>
+<span class="sd">        :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to paint the tag&#39;s</span>
+<span class="sd">        text box with *fill* [Default is no fill]. Append **+o**\ *dx*\ [/*dy*] to</span>
+<span class="sd">        offset the tag&#39;s reference point in the direction implied by the justification</span>
+<span class="sd">        [Default is ``&quot;4p/4p&quot;``, i.e., 20 % of the :gmt-term:`FONT_TAG` size]. Append</span>
+<span class="sd">        **+p**\ *pen* to draw the outline of the tag&#39;s text box using the selected *pen*</span>
+<span class="sd">        [Default is no outline]. Append **+r** to typeset your tag numbers using</span>
+<span class="sd">        lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is</span>
+<span class="sd">        Arabic numerals]. Append **+v** to increase tag numbers vertically down columns</span>
+<span class="sd">        [Default is horizontally across rows].</span>
 <span class="sd">    clearance : str or list</span>
 <span class="sd">        [*side*]\ *clearance*.</span>
 <span class="sd">        Reserve a space of dimension *clearance* between the margin and the</span>
@@ -260,23 +258,20 @@
 <span class="sd">        side and 2 cm on south side). Such space will be left untouched by</span>
 <span class="sd">        the main map plotting but can be accessed by methods that plot</span>
 <span class="sd">        scales, bars, text, etc.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    margins : str or list</span>
-<span class="sd">        This is margin space that is added between neighboring subplots (i.e.,</span>
-<span class="sd">        the interior margins) in addition to the automatic space added for tick</span>
-<span class="sd">        marks, annotations, and labels. The margins can be specified as either:</span>
+<span class="sd">    margins</span>
+<span class="sd">        Margin space that is added between neighboring subplots (i.e., the interior</span>
+<span class="sd">        margins) in addition to the automatic space added for tick marks, annotations,</span>
+<span class="sd">        and labels. The margins can be specified as either:</span>
 
 <span class="sd">        - a single value (for same margin on all sides). E.g. ``&quot;5c&quot;``.</span>
-<span class="sd">        - a pair of values (for setting separate horizontal and vertical</span>
-<span class="sd">          margins). E.g. ``[&quot;5c&quot;, &quot;3c&quot;]``.</span>
-<span class="sd">        - a set of four values (for setting separate left, right, bottom, and</span>
-<span class="sd">          top margins). E.g. ``[&quot;1c&quot;, &quot;2c&quot;, &quot;3c&quot;, &quot;4c&quot;]``.</span>
+<span class="sd">        - a pair of values (for separate horizontal and vertical margins). E.g.,</span>
+<span class="sd">          ``(&quot;5c&quot;, &quot;3c&quot;)``.</span>
+<span class="sd">        - a set of four values (for separate left, right, bottom, and top margins).</span>
+<span class="sd">          E.g., ``(&quot;1c&quot;, &quot;2c&quot;, &quot;3c&quot;, &quot;4c&quot;)``.</span>
 
-<span class="sd">        The actual gap created is always a sum of the margins for the two</span>
-<span class="sd">        opposing sides (e.g., east plus west or south plus north margins)</span>
-<span class="sd">        [Default is half the primary annotation font size, giving the full</span>
-<span class="sd">        annotation font size as the default gap].</span>
-<span class="sd">    {region}</span>
+<span class="sd">        The actual gap created is always a sum of the margins for the two opposing sides</span>
+<span class="sd">        (e.g., east plus west or south plus north margins) [Default is half the primary</span>
+<span class="sd">        annotation font size, giving the full annotation font size as the default gap].</span>
 <span class="sd">    sharex : bool or str</span>
 <span class="sd">        Set subplot layout for shared x-axes. Use when all subplots in a column</span>
 <span class="sd">        share a common *x*-range. If ``sharex=True``, the first (i.e.,</span>
@@ -305,11 +300,14 @@
 <span class="sd">        - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw</span>
 <span class="sd">          horizontal and vertical lines between interior panels using selected</span>
 <span class="sd">          pen [no lines].</span>
-<span class="sd">    title : str</span>
-<span class="sd">        While individual subplots can have titles (see ``sharex``/``sharey`` or</span>
-<span class="sd">        ``frame``), the entire figure may also have an overarching *heading*</span>
-<span class="sd">        [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    title</span>
+<span class="sd">        Set the overarching heading of the entire figure [Default is no heading]. Font</span>
+<span class="sd">        is determined by :gmt-term:`FONT_HEADING`. Individual subplot can have titles</span>
+<span class="sd">        set by ``sharex``/``sharey`` or ``frame``.</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
@@ -325,7 +323,11 @@
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Please provide either one of &#39;figsize&#39; or &#39;subsize&#39; only.&quot;</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">margins</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;margins&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+        <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">),</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
@@ -354,10 +356,9 @@
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;fixedlabel&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_panel</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">panel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -373,22 +374,21 @@
 <span class="sd">    both dimensions then you must specify ``projection=&quot;x&quot;`` [The default</span>
 <span class="sd">    ``projection=&quot;X&quot;`` will fill the subplot by using unequal scales].</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    panel : str or list</span>
-<span class="sd">        *row,col*\|\ *index*.</span>
-<span class="sd">        Sets the current subplot until further notice. **Note**: First *row*</span>
-<span class="sd">        or *col* is 0, not 1. If not given we go to the next subplot by order</span>
-<span class="sd">        specified via ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an</span>
-<span class="sd">        alternative, you may bypass using :meth:`pygmt.Figure.set_panel` and</span>
-<span class="sd">        instead supply the common option **panel**\ =[*row,col*] to the first</span>
-<span class="sd">        plot command you issue in that subplot. GMT maintains information about</span>
-<span class="sd">        the current figure and subplot. Also, you may give the one-dimensional</span>
-<span class="sd">        *index* instead which starts at 0 and follows the row or column order</span>
-<span class="sd">        set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.</span>
+<span class="sd">    panel</span>
+<span class="sd">        *index* or (*row*, *col*).</span>
+<span class="sd">        Sets the current subplot until further notice. **Note**: First *row* or *col* is</span>
+<span class="sd">        0, not 1. If not given we go to the next subplot by order specified via</span>
+<span class="sd">        ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an alternative, you may bypass</span>
+<span class="sd">        using :meth:`pygmt.Figure.set_panel` and instead supply the common option</span>
+<span class="sd">        **panel**\ =(*row*, *col*) to the first plot command you issue in that subplot.</span>
+<span class="sd">        GMT maintains information about the current figure and subplot. Also, you may</span>
+<span class="sd">        give the one-dimensional *index* instead which starts at 0 and follows the row</span>
+<span class="sd">        or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.</span>
 
 <span class="sd">    fixedlabel : str</span>
 <span class="sd">        Overrides the automatic labeling with the given string. No modifiers</span>
@@ -408,7 +408,7 @@
 <span class="sd">        clearances set by ``clearance`` in the initial</span>
 <span class="sd">        :meth:`pygmt.Figure.subplot` call.</span>
 
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
@@ -419,7 +419,12 @@
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;set&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">panel</span><span class="p">),</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">)]</span>
+            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">,</span>
+                <span class="n">Alias</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">),</span>
+            <span class="p">],</span>
         <span class="p">)</span>
         <span class="k">yield</span>
 </pre></div>
@@ -432,10 +437,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

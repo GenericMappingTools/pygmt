@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/velo.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -153,7 +153,7 @@
              
   <h1>Source code for pygmt.src.velo</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.</span>
+<span class="sd">velo - Plot velocity vectors, strain crosses, anisotropy bars, and wedges.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
@@ -165,16 +165,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span><span class="p">,</span> <span class="n">GMTTypeError</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">deprecate_parameter</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;uncertaintyfill&quot;</span><span class="p">,</span> <span class="s2">&quot;uncertainty_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;rescale&quot;</span><span class="p">,</span>
-    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;uncertaintyfill&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;uncertainty_fill&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
     <span class="n">H</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
@@ -185,24 +187,24 @@
     <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
     <span class="n">e</span><span class="o">=</span><span class="s2">&quot;find&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">velo</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">velo</span><span class="p">(</span>  <span class="c1"># noqa : PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_clip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot velocity vectors, crosses, anisotropy bars, and wedges.</span>
+<span class="sd">    Plot velocity vectors, strain crosses, anisotropy bars, and wedges.</span>
 
 <span class="sd">    Reads data values from files, :class:`numpy.ndarray` or</span>
 <span class="sd">    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a map.</span>
@@ -215,19 +217,22 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - N = no_clip</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
+<span class="sd">        $table_classes.</span>
 <span class="sd">        Note that text columns are only supported with file or</span>
 <span class="sd">        :class:`pandas.DataFrame` inputs.</span>
 
@@ -249,7 +254,7 @@
 <span class="sd">          labeling. The arrow will be drawn with the pen attributes specified</span>
 <span class="sd">          by the ``pen`` parameter and the arrow-head can be colored via</span>
 <span class="sd">          ``fill``. The ellipse will be filled with the color or pattern</span>
-<span class="sd">          specified by the ``uncertaintyfill`` parameter [Default is</span>
+<span class="sd">          specified by the ``uncertainty_fill`` parameter [Default is</span>
 <span class="sd">          transparent], and its outline will be drawn if ``line`` is selected</span>
 <span class="sd">          using the pen selected (by ``pen`` if not given by ``line``).</span>
 <span class="sd">          Parameters are expected to be in the following columns:</span>
@@ -282,7 +287,7 @@
 <span class="sd">          labeling. The arrow will be drawn with the pen attributes specified</span>
 <span class="sd">          by the ``pen`` parameter and the arrow-head can be colored via</span>
 <span class="sd">          ``fill``. The ellipse will be filled with the color or pattern</span>
-<span class="sd">          specified by the ``uncertaintyfill`` parameter [Default is</span>
+<span class="sd">          specified by the ``uncertainty_fill`` parameter [Default is</span>
 <span class="sd">          transparent], and its outline will be drawn if ``line`` is selected</span>
 <span class="sd">          using the pen selected (by ``pen`` if not given by ``line``).</span>
 <span class="sd">          Parameters are expected to be in the following columns:</span>
@@ -301,7 +306,7 @@
 <span class="sd">          extra column. Rotation values are multiplied by *wedgemag* before</span>
 <span class="sd">          plotting. For example, setting *wedgemag* to 1.e7 works well for</span>
 <span class="sd">          rotations of the order of 100 nanoradians/yr. Use ``fill`` to set</span>
-<span class="sd">          the fill color or pattern for the wedge, and ``uncertaintyfill`` to</span>
+<span class="sd">          the fill color or pattern for the wedge, and ``uncertainty_fill`` to</span>
 <span class="sd">          set the color or pattern for the uncertainty. Parameters are</span>
 <span class="sd">          expected to be in the following columns:</span>
 
@@ -322,23 +327,23 @@
 <span class="sd">              with extension taken positive.</span>
 <span class="sd">            - **5**: azimuth of eps2 in degrees CW from North.</span>
 
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
 <span class="sd">    vector : bool or str</span>
 <span class="sd">        Modify vector parameters. For vector heads, append vector head *size*</span>
 <span class="sd">        [Default is 9p]. See</span>
 <span class="sd">        :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for</span>
 <span class="sd">        specifying additional attributes.</span>
-<span class="sd">    {frame}</span>
-<span class="sd">    {cmap}</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $cmap</span>
 <span class="sd">    rescale : str</span>
 <span class="sd">        Can be used to rescale the uncertainties of velocities (``spec=&quot;e&quot;``</span>
 <span class="sd">        and ``spec=&quot;r&quot;``) and rotations (``spec=&quot;w&quot;``). Can be combined with</span>
 <span class="sd">        the ``confidence`` variable.</span>
-<span class="sd">    uncertaintyfill : str</span>
+<span class="sd">    uncertainty_fill : str</span>
 <span class="sd">        Set color or pattern for filling uncertainty wedges (``spec=&quot;w&quot;``)</span>
 <span class="sd">        or velocity error ellipses (``spec=&quot;e&quot;`` or ``spec=&quot;r&quot;``).</span>
-<span class="sd">        If ``uncertaintyfill`` is not specified, the uncertainty regions</span>
+<span class="sd">        If ``uncertainty_fill`` is not specified, the uncertainty regions</span>
 <span class="sd">        will be transparent. **Note**: Using ``cmap`` and ``zvalue=&quot;+e&quot;``</span>
 <span class="sd">        will update the uncertainty fill color based on the selected measure</span>
 <span class="sd">        in ``zvalue`` [Default is magnitude error]. More details at</span>
@@ -376,7 +381,7 @@
 <span class="sd">    no_clip</span>
 <span class="sd">        Do **not** skip symbols that fall outside the frame boundaries [Default is</span>
 <span class="sd">        ``False``, i.e., plot symbols inside the frame boundaries only].</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    pen : str</span>
 <span class="sd">        [*pen*][**+c**\ [**f**\|\ **l**]].</span>
 <span class="sd">        Set pen attributes for velocity arrows, ellipse circumference and fault</span>
@@ -394,13 +399,13 @@
 <span class="sd">        required columns). To instead use the corresponding error estimates</span>
 <span class="sd">        (i.e., vector or rotation uncertainty) to lookup the color and paint</span>
 <span class="sd">        the error ellipse or wedge instead, append **+e**.</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {find}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $find</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
@@ -422,10 +427,13 @@
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">no_clip</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -445,10 +453,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

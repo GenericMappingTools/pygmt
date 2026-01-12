@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/inset_rectangle_region.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -95,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
@@ -196,57 +196,47 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="inset-map-showing-a-rectangular-region">
 <span id="sphx-glr-gallery-embellishments-inset-rectangle-region-py"></span><h1>Inset map showing a rectangular region<a class="headerlink" href="#inset-map-showing-a-rectangular-region" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code></a> method adds an inset figure inside a larger
-figure. The method is called using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, and its
-<code class="docutils literal notranslate"><span class="pre">position</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">offset</span></code>, and <code class="docutils literal notranslate"><span class="pre">margin</span></code> can be customized. Plotting
-methods called within the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement plot into the inset figure.</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code></a> method adds an inset figure inside a larger figure. The
+method is called using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. Plotting methods called within the <code class="docutils literal notranslate"><span class="pre">with</span></code>
+statement plot into the inset figure.</p>
 <img src="../../_images/sphx_glr_inset_rectangle_region_001.png" srcset="../../_images/sphx_glr_inset_rectangle_region_001.png" alt="inset rectangle region" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <span class="c1"># Set the region of the main figure</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <span class="p">[</span><span class="mf">137.5</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">]</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-
-<span class="c1"># Plot the base map of the main figure. Universal Transverse Mercator (UTM)</span>
-<span class="c1"># projection is used and the UTM zone is set to be &quot;54S&quot;.</span>
+<span class="c1"># Plot the base map of the main figure. Universal Transverse Mercator (UTM) projection</span>
+<span class="c1"># is used and the UTM zone is set to be &quot;54S&quot;.</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;U54S/12c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">])</span>
 
-<span class="c1"># Set the land color to &quot;lightbrown&quot;, the water color to &quot;azure1&quot;, the</span>
-<span class="c1"># shoreline width to &quot;2p&quot;, and the area threshold to 1000 km^2 for the main</span>
-<span class="c1"># figure</span>
+<span class="c1"># Set the land color to &quot;lightbrown&quot;, the water color to &quot;azure1&quot;, the shoreline width</span>
+<span class="c1"># to &quot;2p&quot;, and the area threshold to 1000 km^2 for the main figure.</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightbrown&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;azure1&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;2p&quot;</span><span class="p">,</span> <span class="n">area_thresh</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
-<span class="c1"># Create an inset map, placing it in the Bottom Right (BR) corner with x- and</span>
-<span class="c1"># y-offsets of 0.1 cm, respectively.</span>
-<span class="c1"># The inset map contains the Japan main land. &quot;U54S/3c&quot; means UTM projection</span>
-<span class="c1"># with a map width of 3 cm. The inset width and height are automatically</span>
-<span class="c1"># calculated from the specified ``region`` and ``projection`` parameters.</span>
-<span class="c1"># Draws a rectangular box around the inset with a fill color of &quot;white&quot; and</span>
-<span class="c1"># a pen of &quot;1p&quot;.</span>
+<span class="c1"># Create an inset map, placing it in the Bottom Right (BR) corner with x- and y-offsets</span>
+<span class="c1"># of 0.1 cm, respectively. The inset map contains the Japan main land. &quot;U54S/3c&quot; means</span>
+<span class="c1"># UTM projection with a map width of 3 cm. The inset width and height are automatically</span>
+<span class="c1"># calculated from the specified ``region`` and ``projection`` parameters. Draws a</span>
+<span class="c1"># rectangular box around the inset with a fill color of &quot;white&quot; and a pen of &quot;1p&quot;.</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.1c&quot;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.1</span><span class="p">),</span>
     <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p&quot;</span><span class="p">),</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="o">=</span><span class="p">[</span><span class="mi">129</span><span class="p">,</span> <span class="mi">146</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">46</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;U54S/3c&quot;</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># Highlight the Japan area in &quot;lightbrown&quot;</span>
-    <span class="c1"># and draw its outline with a pen of &quot;0.2p&quot;.</span>
-    <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-        <span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;JP+glightbrown+p0.2p&quot;</span><span class="p">,</span>
-        <span class="n">area_thresh</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="c1"># Plot a rectangle (&quot;r&quot;) in the inset map to show the area of the main</span>
-    <span class="c1"># figure. &quot;+s&quot; means that the first two columns are the longitude and</span>
-    <span class="c1"># latitude of the bottom left corner of the rectangle, and the last two</span>
-    <span class="c1"># columns the longitude and latitude of the upper right corner.</span>
+    <span class="c1"># Highlight the Japan area in &quot;lightbrown&quot; and draw its outline with a pen of &quot;0.2p&quot;</span>
+    <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;JP+glightbrown+p0.2p&quot;</span><span class="p">,</span> <span class="n">area_thresh</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+    <span class="c1"># Plot a rectangle (&quot;r&quot;) in the inset map to show the area of the main figure.</span>
+    <span class="c1"># &quot;+s&quot; means that the first two columns are the longitude and latitude of the bottom</span>
+    <span class="c1"># left corner of the rectangle, and the last two columns the longitude and latitude</span>
+    <span class="c1"># of the upper right corner.</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rectangle</span></a> <span class="o">=</span> <span class="p">[[</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]]]</span>
     <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rectangle</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;r+s&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,blue&quot;</span><span class="p">)</span>
-
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.344 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.346 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-inset-rectangle-region-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/944513fba577b442fb7db77f276b6d94/inset_rectangle_region.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">inset_rectangle_region.ipynb</span></code></a></p>
@@ -273,10 +263,10 @@ methods called within the <code class="docutils literal notranslate"><span class
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

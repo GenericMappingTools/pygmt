@@ -22,7 +22,7 @@ Draping a dataset on top of a topographic surface
 ==================================================
 
 It can be visually appealing to "drape" a dataset over a topographic surface. This can
-be accomplished using the ``drapegrid`` parameter of :meth:`pygmt.Figure.grdview`.
+be accomplished using the ``drape_grid`` parameter of :meth:`pygmt.Figure.grdview`.
 
 This tutorial consists of two examples:
 
@@ -75,14 +75,6 @@ the topographic map of an area of the Mid-Atlantic Ridge.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    gmtread [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    gmtread [NOTICE]: EarthByte Earth Seafloor Age at 10x10 arc minutes reduced by Gaussian Cartesian filtering (52.4 km fullwidth) [Seton et al., 2020].
-    gmtread [NOTICE]:   -> Download grid file [1.3M]: earth_age_10m_g.grd
-
 
 
 
@@ -91,9 +83,9 @@ the topographic map of an area of the Mid-Atlantic Ridge.
 The topographic surface is created based on the grid passed to the ``grid`` parameter
 of :meth:`pygmt.Figure.grdview`; here we use a grid of the Earth relief. To add a
 color-coding based on *another* grid we have to pass a second grid to the
-``drapegrid`` parameter; here we use a grid of the crustal age. In this case the
+``drape_grid`` parameter; here we use a grid of the crustal age. In this case the
 colormap specified via the ``cmap`` parameter applies to the grid passed to
-``drapegrid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
+``drape_grid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
 the ``perspective`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 48-78
@@ -105,13 +97,13 @@ the ``perspective`` parameter.
 
     # Set up colormap for the crustal age
     pygmt.config(COLOR_NAN="lightgray")
-    pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
+    pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
     fig.grdview(
         projection="M12c",  # Mercator projection with a width of 12 centimeters
         region=region_3d,
         grid=grd_relief,  # Use elevation grid for z values
-        drapegrid=grd_age,  # Use crustal age grid for color-coding
+        drape_grid=grd_age,  # Use crustal age grid for color-coding
         cmap=True,  # Use colormap created for the crustal age
         surftype="i",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270°
@@ -120,12 +112,12 @@ the ``perspective`` parameter.
         shading="+a0/270+ne0.6",
         perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
         zsize="1.5c",
-        plane="+gdarkgray",
+        facade_fill="darkgray",
         frame=True,
     )
 
     # Add colorbar for the crustal age
-    fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], position="+n")
+    fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], nan=True)
 
     fig.show()
 
@@ -171,10 +163,10 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
 
     # Download an PNG image of the flag of the EU using rasterio and load it into a
     # xarray.DataArray
-    url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
+    url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png"
     with rasterio.open(url_to_image) as dataset:
         data = dataset.read()
-        drapegrid = xr.DataArray(data, dims=("band", "y", "x"))
+        drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
 
 
 
@@ -187,8 +179,8 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
     grdblend [NOTICE]: SRTM15 Earth Relief v2.7 at 30x30 arc seconds reduced by Gaussian Cartesian filtering (2.6 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 15x15 degree grid tile (earth_relief_30s_g): N45E000
-    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/rasterio/__init__.py:356: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
-      dataset = DatasetReader(path, driver=driver, sharing=sharing, **kwargs)
+    /home/runner/micromamba/envs/pygmt/lib/python3.14/site-packages/rasterio/__init__.py:367: NotGeoreferencedWarning: Dataset has no geotransform, gcps, or rpcs. The identity matrix will be returned.
+      dataset = DatasetReader(path, driver=driver, sharing=sharing, thread_safe=thread_safe, **kwargs)
 
 
 
@@ -197,7 +189,7 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
 
 Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass an Earth relief
 grid to the ``grid`` parameter to create the topographic surface. But now we pass the
-PNG image which was loaded into an :class:`xarray.DataArray` to the ``drapgrid``
+PNG image which was loaded into an :class:`xarray.DataArray` to the ``drape_grid``
 parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 111-137
@@ -216,7 +208,7 @@ parameter.
         projection="M12c",  # Mercator projection with a width of 12 centimeters
         region=region_3d,
         grid=grd_relief,  # Use elevation grid for z values
-        drapegrid=drapegrid,  # Drap image grid for the EU flag on top
+        drape_grid=drape_grid,  # Drape image grid for the EU flag on top
         cmap=True,  # Use colormap defined for the EU flag
         surftype="i",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270° (west) with
@@ -224,7 +216,7 @@ parameter.
         shading="+a0/270+ne0.6",
         perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
         zsize="1c",
-        plane="+gdarkgray",
+        facade_fill="darkgray",
         frame=True,
     )
 
@@ -243,7 +235,7 @@ parameter.
 
  .. code-block:: none
 
-    /home/runner/micromamba/envs/pygmt/lib/python3.13/site-packages/rasterio/__init__.py:366: NotGeoreferencedWarning: The given matrix is equal to Affine.identity or its flipped counterpart. GDAL may ignore this matrix and save no geotransform without raising an error. This behavior is somewhat driver-specific.
+    /home/runner/micromamba/envs/pygmt/lib/python3.14/site-packages/rasterio/__init__.py:377: NotGeoreferencedWarning: The given matrix is equal to Affine.identity or its flipped counterpart. GDAL may ignore this matrix and save no geotransform without raising an error. This behavior is somewhat driver-specific.
       dataset = writer(
 
 
@@ -252,7 +244,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.892 seconds)
+   **Total running time of the script:** (0 minutes 6.160 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_draping_on_3d_surface.py:

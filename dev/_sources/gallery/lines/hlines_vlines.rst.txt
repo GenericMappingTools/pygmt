@@ -36,7 +36,7 @@ In Cartesian coordinate systems lines are plotted as straight lines.
 
 
     import pygmt
-    from pygmt.params import Box
+    from pygmt.params import Box, Position
 
     fig = pygmt.Figure()
 
@@ -56,7 +56,7 @@ In Cartesian coordinate systems lines are plotted as straight lines.
     fig.hlines(
         y=[2, 3], xmin=[0, 1], xmax=[7, 7.5], pen="1.5p,dodgerblue3", label="Lines 7 & 8"
     )
-    fig.legend(position="JBR+jBR+o0.2c", box=Box(pen="1p", fill="white"))
+    fig.legend(position=Position("BR", offset=0.2), box=Box(pen="1p", fill="white"))
 
     fig.shift_origin(xshift="w+2c")
 
@@ -191,7 +191,7 @@ radius at a specified azimuth.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.831 seconds)
+   **Total running time of the script:** (0 minutes 0.849 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_hlines_vlines.py:

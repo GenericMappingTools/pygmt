@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTBackendEntrypoint.open_groups_as_dict.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -105,6 +105,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html">pygmt.GMTBackendEntrypoint</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint.description"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint.open_dataset_parameters"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_dataset_parameters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint.supports_groups"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.supports_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint.url"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.url</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html">pygmt.GMTBackendEntrypoint.guess_can_open</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html">pygmt.GMTBackendEntrypoint.open_dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html">pygmt.GMTBackendEntrypoint.open_datatree</a></li>
@@ -193,13 +197,14 @@
 <dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.open_groups_as_dict">
 <span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">open_groups_as_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_or_obj</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.open_groups_as_dict" title="Link to this definition"></a></dt>
 <dd><p>Opens a dictionary mapping from group names to Datasets.</p>
-<p>Called by <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_groups.html#xarray.open_groups" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_groups</span></code></a>.
+<p>Called by <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_groups.html#xarray.open_groups" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_groups</span></code></a>.
 This function exists to provide a universal way to open all groups in a file,
 before applying any additional consistency checks or requirements necessary
-to create a <cite>DataTree</cite> object (typically done using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataTree.from_dict.html#xarray.DataTree.from_dict" title="(in xarray v2025.9.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_dict</span></code></a>).</p>
+to create a <cite>DataTree</cite> object (typically done using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataTree.from_dict.html#xarray.DataTree.from_dict" title="(in xarray v2025.12.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_dict</span></code></a>).</p>
+<p>If implemented, set the class variable supports_groups to True.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -218,10 +223,10 @@ to create a <cite>DataTree</cite> object (typically done using <a class="referen
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

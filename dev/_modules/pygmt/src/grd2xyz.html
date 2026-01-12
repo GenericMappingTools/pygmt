@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grd2xyz.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -169,7 +169,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
-    <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
@@ -188,10 +187,8 @@
     <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">o</span><span class="o">=</span><span class="s2">&quot;outcols&quot;</span><span class="p">,</span>
     <span class="n">s</span><span class="o">=</span><span class="s2">&quot;skiprows&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grd2xyz</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
@@ -199,6 +196,7 @@
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">outcols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -209,15 +207,16 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grd2xyz.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - o = outcols</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {output_type}</span>
-<span class="sd">    {outfile}</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $output_type</span>
+<span class="sd">    $outfile</span>
 <span class="sd">    cstyle : str</span>
 <span class="sd">        [**f**\|\ **i**].</span>
 <span class="sd">        Replace the x- and y-coordinates on output with the corresponding</span>
@@ -225,7 +224,7 @@
 <span class="sd">        **f** to start at 1 (Fortran-style counting). Alternatively, append</span>
 <span class="sd">        **i** to write just the two columns *index* and *z*, where *index*</span>
 <span class="sd">        is the 1-D indexing that GMT uses when referring to grid nodes.</span>
-<span class="sd">    {region}</span>
+<span class="sd">    $region</span>
 <span class="sd">        Adding ``region`` will select a subsection of the grid. If this</span>
 <span class="sd">        subsection exceeds the boundaries of the grid, only the common region</span>
 <span class="sd">        will be output.</span>
@@ -240,7 +239,7 @@
 <span class="sd">        this by appending **+u**\ *unit*. For such grids, the area</span>
 <span class="sd">        varies with latitude and also sees special cases for</span>
 <span class="sd">        gridline-registered layouts at sides, corners, and poles.</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    convention : str</span>
 <span class="sd">        [*flags*].</span>
 <span class="sd">        Write a 1-column ASCII [or binary] table. Output will be organized</span>
@@ -271,12 +270,12 @@
 <span class="sd">        - **d**: 8-byte floating point double precision</span>
 
 <span class="sd">        Default format is scanline orientation of ASCII numbers: **TLa**.</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {outcols}</span>
-<span class="sd">    {skiprows}</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $header</span>
+<span class="sd">    $outcols</span>
+<span class="sd">    $skiprows</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -305,7 +304,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">output_type</span> <span class="o">=</span> <span class="n">validate_output_table_type</span><span class="p">(</span><span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">outcols</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
             <span class="n">output_type</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;output_type&#39;&quot;</span><span class="p">,</span>
@@ -321,6 +320,7 @@
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">o</span><span class="o">=</span><span class="n">outcols</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -347,10 +347,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

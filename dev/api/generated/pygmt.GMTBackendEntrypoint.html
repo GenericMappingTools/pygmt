@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTBackendEntrypoint.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -105,6 +105,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.GMTBackendEntrypoint</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint.description"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint.open_dataset_parameters"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_dataset_parameters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint.supports_groups"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.supports_groups</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint.url"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.url</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html">pygmt.GMTBackendEntrypoint.guess_can_open</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html">pygmt.GMTBackendEntrypoint.open_dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html">pygmt.GMTBackendEntrypoint.open_datatree</a></li>
@@ -198,7 +202,7 @@ for more details about supported formats. This GMT engine can also read
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/datasets/remote-data.html">GMT remote datasets</a> (file names starting
 with an <cite>&#64;</cite>) directly, and pre-loads <a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> properties
 (in the ‘.gmt’ accessor) for easy access to GMT-specific metadata and features.</p>
-<p>When using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a> with
+<p>When using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a> with
 <code class="docutils literal notranslate"><span class="pre">engine=&quot;gmt&quot;</span></code>, the <code class="docutils literal notranslate"><span class="pre">raster_kind</span></code> parameter is required and can be either:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;grid&quot;</span></code>: for reading single-band raster grids</p></li>
@@ -215,18 +219,17 @@ with an <cite>&#64;</cite>) directly, and pre-loads <a class="reference internal
 <span class="gp">... </span>    <span class="s2">&quot;@static_earth_relief.nc&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span>
-<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt;...</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt; Size: 448B</span>
 <span class="go">[112 values with dtype=float32]</span>
 <span class="go">Coordinates:</span>
-<span class="go">  * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
-<span class="go">  * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
-<span class="go">Attributes:...</span>
-<span class="go">    Conventions:   CF-1.7</span>
-<span class="go">    title:         Produced by grdcut</span>
-<span class="go">    history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...</span>
-<span class="go">    description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwidt...</span>
-<span class="go">    actual_range:  [190. 981.]</span>
-<span class="go">    long_name:     elevation (m)</span>
+<span class="go">  * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
+<span class="go">  * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
+<span class="go">:ivar Conventions: CF-1.7</span>
+<span class="go">:ivar title: Produced by grdcut</span>
+<span class="go">:ivar history: grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...</span>
+<span class="go">:ivar description: Reduced by Gaussian Cartesian filtering (111.2 km fullwidt...</span>
+<span class="go">:ivar actual_range: [190. 981.]</span>
+<span class="go">:ivar long_name: elevation (m)</span>
 </pre></div>
 </div>
 <p>Read a multi-band GeoTIFF file using <code class="docutils literal notranslate"><span class="pre">raster_kind=&quot;image&quot;</span></code></p>
@@ -234,14 +237,13 @@ with an <cite>&#64;</cite>) directly, and pre-loads <a class="reference internal
 <span class="gp">... </span>    <span class="s2">&quot;@earth_night_01d&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;image&quot;</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">da_image</span>
-<span class="go">&lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt;...</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt; Size: 194kB</span>
 <span class="go">[194400 values with dtype=uint8]</span>
 <span class="go">Coordinates:</span>
-<span class="go">  * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
-<span class="go">  * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
-<span class="go">  * band     (band) uint8... 1 2 3</span>
-<span class="go">Attributes:...</span>
-<span class="go">    long_name:  z</span>
+<span class="go">  * band     (band) uint8 3B 1 2 3</span>
+<span class="go">  * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
+<span class="go">  * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
+<span class="go">:ivar long_name: z</span>
 </pre></div>
 </div>
 <p>Load a single-band netCDF file using <code class="docutils literal notranslate"><span class="pre">raster_kind=&quot;grid&quot;</span></code> over a bounding box
@@ -250,39 +252,58 @@ region.</p>
 <span class="gp">... </span>    <span class="s2">&quot;@tut_bathy.nc&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">,</span> <span class="o">-</span><span class="mi">62</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">da_grid</span>
-<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt;...</span>
+<span class="go">&lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt; Size: 1kB</span>
 <span class="go">array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,</span>
 <span class="go">        -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,</span>
 <span class="go">...</span>
 <span class="go">        -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,</span>
 <span class="go">        -4820.]], dtype=float32)</span>
 <span class="go">Coordinates:</span>
-<span class="go">  * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
-<span class="go">  * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
-<span class="go">Attributes:...</span>
-<span class="go">    Conventions:   CF-1.7</span>
-<span class="go">    title:         ETOPO5 global topography</span>
-<span class="go">    history:       grdreformat -fg bermuda.grd bermuda.nc=ns</span>
-<span class="go">    description:   /home/elepaio5/data/grids/etopo5.i2</span>
-<span class="go">    actual_range:  [-4968. -4315.]</span>
-<span class="go">    long_name:     Topography</span>
-<span class="go">    units:         m</span>
+<span class="go">  * lat      (lat) float64 104B 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
+<span class="go">  * lon      (lon) float64 200B -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
+<span class="go">:ivar Conventions: CF-1.7</span>
+<span class="go">:ivar title: ETOPO5 global topography</span>
+<span class="go">:ivar history: grdreformat -fg bermuda.grd bermuda.nc=ns</span>
+<span class="go">:ivar description: /home/elepaio5/data/grids/etopo5.i2</span>
+<span class="go">:ivar actual_range: [-4968. -4315.]</span>
+<span class="go">:ivar long_name: Topography</span>
+<span class="go">:ivar units: m</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <p class="rubric">Attributes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.description">
+<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Open</span> <span class="pre">raster</span> <span class="pre">(.grd,</span> <span class="pre">.nc</span> <span class="pre">or</span> <span class="pre">.tif)</span> <span class="pre">files</span> <span class="pre">in</span> <span class="pre">Xarray</span> <span class="pre">via</span> <span class="pre">GMT.'</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.open_dataset_parameters">
+<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">open_dataset_parameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[tuple</span> <span class="pre">|</span> <span class="pre">None]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('filename_or_obj',</span> <span class="pre">'raster_kind',</span> <span class="pre">'region')</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.open_dataset_parameters" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.supports_groups">
+<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">supports_groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[bool]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.supports_groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.url">
+<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html'</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.url" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html#pygmt.GMTBackendEntrypoint.guess_can_open" title="pygmt.GMTBackendEntrypoint.guess_can_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.guess_can_open</span></code></a>(...)</p></td>
-<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html#pygmt.GMTBackendEntrypoint.open_dataset" title="pygmt.GMTBackendEntrypoint.open_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_dataset</span></code></a>(...[, ...])</p></td>
-<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html#pygmt.GMTBackendEntrypoint.open_datatree" title="pygmt.GMTBackendEntrypoint.open_datatree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_datatree</span></code></a>(...[, ...])</p></td>
-<td><p>Backend open_datatree method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_datatree.html#xarray.open_datatree" title="(in xarray v2025.9.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_datatree</span></code></a>.</p></td>
+<td><p>Backend open_datatree method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_datatree.html#xarray.open_datatree" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_datatree</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html#pygmt.GMTBackendEntrypoint.open_groups_as_dict" title="pygmt.GMTBackendEntrypoint.open_groups_as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_groups_as_dict</span></code></a>(...)</p></td>
 <td><p>Opens a dictionary mapping from group names to Datasets.</p></td>
@@ -303,10 +324,10 @@ region.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

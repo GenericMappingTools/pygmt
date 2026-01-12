@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.set_panel.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -218,21 +218,20 @@ both dimensions then you must specify <code class="docutils literal notranslate"
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>row,col</em>|<em>index</em>.
-Sets the current subplot until further notice. <strong>Note</strong>: First <em>row</em>
-or <em>col</em> is 0, not 1. If not given we go to the next subplot by order
-specified via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. As an
-alternative, you may bypass using <a class="reference internal" href="#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> and
-instead supply the common option <strong>panel</strong>=[<em>row,col</em>] to the first
-plot command you issue in that subplot. GMT maintains information about
-the current figure and subplot. Also, you may give the one-dimensional
-<em>index</em> instead which starts at 0 and follows the row or column order
-set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>.</p></li>
-<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
+<li><p><strong>panel</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>index</em> or (<em>row</em>, <em>col</em>).
+Sets the current subplot until further notice. <strong>Note</strong>: First <em>row</em> or <em>col</em> is
+0, not 1. If not given we go to the next subplot by order specified via
+<code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. As an alternative, you may bypass
+using <a class="reference internal" href="#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> and instead supply the common option
+<strong>panel</strong>=(<em>row</em>, <em>col</em>) to the first plot command you issue in that subplot.
+GMT maintains information about the current figure and subplot. Also, you may
+give the one-dimensional <em>index</em> instead which starts at 0 and follows the row
+or column order set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> in <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>.</p></li>
+<li><p><strong>fixedlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Overrides the automatic labeling with the given string. No modifiers
 are allowed. Placement, justification, etc. are all inherited from how
 <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> was specified by the initial <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>
 command.</p></li>
-<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
 Reserve a space of dimension <em>clearance</em> between the margin and the
 subplot on the specified side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>,
 <strong>s</strong>, or <strong>n</strong>. The option is repeatable to set aside space on more
@@ -242,7 +241,7 @@ untouched by the main map plotting but can be accessed by methods that
 plot scales, bars, text, etc. This setting overrides the common
 clearances set by <code class="docutils literal notranslate"><span class="pre">clearance</span></code> in the initial
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> call.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
@@ -251,16 +250,16 @@ clearances set by <code class="docutils literal notranslate"><span class="pre">c
 <section id="examples-using-pygmt-figure-set-panel">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code><a class="headerlink" href="#examples-using-pygmt-figure-set-panel" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html"><span class="doc">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
-<p><a class="reference internal" href="../../gallery/symbols/bars.html#sphx-glr-gallery-symbols-bars-py"><span class="std std-ref">Vertical or horizontal bars</span></a></p>
+<p><a class="reference internal" href="../../gallery/symbols/bars.html"><span class="doc">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html"><span class="doc">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html"><span class="doc">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
 </div></div><div style='clear:both'></div></section>
 </section>
@@ -277,10 +276,10 @@ clearances set by <code class="docutils literal notranslate"><span class="pre">c
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

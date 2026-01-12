@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grd2cpt.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -188,7 +188,7 @@
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grd2cpt</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
-    <span class="n">truncate</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">truncate</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">overrule_bg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">no_bg</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -241,7 +241,7 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grd2cpt.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
 <span class="sd">       - G = truncate</span>
 <span class="sd">       - M = overrule_bg</span>
 <span class="sd">       - N = no_bg</span>
@@ -252,7 +252,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
+<span class="sd">    $grid</span>
 <span class="sd">    transparency : float or str</span>
 <span class="sd">        Set a constant level of transparency (0-100) for all color slices. Append **+a**</span>
 <span class="sd">        to also affect the foreground, background, and NaN colors [Default is no</span>
@@ -333,12 +333,12 @@
 <span class="sd">        Do not interpolate the input color table but pick the output colors</span>
 <span class="sd">        starting at the beginning of the color table, until colors for all</span>
 <span class="sd">        intervals are assigned. This is particularly useful in combination with</span>
-<span class="sd">        a categorical color table, like ``cmap=&quot;categorical&quot;``.</span>
+<span class="sd">        a categorical color table, like ``cmap=&quot;gmt/categorical&quot;``.</span>
 <span class="sd">    cyclic : bool</span>
 <span class="sd">        Produce a wrapped (cyclic) color table that endlessly repeats its</span>
 <span class="sd">        range. Note that ``cyclic=True`` cannot be set together with</span>
 <span class="sd">        ``categorical=True``.</span>
-<span class="sd">    {verbose}</span>
+<span class="sd">    $verbose</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -390,10 +390,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

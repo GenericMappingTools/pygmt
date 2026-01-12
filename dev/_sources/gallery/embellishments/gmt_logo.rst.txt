@@ -39,20 +39,20 @@ The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a figure.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Position
 
     fig = pygmt.Figure()
     fig.basemap(region=[0, 10, 0, 2], projection="X6c", frame=True)
 
     # Add the GMT logo in the Top Right (TR) corner of the current plot, scaled up to be 3
     # centimeters wide and offset by 0.3 cm in x-direction and 0.6 cm in y-direction.
-    fig.logo(position="jTR+o0.3c/0.6c+w3c")
-
+    fig.logo(position=Position("TR", offset=(0.3, 0.6)), width="3c")
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.212 seconds)
+   **Total running time of the script:** (0 minutes 0.205 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_gmt_logo.py:

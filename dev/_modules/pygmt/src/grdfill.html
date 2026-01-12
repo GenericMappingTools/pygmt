@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfill.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -172,24 +172,24 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_params</span><span class="p">(</span>
-    <span class="n">constantfill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">gridfill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">neighborfill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">splinefill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">constant_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">neighbor_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">spline_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">inquire</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Validate the fill/inquire parameters.</span>
 
-<span class="sd">    &gt;&gt;&gt; _validate_params(constantfill=20.0)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0)</span>
 <span class="sd">    &gt;&gt;&gt; _validate_params(inquire=True)</span>
 <span class="sd">    &gt;&gt;&gt; _validate_params(mode=&quot;c20.0&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; _validate_params(constantfill=20.0, gridfill=&quot;bggrid.nc&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0, grid_fill=&quot;bggrid.nc&quot;)</span>
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">    ...</span>
 <span class="sd">    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.</span>
-<span class="sd">    &gt;&gt;&gt; _validate_params(constantfill=20.0, inquire=True)</span>
+<span class="sd">    &gt;&gt;&gt; _validate_params(constant_fill=20.0, inquire=True)</span>
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">    ...</span>
 <span class="sd">    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.</span>
@@ -198,7 +198,7 @@
 <span class="sd">    ...</span>
 <span class="sd">    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_fill_params</span> <span class="o">=</span> <span class="s2">&quot;&#39;constantfill&#39;/&#39;gridfill&#39;/&#39;neighborfill&#39;/&#39;splinefill&#39;&quot;</span>
+    <span class="n">_fill_params</span> <span class="o">=</span> <span class="s2">&quot;&#39;constant_fill&#39;/&#39;grid_fill&#39;/&#39;neighbor_fill&#39;/&#39;spline_fill&#39;&quot;</span>
     <span class="c1"># The deprecated &#39;mode&#39; parameter is given.</span>
     <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
@@ -209,7 +209,14 @@
 
     <span class="n">n_given</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
         <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">[</span><span class="n">constantfill</span><span class="p">,</span> <span class="n">gridfill</span><span class="p">,</span> <span class="n">neighborfill</span><span class="p">,</span> <span class="n">splinefill</span><span class="p">,</span> <span class="n">inquire</span><span class="p">,</span> <span class="n">mode</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">constant_fill</span><span class="p">,</span>
+            <span class="n">grid_fill</span><span class="p">,</span>
+            <span class="n">neighbor_fill</span><span class="p">,</span>
+            <span class="n">spline_fill</span><span class="p">,</span>
+            <span class="n">inquire</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">,</span>
+        <span class="p">]</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">n_given</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># More than one mutually exclusive parameter is given.</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Parameters </span><span class="si">{</span><span class="n">_fill_params</span><span class="si">}</span><span class="s2">/&#39;inquire&#39;/&#39;mode&#39; are mutually exclusive.&quot;</span>
@@ -228,14 +235,22 @@
 <span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &#39;no_data&#39; parameter.</span>
 <span class="c1"># TODO(PyGMT&gt;=0.19.0): Remove the deprecated &#39;mode&#39; parameter.</span>
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;no_data&quot;</span><span class="p">,</span> <span class="s2">&quot;hole&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.15.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.19.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;constantfill&quot;</span><span class="p">,</span> <span class="s2">&quot;constant_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;gridfill&quot;</span><span class="p">,</span> <span class="s2">&quot;grid_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;neighborfill&quot;</span><span class="p">,</span> <span class="s2">&quot;neighbor_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;splinefill&quot;</span><span class="p">,</span> <span class="s2">&quot;spline_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">grdfill</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">constantfill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">gridfill</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">neighborfill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">splinefill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">constant_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">grid_fill</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">neighbor_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">spline_fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">inquire</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">hole</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -255,11 +270,11 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdfill.html`.</span>
 
-<span class="sd">    {aliases}</span>
-<span class="sd">       - Ac = constantfill</span>
-<span class="sd">       - Ag = gridfill</span>
-<span class="sd">       - An = neighborfill</span>
-<span class="sd">       - As = splinefill</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - Ac = constant_fill</span>
+<span class="sd">       - Ag = grid_fill</span>
+<span class="sd">       - An = neighbor_fill</span>
+<span class="sd">       - As = spline_fill</span>
 <span class="sd">       - L = inquire</span>
 <span class="sd">       - N = hole</span>
 <span class="sd">       - R = region</span>
@@ -267,19 +282,19 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {grid}</span>
-<span class="sd">    {outgrid}</span>
-<span class="sd">    constantfill</span>
+<span class="sd">    $grid</span>
+<span class="sd">    $outgrid</span>
+<span class="sd">    constant_fill</span>
 <span class="sd">        Fill the holes with a constant value. Specify the constant value to use.</span>
-<span class="sd">    gridfill</span>
+<span class="sd">    grid_fill</span>
 <span class="sd">        Fill the holes with values sampled from another (possibly coarser) grid. Specify</span>
 <span class="sd">        the grid (a file name or an :class:`xarray.DataArray`) to use for the fill.</span>
-<span class="sd">    neighborfill</span>
+<span class="sd">    neighbor_fill</span>
 <span class="sd">        Fill the holes with the nearest neighbor. Specify the search radius in pixels.</span>
 <span class="sd">        If set to ``True``, the default search radius will be used</span>
-<span class="sd">        (:math:`r^2 = \sqrt{{n^2 + m^2}}`, where (*n,m*) are the node dimensions of the</span>
+<span class="sd">        (:math:`r^2 = \sqrt{n^2 + m^2}`, where (*n,m*) are the node dimensions of the</span>
 <span class="sd">        grid).</span>
-<span class="sd">    splinefill</span>
+<span class="sd">    spline_fill</span>
 <span class="sd">        Fill the holes with a bicubic spline. Specify the tension value to use. If set</span>
 <span class="sd">        to ``True``, no tension will be used.</span>
 <span class="sd">    hole</span>
@@ -292,16 +307,17 @@
 <span class="sd">    mode</span>
 <span class="sd">        Specify the hole-filling algorithm to use. Choose from **c** for constant fill</span>
 <span class="sd">        and append the constant value, **n** for nearest neighbor (and optionally append</span>
-<span class="sd">        a search radius in pixels [default radius is :math:`r^2 = \sqrt{{ X^2 + Y^2 }}`,</span>
+<span class="sd">        a search radius in pixels [default radius is :math:`r^2 = \sqrt{ X^2 + Y^2 }`,</span>
 <span class="sd">        where (*X,Y*) are the node dimensions of the grid]), or **s** for bicubic spline</span>
 <span class="sd">        (optionally append a *tension* parameter [Default is no tension]).</span>
 
 <span class="sd">        .. deprecated:: 0.15.0</span>
-<span class="sd">            Use ``constantfill``, ``gridfill``, ``neighborfill``, or ``splinefill``</span>
+<span class="sd">            Use ``constant_fill``, ``grid_fill``, ``neighbor_fill``, or ``spline_fill``</span>
 <span class="sd">            instead. The parameter will be removed in v0.19.0.</span>
-<span class="sd">    {region}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {verbose}</span>
+
+<span class="sd">    $region</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $verbose</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -321,7 +337,7 @@
 <span class="sd">    &gt;&gt;&gt; # Load a bathymetric grid with missing data</span>
 <span class="sd">    &gt;&gt;&gt; earth_relief_holes = pygmt.datasets.load_sample_data(name=&quot;earth_relief_holes&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; # Fill the holes with a constant value of 20</span>
-<span class="sd">    &gt;&gt;&gt; filled_grid = pygmt.grdfill(grid=earth_relief_holes, constantfill=20)</span>
+<span class="sd">    &gt;&gt;&gt; filled_grid = pygmt.grdfill(grid=earth_relief_holes, constant_fill=20)</span>
 
 <span class="sd">    Inquire the bounds of each hole.</span>
 
@@ -330,16 +346,18 @@
 <span class="sd">           [6.16666667, 7.83333333, 0.5       , 2.5       ]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Validate the fill/inquire parameters.</span>
-    <span class="n">_validate_params</span><span class="p">(</span><span class="n">constantfill</span><span class="p">,</span> <span class="n">gridfill</span><span class="p">,</span> <span class="n">neighborfill</span><span class="p">,</span> <span class="n">splinefill</span><span class="p">,</span> <span class="n">inquire</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+    <span class="n">_validate_params</span><span class="p">(</span>
+        <span class="n">constant_fill</span><span class="p">,</span> <span class="n">grid_fill</span><span class="p">,</span> <span class="n">neighbor_fill</span><span class="p">,</span> <span class="n">spline_fill</span><span class="p">,</span> <span class="n">inquire</span><span class="p">,</span> <span class="n">mode</span>
+    <span class="p">)</span>
 
     <span class="c1"># _validate_params has already ensured that only one of the parameters is set.</span>
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mode&quot;</span><span class="p">),</span>
-        <span class="n">Ac</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">constantfill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;constantfill&quot;</span><span class="p">),</span>
-        <span class="c1"># For grdfill, append the actual or virtual grid file name later.</span>
-        <span class="n">Ag</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">gridfill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gridfill&quot;</span><span class="p">),</span>
-        <span class="n">An</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">neighborfill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;neighborfill&quot;</span><span class="p">),</span>
-        <span class="n">As</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">splinefill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;splinefill&quot;</span><span class="p">),</span>
+        <span class="n">Ac</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">constant_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;constant_fill&quot;</span><span class="p">),</span>
+        <span class="c1"># For grid_fill, append the actual or virtual grid file name later.</span>
+        <span class="n">Ag</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">grid_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;grid_fill&quot;</span><span class="p">),</span>
+        <span class="n">An</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">neighbor_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;neighbor_fill&quot;</span><span class="p">),</span>
+        <span class="n">As</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spline_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spline_fill&quot;</span><span class="p">),</span>
         <span class="n">L</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">inquire</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inquire&quot;</span><span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">hole</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;hole&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
@@ -363,11 +381,11 @@
             <span class="c1"># Fill mode.</span>
             <span class="k">with</span> <span class="p">(</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
-                    <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gridfill</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+                    <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid_fill</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
                 <span class="p">)</span> <span class="k">as</span> <span class="n">vbggrd</span><span class="p">,</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
             <span class="p">):</span>
-                <span class="k">if</span> <span class="n">gridfill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">grid_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="c1"># Fill by a grid. Append the actual or virtual grid file name.</span>
                     <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;Ag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vbggrd</span>
                 <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
@@ -386,10 +404,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

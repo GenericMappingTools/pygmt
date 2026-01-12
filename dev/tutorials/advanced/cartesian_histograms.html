@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/cartesian_histograms.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -313,7 +313,7 @@ outer outlines of the bars are drawn, and no internal bars are visible.</p>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;xaf10&quot;</span><span class="p">,</span> <span class="s2">&quot;ya1f1+lCounts&quot;</span><span class="p">],</span>
     <span class="n">data</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data02</span></a><span class="p">,</span>
     <span class="n">series</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="c1"># Draw a 1.5-points thick, dashed outline in &quot;orange&quot;</span>
+    <span class="c1"># Draw a 1.5-point thick, dashed outline in &quot;orange&quot;</span>
     <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1.5p,orange,dashed&quot;</span><span class="p">,</span>
     <span class="n">histtype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">stairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -504,7 +504,7 @@ histograms on top of each other.</p>
 <img src="../../_images/sphx_glr_cartesian_histograms_006.png" srcset="../../_images/sphx_glr_cartesian_histograms_006.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="grouped-bars">
 <h2>Grouped bars<a class="headerlink" href="#grouped-bars" title="Link to this heading"></a></h2>
-<p>By setting the <code class="docutils literal notranslate"><span class="pre">barwidth</span></code> parameter in respect to the values passed to the
+<p>By setting the <code class="docutils literal notranslate"><span class="pre">bar_width</span></code> parameter in respect to the values passed to the
 <code class="docutils literal notranslate"><span class="pre">series</span></code> parameter histograms with grouped bars can be created.</p>
 <p>Limitations of histograms with grouped bars are:</p>
 <ul class="simple">
@@ -528,9 +528,9 @@ histograms on top of each other.</p>
     <span class="n">histtype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="c1"># Calculate the bar width in respect to the bin width, here for two data sets half</span>
     <span class="c1"># of the bin width</span>
-    <span class="c1"># Offset (&quot;+o&quot;) the bars to align each bar with the left limit of the corresponding</span>
-    <span class="c1"># bin</span>
-    <span class="n">barwidth</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">+o-</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">bar_width</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="c1"># Offset the bars to align each bar with the left limit of the corresponding bin</span>
+    <span class="n">bar_offset</span><span class="o">=-</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data01&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -541,7 +541,8 @@ histograms on top of each other.</p>
     <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span>
     <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,darkgray,solid&quot;</span><span class="p">,</span>
     <span class="n">histtype</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">barwidth</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">+o</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">bar_width</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">bar_offset</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data02&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -551,7 +552,7 @@ histograms on top of each other.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_cartesian_histograms_007.png" srcset="../../_images/sphx_glr_cartesian_histograms_007.png" alt="cartesian histograms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.264 seconds)</p>
+<img src="../../_images/sphx_glr_cartesian_histograms_007.png" srcset="../../_images/sphx_glr_cartesian_histograms_007.png" alt="cartesian histograms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.195 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-cartesian-histograms-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/04ea079531b896097081b26e6faf512b/cartesian_histograms.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cartesian_histograms.ipynb</span></code></a></p>
@@ -579,10 +580,10 @@ histograms on top of each other.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

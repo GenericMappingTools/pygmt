@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.filter1d.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -209,7 +209,7 @@ series data. The user specifies which column is the time (i.e., the
 independent variable) via <code class="docutils literal notranslate"><span class="pre">time_col</span></code>. The fastest operation
 occurs when the input time series are equally spaced and have no gaps or
 outliers and the special options are not needed.
-Read a table and output as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
+Read a table and output as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, or ASCII file.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/filter1d.html">https://docs.generic-mapping-tools.org/6.6/filter1d.html</a>.</p>
 <p><strong>Aliases:</strong></p>
@@ -227,17 +227,17 @@ Read a table and output as a <a class="reference external" href="https://numpy.o
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>, <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'file'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>) – <p>Desired output type of the result data.</p>
+<li><p><strong>output_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>, <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'file'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>) – <p>Desired output type of the result data.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> will return a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> will return a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> will return a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> object.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> will save the result to the file specified by the <code class="docutils literal notranslate"><span class="pre">outfile</span></code>
 parameter.</p></li>
 </ul>
 </p></li>
-<li><p><strong>outfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – File name for saving the result data. Required if <code class="docutils literal notranslate"><span class="pre">output_type=&quot;file&quot;</span></code>.
+<li><p><strong>outfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – File name for saving the result data. Required if <code class="docutils literal notranslate"><span class="pre">output_type=&quot;file&quot;</span></code>.
 If specified, <code class="docutils literal notranslate"><span class="pre">output_type</span></code> will be forced to be <code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>.</p></li>
-<li><p><strong>filter_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – <p><strong>type</strong><em>width</em>[<strong>+h</strong>].
+<li><p><strong>filter_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p><strong>type</strong><em>width</em>[<strong>+h</strong>].
 Set the filter <strong>type</strong>. Choose among convolution and non-convolution
 filters. Append the filter code followed by the full filter
 <em>width</em> in same units as time column. By default, this
@@ -278,22 +278,22 @@ multi-segment data files the filter file must either have the same
 number of segments or just a single segment to be used for all data
 segments.</p>
 </p></li>
-<li><p><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Include ends of time series in output. The default [False] loses
+<li><p><strong>end</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Include ends of time series in output. The default [False] loses
 half the filter-width of data at each end.</p></li>
-<li><p><strong>time_col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Indicate which column contains the independent variable (time). The
+<li><p><strong>time_col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Indicate which column contains the independent variable (time). The
 left-most column is 0, while the right-most is (<em>n_cols</em> - 1)
 [Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>].</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p><em>ret</em> – Return type depends on <code class="docutils literal notranslate"><span class="pre">outfile</span></code> and <code class="docutils literal notranslate"><span class="pre">output_type</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (output will be stored in the file set by
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set
 (depends on <code class="docutils literal notranslate"><span class="pre">output_type</span></code>)</p></li>
 </ul>
 </p>
@@ -315,10 +315,10 @@ left-most column is 0, while the right-most is (<em>n_cols</em> - 1)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

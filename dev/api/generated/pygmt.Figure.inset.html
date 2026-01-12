@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.inset.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -203,16 +203,16 @@
 <h1>pygmt.Figure.inset<a class="headerlink" href="#pygmt-figure-inset" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.inset">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">inset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.inset" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">inset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.inset" title="Link to this definition"></a></dt>
 <dd><p>Manage figure inset setup and completion.</p>
-<p>This method sets the position, frame, and margins for a smaller figure
-inside of the larger figure. Plotting methods that are called within the
+<p>This method carves out a sub-region of the current plot canvas and restrict further
+plotting to that section of the canvas. Plotting methods that are called within the
 context manager are added to the inset figure.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/inset.html">https://docs.generic-mapping-tools.org/6.6/inset.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p>D = position</p></li>
-<li><p>M = margin</p></li>
+<li><p>C = clearance</p></li>
+<li><p>D = position, <strong>+w</strong>: width/height</p></li>
 <li><p>F = box</p></li>
 </ul>
 </td><td><ul class="simple">
@@ -227,43 +227,25 @@ context manager are added to the inset figure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <p><em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]] | [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>width</em>[/<em>height</em>][<strong>+j</strong><em>justify</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]].</p>
-<p><em>This is the only required parameter.</em>
-Define the map inset rectangle on the map. Specify the rectangle
-in one of three ways:</p>
-<p>Append <strong>g</strong><em>lon</em>/<em>lat</em> for map (user) coordinates,
-<strong>j</strong><em>code</em> or <strong>J</strong><em>code</em> for setting the <em>refpoint</em> via a
-<a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>
-that refers to the (invisible)
-projected map bounding box, <strong>n</strong><em>xn</em>/<em>yn</em> for normalized (0-1)
-bounding box coordinates, or <strong>x</strong><em>x</em>/<em>y</em> for plot
-coordinates (inches, centimeters, points, append unit).
-All but <strong>x</strong> requires both <code class="docutils literal notranslate"><span class="pre">region</span></code> and <code class="docutils literal notranslate"><span class="pre">projection</span></code> to be
-specified. You can offset the reference point via
-<strong>+o</strong><em>dx</em>/<em>dy</em> in the direction implied by <em>code</em> or
-<strong>+j</strong><em>justify</em>.</p>
-<p>Alternatively, give <em>west/east/south/north</em> of geographic
-rectangle bounded by parallels and meridians; append <strong>+r</strong> if the
-coordinates instead are the lower left and upper right corners of
-the desired rectangle. (Or, give <em>xmin/xmax/ymin/ymax</em> of bounding
-rectangle in projected coordinates and optionally
-append <strong>+u</strong><em>unit</em> [Default coordinate unit is meters (<strong>e</strong>)].</p>
-<p>Append <strong>+w</strong><em>width</em>[/<em>height</em>] of bounding rectangle or box
-in plot coordinates (inches, centimeters, etc.). By default, the
-anchor point on the scale is assumed to be the bottom left corner
-(<strong>BL</strong>), but this can be changed by appending <strong>+j</strong> followed by a
-<a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>
-<em>justify</em>.
-<strong>Note</strong>: If <strong>j</strong> is used then <em>justify</em> defaults to the same
-as <em>refpoint</em>, if <strong>J</strong> is used then <em>justify</em> defaults to the
-mirror opposite of <em>refpoint</em>. Specify inset box attributes via
-the <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter [Default is outline only].</p>
+<li><p><strong>position</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.position.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">Position</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'TL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ML'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BR'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Position of the inset on the plot. It can be specified in multiple ways:</p>
+<ul>
+<li><p>A <a class="reference internal" href="pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Position</span></code></a> object to fully control the reference point,
+anchor point, and offset.</p></li>
+<li><p>A sequence of two values representing the x- and y-coordinates in plot
+coordinates, e.g., <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2)</span></code> or <code class="docutils literal notranslate"><span class="pre">(&quot;1c&quot;,</span> <span class="pre">&quot;2c&quot;)</span></code>.</p></li>
+<li><p>A <a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a> for a
+position inside the plot, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;TL&quot;</span></code> for Top Left corner inside the plot.</p></li>
+</ul>
+<p>If not specified, defaults to the Bottom Left corner of the plot.</p>
 </p></li>
-<li><p><strong>box</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.box.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Draw a background box behind the inset. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a simple rectangular
+<li><p><strong>width</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
+<li><p><strong>height</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Width and height of the inset. Width must be specified unless <code class="docutils literal notranslate"><span class="pre">projection</span></code> and
+<code class="docutils literal notranslate"><span class="pre">region</span></code> are given, and height is set to be equal to width if not specified.</p></li>
+<li><p><strong>box</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.box.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Draw a background box behind the inset. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a simple rectangular
 box is drawn using <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-MAP_FRAME_PEN">MAP_FRAME_PEN</a>. To customize the box appearance,
 pass a <a class="reference internal" href="pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Box</span></code></a> object to control style, fill, pen, and other
 box properties.</p></li>
-<li><p><strong>margin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – This is clearance that is added around the inside of the inset.
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – This is clearance that is added around the inside of the inset.
 Plotting will take place within the inner region only. The margins
 can be a single value, a pair of values separated (for setting
 separate horizontal and vertical margins), or the full set of four
@@ -271,38 +253,39 @@ margins (for setting separate left, right, bottom, and top
 margins). When passing multiple values, it can be either a list or
 a string with the values separated by forward
 slashes [Default is no margins].</p></li>
-<li><p><strong>no_clip</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Do <strong>not</strong> clip features extruding outside the inset frame boundaries [Default
+<li><p><strong>no_clip</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Do <strong>not</strong> clip features extruding outside the inset frame boundaries [Default
 is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
-Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
 <span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the larger figure</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;MG+r2&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use a &quot;with&quot; statement to initialize the inset context manager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use a &quot;with&quot; statement to initialize the inset context manager.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Setting the position to Top Left and a width of 3.5 centimeters</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">inset</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jTL+w3.5c+o0.2c&quot;</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="n">Box</span><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)):</span>
-<span class="gp">... </span>    <span class="c1"># Map elements under the &quot;with&quot; statement are plotted in the inset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">inset</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">position</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">width</span><span class="o">=</span><span class="s2">&quot;3.5c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">clearance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">box</span><span class="o">=</span><span class="n">Box</span><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">):</span>  <span class="c1"># Map elements under the &quot;with&quot; statement are plotted in the inset</span>
 <span class="gp">... </span>    <span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span>
 <span class="gp">... </span>        <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
-<span class="gp">... </span>        <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G47/-20/3.5c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G47/-20/?&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;MG+gred&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Map elements outside the &quot;with&quot; statement are plotted in the main</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># figure</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">logo</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.2c+w3c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Map elements outside the &quot;with&quot; statement are plotted in the main figure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">logo</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="s2">&quot;BR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="s2">&quot;3c&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -310,14 +293,14 @@ Select map <a class="reference internal" href="../../projections/index.html"><sp
 
 <section id="examples-using-pygmt-figure-inset">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code><a class="headerlink" href="#examples-using-pygmt-figure-inset" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement, and its position, box, offset, and margin parameters are set. Plotting methods called within the with statement are applied to the inset figure."><img alt="" src="../../_images/sphx_glr_inset_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement. Plotting methods called within the with statement are applied to the inset figure."><img alt="" src="../../_images/sphx_glr_inset_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/inset.html"><span class="doc">Inset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement, and its position, box, offset, and margin can be customized. Plotting methods called within the with statement plot into the inset figure."><img alt="" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
-<p><a class="reference internal" href="../../gallery/embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement. Plotting methods called within the with statement plot into the inset figure."><img alt="" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/inset_rectangle_region.html"><span class="doc">Inset map showing a rectangular region</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
+<p><a class="reference internal" href="../../tutorials/advanced/insets.html"><span class="doc">Adding an inset to the figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
 </div></div><div style='clear:both'></div></section>
 </section>
@@ -334,10 +317,10 @@ Select map <a class="reference internal" href="../../projections/index.html"><sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/xarray/backend.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,12 +160,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">packaging.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">kwargs_to_strings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.which</span><span class="w"> </span><span class="kn">import</span> <span class="n">which</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">xarray.backends</span><span class="w"> </span><span class="kn">import</span> <span class="n">BackendEntrypoint</span>
+
+<span class="c1"># TODO(xarray&gt;=2025.10.1): Remove the __doctest_skip__ on GMTBackendEntrypoint</span>
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;GMTBackendEntrypoint&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">xr</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2025.10.1&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="GMTBackendEntrypoint">
@@ -200,13 +206,13 @@
 <span class="sd">    &gt;&gt;&gt; da_grid = xr.open_dataarray(</span>
 <span class="sd">    ...     &quot;@static_earth_relief.nc&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;grid&quot;</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; da_grid  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS</span>
-<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt;...</span>
+<span class="sd">    &gt;&gt;&gt; da_grid</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt; Size: 448B</span>
 <span class="sd">    [112 values with dtype=float32]</span>
 <span class="sd">    Coordinates:</span>
-<span class="sd">      * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
-<span class="sd">      * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
-<span class="sd">    Attributes:...</span>
+<span class="sd">      * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
+<span class="sd">      * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        Conventions:   CF-1.7</span>
 <span class="sd">        title:         Produced by grdcut</span>
 <span class="sd">        history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...</span>
@@ -219,14 +225,14 @@
 <span class="sd">    &gt;&gt;&gt; da_image = xr.open_dataarray(</span>
 <span class="sd">    ...     &quot;@earth_night_01d&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;image&quot;</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; da_image  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS</span>
-<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt;...</span>
+<span class="sd">    &gt;&gt;&gt; da_image</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt; Size: 194kB</span>
 <span class="sd">    [194400 values with dtype=uint8]</span>
 <span class="sd">    Coordinates:</span>
-<span class="sd">      * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
-<span class="sd">      * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
-<span class="sd">      * band     (band) uint8... 1 2 3</span>
-<span class="sd">    Attributes:...</span>
+<span class="sd">      * band     (band) uint8 3B 1 2 3</span>
+<span class="sd">      * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
+<span class="sd">      * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        long_name:  z</span>
 
 <span class="sd">    Load a single-band netCDF file using ``raster_kind=&quot;grid&quot;`` over a bounding box</span>
@@ -236,16 +242,16 @@
 <span class="sd">    ...     &quot;@tut_bathy.nc&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;grid&quot;, region=[-64, -62, 32, 33]</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; da_grid</span>
-<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt;...</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt; Size: 1kB</span>
 <span class="sd">    array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,</span>
 <span class="sd">            -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,</span>
 <span class="sd">    ...</span>
 <span class="sd">            -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,</span>
 <span class="sd">            -4820.]], dtype=float32)</span>
 <span class="sd">    Coordinates:</span>
-<span class="sd">      * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
-<span class="sd">      * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
-<span class="sd">    Attributes:...</span>
+<span class="sd">      * lat      (lat) float64 104B 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
+<span class="sd">      * lon      (lon) float64 200B -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        Conventions:   CF-1.7</span>
 <span class="sd">        title:         ETOPO5 global topography</span>
 <span class="sd">        history:       grdreformat -fg bermuda.grd bermuda.nc=ns</span>
@@ -321,10 +327,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

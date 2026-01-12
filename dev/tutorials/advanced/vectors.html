@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/vectors.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -392,7 +392,7 @@ this example).</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_vectors_006.png" srcset="../../_images/sphx_glr_vectors_006.png" alt="vectors" class = "sphx-glr-single-img"/><p>Another example of plotting Cartesian vectors over a coast plot. This time a
-Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
+Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
 is used to create 5 vectors with equal stops.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># x-values = [36.  37.5 39.  40.5 42.]</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># y-values = [39. 39. 39. 39.]</span>
@@ -467,7 +467,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 </div>
 <img src="../../_images/sphx_glr_vectors_008.png" srcset="../../_images/sphx_glr_vectors_008.png" alt="vectors" class = "sphx-glr-single-img"/><p>When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter. In this example,
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
 Other numpy objects are used to generate linear values for the <code class="docutils literal notranslate"><span class="pre">radius</span></code>
 parameter and random values for the <code class="docutils literal notranslate"><span class="pre">degree_stop</span></code> parameter discussed in
 the previous example. This is the reason in which each vector has a different
@@ -620,7 +620,7 @@ locations.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.529 seconds)</p>
+<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.415 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-vectors-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e2f629e3d978b1df6b6bb6f677463e3f/vectors.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">vectors.ipynb</span></code></a></p>
@@ -648,10 +648,10 @@ locations.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

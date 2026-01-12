@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.savefig.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -220,28 +220,28 @@ accepts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a></span>) – The desired figure file name, including the extension. See the list of
+<li><p><strong>fname</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a></span>) – The desired figure file name, including the extension. See the list of
 supported formats and their extensions above.</p></li>
-<li><p><strong>transparent</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Use a transparent background for the figure. Only valid for PNG format and
+<li><p><strong>transparent</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Use a transparent background for the figure. Only valid for PNG format and
 the PNG file asscoiated with KML format.</p></li>
-<li><p><strong>crop</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Crop the figure canvas (page) to the plot area.</p></li>
-<li><p><strong>anti_alias</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Use anti-aliasing when creating raster images. Ignored if creating vector
+<li><p><strong>crop</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Crop the figure canvas (page) to the plot area.</p></li>
+<li><p><strong>anti_alias</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Use anti-aliasing when creating raster images. Ignored if creating vector
 images. More specifically, it passes the arguments <code class="docutils literal notranslate"><span class="pre">&quot;t2&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;g2&quot;</span></code> to
 the <code class="docutils literal notranslate"><span class="pre">anti_aliasing</span></code> parameter of <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>.</p></li>
-<li><p><strong>show</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Display the figure in an external viewer.</p></li>
-<li><p><strong>worldfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Create a companion <a class="reference external" href="https://en.wikipedia.org/wiki/World_file">world file</a>
+<li><p><strong>show</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Display the figure in an external viewer.</p></li>
+<li><p><strong>worldfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Create a companion <a class="reference external" href="https://en.wikipedia.org/wiki/World_file">world file</a>
 for the figure. The world file will have the same name as the figure file
 but with different extension (e.g., <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> for <code class="docutils literal notranslate"><span class="pre">.tif</span></code>). See
 <a class="reference external" href="https://en.wikipedia.org/wiki/World_file#Filename_extension">https://en.wikipedia.org/wiki/World_file#Filename_extension</a> for the
 convention of world file extensions. This parameter only works for raster
 image formats (except GeoTIFF).</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – Additional keyword arguments passed to <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Valid
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – Additional keyword arguments passed to <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Valid
 parameters are <code class="docutils literal notranslate"><span class="pre">dpi</span></code>, <code class="docutils literal notranslate"><span class="pre">gs_path</span></code>, <code class="docutils literal notranslate"><span class="pre">gs_option</span></code>, <code class="docutils literal notranslate"><span class="pre">resize</span></code>,
 <code class="docutils literal notranslate"><span class="pre">bb_style</span></code>, and <code class="docutils literal notranslate"><span class="pre">verbose</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -260,10 +260,10 @@ parameters are <code class="docutils literal notranslate"><span class="pre">dpi<
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

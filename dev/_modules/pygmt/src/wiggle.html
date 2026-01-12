@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/wiggle.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -159,15 +159,17 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">TableLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">TableLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">deprecate_parameter</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_parse_fills</span><span class="p">(</span><span class="n">fillpositive</span><span class="p">,</span> <span class="n">fillnegative</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_fills</span><span class="p">(</span><span class="n">positive_fill</span><span class="p">,</span> <span class="n">negative_fill</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse the fillpositive and fillnegative parameters.</span>
+<span class="sd">    Parse the positive_fill and negative_fill parameters.</span>
 
 <span class="sd">    &gt;&gt;&gt; _parse_fills(&quot;red&quot;, &quot;blue&quot;)</span>
 <span class="sd">    [&#39;red+p&#39;, &#39;blue+n&#39;]</span>
@@ -178,10 +180,10 @@
 <span class="sd">    &gt;&gt;&gt; _parse_fills(None, None)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_fills</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">fillpositive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_fills</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fillpositive</span> <span class="o">+</span> <span class="s2">&quot;+p&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">fillnegative</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_fills</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fillnegative</span> <span class="o">+</span> <span class="s2">&quot;+n&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">positive_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_fills</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">positive_fill</span> <span class="o">+</span> <span class="s2">&quot;+p&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">negative_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_fills</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">negative_fill</span> <span class="o">+</span> <span class="s2">&quot;+n&quot;</span><span class="p">)</span>
 
     <span class="k">match</span> <span class="nb">len</span><span class="p">(</span><span class="n">_fills</span><span class="p">):</span>
         <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
@@ -193,9 +195,13 @@
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;fillpositive&quot;</span><span class="p">,</span> <span class="s2">&quot;positive_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span>
+    <span class="s2">&quot;fillnegative&quot;</span><span class="p">,</span> <span class="s2">&quot;negative_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span>
+<span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;track&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
@@ -205,25 +211,29 @@
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">g</span><span class="o">=</span><span class="s2">&quot;gap&quot;</span><span class="p">,</span>
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
-    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">wiggle</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">fillpositive</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">fillnegative</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label_alignment</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">positive_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">negative_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">incols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -236,12 +246,16 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`wiggle.html`.</span>
 
-<span class="sd">    {aliases}</span>
-<span class="sd">       - G = **+p**: fillpositive, **+n**: fillnegative</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
+<span class="sd">       - D = **+w**: length, **+l**: label, **+a**: label_alignment</span>
+<span class="sd">       - G = **+p**: positive_fill, **+n**: negative_fill</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - i = incols</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
 <span class="sd">    Parameters</span>
@@ -250,55 +264,91 @@
 <span class="sd">        The arrays of x and y coordinates and z data points.</span>
 <span class="sd">    data</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
-<span class="sd">        {table-classes}.</span>
+<span class="sd">        $table_classes.</span>
 <span class="sd">        Use parameter ``incols`` to choose which columns are x, y, z,</span>
 <span class="sd">        respectively.</span>
-<span class="sd">    {projection}</span>
-<span class="sd">    {region}</span>
+
+<span class="sd">    position</span>
+<span class="sd">        Position of the vertical scale on the plot. It can be specified in multiple</span>
+<span class="sd">        ways:</span>
+
+<span class="sd">        - A :class:`pygmt.params.Position` object to fully control the reference point,</span>
+<span class="sd">          anchor point, and offset.</span>
+<span class="sd">        - A sequence of two values representing the x- and y- coordinates in plot</span>
+<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``(&quot;1c&quot;, &quot;2c&quot;)``.</span>
+<span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
+<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
+
+<span class="sd">        If not specified, defaults to the Bottom Left corner of the plot with a 0.2-cm</span>
+<span class="sd">        offset.</span>
+<span class="sd">    length</span>
+<span class="sd">        Length of the vertical scale bar in data (z) units.</span>
+<span class="sd">    label</span>
+<span class="sd">        Set the z unit label that is used in the scale label [Default is no unit].</span>
+<span class="sd">    label_alignment</span>
+<span class="sd">        Set the alignment of the scale label. Choose from ``&quot;left&quot;`` or ``&quot;right&quot;``</span>
+<span class="sd">        [Default is ``&quot;left&quot;``].</span>
 <span class="sd">    scale : str or float</span>
 <span class="sd">        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,</span>
 <span class="sd">        or **p** to indicate the distance unit (centimeters, inches, or</span>
 <span class="sd">        points); if no unit is given we use the default unit that is</span>
 <span class="sd">        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.</span>
-<span class="sd">    {frame}</span>
-<span class="sd">    position : str</span>
-<span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
-<span class="sd">        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\</span>
-<span class="sd">        [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].</span>
-<span class="sd">        Define the reference point on the map for the vertical scale bar.</span>
-<span class="sd">    fillpositive : str</span>
+<span class="sd">    positive_fill : str</span>
 <span class="sd">        Set color or pattern for filling positive wiggles [Default is no fill].</span>
-<span class="sd">    fillnegative : str</span>
+<span class="sd">    negative_fill : str</span>
 <span class="sd">        Set color or pattern for filling negative wiggles [Default is no fill].</span>
 <span class="sd">    track : str</span>
 <span class="sd">        Draw track [Default is no track]. Append pen attributes to use</span>
 <span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``].</span>
-<span class="sd">    {verbose}</span>
 <span class="sd">    pen : str</span>
 <span class="sd">        Specify outline pen attributes [Default is no outline].</span>
-<span class="sd">    {binary}</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {nodata}</span>
-<span class="sd">    {find}</span>
-<span class="sd">    {coltypes}</span>
-<span class="sd">    {gap}</span>
-<span class="sd">    {header}</span>
-<span class="sd">    {incols}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
-<span class="sd">    {wrap}</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $binary</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $nodata</span>
+<span class="sd">    $find</span>
+<span class="sd">    $coltypes</span>
+<span class="sd">    $gap</span>
+<span class="sd">    $header</span>
+<span class="sd">    $incols</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
+<span class="sd">    $wrap</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
-    <span class="n">_fills</span> <span class="o">=</span> <span class="n">_parse_fills</span><span class="p">(</span><span class="n">fillpositive</span><span class="p">,</span> <span class="n">fillnegative</span><span class="p">)</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="s2">&quot;label_alignment&quot;</span><span class="p">:</span> <span class="n">label_alignment</span><span class="p">},</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Position</span><span class="p">(</span><span class="s2">&quot;BL&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>  <span class="c1"># Default to BL with 0.2-cm offset.</span>
+    <span class="p">)</span>
+
+    <span class="n">_fills</span> <span class="o">=</span> <span class="n">_parse_fills</span><span class="p">(</span><span class="n">positive_fill</span><span class="p">,</span> <span class="n">negative_fill</span><span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
-        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">_fills</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fillpositive/fillnegative&quot;</span><span class="p">),</span>
+        <span class="n">D</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+w&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span>
+                <span class="n">label_alignment</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;label_alignment&quot;</span><span class="p">,</span>
+                <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+a&quot;</span><span class="p">,</span>
+                <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">},</span>
+            <span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+l&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">_fills</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;positive_fill/negative_fill&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -320,10 +370,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

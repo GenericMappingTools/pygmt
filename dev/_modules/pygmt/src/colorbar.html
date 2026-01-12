@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/colorbar.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -159,36 +159,121 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_nonstr_iter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_D</span><span class="p">(</span>  <span class="c1"># noqa: N802, PLR0913</span>
+    <span class="n">position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">nan_position</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">fg_triangle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">bg_triangle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">triangle_height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">move_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">label_as_column</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a list of Alias objects for the -D option.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Build the +e modifier from fg_triangle/bg_triangle/triangle_height</span>
+    <span class="k">if</span> <span class="n">fg_triangle</span> <span class="ow">and</span> <span class="n">bg_triangle</span><span class="p">:</span>
+        <span class="n">modifier_e</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">fg_triangle</span><span class="p">:</span>
+        <span class="n">modifier_e</span> <span class="o">=</span> <span class="s2">&quot;f&quot;</span>
+    <span class="k">elif</span> <span class="n">bg_triangle</span><span class="p">:</span>
+        <span class="n">modifier_e</span> <span class="o">=</span> <span class="s2">&quot;b&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">modifier_e</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">modifier_e</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">triangle_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">modifier_e</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">modifier_e</span><span class="si">}{</span><span class="n">triangle_height</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Build the +m modifier from move_text/label_as_column</span>
+    <span class="n">modifier_m</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">move_text</span> <span class="ow">or</span> <span class="n">label_as_column</span><span class="p">:</span>
+        <span class="n">modifier_m</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">_valids</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;annotations&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">move_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">move_text</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">move_text</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_valids</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">move_text</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="ow">in</span> <span class="n">_valids</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">move_text</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                    <span class="n">move_text</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;move_text&quot;</span><span class="p">,</span>
+                    <span class="n">choices</span><span class="o">=</span><span class="n">_valids</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">move_text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">modifier_m</span> <span class="o">=</span> <span class="n">move_text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">move_text</span><span class="p">):</span>
+                <span class="n">modifier_m</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">move_text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">label_as_column</span><span class="p">:</span>
+            <span class="n">modifier_m</span> <span class="o">+=</span> <span class="s2">&quot;c&quot;</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+w&quot;</span><span class="p">),</span>  <span class="c1"># +wlength/width</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span>
+            <span class="n">orientation</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;horizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;+h&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span> <span class="s2">&quot;+v&quot;</span><span class="p">},</span>
+        <span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">reverse</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+r&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span>
+            <span class="n">nan</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;nan&quot;</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+n&quot;</span> <span class="k">if</span> <span class="n">nan_position</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;+N&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span>
+            <span class="n">modifier_e</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fg_triangle/bg_triangle/triangle_height&quot;</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+e&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">modifier_m</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;move_text/label_as_column&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+m&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
-    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
-    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;equalsize&quot;</span><span class="p">,</span>
-    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
-    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
-    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zfile&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">colorbar</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;equalsize&quot;</span><span class="p">,</span> <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zfile&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">colorbar</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">reverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">nan</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">nan_position</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">bg_triangle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fg_triangle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">triangle_height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">move_text</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label_as_column</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">truncate</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shading</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
@@ -206,7 +291,7 @@
 <span class="sd">    .. note::</span>
 <span class="sd">       For GMT &gt;=6.5.0, the fontsizes of the colorbar x-label, x-annotations,</span>
 <span class="sd">       and y-label are scaled based on the width of the colorbar following</span>
-<span class="sd">       :math:`\sqrt{{colorbar\_width / 15}}`). To set a desired fontsize via the</span>
+<span class="sd">       :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize via the</span>
 <span class="sd">       GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,</span>
 <span class="sd">       :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly</span>
 <span class="sd">       :gmt-term:`FONT`) users have to divide the desired fontsize by the value</span>
@@ -216,60 +301,105 @@
 
 <span class="sd">    Full GMT docs at :gmt-docs:`colorbar.html`.</span>
 
-<span class="sd">    {aliases}</span>
+<span class="sd">    $aliases</span>
+<span class="sd">       - B = frame</span>
 <span class="sd">       - F = box</span>
+<span class="sd">       - G = truncate</span>
+<span class="sd">       - I = shading</span>
 <span class="sd">       - J = projection</span>
+<span class="sd">       - Q = log</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - W = scale</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
+
+<span class="sd">    .. hlist::</span>
+<span class="sd">       :columns: 1</span>
+
+<span class="sd">       - D = position, **+w**: length/width, **+h**/**+v**: orientation,</span>
+<span class="sd">         **+r**: reverse, **+n**: nan/nan_position,</span>
+<span class="sd">         **+e**: fg_triangle/bg_triangle/triangle_height,</span>
+<span class="sd">         **+m**: move_text/label_as_column</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    frame : str or list</span>
-<span class="sd">        Set colorbar boundary frame, labels, and axes attributes.</span>
-<span class="sd">    {cmap}</span>
-<span class="sd">    position : str</span>
-<span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
-<span class="sd">        [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\</span>
-<span class="sd">        [**+h**\|\ **v**][**+j**\ *justify*]\</span>
-<span class="sd">        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\</span>
-<span class="sd">        [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].</span>
-<span class="sd">        Define the reference point on the map for the color scale using one of</span>
-<span class="sd">        four coordinate systems: (1) Use **g** for map (user) coordinates, (2)</span>
-<span class="sd">        use **j** or **J** for setting *refpoint* via a</span>
-<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
-<span class="sd">        that refers to the (invisible) map domain rectangle,</span>
-<span class="sd">        (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for</span>
-<span class="sd">        plot coordinates (inches, cm, etc.). All but **x** requires both</span>
-<span class="sd">        ``region`` and ``projection`` to be specified. Append **+w** followed</span>
-<span class="sd">        by the length and width of the colorbar. If width is not specified</span>
-<span class="sd">        then it is set to 4% of the given length. Give a negative length to</span>
-<span class="sd">        reverse the scale bar. Append **+h** to get a horizontal scale</span>
-<span class="sd">        [Default is vertical (**+v**)]. By default, the anchor point on the</span>
-<span class="sd">        scale is assumed to be the bottom left corner (**BL**), but this can</span>
-<span class="sd">        be changed by appending **+j** followed by a</span>
-<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
-<span class="sd">        *justify*.</span>
+<span class="sd">    $cmap</span>
+<span class="sd">    position</span>
+<span class="sd">        Position of the colorbar on the plot. It can be specified in multiple ways:</span>
+
+<span class="sd">        - A :class:`pygmt.params.Position` object to fully control the reference point,</span>
+<span class="sd">          anchor point, and offset.</span>
+<span class="sd">        - A sequence of two values representing the x- and y-coordinates in plot</span>
+<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``(&quot;1c&quot;, &quot;2c&quot;)``.</span>
+<span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
+<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
+
+<span class="sd">        If not specified, defaults to bottom-center outside of the plot.</span>
+<span class="sd">    length</span>
+<span class="sd">    width</span>
+<span class="sd">        Length and width of the colorbar. If length is given with a unit ``%`` then it</span>
+<span class="sd">        is in percentage of the corresponding plot side dimension (i.e., plot width for</span>
+<span class="sd">        a horizontal colorbar, or plot height for a vertical colorbar). If width is</span>
+<span class="sd">        given with unit ``%`` then it is in percentage of the bar length. [Length</span>
+<span class="sd">        defaults to 80% of the corresponding plot side dimension, and width defaults</span>
+<span class="sd">        to 4% of the bar length].</span>
+<span class="sd">    orientation</span>
+<span class="sd">        Set the colorbar orientation to either ``&quot;horizontal&quot;`` or ``&quot;vertical&quot;``.</span>
+<span class="sd">        [Default is vertical, unless ``position`` is set to bottom-center or top-center</span>
+<span class="sd">        with ``cstype=&quot;outside&quot;`` or ``cstype=&quot;inside&quot;``, then horizontal is the</span>
+<span class="sd">        default].</span>
+<span class="sd">    reverse</span>
+<span class="sd">        Reverse the positive direction of the bar.</span>
+<span class="sd">    nan</span>
+<span class="sd">        Draw a rectangle filled with the NaN color (via the **N** entry in the CPT or</span>
+<span class="sd">        :gmt-term:`COLOR_NAN` if no such entry) at the start or end of the colorbar</span>
+<span class="sd">        (controlled via ``nan_position``). If a string is given, use that string as the</span>
+<span class="sd">        label for the NaN color.</span>
+<span class="sd">    nan_position</span>
+<span class="sd">        Set the position of the NaN rectangle. Choose either ``&quot;start&quot;`` or ``&quot;end&quot;`` to</span>
+<span class="sd">        place the NaN color rectangle at the start or end of the colorbar [Default is</span>
+<span class="sd">        ``&quot;start&quot;``].</span>
+<span class="sd">    bg_triangle</span>
+<span class="sd">    fg_triangle</span>
+<span class="sd">        If ``True``, draw triangles for the back- or foreground colors [Default is</span>
+<span class="sd">        no triangles]. The back- and/or foreground colors are taken from the **B**</span>
+<span class="sd">        and **F** entries in the CPT. If no such entries exist, then the system default</span>
+<span class="sd">        colors for **B** and **F** are used instead (:gmt-term:`COLOR_BACKGROUND` and</span>
+<span class="sd">        :gmt-term:`COLOR_FOREGROUND`).</span>
+<span class="sd">    triangles_height</span>
+<span class="sd">        Height of the triangles for back- and foreground colors [Default is half</span>
+<span class="sd">        of the bar width].</span>
+<span class="sd">    move_text</span>
+<span class="sd">        Move text (annotations, label, and unit) to opposite side. Accept a sequence of</span>
+<span class="sd">        strings containing one or more of ``&quot;annotations&quot;``, ``&quot;label&quot;``, and</span>
+<span class="sd">        ``&quot;unit&quot;``. The default placements of these texts depend on the colorbar</span>
+<span class="sd">        orientation and position.</span>
+<span class="sd">    label_as_column</span>
+<span class="sd">        Print a vertical label as a column of characters (does not work with special</span>
+<span class="sd">        characters).</span>
 <span class="sd">    box</span>
 <span class="sd">        Draw a background box behind the colorbar. If set to ``True``, a simple</span>
 <span class="sd">        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box</span>
 <span class="sd">        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,</span>
 <span class="sd">        and other box properties.</span>
-<span class="sd">    truncate : list or str</span>
-<span class="sd">        *zlo*/*zhi*.</span>
-<span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are</span>
-<span class="sd">        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of</span>
-<span class="sd">        the CPT alone. The truncation takes place before the plotting.</span>
-<span class="sd">    scale : float</span>
-<span class="sd">        Multiply all z-values in the CPT by the provided scale. By default,</span>
-<span class="sd">        the CPT is used as is.</span>
-<span class="sd">    shading : str, list, or bool</span>
-<span class="sd">        Add illumination effects. Passing a single numerical value sets the</span>
-<span class="sd">        range of intensities from -value to +value. If not specified, 1 is</span>
-<span class="sd">        used. Alternatively, set ``shading=[low, high]`` to specify an</span>
-<span class="sd">        asymmetric intensity range from *low* to *high*. [Default is no</span>
-<span class="sd">        illumination].</span>
+<span class="sd">    truncate</span>
+<span class="sd">        (*zlow*, *zhigh*).</span>
+<span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are to *zlow*</span>
+<span class="sd">        and *zhigh*. If one of these equal NaN then we leave that end of the CPT alone.</span>
+<span class="sd">        The truncation takes place before the plotting.</span>
+<span class="sd">    scale</span>
+<span class="sd">        Multiply all z-values in the CPT by the provided scale. By default, the CPT is</span>
+<span class="sd">        used as is.</span>
+<span class="sd">    shading</span>
+<span class="sd">        Add illumination effects [Default is no illumination].</span>
+
+<span class="sd">        - If ``True``, a default intensity range of -1 to +1 is used.</span>
+<span class="sd">        - Passing a single numerical value *max_intens* sets the range of intensities</span>
+<span class="sd">          from *-max_intens* to *+max_intens*.</span>
+<span class="sd">        - Passing a sequence of two numerical values (*low*, *high*) sets the intensity</span>
+<span class="sd">          range from *low* to *high* to specify an asymmetric range.</span>
 <span class="sd">    equalsize : float or str</span>
 <span class="sd">        [**i**]\ [*gap*].</span>
 <span class="sd">        Equal-sized color rectangles. By default, the rectangles are scaled</span>
@@ -279,10 +409,10 @@
 <span class="sd">        **i** is prepended the interval range is annotated instead. If</span>
 <span class="sd">        ``shading`` is used each rectangle will have its constant color</span>
 <span class="sd">        modified by the specified intensity.</span>
-<span class="sd">    log : bool</span>
-<span class="sd">        Select logarithmic scale and power of ten annotations. All z-values</span>
-<span class="sd">        in the CPT will be converted to p = log10(z) and only integer p-values</span>
-<span class="sd">        will be annotated using the 10^p format [Default is linear scale].</span>
+<span class="sd">    log</span>
+<span class="sd">        Select logarithmic scale and power of ten annotations. All z-values in the CPT</span>
+<span class="sd">        will be converted to :math:`p = \log_{10}(z)` and only integer p values will be</span>
+<span class="sd">        annotated using the :math:`10^{p}` format [Default is linear scale].</span>
 <span class="sd">    zfile : str</span>
 <span class="sd">        File with colorbar-width per color entry. By default, the width of the</span>
 <span class="sd">        entry is scaled to the color range, i.e., z = 0-100 gives twice the</span>
@@ -290,10 +420,14 @@
 <span class="sd">        may be in plot distance units or given as relative fractions and will</span>
 <span class="sd">        be automatically scaled so that the sum of the widths equals the</span>
 <span class="sd">        requested colorbar length.</span>
-<span class="sd">    {verbose}</span>
-<span class="sd">    {panel}</span>
-<span class="sd">    {perspective}</span>
-<span class="sd">    {transparency}</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    frame</span>
+<span class="sd">        Set colorbar boundary frame, labels, and axes attributes.</span>
+<span class="sd">    $verbose</span>
+<span class="sd">    $panel</span>
+<span class="sd">    $perspective</span>
+<span class="sd">    $transparency</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -305,7 +439,7 @@
 <span class="sd">    &gt;&gt;&gt; # Call the colorbar method for the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.colorbar(</span>
 <span class="sd">    ...     # Set cmap to the &quot;roma&quot; CPT</span>
-<span class="sd">    ...     cmap=&quot;roma&quot;,</span>
+<span class="sd">    ...     cmap=&quot;SCM/roma&quot;,</span>
 <span class="sd">    ...     # Label the x-axis &quot;Velocity&quot; and the y-axis &quot;m/s&quot;</span>
 <span class="sd">    ...     frame=[&quot;x+lVelocity&quot;, &quot;y+lm/s&quot;],</span>
 <span class="sd">    ... )</span>
@@ -314,13 +448,51 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
+    <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
+        <span class="n">position</span><span class="p">,</span>
+        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span>
+            <span class="s2">&quot;reverse&quot;</span><span class="p">:</span> <span class="n">reverse</span><span class="p">,</span>
+            <span class="s2">&quot;nan&quot;</span><span class="p">:</span> <span class="n">nan</span><span class="p">,</span>
+            <span class="s2">&quot;nan_position&quot;</span><span class="p">:</span> <span class="n">nan_position</span><span class="p">,</span>
+            <span class="s2">&quot;bg_triangle&quot;</span><span class="p">:</span> <span class="n">bg_triangle</span><span class="p">,</span>
+            <span class="s2">&quot;fg_triangle&quot;</span><span class="p">:</span> <span class="n">fg_triangle</span><span class="p">,</span>
+            <span class="s2">&quot;triangle_height&quot;</span><span class="p">:</span> <span class="n">triangle_height</span><span class="p">,</span>
+            <span class="s2">&quot;move_text&quot;</span><span class="p">:</span> <span class="n">move_text</span><span class="p">,</span>
+            <span class="s2">&quot;label_as_column&quot;</span><span class="p">:</span> <span class="n">label_as_column</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Use GMT&#39;s default behavior if position is not provided.</span>
+    <span class="p">)</span>
+
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="n">_alias_option_D</span><span class="p">(</span>
+            <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">orientation</span><span class="o">=</span><span class="n">orientation</span><span class="p">,</span>
+            <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">,</span>
+            <span class="n">nan</span><span class="o">=</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">nan_position</span><span class="o">=</span><span class="n">nan_position</span><span class="p">,</span>
+            <span class="n">bg_triangle</span><span class="o">=</span><span class="n">bg_triangle</span><span class="p">,</span>
+            <span class="n">fg_triangle</span><span class="o">=</span><span class="n">fg_triangle</span><span class="p">,</span>
+            <span class="n">triangle_height</span><span class="o">=</span><span class="n">triangle_height</span><span class="p">,</span>
+            <span class="n">move_text</span><span class="o">=</span><span class="n">move_text</span><span class="p">,</span>
+            <span class="n">label_as_column</span><span class="o">=</span><span class="n">label_as_column</span><span class="p">,</span>
+        <span class="p">),</span>
         <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">truncate</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">shading</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">Q</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
+        <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -337,10 +509,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

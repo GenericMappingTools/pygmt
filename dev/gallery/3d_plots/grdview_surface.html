@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/3d_plots/grdview_surface.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -96,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#d-plots">3D Plots</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#d-plots">3-D Plots</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="scatter3d.html">3-D scatter plots</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Plotting a surface</a></li>
 </ul>
@@ -190,7 +190,7 @@ to download the full example code.</p>
 <section class="sphx-glr-example-title" id="plotting-a-surface">
 <span id="sphx-glr-gallery-3d-plots-grdview-surface-py"></span><h1>Plotting a surface<a class="headerlink" href="#plotting-a-surface" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a> method can plot 3-D surfaces with
-<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.9.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
 the coordinate vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> defined. Note that the <code class="docutils literal notranslate"><span class="pre">perspective</span></code>
 parameter here controls the azimuth and elevation angle of the view. We provide
 a list of two arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code> - the first argument specifies the
@@ -202,6 +202,7 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
 <img src="../../_images/sphx_glr_grdview_surface_001.png" srcset="../../_images/sphx_glr_grdview_surface_001.png" alt="grdview surface" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 
 <span class="c1"># Define an interesting function of two variables, see:</span>
@@ -230,27 +231,23 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
 <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SCALE</span></a> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># in centimeters</span>
 <a href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span></a><span class="p">(</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span>
-    <span class="c1"># Set annotations and gridlines in steps of five, and</span>
-    <span class="c1"># tick marks in steps of one</span>
+    <span class="c1"># Set annotations and gridlines in steps of five, and tick marks in steps of one</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a5f1g5&quot;</span><span class="p">,</span> <span class="s2">&quot;za5f1g5&quot;</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;x</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SCALE</span></a><span class="si">}</span><span class="s2">c&quot;</span><span class="p">,</span>
     <span class="n">zscale</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SCALE</span></a><span class="si">}</span><span class="s2">c&quot;</span><span class="p">,</span>
     <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/roma&quot;</span><span class="p">,</span>
     <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mi">135</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>  <span class="c1"># Azimuth southeast (135°), at elevation 30°</span>
     <span class="n">shading</span><span class="o">=</span><span class="s2">&quot;+a45&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Add colorbar for gridded data</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a2f1&quot;</span><span class="p">,</span>  <span class="c1"># Set annotations in steps of two, tick marks in steps of one</span>
-    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;JMR&quot;</span><span class="p">,</span>  <span class="c1"># Place colorbar in the Middle Right (MR) corner</span>
-<span class="p">)</span>
+<span class="c1"># Add colorbar for gridded data in the Middle Right corner.</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a2f1&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;MR&quot;</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">))</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.099 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.955 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-plots-grdview-surface-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/89a0144193ccaf2fb27f81e1e31c7d4f/grdview_surface.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">grdview_surface.ipynb</span></code></a></p>
@@ -277,10 +274,10 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

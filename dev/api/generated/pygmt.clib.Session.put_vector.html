@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.clib.Session.put_vector.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -224,16 +224,16 @@ and timedelta64.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The numpy array must be C contiguous in memory. Use
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ascontiguousarray</span></code></a> to make sure your vector is contiguous (it
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ascontiguousarray</span></code></a> to make sure your vector is contiguous (it
 won’t copy if it already is).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">c_void_p</span></code></a></span>) – The ctypes void pointer to a <code class="docutils literal notranslate"><span class="pre">GMT_VECTOR</span></code> data container. Create it with
+<li><p><strong>dataset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">c_void_p</span></code></a></span>) – The ctypes void pointer to a <code class="docutils literal notranslate"><span class="pre">GMT_VECTOR</span></code> data container. Create it with
 <a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create_data</span></code></a>.</p></li>
-<li><p><strong>column</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – The column number of this vector in the dataset (starting from 0).</p></li>
-<li><p><strong>vector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span>) – The array that will be attached to the dataset. Must be a 1-D C contiguous
+<li><p><strong>column</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>) – The column number of this vector in the dataset (starting from 0).</p></li>
+<li><p><strong>vector</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a></span>) – The array that will be attached to the dataset. Must be a 1-D C contiguous
 array.</p></li>
 </ul>
 </dd>
@@ -241,7 +241,7 @@ array.</p></li>
 <dd class="field-even"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError" title="pygmt.exceptions.GMTCLibError"><strong>GMTCLibError</strong></a> – If given invalid input or <code class="docutils literal notranslate"><span class="pre">GMT_Put_Vector</span></code> exits with a non-zero status.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -260,10 +260,10 @@ array.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 

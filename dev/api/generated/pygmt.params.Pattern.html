@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.params.Pattern.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=c6c99e4b"></script>
+      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -36,7 +36,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.enums.GridRegistration" href="pygmt.enums.GridRegistration.html" />
+    <link rel="next" title="pygmt.params.Position" href="pygmt.params.Position.html" />
     <link rel="prev" title="pygmt.params.Box" href="pygmt.params.Box.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -110,6 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-params-pattern">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.params.Pattern</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.params.Position.html">pygmt.params.Position</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
@@ -197,30 +198,9 @@ inverted.</p>
 <p>GMT provides 90 predefined patterns that can be used in PyGMT. The patterns are
 numbered from 1 to 90, and shown below:</p>
 <figure class="align-center">
-<a class="reference internal image-reference" href="https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png"><img alt="The 90 predefined bit-patterns provided with GMT" src="https://docs.generic-mapping-tools.org/6.5/_images/GMT_App_E.png" style="width: 75%;" />
+<a class="reference internal image-reference" href="https://docs.generic-mapping-tools.org/6.6/_images/GMT_App_E.png"><img alt="The 90 predefined bit-patterns provided with GMT" src="https://docs.generic-mapping-tools.org/6.6/_images/GMT_App_E.png" style="width: 75%;" />
 </a>
 </figure>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pattern</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">1</span></code>) – <p>The pattern to use. It can be specified in two forms:</p>
-<ul>
-<li><p>An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
-bit-patterns. [Default is 1].</p></li>
-<li><p>Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
-images using image raster files.</p></li>
-</ul>
-</p></li>
-<li><p><strong>dpi</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Resolution of the pattern in dots per inch (DPI) [Default is 300].</p></li>
-<li><p><strong>bgcolor/fgcolor</strong> – The background/foreground color for predefined bit-patterns or 1-bit images.
-Setting either to an empty string will yield a transparent background/foreground
-where only the foreground/background pixels will be painted. [Default is white
-for background and black for foreground].</p></li>
-<li><p><strong>invert</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the pattern will be bit-inverted, i.e., white and black areas will
-be interchanged (only applies to predefined bit-patterns or 1-bit images).</p></li>
-</ul>
-</dd>
-</dl>
 <p class="rubric">Examples</p>
 <p>Draw a global map with land areas filled with pattern 15 in a light red background
 and 200 dpi resolution:</p>
@@ -237,22 +217,61 @@ and 200 dpi resolution:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Pattern.pattern">
+<span class="sig-name descname"><span class="pre">pattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pygmt.params.Pattern.pattern" title="Link to this definition"></a></dt>
+<dd><p>The pattern to use. It can be specified in two forms:</p>
+<ul class="simple">
+<li><p>An integer in the range of 1-90, corresponding to one of 90 predefined 64x64
+bit-patterns. [Default is 1].</p></li>
+<li><p>Name of a 1-, 8-, or 24-bit image raster file, to create customized, repeating
+images using image raster files.</p></li>
+</ul>
 </dd></dl>
 
-<p class="rubric">Attributes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Pattern.dpi">
+<span class="sig-name descname"><span class="pre">dpi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Pattern.dpi" title="Link to this definition"></a></dt>
+<dd><p>Resolution of the pattern in dots per inch (DPI) [Default is 300].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Pattern.bgcolor">
+<span class="sig-name descname"><span class="pre">bgcolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Pattern.bgcolor" title="Link to this definition"></a></dt>
+<dd><p>The background color for predefined bit-patterns or 1-bit images.
+Setting either <code class="docutils literal notranslate"><span class="pre">bgcolor</span></code> or <code class="docutils literal notranslate"><span class="pre">fgcolor</span></code> to an empty string will yield a
+transparent background/foreground where only the foreground/background pixels
+will be painted. [Default is white for background and black for foreground].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Pattern.fgcolor">
+<span class="sig-name descname"><span class="pre">fgcolor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Pattern.fgcolor" title="Link to this definition"></a></dt>
+<dd><p>The foreground color for predefined bit-patterns or 1-bit images.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Pattern.invert">
+<span class="sig-name descname"><span class="pre">invert</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#pygmt.params.Pattern.invert" title="Link to this definition"></a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the pattern will be bit-inverted, i.e., white and black areas will
+be interchanged (only applies to predefined bit-patterns or 1-bit images).</p>
+</dd></dl>
+
+</dd></dl>
+
 <section id="examples-using-pygmt-params-pattern">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.params.Pattern</span></code><a class="headerlink" href="#examples-using-pygmt-params-pattern" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols, polygons, and other areas, via the fill parameter or similar parameters."><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
-<p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and hachure patterns</span></a></p>
+<p><a class="reference internal" href="../../gallery/symbols/patterns.html"><span class="doc">Bit and hachure patterns</span></a></p>
   <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial, different histogram related aspects are addressed:"><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
+<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html"><span class="doc">Cartesian histograms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../../_images/sphx_glr_focal_mechanisms_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/advanced/focal_mechanisms.html#sphx-glr-tutorials-advanced-focal-mechanisms-py"><span class="std std-ref">Plotting focal mechanisms</span></a></p>
+<p><a class="reference internal" href="../../tutorials/advanced/focal_mechanisms.html"><span class="doc">Plotting focal mechanisms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
-<p><a class="reference internal" href="../../tutorials/basics/polygons.html#sphx-glr-tutorials-basics-polygons-py"><span class="std std-ref">Plotting polygons</span></a></p>
+<p><a class="reference internal" href="../../tutorials/basics/polygons.html"><span class="doc">Plotting polygons</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
 </div></div><div style='clear:both'></div></section>
 </section>
@@ -263,16 +282,16 @@ and 200 dpi resolution:</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.params.Box.html" class="btn btn-neutral float-left" title="pygmt.params.Box" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.enums.GridRegistration.html" class="btn btn-neutral float-right" title="pygmt.enums.GridRegistration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.params.Position.html" class="btn btn-neutral float-right" title="pygmt.params.Position" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/db6020094">db602009</a></code>.
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 02, 2025.
+      <span class="lastupdated">Last updated on Jan 11, 2026.
       </span></p>
   </div>
 
