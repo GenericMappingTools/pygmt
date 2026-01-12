@@ -83,7 +83,7 @@ def scalebar(  # noqa: PLR0913
     vertical
         If ``True``, plot a vertical rather than a horizontal Cartesian scale.
     box
-        Draw a background box behind the directional rose. If set to ``True``, a simple
+        Draw a background box behind the scale bar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
         appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
         and other box properties.
