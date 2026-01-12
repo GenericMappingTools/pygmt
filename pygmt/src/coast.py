@@ -2,6 +2,7 @@
 coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
+import warnings
 from collections.abc import Sequence
 from typing import Literal
 
@@ -15,7 +16,7 @@ __doctest_skip__ = ["coast"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", C="lakes", E="dcw", L="map_scale")
+@use_alias(A="area_thresh", C="lakes", E="dcw")
 def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
@@ -26,6 +27,7 @@ def coast(  # noqa: PLR0913
     rivers: int | str | Sequence[int | str] | None = None,
     borders: int | str | Sequence[int | str] | None = None,
     shorelines: bool | str | Sequence[int | str] = False,
+    map_scale: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -131,9 +133,13 @@ def coast(  # noqa: PLR0913
         - ``rivers=["1/0.5p,blue", "5/0.3p,cyan,dashed"]``: Draw permanent major rivers
           with a 0.5-point blue pen and intermittent major rivers with a 0.3-point
           dashed cyan pen.
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
+    map_scale
         Draw a simple map scale centered on the reference point specified.
+
+        .. deprecated:: 0.18.0
+
+            The ``map_scale`` parameter is deprecated and will be removed in a
+            future version. Use :meth:`pygmt.Figure.scalebar` instead.
     box
         Draw a background box behind the map scale or rose. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -240,6 +246,15 @@ def coast(  # noqa: PLR0913
         )
         raise GMTInvalidInput(msg)
 
+    if kwargs.get("L", map_scale) is not None:
+        warnings.warn(
+            "The 'map_scale' parameter in 'Figure.coast' is deprecated in v0.18.0 and "
+            "will be removed in a future version. "
+            "To add a scale bar, use 'Figure.scalebar' instead.",
+            FutureWarning,
+            stacklevel=3,
+        )
+
     aliasdict = AliasSystem(
         D=Alias(
             resolution,
@@ -256,6 +271,7 @@ def coast(  # noqa: PLR0913
         F=Alias(box, name="box"),
         G=Alias(land, name="land"),
         I=Alias(rivers, name="rivers"),
+        L=Alias(map_scale, name="map_scale"),
         N=Alias(borders, name="borders"),
         S=Alias(water, name="water"),
         W=Alias(shorelines, name="shorelines"),
