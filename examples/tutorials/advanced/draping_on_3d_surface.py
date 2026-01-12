@@ -50,7 +50,7 @@ fig = pygmt.Figure()
 
 # Set up colormap for the crustal age
 pygmt.config(COLOR_NAN="lightgray")
-pygmt.makecpt(cmap="batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
 fig.grdview(
     projection="M12c",  # Mercator projection with a width of 12 centimeters
@@ -70,7 +70,7 @@ fig.grdview(
 )
 
 # Add colorbar for the crustal age
-fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], position="+n")
+fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], nan=True)
 
 fig.show()
 
@@ -98,7 +98,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 
 # Download an PNG image of the flag of the EU using rasterio and load it into a
 # xarray.DataArray
-url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1000px-Flag_of_Europe.svg.png"
+url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
