@@ -26,8 +26,8 @@ class config:  # noqa: N801
 
     .. note::
 
-        :gmt-term:`PS_CONVERT` is ignored by PyGMT. To use the parameters, set them in
-        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
+        :gmt-term:`PS_CONVERT` is not supported. To configure conversion options, 
+        set parameters in :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
