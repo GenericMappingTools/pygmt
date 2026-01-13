@@ -42,7 +42,7 @@ def grdinfo(
 
     Full GMT docs at :gmt-docs:`grdinfo.html`.
 
-    {aliases}
+    $aliases
        - D = tiles
        - I = spacing
        - R = region
@@ -50,8 +50,8 @@ def grdinfo(
 
     Parameters
     ----------
-    {grid}
-    {region}
+    $grid
+    $region
     per_column : str or bool
         **n**\|\ **t**.
         Format the report using tab-separated fields on a single line. The
@@ -114,8 +114,8 @@ def grdinfo(
         absolute value of the two extremes, append **+s**. We report the
         result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :func:`pygmt.makecpt`.
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------

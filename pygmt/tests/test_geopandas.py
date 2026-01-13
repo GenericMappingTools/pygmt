@@ -200,7 +200,7 @@ def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
-    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
+    makecpt(cmap="SCM/lisbon", series=[10, 60, 10], continuous=True)
     fig.plot(
         data=gdf,
         frame=True,
@@ -231,7 +231,9 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
     makecpt(
-        cmap="lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
+        cmap="SCM/lisbon",
+        series=[10 * factor, 60 * factor, 10 * factor],
+        continuous=True,
     )
     fig.plot(
         data=gdf,
@@ -242,7 +244,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
         aspatial="Z=NPOINTS",
     )
     # Generate a CPT for 10-60 range and plot to reuse the baseline image
-    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
+    makecpt(cmap="SCM/lisbon", series=[10, 60, 10], continuous=True)
     fig.colorbar()
     return fig
 

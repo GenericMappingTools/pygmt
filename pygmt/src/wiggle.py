@@ -5,15 +5,17 @@ wiggle - Plot z=f(x,y) anomalies along tracks.
 from collections.abc import Sequence
 from typing import Literal
 
-from pygmt._typing import PathLike, TableLike
+from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.params import Position
+from pygmt.src._common import _parse_position
 
 
-def _parse_fills(fillpositive, fillnegative):
+def _parse_fills(positive_fill, negative_fill):
     """
-    Parse the fillpositive and fillnegative parameters.
+    Parse the positive_fill and negative_fill parameters.
 
     >>> _parse_fills("red", "blue")
     ['red+p', 'blue+n']
@@ -24,10 +26,10 @@ def _parse_fills(fillpositive, fillnegative):
     >>> _parse_fills(None, None)
     """
     _fills = []
-    if fillpositive is not None:
-        _fills.append(fillpositive + "+p")
-    if fillnegative is not None:
-        _fills.append(fillnegative + "+n")
+    if positive_fill is not None:
+        _fills.append(positive_fill + "+p")
+    if negative_fill is not None:
+        _fills.append(negative_fill + "+n")
 
     match len(_fills):
         case 0:
@@ -39,8 +41,13 @@ def _parse_fills(fillpositive, fillnegative):
 
 
 @fmt_docstring
+@deprecate_parameter(
+    "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "fillnegative", "negative_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
-    D="position",
     T="track",
     W="pen",
     Z="scale",
@@ -58,16 +65,20 @@ def wiggle(  # noqa: PLR0913
     x=None,
     y=None,
     z=None,
-    fillpositive=None,
-    fillnegative=None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    length: float | str | None = None,
+    label: str | None = None,
+    label_alignment: Literal["left", "right"] | None = None,
+    positive_fill=None,
+    negative_fill=None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
@@ -81,9 +92,10 @@ def wiggle(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`wiggle.html`.
 
-    {aliases}
+    $aliases
        - B = frame
-       - G = **+p**: fillpositive, **+n**: fillnegative
+       - D = **+w**: length, **+l**: label, **+a**: label_alignment
+       - G = **+p**: positive_fill, **+n**: negative_fill
        - J = projection
        - R = region
        - V = verbose
@@ -98,50 +110,83 @@ def wiggle(  # noqa: PLR0913
         The arrays of x and y coordinates and z data points.
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {projection}
-    {region}
+
+    position
+        Position of the vertical scale on the plot. It can be specified in multiple
+        ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x- and y- coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+
+        If not specified, defaults to the Bottom Left corner of the plot with a 0.2-cm
+        offset.
+    length
+        Length of the vertical scale bar in data (z) units.
+    label
+        Set the z unit label that is used in the scale label [Default is no unit].
+    label_alignment
+        Set the alignment of the scale label. Choose from ``"left"`` or ``"right"``
+        [Default is ``"left"``].
     scale : str or float
         Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    {frame}
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
-        [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
-        Define the reference point on the map for the vertical scale bar.
-    fillpositive : str
+    positive_fill : str
         Set color or pattern for filling positive wiggles [Default is no fill].
-    fillnegative : str
+    negative_fill : str
         Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $projection
+    $region
+    $frame
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
-    _fills = _parse_fills(fillpositive, fillnegative)
+    position = _parse_position(
+        position,
+        kwdict={"length": length, "label": label, "label_alignment": label_alignment},
+        default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
+    )
+
+    _fills = _parse_fills(positive_fill, negative_fill)
 
     aliasdict = AliasSystem(
-        G=Alias(_fills, name="fillpositive/fillnegative"),
+        D=[
+            Alias(position, name="position"),
+            Alias(length, name="length", prefix="+w"),
+            Alias(
+                label_alignment,
+                name="label_alignment",
+                prefix="+a",
+                mapping={"left": "l", "right": "r"},
+            ),
+            Alias(label, name="label", prefix="+l"),
+        ],
+        G=Alias(_fills, name="positive_fill/negative_fill"),
     ).add_common(
         B=frame,
         J=projection,

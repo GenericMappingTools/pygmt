@@ -54,15 +54,15 @@ def nearneighbor(
     function and the averaging used is given by:
 
     .. math::
-        w(r_i) = \frac{{w_i}}{{1 + d(r_i) ^ 2}},
-        \quad d(r) = \frac {{3r}}{{R}},
-        \quad \bar{{z}} = \frac{{\sum_i^n w(r_i) z_i}}{{\sum_i^n w(r_i)}}
+        w(r_i) = \frac{w_i}{1 + d(r_i) ^ 2},
+        \quad d(r) = \frac {3r}{R},
+        \quad \bar{z} = \frac{\sum_i^n w(r_i) z_i}{\sum_i^n w(r_i)}
 
     where :math:`n` is the number of data points that satisfy the selection
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_nearneighbor.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_nearneighbor.png
        :width: 300 px
        :align: center
 
@@ -78,7 +78,7 @@ def nearneighbor(
 
     Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
-    {aliases}
+    $aliases
        - I = spacing
        - R = region
        - V = verbose
@@ -90,18 +90,18 @@ def nearneighbor(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
+    $spacing
 
-    {region}
+    $region
 
     search_radius : str
         Set the search radius that determines which data points are considered
         close to a node.
-    {outgrid}
+    $outgrid
     empty : str
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
@@ -119,17 +119,17 @@ def nearneighbor(
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------

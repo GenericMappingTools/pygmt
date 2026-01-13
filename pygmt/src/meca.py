@@ -14,6 +14,7 @@ from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     use_alias,
 )
@@ -115,12 +116,19 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
+@deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="offset",
     C="cmap",
-    E="extensionfill",
-    Fr="labelbox",
-    G="compressionfill",
+    E="extension_fill",
+    Fr="label_box",
+    G="compression_fill",
     L="outline",
     T="nodal",
     W="pen",
@@ -172,7 +180,7 @@ def meca(  # noqa: PLR0913
            | *mantissa*, *exponent*
          - | angles in degrees;
            | seismic moment is
-           | :math:`mantissa * 10 ^ {{exponent}}`
+           | :math:`mantissa * 10 ^ {exponent}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
@@ -180,7 +188,7 @@ def meca(  # noqa: PLR0913
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components
-           | in :math:`10 ^ {{exponent}}` dyn cm
+           | in :math:`10 ^ {exponent}` dyn cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -194,12 +202,12 @@ def meca(  # noqa: PLR0913
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+         - | values in :math:`10 ^ {exponent}` dyn cm;
            | azimuths and plunges in degrees
 
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
@@ -290,7 +298,7 @@ def meca(  # noqa: PLR0913
         length must match the number of events. This parameter is only used if ``spec``
         is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing
         ``event_name`` labels in ``spec``.
-    labelbox : bool or str
+    label_box : bool or str
         [*fill*].
         Draw a box behind the label if given via ``event_name``. Use *fill* to give a
         fill color [Default is ``"white"``].
@@ -302,12 +310,12 @@ def meca(  # noqa: PLR0913
         is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
         to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
         set the pen attributes for this feature [Default is set via ``pen``]. The fill
-        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to
+        of the circle is set via ``compression_fill`` or ``cmap``, i.e., corresponds to
         the fill of the compressive quadrants.
-    compressionfill : str
+    compression_fill : str
         Set color or pattern for filling compressive quadrants [Default is ``"black"``].
         This setting also applies to the fill of the circle defined via ``offset``.
-    extensionfill : str
+    extension_fill : str
         Set color or pattern for filling extensive quadrants [Default is ``"white"``].
     pen : str
         Set (default) pen attributes for all lines related to the beachball [Default is
@@ -341,13 +349,13 @@ def meca(  # noqa: PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {projection}
-    {region}
-    {frame}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
