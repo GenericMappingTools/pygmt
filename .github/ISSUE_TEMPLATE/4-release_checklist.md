@@ -32,6 +32,7 @@ assignees: ''
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
+- [ ] Check for broken links
 - [ ] Draft the announcement on https://hackmd.io/@pygmt
 
 **Release**:
@@ -52,7 +53,7 @@ assignees: ''
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! Requires moderator status)
-  - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement; download the ZIP file of the new release from the release page and add it as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
+  - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement; download the ZIP file of the new release from Zenodo and add it as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
 - [ ] Update release checklist template with any additional bullet points that may have arisen during the release
 
 ---
