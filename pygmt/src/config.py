@@ -142,7 +142,7 @@ class config:  # noqa: N801
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
-        # "PS_CONVERT",  # Not supported; use Figure.savefig/show parameters instead
+        # "PS_CONVERT",  # Not supported; use parameters of Figure.savefig/show instead
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
