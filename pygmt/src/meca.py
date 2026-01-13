@@ -116,6 +116,8 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'labelbox' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'extensionfill', 'compressionfill' parameters.
 @deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter(
     "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
