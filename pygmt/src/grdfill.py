@@ -2,7 +2,6 @@
 grdfill - Interpolate across holes in a grid.
 """
 
-import warnings
 from collections.abc import Sequence
 from typing import Literal
 
@@ -77,7 +76,7 @@ def _validate_params(
 )
 @deprecate_parameter("splinefill", "spline_fill", "v0.18.0", remove_version="v0.20.0")
 @use_alias(f="coltypes")
-def grdfill(  # noqa: PLR0913
+def grdfill(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     constant_fill: float | None = None,
@@ -168,9 +167,7 @@ def grdfill(  # noqa: PLR0913
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
     """
     # Validate the fill/inquire parameters.
-    _validate_params(
-        constant_fill, grid_fill, neighbor_fill, spline_fill, inquire
-    )
+    _validate_params(constant_fill, grid_fill, neighbor_fill, spline_fill, inquire)
 
     # _validate_params has already ensured that only one of the parameters is set.
     aliasdict = AliasSystem(
