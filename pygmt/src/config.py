@@ -2,6 +2,7 @@
 config - Change GMT default settings globally or locally.
 """
 
+import warnings
 from inspect import Parameter, Signature
 from typing import ClassVar
 
@@ -140,7 +141,6 @@ class config:  # noqa: N801
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
-        "PS_CONVERT",
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
@@ -193,6 +193,15 @@ class config:  # noqa: N801
     )
 
     def __init__(self, **kwargs):
+        if "PS_CONVERT" in kwargs:
+            warnings.warn(
+                message="Parameter 'PS_CONVERT' is ignored by pygmt.config. "
+                "Please use pygmt.Figure.savefig or pygmt.Figure.show instead.",
+                category=SyntaxWarning,
+                stacklevel=2,
+            )
+            kwargs.pop("PS_CONVERT")
+
         # Save values so that we can revert to their initial values
         self.old_defaults = {}
         with Session() as lib:
