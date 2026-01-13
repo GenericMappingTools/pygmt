@@ -32,7 +32,7 @@ assignees: ''
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
-- [ ] Check for broken links
+- [ ] Check for broken links (e.g., [External Resources](https://www.pygmt.org/dev/external_resources.html))
 - [ ] Draft the announcement on https://hackmd.io/@pygmt
 
 **Release**:
