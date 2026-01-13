@@ -141,6 +141,7 @@ class config:  # noqa: N801
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
+        # "PS_CONVERT",  # Not supported. Pass parameters to Figure.savefig/Figure.show instead.
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
