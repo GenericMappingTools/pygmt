@@ -26,8 +26,9 @@ class config:  # noqa: N801
 
     .. note::
 
-        :gmt-term:`PS_CONVERT` is not supported. To configure conversion options, 
-        set parameters in :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
+        :gmt-term:`PS_CONVERT` is not supported.
+        To configure conversion options, set parameters in
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
@@ -141,7 +142,7 @@ class config:  # noqa: N801
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
-        # "PS_CONVERT",  # Not supported. Pass parameters to Figure.savefig/Figure.show instead.
+        # "PS_CONVERT",  # Not supported; use Figure.savefig/show parameters instead
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
