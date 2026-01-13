@@ -68,6 +68,10 @@ authors:
   family-names: Quinn
   affiliation: University College London, United Kingdom
   orcid: https://orcid.org/0000-0002-0268-7032
+- given-names: Xingchen
+  family-names: He
+  affiliation: Chengdu University of Technology, China
+  orcid: https://orcid.org/0009-0004-7182-2252
 - given-names: Leonardo
   family-names: Uieda
   affiliation: Universidade de São Paulo, Brazil
@@ -76,9 +80,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawaiʻi at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2025-10-03
-doi: 10.5281/zenodo.17156962
+date-released: 2026-01-12
+doi: 10.5281/zenodo.18080259
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.17.0
+version: 0.18.0
