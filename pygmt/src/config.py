@@ -27,7 +27,7 @@ class config:  # noqa: N801
     .. note::
 
         :gmt-term:`PS_CONVERT` is not supported.
-        To configure conversion options, set parameters in
+        To configure conversion options, please pass parameters to
         :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
