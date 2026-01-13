@@ -17,7 +17,7 @@ __doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'contourpen', 'facadepen', 'meshpen' parameters.
+# TODO(PyGMT>=0.20.0): Remove the deprecated '*pen' parameters.
 # TODO(PyGMT>=0.20.0): Remove the deprecated 'drapegrid' parameter.
 @deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")

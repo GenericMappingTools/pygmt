@@ -78,7 +78,7 @@ def _validate_params(
 @fmt_docstring
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'no_data' parameter.
 # TODO(PyGMT>=0.19.0): Remove the deprecated 'mode' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'constantfill', 'gridfill', 'neighborfill', 'splinefill' parameters.
+# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
 @deprecate_parameter("no_data", "hole", "v0.15.0", remove_version="v0.19.0")
 @deprecate_parameter(
     "constantfill", "constant_fill", "v0.18.0", remove_version="v0.20.0"
