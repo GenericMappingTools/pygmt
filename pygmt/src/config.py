@@ -198,7 +198,7 @@ class config:  # noqa: N801
         if "PS_CONVERT" in kwargs:
             warnings.warn(
                 message="Parameter 'PS_CONVERT' is not supported. "
-                "To confiure conversion options, please pass parameters to "
+                "To configure conversion options, please pass parameters to "
                 "pygmt.Figure.savefig or pygmt.Figure.show instead.",
                 category=SyntaxWarning,
                 stacklevel=2,
