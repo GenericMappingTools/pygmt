@@ -48,6 +48,7 @@ jobs:
         # 429: Too many requests
         args: >
           --accept 200,429
+          --format compact
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
           --exclude "^https://doi.org"
