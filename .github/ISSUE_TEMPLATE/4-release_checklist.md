@@ -28,7 +28,7 @@ assignees: ''
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
-  - [ ] Check for broken links in the [Check Links](https://github.com/GenericMappingTools/pygmt/actions/workflows/check-links.yml)
+  - [ ] All links work in the ["Check Links" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/check-links.yml)
 - [ ] Update warnings in `pygmt/_show_versions.py` as well as notes in [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency) regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
