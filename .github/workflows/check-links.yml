@@ -48,6 +48,7 @@ jobs:
         # 429: Too many requests
         args: >
           --accept 200,429
+          --format compact
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
           --exclude "^https://doi.org"
@@ -70,7 +71,7 @@ jobs:
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
           --exclude "^https://stackoverflow.com/a/69170441"
-          --verbose
+          --no-progress
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
