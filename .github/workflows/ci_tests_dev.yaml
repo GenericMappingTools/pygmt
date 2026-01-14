@@ -122,8 +122,8 @@ jobs:
             -DGMT_USE_THREADS=TRUE
           cmake --build .
           cmake --build . --target install
-          cd ../../
-          rm -rf gmt
+          cd ..
+          rm -rf build
         env:
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
 
