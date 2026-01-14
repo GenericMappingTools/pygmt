@@ -136,7 +136,9 @@ class Figure:
             wesn = lib.extract_region()
         return wesn
 
-    def _update_current_region(self, region: str | Sequence[float] | np.ndarray | None) -> None:
+    def _update_current_region(
+        self, region: str | Sequence[float] | np.ndarray | None
+    ) -> None:
         """
         Update the current region tracking.
 
