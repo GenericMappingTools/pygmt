@@ -103,44 +103,30 @@ jobs:
 
       # Build GMT from source on Linux/macOS, script is adapted from
       # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
-      - name: Build GMT on Linux/macOS
-        run: |
-          cd gmt/
-          mkdir build
-          cd build
-          cmake -G Ninja .. \
-            -DCMAKE_INSTALL_PREFIX=${GMT_INSTALL_DIR} \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DGMT_ENABLE_OPENMP=TRUE \
-            -DGMT_USE_THREADS=TRUE
-          cmake --build .
-          cmake --build . --target install
-          cd ..
-          rm -rf gmt/
-        env:
-          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
-        if: runner.os != 'Windows'
-
-      - name: Build GMT on Windows
+      - name: Build GMT from source
         shell: bash
         run: |
           cd gmt/
           mkdir build
           cd build
-          cmd.exe /c "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            cmd.exe /c "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+            CMAKE_PREFIX_PATH="-DCMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/pygmt/Library"
+          else
+            CMAKE_PREFIX_PATH=""
+          fi
           cmake -G Ninja .. \
+            $CMAKE_PREFIX_PATH \
             -DCMAKE_INSTALL_PREFIX="$GMT_INSTALL_DIR" \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt/Library" \
             -DGMT_ENABLE_OPENMP=TRUE \
             -DGMT_USE_THREADS=TRUE
           cmake --build .
           cmake --build . --target install
-          cd ..
-          rm -rf gmt/
+          cd ../../
+          rm -rf gmt
         env:
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
-        if: runner.os == 'Windows'
 
       - name: Add GMT's bin to PATH
         run: echo '${{ runner.temp }}/gmt-install-dir/bin' >> $GITHUB_PATH
