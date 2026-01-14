@@ -4,6 +4,7 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
+from collections.abc import Sequence
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
@@ -100,7 +101,7 @@ class Figure:
     def __init__(self) -> None:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
-        self._current_region = None  # Track the current region
+        self._current_region: np.ndarray | None = None  # Track the current region
         self._activate_figure()
 
     def __del__(self) -> None:
@@ -135,7 +136,7 @@ class Figure:
             wesn = lib.extract_region()
         return wesn
 
-    def _update_current_region(self, region) -> None:
+    def _update_current_region(self, region: str | Sequence[float] | np.ndarray | None) -> None:
         """
         Update the current region tracking.
 
