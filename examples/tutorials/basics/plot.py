@@ -75,7 +75,7 @@ legend = io.StringIO(
 fig.legend(
     spec=legend,
     position=Position("BR", offset=0.2),
-    line_spacing=2.0,
+    line_spacing=2,
     box=Box(fill="white", pen="black"),
 )
 fig.show()
@@ -112,7 +112,7 @@ fig.colorbar(frame="xaf+lDepth (km)")
 fig.legend(
     spec=legend,
     position=Position("BR", offset=0.2),
-    line_spacing=2.0,
+    line_spacing=2,
     box=Box(fill="white", pen="black"),
 )
 fig.show()
