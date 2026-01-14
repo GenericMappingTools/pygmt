@@ -13,6 +13,7 @@ the first time you use them (usually ``~/.gmt/cache``).
 import io
 
 import pygmt
+from pygmt.params import Box
 from pygmt.params import Position
 
 # %%
@@ -72,7 +73,7 @@ fig.plot(
 legend = io.StringIO(
     "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
 )
-fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
+fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=Box(fill="white", pen="black"))
 fig.show()
 
 # %%
@@ -104,7 +105,7 @@ fig.plot(
     pen="black",
 )
 fig.colorbar(frame="xaf+lDepth (km)")
-fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
+fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=Box(fill="white", pen="black"))
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
