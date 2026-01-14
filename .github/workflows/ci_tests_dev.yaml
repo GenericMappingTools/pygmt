@@ -104,7 +104,8 @@ jobs:
       # Build GMT from source on Linux/macOS, script is adapted from
       # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
       - name: Build GMT from source
-        shell: bash
+        # Use non-login shell on Windows and login shell on Linux/macOS
+        shell: ${{ runner.os == 'Windows' && 'bash' || 'bash -l {0}' }}
         run: |
           cd gmt/
           mkdir build
