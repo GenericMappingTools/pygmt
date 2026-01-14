@@ -100,6 +100,9 @@ def basemap(
     """
     self._activate_figure()
 
+    # Update the current region tracking
+    self._update_current_region(region)
+
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),

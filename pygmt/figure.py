@@ -100,6 +100,7 @@ class Figure:
     def __init__(self) -> None:
         self._name = unique_name()
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
+        self._current_region = None  # Track the current region
         self._activate_figure()
 
     def __del__(self) -> None:
@@ -124,10 +125,36 @@ class Figure:
         """
         The geographic WESN bounding box for the current figure.
         """
+        # First try to return the tracked current region
+        if self._current_region is not None:
+            return self._current_region
+
+        # Fall back to extracting region from GMT (for backward compatibility)
         self._activate_figure()
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
+
+    def _update_current_region(self, region) -> None:
+        """
+        Update the current region tracking.
+
+        Parameters
+        ----------
+        region : str, list, or np.ndarray
+            The region to set as current.
+        """
+        if region is not None:
+            # Convert region to numpy array for consistency
+            if isinstance(region, str):
+                # For string regions like "g" or "JP", we can't convert to array
+                # We'll set it to None and let GMT handle it
+                self._current_region = None
+            else:
+                # Convert list or array to numpy array
+                self._current_region = np.asarray(region)
+        else:
+            self._current_region = None
 
     def savefig(
         self,
