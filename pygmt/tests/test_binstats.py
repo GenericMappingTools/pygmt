@@ -92,7 +92,7 @@ def test_binstats_quantile():
         data="@capitals.gmt",
         spacing=5,
         statistic="quantile",
-        quantile_value="75",
+        quantile_value=75,
         search_radius="1000k",
         aspatial="2=population",
         region="g",
