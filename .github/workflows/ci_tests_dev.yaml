@@ -111,12 +111,12 @@ jobs:
           cd build
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             cmd.exe /c "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-            CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/pygmt/Library"
+            CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt/Library"
           else
-            CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/pygmt/lib"
+            CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt"
           fi
           cmake -G Ninja .. \
-            -DCMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH \
+            -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH" \
             -DCMAKE_INSTALL_PREFIX="$GMT_INSTALL_DIR" \
             -DCMAKE_BUILD_TYPE=Release \
             -DGMT_ENABLE_OPENMP=TRUE \
