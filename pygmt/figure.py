@@ -413,6 +413,7 @@ class Figure:
         coast,
         colorbar,
         contour,
+        directional_rose,
         grdcontour,
         grdimage,
         grdview,
