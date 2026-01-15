@@ -2,42 +2,52 @@
 3-D bar plot
 ============
 
-A 3-D bar plot of a grid can be created in two steps: (i) convert the grid to a table
+A 3-D bar plot of a grid can be created in two steps: (i) convert the grid into a table
 via :func:`pygmt.grd2xyz` and (ii) plot this table as bars in 3-D using
-:meth:`pygmt.Figure.plot3d`.
+:meth:`pygmt.Figure.plot3d`. The bars can be outlined, and the fill can be one color or
+based on a quantity using a colormap.
 """
 
 # %%
 import pygmt
 from pygmt.params import Position
 
+# Define a study area with huge elevation changes
 region = [141, 147, 36, 43]
-grd2tab = pygmt.grd2xyz("@earth_relief_10m", region=region)
+
+# Download a grid for the Earth relief with a resolution of 10 arc-minutes
+grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
+
+# Convert the grid into a table and add a column "color" for the quantity used for the
+# color-coding of the bars, here the elevation ("z")
+grd2tab = pygmt.grd2xyz(grid=grid, region=region)
 grd2tab["color"] = grd2tab["z"]
 z_min = grd2tab["z"].min() - 50
 z_max = grd2tab["z"].max() + 50
 
+# Create a 3-D bar plot with color-coding
 fig = pygmt.Figure()
 
 fig.basemap(
     region=[*region, z_min, z_max],
     projection="M10c",
     zsize="10c",
-    perspective=[195, 30],
     frame=["WSneZ", "xaf", "yag", "za1000f500+lElevation / m"],
+    perspective=[195, 30],
 )
 
 pygmt.makecpt(cmap="SCM/oleron", series=[z_min, z_max])
 fig.plot3d(
     data=grd2tab,
+    # Use "o" to plot bars and give the desired size
+    # The base of the bars is set via "+b"
+    style=f"o0.34c+b{z_min}",
     cmap=True,
     pen="0.01p,gray30",
-    style=f"o0.34c+b{z_min}",  # bars o, base +b
     perspective=True,
 )
 fig.colorbar(
     frame=["xa1000f500+lElevation", "y+lm"],
-    # position="jTR+o1.8c+v+w7c+ml",
     position=Position("TR", cstype="inside", offset=1.8),
     orientation="vertical",
     length=7,
