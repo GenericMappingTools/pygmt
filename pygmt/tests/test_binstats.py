@@ -8,7 +8,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import binstats
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -52,17 +52,17 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.mean(), 4227489)
 
 
-@pytest.mark.parametrize("quantile", [175, "invalid"])
-def test_binstats_invalid_quantile(quantile):
+@pytest.mark.parametrize("error_type,quantile_value", [(GMTValueError, 175), (GMTTypeError, "invalid_quantile")])
+def test_binstats_invalid_quantile_value(error_type, quantile_value):
     """
     Tests the input validation for quantile_value.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(error_type):
         binstats(
             data="@capitals.gmt",
             spacing=5,
             statistic="quantile",
-            quantile_value=quantile,
+            quantile_value=quantile_value,
             search_radius="1000k",
             aspatial="2=population",
             region="g",
