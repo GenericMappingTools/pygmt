@@ -2,13 +2,9 @@
 3-D bar plot
 ============
 
-Based on GMT EXAMPLE 08
-
-https://docs.generic-mapping-tools.org/6.6/gallery/ex08.html
-
-Convert grid to table: :func:`pygmt.grd2xyz`
-
-Plot in 3-D via bars: :meth:`pygmt.Figure.plot3d`
+A 3-D bar plot of a grid can be created in two steps: (i) convert the grid to a table
+via :func:`pygmt.grd2xyz` and (ii) plot this table as bars in 3-D using
+:meth:`pygmt.Figure.plot3d`.
 """
 
 # %%
