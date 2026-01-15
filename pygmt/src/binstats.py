@@ -167,10 +167,15 @@ def binstats(
     )
     aliasdict.merge(kwargs)
     if statistic == "quantile":
-        if not (isinstance(quantile_value, (int, float)) and (0 <= quantile_value <= 100):
-            msg = "quantile_value must be a value between 0 and 100."
+        if isinstance(quantile_value, (int, float)):
+            if 0 <= quantile_value <= 100:
+                aliasdict["C"] += f"{quantile_value}"
+            else:
+                msg = "quantile_value must be a value between 0 and 100."
+                raise GMTInvalidInput(msg)
+        else:
+            msg = "quantile_value must be an 'int' or 'float'."
             raise GMTInvalidInput(msg)
-        aliasdict["C"] += f"{quantile_value}"
 
     with Session() as lib:
         with (

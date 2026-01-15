@@ -52,32 +52,17 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.mean(), 4227489)
 
 
-def test_binstats_quantile_range_validation():
+@pytest.mark.parametrize("quantile", [175, "invalid"])
+def test_binstats_invalid_quantile(quantile):
     """
-    Tests the input validation that quantile is between 0 and 100.
-    """
-    with pytest.raises(GMTInvalidInput):
-        binstats(
-            data="@capitals.gmt",
-            spacing=5,
-            statistic="quantile",
-            quantile_value=175,
-            search_radius="1000k",
-            aspatial="2=population",
-            region="g",
-        )
-
-
-def test_binstats_quantile_int_validation():
-    """
-    Tests the input validation that quantile has a numeric value.
+    Tests the input validation for quantile_value.
     """
     with pytest.raises(GMTInvalidInput):
         binstats(
             data="@capitals.gmt",
             spacing=5,
             statistic="quantile",
-            quantile_value="test",
+            quantile_value=quantile,
             search_radius="1000k",
             aspatial="2=population",
             region="g",
