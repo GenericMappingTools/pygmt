@@ -52,21 +52,22 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.mean(), 4227489)
 
 
-@pytest.mark.parametrize("error_type,quantile_value", [(GMTValueError, 175), (GMTTypeError, "invalid_quantile")])
-def test_binstats_invalid_quantile_value(error_type, quantile_value):
+def test_binstats_invalid_quantile_value():
     """
     Tests the input validation for quantile_value.
     """
-    with pytest.raises(error_type):
-        binstats(
-            data="@capitals.gmt",
-            spacing=5,
-            statistic="quantile",
-            quantile_value=quantile_value,
-            search_radius="1000k",
-            aspatial="2=population",
-            region="g",
-        )
+    kwargs = dict(
+        data="@capitals.gmt",
+        spacing=5,
+        statistic="quantile",
+        search_radius="1000k",
+        aspatial="2=population",
+        region="g",
+    )
+    with pytest.raises(GMTValueError):
+        binstats(quantile_value=175, **kwargs)
+    with pytest.raises(GMTTypeError):
+        binstats(quantile_value="invalid", **kwargs)
 
 
 def test_binstats_quantile():
