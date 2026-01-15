@@ -33,10 +33,10 @@ fig.basemap(
     projection="M10c",
     zsize="10c",
     frame=["WSneZ", "xaf", "yag", "za1000f500+lElevation / m"],
-    perspective=[195, 30],
+    perspective=(195, 30),
 )
 
-pygmt.makecpt(cmap="SCM/oleron", series=[z_min, z_max])
+pygmt.makecpt(cmap="SCM/oleron", series=(z_min, z_max))
 fig.plot3d(
     data=grd2tab,
     # Use "o" to plot bars and give the desired size
