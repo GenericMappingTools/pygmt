@@ -18,12 +18,12 @@ region = [141, 147, 36, 43]
 # Download a grid for the Earth relief with a resolution of 10 arc-minutes
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
 
-# Convert the grid into a table and add a column "color" for the quantity used for the
-# color-coding of the bars, here the elevation ("z")
-grd2tab = pygmt.grd2xyz(grid=grid)
-grd2tab["color"] = grd2tab["z"]
-zmin = grd2tab["z"].min() - 50
-zmax = grd2tab["z"].max() + 50
+# Convert the grid into a pandas DataFrame and add a column "color" for the quantity used
+# for the color-coding of the bars, here the elevation ("z")
+grd_df = pygmt.grd2xyz(grid=grid)
+grd_df["color"] = grd2tab["z"]
+zmin = grd_df["z"].min() - 50
+zmax = grd_df["z"].max() + 50
 
 # Create a 3-D bar plot with color-coding
 fig = pygmt.Figure()
@@ -38,7 +38,7 @@ fig.basemap(
 
 pygmt.makecpt(cmap="SCM/oleron", series=(zmin, zmax))
 fig.plot3d(
-    data=grd2tab,
+    data=grd_df,
     # Use "o" to plot bars and give the desired size
     # The base of the bars is set via "+b"
     style=f"o0.34c+b{zmin}",
