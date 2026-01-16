@@ -29,19 +29,19 @@ zmax = grd2tab["z"].max() + 50
 fig = pygmt.Figure()
 
 fig.basemap(
-    region=[*region, z_min, z_max],
+    region=[*region, zmin, zmax],
     projection="M10c",
     zsize="10c",
     frame=["WSneZ", "xaf", "yag", "za1000f500+lElevation / m"],
     perspective=(195, 30),
 )
 
-pygmt.makecpt(cmap="SCM/oleron", series=(z_min, z_max))
+pygmt.makecpt(cmap="SCM/oleron", series=(zmin, zmax))
 fig.plot3d(
     data=grd2tab,
     # Use "o" to plot bars and give the desired size
     # The base of the bars is set via "+b"
-    style=f"o0.34c+b{z_min}",
+    style=f"o0.34c+b{zmin}",
     cmap=True,
     pen="0.01p,gray30",
     perspective=True,
