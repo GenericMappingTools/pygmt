@@ -596,7 +596,7 @@ existing functionality.
 Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
-the every unique combination arguments. An exception to this would be the most popular
+every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
 pandas, and Xarray objects and the virtualfile mechanism.
