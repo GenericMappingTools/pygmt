@@ -12,7 +12,7 @@ based on a quantity using a colormap.
 import pygmt
 from pygmt.params import Position
 
-# Define a study area with huge elevation changes
+# Define a study area around northern Japan with large elevation changes
 region = [141, 147, 36, 43]
 
 # Download a grid for the Earth relief with a resolution of 10 arc-minutes
