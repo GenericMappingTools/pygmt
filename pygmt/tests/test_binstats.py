@@ -56,14 +56,14 @@ def test_binstats_invalid_quantile_value():
     """
     Tests the input validation for quantile_value.
     """
-    kwargs = dict(
-        data="@capitals.gmt",
-        spacing=5,
-        statistic="quantile",
-        search_radius="1000k",
-        aspatial="2=population",
-        region="g",
-    )
+    kwargs = {
+        "data": "@capitals.gmt",
+        "spacing": 5,
+        "statistic": "quantile",
+        "search_radius": "1000k",
+        "aspatial": "2=population",
+        "region": "g",
+    }
     with pytest.raises(GMTValueError):
         binstats(quantile_value=175, **kwargs)
     with pytest.raises(GMTTypeError):
