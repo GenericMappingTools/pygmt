@@ -21,7 +21,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
 # Convert the grid into a pandas DataFrame and add a column "color" for the quantity used
 # for the color-coding of the bars, here the elevation ("z")
 grd_df = pygmt.grd2xyz(grid=grid)
-grd_df["color"] = grd2tab["z"]
+grd_df["color"] = grd_df["z"]
 zmin = grd_df["z"].min() - 50
 zmax = grd_df["z"].max() + 50
 
