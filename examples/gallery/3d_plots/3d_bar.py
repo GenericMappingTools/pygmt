@@ -22,8 +22,8 @@ grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
 # color-coding of the bars, here the elevation ("z")
 grd2tab = pygmt.grd2xyz(grid=grid, region=region)
 grd2tab["color"] = grd2tab["z"]
-z_min = grd2tab["z"].min() - 50
-z_max = grd2tab["z"].max() + 50
+zmin = grd2tab["z"].min() - 50
+zmax = grd2tab["z"].max() + 50
 
 # Create a 3-D bar plot with color-coding
 fig = pygmt.Figure()
