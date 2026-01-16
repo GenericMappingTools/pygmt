@@ -18,8 +18,8 @@ region = [141, 147, 36, 43]
 # Download a grid for the Earth relief with a resolution of 10 arc-minutes
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
 
-# Convert the grid into a pandas DataFrame and add a column "color" for the quantity used
-# for the color-coding of the bars, here the elevation ("z")
+# Convert the grid into a pandas DataFrame and add a column "color" for the quantity
+# used for the color-coding of the bars, here the elevation ("z")
 grd_df = pygmt.grd2xyz(grid=grid)
 grd_df["color"] = grd_df["z"]
 zmin = grd_df["z"].min() - 50
