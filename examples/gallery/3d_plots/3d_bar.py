@@ -31,7 +31,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[*region, zmin, zmax],
     projection="M10c",
-    zsize="10c",
+    zsize="8c",
     frame=["WSneZ", "xaf", "yag", "za1000f500+lElevation / m"],
     perspective=(195, 30),
 )
@@ -48,7 +48,7 @@ fig.plot3d(
 )
 fig.colorbar(
     frame=["xa1000f500+lElevation", "y+lm"],
-    position=Position("TR", cstype="inside", offset=1.8),
+    position=Position("TR", cstype="inside", offset=1.4),
     orientation="vertical",
     length=7,
     move_text="label",
