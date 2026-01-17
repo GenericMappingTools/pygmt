@@ -41,6 +41,8 @@ def _parse_fills(positive_fill, negative_fill):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillpositive' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillnegative' parameter.
 @deprecate_parameter(
     "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
 )
