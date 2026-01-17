@@ -142,7 +142,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.181 seconds)
+   **Total running time of the script:** (0 minutes 0.179 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_basic_symbols.py:
