@@ -44,7 +44,7 @@ def scalebar(  # noqa: PLR0913
         units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute miles;
         **n**: nautical miles; **u**: US survey feet.
     height
-        Height of the scale bar. Only works when ``fancy=True``. [Default is ``"5p"``].
+        Height of the scale bar [Default is ``"5p"``]. Only works when ``fancy=True``.
     position
         Position of the scale bar on the plot. It can be specified in multiple ways:
 
@@ -66,12 +66,12 @@ def scalebar(  # noqa: PLR0913
         - ``True``: Map scale is calculated for the middle of the map.
         - ``False``: Default to the location of the reference point.
     label
-        Text string to use as the scale bar label. If ``False``, no label is drawn. If
-        ``True``, the distance unit provided in the ``length`` parameter (default is km)
-        is used as the label. This parameter requires ``fancy=True``.
+        Text string for the scale bar label. If ``False``, no label is added. If
+        ``True``, the distance unit provided in the ``length`` parameter is used
+        [Default is ``"km"``]. Requires ``fancy=True``.
     label_alignment
         Alignment of the scale bar label. Choose from ``"left"``, ``"right"``,
-        ``"top"``, or ``"bottom"``. [Default is ``"top"``].
+        ``"top"``, or ``"bottom"`` [Default is ``"top"``].
     fancy
         If ``True``, draw a "fancy" scale bar, which is a segmented bar with alternating
         black and white rectangles. If ``False``, draw a plain scale bar. Only supported
@@ -79,8 +79,8 @@ def scalebar(  # noqa: PLR0913
     unit
         If ``True``, append the unit to all distance annotations along the scale. For a
         plain scale, this will instead select the unit to be appended to the distance
-        length. The unit is determined from the suffix in the ``length`` or defaults to
-        ``"km"``.
+        length. The unit is determined from the suffix provided to the ``length``
+        parameter or defaults to ``"km"``.
     vertical
         If ``True``, plot a vertical rather than a horizontal Cartesian scale.
     box
