@@ -74,7 +74,8 @@ def scalebar(  # noqa: PLR0913
         ``"top"``, or ``"bottom"``. [Default is ``"top"``].
     fancy
         If ``True``, draw a "fancy" scale bar, which is a segmented bar with alternating
-        black and white rectangles. If ``False``, draw a plain scale bar.
+        black and white rectangles. If ``False``, draw a plain scale bar. Only supported
+        for non-Cartesian projections.
     unit
         If ``True``, append the unit to all distance annotations along the scale. For a
         plain scale, this will instead select the unit to be appended to the distance
