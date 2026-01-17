@@ -830,6 +830,28 @@ def sequence_join(
     ...     sep="/",
     ... )
     '2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
+
+    >>> # Join a sequence of timedelta64 objects into a string.
+    >>> sequence_join(
+    ...     [
+    ...         np.timedelta64(0, "Y"),
+    ...         np.timedelta64(1, "M"),
+    ...         np.timedelta64(2, "W"),
+    ...         np.timedelta64(3, "D"),
+    ...         np.timedelta64(4, "h"),
+    ...         np.timedelta64(5, "m"),
+    ...         np.timedelta64(6, "s"),
+    ...         np.timedelta64(7, "ms"),
+    ...         np.timedelta64(8, "us"),
+    ...         np.timedelta64(9, "ns"),
+    ...         np.timedelta64(10, "ps"),
+    ...         np.timedelta64(11, "fs"),
+    ...         np.timedelta64(12, "as"),
+    ...         np.timedelta64(13),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '0/1/2/3/4/5/6/7/8/9/10/11/12/13'
     """
     # Return the original value if it is not a sequence (e.g., None, bool, or str).
     if not is_nonstr_iter(value):
@@ -854,16 +876,27 @@ def sequence_join(
                 f"but got {len(value)} values."
             )
             raise GMTInvalidInput(msg)
+        # Handle datetime-like or timedelta64 objects in the sequence.
         # 'str(v)' produces a string like '2024-01-01 00:00:00' for some datetime-like
-        # objects (e.g., datetime.datetime, pandas.Timestamp), which contains a space.
-        # If so, use np.datetime_as_string to convert it to ISO 8601 string format
-        # YYYY-MM-DDThh:mm:ss.ffffff.
-        _values = [
-            np.datetime_as_string(np.asarray(item, dtype="datetime64"))
-            if " " in (s := str(item))
-            else s
-            for item in value
-        ]
+        # objects (e.g., datetime.datetime, pandas.Timestamp), and a string like
+        # '0 days' for np.timedelta64 objects.
+        # Need to convert them to ISO 8601 string format 'YYYY-MM-DDThh:mm:ss.ffffff'
+        # or integer number for timedelta64.
+        _values = []
+        for item in value:
+            if isinstance(item, np.timedelta64):
+                # Convert timedelta64 to numeric value in its original unit.
+                unit = np.datetime_data(item.dtype)[0]
+                # If unit is generic, convert to seconds as a default
+                if unit == "generic":
+                    unit = "s"
+                _values.append(str(item.astype(f"timedelta64[{unit}]").astype(int)))
+            elif " " in str(item):
+                _values.append(
+                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))
+                )
+            else:
+                _values.append(str(item))
         return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.
