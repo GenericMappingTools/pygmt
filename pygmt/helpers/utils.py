@@ -891,12 +891,10 @@ def sequence_join(
                 if unit == "generic":
                     _values.append(str(int(item)))
                 else:
-                    _values.append(
-                        str(item.astype(f"timedelta64[{unit}]").astype(int))
-                    )
+                    _values.append(str(item.astype(f"timedelta64[{unit}]").astype(int)))
             elif " " in str(item):
                 _values.append(
-                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))
+                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
                 )
             else:
                 _values.append(str(item))
