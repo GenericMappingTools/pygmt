@@ -16,6 +16,8 @@ __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'maskvalues' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'bordervalues' parameter.
 @deprecate_parameter("maskvalues", "mask_values", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter(
     "bordervalues", "border_values", "v0.18.0", remove_version="v0.20.0"
