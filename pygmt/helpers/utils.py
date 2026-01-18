@@ -9,7 +9,6 @@ import string
 import subprocess
 import sys
 import time
-import warnings
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from itertools import islice
@@ -726,11 +725,9 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     )
 
 
-# TODO(PyGMT>=0.19.0): Remove the deprecate_parameter decorator.
 def sequence_join(
     value: Any,
     sep: str = "/",
-    separator: str | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
@@ -747,12 +744,6 @@ def sequence_join(
         The 1-D or 2-D sequence of values to join.
     sep
         The separator to join the values.
-    separator
-        The separator to join the values.
-
-        .. versionchanged:: v0.17.0
-
-            Deprecated and will be removed in v0.19.0. Use ``sep`` instead.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
         integers. If an integer, it is the expected size of the 1-D sequence. If it is a
@@ -815,8 +806,6 @@ def sequence_join(
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
     >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([1, 2, 3, 4], separator=",")
-    '1,2,3,4'
 
     >>> # Join a sequence of datetime-like objects into a string.
     >>> import datetime
@@ -846,14 +835,6 @@ def sequence_join(
     if not is_nonstr_iter(value):
         return value
     # Now it must be a sequence.
-
-    if separator is not None:
-        sep = separator  # Deprecated, use sep instead.
-        msg = (
-            "Parameter 'separator' has been deprecated since v0.17.0 and will be "
-            "removed in v0.19.0. Please use 'sep' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size

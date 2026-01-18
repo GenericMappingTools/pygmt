@@ -19,6 +19,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'barwidth' parameter.
 @deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="horizontal",

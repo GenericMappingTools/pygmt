@@ -15,6 +15,7 @@ from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, us
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
 @deprecate_parameter(
     "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
 )
