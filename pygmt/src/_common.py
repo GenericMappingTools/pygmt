@@ -377,7 +377,7 @@ def _parse_position(
                     position,
                     description="position",
                     reason=(
-                        "Parameter 'position' must be a two-characeter anchor code, "
+                        "Parameter 'position' must be a two-character anchor code, "
                         "a coordinate, or a Position object.",
                     ),
                 )
