@@ -2,6 +2,7 @@
 config - Change GMT default settings globally or locally.
 """
 
+import warnings
 from inspect import Parameter, Signature
 from typing import ClassVar
 
@@ -22,6 +23,12 @@ class config:  # noqa: N801
             ...
 
     Full GMT defaults list at :gmt-docs:`gmt.conf.html`.
+
+    .. note::
+
+        :gmt-term:`PS_CONVERT` is not supported.
+        To configure conversion options, please pass parameters to
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
@@ -135,7 +142,7 @@ class config:  # noqa: N801
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
-        "PS_CONVERT",
+        # "PS_CONVERT",  # Not supported; use parameters of Figure.savefig/show instead
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
@@ -188,6 +195,16 @@ class config:  # noqa: N801
     )
 
     def __init__(self, **kwargs):
+        if "PS_CONVERT" in kwargs:
+            warnings.warn(
+                message="Parameter 'PS_CONVERT' is not supported. "
+                "To configure conversion options, please pass parameters to "
+                "pygmt.Figure.savefig or pygmt.Figure.show instead.",
+                category=SyntaxWarning,
+                stacklevel=2,
+            )
+            kwargs.pop("PS_CONVERT")
+
         # Save values so that we can revert to their initial values
         self.old_defaults = {}
         with Session() as lib:
