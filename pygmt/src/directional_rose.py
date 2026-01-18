@@ -85,7 +85,7 @@ def directional_rose(
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "fancy": fancy, "labels": labels},
+        kwdict={},  # No need to check conflicts since it's a new function.
         default=Position("BL", cstype="inside"),  # Default to BL.
     )
 
