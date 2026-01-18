@@ -55,8 +55,8 @@ def info(
         Pass in either a file name to an ASCII data table, a 1-D/2-D
         $table_classes.
     per_column
-        Report the min/max values per column in separate columns [Default uses <min/max>
-        format].
+        Report the min/max values per column in separate columns [Default is the format
+        <min/max>].
     spacing
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Compute the min/max values of the first n columns to the nearest
