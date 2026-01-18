@@ -362,7 +362,7 @@ def _parse_position(
         case str():  # String for anchor code or raw GMT command.
             if position in _valid_anchors:  # Anchor code
                 position = Position(position, cstype="inside")
-            elif kwdict:  # Raw GMT command string with potential conflicts.
+            elif kwdict is not None:  # Raw GMT command string with potential conflicts.
                 if any(v is not None and v is not False for v in kwdict.values()):
                     msg = (
                         "Parameter 'position' is given with a raw GMT command string, "
