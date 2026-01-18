@@ -296,6 +296,7 @@ def colorbar(  # noqa: PLR0913
 
     position = _parse_position(
         position,
+        default=None,  # Use GMT's default behavior if position is not provided.
         kwdict={
             "length": length,
             "width": width,
@@ -309,7 +310,6 @@ def colorbar(  # noqa: PLR0913
             "move_text": move_text,
             "label_as_column": label_as_column,
         },
-        default=None,  # Use GMT's default behavior if position is not provided.
     )
 
     aliasdict = AliasSystem(
