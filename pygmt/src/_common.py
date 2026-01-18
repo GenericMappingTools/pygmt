@@ -248,7 +248,7 @@ class _FocalMechanismConvention:
 
 def _parse_position(
     position: Position | Sequence[float | str] | str | None,
-    default: Position | None,
+    default: Position | None = None,
     kwdict: dict[str, Any] | None = None,
 ) -> Position | str | None:
     """
@@ -269,7 +269,9 @@ def _parse_position(
         is ``None``, use the GMT default.
     kwdict
         The keyword arguments dictionary that conflicts with ``position`` if
-        ``position`` is given as a raw GMT command string.
+        ``position`` is given as a raw GMT command string. This is used for backward
+        compatibility to raise an exception if there are conflicting parameters. If
+        ``kwdict`` is ``None``, no conflict checking is performed (for new functions).
 
     Returns
     -------
@@ -336,21 +338,49 @@ def _parse_position(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Invalid type for parameter 'position':...
+
+    >>> # Below are examples without kwdict (for new functions).
+    >>> _parse_position(
+    ...     "BL",
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Position(refpoint='BL', cstype='inside')
+
+    >>> _parse_position(
+    ...     "invalid",
+    ...     default=Position((0, 0), cstype="plotcoords"),
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid position: 'invalid'...
     """
 
     _valid_anchors = {f"{h}{v}" for v in "TMB" for h in "LCR"} | {
         f"{v}{h}" for v in "TMB" for h in "LCR"
     }
     match position:
-        case str() if position in _valid_anchors:  # Anchor code
-            position = Position(position, cstype="inside")
-        case str():  # Raw GMT command string.
-            if any(v is not None and v is not False for v in kwdict.values()):
-                msg = (
-                    "Parameter 'position' is given with a raw GMT command string, and "
-                    f"conflicts with parameters {', '.join(repr(c) for c in kwdict)}."
+        case str():  # String for anchor code or raw GMT command.
+            if position in _valid_anchors:  # Anchor code
+                position = Position(position, cstype="inside")
+            elif kwdict:  # Raw GMT command string with potential conflicts.
+                if any(v is not None and v is not False for v in kwdict.values()):
+                    msg = (
+                        "Parameter 'position' is given with a raw GMT command string, "
+                        "and conflicts with parameters "
+                        f"{', '.join(repr(c) for c in kwdict)}."
+                    )
+                    raise GMTInvalidInput(msg)
+            else:
+                # No conflicting parameters to check, indicating it's a new function.
+                # The string must be an anchor code.
+                raise GMTValueError(
+                    position,
+                    description="position",
+                    reason=(
+                        "Parameter 'position' must be a two-characeter anchor code, "
+                        "a coordinate, or a Position object.",
+                    ),
                 )
-                raise GMTInvalidInput(msg)
         case Sequence() if len(position) == 2:  # A sequence of x and y coordinates.
             position = Position(position, cstype="plotcoords")
         case Position():  # Already a Position object.
