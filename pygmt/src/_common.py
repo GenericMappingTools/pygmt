@@ -378,7 +378,7 @@ def _parse_position(
                     description="position",
                     reason=(
                         "Parameter 'position' must be a two-character anchor code, "
-                        "a coordinate, or a Position object.",
+                        "a coordinate, or a Position object."
                     ),
                 )
         case Sequence() if len(position) == 2:  # A sequence of x and y coordinates.
