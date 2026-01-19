@@ -109,11 +109,7 @@ def scalebar(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
-    position = _parse_position(
-        position,
-        kwdict={},  # No need to check conflicts since it's a new function.
-        default=Position("BL", offset=(0.2, 0.4)),  # Default to "BL" with offset.
-    )
+    position = _parse_position(position, default=Position("BL", offset=(0.2, 0.4)))
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
