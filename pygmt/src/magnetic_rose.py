@@ -108,11 +108,7 @@ def magnetic_rose(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    position = _parse_position(
-        position,
-        kwdict={},  # No need to check conflicts since it's a new function.
-        default=Position("BL", cstype="inside"),  # Default to BL.
-    )
+    position = _parse_position(position, default=Position("BL", cstype="inside"))
 
     if declination_label is not None and declination is None:
         msg = "Parameter 'declination' must be set when 'declination_label' is set."
