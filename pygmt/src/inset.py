@@ -24,6 +24,7 @@ __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'margin' parameter.
 @deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
 @use_alias(C="clearance")
 @kwargs_to_strings(C="sequence")
@@ -128,8 +129,8 @@ def inset(
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "height": height},
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        kwdict={"width": width, "height": height},
     )
 
     # width is mandatory unless both projection and region are given.

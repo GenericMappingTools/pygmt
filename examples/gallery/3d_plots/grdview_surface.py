@@ -18,6 +18,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 import numpy as np
 import pygmt
 import xarray as xr
+from pygmt.params import Position
 
 
 # Define an interesting function of two variables, see:
@@ -56,10 +57,7 @@ fig.grdview(
     shading="+a45",
 )
 
-# Add colorbar for gridded data
-fig.colorbar(
-    frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
-    position="JMR",  # Place colorbar in the Middle Right (MR) corner
-)
+# Add colorbar for gridded data in the Middle Right corner.
+fig.colorbar(frame="a2f1", position=Position("MR", cstype="outside"))
 
 fig.show()
