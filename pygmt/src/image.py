@@ -136,8 +136,8 @@ def image(  # noqa: PLR0913
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "height": height, "dpi": dpi, "replicate": replicate},
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        kwdict={"width": width, "height": height, "dpi": dpi, "replicate": replicate},
     )
 
     # width is required when only height is given.
