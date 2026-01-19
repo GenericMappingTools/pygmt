@@ -83,11 +83,7 @@ def directional_rose(
     """
     self._activate_figure()
 
-    position = _parse_position(
-        position,
-        kwdict={},  # No need to check conflicts since it's a new function.
-        default=Position("BL", cstype="inside"),  # Default to BL.
-    )
+    position = _parse_position(position, default=Position("BL", cstype="inside"))
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
