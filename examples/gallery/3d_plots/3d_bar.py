@@ -10,7 +10,7 @@ via :func:`pygmt.grd2xyz` and (ii) plot this table as bars in 3-D using
 based on a quantity using a colormap.
 
 We can create a 3-D bar plot for any collection of XYZ points, whether they lie on a
-regular grid or are irregularly scattered. Therefore, it’s clearer to start with a
+regular grid or are irregularly scattered. Therefore, it's clearer to start with a
 general description of the 3-D bar plot itself and then mention that, as a special
 case, we can convert a grid into XYZ and visualize it with the same routine.
 """
