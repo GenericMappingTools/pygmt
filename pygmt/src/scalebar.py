@@ -21,7 +21,7 @@ def scalebar(  # noqa: PLR0913
     length: float | str,
     height: float | str | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
-    scale_at: float | Sequence[float] | bool = False,
+    scale_loc: float | Sequence[float] | bool = False,
     label: str | bool = False,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     unit: bool = False,
@@ -57,7 +57,7 @@ def scalebar(  # noqa: PLR0913
 
         If not specified, defaults to the Bottom Left corner of the plot with a 0.2-cm
         and 0.4-cm offset in the x- and y-directions, respectively.
-    scale_at
+    scale_loc
         Specify the location where the map scale is calculated. It can be:
 
         - *slat*: Map scale is calculated for latitude *slat*.
@@ -122,7 +122,7 @@ def scalebar(  # noqa: PLR0913
                 prefix="+a",
                 mapping={"left": "l", "right": "r", "top": "t", "bottom": "b"},
             ),
-            Alias(scale_at, name="scale_at", prefix="+c", sep="/", size=2),
+            Alias(scale_loc, name="scale_loc", prefix="+c", sep="/", size=2),
             Alias(fancy, name="fancy", prefix="+f"),
             Alias(label, name="label", prefix="+l"),
             Alias(unit, name="unit", prefix="+u"),

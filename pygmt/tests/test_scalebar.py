@@ -32,7 +32,7 @@ def test_scalebar_complete():
         fancy=True,
         label="Scale",
         label_alignment="left",
-        scale_at=(110, 25),
+        scale_loc=(110, 25),
         unit=True,
         box=True,
     )
