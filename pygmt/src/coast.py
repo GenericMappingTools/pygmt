@@ -138,15 +138,10 @@ def coast(  # noqa: PLR0913
 
         .. deprecated:: v0.19.0
 
-            The ``map_scale`` parameter is deprecated. Use :meth:`pygmt.Figure.scalebar`
-            instead, which provides a more comprehensive and flexible API for adding
-            scale bars to plots.
-
-        .. note::
-
-            This parameter accepts raw GMT CLI strings for the ``-L`` option of
-            the ``basemap`` module for backward compatibility.
-
+            This parameter is deprecated. Use :meth:`pygmt.Figure.scalebar` instead,
+            which provides a more comprehensive and flexible API for adding scale bars
+            to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
+            option of the ``basemap`` module for backward compatibility.
     box
         Draw a background box behind the map scale or rose. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
