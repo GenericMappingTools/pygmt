@@ -42,6 +42,7 @@ def basemap(  # noqa: PLR0913
     ``basemap`` module:
 
     - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
+    - :meth:``pygmt.Figure.directional_rose`: Add a directional rose on the plot.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
