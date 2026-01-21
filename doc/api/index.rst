@@ -32,6 +32,7 @@ Plotting map elements
     Figure.legend
     Figure.logo
     Figure.magnetic_rose
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
