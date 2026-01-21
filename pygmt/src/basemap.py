@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(F="box", Td="rose", Tm="compass", f="coltypes")
+@use_alias(F="box", Td="rose", f="coltypes")
 def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
@@ -20,6 +20,7 @@ def basemap(  # noqa: PLR0913
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     map_scale: str | None = None,
+    compass: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -73,6 +74,15 @@ def basemap(  # noqa: PLR0913
             which provides a more comprehensive and flexible API for adding scale bars
             to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
             option of the ``basemap`` module for backward compatibility.
+    compass
+        Draw a map magnetic rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.magnetic_rose`
+            instead, which provides a more comprehensive and flexible API for adding
+            magnetic roses to plots. This parameter still accepts raw GMT CLI strings
+            for the ``-Tm`` option of the ``basemap`` module for backward compatibility.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -109,6 +119,7 @@ def basemap(  # noqa: PLR0913
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         L=Alias(map_scale, name="map_scale"),  # Deprecated.
+        Tm=Alias(compass, name="compass"),  # Deprecated.
     ).add_common(
         B=frame,
         J=projection,
