@@ -82,7 +82,8 @@ def scalebar(  # noqa: PLR0913
         length. The unit is determined from the suffix provided to the ``length``
         parameter or defaults to ``"km"``.
     vertical
-        If ``True``, plot a vertical rather than a horizontal Cartesian scale.
+        If ``True``, plot a vertical rather than a horizontal scale. Only
+        supported for Cartesian projections.
     box
         Draw a background box behind the scale bar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
