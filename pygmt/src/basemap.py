@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(F="box", Td="rose", Tm="compass", f="coltypes")
+@use_alias(F="box", Tm="compass", f="coltypes")
 def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
@@ -20,6 +20,7 @@ def basemap(  # noqa: PLR0913
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     map_scale: str | None = None,
+    rose: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -51,6 +52,7 @@ def basemap(  # noqa: PLR0913
        - JZ = zsize
        - L = map_scale
        - R = region
+       - Td = rose
        - V = verbose
        - c = panel
        - p = perspective
@@ -73,6 +75,15 @@ def basemap(  # noqa: PLR0913
             which provides a more comprehensive and flexible API for adding scale bars
             to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
             option of the ``basemap`` module for backward compatibility.
+    rose
+        Draw a map directional rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.directional_rose`
+            instead, which provides a more comprehensive and flexible API for adding
+            directional roses. This parameter still accepts raw GMT CLI strings for the
+            ``-Td`` option of the ``basemap`` module for backward compatibility.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -91,9 +102,6 @@ def basemap(  # noqa: PLR0913
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
         shading [Default is ``"gray50"``].
-    rose : str
-        Draw a map directional rose on the map at the location defined by
-        the reference and anchor points.
     compass : str
         Draw a map magnetic rose on the map at the location defined by the
         reference and anchor points.
@@ -109,6 +117,7 @@ def basemap(  # noqa: PLR0913
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         L=Alias(map_scale, name="map_scale"),  # Deprecated.
+        Td=Alias(rose, name="rose"),  # Deprecated.
     ).add_common(
         B=frame,
         J=projection,
