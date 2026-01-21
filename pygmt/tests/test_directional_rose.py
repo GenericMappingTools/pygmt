@@ -21,7 +21,7 @@ def test_directional_rose():
 @pytest.mark.mpl_image_compare
 def test_directional_rose_fancy():
     """
-    Test the Figure.directional_rose method with default position and width.
+    Test the Figure.directional_rose method with the fancy style enabled.
     """
     fig = Figure()
     fig.basemap(region=[0, 80, 0, 30], projection="M10c", frame=True)
