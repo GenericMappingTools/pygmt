@@ -13,6 +13,13 @@ We can create a 3-D bar plot for any collection of XYZ points, whether they lie 
 regular grid or are irregularly scattered. Therefore, it's clearer to start with a
 general description of the 3-D bar plot itself and then mention that, as a special
 case, we can convert a grid into XYZ and visualize it with the same routine.
+
+The program plot3d allows us to plot three-dimensional symbols, including columnar plots.
+As a simple demonstration, we will convert a gridded netCDF of bathymetry into an ASCII
+xyz table and use the height information to draw a 2-D histogram in a 3-D perspective
+view. We also use the height information to set to color of each column via a CPT file.
+Our gridded bathymetry file is the 5 arc-minute global relief. Depth ranges from -5000
+meter to sea-level. We produce the Figure by running this script.
 """
 
 # %%
