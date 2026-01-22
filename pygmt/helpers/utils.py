@@ -884,14 +884,8 @@ def sequence_join(
         # or integer number for timedelta64.
         _values = []
         for item in value:
-            if isinstance(item, np.timedelta64):
-                # Convert timedelta64 to numeric value. For generic units, preserve the
-                # raw integer value; for specific units, convert in that unit.
-                unit = np.datetime_data(item.dtype)[0]
-                if unit == "generic":
-                    _values.append(str(int(item)))
-                else:
-                    _values.append(str(item.astype(f"timedelta64[{unit}]").astype(int)))
+            if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
+                _values.append(str(item.astype(int)))
             elif " " in str(item):
                 _values.append(
                     np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
