@@ -11,20 +11,15 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    L="map_scale",
-    F="box",
-    Td="rose",
-    Tm="compass",
-    f="coltypes",
-)
-def basemap(
+@use_alias(F="box", Td="rose", Tm="compass", f="coltypes")
+def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
     zsize: float | str | None = None,
     zscale: float | str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    map_scale: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -35,13 +30,17 @@ def basemap(
     r"""
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several
-    map projections are available, and the user may specify separate
-    tick-mark intervals for boundary annotation, ticking, and [optionally]
-    gridlines. A simple map scale or directional rose may also be plotted.
+    Creates a basic or fancy basemap with axes, fill, and titles. Several map
+    projections are available, and the user may specify separate tick-mark intervals for
+    boundary annotation, ticking, and [optionally] gridlines.
 
-    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
-    ``compass`` must be specified if not in subplot mode.
+    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or ``compass``
+    must be specified if not in subplot mode.
+
+    See also the following methods that provide higher-level interfaces to the GMT's
+    ``basemap`` module:
+
+    - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
@@ -50,6 +49,7 @@ def basemap(
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - L = map_scale
        - R = region
        - V = verbose
        - c = panel
@@ -64,10 +64,15 @@ def basemap(
     $region
         *Required if this is the first plot command.*
     $frame
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*.
-        Draw a simple map scale centered on the reference point specified.
+    map_scale
+        Draw a map scale bar on the plot.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.scalebar` instead,
+            which provides a more comprehensive and flexible API for adding scale bars
+            to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
+            option of the ``basemap`` module for backward compatibility.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -103,6 +108,7 @@ def basemap(
     aliasdict = AliasSystem(
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        L=Alias(map_scale, name="map_scale"),  # Deprecated.
     ).add_common(
         B=frame,
         J=projection,
