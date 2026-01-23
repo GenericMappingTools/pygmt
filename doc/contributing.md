@@ -520,10 +520,11 @@ Wrapping a GMT module in PyGMT is usually a big task, but it can progress more s
 and efficiently when divided into **small, manageable chunks**. This section gives an
 overview of the main tasks involved.
 
-1. Create a feature request ("wrapper request issue") for wrapping a module and discuss
-   what users would like to see in the wrapper [optional, usually done by users].
-2. Create a tracking issue ("wrapper tracking issue"), using the "Wrapper for a GMT
-   module" issue template, to track the progress of wrapping the module. Link it to the
+1. Open "wrapper request" issue - create a feature request for wrapping a module and
+   discuss what features should be available in the wrapper [optional, usually done by
+   users].
+2. Open a "wrapper tracking" issue - use the "Wrapper for a GMT module" issue template,
+   to track the progress of wrapping the module. Link it to the
    [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close
    the "wrapper request issue" with a comment such as:
    > Thank you for opening the feature request. The progress of wrapping the module will
