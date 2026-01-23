@@ -41,6 +41,8 @@ def _parse_fills(positive_fill, negative_fill):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillpositive' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillnegative' parameter.
 @deprecate_parameter(
     "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
 )
@@ -168,8 +170,8 @@ def wiggle(  # noqa: PLR0913
 
     position = _parse_position(
         position,
-        kwdict={"length": length, "label": label, "label_alignment": label_alignment},
         default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
+        kwdict={"length": length, "label": label, "label_alignment": label_alignment},
     )
 
     _fills = _parse_fills(positive_fill, negative_fill)
