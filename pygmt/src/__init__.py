@@ -10,6 +10,7 @@ from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
 from pygmt.src.dimfilter import dimfilter
+from pygmt.src.directional_rose import directional_rose
 from pygmt.src.filter1d import filter1d
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grd2xyz import grd2xyz
@@ -43,6 +44,7 @@ from pygmt.src.plot3d import plot3d
 from pygmt.src.project import project
 from pygmt.src.psconvert import psconvert
 from pygmt.src.rose import rose
+from pygmt.src.scalebar import scalebar
 from pygmt.src.select import select
 from pygmt.src.shift_origin import shift_origin
 from pygmt.src.solar import solar

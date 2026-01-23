@@ -129,8 +129,8 @@ def inset(
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "height": height},
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        kwdict={"width": width, "height": height},
     )
 
     # width is mandatory unless both projection and region are given.
