@@ -38,8 +38,8 @@ def _to_string(
     string that GMT accepts (e.g., mapping PyGMT's long-form argument ``"high"`` to
     GMT's short-form argument ``"h"``).
 
-    An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
-    string, and an optional suffix (e.g., `"+l"`) can be added to the end.
+    An optional prefix or suffix (e.g., `"+o"`) can be added to the beginning (or end)
+    of the converted string.
 
     To avoid extra overhead, this function does not validate parameter combinations. For
     example, if ``value`` is a sequence but ``sep`` is not specified, the function will
@@ -95,8 +95,6 @@ def _to_string(
 
     >>> _to_string("blue", suffix="+l")
     'blue+l'
-    >>> _to_string("red", suffix="+r")
-    'red+r'
     >>> _to_string(True, suffix="+l")
     '+l'
 
@@ -274,6 +272,8 @@ class AliasSystem(UserDict):
     ...     par0,
     ...     par1=None,
     ...     par2=None,
+    ...     par3=None,
+    ...     par4=None,
     ...     frame=False,
     ...     repeat=None,
     ...     panel=None,
@@ -286,6 +286,7 @@ class AliasSystem(UserDict):
     ...             Alias(par2, name="par2", prefix="+o", sep="/"),
     ...         ],
     ...         B=Alias(frame, name="frame"),
+    ...         C=[Alias(par3, suffix="+l"), Alias(par4, suffix="+r")],
     ...         D=Alias(repeat, name="repeat"),
     ...     ).add_common(
     ...         V=verbose,
@@ -297,13 +298,14 @@ class AliasSystem(UserDict):
     ...     "infile",
     ...     par1="mytext",
     ...     par2=(12, 12),
+    ...     par3="blue",
+    ...     par4="red",
     ...     frame=True,
     ...     repeat=[1, 2, 3],
-    ...     panel=(1, 2),
-    ...     verbose="debug",
-    ...     J="X10c/10c",
     ... )
-    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-Vd', '-c1,2']
+    ['-Amytext+o12/12', '-B', '-Cblue+l', '-Cred+r', '-D1', '-D2', '-D3']
+    >>> func("infile", panel=(1, 2), verbose="debug", J="X10c/10c")
+    ['-JX10c/10c', '-Vd', '-c1,2']
     """
 
     def __init__(self, **kwargs):
