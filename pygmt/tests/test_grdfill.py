@@ -131,12 +131,6 @@ def test_grdfill_hole(grid, expected_grid):
     assert result.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
-    # Test the deprecated 'no_data' parameter.
-    # TODO(PyGMT>=0.19.0): Remove the following lines.
-    with pytest.warns(FutureWarning):
-        result2 = grdfill(grid=grid_no_nan, constant_fill=20, no_data=-99999)
-    xr.testing.assert_allclose(a=result2, b=expected_grid)
-
 
 def test_grdfill_inquire(grid):
     """
@@ -162,13 +156,3 @@ def test_grdfill_inquire_and_fill(grid):
     """
     with pytest.raises(GMTInvalidInput):
         grdfill(grid=grid, inquire=True, constant_fill=20)
-
-
-# TODO(PyGMT>=0.19.0): Remove this test.
-def test_grdfill_deprecated_mode(grid, expected_grid):
-    """
-    Test that grdfill fails with deprecated `mode` argument.
-    """
-    with pytest.warns(FutureWarning):
-        result = grdfill(grid=grid, mode="c20")
-    xr.testing.assert_allclose(a=result, b=expected_grid)

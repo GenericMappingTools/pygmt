@@ -123,8 +123,8 @@ def legend(  # noqa: PLR0913
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "height": height, "line_spacing": line_spacing},
         default=Position("TR", offset=0.2),  # Default to TR with 0.2-cm offset.
+        kwdict={"width": width, "height": height, "line_spacing": line_spacing},
     )
 
     # Set width to 0 (auto calculated) if height is given but width is not.

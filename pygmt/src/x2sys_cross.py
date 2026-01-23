@@ -59,6 +59,7 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'trackvalues' parameter.
 @deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",

@@ -214,9 +214,9 @@ def colorbar(  # noqa: PLR0913
         and **F** entries in the CPT. If no such entries exist, then the system default
         colors for **B** and **F** are used instead (:gmt-term:`COLOR_BACKGROUND` and
         :gmt-term:`COLOR_FOREGROUND`).
-    triangles_height
-        Height of the triangles for back- and foreground colors [Default is half
-        of the bar width].
+    triangle_height
+        Height of the triangles for back- and foreground colors [Default is half of the
+        bar width].
     move_text
         Move text (annotations, label, and unit) to opposite side. Accept a sequence of
         strings containing one or more of ``"annotations"``, ``"label"``, and
@@ -296,6 +296,7 @@ def colorbar(  # noqa: PLR0913
 
     position = _parse_position(
         position,
+        default=None,  # Use GMT's default behavior if position is not provided.
         kwdict={
             "length": length,
             "width": width,
@@ -309,7 +310,6 @@ def colorbar(  # noqa: PLR0913
             "move_text": move_text,
             "label_as_column": label_as_column,
         },
-        default=None,  # Use GMT's default behavior if position is not provided.
     )
 
     aliasdict = AliasSystem(

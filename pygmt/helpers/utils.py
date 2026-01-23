@@ -9,7 +9,6 @@ import string
 import subprocess
 import sys
 import time
-import warnings
 import webbrowser
 from collections.abc import Iterable, Mapping, Sequence
 from itertools import islice
@@ -726,11 +725,9 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     )
 
 
-# TODO(PyGMT>=0.19.0): Remove the deprecate_parameter decorator.
 def sequence_join(
     value: Any,
     sep: str = "/",
-    separator: str | None = None,
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
@@ -747,12 +744,6 @@ def sequence_join(
         The 1-D or 2-D sequence of values to join.
     sep
         The separator to join the values.
-    separator
-        The separator to join the values.
-
-        .. versionchanged:: v0.17.0
-
-            Deprecated and will be removed in v0.19.0. Use ``sep`` instead.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
         integers. If an integer, it is the expected size of the 1-D sequence. If it is a
@@ -815,8 +806,6 @@ def sequence_join(
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
     >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([1, 2, 3, 4], separator=",")
-    '1,2,3,4'
 
     >>> # Join a sequence of datetime-like objects into a string.
     >>> import datetime
@@ -841,19 +830,33 @@ def sequence_join(
     ...     sep="/",
     ... )
     '2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
+
+    >>> # Join a sequence of timedelta64 objects into a string.
+    >>> sequence_join(
+    ...     [
+    ...         np.timedelta64(0, "Y"),
+    ...         np.timedelta64(1, "M"),
+    ...         np.timedelta64(2, "W"),
+    ...         np.timedelta64(3, "D"),
+    ...         np.timedelta64(4, "h"),
+    ...         np.timedelta64(5, "m"),
+    ...         np.timedelta64(6, "s"),
+    ...         np.timedelta64(7, "ms"),
+    ...         np.timedelta64(8, "us"),
+    ...         np.timedelta64(9, "ns"),
+    ...         np.timedelta64(10, "ps"),
+    ...         np.timedelta64(11, "fs"),
+    ...         np.timedelta64(12, "as"),
+    ...         np.timedelta64(13),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '0/1/2/3/4/5/6/7/8/9/10/11/12/13'
     """
     # Return the original value if it is not a sequence (e.g., None, bool, or str).
     if not is_nonstr_iter(value):
         return value
     # Now it must be a sequence.
-
-    if separator is not None:
-        sep = separator  # Deprecated, use sep instead.
-        msg = (
-            "Parameter 'separator' has been deprecated since v0.17.0 and will be "
-            "removed in v0.19.0. Please use 'sep' instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size
@@ -873,16 +876,22 @@ def sequence_join(
                 f"but got {len(value)} values."
             )
             raise GMTInvalidInput(msg)
+        # Handle datetime-like or timedelta64 objects in the sequence.
         # 'str(v)' produces a string like '2024-01-01 00:00:00' for some datetime-like
-        # objects (e.g., datetime.datetime, pandas.Timestamp), which contains a space.
-        # If so, use np.datetime_as_string to convert it to ISO 8601 string format
-        # YYYY-MM-DDThh:mm:ss.ffffff.
-        _values = [
-            np.datetime_as_string(np.asarray(item, dtype="datetime64"))
-            if " " in (s := str(item))
-            else s
-            for item in value
-        ]
+        # objects (e.g., datetime.datetime, pandas.Timestamp), and a string like
+        # '0 days' for np.timedelta64 objects.
+        # Need to convert them to ISO 8601 string format 'YYYY-MM-DDThh:mm:ss.ffffff'
+        # or integer number for timedelta64.
+        _values = []
+        for item in value:
+            if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
+                _values.append(str(item.astype(int)))
+            elif " " in str(item):
+                _values.append(
+                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
+                )
+            else:
+                _values.append(str(item))
         return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.

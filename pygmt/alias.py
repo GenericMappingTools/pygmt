@@ -144,7 +144,7 @@ def _to_string(
             if value not in mapping and value not in mapping.values():
                 raise GMTValueError(
                     value,
-                    description="value for parameter {name!r}" if name else "value",
+                    description=f"value for parameter {name!r}" if name else "value",
                     choices=mapping.keys(),
                 )
             value = mapping.get(value, value)

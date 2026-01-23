@@ -28,10 +28,12 @@ Plotting map elements
     Figure.choropleth
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp

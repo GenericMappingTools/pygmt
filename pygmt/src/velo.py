@@ -1,5 +1,5 @@
 """
-velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
+velo - Plot velocity vectors, strain crosses, anisotropy bars, and wedges.
 """
 
 from collections.abc import Sequence
@@ -15,6 +15,7 @@ from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, us
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
 @deprecate_parameter(
     "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
 )
@@ -50,7 +51,7 @@ def velo(  # noqa : PLR0913
     **kwargs,
 ):
     r"""
-    Plot velocity vectors, crosses, anisotropy bars, and wedges.
+    Plot velocity vectors, strain crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
     :class:`pandas.DataFrame` and plots the selected geodesy symbol on a map.

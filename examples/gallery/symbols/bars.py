@@ -7,7 +7,7 @@ horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. By default, *base* = 0 meaning that the
 bar is starting from 0. Append **+b**\[*base*] to change this
 value. To plot multi-band bars, please append
-**+v**\|\ **i**\ *ny* (for verticals bars) or **+v**\|\ **i**\ *nx*
+**+v**\|\ **i**\ *ny* (for vertical bars) or **+v**\|\ **i**\ *nx*
 (for horizontal ones), where *ny* or *nx* indicate the total
 number of bands in the bar (and hence the number of values required
 to follow the *x,y* coordinate pair in the input). Here, **+i**
