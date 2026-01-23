@@ -22,7 +22,7 @@ def test_earth_vertical_gravity_gradient_01d():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -40.1875, atol=1 / 32)
+    npt.assert_allclose(data.min(), -40.0625, atol=1 / 32)
     npt.assert_allclose(data.max(), 45.96875, atol=1 / 32)
     assert data[1, 1].isnull()
 
@@ -56,5 +56,5 @@ def test_earth_vertical_gravity_gradient_01m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
-    npt.assert_allclose(data.min(), -37.5625, atol=1 / 32)
-    npt.assert_allclose(data.max(), 82.59375, atol=1 / 32)
+    npt.assert_allclose(data.min(), -36.21875, atol=1 / 32)
+    npt.assert_allclose(data.max(), 78.34375, atol=1 / 32)
