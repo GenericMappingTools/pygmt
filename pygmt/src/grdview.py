@@ -35,7 +35,8 @@ def _alias_option_Q(  # noqa: N802
     _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
 
     if _old_surftype_syntax and any(
-        v not in {None, False} for v in (dpi, mesh_fill, monochrome, nan_transparent)
+        v is not None and v is not False
+        for v in (dpi, mesh_fill, monochrome, nan_transparent)
     ):
         msg = (
             "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
