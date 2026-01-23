@@ -242,15 +242,28 @@ class Alias:
 
 class AliasSystem(UserDict):
     """
-    Alias system for mapping PyGMT's long-form parameters to GMT's short-form options.
+    Alias system mapping PyGMT long-form parameters to GMT short-form options.
 
-    This class is initialized with keyword arguments, where each key is a GMT option
-    flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
-    objects.
+    This class inherits from ``UserDict`` so it behaves like a dictionary and can be
+    passed directly to ``build_arg_list``. It also provides ``merge`` to update the
+    alias dictionary with additional keyword arguments.
 
-    This class inherits from ``UserDict``, which allows it to behave like a dictionary
-    and can be passed to the ``build_arg_list`` function. It also provides the ``merge``
-    method to update the alias dictionary with additional keyword arguments.
+    Initialize with keyword arguments where each key is a GMT option flag and each value
+    is an ``Alias`` instance or a list of ``Alias`` instances. For a single ``Alias``,
+    we use its ``_value`` property. For a list, we check for suffixes:
+
+    - If any ``Alias`` has a suffix, return a list of values for repeated GMT options.
+      For example, ``[Alias("blue", suffix="+l"), Alias("red", suffix="+r")]`` becomes
+      ``-Cblue+l -Cred+r``.
+    - Otherwise, concatenate into a single string for combined modifiers. For example,
+      ``[Alias("TL", prefix="j"), Alias((1, 1), prefix="+o")]`` becomes ``jTL+o1/1``.
+
+    ``alias._value`` is produced by ``_to_string`` and is one of: ``None``, ``str``, or
+    a sequence of strings.
+
+    - ``None`` means the parameter is not specified.
+    - A sequence of strings means this is a repeatable option and can only have one
+      long-form parameter.
 
     Examples
     --------
@@ -300,20 +313,6 @@ class AliasSystem(UserDict):
         # Store the aliases in a dictionary, to be used in the merge() method.
         self.aliasdict = kwargs
 
-        # The value of each key in kwargs is an Alias object or a sequence of Alias
-        # objects. If it is a single Alias object, we will use its _value property. If
-        # it is a sequence of Alias objects, we will check if any have suffix:
-        #
-        # - If any Alias has a suffix, return a list of values, for repeated GMT options
-        #   like -Cblue+l -Cred+r
-        # - Otherwise, concatenate into a single string for combined modifiers like
-        #   -BWSen+ttitle+gblue.
-        #
-        # Note that alias._value is converted by the _to_string method and can only be
-        # None, string or sequence of strings.
-        # - None means the parameter is not specified.
-        # - Sequence of strings means this is a repeatable option, so it can only have
-        #   one long-form parameter.
         kwdict = {}
         for option, aliases in kwargs.items():
             if isinstance(aliases, Sequence):  # A sequence of Alias objects.
