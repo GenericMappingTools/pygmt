@@ -423,6 +423,7 @@ class Figure:
         inset,
         legend,
         logo,
+        magnetic_rose,
         meca,
         plot,
         plot3d,
