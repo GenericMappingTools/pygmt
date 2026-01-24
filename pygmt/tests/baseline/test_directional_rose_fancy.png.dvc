@@ -1,0 +1,5 @@
+outs:
+- md5: 7498ed12efd8b956a0fe13d18e0e3ea9
+  size: 8648
+  hash: md5
+  path: test_directional_rose_fancy.png

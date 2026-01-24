@@ -10,6 +10,7 @@ from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
 from pygmt.src.dimfilter import dimfilter
+from pygmt.src.directional_rose import directional_rose
 from pygmt.src.filter1d import filter1d
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grd2xyz import grd2xyz
@@ -35,6 +36,7 @@ from pygmt.src.info import info
 from pygmt.src.inset import inset
 from pygmt.src.legend import legend
 from pygmt.src.logo import logo
+from pygmt.src.magnetic_rose import magnetic_rose
 from pygmt.src.makecpt import makecpt
 from pygmt.src.meca import meca
 from pygmt.src.nearneighbor import nearneighbor
