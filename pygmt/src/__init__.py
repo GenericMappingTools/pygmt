@@ -36,6 +36,7 @@ from pygmt.src.info import info
 from pygmt.src.inset import inset
 from pygmt.src.legend import legend
 from pygmt.src.logo import logo
+from pygmt.src.magnetic_rose import magnetic_rose
 from pygmt.src.makecpt import makecpt
 from pygmt.src.meca import meca
 from pygmt.src.nearneighbor import nearneighbor
