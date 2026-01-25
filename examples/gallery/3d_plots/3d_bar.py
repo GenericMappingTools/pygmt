@@ -8,6 +8,7 @@ creating such a 3-D bar plot based on a grid. This can be done in two steps:
 
 1. Converting the grid into a table via :func:`pygmt.grd2xyz`, with columns "x", "y",
 and "z" for longitude, latitude, and the quantity displayed by the grid, respectively.
+
 2. Plotting this table as bars in 3-D using :meth:`pygmt.Figure.plot3d`.
 
 The bars can be outlined, and the fill can be one color or based on a quantity using a
