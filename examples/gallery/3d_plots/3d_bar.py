@@ -6,11 +6,10 @@ A 3-bar plot can be created from any collection of three-dimensional tabular dat
 data points can lie on a regular grid or be irregular scattered. A special case is
 creating such a 3-D bar plot based on a grid. This can be done in two steps:
 
-(i) Converting the grid into a table via :func:`pygmt.grd2xyz`, with columns "x", "y",
-and "z" for longitude, latitude, and the quantity displayed by the grid, e.g.,
-the elevation.
+1. Converting the grid into a table via :func:`pygmt.grd2xyz`, with columns "x", "y",
+and "z" for longitude, latitude, and the quantity displayed by the grid, respectively.
 
-(ii) Plotting this table as bars in 3-D using :meth:`pygmt.Figure.plot3d`.
+2. Plotting this table as bars in 3-D using :meth:`pygmt.Figure.plot3d`.
 
 The bars can be outlined, and the fill can be one color or based on a quantity using a
 colormap. For the later, a fourth column needs to be added containing the values of the
