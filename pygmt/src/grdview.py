@@ -44,6 +44,19 @@ def _alias_option_Q(  # noqa: N802
         )
         raise GMTInvalidInput(msg)
 
+    if dpi is not None and surftype != "image":
+        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if nan_transparent and surftype != "image":
+        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
+        raise GMTInvalidInput(msg)
+    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
+        msg = (
+            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
+            "'waterfall_x', or 'waterfall_y'."
+        )
+        raise GMTInvalidInput(msg)
+
     return [
         Alias(
             surftype,
@@ -223,19 +236,6 @@ def grdview(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
-
-    if dpi is not None and surftype != "image":
-        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
-        raise GMTInvalidInput(msg)
-    if nan_transparent and surftype != "image":
-        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
-        raise GMTInvalidInput(msg)
-    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
-        msg = (
-            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
-            "'waterfall_x', or 'waterfall_y'."
-        )
-        raise GMTInvalidInput(msg)
 
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
