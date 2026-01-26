@@ -147,7 +147,7 @@ def grdview(  # noqa: PLR0913
         Specify surface type for the grid. Valid values are:
 
         - ``"mesh"``: mesh plot [Default].
-        - ``"surface``: surface plot.
+        - ``"surface"``: surface plot.
         - ``"surface+mesh"``: surface plot with mesh lines drawn on top of the surface.
         - ``"image"``: image plot.
         - ``"waterfall_x"``/``"waterfall_y"``: waterfall plots (row or column profiles).
