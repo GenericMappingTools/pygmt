@@ -142,7 +142,7 @@ def test_grdview_monochrome(grid):
         "monochrome": True,
     }
     fig = Figure()
-    with fig.subplot(nrows=2, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
+    with fig.subplot(nrows=1, ncols=3, subsize=("5c", "5c"), margins=(0, -0.5)):
         fig.grdview(surftype="surface", cmap="SCM/oleron", **args)
         fig.grdview(surftype="surface+mesh", cmap="SCM/oleron", **args)
         fig.grdview(surftype="mesh", **args)
