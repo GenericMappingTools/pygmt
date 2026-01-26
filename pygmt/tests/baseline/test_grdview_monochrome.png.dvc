@@ -1,5 +1,5 @@
 outs:
-- md5: 14c488c74446843eedf4fa45d60f3be7
-  size: 98087
+- md5: 9fff6fa175e44085570cb61b6bd62f6e
+  size: 104557
   hash: md5
   path: test_grdview_monochrome.png
