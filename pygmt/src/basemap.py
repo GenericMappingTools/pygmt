@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params.box import Box
+from pygmt.params import Box
 
 
 @fmt_docstring
@@ -23,7 +23,7 @@ def basemap(  # noqa: PLR0913
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
-    box: Box | str | bool = False,
+    box: str | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
