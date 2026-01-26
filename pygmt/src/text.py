@@ -9,7 +9,12 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTRequiredParameterError,
+    GMTTypeError,
+)
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -192,7 +197,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         + (x is not None or y is not None)
     ) != 1:
         msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTInvalidInput(msg)
+        raise GMTConflictParameterError(
+            "'textfiles', 'x'/'y'/'text', or 'position'/'text'", context=msg
+        )
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
@@ -200,7 +207,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     if position is not None:
         if text is None:
             msg = "'text' can't be None when 'position' is given."
-            raise GMTInvalidInput(msg)
+            raise GMTRequiredParameterError("text", context=msg)
         if is_nonstr_iter(text):
             raise GMTTypeError(
                 type(text),
@@ -209,10 +216,10 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     if textfiles is not None and text is not None:
         msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTInvalidInput(msg)
+        raise GMTConflictParameterError("'text' and 'textfiles'", context=msg)
     if kind == "empty" and text is None:
         msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("text", context=msg)
 
     # Arguments that can accept arrays.
     array_args = [

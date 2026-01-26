@@ -7,7 +7,7 @@ from collections import UserDict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -390,7 +390,7 @@ class AliasSystem(UserDict):
                     f"Short-form parameter {short_param!r} conflicts with long-form "
                     f"parameters and is not recommended. {_msg_long}"
                 )
-                raise GMTInvalidInput(msg)
+                raise GMTConflictParameterError(short_param, context=msg)
 
             # Long-form parameters are not specified.
             msg = (

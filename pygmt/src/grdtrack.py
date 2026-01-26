@@ -11,7 +11,11 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTRequiredParameterError,
+)
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -300,15 +304,15 @@ def grdtrack(
     """
     if points is not None and kwargs.get("E") is not None:
         msg = "Can't set both 'points' and 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTConflictParameterError("'points' and 'profile'", context=msg)
 
     if points is None and kwargs.get("E") is None:
         msg = "Must give 'points' or set 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("'points' or 'profile'", context=msg)
 
     if hasattr(points, "columns") and newcolname is None:
         msg = "Please pass in a str to 'newcolname'."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("newcolname", context=msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

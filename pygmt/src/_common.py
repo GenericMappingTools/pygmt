@@ -7,7 +7,11 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTValueError,
+)
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -369,7 +373,7 @@ def _parse_position(
                         "and conflicts with parameters "
                         f"{', '.join(repr(c) for c in kwdict)}."
                     )
-                    raise GMTInvalidInput(msg)
+                    raise GMTConflictParameterError("'position' and other parameters", context=msg)
             else:
                 # No conflicting parameters to check, indicating it's a new function.
                 # The string must be an anchor code.

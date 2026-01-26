@@ -12,7 +12,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -554,7 +554,9 @@ def use_alias(**aliases):
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
-                    raise GMTInvalidInput(msg)
+                    raise GMTConflictParameterError(
+                        f"{short_param}, {long_alias}", context=msg
+                    )
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -822,7 +824,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             if oldname in kwargs:
                 if newname in kwargs:
                     msg = f"Can't provide both '{newname}' and '{oldname}'."
-                    raise GMTInvalidInput(msg)
+                    raise GMTConflictParameterError(
+                        f"{newname}, {oldname}", context=msg
+                    )
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."

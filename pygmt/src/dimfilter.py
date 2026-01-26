@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["dimfilter"]
@@ -147,7 +147,9 @@ def dimfilter(
             "At least one of the following parameters must be specified: "
             "distance, filters, or sectors."
         )
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError(
+            "'distance', 'filters', or 'sectors'", context=msg
+        )
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

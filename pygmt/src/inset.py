@@ -9,7 +9,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -139,8 +139,7 @@ def inset(
         and width is None
         and (projection is None or region is None)
     ):
-        msg = "Parameter 'width' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("width", context="Parameter must be specified.")
 
     aliasdict = AliasSystem(
         D=[

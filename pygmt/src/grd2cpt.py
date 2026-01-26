@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2cpt"]
@@ -200,7 +200,7 @@ def grd2cpt(
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         msg = "Set only 'categorical' or 'cyclic' to True, not both."
-        raise GMTInvalidInput(msg)
+        raise GMTConflictParameterError("'categorical' and 'cyclic'", context=msg)
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

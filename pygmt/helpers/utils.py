@@ -19,7 +19,12 @@ import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTRequiredParameterError,
+    GMTValueError,
+)
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -121,40 +126,33 @@ def _validate_data_input(  # noqa: PLR0912
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required:  # data is not optional
-                msg = "No input data provided."
-                raise GMTInvalidInput(msg)
+                raise GMTRequiredParameterError("data", context="No input data provided.")
         elif x is None or y is None:  # either x or y is None
-            msg = "Must provide both x and y."
-            raise GMTInvalidInput(msg)
+            raise GMTRequiredParameterError("x and y", context="Must provide both x and y.")
         if required_z and z is None:  # both x and y are not None, now check z
-            msg = "Must provide x, y, and z."
-            raise GMTInvalidInput(msg)
+            raise GMTRequiredParameterError("z", context="Must provide x, y, and z.")
     else:  # data is not None
         if x is not None or y is not None or z is not None:
-            msg = "Too much data. Use either data or x/y/z."
-            raise GMTInvalidInput(msg)
+            raise GMTConflictParameterError("'data' and 'x/y/z'", context="Use either data or x/y/z.")
         # check if data has the required z column
         if required_z:
-            msg = "data must provide x, y, and z columns."
             if kind == "matrix" and data.shape[1] < 3:
-                raise GMTInvalidInput(msg)
+                raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
             if kind == "vectors":
                 if hasattr(data, "shape") and (
                     (len(data.shape) == 1 and data.shape[0] < 3)
                     or (len(data.shape) > 1 and data.shape[1] < 3)
                 ):  # np.ndarray or pd.DataFrame
-                    raise GMTInvalidInput(msg)
+                    raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
                 if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                    raise GMTInvalidInput(msg)
+                    raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
         if kind == "vectors" and isinstance(data, dict):
             # Iterator over the up-to-3 first elements.
             arrays = list(islice(data.values(), 3))
             if len(arrays) < 2 or any(v is None for v in arrays[:2]):  # Check x/y
-                msg = "Must provide x and y."
-                raise GMTInvalidInput(msg)
+                raise GMTRequiredParameterError("x and y", context="Must provide x and y.")
             if required_z and (len(arrays) < 3 or arrays[2] is None):  # Check z
-                msg = "Must provide x, y, and z."
-                raise GMTInvalidInput(msg)
+                raise GMTRequiredParameterError("z", context="Must provide x, y, and z.")
 
 
 def _is_printable_ascii(argstr: str) -> bool:

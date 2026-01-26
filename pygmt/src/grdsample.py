@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -102,7 +102,7 @@ def grdsample(
     # Enforce mutual exclusivity between -T (toggle) and -r (registration)
     if kwargs.get("T", toggle) and kwargs.get("r", registration):
         msg = "Parameters 'toggle' and 'registration' cannot be used together."
-        raise GMTInvalidInput(msg)
+        raise GMTConflictParameterError("'toggle' and 'registration'", context=msg)
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

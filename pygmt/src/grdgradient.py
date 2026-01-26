@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdgradient"]
@@ -166,7 +166,7 @@ def grdgradient(
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
         msg = "Must specify normalize if tiles is specified."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("normalize", context=msg)
     if (
         kwargs.get("A", azimuth) is None
         and kwargs.get("D") is None
@@ -176,7 +176,9 @@ def grdgradient(
             "At least one of the following parameters must be specified: "
             "azimuth, direction, or radiance."
         )
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError(
+            "'azimuth', 'direction', or 'radiance'", context=msg
+        )
 
     aliasdict = AliasSystem(
         A=Alias(azimuth, name="azimuth", sep="/", size=2),

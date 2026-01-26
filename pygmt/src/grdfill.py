@@ -10,7 +10,11 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTRequiredParameterError,
+)
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfill"]
@@ -54,14 +58,15 @@ def _validate_params(
         ]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
-        msg = f"Parameters {_fill_params}/'inquire' are mutually exclusive."
-        raise GMTInvalidInput(msg)
-    if n_given == 0:  # No parameters are given.
-        msg = (
-            f"Need to specify parameter {_fill_params} for filling holes or "
-            "'inquire' for inquiring the bounds of each hole."
+        raise GMTConflictParameterError(
+            f"{_fill_params}/'inquire'",
+            context="Parameters are mutually exclusive.",
         )
-        raise GMTInvalidInput(msg)
+    if n_given == 0:  # No parameters are given.
+        raise GMTRequiredParameterError(
+            f"{_fill_params} or 'inquire'",
+            context=f"Need to specify parameter {_fill_params} for filling holes or 'inquire' for inquiring the bounds of each hole.",
+        )
 
 
 @fmt_docstring

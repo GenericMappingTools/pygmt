@@ -8,7 +8,11 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import (
+    GMTConflictParameterError,
+    GMTInvalidInput,
+    GMTTypeError,
+)
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -273,7 +277,7 @@ def plot(  # noqa: PLR0912, PLR0913
     else:
         if any(v is not None for v in (x, y)):
             msg = "Too much data. Use either data or x/y/z."
-            raise GMTInvalidInput(msg)
+            raise GMTConflictParameterError("'data' and 'x/y'", context=msg)
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),

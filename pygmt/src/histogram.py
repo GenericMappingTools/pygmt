@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -164,7 +164,7 @@ def histogram(  # noqa: PLR0913
 
     if bar_offset is not None and bar_width is None:
         msg = "Setting 'bar_offset' requires setting 'bar_width'."
-        raise GMTInvalidInput(msg)
+        raise GMTRequiredParameterError("bar_width", context=msg)
 
     aliasdict = AliasSystem(
         E=[
