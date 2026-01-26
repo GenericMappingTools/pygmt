@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(F="box", Tm="compass", f="coltypes")
+@use_alias(F="box", f="coltypes")
 def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
@@ -20,6 +20,7 @@ def basemap(  # noqa: PLR0913
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     map_scale: str | None = None,
+    compass: str | None = None,
     rose: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -43,6 +44,7 @@ def basemap(  # noqa: PLR0913
 
     - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
     - :meth:``pygmt.Figure.directional_rose`: Add a directional rose on the plot.
+    - :meth:`pygmt.Figure.magnetic_rose`: Add a magnetic rose on the plot.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
@@ -76,6 +78,15 @@ def basemap(  # noqa: PLR0913
             which provides a more comprehensive and flexible API for adding scale bars
             to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
             option of the ``basemap`` module for backward compatibility.
+    compass
+        Draw a map magnetic rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.magnetic_rose`
+            instead, which provides a more comprehensive and flexible API for adding
+            magnetic roses to plots. This parameter still accepts raw GMT CLI strings
+            for the ``-Tm`` option of the ``basemap`` module for backward compatibility.
     rose
         Draw a map directional rose on the map.
 
@@ -103,9 +114,6 @@ def basemap(  # noqa: PLR0913
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
         shading [Default is ``"gray50"``].
-    compass : str
-        Draw a map magnetic rose on the map at the location defined by the
-        reference and anchor points.
     $verbose
     $panel
     $coltypes
@@ -119,6 +127,7 @@ def basemap(  # noqa: PLR0913
         JZ=Alias(zsize, name="zsize"),
         L=Alias(map_scale, name="map_scale"),  # Deprecated.
         Td=Alias(rose, name="rose"),  # Deprecated.
+        Tm=Alias(compass, name="compass"),  # Deprecated.
     ).add_common(
         B=frame,
         J=projection,
