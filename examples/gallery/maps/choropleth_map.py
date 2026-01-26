@@ -9,7 +9,7 @@ shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use 
 URL pointing to your desired data source. Then, pass the :class:`geopandas.GeoDataFrame`
 as an argument to the ``data`` parameter of :meth:`pygmt.Figure.choropleth`, and style
 the geometry using the ``pen`` parameter. To fill the polygons based on a corresponding
-column you need to specify the colum name to the ``column`` parameter.
+column you need to specify the column name to the ``column`` parameter.
 """
 
 # %%
