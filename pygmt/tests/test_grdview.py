@@ -152,7 +152,7 @@ def test_grdview_monochrome(grid):
 @pytest.mark.mpl_image_compare
 def test_grdview_mesh_pen_and_mesh_fill(grid):
     """
-    Test grdview with mesh_pena and mesh_fill parameters.
+    Test grdview with mesh_pen and mesh_fill parameters.
     """
     args = {
         "grid": grid,
