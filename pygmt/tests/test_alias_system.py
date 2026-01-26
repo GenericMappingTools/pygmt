@@ -4,7 +4,7 @@ Tests for the alias system.
 
 import pytest
 from pygmt.alias import Alias, AliasSystem
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTConflictParameterError
 from pygmt.helpers import build_arg_list
 
 
@@ -77,8 +77,8 @@ def test_alias_system_one_alias_short_form():
 
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
-        GMTInvalidInput,
-        match=r"Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
+        GMTConflictParameterError,
+        match=r"Conflicting parameters: 'J'. Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
     ):
         func(projection="X10c", J="H10c")
 
@@ -95,11 +95,11 @@ def test_alias_system_multiple_aliases_short_form():
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
     # Coexistence of long-form and short-form parameters.
-    msg = rf"Short-form parameter 'U' conflicts with long-form parameters and is not recommended. {_msg_long}"
-    with pytest.raises(GMTInvalidInput, match=msg):
+    msg = rf"Conflicting parameters: 'U'. Short-form parameter 'U' conflicts with long-form parameters and is not recommended. {_msg_long}"
+    with pytest.raises(GMTConflictParameterError, match=msg):
         func(label="abcd", U="efg")
 
-    with pytest.raises(GMTInvalidInput, match=msg):
+    with pytest.raises(GMTConflictParameterError, match=msg):
         func(text="efg", U="efg")
 
 
