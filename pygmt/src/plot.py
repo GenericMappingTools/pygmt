@@ -10,7 +10,6 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTTypeError,
 )
 from pygmt.helpers import (
@@ -276,8 +275,8 @@ def plot(  # noqa: PLR0912, PLR0913
             data["symbol"] = symbol
     else:
         if any(v is not None for v in (x, y)):
-            msg = "Too much data. Use either data or x/y/z."
-            raise GMTConflictParameterError("'data' and 'x/y'", context=msg)
+            msg = "Conflicting parameters: 'data' and 'x/y'. Too much data. Use either data or x/y/z."
+            raise GMTConflictParameterError(msg)
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),

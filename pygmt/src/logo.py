@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput
+from pygmt.exceptions import GMTConflictParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
@@ -105,7 +105,8 @@ def logo(  # noqa: PLR0913
 
     # width and height are mutually exclusive.
     if width is not None and height is not None:
-        raise GMTConflictParameterError("'width' and 'height'", context="Cannot specify both.")
+        msg = "Conflicting parameters: 'width' and 'height'. Cannot specify both."
+        raise GMTConflictParameterError(msg)
 
     aliasdict = AliasSystem(
         D=[

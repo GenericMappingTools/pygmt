@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
+from pygmt.exceptions import GMTRequiredParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["grdclip"]
@@ -109,10 +109,11 @@ def grdclip(
     [np.float32(0.0), np.float32(10000.0)]
     """
     if all(v is None for v in (above, below, between, replace)):
-        raise GMTRequiredParameterError(
-            "'above', 'below', 'between', or 'replace'",
-            context="Must specify at least one of these parameters.",
+        msg = (
+            "Missing required parameter: 'above', 'below', 'between', or 'replace'. "
+            "Must specify at least one of these parameters."
         )
+        raise GMTRequiredParameterError(msg)
 
     aliasdict = AliasSystem(
         Sa=Alias(above, name="above", sep="/", size=2),

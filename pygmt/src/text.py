@@ -11,7 +11,6 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
     GMTTypeError,
 )
@@ -196,18 +195,19 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTConflictParameterError(
-            "'textfiles', 'x'/'y'/'text', or 'position'/'text'", context=msg
+        msg = (
+            "Conflicting parameters: 'textfiles', 'x'/'y'/'text', or 'position'/'text'. "
+            "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
         )
+        raise GMTConflictParameterError(msg)
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
     if position is not None:
         if text is None:
-            msg = "'text' can't be None when 'position' is given."
-            raise GMTRequiredParameterError("text", context=msg)
+            msg = "Missing required parameter: 'text'. 'text' can't be None when 'position' is given."
+            raise GMTRequiredParameterError(msg)
         if is_nonstr_iter(text):
             raise GMTTypeError(
                 type(text),
@@ -215,11 +215,11 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
             )
 
     if textfiles is not None and text is not None:
-        msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTConflictParameterError("'text' and 'textfiles'", context=msg)
+        msg = "Conflicting parameters: 'text' and 'textfiles'. 'text' can't be specified when 'textfiles' is given."
+        raise GMTConflictParameterError(msg)
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTRequiredParameterError("text", context=msg)
+        msg = "Missing required parameter: 'text'. Must provide text with x/y pairs."
+        raise GMTRequiredParameterError(msg)
 
     # Arguments that can accept arrays.
     array_args = [

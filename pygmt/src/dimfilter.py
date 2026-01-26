@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
+from pygmt.exceptions import GMTRequiredParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["dimfilter"]
@@ -144,12 +144,11 @@ def dimfilter(
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         msg = (
+            "Missing required parameter: 'distance', 'filters', or 'sectors'. "
             "At least one of the following parameters must be specified: "
             "distance, filters, or sectors."
         )
-        raise GMTRequiredParameterError(
-            "'distance', 'filters', or 'sectors'", context=msg
-        )
+        raise GMTRequiredParameterError(msg)
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

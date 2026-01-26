@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError, GMTTypeError
+from pygmt.exceptions import GMTRequiredParameterError, GMTTypeError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 
@@ -259,8 +259,8 @@ def velo(  # noqa : PLR0913
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
     ):
-        msg = "The parameter 'spec' is required and has to be a string."
-        raise GMTRequiredParameterError("spec", context=msg)
+        msg = "Missing required parameter: 'spec'. The parameter 'spec' is required and has to be a string."
+        raise GMTRequiredParameterError(msg)
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
         raise GMTTypeError(

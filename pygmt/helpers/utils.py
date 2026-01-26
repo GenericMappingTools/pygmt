@@ -126,33 +126,44 @@ def _validate_data_input(  # noqa: PLR0912
     if data is None:  # data is None
         if x is None and y is None:  # both x and y are None
             if required:  # data is not optional
-                raise GMTRequiredParameterError("data", context="No input data provided.")
+                msg = "Missing required parameter: 'data'. No input data provided."
+                raise GMTRequiredParameterError(msg)
         elif x is None or y is None:  # either x or y is None
-            raise GMTRequiredParameterError("x and y", context="Must provide both x and y.")
+            msg = "Missing required parameter: x and y. Must provide both x and y."
+            raise GMTRequiredParameterError(msg)
         if required_z and z is None:  # both x and y are not None, now check z
-            raise GMTRequiredParameterError("z", context="Must provide x, y, and z.")
+            msg = "Missing required parameter: 'z'. Must provide x, y, and z."
+            raise GMTRequiredParameterError(msg)
     else:  # data is not None
         if x is not None or y is not None or z is not None:
-            raise GMTConflictParameterError("'data' and 'x/y/z'", context="Use either data or x/y/z.")
+            msg = (
+                "Conflicting parameters: 'data' and 'x/y/z'. Use either data or x/y/z."
+            )
+            raise GMTConflictParameterError(msg)
         # check if data has the required z column
         if required_z:
             if kind == "matrix" and data.shape[1] < 3:
-                raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
+                msg = "Missing required parameter: 'data'. data must provide x, y, and z columns."
+                raise GMTRequiredParameterError(msg)
             if kind == "vectors":
                 if hasattr(data, "shape") and (
                     (len(data.shape) == 1 and data.shape[0] < 3)
                     or (len(data.shape) > 1 and data.shape[1] < 3)
                 ):  # np.ndarray or pd.DataFrame
-                    raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
+                    msg = "Missing required parameter: 'data'. data must provide x, y, and z columns."
+                    raise GMTRequiredParameterError(msg)
                 if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
-                    raise GMTRequiredParameterError("data", context="data must provide x, y, and z columns.")
+                    msg = "Missing required parameter: 'data'. data must provide x, y, and z columns."
+                    raise GMTRequiredParameterError(msg)
         if kind == "vectors" and isinstance(data, dict):
             # Iterator over the up-to-3 first elements.
             arrays = list(islice(data.values(), 3))
             if len(arrays) < 2 or any(v is None for v in arrays[:2]):  # Check x/y
-                raise GMTRequiredParameterError("x and y", context="Must provide x and y.")
+                msg = "Missing required parameter: x and y. Must provide x and y."
+                raise GMTRequiredParameterError(msg)
             if required_z and (len(arrays) < 3 or arrays[2] is None):  # Check z
-                raise GMTRequiredParameterError("z", context="Must provide x, y, and z.")
+                msg = "Missing required parameter: 'z'. Must provide x, y, and z."
+                raise GMTRequiredParameterError(msg)
 
 
 def _is_printable_ascii(argstr: str) -> bool:

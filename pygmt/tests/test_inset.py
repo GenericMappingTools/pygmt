@@ -6,7 +6,6 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
 )
 from pygmt.params import Box, Position

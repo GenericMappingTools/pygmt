@@ -9,7 +9,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
+from pygmt.exceptions import GMTRequiredParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -112,8 +112,8 @@ def filter1d(
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        msg = "Pass a required argument to 'filter_type'."
-        raise GMTRequiredParameterError("filter_type", context=msg)
+        msg = "Missing required parameter: 'filter_type'. Pass a required argument to 'filter_type'."
+        raise GMTRequiredParameterError(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

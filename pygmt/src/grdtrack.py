@@ -13,7 +13,6 @@ from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
 )
 from pygmt.helpers import (
@@ -303,16 +302,16 @@ def grdtrack(
     ... )
     """
     if points is not None and kwargs.get("E") is not None:
-        msg = "Can't set both 'points' and 'profile'."
-        raise GMTConflictParameterError("'points' and 'profile'", context=msg)
+        msg = "Conflicting parameters: 'points' and 'profile'. Can't set both 'points' and 'profile'."
+        raise GMTConflictParameterError(msg)
 
     if points is None and kwargs.get("E") is None:
-        msg = "Must give 'points' or set 'profile'."
-        raise GMTRequiredParameterError("'points' or 'profile'", context=msg)
+        msg = "Missing required parameter: 'points' or 'profile'. Must give 'points' or set 'profile'."
+        raise GMTRequiredParameterError(msg)
 
     if hasattr(points, "columns") and newcolname is None:
-        msg = "Please pass in a str to 'newcolname'."
-        raise GMTRequiredParameterError("newcolname", context=msg)
+        msg = "Missing required parameter: 'newcolname'. Please pass in a str to 'newcolname'."
+        raise GMTRequiredParameterError(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

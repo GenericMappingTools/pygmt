@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
+from pygmt.exceptions import GMTRequiredParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
@@ -111,10 +111,11 @@ def magnetic_rose(  # noqa: PLR0913
     position = _parse_position(position, default=Position("BL", cstype="inside"))
 
     if declination_label is not None and declination is None:
-        raise GMTRequiredParameterError(
-            "declination",
-            context="Must be set when 'declination_label' is set.",
+        msg = (
+            "Missing required parameter: 'declination'. "
+            "Must be set when 'declination_label' is set."
         )
+        raise GMTRequiredParameterError(msg)
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),

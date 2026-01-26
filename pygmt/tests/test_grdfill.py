@@ -12,7 +12,6 @@ from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
 )
 from pygmt.helpers import GMTTempFile

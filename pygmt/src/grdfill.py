@@ -12,7 +12,6 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
 )
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
@@ -58,15 +57,18 @@ def _validate_params(
         ]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
-        raise GMTConflictParameterError(
-            f"{_fill_params}/'inquire'",
-            context="Parameters are mutually exclusive.",
+        msg = (
+            f"Conflicting parameters: {_fill_params}/'inquire'. "
+            f"Parameters are mutually exclusive."
         )
+        raise GMTConflictParameterError(msg)
     if n_given == 0:  # No parameters are given.
-        raise GMTRequiredParameterError(
-            f"{_fill_params} or 'inquire'",
-            context=f"Need to specify parameter {_fill_params} for filling holes or 'inquire' for inquiring the bounds of each hole.",
+        msg = (
+            f"Missing required parameter: {_fill_params} or 'inquire'. "
+            f"Need to specify parameter {_fill_params} for filling holes or "
+            f"'inquire' for inquiring the bounds of each hole."
         )
+        raise GMTRequiredParameterError(msg)
 
 
 @fmt_docstring

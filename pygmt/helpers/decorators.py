@@ -551,12 +551,11 @@ def use_alias(**aliases):
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
                     msg = (
-                        f"Parameters in short-form ({short_param}) and "
-                        f"long-form ({long_alias}) can't coexist."
+                        f"Conflicting parameters: {short_param}, {long_alias}. "
+                        f"Parameters in short-form ({short_param}) and long-form "
+                        f"({long_alias}) can't coexist."
                     )
-                    raise GMTConflictParameterError(
-                        f"{short_param}, {long_alias}", context=msg
-                    )
+                    raise GMTConflictParameterError(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -823,10 +822,11 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    msg = f"Can't provide both '{newname}' and '{oldname}'."
-                    raise GMTConflictParameterError(
-                        f"{newname}, {oldname}", context=msg
+                    msg = (
+                        f"Conflicting parameters: {newname}, {oldname}. "
+                        f"Can't provide both '{newname}' and '{oldname}'."
                     )
+                    raise GMTConflictParameterError(msg)
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."

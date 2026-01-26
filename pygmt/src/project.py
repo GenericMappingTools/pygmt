@@ -12,7 +12,6 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTConflictParameterError,
-    GMTInvalidInput,
     GMTRequiredParameterError,
 )
 from pygmt.helpers import (
@@ -225,14 +224,14 @@ def project(  # noqa: PLR0913
           (depends on ``output_type``)
     """
     if kwargs.get("C", center) is None:
-        msg = "Parameter 'center' must be specified."
-        raise GMTRequiredParameterError("center", context=msg)
+        msg = "Missing required parameter: 'center'. Parameter 'center' must be specified."
+        raise GMTRequiredParameterError(msg)
     if kwargs.get("G") is None and data is None:
-        msg = "The 'data' parameter must be specified unless 'generate' is used."
-        raise GMTRequiredParameterError("data", context=msg)
+        msg = "Missing required parameter: 'data'. The 'data' parameter must be specified unless 'generate' is used."
+        raise GMTRequiredParameterError(msg)
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        msg = "The 'convention' parameter is not allowed with 'generate'."
-        raise GMTConflictParameterError("'convention' and 'generate'", context=msg)
+        msg = "Conflicting parameters: 'convention' and 'generate'. The 'convention' parameter is not allowed with 'generate'."
+        raise GMTConflictParameterError(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

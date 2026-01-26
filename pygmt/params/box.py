@@ -6,7 +6,7 @@ import dataclasses
 from collections.abc import Sequence
 
 from pygmt.alias import Alias
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError, GMTValueError
+from pygmt.exceptions import GMTRequiredParameterError, GMTValueError
 from pygmt.helpers import is_nonstr_iter
 from pygmt.params.base import BaseParam
 
@@ -65,8 +65,8 @@ class Box(BaseParam):
         """
         # inner_pen is required when inner_gap is set.
         if self.inner_gap is not None and self.inner_pen is None:
-            msg = "Parameter 'inner_pen' is required when 'inner_gap' is set."
-            raise GMTRequiredParameterError("inner_pen", context=msg)
+            msg = "Missing required parameter: 'inner_pen'. Parameter 'inner_pen' is required when 'inner_gap' is set."
+            raise GMTRequiredParameterError(msg)
 
         # shade_offset must be a sequence of two values or None.
         if self.shade_offset and not (

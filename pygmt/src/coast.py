@@ -7,7 +7,7 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTRequiredParameterError
+from pygmt.exceptions import GMTRequiredParameterError
 from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Box
 
@@ -242,10 +242,12 @@ def coast(  # noqa: PLR0913
         and kwargs.get("W", shorelines) is False
         and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
     ):
-        raise GMTRequiredParameterError(
-            "'land', 'water', 'rivers', 'borders', 'shorelines', 'lakes', 'dcw', or 'Q'",
-            context="At least one of these parameters must be specified.",
+        msg = (
+            "Missing required parameter: 'land', 'water', 'rivers', 'borders', "
+            "'shorelines', 'lakes', 'dcw', or 'Q'. "
+            "At least one of these parameters must be specified."
         )
+        raise GMTRequiredParameterError(msg)
 
     aliasdict = AliasSystem(
         D=Alias(

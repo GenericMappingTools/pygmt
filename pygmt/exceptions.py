@@ -147,28 +147,26 @@ class GMTRequiredParameterError(GMTParameterError):
 
     Parameters
     ----------
-    parameter
-        The name of the required parameter that is missing.
     context
-        Additional context about why the parameter is required.
+        The error message describing the missing parameter and why it's required.
 
     Examples
     --------
-    >>> raise GMTRequiredParameterError("width")
+    >>> raise GMTRequiredParameterError("Missing required parameter: 'width'.")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTRequiredParameterError: Missing required parameter: 'width'.
-    >>> raise GMTRequiredParameterError("data", context="No input data provided.")
+    >>> raise GMTRequiredParameterError(
+    ...     "Missing required parameter: 'data'. No input data provided."
+    ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTRequiredParameterError: Missing required parameter: 'data'. No input data provided.
+    pygmt.exceptions.GMTRequiredParameterError: Missing required parameter:
+    ... 'data'. No input data provided.
     """
 
-    def __init__(self, parameter: str, /, context: str | None = None):
-        msg = f"Missing required parameter: {parameter!r}."
-        if context:
-            msg += f" {context}"
-        super().__init__(msg)
+    def __init__(self, context: str):
+        super().__init__(context)
 
 
 class GMTConflictParameterError(GMTParameterError):
@@ -177,25 +175,24 @@ class GMTConflictParameterError(GMTParameterError):
 
     Parameters
     ----------
-    parameters
-        The conflicting parameters.
     context
-        Additional context about why the parameters conflict.
+        The error message describing the conflicting parameters and why they conflict.
 
     Examples
     --------
-    >>> raise GMTConflictParameterError("'width' and 'height'")
+    >>> raise GMTConflictParameterError("Conflicting parameters: 'width' and 'height'.")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTConflictParameterError: Conflicting parameters: 'width' and 'height'.
-    >>> raise GMTConflictParameterError("'data' and 'x/y'", context="Use either data or x/y/z.")
+    pygmt.exceptions.GMTConflictParameterError: Conflicting parameters:
+    ... 'width' and 'height'.
+    >>> raise GMTConflictParameterError(
+    ...     "Conflicting parameters: 'data' and 'x/y'. Use either data or x/y/z."
+    ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTConflictParameterError: Conflicting parameters: 'data' and 'x/y'. Use either data or x/y/z.
+    pygmt.exceptions.GMTConflictParameterError: Conflicting parameters:
+    ... 'data' and 'x/y'. Use either data or x/y/z.
     """
 
-    def __init__(self, parameters: str, /, context: str | None = None):
-        msg = f"Conflicting parameters: {parameters}."
-        if context:
-            msg += f" {context}"
-        super().__init__(msg)
+    def __init__(self, context: str):
+        super().__init__(context)

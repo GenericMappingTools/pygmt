@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTConflictParameterError, GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTConflictParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -252,8 +252,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
             data["symbol"] = symbol
     else:
         if any(v is not None for v in (x, y, z)):
-            msg = "Too much data. Use either data or x/y/z."
-            raise GMTConflictParameterError("'data' and 'x/y/z'", context=msg)
+            msg = "Conflicting parameters: 'data' and 'x/y/z'. Too much data. Use either data or x/y/z."
+            raise GMTConflictParameterError(msg)
 
         for name, value in [
             ("direction", direction),
