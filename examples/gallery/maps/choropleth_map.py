@@ -3,7 +3,7 @@ Choropleth map
 ==============
 
 The :meth:`pygmt.Figure.choropleth` method allows us to plot geographical data such as
-polygons which are stored in a :class:`geopandas.GeoDataFrame` object or a OGR_GMT file.
+polygons which are stored in a :class:`geopandas.GeoDataFrame` object or an OGR_GMT file.
 Use :func:`geopandas.read_file` to load data from any supported OGR formats such as a
 shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
 URL pointing to your desired data source. Then, pass the :class:`geopandas.GeoDataFrame`
