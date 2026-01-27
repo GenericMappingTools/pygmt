@@ -120,7 +120,7 @@ def grdproject(  # noqa: PLR0913
         msg = "Parameter 'projection' must be specified."
         raise GMTInvalidInput(msg)
 
-    if kwargs.get("M") and kwargs.get("F"):
+    if kwargs.get("M", unit) is not None and kwargs.get("F", scaling) is not False:
         msg = "Cannot use both 'unit' and 'scaling;."
         raise GMTInvalidInput(msg)
 
