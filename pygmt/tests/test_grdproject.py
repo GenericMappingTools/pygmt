@@ -80,18 +80,19 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
+
 def test_grdproject_unit_scaling(grid):
     """
     Test that the validation for passing boht 'unit' and 'scaling' is performed.
     """
     with pytest.raises(GMTInvalidInput):
-        result = grdproject(
-                grid=grid,
-                projection="M10c",
-                spacing=3,
-                unit="i",
-                region=[-53, -51, -20, -17],
-                )
+        grdproject(
+            grid=grid,
+            projection="M10c",
+            spacing=3,
+            unit="i",
+            region=[-53, -51, -20, -17],
+        )
 
 
 def test_grdproject_fails(grid):
