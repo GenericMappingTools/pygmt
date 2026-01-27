@@ -104,7 +104,7 @@ def test_grdview_with_cmap_for_image_plot(xrgrid):
     Run grdview by passing in a grid and setting a colormap for producing an image plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="i")
+    fig.grdview(grid=xrgrid, cmap="SCM/oleron", surftype="i")
     return fig
 
 
@@ -115,7 +115,7 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
     monochrome plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="oleron", surftype="s+m")
+    fig.grdview(grid=xrgrid, cmap="SCM/oleron", surftype="s+m")
     return fig
 
 
@@ -127,7 +127,11 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, cmap="oleron", surftype="s", perspective=[225, 30], zscale=0.005
+        grid=xrgrid,
+        cmap="SCM/oleron",
+        surftype="s",
+        perspective=[225, 30],
+        zscale=0.005,
     )
     return fig
 
@@ -150,7 +154,9 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     is colored gray, while setting a 3-D perspective viewpoint.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, plane="100+ggray", perspective=[225, 30], zscale=0.005)
+    fig.grdview(
+        grid=xrgrid, plane=100, facade_fill="gray", perspective=[225, 30], zscale=0.005
+    )
     return fig
 
 
@@ -179,7 +185,9 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     surface plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="s", contourpen="0.5p,black,dash")
+    fig.grdview(
+        grid=xrgrid, cmap="gmt/relief", surftype="s", contour_pen="0.5p,black,dashed"
+    )
     return fig
 
 
@@ -190,7 +198,9 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     mesh plot.
     """
     fig = Figure()
-    fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", meshpen="0.5p,black,dash")
+    fig.grdview(
+        grid=xrgrid, cmap="gmt/relief", surftype="sm", mesh_pen="0.5p,black,dashed"
+    )
     return fig
 
 
@@ -206,7 +216,20 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
         plane=100,
         perspective=[225, 30],
         zscale=0.005,
-        facadepen="0.5p,blue,dash",
+        facade_pen="0.5p,blue,dashed",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdview_facadepen_default_plane(xrgrid):
+    """
+    Run grdview by passing in a grid and plotting it on the default z-plane with styled
+    lines for the frontal facade.
+    """
+    fig = Figure()
+    fig.grdview(
+        grid=xrgrid, perspective=[225, 30], zscale=0.005, facade_pen="0.5p,blue,dashed"
     )
     return fig
 
@@ -215,27 +238,27 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """
-    Run grdview by passing in both a grid and drapegrid as an xarray.DataArray, setting
+    Run grdview by passing in both a grid and drape_grid as an xarray.DataArray, setting
     a colormap for producing an image plot.
     """
-    drapegrid = 1.1 * xrgrid
+    drape_grid = 1.1 * xrgrid
 
     # accessor information are lost during xarray multiplication
-    drapegrid.gmt.registration = xrgrid.gmt.registration
-    drapegrid.gmt.gtype = xrgrid.gmt.gtype
+    drape_grid.gmt.registration = xrgrid.gmt.registration
+    drape_grid.gmt.gtype = xrgrid.gmt.gtype
 
     fig = Figure()
     fig.grdview(
-        grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", frame=True
+        grid=xrgrid, drape_grid=drape_grid, cmap="SCM/oleron", surftype="c", frame=True
     )
     return fig
 
 
 def test_grdview_wrong_kind_of_drapegrid(xrgrid):
     """
-    Run grdview using drapegrid input that is not an xarray.DataArray or file.
+    Run grdview using drape_grid input that is not an xarray.DataArray or file.
     """
     dataset = xrgrid.to_dataset()  # convert xarray.DataArray to xarray.Dataset
     fig = Figure()
     with pytest.raises(GMTTypeError):
-        fig.grdview(grid=xrgrid, drapegrid=dataset)
+        fig.grdview(grid=xrgrid, drape_grid=dataset)

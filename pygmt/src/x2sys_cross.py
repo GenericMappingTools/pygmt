@@ -16,6 +16,7 @@ from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     unique_name,
     use_alias,
@@ -58,6 +59,8 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'trackvalues' parameter.
+@deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
     C="runtimes",
@@ -67,7 +70,7 @@ def tempfile_from_dftrack(track, suffix):
     T="tag",
     Q="coe",
     W="numpoints",
-    Z="trackvalues",
+    Z="track_values",
 )
 def x2sys_cross(
     tracks=None,
@@ -90,7 +93,7 @@ def x2sys_cross(
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
-    {aliases}
+    $aliases
        - R = region
        - V = verbose
 
@@ -159,7 +162,7 @@ def x2sys_cross(
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {region}
+    $region
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -176,13 +179,13 @@ def x2sys_cross(
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {verbose}
+    $verbose
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
 
-    trackvalues : bool
+    track_values : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
 

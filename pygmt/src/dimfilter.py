@@ -7,20 +7,20 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["dimfilter"]
 
 
 @fmt_docstring
-@use_alias(D="distance", F="filter", I="spacing", N="sectors")
-@kwargs_to_strings(I="sequence")
+@use_alias(D="distance", F="filter", N="sectors")
 def dimfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -47,14 +47,15 @@ def dimfilter(
 
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
-    {aliases}
+    $aliases
+       - I = spacing
        - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
+    $grid
+    $outgrid
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
@@ -102,7 +103,7 @@ def dimfilter(
           If more than one mode is found we return their average
           value. Append **+l** or **+h** to the sectors if you rather want to
           return the smallest or largest of the modal values.
-    spacing : str or list
+    spacing
         *x_inc* [and optionally *y_inc*] is the output increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
         *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
@@ -111,7 +112,7 @@ def dimfilter(
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Define the region of the output points [Default is the same as the input].
-    {verbose}
+    $verbose
 
     Returns
     -------
@@ -144,7 +145,9 @@ def dimfilter(
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         raise GMTParameterError(require_any={"distance", "filter", "sectors"})
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
         R=region,
         V=verbose,
     )

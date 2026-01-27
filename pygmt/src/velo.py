@@ -1,5 +1,5 @@
 """
-velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
+velo - Plot velocity vectors, strain crosses, anisotropy bars, and wedges.
 """
 
 from collections.abc import Sequence
@@ -13,18 +13,22 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
+@deprecate_parameter(
+    "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="vector",
     C="cmap",
     D="rescale",
-    E="uncertaintyfill",
+    E="uncertainty_fill",
     G="fill",
     H="scale",
     I="shading",
@@ -35,10 +39,8 @@ from pygmt.helpers import (
     d="nodata",
     e="find",
     h="header",
-    i="incols",
 )
-@kwargs_to_strings(i="sequence_comma")
-def velo(
+def velo(  # noqa : PLR0913
     self,
     data: PathLike | TableLike | None = None,
     no_clip: bool = False,
@@ -50,10 +52,11 @@ def velo(
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""
-    Plot velocity vectors, crosses, anisotropy bars, and wedges.
+    Plot velocity vectors, strain crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
     :class:`pandas.DataFrame` and plots the selected geodesy symbol on a map.
@@ -66,13 +69,14 @@ def velo(
 
     Full GMT docs at :gmt-docs:`supplements/geodesy/velo.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
@@ -80,7 +84,7 @@ def velo(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Note that text columns are only supported with file or
         :class:`pandas.DataFrame` inputs.
 
@@ -102,7 +106,7 @@ def velo(
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
           ``fill``. The ellipse will be filled with the color or pattern
-          specified by the ``uncertaintyfill`` parameter [Default is
+          specified by the ``uncertainty_fill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -135,7 +139,7 @@ def velo(
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
           ``fill``. The ellipse will be filled with the color or pattern
-          specified by the ``uncertaintyfill`` parameter [Default is
+          specified by the ``uncertainty_fill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -154,7 +158,7 @@ def velo(
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
           rotations of the order of 100 nanoradians/yr. Use ``fill`` to set
-          the fill color or pattern for the wedge, and ``uncertaintyfill`` to
+          the fill color or pattern for the wedge, and ``uncertainty_fill`` to
           set the color or pattern for the uncertainty. Parameters are
           expected to be in the following columns:
 
@@ -175,23 +179,23 @@ def velo(
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {projection}
-    {region}
+    $projection
+    $region
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {frame}
-    {cmap}
+    $frame
+    $cmap
     rescale : str
         Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
-    uncertaintyfill : str
+    uncertainty_fill : str
         Set color or pattern for filling uncertainty wedges (``spec="w"``)
         or velocity error ellipses (``spec="e"`` or ``spec="r"``).
-        If ``uncertaintyfill`` is not specified, the uncertainty regions
+        If ``uncertainty_fill`` is not specified, the uncertainty regions
         will be transparent. **Note**: Using ``cmap`` and ``zvalue="+e"``
         will update the uncertainty fill color based on the selected measure
         in ``zvalue`` [Default is magnitude error]. More details at
@@ -229,7 +233,7 @@ def velo(
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    {verbose}
+    $verbose
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -247,13 +251,13 @@ def velo(
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
@@ -277,6 +281,7 @@ def velo(
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )

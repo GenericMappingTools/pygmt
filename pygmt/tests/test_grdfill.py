@@ -62,7 +62,7 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.
     """
-    result = grdfill(grid=grid, constantfill=20)
+    result = grdfill(grid=grid, constant_fill=20)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype is GridType.GEOGRAPHIC
@@ -77,7 +77,7 @@ def test_grdfill_asymmetric_pad(grid, expected_grid):
 
     Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
-    result = grdfill(grid=grid, constantfill=20, region=[-55, -50, -24, -16])
+    result = grdfill(grid=grid, constant_fill=20, region=[-55, -50, -24, -16])
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype is GridType.GEOGRAPHIC
@@ -93,14 +93,14 @@ def test_grdfill_file_out(grid, expected_grid):
     Test grdfill with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        result = grdfill(grid=grid, constantfill=20, outgrid=tmpfile.name)
+        result = grdfill(grid=grid, constant_fill=20, outgrid=tmpfile.name)
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdfill_gridfill_dataarray(grid):
+def test_grdfill_grid_fill_dataarray(grid):
     """
     Test grdfill with a DataArray input.
     """
@@ -109,7 +109,7 @@ def test_grdfill_gridfill_dataarray(grid):
         dims=grid.dims,
         coords={"lon": grid.lon, "lat": grid.lat},
     )
-    result = grdfill(grid=grid, gridfill=bggrid)
+    result = grdfill(grid=grid, grid_fill=bggrid)
     assert not result.isnull().any()
     npt.assert_array_equal(result[3:6, 3:5], bggrid[3:6, 3:5])
 
@@ -119,23 +119,17 @@ def test_grdfill_hole(grid, expected_grid):
     Test grdfill with a custom value (not NaN) as holes.
     """
     # Prepare for a grid with a node value of -99999 for holes.
-    grid_no_nan = grdfill(grid=grid, constantfill=-99999)
+    grid_no_nan = grdfill(grid=grid, constant_fill=-99999)
     assert not np.isnan(grid_no_nan).any()
     assert -99999 in grid_no_nan
     # Now fill them with a constant value of 20.
-    result = grdfill(grid=grid_no_nan, constantfill=20, hole=-99999)
+    result = grdfill(grid=grid_no_nan, constant_fill=20, hole=-99999)
 
     # Check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype is GridType.GEOGRAPHIC
     assert result.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=result, b=expected_grid)
-
-    # Test the deprecated 'no_data' parameter.
-    # TODO(PyGMT>=0.19.0): Remove the following lines.
-    with pytest.warns(FutureWarning):
-        result2 = grdfill(grid=grid_no_nan, constantfill=20, no_data=-99999)
-    xr.testing.assert_allclose(a=result2, b=expected_grid)
 
 
 def test_grdfill_inquire(grid):
@@ -161,14 +155,4 @@ def test_grdfill_inquire_and_fill(grid):
     Test that grdfill fails if both inquire and fill parameters are given.
     """
     with pytest.raises(GMTParameterError):
-        grdfill(grid=grid, inquire=True, constantfill=20)
-
-
-# TODO(PyGMT>=0.19.0): Remove this test.
-def test_grdfill_deprecated_mode(grid, expected_grid):
-    """
-    Test that grdfill fails with deprecated `mode` argument.
-    """
-    with pytest.warns(FutureWarning):
-        result = grdfill(grid=grid, mode="c20")
-    xr.testing.assert_allclose(a=result, b=expected_grid)
+        grdfill(grid=grid, inquire=True, constant_fill=20)

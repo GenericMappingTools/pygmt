@@ -298,7 +298,7 @@ def test_text_justify_parsed_from_textfile():
     operation.
 
     Loosely based on "All great-circle paths lead to Rome" gallery example at
-    https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
+    https://docs.generic-mapping-tools.org/6.6/gallery/ex23.html
     """
     fig = Figure()
     fig.text(

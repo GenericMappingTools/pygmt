@@ -1,0 +1,5 @@
+outs:
+- md5: e09a7c67f6146530ea594694853b6f98
+  size: 6508
+  hash: md5
+  path: test_scalebar_cartesian.png

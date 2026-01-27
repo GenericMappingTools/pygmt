@@ -26,13 +26,13 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.1
       with:
         path: repository
         persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@v6.0.1
       with:
         ref: gh-pages
         path: documentation
@@ -63,6 +63,7 @@ jobs:
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://test.pypi.org/simple/"
           --exclude "^https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
+          --exclude "^https://naciscdn.org/naturalearth"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html"
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"

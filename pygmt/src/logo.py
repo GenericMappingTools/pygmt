@@ -5,38 +5,51 @@ logo - Plot the GMT logo.
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import build_arg_list, fmt_docstring
+from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-@use_alias(D="position")
-def logo(
+def logo(  # noqa: PLR0913
     self,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    width: float | str | None = None,
+    height: float | str | None = None,
+    box: Box | bool = False,
+    style: Literal["standard", "url", "no_label"] = "standard",
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    style: Literal["standard", "url", "no_label"] = "standard",
-    box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
-    r"""
+    """
     Plot the GMT logo.
 
-    By default, the GMT logo is 2 inches wide and 1 inch high and
-    will be positioned relative to the current plot origin.
-    Use various options to change this and to place a transparent or
-    opaque rectangular map panel behind the GMT logo.
+    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_coverlogo.png
+       :alt: GMT logo
+       :align: center
+       :width: 300px
+
+    By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
+    relative to the current plot origin.
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - D = position, **+w**: width, **+h**: height
        - F = box
        - J = projection
        - R = region
@@ -48,12 +61,22 @@ def logo(
 
     Parameters
     ----------
-    {projection}
-    {region}
-    position : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
-        Set reference point on the map for the image.
+    position
+        Position of the GMT logo on the plot. It can be specified in multiple ways:
+
+        - A :class:`pygmt.params.Position` object to fully control the reference point,
+          anchor point, and offset.
+        - A sequence of two values representing the x- and y- coordinates in plot
+          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+
+        If not specified, defaults to the Bottom Left corner of the plot (position
+        ``(0, 0)`` with anchor ``"BL"``).
+    width
+    height
+        Width or height of the GMT logo. Since the aspect ratio is fixed, only one of
+        the two can be specified. [Default is 2 inches wide and 1 inch high].
     box
         Draw a background box behind the logo. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -65,14 +88,32 @@ def logo(
         - ``"standard"``: The text label "The Generic Mapping Tools".
         - ``"no_label"``: Skip the text label.
         - ``"url"``: The URL to the GMT website.
-    {verbose}
-    {panel}
-    {transparency}
-    {perspective}
+    $projection
+    $region
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
 
+    position = _parse_position(
+        position,
+        default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        kwdict={"width": width, "height": height},
+    )
+
+    # width and height are mutually exclusive.
+    if width is not None and height is not None:
+        msg = "Cannot specify both 'width' and 'height'."
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
+        D=[
+            Alias(position, name="position"),
+            Alias(height, name="height", prefix="+h"),
+            Alias(width, name="width", prefix="+w"),
+        ],
         F=Alias(box, name="box"),
         S=Alias(
             style, name="style", mapping={"standard": "l", "url": "u", "no_label": "n"}

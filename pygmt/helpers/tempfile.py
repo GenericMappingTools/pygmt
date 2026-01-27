@@ -135,7 +135,12 @@ def tempfile_from_geojson(geojson):
         import geopandas as gpd  # noqa: PLC0415
 
         Path(tmpfile.name).unlink()  # Ensure file is deleted first
-        ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
+        ogrgmt_kwargs = {
+            "filename": tmpfile.name,
+            "driver": "OGR_GMT",
+            "mode": "w",
+            "encoding": "UTF-8",  # Necessary for non-ASCII support on Windows.
+        }
         try:
             # OGR_GMT only supports 32-bit integers. We need to map int/int64
             # types to int32/float types depending on if the column has an

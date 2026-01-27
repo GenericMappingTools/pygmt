@@ -9,12 +9,12 @@ import platform
 import shutil
 import subprocess
 import sys
-from importlib.metadata import PackageNotFoundError, requires, version
+from importlib.metadata import PackageNotFoundError, metadata, requires, version
 from typing import TextIO
 
 from packaging.requirements import Requirement
 from packaging.version import Version
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
 # Get semantic version through setuptools-scm
 __version__ = f"v{version('pygmt')}"  # e.g. v0.1.2.dev3+g0ab3cd78
@@ -108,6 +108,33 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     return None
 
 
+def _get_dep() -> list[Requirement]:
+    """
+    Get requirements of the PyGMT package.
+    """
+    return [Requirement(v) for v in requires("pygmt")]  # type: ignore[union-attr]
+
+
+def _get_dep_version() -> dict[str, str | None]:
+    """
+    Get version information of PyGMT's dependencies.
+    """
+    return {req.name: _get_module_version(req.name) for req in _get_dep()} | {
+        "gdal": _get_gdal_version(),
+        "ghostscript": _get_ghostscript_version(),
+    }
+
+
+def _get_dep_specifier() -> dict[str, str]:
+    """
+    Get version specifiers of PyGMT's dependencies.
+    """
+    return {req.name: str(req.specifier) for req in _get_dep()} | {
+        "python": metadata("pygmt")["Requires-Python"],
+        "gmt": f">={required_gmt_version}",
+    }
+
+
 def show_versions(file: TextIO | None = sys.stdout) -> None:
     """
     Print various dependency versions which are useful when submitting bug reports.
@@ -128,11 +155,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
         "executable": sys.executable,
         "machine": platform.platform(),
     }
-    requirements = [Requirement(v).name for v in requires("pygmt")]  # type: ignore[union-attr]
-    dep_info = {name: _get_module_version(name) for name in requirements}
-    dep_info.update(
-        {"gdal": _get_gdal_version(), "ghostscript": _get_ghostscript_version()}
-    )
+    dep_version = _get_dep_version()
 
     lines = []
     lines.append("PyGMT information:")
@@ -140,11 +163,11 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
     lines.append("System information:")
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
-    lines.extend([f"  {key}: {val}" for key, val in dep_info.items()])
+    lines.extend([f"  {key}: {val}" for key, val in dep_version.items()])
     lines.append("GMT library information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
-    if warnmsg := _check_ghostscript_version(dep_info["ghostscript"]):
+    if warnmsg := _check_ghostscript_version(dep_version["ghostscript"]):
         lines.append("WARNING:")
         lines.append(f"  {warnmsg}")
 

@@ -144,7 +144,7 @@ def _to_string(
             if value not in mapping and value not in mapping.values():
                 raise GMTValueError(
                     value,
-                    description="value for parameter {name!r}" if name else "value",
+                    description=f"value for parameter {name!r}" if name else "value",
                     choices=mapping.keys(),
                 )
             value = mapping.get(value, value)
@@ -301,7 +301,7 @@ class AliasSystem(UserDict):
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
 
-    def add_common(self, **kwargs):
+    def add_common(self, **kwargs):  # noqa: PLR0912
         """
         Add common parameters to the alias dictionary.
         """
@@ -329,12 +329,16 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "i":
+                    alias = Alias(value, name="incols", sep=",")
                 case "r":
                     alias = Alias(
                         value,
                         name="registration",
                         mapping={"gridline": "g", "pixel": "p"},
                     )
+                case "o":
+                    alias = Alias(value, name="outcols", sep=",")
                 case "p":
                     alias = Alias(value, name="perspective", sep="/", size={2, 3})
                 case "t":

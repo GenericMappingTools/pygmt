@@ -1,0 +1,5 @@
+outs:
+- md5: 88cdea7af99c1edd19ade5b4c9b6c09e
+  size: 115141
+  hash: md5
+  path: test_legend_width_height.png
