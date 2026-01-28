@@ -83,7 +83,8 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
 
 def test_grdproject_unit_scaling(grid):
     """
-    Test that the validation for passing boht 'unit' and 'scaling' is performed.
+    Test that the input validation to prevent passing both 'unit' and
+    'scaling' is performed.
     """
     with pytest.raises(GMTInvalidInput):
         grdproject(
