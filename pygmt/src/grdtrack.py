@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -307,8 +307,9 @@ def grdtrack(
         raise GMTInvalidInput(msg)
 
     if hasattr(points, "columns") and newcolname is None:
-        msg = "Please pass in a str to 'newcolname'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="newcolname", reason="Please pass in a str to 'newcolname'."
+        )
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

@@ -44,35 +44,6 @@ class GMTInvalidInput(GMTError):  # noqa: N818
     """
 
 
-class GMTParameterError(GMTError):
-    """
-    Raised when parameters are missing or invalid.
-
-    Parameters
-    ----------
-    required
-        Names of required parameters.
-    reason
-        Detailed reason why the parameters are invalid.
-    """
-
-    def __init__(
-        self,
-        *,
-        required: set[str] | None = None,
-        reason: str | None = None,
-    ):
-        msg = []
-        if required:
-            msg.append(
-                "Required parameter(s) are missing: "
-                f"{', '.join(repr(par) for par in required)}."
-            )
-        if reason:
-            msg.append(reason)
-        super().__init__(" ".join(msg))
-
-
 class GMTVersionError(GMTError):
     """
     Raised when an incompatible version of GMT is being used.
@@ -159,3 +130,34 @@ class GMTTypeError(GMTError, TypeError):
         if reason:
             msg += f" {reason}"
         super().__init__(msg)
+
+
+class GMTParameterError(GMTError):
+    """
+    Raised when parameters are missing or invalid.
+
+    Parameters
+    ----------
+    required
+       Names of required parameters.
+    reason
+        Detailed reason why the parameters are invalid.
+    """
+
+    def __init__(
+        self,
+        *,
+        required: str | set[str] | None = None,
+        reason: str | None = None,
+    ):
+        msg = []
+        if required:
+            if isinstance(required, str):
+                required = {required}
+            msg.append(
+                "Required parameter(s) are missing: "
+                f"{', '.join(repr(par) for par in required)}."
+            )
+        if reason:
+            msg.append(reason)
+        super().__init__(" ".join(msg))
