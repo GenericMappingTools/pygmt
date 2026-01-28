@@ -96,7 +96,7 @@ with pygmt.config(MAP_DEFAULT_PEN="default,lightorange",
 # South directions. Colors of the rose and labels are defined via
 # MAP_DEFAULT_PEN, MAP_TICK_PEN_PRIMARY and FONT_TITLE, respectively
 with pygmt.config(MAP_DEFAULT_PEN="default,Dodgerblue4",
-                          MAP_TICK_PEN_PRIMARY="Dodgerblue",   
+                          MAP_TICK_PEN_PRIMARY="Dodgerblue",
                           FONT_TITLE="8p,AvantGarde-Demi,Dodgerblue4"):
     fig.directional_rose(width=width,
                          labels = ["", "", "South", "North"],
