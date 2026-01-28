@@ -12,6 +12,7 @@ and :gmt-term:`MAP_TICK_PEN_PRIMARY` via :func:`pygmt.config`. Customizing
 label font and color can be done via :gmt-term:`FONT_TITLE`.
 """
 
+# %%
 import pygmt
 from pygmt.params import Position
 
