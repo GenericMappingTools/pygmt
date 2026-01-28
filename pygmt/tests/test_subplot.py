@@ -125,3 +125,26 @@ def test_subplot_outside_plotting_positioning():
         frame=True,
     )
     return fig
+
+
+def test_deprecated_autolabel():
+    """
+    Test that using the deprecated autolabel parameter raises a warning when conflicted
+    with tag parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, autotag="a)"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_orientation="vertical"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_number_style="roman"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
