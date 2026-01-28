@@ -5,6 +5,7 @@ Test Figure.subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.params import Position
 
 
 @pytest.mark.benchmark
@@ -104,9 +105,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
             pass
 
 
-# Increase tolerance for compatibility with GMT 6.4, see
-# https://github.com/GenericMappingTools/pygmt/pull/2454
-@pytest.mark.mpl_image_compare(tolerance=4.0)
+@pytest.mark.mpl_image_compare()
 def test_subplot_outside_plotting_positioning():
     """
     Plotting calls are correctly positioned after exiting subplot.
@@ -118,5 +117,11 @@ def test_subplot_outside_plotting_positioning():
     with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
-    fig.colorbar(position="JBC+w5c+h", cmap="turbo", frame=True)
+    fig.colorbar(
+        position=Position("BC", cstype="outside"),
+        length=5,
+        orientation="horizontal",
+        cmap="google/turbo",
+        frame=True,
+    )
     return fig

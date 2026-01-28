@@ -136,10 +136,10 @@ def test_config_map_grid_cross_size():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
     return fig
 
 
@@ -155,10 +155,10 @@ def test_config_map_grid_pen():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
     return fig
 
 
@@ -174,10 +174,10 @@ def test_config_map_tick_length():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
     return fig
 
 
@@ -193,8 +193,25 @@ def test_config_map_tick_pen():
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
             frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
     return fig
+
+
+def test_config_ps_convert():
+    """
+    Test that Parameter 'PS_CONVERT' is not supported.
+    """
+    # Check that PS_CONVERT is removed from the autocomplete list
+    assert "PS_CONVERT" not in config._keywords
+
+    # Check that a warning is raised when PS_CONVERT is used in config
+    msg = (
+        "Parameter 'PS_CONVERT' is not supported. "
+        "To configure conversion options, please pass parameters to "
+        "pygmt.Figure.savefig or pygmt.Figure.show instead."
+    )
+    with pytest.warns(SyntaxWarning, match=msg):
+        config(PS_CONVERT="C")

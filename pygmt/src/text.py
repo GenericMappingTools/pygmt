@@ -3,9 +3,11 @@ text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
+from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTTypeError
 from pygmt.helpers import (
@@ -14,7 +16,6 @@ from pygmt.helpers import (
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     non_ascii_to_octal,
     use_alias,
 )
@@ -22,28 +23,18 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
-    B="frame",
     C="clearance",
     D="offset",
-    F="position/angle/font/justify-",
     G="fill",
-    N="no_clip",
-    V="verbose",
     W="pen",
     a="aspatial",
-    c="panel",
     e="find",
     f="coltypes",
     h="header",
     it="use_word",
-    p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def text_(  # noqa: PLR0912
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -53,6 +44,15 @@ def text_(  # noqa: PLR0912
     angle=None,
     font=None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -71,7 +71,16 @@ def text_(  # noqa: PLR0912
 
     Full GMT docs at :gmt-docs:`text.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
+       - J = projection
+       - N = no_clip
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -83,7 +92,8 @@ def text_(  # noqa: PLR0912
         * *y*: Y coordinate or latitude
         * *angle*: Angle in degrees counter-clockwise from horizontal
         * *font*: Text size, font, and color
-        * *justify*: Two-character justification code
+        * *justify*:
+          :doc:`2-character justification code </techref/justification_codes>`
         * *text*: The text string to typeset
 
         The *angle*, *font*, and *justify* columns are optional and can be set
@@ -97,12 +107,8 @@ def text_(  # noqa: PLR0912
     position
         Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
-        through ``x``/``y``. Specify with a two-letter (order independent)
-        code, chosen from:
-
-        * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
-        * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
-
+        through ``x``/``y``. Specify with a
+        :doc:`2-character justification code </techref/justification_codes>`.
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
     text
@@ -122,14 +128,13 @@ def text_(  # noqa: PLR0912
         columns.
     justify
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x, y) point. Choose a two-letter
-        combination of **L**, **C**, **R** (for left, center, or right) and
-        **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
-        bottom left. If no justification is explicitly given
+        will be mapped onto the (x, y) point. Choose a
+        :doc:`2-character justification code </techref/justification_codes>`,
+        e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
@@ -160,25 +165,23 @@ def text_(  # noqa: PLR0912
     pen : str
         Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
-    no_clip : bool
-        Do **not** clip text at the frame boundaries [Default is
-        ``False``].
-    {verbose}
-    {aspatial}
-    {panel}
-    {find}
-    {coltypes}
-    {header}
+    no_clip
+        Do **not** clip text at the frame boundaries [Default is ``False``].
+    $verbose
+    $aspatial
+    $panel
+    $find
+    $coltypes
+    $header
     use_word : int
         Select a specific word from the trailing text, with the first
         word being 0 [Default is the entire trailing text]. No numerical
         columns can be specified.
-    {perspective}
-    {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for texts, but this option is only valid if using
-        ``x``/``y`` and ``text``.
-    {wrap}
+    $perspective
+    $transparency
+        ``transparency`` can also be a 1-D array to set varying transparency for texts,
+        but this option is only valid if using ``x``/``y`` and ``text``.
+    $wrap
     """
     self._activate_figure()
 
@@ -194,9 +197,16 @@ def text_(  # noqa: PLR0912
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
-    if position is not None and (text is None or is_nonstr_iter(text)):
-        msg = "'text' can't be None or array when 'position' is given."
-        raise GMTInvalidInput(msg)
+    if position is not None:
+        if text is None:
+            msg = "'text' can't be None when 'position' is given."
+            raise GMTInvalidInput(msg)
+        if is_nonstr_iter(text):
+            raise GMTTypeError(
+                type(text),
+                reason="Parameter 'text' can't be a sequence when 'position' is given.",
+            )
+
     if textfiles is not None and text is not None:
         msg = "'text' can't be specified when 'textfiles' is given."
         raise GMTInvalidInput(msg)
@@ -239,9 +249,9 @@ def text_(  # noqa: PLR0912
 
         # If an array of transparency is given, GMT will read it from the last numerical
         # column per data record.
-        if is_nonstr_iter(kwargs.get("t")):
-            data["transparency"] = kwargs["t"]
-            kwargs["t"] = True
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
 
         # Append text to the last column. Text must be passed in as str type.
         text = np.asarray(text, dtype=np.str_)
@@ -255,12 +265,25 @@ def text_(  # noqa: PLR0912
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
 
-        for arg, _, name in [*array_args, (kwargs.get("t"), "", "transparency")]:
+        for arg, _, name in [*array_args, (transparency, "", "transparency")]:
             if is_nonstr_iter(arg):
                 raise GMTTypeError(
                     type(arg),
                     reason=f"Parameter {name!r} expects a single value or True.",
                 )
+
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(
@@ -268,5 +291,5 @@ def text_(  # noqa: PLR0912
         ) as vintbl:
             lib.call_module(
                 module="text",
-                args=build_arg_list(kwargs, infile=vintbl, confdict=confdict),
+                args=build_arg_list(aliasdict, infile=vintbl, confdict=confdict),
             )

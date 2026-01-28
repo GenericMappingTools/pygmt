@@ -2,7 +2,7 @@
 
 This project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com)
 during [an NSF funded postdoc](https://www.leouieda.com/blog/hawaii-gmt-postdoc)
-with [Paul Wessel](https://www.soest.hawaii.edu/wessel) at the University of
+with [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) at the University of
 Hawaiʻi at Mānoa.
 
 The following people have contributed code and/or documentation to the project
@@ -17,7 +17,7 @@ The following people have contributed code and/or documentation to the project
 | [Jiayuan Yao](https://github.com/core-man) | [0000-0001-7036-4238](https://orcid.org/0000-0001-7036-4238) | Nanyang Technological University, Singapore |
 | [Jing-Hui Tong](https://github.com/jhtong33) | [0009-0002-7195-3071](https://orcid.org/0009-0002-7195-3071) | National Taiwan Normal University, Taiwan |
 | [Kathryn Materna](https://github.com/kmaterna) | [0000-0002-6687-980X](https://orcid.org/0000-0002-6687-980X) | US Geological Survey, USA |
-| [Leonardo Uieda](https://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool, United Kingdom |
+| [Leonardo Uieda](https://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | Universidade de São Paulo, Brazil |
 | [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks, USA |
 | [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences, Germany |
 | [Max Jones](https://github.com/maxrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawaiʻi at Mānoa, USA |
@@ -25,6 +25,7 @@ The following people have contributed code and/or documentation to the project
 | [Tyler Newton](https://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | University of Oregon, USA |
 | [Wei Ji Leong](https://github.com/weiji14) | [0000-0003-2354-1988](https://orcid.org/0000-0003-2354-1988) | Development Seed, USA |
 | [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated |
+| [Xingchen He](https://github.com/Chuan1937) | [0009-0004-7182-2252](https://orcid.org/0009-0004-7182-2252) | Chengdu University of Technology, China |
 | [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel |
 | [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Unaffiliated |
 

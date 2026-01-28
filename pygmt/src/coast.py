@@ -2,49 +2,40 @@
 coast - Plot continents, countries, shorelines, rivers, and borders.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.src._common import _parse_coastline_resolution
+from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
 
 
 @fmt_docstring
-@use_alias(
-    A="area_thresh",
-    B="frame",
-    C="lakes",
-    D="resolution-",
-    E="dcw",
-    F="box",
-    G="land",
-    I="rivers",
-    J="projection",
-    L="map_scale",
-    N="borders",
-    R="region",
-    S="water",
-    V="verbose",
-    W="shorelines",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(
+@use_alias(A="area_thresh", C="lakes", E="dcw")
+def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    land: str | None = None,
+    water: str | None = None,
+    rivers: int | str | Sequence[int | str] | None = None,
+    borders: int | str | Sequence[int | str] | None = None,
+    shorelines: bool | str | Sequence[int | str] = False,
+    map_scale: str | None = None,
+    box: Box | bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -66,15 +57,28 @@ def coast(
 
     Full GMT docs at :gmt-docs:`coast.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - D = resolution
+       - F = box
+       - G = land
+       - I = rivers
+       - J = projection
+       - L = map_scale
+       - R = region
+       - S = water
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
-    {projection}
-    {region}
+    $projection
+    $region
         *Required if this is the first plot command.*
-    {area_thresh}
-    {frame}
+    $area_thresh
+    $frame
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -88,82 +92,106 @@ def coast(
         ``"low"``, and ``"crude"``, which drops by 80% between levels. Default is
         ``"auto"`` to automatically select the most suitable resolution given the chosen
         map scale.
-    land : str
+    land
         Select filling of "dry" areas.
-    rivers : int, str, or list
-        *river*\ [/*pen*].
-        Draw rivers. Specify the type of rivers and [optionally] append
-        pen attributes [Default is ``"0.25p,black,solid"``].
+    water
+        Select filling of "wet" areas.
+    rivers
+        Draw rivers. Specify the type of rivers to draw, and optionally append a pen
+        attribute, in the format *river*\ /*pen* [Default pen is
+        ``"0.25p,black,solid"``]. Pass a sequence of river types or *river*\ /*pen*
+        strings to draw different river types with different pens.
 
-        Choose from the list of river types below; pass a list to ``rivers``
-        to use multiple arguments.
+        Choose from the following river types:
 
-        - ``0``: double-lined rivers (river-lakes)
-        - ``1``: permanent major rivers
-        - ``2``: additional major rivers
-        - ``3``: additional rivers
-        - ``4``: minor rivers
-        - ``5``: intermittent rivers - major
-        - ``6``: intermittent rivers - additional
-        - ``7``: intermittent rivers - minor
-        - ``8``: major canals
-        - ``9``: minor canals
-        - ``10``: irrigation canals
+        - ``0``: Double-lined rivers (river-lakes)
+        - ``1``: Permanent major rivers
+        - ``2``: Additional major rivers
+        - ``3``: Additional rivers
+        - ``4``: Minor rivers
+        - ``5``: Intermittent rivers - major
+        - ``6``: Intermittent rivers - additional
+        - ``7``: Intermittent rivers - minor
+        - ``8``: Major canals
+        - ``9``: Minor canals
+        - ``10``: Irrigation canals
 
-        You can also choose from several preconfigured river groups:
+        Or choose from the following preconfigured river groups:
 
-        - ``"a"``: rivers and canals (``0`` - ``10``)
-        - ``"A"``: rivers and canals except river-lakes (``1`` - ``10``)
-        - ``"r"``: permanent rivers (``0`` - ``4``)
-        - ``"R"``: permanent rivers except river-lakes (``1`` - ``4``)
-        - ``"i"``: intermittent rivers (``5`` - ``7``)
-        - ``"c"``: canals (``8`` - ``10``)
+        - ``"a"``: All rivers and canals (types ``0`` - ``10``)
+        - ``"A"``: Rivers and canals except river-lakes (types ``1`` - ``10``)
+        - ``"r"``: Permanent rivers (types ``0`` - ``4``)
+        - ``"R"``: Permanent rivers except river-lakes (types ``1`` - ``4``)
+        - ``"i"``: Intermittent rivers (types ``5`` - ``7``)
+        - ``"c"``: Canals (types ``8`` - ``10``)
 
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
-        Draw a simple map scale centered on the reference point specified.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the
-        map scale or rose. Alternatively, specify a different pen with
-        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
-        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
-        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate x and y, or individual side spacings between scale and
-        border. Append **+i** to draw a secondary, inner border as well.
-        We use a uniform gap between borders of 2 points and the
-        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6-points
-        corner radius. You can override this radius by appending another value.
-        Finally, append **+s** to draw an offset background shaded region.
-        Here, *dx/dy* indicates the shift relative to the foreground frame
-        [Default is ``"4p/-4p"``] and shade sets the fill style to use for
-        shading [Default is ``"gray50"``].
-    borders : int, str, or list
-        *border*\ [/*pen*].
-        Draw political boundaries. Specify the type of boundary and
-        [optionally] append pen attributes [Default is ``"0.25p,black,solid"``].
+        Example usage:
 
-        Choose from the list of boundaries below. Pass a list to ``borders`` to
-        use multiple arguments.
+        - ``rivers=1``: Draw permanent major rivers with default pen.
+        - ``rivers="1/0.5p,blue"``: Draw permanent major rivers with a 0.5-point blue
+          pen.
+        - ``rivers=["1/0.5p,blue", "5/0.3p,cyan,dashed"]``: Draw permanent major rivers
+          with a 0.5-point blue pen and intermittent major rivers with a 0.3-point
+          dashed cyan pen.
+    map_scale
+        Draw a map scale bar on the plot.
 
-        - ``1``: national boundaries
-        - ``2``: state boundaries within the Americas
-        - ``3``: marine boundaries
-        - ``"a"``: all boundaries (``1`` - ``3``)
+        .. deprecated:: v0.19.0
 
-    water : str
-        Select filling "wet" areas.
-    shorelines : bool, int, str, or list
-        [*level*\ /]\ *pen*.
-        Draw shorelines [Default is no shorelines]. Append pen attributes
-        [Default is ``"0.25p,black,solid"``] which apply to all four levels.
-        To set the pen for a single level, pass a string with *level*\ /*pen*\ ,
-        where level is 1-4 and represent coastline, lakeshore, island-in-lake shore,
-        and lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
-        strings to ``shorelines`` to set multiple levels. When specific
-        level pens are set, those not listed will not be drawn.
+            This parameter is deprecated. Use :meth:`pygmt.Figure.scalebar` instead,
+            which provides a more comprehensive and flexible API for adding scale bars
+            to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
+            option of the ``coast`` module for backward compatibility.
+    box
+        Draw a background box behind the map scale or rose. If set to ``True``, a simple
+        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
+        appearance, pass a :class:`pygmt.params.Box` object to control style, fill, pen,
+        and other box properties.
+    borders
+        Draw political boundaries. Specify the type of boundary to draw, and optionally
+        append a pen attribute, in the format *border*\ /*pen* [Default pen is
+        ``"0.25p,black,solid"``]. Pass a sequence of border types or *border*\ /*pen*
+        strings to draw different border types with different pens.
+
+        Choose from the following border types:
+
+        - ``1``: National boundaries
+        - ``2``: State boundaries within the Americas
+        - ``3``: Marine boundaries
+        - ``"a"``: All boundaries (types ``1`` - ``3``)
+
+        Example usage:
+
+        - ``borders=1``: Draw national boundaries with default pen.
+        - ``borders="1/0.5p,red"``: Draw national boundaries with a 0.5-point red pen.
+        - ``borders=["1/0.5p,red", "2/0.3p,blue,dashed"]``: Draw national boundaries
+          with a 0.5-point red pen and state boundaries with a 0.3-point dashed blue
+          pen.
+    shorelines
+        Draw shorelines. Specify the pen attributes for shorelines [Default pen is
+        ``"0.25p,black,solid"``]. Shorelines have four levels; by default, the same pen
+        is used for all levels. To specify the shoreline level, use the format
+        *level*\ /*pen*. Pass a sequence of *level*\ /*pen* strings to draw different
+        shoreline levels with different pens. When specific level pens are set, those
+        not listed will not be drawn [Default draws all levels]. ``shorelines=True``
+        draws all levels with the default pen.
+
+        Choose from the following shoreline levels:
+
+        - ``1``: Coastline
+        - ``2``: Lakeshore
+        - ``3``: Island-in-lake shore
+        - ``4``: Lake-in-island-in-lake shore
+
+        Example usage:
+
+        - ``shorelines=True``: Draw all shoreline levels with default pen.
+        - ``shorelines="0.5p,blue"``: Draw all shoreline levels with a 0.5-point blue
+          pen.
+        - ``shorelines="1/0.5p,black"``: Draw only coastlines with a 0.5-point black
+          pen.
+        - ``shorelines=["1/0.8p,black", "2/0.4p,blue"]``: Draw coastlines with a
+          0.8-point black pen and lakeshores with a 0.4-point blue pen.
     dcw : str or list
         *code1,code2,…*\ [**+g**\ *fill*\ ][**+p**\ *pen*\ ][**+z**].
         Select painting country polygons from the `Digital Chart of the World
@@ -176,10 +204,10 @@ def coast(
         to any of the continent codes (e.g. ``"=EU"`` for Europe). Append
         **+p**\ *pen* to draw polygon outlines [Default is no outline] and
         **+g**\ *fill* to fill them [Default is no fill].
-    {panel}
-    {perspective}
-    {transparency}
-    {verbose}
+    $panel
+    $perspective
+    $transparency
+    $verbose
 
     Example
     -------
@@ -205,14 +233,51 @@ def coast(
     >>> fig.show()
     """
     self._activate_figure()
-    if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
+
+    if (
+        kwargs.get("G", land) is None
+        and kwargs.get("S", water) is None
+        and kwargs.get("I", rivers) is None
+        and kwargs.get("N", borders) is None
+        and kwargs.get("W", shorelines) is False
+        and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
+    ):
         msg = (
             "At least one of the following parameters must be specified: "
-            "lakes, land, water, rivers, borders, dcw, Q, or shorelines."
+            "land, water, rivers, borders, shorelines, lakes, dcw, or Q."
         )
         raise GMTInvalidInput(msg)
 
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+        F=Alias(box, name="box"),
+        G=Alias(land, name="land"),
+        I=Alias(rivers, name="rivers"),
+        L=Alias(map_scale, name="map_scale"),  # Deprecated.
+        N=Alias(borders, name="borders"),
+        S=Alias(water, name="water"),
+        W=Alias(shorelines, name="shorelines"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_list(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(aliasdict))

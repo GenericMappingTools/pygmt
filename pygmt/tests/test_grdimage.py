@@ -10,7 +10,7 @@ from pygmt import Figure
 from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -60,7 +60,7 @@ def test_grdimage(grid):
     Plot an image using an xarray grid.
     """
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="W0/10c")
+    fig.grdimage(grid, cmap="gmt/earth", projection="W0/10c")
     return fig
 
 
@@ -71,7 +71,7 @@ def test_grdimage_slice(grid):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M10c")
+    fig.grdimage(grid_, cmap="gmt/earth", projection="M10c")
     return fig
 
 
@@ -83,7 +83,7 @@ def test_grdimage_file():
     fig = Figure()
     fig.grdimage(
         "@earth_relief_01d_g",
-        cmap="ocean",
+        cmap="gmt/ocean",
         region=[-180, 180, -70, 70],
         projection="W0/10c",
         shading=True,
@@ -102,7 +102,7 @@ def test_grdimage_default_no_shading(grid, shading):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M10c", shading=shading)
+    fig.grdimage(grid_, cmap="gmt/earth", projection="M10c", shading=shading)
     return fig
 
 
@@ -143,10 +143,10 @@ def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid
+        grid="@earth_relief_01d_g", region="GL", cmap="gmt/geo", shading=xrgrid
     )
     fig_ref.colorbar()
-    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid)
+    fig_test.grdimage(grid=grid, region="GL", cmap="gmt/geo", shading=xrgrid)
     fig_test.colorbar()
     return fig_ref, fig_test
 
@@ -195,7 +195,7 @@ def test_grdimage_global_subset(grid_360):
 
     fig = Figure()
     fig.grdimage(
-        grid=sliced_grid, cmap="vik", region="g", projection="W0/10c", frame=True
+        grid=sliced_grid, cmap="SCM/vik", region="g", projection="W0/10c", frame=True
     )
     return fig
 
@@ -210,9 +210,9 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="geo"
+        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/15c", cmap="gmt/geo"
     )
-    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/15c", cmap="geo")
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/15c", cmap="gmt/geo")
     return fig_ref, fig_test
 
 
@@ -241,9 +241,11 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        "@earth_relief_01d_g", projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo"
+        "@earth_relief_01d_g",
+        projection=f"{proj_type}{lon0}/{lat0}/15c",
+        cmap="gmt/geo",
     )
-    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
+    fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="gmt/geo")
     return fig_ref, fig_test
 
 
@@ -252,9 +254,9 @@ def test_grdimage_imgout_fails(grid):
     Test that an exception is raised if img_out/A is given.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(NotImplementedError):
         fig.grdimage(grid, img_out="out.png")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(NotImplementedError):
         fig.grdimage(grid, A="out.png")
 
 

@@ -2,34 +2,45 @@
 grdsample - Resample a grid onto a new lattice.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdsample"]
 
 
+# TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
-@use_alias(
-    I="spacing",
-    R="region",
-    T="translate",
-    V="verbose",
-    f="coltypes",
-    n="interpolation",
-    r="registration",
-    x="cores",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
+@deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
+@use_alias(f="coltypes", n="interpolation")
 def grdsample(
-    grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+    grid: PathLike | xr.DataArray,
+    outgrid: PathLike | None = None,
+    toggle: bool = False,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    cores: int | bool = False,
+    **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Resample a grid onto a new lattice.
 
     This reads a grid file and interpolates it to create a new grid
-    file. It can change the registration with ``translate`` or
+    file. It can change the registration with ``toggle`` or
     ``registration``, change the grid-spacing or number of nodes with
     ``spacing``, and set a new sub-region using ``region``. A bicubic
     [Default], bilinear, B-spline or nearest-neighbor interpolation is set
@@ -38,29 +49,34 @@ def grdsample(
     When ``region`` is omitted, the output grid will cover the same region as
     the input grid. When ``spacing`` is omitted, the grid spacing of the
     output grid will be the same as the input grid. Either ``registration`` or
-    ``translate`` can be used to change the grid registration. When omitted,
+    ``toggle`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
-    {aliases}
+    $aliases
+       - I = spacing
+       - R = region
+       - V = verbose
+       - r = registration
+       - x = cores
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    {spacing}
-    {region}
-    translate : bool
-        Translate between grid and pixel registration; if the input is
-        grid-registered, the output will be pixel-registered and vice-versa.
-    registration : str or bool
-        [**g**\|\ **p**\ ].
-        Set registration to **g**\ ridline or **p**\ ixel.
-    {verbose}
-    {coltypes}
-    {interpolation}
-    {cores}
+    $grid
+    $outgrid
+    $spacing
+    $region
+    toggle
+        Toggle between grid and pixel registration; if the input is grid-registered, the
+        output will be pixel-registered and vice-versa. This is a *destructive* grid
+        change; see :gmt-docs:`reference/options.html#switch-registrations`.
+        *Note**: ``toggle`` and ``registration`` are mutually exclusive.
+    $verbose
+    $coltypes
+    $interpolation
+    $registration
+    $cores
 
     Returns
     -------
@@ -81,15 +97,31 @@ def grdsample(
     ... )
     >>> # Create a new grid from an input grid, change the registration,
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
-    >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
+    >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
+    # Enforce mutual exclusivity between -T (toggle) and -r (registration)
+    if kwargs.get("T", toggle) and kwargs.get("r", registration):
+        msg = "Parameters 'toggle' and 'registration' cannot be used together."
+        raise GMTInvalidInput(msg)
+
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+        T=Alias(toggle, name="toggle"),
+    ).add_common(
+        R=region,
+        V=verbose,
+        r=registration,
+        x=cores,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="grdsample", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdsample", args=build_arg_list(aliasdict, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

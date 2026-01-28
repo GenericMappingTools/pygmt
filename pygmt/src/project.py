@@ -2,17 +2,18 @@
 project - Project data onto lines or great circles, or generate tracks.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -21,28 +22,28 @@ from pygmt.helpers import (
 @fmt_docstring
 @use_alias(
     A="azimuth",
-    C="center",
-    E="endpoint",
     F="convention",
     G="generate",
-    L="length",
     N="flat_earth",
     Q="unit",
     S="sort",
-    T="pole",
-    V="verbose",
-    W="width",
     Z="ellipse",
     f="coltypes",
 )
-@kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
-def project(
+def project(  # noqa: PLR0913
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: Sequence[float | str] | None = None,
+    endpoint: Sequence[float | str] | None = None,
+    width: Sequence[float | str] | None = None,
+    length: Sequence[float | str] | Literal["limit"] | None = None,
+    pole: Sequence[float | str] | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -85,9 +86,9 @@ def project(
 
     Data can be selectively windowed by using the ``length`` and ``width``
     parameters. If ``width`` is used, the projection width is set to use only
-    data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
+    data with :math:`w_{min} < q < w_{max}`. If ``length`` is set, then
     the length is set to use only those data with
-    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` parameter
+    :math:`l_{min} < p < l_{max}`. If the ``endpoint`` parameter
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
 
@@ -97,10 +98,10 @@ def project(
     x-axis. azimuth = 90 - theta.
 
     No assumptions are made regarding the units for
-    :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
+    :math:`x, y, r, s, p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`.
     If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
     be in degrees and
-    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
@@ -109,30 +110,34 @@ def project(
 
     Full GMT docs at :gmt-docs:`project.html`.
 
-    {aliases}
+    $aliases
+       - C = center
+       - E = endpoint
+       - L = length
+       - T = pole
+       - W = width
+       - V = verbose
 
     Parameters
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
+        $table_classes.
+    $output_type
+    $outfile
 
-    center : str or list
-        *cx*/*cy*.
-        Set the origin of the projection, in Definition 1 or 2. If
-        Definition 3 is used, then *cx/cy* are the coordinates of a
-        point through which the oblique zero meridian (:math:`p = 0`) should
-        pass. The *cx/cy* is not required to be 90 degrees from the pole.
-
+    center
+        Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1
+        or 2. If Definition 3 is used, then (*cx*, *cy*) are the coordinates of a point
+        through which the oblique zero meridian (:math:`p = 0`) should pass.
+        (*cx*, *cy*) is not required to be 90 degrees from the pole set by ``pole``.
     azimuth : float or str
         Define the azimuth of the projection (Definition 1).
 
-    endpoint : str or list
-        *bx*/*by*.
-        Define the end point of the projection path (Definition 2).
+    endpoint
+        (*bx*, *by*).
+        Set the end point of the projection path (Definition 2).
 
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
@@ -154,43 +159,36 @@ def project(
         through *cx*/*cy*, append **+c** to compute the required colatitude.
         Use ``center`` and ``endpoint`` to generate a circle that goes
         through the center and end point. Note, in this case the center and
-        end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
+        end point cannot be farther apart than :math:`2|\mbox{colat}|`.
         Finally, if you append **+h** then we will report the position of
         the pole as part of the segment header [Default is no header].
         **Note**: No input is read and the value of ``data``, ``x``, ``y``,
         and ``z`` is ignored if ``generate`` is used.
-
-    length : str or list
-        [**w**\|\ *l_min*/*l_max*].
-        Project only those data whose *p* coordinate is
-        within :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set,
-        then you may alternatively use **w** to stay within the distance from
-        ``center`` to ``endpoint``.
-
+    length
+        (*lmin*, *lmax*) or ``"limit"``.
+        Project only those data whose *p* coordinate is within
+        :math:`l_{min} < p < l_{max}`. If ``endpoint`` has been set, then you may
+        alternatively set it to ``"limit"`` to stay within the distance from ``center``
+        to ``endpoint``.
     flat_earth : bool
         Make a Cartesian coordinate transformation in the plane.
         [Default is ``False``; plane created with spherical trigonometry.]
 
     unit : bool
         Set units for :math:`x, y, r, s` to degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
+        :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
         Sort the output into increasing :math:`p` order. Useful when projecting
         random data into a sequential profile.
-
-    pole : str or list
-        *px*/*py*.
-        Set the position of the rotation pole of the projection.
-        (Definition 3).
-
-    {verbose}
-
-    width : str or list
-        *w_min*/*w_max*.
-        Project only those data whose :math:`q` coordinate is
-        within :math:`w_{{min}} < q < w_{{max}}`.
+    pole
+        (*px*, *py*).
+        Set the position of the rotation pole of the projection. (Definition 3).
+    width
+        (*w_min*, *w_max*).
+        Specify width controls for the projected points. Project only those points whose
+        q coordinate is within :math:`w_{min} < q < w_{max}`.
 
     ellipse : str
         *major*/*minor*/*azimuth* [**+e**\|\ **n**].
@@ -209,8 +207,8 @@ def project(
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
-
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------
@@ -222,8 +220,8 @@ def project(
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
     """
-    if kwargs.get("C") is None:
-        msg = "The 'center' parameter must be specified."
+    if kwargs.get("C", center) is None:
+        msg = "Parameter 'center' must be specified."
         raise GMTInvalidInput(msg)
     if kwargs.get("G") is None and data is None:
         msg = "The 'data' parameter must be specified unless 'generate' is used."
@@ -237,6 +235,17 @@ def project(
     column_names = None
     if output_type == "pandas" and kwargs.get("G") is not None:
         column_names = list("rsp")
+
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center", sep="/", size=2),
+        E=Alias(endpoint, name="endpoint", sep="/", size=2),
+        L=Alias(length, name="length", sep="/", size=2, mapping={"limit": "w"}),
+        T=Alias(pole, name="pole", sep="/", size=2),
+        W=Alias(width, name="width", sep="/", size=2),
+    ).add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -253,7 +262,7 @@ def project(
         ):
             lib.call_module(
                 module="project",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

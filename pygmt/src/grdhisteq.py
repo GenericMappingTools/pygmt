@@ -2,18 +2,19 @@
 grdhisteq - Perform histogram equalization for a grid.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -54,17 +55,16 @@ class grdhisteq:  # noqa: N801
 
     @staticmethod
     @fmt_docstring
-    @use_alias(
-        C="divisions",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        V="verbose",
-        h="header",
-    )
-    @kwargs_to_strings(R="sequence")
+    @use_alias(C="divisions", N="gaussian", Q="quadratic", h="header")
     def equalize_grid(
-        grid: PathLike | xr.DataArray, outgrid: PathLike | None = None, **kwargs
+        grid: PathLike | xr.DataArray,
+        outgrid: PathLike | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
+        **kwargs,
     ) -> xr.DataArray | None:
         r"""
         Perform histogram equalization for a grid.
@@ -77,12 +77,14 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
-        {grid}
-        {outgrid}
+        $grid
+        $outgrid
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
@@ -92,8 +94,8 @@ class grdhisteq:  # noqa: N801
             range.
         quadratic: bool
             Perform quadratic equalization [Default is linear].
-        {region}
-        {verbose}
+        $region
+        $verbose
 
         Returns
         -------
@@ -123,32 +125,35 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
+        aliasdict = AliasSystem().add_common(
+            R=region,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
                 lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
             ):
-                kwargs["G"] = voutgrd
+                aliasdict["G"] = voutgrd
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(aliasdict, infile=vingrd)
                 )
                 return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
     @staticmethod
     @fmt_docstring
-    @use_alias(
-        C="divisions",
-        R="region",
-        N="gaussian",
-        Q="quadratic",
-        V="verbose",
-        h="header",
-    )
-    @kwargs_to_strings(R="sequence")
+    @use_alias(C="divisions", N="gaussian", Q="quadratic", h="header")
     def compute_bins(
         grid: PathLike | xr.DataArray,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         outfile: PathLike | None = None,
+        region: Sequence[float | str] | str | None = None,
+        verbose: Literal[
+            "quiet", "error", "warning", "timing", "info", "compat", "debug"
+        ]
+        | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         r"""
@@ -170,20 +175,22 @@ class grdhisteq:  # noqa: N801
 
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
-        {aliases}
+        $aliases
+           - R = region
+           - V = verbose
 
         Parameters
         ----------
-        {grid}
-        {output_type}
-        {outfile}
+        $grid
+        $output_type
+        $outfile
         divisions : int
             Set the number of divisions of the data range.
         quadratic : bool
             Perform quadratic equalization [Default is linear].
-        {region}
-        {verbose}
-        {header}
+        $region
+        $verbose
+        $header
 
         Returns
         -------
@@ -230,14 +237,20 @@ class grdhisteq:  # noqa: N801
             msg = "'header' is only allowed with output_type='file'."
             raise GMTInvalidInput(msg)
 
+        aliasdict = AliasSystem().add_common(
+            R=region,
+            V=verbose,
+        )
+        aliasdict.merge(kwargs)
+
         with Session() as lib:
             with (
                 lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
                 lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
             ):
-                kwargs["D"] = vouttbl  # -D for output file name
+                aliasdict["D"] = vouttbl  # -D for output file name
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(aliasdict, infile=vingrd)
                 )
 
             return lib.virtualfile_to_dataset(

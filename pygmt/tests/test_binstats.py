@@ -8,6 +8,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import binstats
 from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -20,7 +21,7 @@ def test_binstats_outgrid():
             data="@capitals.gmt",
             outgrid=tmpfile.name,
             spacing=5,
-            statistic="z",
+            statistic="sum",
             search_radius="1000k",
             aspatial="2=population",
             region="g",
@@ -37,7 +38,7 @@ def test_binstats_no_outgrid():
     temp_grid = binstats(
         data="@capitals.gmt",
         spacing=5,
-        statistic="z",
+        statistic="sum",
         search_radius="1000k",
         aspatial="2=population",
         region="g",
@@ -49,3 +50,44 @@ def test_binstats_no_outgrid():
     npt.assert_allclose(temp_grid.min(), 53)
     npt.assert_allclose(temp_grid.median(), 1232714.5)
     npt.assert_allclose(temp_grid.mean(), 4227489)
+
+
+def test_binstats_invalid_quantile_value():
+    """
+    Tests the input validation for quantile_value.
+    """
+    kwargs = {
+        "data": "@capitals.gmt",
+        "spacing": 5,
+        "statistic": "quantile",
+        "search_radius": "1000k",
+        "aspatial": "2=population",
+        "region": "g",
+    }
+    with pytest.raises(GMTValueError):
+        binstats(quantile_value=175, **kwargs)
+    with pytest.raises(GMTTypeError):
+        binstats(quantile_value="invalid", **kwargs)
+
+
+def test_binstats_quantile():
+    """
+    Test binstats quantile statistic functionality.
+    """
+    temp_grid = binstats(
+        data="@capitals.gmt",
+        spacing=5,
+        statistic="quantile",
+        quantile_value=75,
+        search_radius="1000k",
+        aspatial="2=population",
+        region="g",
+    )
+    assert temp_grid.dims == ("y", "x")
+    assert temp_grid.gmt.gtype is GridType.CARTESIAN
+    assert temp_grid.gmt.registration is GridRegistration.GRIDLINE
+    assert temp_grid.dtype == "float32"
+    npt.assert_allclose(temp_grid.max(), 15047685)
+    npt.assert_allclose(temp_grid.min(), 53)
+    npt.assert_allclose(temp_grid.median(), 543664.5)
+    npt.assert_allclose(temp_grid.mean(), 1661363.6)

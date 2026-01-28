@@ -2,51 +2,63 @@
 solar - Plot day-night terminators and other sunlight parameters.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import pandas as pd
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTValueError
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    G="fill",
-    J="projection",
-    R="region",
-    T="terminator/terminator_datetime-",
-    V="verbose",
-    W="pen",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def solar(
+def solar(  # noqa: PLR0913
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
+    fill: str | None = None,
+    pen: str | None = None,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
     Plot day-night terminators and other sunlight parameters.
 
-    This function plots the day-night terminator. Alternatively, it can plot the
+    This method plots the day-night terminator. Alternatively, it can plot the
     terminators for civil twilight, nautical twilight, or astronomical twilight.
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - B = frame
+       - G = fill
+       - J = projection
+       - R = region
+       - T = terminator, **+d**/**+z**: terminator_datetime
+       - V = verbose
+       - W = pen
+       - c = panel
+       - t = transparency
+       - p = perspective
 
     Parameters
     ----------
     terminator
-        Set the type of terminator displayed, which can be set with either the full name
-        or the first letter of the name. Available options are:
+        Set the type of terminator. Choose one of the following:
 
         - ``"astronomical"``: Astronomical twilight
         - ``"civil"``: Civil twilight
@@ -56,19 +68,23 @@ def solar(
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
         types of twilight.
     terminator_datetime : str or datetime object
-        Set the UTC date and time of the displayed terminator [Default is the current
-        UTC date and time]. It can be passed as a string or Python datetime object.
-    {region}
-    {projection}
-    {frame}
-    fill : str
+        Set the date and time for the terminator calculation. It can be provided as a
+        string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
+        time can be specified in UTC or using a UTC offset. The offset must be an
+        integer number of hours (e.g., -8 or +5); fractional hours are truncated
+        towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
+        current UTC date and time].
+    $region
+    $projection
+    $frame
+    fill
         Set color or pattern for filling terminators [Default is no fill].
-    pen : str
+    pen
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $perspective
+    $transparency
 
     Example
     -------
@@ -97,24 +113,47 @@ def solar(
     >>> fig.show()
     """
     self._activate_figure()
-    if kwargs.get("T") is not None:
-        msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
-        raise GMTInvalidInput(msg)
 
-    valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
-    if terminator not in valid_terminators and terminator not in "dcna":
-        raise GMTValueError(
-            terminator, description="solar terminator type", choices=valid_terminators
-        )
-    kwargs["T"] = terminator[0]
+    datetime_string, datetime_timezone = None, None
     if terminator_datetime:
         try:
-            datetime_string = pd.to_datetime(terminator_datetime).strftime(
-                "%Y-%m-%dT%H:%M:%S.%f"
-            )
+            _datetime = pd.to_datetime(terminator_datetime)
+            datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            # GMT's solar module uses the C 'atoi' function to parse the timezone
+            # offset. Ensure the offset is an integer number of hours (e.g., -8 or +5).
+            # Fractional hours (e.g., -8.5 or +5.5) are truncated towards zero.
+            if utcoffset := _datetime.utcoffset():
+                datetime_timezone = int(utcoffset.total_seconds() / 3600)
         except ValueError as verr:
-            msg = "Unrecognized datetime format."
-            raise GMTInvalidInput(msg) from verr
-        kwargs["T"] += f"+d{datetime_string}"
+            raise GMTValueError(terminator_datetime, description="datetime") from verr
+
+    aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
+        T=[
+            Alias(
+                terminator,
+                name="terminator",
+                mapping={
+                    "day_night": "d",
+                    "civil": "c",
+                    "nautical": "n",
+                    "astronomical": "a",
+                },
+            ),
+            Alias(datetime_string, name="terminator_datetime", prefix="+d"),
+            Alias(datetime_timezone, name="terminator_timezone", prefix="+z"),
+        ],
+        W=Alias(pen, name="pen"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="solar", args=build_arg_list(kwargs))
+        lib.call_module(module="solar", args=build_arg_list(aliasdict))

@@ -2,17 +2,18 @@
 grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 
@@ -20,20 +21,15 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    N="extend",
-    S="circ_subregion",
-    V="verbose",
-    Z="z_subregion",
-    f="coltypes",
-)
-@kwargs_to_strings(R="sequence")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
     outgrid: PathLike | None = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -50,19 +46,22 @@ def grdcut(
 
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
-    {aliases}
+    $aliases
+       - J = projection
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    {grid}
+    $grid
     kind
         The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
         input ``grid`` is a file name, it's difficult to determine if the file is a grid
         or an image, so we need to specify the raster kind explicitly. The default is
         ``"grid"``.
-    {outgrid}
-    {projection}
-    {region}
+    $outgrid
+    $projection
+    $region
     extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
@@ -88,8 +87,8 @@ def grdcut(
         considering the range of the core subset for further reduction of the
         area.
 
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------
@@ -124,13 +123,22 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
+    aliasdict = AliasSystem().add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
-            lib.call_module(module="grdcut", args=build_arg_list(kwargs, infile=vingrd))
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
+            )
             return lib.virtualfile_to_raster(
                 vfname=voutgrd, kind=outkind, outgrid=outgrid
             )

@@ -2,43 +2,45 @@
 grdimage - Project and plot grids or images.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
 
 @fmt_docstring
 @use_alias(
-    B="frame",
     C="cmap",
     D="img_in",
     E="dpi",
     G="bitcolor",
     I="shading",
-    J="projection",
-    M="monochrome",
-    N="no_clip",
     Q="nan_transparent",
-    R="region",
-    V="verbose",
     n="interpolation",
-    c="panel",
     f="coltypes",
-    p="perspective",
-    t="transparency",
-    x="cores",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
+def grdimage(  # noqa: PLR0913
+    self,
+    grid: PathLike | xr.DataArray,
+    monochrome: bool = False,
+    no_clip: bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    cores: int | bool = False,
+    **kwargs,
+):
     r"""
     Project and plot grids or images.
 
@@ -72,13 +74,23 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
 
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - J = projection
+       - M = monochrome
+       - N = no_clip
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
+       - x = cores
 
     Parameters
     ----------
-    {grid}
-    {frame}
-    {cmap}
+    $grid
+    $frame
+    $cmap
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
@@ -120,13 +132,13 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
         suitable modifiers [Default is no illumination]. **Note**: If the
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
-    {projection}
-    monochrome : bool
-        Force conversion to monochrome image using the (television) YIQ
-        transformation. Cannot be used with ``nan_transparent``.
-    no_clip : bool
-        Do **not** clip the image at the frame boundaries (only relevant
-        for non-rectangular maps) [Default is ``False``].
+    $projection
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+        Cannot be used with ``nan_transparent``.
+    no_clip
+        Do **not** clip the image at the frame boundaries (only relevant for
+        non-rectangular maps) [Default is ``False``].
     nan_transparent : bool or str
         [**+z**\ *value*][*color*]
         Make grid nodes with z = NaN transparent, using the color-masking
@@ -134,14 +146,14 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
         3). If the input is a grid, use **+z** to select another grid value
         than NaN. If input is instead an image, append an alternate *color* to
         select another pixel value to be transparent [Default is ``"black"``].
-    {region}
-    {verbose}
-    {panel}
-    {coltypes}
-    {interpolation}
-    {perspective}
-    {transparency}
-    {cores}
+    $region
+    $verbose
+    $panel
+    $coltypes
+    $interpolation
+    $perspective
+    $transparency
+    $cores
 
     Example
     -------
@@ -152,7 +164,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
     >>> fig = pygmt.Figure()
     >>> # pass in the grid and set the CPT to "geo"
     >>> # set the projection to Mollweide and the size to 10 cm
-    >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
+    >>> fig.grdimage(grid=grid, cmap="gmt/geo", projection="W10c", frame="ag")
     >>> # show the plot
     >>> fig.show()
     """
@@ -164,7 +176,22 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
             "Parameter 'img_out'/'A' is not implemented. "
             "Please consider submitting a feature request to us."
         )
-        raise GMTInvalidInput(msg)
+        raise NotImplementedError(msg)
+
+    aliasdict = AliasSystem(
+        M=Alias(monochrome, name="monochrome"),
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+        x=cores,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -173,7 +200,7 @@ def grdimage(self, grid: PathLike | xr.DataArray, **kwargs):
                 check_kind="raster", data=kwargs.get("I"), required=False
             ) as vshadegrid,
         ):
-            kwargs["I"] = vshadegrid
+            aliasdict["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(aliasdict, infile=vingrd)
             )

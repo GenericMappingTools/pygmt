@@ -2,12 +2,14 @@
 grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -28,11 +30,9 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
-    V="verbose",
     Z="z_only",
     a="aspatial",
     b="binary",
@@ -41,20 +41,23 @@ __doctest_skip__ = ["grdtrack"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     j="distcalc",
     n="interpolation",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence")
 def grdtrack(
     grid: PathLike | xr.DataArray,
     points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -76,17 +79,21 @@ def grdtrack(
 
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
-    {aliases}
+    $aliases
+       - R = region
+       - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
-    {grid}
+    $grid
 
     points
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
+        $table_classes.
+    $output_type
+    $outfile
     newcolname : str
         Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
         new column in the track :class:`pandas.DataFrame` table where the
@@ -190,7 +197,7 @@ def grdtrack(
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {region}
+    $region
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within the grid domain].
@@ -248,22 +255,22 @@ def grdtrack(
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {verbose}
+    $verbose
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {distcalc}
-    {interpolation}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $distcalc
+    $interpolation
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
@@ -309,6 +316,14 @@ def grdtrack(
     if output_type == "pandas" and isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -317,10 +332,10 @@ def grdtrack(
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
-            kwargs["G"] = vingrd
+            aliasdict["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

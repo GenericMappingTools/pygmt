@@ -8,13 +8,14 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _FocalMechanismConvention
@@ -115,26 +116,25 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'labelbox' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
+@deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter(
+    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
+)
+@deprecate_parameter(
+    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="offset",
-    B="frame",
     C="cmap",
-    E="extensionfill",
-    Fr="labelbox",
-    G="compressionfill",
-    J="projection",
+    E="extension_fill",
+    Fr="label_box",
+    G="compression_fill",
     L="outline",
-    N="no_clip",
-    R="region",
-    S="scale/convention/component-",
     T="nodal",
-    V="verbose",
     W="pen",
-    c="panel",
-    p="perspective",
-    t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
@@ -147,6 +147,15 @@ def meca(  # noqa: PLR0913
     plot_longitude: float | Sequence[float] | None = None,
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
+    no_clip: bool = False,
+    projection: str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
     r"""
@@ -173,7 +182,7 @@ def meca(  # noqa: PLR0913
            | *mantissa*, *exponent*
          - | angles in degrees;
            | seismic moment is
-           | :math:`mantissa * 10 ^ {{exponent}}`
+           | :math:`mantissa * 10 ^ {exponent}`
            | in dyn cm
        * - ``"mt"``
          - seismic moment tensor
@@ -181,7 +190,7 @@ def meca(  # noqa: PLR0913
            | *mrt*, *mrf*, *mtf*,
            | *exponent*
          - | moment components
-           | in :math:`10 ^ {{exponent}}` dyn cm
+           | in :math:`10 ^ {exponent}` dyn cm
        * - ``"partial"``
          - partial focal mechanism
          - | *strike1*, *dip1*, *strike2*,
@@ -195,12 +204,21 @@ def meca(  # noqa: PLR0913
            | *n_value*, *n_azimuth*, *n_plunge*,
            | *p_value*, *p_azimuth*, *p_plunge*,
            | *exponent*
-         - | values in :math:`10 ^ {{exponent}}` dyn cm;
+         - | values in :math:`10 ^ {exponent}` dyn cm;
            | azimuths and plunges in degrees
 
     Full GMT docs at :gmt-docs:`supplements/seis/meca.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - J = projection
+       - N = no_clip
+       - R = region
+       - S = scale/convention/component
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
@@ -282,7 +300,7 @@ def meca(  # noqa: PLR0913
         length must match the number of events. This parameter is only used if ``spec``
         is a dictionary or a :class:`pandas.DataFrame`, and it overrides any existing
         ``event_name`` labels in ``spec``.
-    labelbox : bool or str
+    label_box : bool or str
         [*fill*].
         Draw a box behind the label if given via ``event_name``. Use *fill* to give a
         fill color [Default is ``"white"``].
@@ -294,12 +312,12 @@ def meca(  # noqa: PLR0913
         is drawn. Use **+s**\ *size* to plot a small circle at the initial location and
         to set the diameter of this circle [Default is no circle]. Use **+p**\ *pen* to
         set the pen attributes for this feature [Default is set via ``pen``]. The fill
-        of the circle is set via ``compressionfill`` or ``cmap``, i.e., corresponds to
+        of the circle is set via ``compression_fill`` or ``cmap``, i.e., corresponds to
         the fill of the compressive quadrants.
-    compressionfill : str
+    compression_fill : str
         Set color or pattern for filling compressive quadrants [Default is ``"black"``].
         This setting also applies to the fill of the circle defined via ``offset``.
-    extensionfill : str
+    extension_fill : str
         Set color or pattern for filling extensive quadrants [Default is ``"white"``].
     pen : str
         Set (default) pen attributes for all lines related to the beachball [Default is
@@ -330,16 +348,16 @@ def meca(  # noqa: PLR0913
         automatically. The color of the compressive quadrants is determined by the
         z-value (i.e., event depth or the third column for an input file). This setting
         also applies to the fill of the circle defined via ``offset``.
-    no_clip : bool
+    no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
-       ``False``, i.e., plot symbols inside the frame boundaries only].
-    {projection}
-    {region}
-    {frame}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+        ``False``, i.e., plot symbols inside the frame boundaries only].
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
     self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
@@ -362,6 +380,22 @@ def meca(  # noqa: PLR0913
     if kwargs.get("A") is None:
         kwargs["A"] = _auto_offset(spec)
     kwargs["S"] = f"{_convention.code}{scale}"
+
+    aliasdict = AliasSystem(
+        N=Alias(no_clip, name="no_clip"),
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
-            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="meca", args=build_arg_list(aliasdict, infile=vintbl)
+            )

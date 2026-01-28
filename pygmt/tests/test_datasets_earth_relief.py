@@ -49,7 +49,7 @@ def test_earth_relief_01d_gebco(data_source):
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -7169.0, atol=1.0)
+    npt.assert_allclose(data.min(), -7173.0, atol=1.0)
     npt.assert_allclose(data.max(), 5350.0, atol=1.0)
 
 
@@ -83,7 +83,7 @@ def test_earth_relief_01d_with_region_gebco():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5118.0, atol=1.0)
+    npt.assert_allclose(data.min(), -5137.0, atol=1.0)
     npt.assert_allclose(data.max(), 681.0, atol=1.0)
 
 
@@ -175,6 +175,17 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
             use_srtm=True,
             data_source="gebco",
         )
+
+
+def test_earth_relief_03s_but_not_igpp():
+    """
+    Test loading earth relief with resolution "03s" but data_source not "igpp".
+    """
+    for data_source in ["gebco", "gebcosi", "synbath"]:
+        with pytest.raises(GMTValueError):
+            load_earth_relief(
+                resolution="03s", region=[135, 136, 35, 36], data_source=data_source
+            )
 
 
 def test_earth_relief_15s_default_registration():

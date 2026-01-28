@@ -140,7 +140,7 @@ def test_plot3d_colors(data, region):
         region=region,
         projection="X6c",
         style="c0.5c",
-        cmap="cubhelix",
+        cmap="cpt-city/cubhelix",
         frame=["afg", "zafg"],
     )
     return fig
@@ -189,7 +189,7 @@ def test_plot3d_colors_sizes(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
+        cmap="matlab/copper",
         frame=["af", "zaf"],
     )
     return fig
@@ -215,7 +215,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -324,7 +324,7 @@ def test_plot3d_sizes_colors_transparencies():
         style="uc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
     )
     return fig
@@ -387,7 +387,7 @@ def test_plot3d_matrix_color(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
+        cmap="gmt/rainbow",
         incols=[0, 1, 2, 2],
         frame=["a", "za"],
     )

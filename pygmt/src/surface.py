@@ -2,24 +2,27 @@
 surface - Grid table data using adjustable tension continuous curvature splines.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'maxradius' parameter.
+@deprecate_parameter("maxradius", "max_radius", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="convergence",
-    I="spacing",
     Ll="lower",
     Lu="upper",
-    M="maxradius",
-    R="region",
+    M="max_radius",
     T="tension",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -27,16 +30,19 @@ __doctest_skip__ = ["surface"]
     f="coltypes",
     h="header",
     i="incols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
 def surface(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     z=None,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -71,34 +77,38 @@ def surface(
 
     Full GMT docs at :gmt-docs:`surface.html`.
 
-    {aliases}
+    $aliases
+       - I = spacing
+       - R = region
+       - V = verbose
+       - r = registration
 
     Parameters
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
+    $spacing
 
-    {region}
-    {outgrid}
+    $region
+    $outgrid
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
         ``convergence``. (Units same as data z units). Alternatively,
         give limit in percentage of root-mean-square (rms) deviation by
-        appending %. [Default is scaled to :math:`10^{{-4}}` of the rms
+        appending %. [Default is scaled to :math:`10^{-4}` of the rms
         deviation of the data from a best-fit (least-squares) plane.]
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
         divided by the grid spacing multiplier.
-    maxradius : float or str
+    max_radius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
-        farther than ``maxradius`` away from a data constraint are set to NaN
+        farther than ``max_radius`` away from a data constraint are set to NaN
         [Default is no masking]. Append a distance unit (see
         :gmt-docs:`Units <surface.html#units>`) if needed. One can also
         select the nodes to mask by using the *n_cells*\ **c** form. Here
@@ -130,16 +140,16 @@ def surface(
         set boundary tension. If you do not prepend **i** or **b**, both
         will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -158,6 +168,15 @@ def surface(
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(
@@ -165,8 +184,8 @@ def surface(
             ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            aliasdict["G"] = voutgrd
             lib.call_module(
-                module="surface", args=build_arg_list(kwargs, infile=vintbl)
+                module="surface", args=build_arg_list(aliasdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

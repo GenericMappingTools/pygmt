@@ -27,10 +27,13 @@ Plotting map elements
     Figure.basemap
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
@@ -202,6 +205,19 @@ Xarray Integration
 
     GMTBackendEntrypoint
     GMTDataArrayAccessor
+
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Box
+    Pattern
+    Position
 
 Enums
 -----

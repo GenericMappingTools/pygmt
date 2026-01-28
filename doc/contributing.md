@@ -481,17 +481,17 @@ the code yourself. Before committing, run it to automatically format your code:
 make format
 ```
 
-For consistency, we also use `pre-commit` hooks to enforce UNIX-style line endings
-(`\n`) and file permission 644 (`-rw-r--r--`) throughout the whole project.
-Don't worry if you forget to do it. Our continuous integration systems will
-warn us and you can make a new commit with the formatted code.
+For consistency, we also use `pre-commit` hooks (via [`prek`](https://prek.j178.dev/))
+to enforce UNIX-style line endings (`\n`) and file permission 644 (`-rw-r--r--`)
+throughout the whole project. Don't worry if you forget to do it. Our continuous
+integration systems will warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
 pull request to lint the code automatically.
 
-When wrapping a new alias, use an underscore to separate words bridged by vowels
-(aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
-words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
-convention is not applied by the code checking tools, but the PyGMT maintainers
+When introducing a new parameter name, use an underscore to separate words. This improves
+readability and aligns with the [PEP 8 style guide](https://peps.python.org/pep-0008/).
+For common shortcuts no underscore is needed, e.g., `surftype`, `outgrid`, or `timefmt`.
+This convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
 When working on a tutorial or a gallery plot, it is good practice to use code
@@ -689,7 +689,7 @@ def test_my_plotting_case():
     Test that my plotting method works.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="gmt/geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="gmt/geo")
     return fig_ref, fig_test
 ```

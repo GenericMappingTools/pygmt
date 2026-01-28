@@ -3,14 +3,11 @@ Test the behaviour of the GMTDataArrayAccessor class.
 """
 
 import importlib
-import sys
 from pathlib import Path
 
 import pytest
 import xarray as xr
-from packaging.version import Version
 from pygmt import which
-from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTValueError
@@ -113,12 +110,7 @@ def test_xarray_accessor_set_invalid_registration_and_gtype():
         grid.gmt.gtype = "geographic"
 
 
-# TODO(GMT>=6.5.0): Remove the xfail marker for GMT>=6.5.0.
 @pytest.mark.skipif(condition=not _HAS_NETCDF4, reason="netCDF4 is not installed")
-@pytest.mark.xfail(
-    condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
-    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
-)
 def test_xarray_accessor_sliced_datacube():
     """
     Check that a 2-D grid which is sliced from an n-dimensional datacube works with

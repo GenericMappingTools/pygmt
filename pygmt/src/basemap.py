@@ -2,56 +2,100 @@
 basemap - Plot base maps and frames.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    Jz="zscale",
-    JZ="zsize",
-    B="frame",
-    L="map_scale",
-    F="box",
-    Td="rose",
-    Tm="compass",
-    V="verbose",
-    c="panel",
-    f="coltypes",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+@use_alias(F="box", f="coltypes")
+def basemap(  # noqa: PLR0913
+    self,
+    projection: str | None = None,
+    zsize: float | str | None = None,
+    zscale: float | str | None = None,
+    frame: str | Sequence[str] | bool = False,
+    region: Sequence[float | str] | str | None = None,
+    map_scale: str | None = None,
+    compass: str | None = None,
+    rose: str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    **kwargs,
+):
     r"""
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several
-    map projections are available, and the user may specify separate
-    tick-mark intervals for boundary annotation, ticking, and [optionally]
-    gridlines. A simple map scale or directional rose may also be plotted.
+    Creates a basic or fancy basemap with axes, fill, and titles. Several map
+    projections are available, and the user may specify separate tick-mark intervals for
+    boundary annotation, ticking, and [optionally] gridlines.
 
-    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
-    ``compass`` must be specified if not in subplot mode.
+    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or ``compass``
+    must be specified if not in subplot mode.
+
+    See also the following methods that provide higher-level interfaces to the GMT's
+    ``basemap`` module:
+
+    - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
+    - :meth:``pygmt.Figure.directional_rose`: Add a directional rose on the plot.
+    - :meth:`pygmt.Figure.magnetic_rose`: Add a magnetic rose on the plot.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - J = projection
+       - Jz = zscale
+       - JZ = zsize
+       - L = map_scale
+       - R = region
+       - Td = rose
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
-    {projection}
-    zscale/zsize : float or str
+    $projection
+    zscale/zsize
         Set z-axis scaling or z-axis size.
-    {region}
+    $region
         *Required if this is the first plot command.*
-    {frame}
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*.
-        Draw a simple map scale centered on the reference point specified.
+    $frame
+    map_scale
+        Draw a map scale bar on the plot.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.scalebar` instead,
+            which provides a more comprehensive and flexible API for adding scale bars
+            to plots. This parameter still accepts raw GMT CLI strings for the ``-L``
+            option of the ``basemap`` module for backward compatibility.
+    compass
+        Draw a map magnetic rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.magnetic_rose`
+            instead, which provides a more comprehensive and flexible API for adding
+            magnetic roses to plots. This parameter still accepts raw GMT CLI strings
+            for the ``-Tm`` option of the ``basemap`` module for backward compatibility.
+    rose
+        Draw a map directional rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            This parameter is deprecated. Use :meth:`pygmt.Figure.directional_rose`
+            instead, which provides a more comprehensive and flexible API for adding
+            directional roses. This parameter still accepts raw GMT CLI strings for the
+            ``-Td`` option of the ``basemap`` module for backward compatibility.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -70,18 +114,30 @@ def basemap(self, **kwargs):
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is ``"4p/-4p"``] and shade sets the fill style to use for
         shading [Default is ``"gray50"``].
-    rose : str
-        Draw a map directional rose on the map at the location defined by
-        the reference and anchor points.
-    compass : str
-        Draw a map magnetic rose on the map at the location defined by the
-        reference and anchor points.
-    {verbose}
-    {panel}
-    {coltypes}
-    {perspective}
-    {transparency}
+    $verbose
+    $panel
+    $coltypes
+    $perspective
+    $transparency
     """
     self._activate_figure()
+
+    aliasdict = AliasSystem(
+        Jz=Alias(zscale, name="zscale"),
+        JZ=Alias(zsize, name="zsize"),
+        L=Alias(map_scale, name="map_scale"),  # Deprecated.
+        Td=Alias(rose, name="rose"),  # Deprecated.
+        Tm=Alias(compass, name="compass"),  # Deprecated.
+    ).add_common(
+        B=frame,
+        J=projection,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="basemap", args=build_arg_list(kwargs))
+        lib.call_module(module="basemap", args=build_arg_list(aliasdict))

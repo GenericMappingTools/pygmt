@@ -4,18 +4,20 @@ x2sys_cross - Calculate crossovers between track data files.
 
 import contextlib
 import os
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import pandas as pd
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     unique_name,
     use_alias,
 )
@@ -57,23 +59,25 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'trackvalues' parameter.
+@deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
     C="runtimes",
     D="override",
     I="interpolation",
-    R="region",
     S="speed",
     T="tag",
     Q="coe",
-    V="verbose",
     W="numpoints",
-    Z="trackvalues",
+    Z="track_values",
 )
-@kwargs_to_strings(R="sequence")
 def x2sys_cross(
     tracks=None,
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | None:
     r"""
@@ -89,7 +93,9 @@ def x2sys_cross(
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
-    {aliases}
+    $aliases
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -156,7 +162,7 @@ def x2sys_cross(
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {region}
+    $region
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -173,13 +179,13 @@ def x2sys_cross(
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {verbose}
+    $verbose
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
 
-    trackvalues : bool
+    track_values : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
 
@@ -215,13 +221,19 @@ def x2sys_cross(
             case _:
                 raise GMTTypeError(type(track))
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
             with contextlib.ExitStack() as stack:
                 fnames = [stack.enter_context(c) for c in file_contexts]
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(kwargs, infile=fnames, outfile=vouttbl),
+                    args=build_arg_list(aliasdict, infile=fnames, outfile=vouttbl),
                 )
                 result = lib.virtualfile_to_dataset(
                     vfname=vouttbl, output_type=output_type, header=2
@@ -250,9 +262,12 @@ def x2sys_cross(
                     unit = time_unit.upper() if time_unit in "wd" else time_unit
                     scale = 1.0
 
-            columns = result.columns[2:4]
-            result[columns] *= scale
-            result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
-            if columns[0][0] == "t":  # "t" or "i":
-                result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+            if len(result) > 0:  # if crossovers exist (more than one output row)
+                columns: pd.Index = result.columns[2:4]  # i_1/i_2 or t_1/t_2 columns
+                result[columns] *= scale
+                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
+
+                if columns[0][0] == "t":  # "t" or "i":
+                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+
             return result
