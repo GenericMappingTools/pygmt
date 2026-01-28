@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.basemap.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=5053a41f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -103,10 +103,13 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.basemap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.directional_rose.html">pygmt.Figure.directional_rose</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.hlines.html">pygmt.Figure.hlines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.magnetic_rose.html">pygmt.Figure.magnetic_rose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.scalebar.html">pygmt.Figure.scalebar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
@@ -203,29 +206,34 @@
 <h1>pygmt.Figure.basemap<a class="headerlink" href="#pygmt-figure-basemap" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.basemap">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">basemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.basemap" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">basemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zscale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.basemap" title="Link to this definition"></a></dt>
 <dd><p>Plot base maps and frames.</p>
-<p>Creates a basic or fancy basemap with axes, fill, and titles. Several
-map projections are available, and the user may specify separate
-tick-mark intervals for boundary annotation, ticking, and [optionally]
-gridlines. A simple map scale or directional rose may also be plotted.</p>
-<p>At least one of the parameters <code class="docutils literal notranslate"><span class="pre">frame</span></code>, <code class="docutils literal notranslate"><span class="pre">map_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rose</span></code>, or
-<code class="docutils literal notranslate"><span class="pre">compass</span></code> must be specified if not in subplot mode.</p>
+<p>Creates a basic or fancy basemap with axes, fill, and titles. Several map
+projections are available, and the user may specify separate tick-mark intervals for
+boundary annotation, ticking, and [optionally] gridlines.</p>
+<p>At least one of the parameters <code class="docutils literal notranslate"><span class="pre">frame</span></code>, <code class="docutils literal notranslate"><span class="pre">map_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">rose</span></code>, or <code class="docutils literal notranslate"><span class="pre">compass</span></code>
+must be specified if not in subplot mode.</p>
+<p>See also the following methods that provide higher-level interfaces to the GMT’s
+<code class="docutils literal notranslate"><span class="pre">basemap</span></code> module:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.scalebar</span></code></a>: Add a scale bar on the plot.</p></li>
+<li><p>:meth:<a href="#id1"><span class="problematic" id="id2">``</span></a>pygmt.Figure.directional_rose`: Add a directional rose on the plot.</p></li>
+<li><p><a class="reference internal" href="pygmt.Figure.magnetic_rose.html#pygmt.Figure.magnetic_rose" title="pygmt.Figure.magnetic_rose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.magnetic_rose</span></code></a>: Add a magnetic rose on the plot.</p></li>
+</ul>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/basemap.html">https://docs.generic-mapping-tools.org/6.6/basemap.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
 <li><p>F = box</p></li>
-<li><p>L = map_scale</p></li>
-<li><p>Td = rose</p></li>
-<li><p>Tm = compass</p></li>
 <li><p>f = coltypes</p></li>
-</ul>
-</td><td><ul class="simple">
 <li><p>B = frame</p></li>
 <li><p>J = projection</p></li>
 <li><p>Jz = zscale</p></li>
+</ul>
+</td><td><ul class="simple">
 <li><p>JZ = zsize</p></li>
+<li><p>L = map_scale</p></li>
 <li><p>R = region</p></li>
+<li><p>Td = rose</p></li>
 </ul>
 </td><td><ul class="simple">
 <li><p>V = verbose</p></li>
@@ -245,8 +253,30 @@ Specify the <a class="reference internal" href="../../tutorials/basics/regions.h
 <em>Required if this is the first plot command.</em></p></li>
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
-<li><p><strong>map_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>length</em>.
-Draw a simple map scale centered on the reference point specified.</p></li>
+<li><p><strong>map_scale</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Draw a map scale bar on the plot.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version v0.19.0: </span>This parameter is deprecated. Use <a class="reference internal" href="pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.scalebar</span></code></a> instead,
+which provides a more comprehensive and flexible API for adding scale bars
+to plots. This parameter still accepts raw GMT CLI strings for the <code class="docutils literal notranslate"><span class="pre">-L</span></code>
+option of the <code class="docutils literal notranslate"><span class="pre">basemap</span></code> module for backward compatibility.</p>
+</div>
+</p></li>
+<li><p><strong>compass</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Draw a map magnetic rose on the map.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version v0.19.0: </span>This parameter is deprecated. Use <a class="reference internal" href="pygmt.Figure.magnetic_rose.html#pygmt.Figure.magnetic_rose" title="pygmt.Figure.magnetic_rose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.magnetic_rose</span></code></a>
+instead, which provides a more comprehensive and flexible API for adding
+magnetic roses to plots. This parameter still accepts raw GMT CLI strings
+for the <code class="docutils literal notranslate"><span class="pre">-Tm</span></code> option of the <code class="docutils literal notranslate"><span class="pre">basemap</span></code> module for backward compatibility.</p>
+</div>
+</p></li>
+<li><p><strong>rose</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Draw a map directional rose on the map.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version v0.19.0: </span>This parameter is deprecated. Use <a class="reference internal" href="pygmt.Figure.directional_rose.html#pygmt.Figure.directional_rose" title="pygmt.Figure.directional_rose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.directional_rose</span></code></a>
+instead, which provides a more comprehensive and flexible API for adding
+directional roses. This parameter still accepts raw GMT CLI strings for the
+<code class="docutils literal notranslate"><span class="pre">-Td</span></code> option of the <code class="docutils literal notranslate"><span class="pre">basemap</span></code> module for backward compatibility.</p>
+</div>
+</p></li>
 <li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
 If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular border around the
 map scale or rose. Alternatively, specify a different pen with
@@ -263,10 +293,6 @@ Finally, append <strong>+s</strong> to draw an offset background shaded region.
 Here, <em>dx/dy</em> indicates the shift relative to the foreground frame
 [Default is <code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and shade sets the fill style to use for
 shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
-<li><p><strong>rose</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Draw a map directional rose on the map at the location defined by
-the reference and anchor points.</p></li>
-<li><p><strong>compass</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Draw a map magnetic rose on the map at the location defined by the
-reference and anchor points.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>panel</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – <p>Select a specific subplot panel. Only allowed when used in
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a> mode.</p>
@@ -311,7 +337,10 @@ in the image (for further processing).</p></li>
 
 <section id="examples-using-pygmt-figure-basemap">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code><a class="headerlink" href="#examples-using-pygmt-figure-basemap" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes should be plotted and optionally show annotations, tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations and tick marks (denoted W, S, E, N). Lowercase versions (w, s, e, n) can be used to denote to only plot the axes with tick marks. We can also only plot the axes without annotations and tick marks using l (left axis), r (right axis), t (top axis), b (bottom axis). When frame is used to change the frame settings, any axes that are not defined using one of these three options are not drawn."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A 3-D bar plot can be created from any collection of three-dimensional tabular data. The data points can lie on a regular grid or be irregularly scattered. A special case is creating such a 3-D bar plot based on a grid. This can be done in two steps:"><img alt="" src="../../_images/sphx_glr_3d_bar_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/3d_bar.html"><span class="doc">3-D bar plot</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D bar plot</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes should be plotted and optionally show annotations, tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations and tick marks (denoted W, S, E, N). Lowercase versions (w, s, e, n) can be used to denote to only plot the axes with tick marks. We can also only plot the axes without annotations and tick marks using l (left axis), r (right axis), t (top axis), b (bottom axis). When frame is used to change the frame settings, any axes that are not defined using one of these three options are not drawn."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/double_y_axes.html"><span class="doc">Double Y-axes graph</span></a></p>
   <div class="sphx-glr-thumbnail-title">Double Y-axes graph</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the frame parameter to add labels to the x and y axes of the colorbar by appending +l followed by the desired text. To add and adjust the annotations (a) and ticks (f) append the letter followed by the desired interval. The placement of the colorbar is set by passing a pygmt.params.Position object to the position parameter."><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
@@ -410,7 +439,7 @@ in the image (for further processing).</p></li>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><img alt="" src="../../_images/sphx_glr_shorelines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/shorelines.html"><span class="doc">Shorelines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Shorelines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for vertical bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html"><span class="doc">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
@@ -513,9 +542,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/30624170a">30624170</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jan 27, 2026.
       </span></p>
   </div>
 
