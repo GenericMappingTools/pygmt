@@ -1,12 +1,12 @@
 r"""
 Directional map roses
-=========
+=====================
 
 The ``rose`` parameter of the :meth:`pygmt.Figure.basemap` and
 :meth:`pygmt.Figure.coast` methods is used to add a directional map 
 rose to a map. This example shows how such a map rose can be customized:
 
- - position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the position
+- position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the position
    of the reference point. Choose from
 
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
@@ -70,7 +70,7 @@ with fig.subplot(
            rose = "g0/0+w2.5c+f1+jCM+l",
            frame = True)
 
-    # Fancy, 2.5 cm wide rose of level 2 abels indicating the different
+    # Fancy, 2.5 cm wide rose of level 2 and labels indicating the different
     # directions
     with fig.set_panel(panel=2):
 
@@ -79,7 +79,7 @@ with fig.subplot(
            rose = "g0/0+w2.5c+f2+l+jCM",
            frame = True)
         
-    # Fancy, 2.5 cm wide rose of level 3 abels indicating the different
+    # Fancy, 2.5 cm wide rose of level 3 and labels indicating the different
     # directions
     with fig.set_panel(panel=3):
 
