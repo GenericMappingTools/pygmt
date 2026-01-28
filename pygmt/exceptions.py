@@ -52,10 +52,6 @@ class GMTParameterError(GMTError):
     ----------
     required
         Names of required parameters.
-    require_any
-        Names of parameters where at least one must be specified.
-    exclusive
-        Names of mutually exclusive parameters.
     reason
         Detailed reason why the parameters are invalid.
     """
