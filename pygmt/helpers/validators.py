@@ -43,8 +43,7 @@ def validate_output_table_type(
     >>> validate_output_table_type("file", outfile=None)
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTParameterError: Required parameter(s) are missing:
-    ... 'outfile'. Must specify 'outfile' for output_type='file'.
+    pygmt.exceptions.GMTParameterError: Required parameter(s) are missing: 'outfile'...
     >>> with warnings.catch_warnings(record=True) as w:
     ...     validate_output_table_type("pandas", outfile="not-none.txt")
     ...     assert len(w) == 1

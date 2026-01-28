@@ -154,7 +154,7 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(points=dataframe, grid=dataarray)
 
 
