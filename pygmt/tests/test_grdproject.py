@@ -91,6 +91,7 @@ def test_grdproject_unit_scaling(grid):
             projection="M10c",
             spacing=3,
             unit="i",
+            scaling="k",
             region=[-53, -51, -20, -17],
         )
 
