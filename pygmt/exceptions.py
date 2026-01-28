@@ -41,9 +41,6 @@ class GMTCLibNoSessionError(GMTCLibError):
 class GMTInvalidInput(GMTError):  # noqa: N818
     """
     Raised when the input of a function/method is invalid.
-
-    .. deprecated:: 0.13.0
-        Use :class:`GMTParameterError` instead.
     """
 
 
@@ -67,8 +64,6 @@ class GMTParameterError(GMTError):
         self,
         *,
         required: set[str] | None = None,
-        require_any: set[str] | None = None,
-        exclusive: set[str] | None = None,
         reason: str | None = None,
     ):
         msg = []
@@ -76,16 +71,6 @@ class GMTParameterError(GMTError):
             msg.append(
                 "Required parameter(s) are missing: "
                 f"{', '.join(repr(par) for par in required)}."
-            )
-        if require_any:
-            msg.append(
-                "At least one of the following parameters must be specified: "
-                f"{', '.join(repr(par) for par in require_any)}."
-            )
-        if exclusive:
-            msg.append(
-                "Mutually exclusive parameter(s) are specified: "
-                f"{', '.join(repr(par) for par in exclusive)}."
             )
         if reason:
             msg.append(reason)
