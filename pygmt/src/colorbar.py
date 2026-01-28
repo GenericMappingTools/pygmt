@@ -33,6 +33,59 @@ def _alias_option_D(  # noqa: N802, PLR0913
 ):
     """
     Return a list of Alias objects for the -D option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(D=_alias_option_D(**kwargs)).get("D")
+    >>> parse(position=Position("TL", offset=0.2), length=4, width=0.5)
+    'jTL+o0.2+w4/0.5'
+    >>> parse(orientation="horizontal")
+    '+h'
+    >>> parse(orientation="vertical")
+    '+v'
+    >>> parse(reverse=True)
+    '+r'
+    >>> parse(nan=True)
+    '+n'
+    >>> parse(nan=True, nan_position="end")
+    '+N'
+    >>> parse(fg_triangle=True, bg_triangle=True)
+    '+e'
+    >>> parse(fg_triangle=True)
+    '+ef'
+    >>> parse(bg_triangle=True)
+    '+eb'
+    >>> parse(fg_triangle=True, triangle_height=0.4)
+    '+ef0.4'
+    >>> parse(fg_triangle=True, bg_triangle=True, triangle_height=0.3)
+    '+e0.3'
+    >>> parse(move_text="annotations")
+    '+ma'
+    >>> parse(move_text="label")
+    '+ml'
+    >>> parse(move_text="unit")
+    '+mu'
+    >>> parse(move_text=["annotations", "label", "unit"])
+    '+malu'
+    >>> parse(label_as_column=True)
+    '+mc'
+    >>> parse(move_text=["annotations", "label"], label_as_column=True)
+    '+malc'
+    >>> parse(
+    ...     position=Position("BR", offset=(0.1, 0.2)),
+    ...     length=5,
+    ...     width=0.4,
+    ...     orientation="vertical",
+    ...     reverse=True,
+    ...     nan=True,
+    ...     nan_position="start",
+    ...     bg_triangle=True,
+    ...     triangle_height=0.2,
+    ...     move_text=["annotations", "unit"],
+    ...     label_as_column=True,
+    ... )
+    'jBR+o0.1/0.2+w5/0.4+v+r+n+eb0.2+mauc'
     """
     # Build the +e modifier from fg_triangle/bg_triangle/triangle_height
     if fg_triangle and bg_triangle:
