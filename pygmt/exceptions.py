@@ -47,7 +47,7 @@ class GMTInvalidInput(GMTError):  # noqa: N818
     """
 
 
-class GMTParameterError(GMTError):  # noqa: N818
+class GMTParameterError(GMTError):
     """
     Raised when parameters are missing or invalid.
 
