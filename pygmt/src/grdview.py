@@ -22,6 +22,39 @@ def _alias_option_Q(  # noqa: N802
 ):
     """
     Helper function to build the Alias list for the -Q option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(Q=_alias_option_Q(**kwargs)).get("Q")
+    >>> parse(surftype="surface")
+    's'
+    >>> parse(surftype="mesh")
+    'm'
+    >>> parse(surftype="surface+mesh")
+    'sm'
+    >>> parse(surftype="waterfall_x")
+    'mx'
+    >>> parse(surftype="waterfall_y")
+    'my'
+    >>> parse(surftype="image")
+    'i'
+    >>> parse(surftype="image", nan_transparent=True)
+    'c'
+    >>> parse(surftype="image", dpi=150)
+    'i150'
+    >>> parse(surftype="image", dpi=150, nan_transparent=True)
+    'c150'
+    >>> parse(surftype="mesh", mesh_fill="blue")
+    'mblue'
+    >>> parse(surftype="surface", monochrome=True)
+    's+m'
+    >>> parse(surftype="surface+mesh", monochrome=True)
+    'sm+m'
+
+    >>> # Check for backward compatibility with old raw GMT syntax.
+    >>> for surftype in ["s", "m", "sm", "i", "c", "mx", "my", "mblue", "i150"]:
+    ...     assert parse(surftype=surftype) == surftype
     """
     _surftype_mapping = {
         "surface": "s",
