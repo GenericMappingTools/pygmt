@@ -57,8 +57,6 @@ fig.directional_rose(width=width,
                     position=Position((70, yval_top), cstype="mapcoords"),
                     fancy = 3)
 
-
-
 # Plain rose of 1.5 cm width showing arrow towards north, a cross
 # indicating the cardinal directions, and corresponding label.
 # Colors of the rose and labels are defined via
@@ -80,7 +78,7 @@ with pygmt.config(MAP_DEFAULT_PEN="default,pink",
                          labels = ["", "", "", "N"],
                           position=Position((20, yval_bottom), cstype="mapcoords"),
                          fancy=True
-                    )    
+                    )
 
 # Fancy, 1.5 cm wide rose of level 2 with two labels indicating the West and
 # East directions. Colors of the rose and labels are defined via
@@ -92,7 +90,8 @@ with pygmt.config(MAP_DEFAULT_PEN="default,lightorange",
                          labels = ["W", "E", "", ""],
                           position=Position((45, yval_bottom), cstype="mapcoords"),
                          fancy=2
-                    )   
+                    )
+
 # Fancy, 1.5 cm wide rose of level 3 with two labels indicating the North and
 # South directions. Colors of the rose and labels are defined via
 # MAP_DEFAULT_PEN, MAP_TICK_PEN_PRIMARY and FONT_TITLE, respectively
@@ -103,6 +102,6 @@ with pygmt.config(MAP_DEFAULT_PEN="default,Dodgerblue4",
                          labels = ["", "", "South", "North"],
                           position=Position((70, yval_bottom), cstype="mapcoords"),
                          fancy=3
-                    )  
+                    )
 
 fig.show()
