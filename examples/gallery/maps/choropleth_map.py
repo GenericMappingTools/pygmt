@@ -34,7 +34,7 @@ pygmt.makecpt(cmap="SCM/acton", series=(0, 100), reverse=True)
 
 # Next, we plot the polygons and fill them using the defined colormap. The target column
 # is defined by the aspatial parameter.
-fig.plot(data=africa, pen="0.8p,gray50", fill="+z", cmap=True, aspatial="Z=POP_EST")
+fig.choropleth(data=africa, column="POP_EST", pen="0.8p,gray50")
 
 # Add colorbar legend.
 fig.colorbar(
@@ -45,26 +45,4 @@ fig.colorbar(
     triangle_height=0.2,
     move_text="label",
 )
-
-<<<<<<< HEAD
-=======
-# The dataset contains different attributes, here we select the "population" column to
-# plot.
-
-# First, we define the colormap to fill the polygons based on the "population" column.
-pygmt.makecpt(
-    cmap="acton",
-    series=[gdf["population"].min(), gdf["population"].max(), 10],
-    continuous=True,
-    reverse=True,
-)
-
-# Next, we plot the polygons and fill them using the defined colormap. The target column
-# is specified by the `column` parameter.
-fig.choropleth(data=gdf, column="population", pen="0.3p,gray10", cmap=True)
-
-# Add colorbar legend
-fig.colorbar(frame="x+lPopulation", position="jML+o-0.5c+w3.5c/0.2c")
-
->>>>>>> e5f21af07 (Add Figure.choropleth to plot choropleth maps)
 fig.show()
