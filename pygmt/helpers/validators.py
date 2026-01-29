@@ -58,7 +58,7 @@ def validate_output_table_type(
         )
     if output_type == "file" and outfile is None:
         raise GMTParameterError(
-            required="outfile", reason="Must specify 'outfile' for output_type='file'."
+            required="outfile", reason="Required when output_type='file'."
         )
     if output_type != "file" and outfile is not None:
         msg = (
