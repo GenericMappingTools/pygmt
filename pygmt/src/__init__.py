@@ -5,6 +5,7 @@ Source code for PyGMT methods.
 from pygmt.src.basemap import basemap
 from pygmt.src.binstats import binstats
 from pygmt.src.blockm import blockmean, blockmedian, blockmode
+from pygmt.src.choropleth import choropleth
 from pygmt.src.coast import coast
 from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
