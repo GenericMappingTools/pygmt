@@ -537,7 +537,7 @@ overview of the main tasks involved.
    > The initial implementation of wrapping the XXX module was completed in PR #XXX.
    > Not all functionalities are implemented yet. Further progress will be tracked in
    > the Project board.
-   This is necessary to avoid having hundreds of long-term open issues.
+   This is necessary to avoid having too many long-term open issues.
 5. Open one or more PRs to implement the remaining features and missing aliases.
 6. Open one PR to add a gallery example or a tutorial.
 
@@ -561,9 +561,10 @@ GMT module:
 * Add a function `<module-name>` to the module. When writing the new function, it is
   generally easiest to reference the source code for other functions that input/output
   similar object types.
-* Write a detailed docstring following the [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
-* Add the function to the import statements in `pygmt/src/__init__.py`.
-* Add the function to the import statements in `pygmt/__init__.py`.
+* Write a detailed docstring following the
+  [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py` and
+  `pygmt/__init__.py`.
 * Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
 * Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
   the guidelines in the [testing your code](#testing-your-code) section.
