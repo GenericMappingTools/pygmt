@@ -50,6 +50,7 @@ def grdclip(
     .. hlist::
        :columns: 3
 
+       - G = outgrid
        - R = region
        - Sa = above
        - Sb = below
