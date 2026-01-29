@@ -57,6 +57,7 @@ def grdproject(  # noqa: PLR0913
        - D = spacing
        - E = dpi
        - F = scaling
+       - G = outgrid
        - I = inverse
        - J = projection
        - M = unit
