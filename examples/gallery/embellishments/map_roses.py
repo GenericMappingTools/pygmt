@@ -21,24 +21,23 @@ fig = pygmt.Figure()
 region = [-5, 80, -10, 32]
 projection = "M10c"
 
-yval_top = 20
-yval_bottom = 0
+y_top = 20
+y_bottom = 0
 width = "1.5c"
 
 fig.basemap(region=region, projection=projection, frame=True)
 
-# Plain rose of 1.5 cm width showing arrow towards north, a cross
-# indicating the cardinal directions, and corresponding label
+# Plain rose of 1.5 cm width showing an arrow towards North, a cross
+# indicating the cardinal directions, and a label for the North direction
 fig.directional_rose(
     width=width, labels=True, position=Position((0, yval_top), cstype="mapcoords")
 )
 
-# Fancy, 1.5 cm wide rose of level 1 and labels indicating the different
-# directions
+# Fancy, 1.5 cm wide rose of level 1 and labels indicating the different directions
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((20, yval_top), cstype="mapcoords"),
+    position=Position((20, y_top), cstype="mapcoords"),
     fancy=True,
 )
 
@@ -47,7 +46,7 @@ fig.directional_rose(
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((45, yval_top), cstype="mapcoords"),
+    position=Position((45, y_top), cstype="mapcoords"),
     fancy=2,
 )
 
@@ -56,19 +55,19 @@ fig.directional_rose(
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((70, yval_top), cstype="mapcoords"),
+    position=Position((70, y_top), cstype="mapcoords"),
     fancy=3,
 )
 
-# Plain rose of 1.5 cm width showing arrow towards north, a cross
-# indicating the cardinal directions, and corresponding label.
+# Plain rose of 1.5 cm width showing an arrow towards North, a cross
+# indicating the cardinal directions, and a label for the North direction.
 # Colors of the rose and labels are defined via
 # MAP_TICK_PEN_PRIMARY and FONT_TITLE, respectively
 with pygmt.config(MAP_TICK_PEN_PRIMARY="purple", FONT_TITLE="8p,darkmagenta"):
     fig.directional_rose(
         width=width,
         labels=True,
-        position=Position((0, yval_bottom), cstype="mapcoords"),
+        position=Position((0, y_bottom), cstype="mapcoords"),
     )
 
 # Fancy, 1.5 cm wide rose of level 1 with only one label indicating the North
@@ -82,7 +81,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["", "", "", "N"],
-        position=Position((20, yval_bottom), cstype="mapcoords"),
+        position=Position((20, y_bottom), cstype="mapcoords"),
         fancy=True,
     )
 
@@ -97,7 +96,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["W", "E", "", ""],
-        position=Position((45, yval_bottom), cstype="mapcoords"),
+        position=Position((45, y_bottom), cstype="mapcoords"),
         fancy=2,
     )
 
@@ -112,7 +111,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["", "", "South", "North"],
-        position=Position((70, yval_bottom), cstype="mapcoords"),
+        position=Position((70, y_bottom), cstype="mapcoords"),
         fancy=3,
     )
 
