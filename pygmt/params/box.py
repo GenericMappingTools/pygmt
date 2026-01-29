@@ -66,7 +66,7 @@ class Box(BaseParam):
         # inner_pen is required when inner_gap is set.
         if self.inner_gap is not None and self.inner_pen is None:
             raise GMTParameterError(
-                required="inner_pen", reason="is required when 'inner_gap' is set."
+                required="inner_pen", reason="Required when 'inner_gap' is set."
             )
 
         # shade_offset must be a sequence of two values or None.
