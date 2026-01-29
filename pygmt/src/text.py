@@ -200,7 +200,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     if position is not None:
         if text is None:
             raise GMTParameterError(
-                required="text", reason="'text' can't be None when 'position' is given."
+                required="text", reason="Required when 'position' is given."
             )
         if is_nonstr_iter(text):
             raise GMTTypeError(
