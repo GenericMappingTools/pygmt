@@ -1,4 +1,4 @@
-r"""
+"""
 Directional map roses
 =====================
 
