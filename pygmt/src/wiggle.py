@@ -113,9 +113,9 @@ def wiggle(  # noqa: PLR0913
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
-    positive_fill : str
+    positive_fill
         Set color or pattern for filling positive wiggles [Default is no fill].
-    negative_fill : str
+    negative_fill
         Set color or pattern for filling negative wiggles [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
