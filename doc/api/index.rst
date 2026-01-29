@@ -294,6 +294,7 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
 
     exceptions.GMTError
     exceptions.GMTInvalidInput
+    exceptions.GMTParameterError
     exceptions.GMTVersionError
     exceptions.GMTOSError
     exceptions.GMTCLibError

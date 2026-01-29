@@ -7,7 +7,12 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, config
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import (
+    GMTCLibError,
+    GMTInvalidInput,
+    GMTParameterError,
+    GMTTypeError,
+)
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
 
@@ -152,7 +157,7 @@ def test_text_invalid_inputs(region):
         )
     with pytest.raises(GMTInvalidInput):
         fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", position="MC", text=None)
     with pytest.raises(GMTTypeError):
         fig.text(
