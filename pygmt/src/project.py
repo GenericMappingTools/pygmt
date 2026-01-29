@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -221,8 +221,7 @@ def project(  # noqa: PLR0913
           (depends on ``output_type``)
     """
     if kwargs.get("C", center) is None:
-        msg = "Parameter 'center' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="center")
     if kwargs.get("G") is None and data is None:
         msg = "The 'data' parameter must be specified unless 'generate' is used."
         raise GMTInvalidInput(msg)

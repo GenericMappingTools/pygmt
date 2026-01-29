@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
@@ -118,8 +118,7 @@ def grdlandmask(
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
-        msg = "Both 'region' and 'spacing' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required={"region", "spacing"})
 
     aliasdict = AliasSystem(
         D=Alias(

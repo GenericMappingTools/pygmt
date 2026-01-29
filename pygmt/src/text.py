@@ -212,8 +212,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         msg = "'text' can't be specified when 'textfiles' is given."
         raise GMTInvalidInput(msg)
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="text", reason="Must provide text with x/y pairs."
+        )
 
     # Arguments that can accept arrays.
     array_args = [
