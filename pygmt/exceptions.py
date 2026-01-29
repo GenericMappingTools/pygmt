@@ -139,7 +139,7 @@ class GMTParameterError(GMTError):
     Parameters
     ----------
     required
-       Names of required parameters.
+       Name or a set of names of required parameters.
     reason
         Detailed reason why the parameters are invalid.
     """
