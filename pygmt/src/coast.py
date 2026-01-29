@@ -7,8 +7,13 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
+from pygmt.exceptions import GMTParameterError
+from pygmt.helpers import (
+    args_in_kwargs,
+    build_arg_list,
+    fmt_docstring,
+    use_alias,
+)
 from pygmt.params import Box
 
 __doctest_skip__ = ["coast"]
@@ -232,7 +237,6 @@ def coast(  # noqa: PLR0913
     >>> fig.show()
     """
     self._activate_figure()
-
     if (
         kwargs.get("G", land) is None
         and kwargs.get("S", water) is None
@@ -241,11 +245,18 @@ def coast(  # noqa: PLR0913
         and kwargs.get("W", shorelines) is False
         and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
     ):
-        msg = (
-            "At least one of the following parameters must be specified: "
-            "land, water, rivers, borders, shorelines, lakes, dcw, or Q."
+        raise GMTParameterError(
+            require_any={
+                "lakes",
+                "land",
+                "water",
+                "rivers",
+                "borders",
+                "dcw",
+                "Q",
+                "shorelines",
+            }
         )
-        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         D=Alias(
