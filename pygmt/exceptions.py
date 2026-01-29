@@ -153,11 +153,12 @@ class GMTParameterError(GMTError):
         msg = []
         if required:
             if isinstance(required, str):
-                required = {required}
-            msg.append(
-                "Required parameter(s) are missing: "
-                f"{', '.join(repr(par) for par in required)}."
-            )
+                msg.append(f"Missing required parameter: {par!r}.")
+            else:
+                msg.append(
+                    "Missing required parameters: "
+                    f"{', '.join(repr(par) for par in required)}."
+                )
         if reason:
             msg.append(reason)
         super().__init__(" ".join(msg))
