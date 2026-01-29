@@ -18,8 +18,8 @@ from pygmt.params import Position
 
 fig = pygmt.Figure()
 
-yval_top = 20
-yval_bottom = 0
+y0 = 20
+y1 = 0
 width = "1.5c"
 
 fig.basemap(region=[-5, 80, -10, 32], projection="M10c", frame=True)
@@ -27,14 +27,14 @@ fig.basemap(region=[-5, 80, -10, 32], projection="M10c", frame=True)
 # Plain rose of 1.5 cm width showing an arrow towards North, a cross
 # indicating the cardinal directions, and a label for the North direction
 fig.directional_rose(
-    width=width, labels=True, position=Position((0, yval_top), cstype="mapcoords")
+    width=width, labels=True, position=Position((0, y0), cstype="mapcoords")
 )
 
 # Fancy, 1.5 cm wide rose of level 1 and labels indicating the different directions
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((20, y_top), cstype="mapcoords"),
+    position=Position((20, y0), cstype="mapcoords"),
     fancy=True,
 )
 
@@ -43,7 +43,7 @@ fig.directional_rose(
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((45, y_top), cstype="mapcoords"),
+    position=Position((45, y0), cstype="mapcoords"),
     fancy=2,
 )
 
@@ -52,7 +52,7 @@ fig.directional_rose(
 fig.directional_rose(
     width=width,
     labels=True,
-    position=Position((70, y_top), cstype="mapcoords"),
+    position=Position((70, y0), cstype="mapcoords"),
     fancy=3,
 )
 
@@ -64,7 +64,7 @@ with pygmt.config(MAP_TICK_PEN_PRIMARY="purple", FONT_TITLE="8p,darkmagenta"):
     fig.directional_rose(
         width=width,
         labels=True,
-        position=Position((0, y_bottom), cstype="mapcoords"),
+        position=Position((0, y1), cstype="mapcoords"),
     )
 
 # Fancy, 1.5 cm wide rose of level 1 with only one label indicating the North
@@ -78,7 +78,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["", "", "", "N"],
-        position=Position((20, y_bottom), cstype="mapcoords"),
+        position=Position((20, y1), cstype="mapcoords"),
         fancy=True,
     )
 
@@ -93,7 +93,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["W", "E", "", ""],
-        position=Position((45, y_bottom), cstype="mapcoords"),
+        position=Position((45, y1), cstype="mapcoords"),
         fancy=2,
     )
 
@@ -108,7 +108,7 @@ with pygmt.config(
     fig.directional_rose(
         width=width,
         labels=["", "", "South", "North"],
-        position=Position((70, y_bottom), cstype="mapcoords"),
+        position=Position((70, y1), cstype="mapcoords"),
         fancy=3,
     )
 
