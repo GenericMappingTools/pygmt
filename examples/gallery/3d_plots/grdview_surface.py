@@ -3,15 +3,14 @@ Plotting a surface
 ==================
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with
-``surftype="s"``. Here, we supply the data as an :class:`xarray.DataArray` with
-the coordinate vectors ``x`` and ``y`` defined. Note that the ``perspective``
-parameter here controls the azimuth and elevation angle of the view. We provide
-a list of two arguments to ``frame`` - the first argument specifies the
-:math:`x`- and :math:`y`-axes frame attributes and the second argument,
-prepended with ``"z"``, specifies the :math:`z`-axis frame attributes.
-Specifying the same scale for the ``projection`` and ``zscale`` parameters
-ensures equal axis scaling. The ``shading`` parameter specifies illumination;
-here we choose an azimuth of 45° with ``shading="+a45"``.
+``surftype="surface"``. Here, we supply the data as an :class:`xarray.DataArray` with
+the coordinate vectors ``x`` and ``y`` defined. Note that the ``perspective`` parameter
+here controls the azimuth and elevation angle of the view. We provide a list of two
+arguments to ``frame`` - the first argument specifies the :math:`x`- and :math:`y`-axes
+frame attributes and the second argument, prepended with ``"z"``, specifies the
+:math:`z`-axis frame attributes. Specifying the same scale for the ``projection`` and
+``zscale`` parameters ensures equal axis scaling. The ``shading`` parameter specifies
+illumination; here we choose an azimuth of 45° with ``shading="+a45"``.
 """
 
 # %%
@@ -51,7 +50,7 @@ fig.grdview(
     frame=["a5f1g5", "za5f1g5"],
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
-    surftype="s",
+    surftype="surface",
     cmap="SCM/roma",
     perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
     shading="+a45",

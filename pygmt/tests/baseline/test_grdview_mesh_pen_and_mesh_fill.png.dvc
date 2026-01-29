@@ -1,0 +1,5 @@
+outs:
+- md5: 9158bd6308a9bb59fdcaf56e406954b3
+  size: 55008
+  hash: md5
+  path: test_grdview_mesh_pen_and_mesh_fill.png
