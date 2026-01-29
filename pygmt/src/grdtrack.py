@@ -308,7 +308,7 @@ def grdtrack(
 
     if hasattr(points, "columns") and newcolname is None:
         raise GMTParameterError(
-            required="newcolname", reason="Please pass in a str to 'newcolname'."
+            required="newcolname", reason="Pass in a string to 'newcolname'."
         )
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
