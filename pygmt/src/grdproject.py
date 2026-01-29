@@ -119,6 +119,10 @@ def grdproject(  # noqa: PLR0913
     if kwargs.get("J", projection) is None:
         raise GMTParameterError(required={"projection"})
 
+    if kwargs.get("M", unit) is not None and kwargs.get("F", scaling) is not False:
+        msg = "Cannot use both 'unit' and 'scaling'."
+        raise GMTInvalidInput(msg)
+
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),
         D=Alias(spacing, name="spacing", sep="/", size=2),
