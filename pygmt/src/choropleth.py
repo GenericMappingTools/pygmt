@@ -21,15 +21,15 @@ def choropleth(
     appropriate parameters for creating a choropleth map by filling polygons based on
     values in a specified data column. It requires the input data to be a geo-like
     Python object that implements ``__geo_interface__`` (e.g. a
-    :class:`geopandas.GeoDataFrame`), or an OGR_GMT file containing the geometry and data
-    to plot.
+    :class:`geopandas.GeoDataFrame`), or an OGR_GMT file containing the geometry and
+    data to plot.
 
     Parameters
     ----------
     data
         A geo-like Python object which implements ``__geo_interface__`` (e.g. a
-        :class:`geopandas.GeoDataFrame` or :class:`shapely.geometry`), or an OGR_GMT file
-        containing the geometry and data to plot.
+        :class:`geopandas.GeoDataFrame` or :class:`shapely.geometry`), or an OGR_GMT
+        file containing the geometry and data to plot.
     column
         The name of the data column to use for the fill.
     cmap

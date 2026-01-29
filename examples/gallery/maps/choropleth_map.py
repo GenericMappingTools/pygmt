@@ -3,13 +3,14 @@ Choropleth map
 ==============
 
 The :meth:`pygmt.Figure.choropleth` method allows us to plot geographical data such as
-polygons which are stored in a :class:`geopandas.GeoDataFrame` object or an OGR_GMT file.
-Use :func:`geopandas.read_file` to load data from any supported OGR formats such as a
-shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
-URL pointing to your desired data source. Then, pass the :class:`geopandas.GeoDataFrame`
-as an argument to the ``data`` parameter of :meth:`pygmt.Figure.choropleth`, and style
-the geometry using the ``pen`` parameter. To fill the polygons based on a corresponding
-column you need to specify the column name to the ``column`` parameter.
+polygons which are stored in a :class:`geopandas.GeoDataFrame` object or an OGR_GMT
+file. Use :func:`geopandas.read_file` to load data from any supported OGR formats such
+as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a
+full URL pointing to your desired data source. Then, pass the
+:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
+:meth:`pygmt.Figure.choropleth`, and style the geometry using the ``pen`` parameter. To
+fill the polygons based on a corresponding column you need to specify the column name to
+the ``column`` parameter.
 """
 
 # %%
