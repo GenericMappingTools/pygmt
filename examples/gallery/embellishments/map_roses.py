@@ -18,14 +18,11 @@ from pygmt.params import Position
 
 fig = pygmt.Figure()
 
-region = [-5, 80, -10, 32]
-projection = "M10c"
-
-y_top = 20
-y_bottom = 0
+yval_top = 20
+yval_bottom = 0
 width = "1.5c"
 
-fig.basemap(region=region, projection=projection, frame=True)
+fig.basemap(region=[-5, 80, -10, 32], projection="M10c", frame=True)
 
 # Plain rose of 1.5 cm width showing an arrow towards North, a cross
 # indicating the cardinal directions, and a label for the North direction
