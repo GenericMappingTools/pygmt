@@ -23,7 +23,36 @@ def _alias_option_A(  # noqa: N802
     tag_orientation: Literal["horizontal", "vertical"] | None = None,
     autolabel: str | bool = False,
 ):
-    """Helper function to create Alias for option A in subplot."""
+    """
+    Helper function to create the alias list for the -A option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(A=_alias_option_A(**kwargs)).get("A")
+    >>> parse(autotag="a)")
+    'a)'
+    >>> parse(tag_position="TL")
+    '+jTL'
+    >>> parse(tag_position=Position("TL", cstype="inside", offset=("2c", "2c")))
+    '+jTL+o2c/2c'
+    >>> parse(tag_position=Position("TL", cstype="outside", offset=("2c", "2c")))
+    '+JTL+o2c/2c'
+    >>> parse(tag_box=Box(pen="1p,red", clearance="2c"))
+    '+c2c+p1p,red'
+    >>> parse(tag_number_style="roman")
+    '+r'
+    >>> parse(tag_orientation="vertical")
+    '+v'
+    >>> parse(
+    ...     autotag="(1)",
+    ...     tag_position="TL",
+    ...     tag_box=Box(pen="1p,red"),
+    ...     tag_number_style="Roman",
+    ...     tag_orientation="horizontal",
+    ... )
+    '(1)+jTL+p1p,red+R'
+    """
     # Check conflicts with deprecated 'autolabel' parameter.
     if autolabel:
         if any(
@@ -41,22 +70,26 @@ def _alias_option_A(  # noqa: N802
     # Validate tag_box if provided.
     if tag_box:
         if any(
-            v is not None
+            v is not None and v is not False
             for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
         ):
             raise GMTValueError(
                 tag_box,
-                description="Box properties for 'tag_box' in 'Figure.subplot'.",
+                description="Box properties for 'tag_box' in 'Figure.subplot'",
                 reason="The 'inner_pen', 'inner_gap', and 'radius' properties are not supported.",
             )
         if tag_box.clearance and len(tag_box.clearance) > 2:
             raise GMTValueError(
                 tag_box,
-                description="Box 'clearance' property for 'tag_box' in 'Figure.subplot'.",
+                description="Box 'clearance' property for 'tag_box' in 'Figure.subplot'",
                 reason="Only one or two values are accepted.",
             )
     # Validate the tag_position if provided.
-    if tag_position and tag_position.cstype in {"mapcoords", "plotcoords", "boxcoords"}:
+    if getattr(tag_position, "cstype", None) in {
+        "mapcoords",
+        "plotcoords",
+        "boxcoords",
+    }:
         raise GMTValueError(
             tag_position,
             description="tag position for 'Figure.subplot'.",
