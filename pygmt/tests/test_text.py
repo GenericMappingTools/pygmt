@@ -90,7 +90,7 @@ def test_text_without_text_input(region, projection):
     Run text by passing in x and y, but no text.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection=projection, x=1.2, y=2.4)
 
 
