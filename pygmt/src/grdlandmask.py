@@ -52,6 +52,7 @@ def grdlandmask(
     $aliases
        - D = resolution
        - E = border_values
+       - G = outgrid
        - I = spacing
        - N = mask_values
        - R = region

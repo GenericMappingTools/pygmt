@@ -78,6 +78,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         $aliases
+           - G = outgrid
            - R = region
            - V = verbose
 

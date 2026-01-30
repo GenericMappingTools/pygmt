@@ -45,6 +45,7 @@ def grdgradient(
     $aliases
        - A = azimuth
        - E = radiance
+       - G = outgrid
        - R = region
        - V = verbose
 
