@@ -223,8 +223,7 @@ def project(  # noqa: PLR0913
     if kwargs.get("C", center) is None:
         raise GMTParameterError(required="center")
     if kwargs.get("G") is None and data is None:
-        msg = "The 'data' parameter must be specified unless 'generate' is used."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="data", reason="Required unless 'generate' is set.")
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         msg = "The 'convention' parameter is not allowed with 'generate'."
         raise GMTInvalidInput(msg)
