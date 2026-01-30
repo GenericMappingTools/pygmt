@@ -105,6 +105,7 @@ def grdfill(
        - Ag = grid_fill
        - An = neighbor_fill
        - As = spline_fill
+       - G = outgrid
        - L = inquire
        - N = hole
        - R = region

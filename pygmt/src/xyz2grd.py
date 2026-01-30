@@ -53,6 +53,7 @@ def xyz2grd(
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - J = projection
        - R = region

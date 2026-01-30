@@ -101,6 +101,7 @@ def grdgradient(  # noqa: PLR0913
        - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma,
          **+o**: norm_offset
        - E = radiance
+       - G = outgrid
        - R = region
        - V = verbose
 
