@@ -85,11 +85,7 @@ def _alias_option_A(  # noqa: N802
                 reason="Only one or two values are accepted.",
             )
     # Validate the tag_position if provided.
-    if getattr(tag_position, "cstype", None) in {
-        "mapcoords",
-        "plotcoords",
-        "boxcoords",
-    }:
+    if tag_position.cstype in {"mapcoords", "plotcoords", "boxcoords"}:
         raise GMTValueError(
             tag_position,
             description="tag position for 'Figure.subplot'.",
