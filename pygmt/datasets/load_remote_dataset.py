@@ -566,7 +566,7 @@ def _load_remote_dataset(
     if resinfo.tiled and region is None:
         raise GMTParameterError(
             required="region",
-            reason=f"Required for {dataset.description} resolution '{resolution}'.",
+            reason=f"Required for {dataset.description} resolution {resolution!r}.",
         )
 
     fname = f"@{prefix}_{resolution}_{reg}"
