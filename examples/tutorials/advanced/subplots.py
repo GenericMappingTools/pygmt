@@ -3,7 +3,7 @@ Making subplots
 ===============
 
 When you're preparing a figure for a paper, there will often be times when
-you'll need to put many individual plots into one large figure, and label them
+you'll need to put many individual plots into one large figure, and tag them
 'abcd'. These individual plots are called subplots.
 
 There are two main ways to create subplots in GMT:
@@ -100,7 +100,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     figsize=("15c", "6c"),
-    autolabel=True,
+    autotag=True,
     frame=["af", "WSne"],
     margins=["0.1c", "0.2c"],
     title="My Subplot Heading",
@@ -117,7 +117,7 @@ fig.show()
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``autolabel=True``: Each subplot is automatically labelled 'abcd'.
+# - ``autotag=True``: Each subplot is automatically tagged 'abcd'.
 # - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
 #   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
 #   y-direction.
@@ -168,7 +168,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     figsize=("15c", "6c"),  # width of 15 cm, height of 6 cm
-    autolabel=True,
+    autotag=True,
     margins=["0.3c", "0.2c"],  # horizontal 0.3 cm and vertical 0.2 cm margins
     title="My Subplot Heading",
     sharex="b",  # shared x-axis on the bottom side
@@ -204,7 +204,7 @@ fig.show()
 
 fig = pygmt.Figure()
 # Bottom row, two subplots
-with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autolabel="b)"):
+with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autotag="b)"):
     fig.basemap(
         region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[0, 0]
     )
@@ -214,7 +214,7 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autolabel="b)"):
 # Move plot origin by 1 cm above the height of the entire figure
 fig.shift_origin(yshift="h+1c")
 # Top row, one subplot
-with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autolabel="a)"):
+with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autotag="a)"):
     fig.basemap(
         region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 0]
     )
@@ -223,20 +223,20 @@ with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autolabel="a)"):
 fig.show()
 
 # %%
-# We start by drawing the bottom two subplots, setting ``autolabel="b)"`` so
-# that the subplots are labelled 'b)' and 'c)'. Next, we use
+# We start by drawing the bottom two subplots, setting ``autotag="b)"`` so
+# that the subplots are tagged 'b)' and 'c)'. Next, we use
 # :meth:`pygmt.Figure.shift_origin` to move the plot origin 1 cm above the
 # **h**\ eight of the entire figure that is currently plotted (i.e. the bottom
 # row subplots). A single subplot is then plotted on the top row. You may need
 # to adjust the ``yshift`` parameter to make your plot look nice. This top row
-# uses ``autolabel="a)"``, and we also plotted some text inside. Note that
+# uses ``autotag="a)"``, and we also plotted some text inside. Note that
 # ``projection="X?"`` was used to let GMT automatically determine the size of
 # the subplot according to the size of the subplot area.
 
 # %%
-# You can also manually override the ``autolabel`` for each subplot using for
+# You can also manually override the ``autotag`` for each subplot using for
 # example, ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow
-# you to manually label a single subplot as you wish. This can be useful for
+# you to manually tag a single subplot as you wish. This can be useful for
 # adding a more descriptive subtitle to individual subplots.
 
 # sphinx_gallery_thumbnail_number = 3

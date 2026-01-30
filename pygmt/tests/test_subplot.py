@@ -39,9 +39,9 @@ def test_subplot_direct():
 
 
 @pytest.mark.mpl_image_compare
-def test_subplot_autolabel_margins_title():
+def test_subplot_autotag_margins_title():
     """
-    Make subplot figure with autolabels, setting some margins and a title.
+    Make subplot figure with autotags, setting some margins and a title.
     """
     fig = Figure()
 
@@ -49,7 +49,7 @@ def test_subplot_autolabel_margins_title():
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
-        autolabel=True,
+        autotag=True,
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
