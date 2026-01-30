@@ -7,7 +7,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any, Literal, NamedTuple
 
 import xarray as xr
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
@@ -564,11 +564,10 @@ def _load_remote_dataset(
             reg = registration[0]
 
     if resinfo.tiled and region is None:
-        msg = (
-            f"The 'region' parameter is required for {dataset.description} "
-            f"resolution '{resolution}'."
+        raise GMTParameterError(
+            required="region",
+            reason=f"Required for {dataset.description} resolution '{resolution}'.",
         )
-        raise GMTInvalidInput(msg)
 
     fname = f"@{prefix}_{resolution}_{reg}"
     grid = xr.load_dataarray(
