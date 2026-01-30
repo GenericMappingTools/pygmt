@@ -38,6 +38,31 @@ def _alias_option_A(  # noqa: N802
             raise GMTInvalidInput(msg)
         return Alias(autolabel, name="autolabel")
 
+    # Validate tag_box if provided.
+    if tag_box:
+        if any(
+            v is not None
+            for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
+        ):
+            raise GMTValueError(
+                tag_box,
+                description="Box properties for 'tag_box' in 'Figure.subplot'.",
+                reason="The 'inner_pen', 'inner_gap', and 'radius' properties are not supported.",
+            )
+        if tag_box.clearance and len(tag_box.clearance) > 2:
+            raise GMTValueError(
+                tag_box,
+                description="Box 'clearance' property for 'tag_box' in 'Figure.subplot'.",
+                reason="Only one or two values are accepted.",
+            )
+    # Validate the tag_position if provided.
+    if tag_position and tag_position.cstype in {"mapcoords", "plotcoords", "boxcoords"}:
+        raise GMTValueError(
+            tag_position,
+            description="tag position for 'Figure.subplot'.",
+            reason="Only 'inside' or 'outside' cstype is allowed.",
+        )
+
     return [
         Alias(autotag, name="autotag"),
         Alias(
@@ -59,13 +84,7 @@ def _alias_option_A(  # noqa: N802
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(
-    Ff="figsize",
-    Fs="subsize",
-    C="clearance",
-    SC="sharex",
-    SR="sharey",
-)
+@use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(  # noqa: PLR0913
     self,
@@ -118,13 +137,6 @@ def subplot(  # noqa: PLR0913
         Specify the dimensions of each subplot directly as [*width*, *height*].
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
-    autolabel
-        Specify automatic tagging of each subplot.
-
-        .. deprecated:: v0.18.0
-
-           Use the parameters ``autotag``, ``tag_position``, ``tag_box``,
-           ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
     autotag
         Specify automatic tagging of each subplot. It can accept a number, or a letter.
         The number or letter can be surrounded by parentheses on any side if these
@@ -171,6 +183,13 @@ def subplot(  # noqa: PLR0913
         - ``"vertical"``: Increase tag numbers vertically down columns.
     tag_font
         Font for the subplot tag [Default to ``"20p,Helvetica,black"``].
+    autolabel
+        Specify automatic tagging of each subplot.
+
+        .. deprecated:: v0.19.0
+
+           Use the parameters ``autotag``, ``tag_position``, ``tag_box``,
+           ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
