@@ -47,6 +47,7 @@ def sphdistance(
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

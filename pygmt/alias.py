@@ -14,6 +14,7 @@ from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 def _to_string(
     value: Any,
     prefix: str = "",  # Default to an empty string to simplify the code logic.
+    suffix: str = "",  # Default to an empty string to simplify the code logic.
     mapping: Mapping | None = None,
     sep: Literal["/", ","] | None = None,
     size: int | Sequence[int] | None = None,
@@ -37,14 +38,14 @@ def _to_string(
     string that GMT accepts (e.g., mapping PyGMT's long-form argument ``"high"`` to
     GMT's short-form argument ``"h"``).
 
-    An optional prefix (e.g., `"+o"`) can be added to the beginning of the converted
-    string.
+    An optional prefix or suffix (e.g., `"+o"`) can be added to the beginning (or end)
+    of the converted string.
 
     To avoid extra overhead, this function does not validate parameter combinations. For
     example, if ``value`` is a sequence but ``sep`` is not specified, the function will
-    return a sequence of strings. In this case, ``prefix`` has no effect, but the
-    function does not check for such inconsistencies. The maintainer should ensure that
-    the parameter combinations are valid.
+    return a sequence of strings. In this case, ``prefix`` and ``suffix`` have no
+    effect, but the function does not check for such inconsistencies. The maintainer
+    should ensure that the parameter combinations are valid.
 
     Parameters
     ----------
@@ -52,6 +53,8 @@ def _to_string(
         The value to convert.
     prefix
         The string to add as a prefix to the returned value.
+    suffix
+        The string to add as a suffix to the returned value.
     mapping
         A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
     sep
@@ -89,6 +92,11 @@ def _to_string(
     '+a'
     >>> _to_string(False, prefix="+a")
     >>> _to_string(None, prefix="+a")
+
+    >>> _to_string("blue", suffix="+l")
+    'blue+l'
+    >>> _to_string(True, suffix="+l")
+    '+l'
 
     >>> _to_string("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     'a'
@@ -135,9 +143,9 @@ def _to_string(
     # None and False are converted to None.
     if value is None or value is False:
         return None
-    # True is converted to an empty string with the optional prefix.
+    # True is converted to an empty string with the optional prefix and suffix.
     if value is True:
-        return f"{prefix}"
+        return f"{prefix}{suffix}"
     # Any non-sequence value is converted to a string.
     if not is_nonstr_iter(value):
         if mapping:
@@ -148,16 +156,16 @@ def _to_string(
                     choices=mapping.keys(),
                 )
             value = mapping.get(value, value)
-        return f"{prefix}{value}"
+        return f"{prefix}{value}{suffix}"
 
     # Return the sequence if separator is not specified for options like '-B'.
     # True in a sequence will be converted to an empty string.
     if sep is None:
         return [str(item) if item is not True else "" for item in value]
     # Join the sequence of values with the separator.
-    # "prefix" and "mapping" are ignored. We can enable them when needed.
+    # "prefix", "suffix", and "mapping" are ignored. We can enable them when needed.
     _value = sequence_join(value, sep=sep, size=size, ndim=ndim, name=name)
-    return _value if is_nonstr_iter(_value) else f"{prefix}{_value}"
+    return _value if is_nonstr_iter(_value) else f"{prefix}{_value}{suffix}"
 
 
 class Alias:
@@ -172,6 +180,8 @@ class Alias:
         The name of the parameter to be used in the error message.
     prefix
         The string to add as a prefix to the returned value.
+    suffix
+        The string to add as a suffix to the returned value.
     mapping
         A mapping dictionary to map PyGMT's long-form arguments to GMT's short-form.
     sep
@@ -189,6 +199,10 @@ class Alias:
     >>> par._value
     '+o3.0/3.0'
 
+    >>> par = Alias("blue", suffix="+l")
+    >>> par._value
+    'blue+l'
+
     >>> par = Alias("mean", mapping={"mean": "a", "mad": "d", "full": "g"})
     >>> par._value
     'a'
@@ -203,6 +217,7 @@ class Alias:
         value: Any,
         name: str | None = None,
         prefix: str = "",
+        suffix: str = "",
         mapping: Mapping | None = None,
         sep: Literal["/", ","] | None = None,
         size: int | Sequence[int] | None = None,
@@ -210,10 +225,12 @@ class Alias:
     ):
         self.name = name
         self.prefix = prefix
+        self.suffix = suffix
         self._value = _to_string(
             value=value,
             name=name,
             prefix=prefix,
+            suffix=suffix,
             mapping=mapping,
             sep=sep,
             size=size,
@@ -223,15 +240,28 @@ class Alias:
 
 class AliasSystem(UserDict):
     """
-    Alias system for mapping PyGMT's long-form parameters to GMT's short-form options.
+    Alias system mapping PyGMT long-form parameters to GMT short-form options.
 
-    This class is initialized with keyword arguments, where each key is a GMT option
-    flag, and the corresponding value is an ``Alias`` object or a list of ``Alias``
-    objects.
+    This class inherits from ``UserDict`` so it behaves like a dictionary and can be
+    passed directly to ``build_arg_list``. It also provides ``merge`` to update the
+    alias dictionary with additional keyword arguments.
 
-    This class inherits from ``UserDict``, which allows it to behave like a dictionary
-    and can be passed to the ``build_arg_list`` function. It also provides the ``merge``
-    method to update the alias dictionary with additional keyword arguments.
+    Initialize with keyword arguments where each key is a GMT option flag and each value
+    is an ``Alias`` instance or a list of ``Alias`` instances. For a single ``Alias``,
+    we use its ``_value`` property. For a list, we check for suffixes:
+
+    - If any ``Alias`` has a suffix, return a list of values for repeated GMT options.
+      For example, ``[Alias("blue", suffix="+l"), Alias("red", suffix="+r")]`` becomes
+      ``-Cblue+l -Cred+r``.
+    - Otherwise, concatenate into a single string for combined modifiers. For example,
+      ``[Alias("TL", prefix="j"), Alias((1, 1), prefix="+o")]`` becomes ``jTL+o1/1``.
+
+    ``alias._value`` is produced by ``_to_string`` and is one of: ``None``, ``str``, or
+    a sequence of strings.
+
+    - ``None`` means the parameter is not specified.
+    - A sequence of strings means this is a repeatable option and can only have one
+      long-form parameter.
 
     Examples
     --------
@@ -242,6 +272,8 @@ class AliasSystem(UserDict):
     ...     par0,
     ...     par1=None,
     ...     par2=None,
+    ...     par3=None,
+    ...     par4=None,
     ...     frame=False,
     ...     repeat=None,
     ...     panel=None,
@@ -254,6 +286,7 @@ class AliasSystem(UserDict):
     ...             Alias(par2, name="par2", prefix="+o", sep="/"),
     ...         ],
     ...         B=Alias(frame, name="frame"),
+    ...         C=[Alias(par3, suffix="+l"), Alias(par4, suffix="+r")],
     ...         D=Alias(repeat, name="repeat"),
     ...     ).add_common(
     ...         V=verbose,
@@ -265,13 +298,14 @@ class AliasSystem(UserDict):
     ...     "infile",
     ...     par1="mytext",
     ...     par2=(12, 12),
+    ...     par3="blue",
+    ...     par4="red",
     ...     frame=True,
     ...     repeat=[1, 2, 3],
-    ...     panel=(1, 2),
-    ...     verbose="debug",
-    ...     J="X10c/10c",
     ... )
-    ['-Amytext+o12/12', '-B', '-D1', '-D2', '-D3', '-JX10c/10c', '-Vd', '-c1,2']
+    ['-Amytext+o12/12', '-B', '-Cblue+l', '-Cred+r', '-D1', '-D2', '-D3']
+    >>> func("infile", panel=(1, 2), verbose="debug", J="X10c/10c")
+    ['-JX10c/10c', '-Vd', '-c1,2']
     """
 
     def __init__(self, **kwargs):
@@ -281,22 +315,18 @@ class AliasSystem(UserDict):
         # Store the aliases in a dictionary, to be used in the merge() method.
         self.aliasdict = kwargs
 
-        # The value of each key in kwargs is an Alias object or a sequence of Alias
-        # objects. If it is a single Alias object, we will use its _value property. If
-        # it is a sequence of Alias objects, we will concatenate their _value properties
-        # into a single string.
-        #
-        # Note that alias._value is converted by the _to_string method and can only be
-        # None, string or sequence of strings.
-        # - None means the parameter is not specified.
-        # - Sequence of strings means this is a repeatable option, so it can only have
-        #   one long-form parameter.
         kwdict = {}
         for option, aliases in kwargs.items():
             if isinstance(aliases, Sequence):  # A sequence of Alias objects.
                 values = [alias._value for alias in aliases if alias._value is not None]
                 if values:
-                    kwdict[option] = "".join(values)
+                    # Check if any alias has suffix - if so, return as list
+                    has_suffix = any(alias.suffix for alias in aliases)
+                    # If has suffix and multiple values, return as list;
+                    # else concatenate into a single string.
+                    kwdict[option] = (
+                        values if has_suffix and len(values) > 1 else "".join(values)
+                    )
             elif aliases._value is not None:  # A single Alias object and not None.
                 kwdict[option] = aliases._value
         super().__init__(kwdict)

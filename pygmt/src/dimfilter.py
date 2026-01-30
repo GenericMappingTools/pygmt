@@ -48,6 +48,7 @@ def dimfilter(
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

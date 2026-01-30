@@ -40,6 +40,7 @@ def sphinterpolate(
     .. hlist:
        :columns: 2
 
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

@@ -78,6 +78,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose
