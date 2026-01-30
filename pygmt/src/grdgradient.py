@@ -167,7 +167,7 @@ def grdgradient(
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
         raise GMTParameterError(
-            required="normalize", reason="Required when 'Q' is set."
+            required="normalize", reason="Required when 'tiles' is set."
         )
     if (
         kwargs.get("A", azimuth) is None
