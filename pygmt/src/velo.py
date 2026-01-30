@@ -261,7 +261,7 @@ def velo(  # noqa : PLR0913
     if not isinstance(kwargs["S"], str):
         raise GMTTypeError(
             type(kwargs["S"]),
-            reason="The parameter 'spec' has to be a string.",
+            reason="Parameter 'spec' must be in string type.",
         )
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
