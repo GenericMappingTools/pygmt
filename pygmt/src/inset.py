@@ -141,7 +141,7 @@ def inset(
     ):
         raise GMTParameterError(
             required="width",
-            reason="Required when position is not a string and both projection and region are not set.",
+            reason="Required unless 'projection' and 'region' are set.",
         )
 
     aliasdict = AliasSystem(
