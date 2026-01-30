@@ -55,6 +55,7 @@ def grdsample(
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose
