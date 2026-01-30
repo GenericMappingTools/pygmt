@@ -213,7 +213,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         raise GMTInvalidInput(msg)
     if kind == "empty" and text is None:
         raise GMTParameterError(
-            required="text", reason="Must provide text with x/y pairs."
+            required="text", reason="Required when 'x' and 'y' are set."
         )
 
     # Arguments that can accept arrays.
