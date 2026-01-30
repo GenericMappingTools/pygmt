@@ -23,7 +23,7 @@ def _alias_option_N(  # noqa: N802
     norm_offset=None,
 ):
     """
-    Helper function to create the alias for the -N option.
+    Helper function to create the alias list for the -N option.
 
     Examples
     --------
@@ -244,11 +244,11 @@ def grdgradient(  # noqa: PLR0913
         A=Alias(azimuth, name="azimuth", sep="/", size=2),
         E=Alias(radiance, name="radiance", sep="/", size=2),
         N=_alias_option_N(
-            normalize,
-            norm_amp,
-            norm_ambient,
-            norm_sigma,
-            norm_offset,
+            normalize=normalize,
+            norm_amp=norm_amp,
+            norm_ambient=norm_ambient,
+            norm_sigma=norm_sigma,
+            norm_offset=norm_offset,
         ),
     ).add_common(
         R=region,
