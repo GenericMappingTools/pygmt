@@ -14,21 +14,22 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(
-    Ff="figsize",
-    Fs="subsize",
-    A="autolabel",
-    C="clearance",
-    SC="sharex",
-    SR="sharey",
-)
+@use_alias(Ff="figsize", Fs="subsize", A="autolabel", C="clearance")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(
+def subplot(  # noqa: PLR0913
     self,
     nrows: int = 1,
     ncols: int = 1,
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
+    sharex: Literal["top", "bottom"] | bool = False,
+    sharey: Literal["left", "right"] | bool = False,
+    xlabel: str | bool = False,
+    xlabel2: str | bool = False,
+    ylabel: str | bool = False,
+    ylabel2: str | bool = False,
+    ylabel_parallel: bool = False,
+    title_space: Literal["top", "row"] | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
@@ -118,12 +119,18 @@ def subplot(
         The actual gap created is always a sum of the margins for the two opposing sides
         (e.g., east plus west or south plus north margins) [Default is half the primary
         annotation font size, giving the full annotation font size as the default gap].
+    sharex
+        Set all subplots in a column to share a common *x*-range. If set to ``True``,
+        the first (i.e., top) and the last (i.e., bottom) rows will have x-annotations.
+        To specify only one of those two rows, use ``"top"`` or ``"bottom"``.
+    xlabel
+    xlabel2
+        Set the *x*-axis label for the bottom and top subplots, respectively.
+    ylabel
+    ylabel2
+
     sharex : bool or str
-        Set subplot layout for shared x-axes. Use when all subplots in a column
-        share a common *x*-range. If ``sharex=True``, the first (i.e.,
-        **t**\ op) and the last (i.e., **b**\ ottom) rows will have
-        *x*-annotations; use ``sharex="t"`` or ``sharex="b"`` to select only
-        one of those two rows [both]. Append **+l** if annotated *x*-axes
+    Append **+l** if annotated *x*-axes
         should have a label [none]; optionally append the label if it is the
         same for the entire subplot. Append **+t** to make space for subplot
         titles for each row; use **+tc** for top row titles only [no subplot
@@ -171,6 +178,18 @@ def subplot(
 
     aliasdict = AliasSystem(
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
+        Sc=[
+            Alias(sharex, name="sharex", mapping={"top": "t", "bottom": "b"}),
+            Alias(xlabel, name="xlabel", prefix="+l"),
+            Alias(xlabel2, name="xlabel2", prefix="+s"),
+            Alias(title_space, name="title_space", prefix="+t", mapping={"top": "c"}),
+        ],
+        Sr=[
+            Alias(sharey, name="sharey", mapping={"left": "l", "right": "r"}),
+            Alias(ylabel, name="ylabel", prefix="+l"),
+            Alias(ylabel2, name="ylabel2", prefix="+s"),
+            Alias(ylabel_parallel, name="ylabel_parallel", prefix="+p"),
+        ],
         T=Alias(title, name="title"),
     ).add_common(
         B=frame,
