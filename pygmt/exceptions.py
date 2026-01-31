@@ -140,6 +140,8 @@ class GMTParameterError(GMTError):
     ----------
     required
        Name or a set of names of required parameters.
+    at_least_one
+       A set of names of parameters where at least one must be specified.
     reason
         Detailed reason why the parameters are invalid.
     """
@@ -148,6 +150,7 @@ class GMTParameterError(GMTError):
         self,
         *,
         required: str | set[str] | None = None,
+        at_least_one: set[str] | None = None,
         reason: str | None = None,
     ):
         msg = []
@@ -158,6 +161,15 @@ class GMTParameterError(GMTError):
                 msg.append(
                     "Missing required parameters: "
                     f"{', '.join(repr(par) for par in required)}."
+                )
+        if at_least_one:
+            if len(at_least_one) == 1:
+                msg.append(f"Missing required parameter: {next(iter(at_least_one))!r}.")
+            else:
+                msg.append(
+                    "Missing required parameters: "
+                    f"{', '.join(repr(par) for par in at_least_one)}. "
+                    "Must specify at least one."
                 )
         if reason:
             msg.append(reason)
