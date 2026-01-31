@@ -7,7 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError, GMTValueError
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -337,7 +337,7 @@ def _parse_position(
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Invalid type for parameter 'position':...
+    pygmt.exceptions.GMTTypeError: Unrecognized data type: <class 'int'>. ...
 
     >>> # Below are examples without kwdict (for new functions).
     >>> _parse_position(
@@ -388,6 +388,11 @@ def _parse_position(
         case None:  # Set default position.
             position = default
         case _:
-            msg = f"Invalid type for parameter 'position': {type(position)}."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(
+                type(position),
+                reason=(
+                    "Parameter 'position' must be a Position object, "
+                    "a two-value sequence, a justification code, or None."
+                ),
+            )
     return position
