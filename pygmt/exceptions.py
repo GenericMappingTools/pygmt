@@ -130,3 +130,35 @@ class GMTTypeError(GMTError, TypeError):
         if reason:
             msg += f" {reason}"
         super().__init__(msg)
+
+
+class GMTParameterError(GMTError):
+    """
+    Raised when parameters are missing or invalid.
+
+    Parameters
+    ----------
+    required
+       Name or a set of names of required parameters.
+    reason
+        Detailed reason why the parameters are invalid.
+    """
+
+    def __init__(
+        self,
+        *,
+        required: str | set[str] | None = None,
+        reason: str | None = None,
+    ):
+        msg = []
+        if required:
+            if isinstance(required, str):
+                msg.append(f"Missing required parameter: {required!r}.")
+            else:
+                msg.append(
+                    "Missing required parameters: "
+                    f"{', '.join(repr(par) for par in required)}."
+                )
+        if reason:
+            msg.append(reason)
+        super().__init__(" ".join(msg))
