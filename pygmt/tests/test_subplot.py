@@ -39,9 +39,9 @@ def test_subplot_direct():
 
 
 @pytest.mark.mpl_image_compare
-def test_subplot_autolabel_margins_title():
+def test_subplot_autotag_margins_title():
     """
-    Make subplot figure with autolabels, setting some margins and a title.
+    Make subplot figure with autotags, setting some margins and a title.
     """
     fig = Figure()
 
@@ -49,7 +49,7 @@ def test_subplot_autolabel_margins_title():
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
-        autolabel=True,
+        autotag=True,
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
@@ -125,3 +125,26 @@ def test_subplot_outside_plotting_positioning():
         frame=True,
     )
     return fig
+
+
+def test_deprecated_autolabel():
+    """
+    Test that using the deprecated autolabel parameter raises a warning when conflicted
+    with tag parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, autotag="a)"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_orientation="vertical"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_number_style="roman"):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
