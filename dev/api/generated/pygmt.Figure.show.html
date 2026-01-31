@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.show.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=c67fe314"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -244,7 +244,10 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 
 <section id="examples-using-pygmt-figure-show">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code><a class="headerlink" href="#examples-using-pygmt-figure-show" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A 3-D bar plot can be created from any collection of three-dimensional tabular data. The data points can lie on a regular grid or be irregularly scattered. A special case is creating such a 3-D bar plot based on a grid. This can be done in two steps:"><img alt="" src="../../_images/sphx_glr_3d_bar_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/3d_bar.html"><span class="doc">3-D bar plot</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D bar plot</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;surface&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html"><span class="doc">Plotting a surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
@@ -394,7 +397,7 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. The example below plots red velocity arrows with lightblue confidence ellipses outlined in red with the east_velocity x north_velocity used for the station names. Note that the velocity arrows are scaled by 0.2 and the 39% confidence limit will give an ellipse which fits inside a rectangle of dimension east_sigma by north_sigma."><img alt="" src="../../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
 <p><a class="reference internal" href="../../gallery/seismology/velo_arrow_ellipse.html"><span class="doc">Velocity arrows and confidence ellipses</span></a></p>
   <div class="sphx-glr-thumbnail-title">Velocity arrows and confidence ellipses</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for vertical bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html"><span class="doc">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
@@ -617,9 +620,9 @@ parameters are <code class="docutils literal notranslate"><span class="pre">gs_p
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b0f364dbb">b0f364db</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jan 30, 2026.
       </span></p>
   </div>
 

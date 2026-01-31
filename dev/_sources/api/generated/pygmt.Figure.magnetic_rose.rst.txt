@@ -1,0 +1,13 @@
+pygmt.Figure.magnetic\_rose
+===========================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.magnetic_rose
+
+.. minigallery:: pygmt.Figure.magnetic_rose
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

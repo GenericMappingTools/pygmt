@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/index.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../_static/documentation_options.js?v=c67fe314"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,10 +106,13 @@
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.directional_rose.html">pygmt.Figure.directional_rose</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.hlines.html">pygmt.Figure.hlines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.magnetic_rose.html">pygmt.Figure.magnetic_rose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.scalebar.html">pygmt.Figure.scalebar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.text.html">pygmt.Figure.text</a></li>
 <li class="toctree-l4"><a class="reference internal" href="generated/pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
@@ -264,14 +267,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTError.html">pygmt.exceptions.GMTError</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTInvalidInput.html">pygmt.exceptions.GMTInvalidInput</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTVersionError.html">pygmt.exceptions.GMTVersionError</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTOSError.html">pygmt.exceptions.GMTOSError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibError.html">pygmt.exceptions.GMTCLibError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNoSessionError.html">pygmt.exceptions.GMTCLibNoSessionError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNotFoundError.html">pygmt.exceptions.GMTCLibNotFoundError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTInvalidInput.html">pygmt.exceptions.GMTInvalidInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTOSError.html">pygmt.exceptions.GMTOSError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTParameterError.html">pygmt.exceptions.GMTParameterError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTTypeError.html">pygmt.exceptions.GMTTypeError</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTValueError.html">pygmt.exceptions.GMTValueError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.exceptions.GMTVersionError.html">pygmt.exceptions.GMTVersionError</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gmt-c-api">GMT C API</a><ul>
@@ -396,28 +400,37 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.colorbar</span></code></a>([position, length, width, ...])</p></td>
 <td><p>Plot gray scale or color scale bar.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.hlines.html#pygmt.Figure.hlines" title="pygmt.Figure.hlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.hlines</span></code></a>(y[, xmin, xmax, pen, label, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.directional_rose.html#pygmt.Figure.directional_rose" title="pygmt.Figure.directional_rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.directional_rose</span></code></a>([position, width, ...])</p></td>
+<td><p>Add a directional rose on the map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.hlines.html#pygmt.Figure.hlines" title="pygmt.Figure.hlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.hlines</span></code></a>(y[, xmin, xmax, pen, label, ...])</p></td>
 <td><p>Plot one or multiple horizontal line(s).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.inset</span></code></a>([position, width, height, box, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.inset</span></code></a>([position, width, height, box, ...])</p></td>
 <td><p>Manage figure inset setup and completion.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.legend</span></code></a>([spec, position, width, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.legend.html#pygmt.Figure.legend" title="pygmt.Figure.legend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.legend</span></code></a>([spec, position, width, ...])</p></td>
 <td><p>Plot a legend.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.logo</span></code></a>([position, width, height, box, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.logo</span></code></a>([position, width, height, box, ...])</p></td>
 <td><p>Plot the GMT logo.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.solar</span></code></a>([terminator, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.magnetic_rose.html#pygmt.Figure.magnetic_rose" title="pygmt.Figure.magnetic_rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.magnetic_rose</span></code></a>([position, width, ...])</p></td>
+<td><p>Add a magnetic rose to the map.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.scalebar</span></code></a>(length[, height, position, ...])</p></td>
+<td><p>Add a scale bar on the plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.solar</span></code></a>([terminator, ...])</p></td>
 <td><p>Plot day-night terminators and other sunlight parameters.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.text</span></code></a>([textfiles, x, y, position, ...])</p></td>
 <td><p>Plot or typeset text.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.timestamp.html#pygmt.Figure.timestamp" title="pygmt.Figure.timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.timestamp</span></code></a>([text, label, justify, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.timestamp.html#pygmt.Figure.timestamp" title="pygmt.Figure.timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.timestamp</span></code></a>([text, label, justify, ...])</p></td>
 <td><p>Plot the GMT timestamp logo.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.vlines.html#pygmt.Figure.vlines" title="pygmt.Figure.vlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.vlines</span></code></a>(x[, ymin, ymax, pen, label, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.vlines.html#pygmt.Figure.vlines" title="pygmt.Figure.vlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.vlines</span></code></a>(x[, ymin, ymax, pen, label, ...])</p></td>
 <td><p>Plot one or multiple vertical line(s).</p></td>
 </tr>
 </tbody>
@@ -467,7 +480,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid[, monochrome, no_clip, ...])</p></td>
 <td><p>Project and plot grids or images.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid[, contour_pen, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid[, surftype, dpi, ...])</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile[, position, width, ...])</p></td>
@@ -688,7 +701,7 @@ package.</p>
 <p>Getting metadata from tabular or grid data:</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.info.html#pygmt.info" title="pygmt.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>(data[, spacing, registration, verbose, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.info.html#pygmt.info" title="pygmt.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>(data[, spacing, per_column, ...])</p></td>
 <td><p>Get information about data tables.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdinfo.html#pygmt.grdinfo" title="pygmt.grdinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdinfo</span></code></a>(grid[, spacing, tiles, region, verbose])</p></td>
@@ -705,7 +718,7 @@ package.</p>
 <td><p>Xarray backend to read raster grid/image files using 'gmt' engine.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a>(xarray_obj)</p></td>
-<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
+<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -839,29 +852,32 @@ and store them in GMT’s user data directory.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTError.html#pygmt.exceptions.GMTError" title="pygmt.exceptions.GMTError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTError</span></code></a></p></td>
 <td><p>Base class for all GMT related errors.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTInvalidInput.html#pygmt.exceptions.GMTInvalidInput" title="pygmt.exceptions.GMTInvalidInput"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTInvalidInput</span></code></a></p></td>
-<td><p>Raised when the input of a function/method is invalid.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError" title="pygmt.exceptions.GMTCLibError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibError</span></code></a></p></td>
+<td><p>Error encountered when running a function from the GMT shared library.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTVersionError.html#pygmt.exceptions.GMTVersionError" title="pygmt.exceptions.GMTVersionError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTVersionError</span></code></a></p></td>
-<td><p>Raised when an incompatible version of GMT is being used.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError" title="pygmt.exceptions.GMTCLibNoSessionError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibNoSessionError</span></code></a></p></td>
+<td><p>Tried to access GMT API without a currently open GMT session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError" title="pygmt.exceptions.GMTCLibNotFoundError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibNotFoundError</span></code></a></p></td>
+<td><p>Could not find the GMT shared library.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTInvalidInput.html#pygmt.exceptions.GMTInvalidInput" title="pygmt.exceptions.GMTInvalidInput"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTInvalidInput</span></code></a></p></td>
+<td><p>Raised when the input of a function/method is invalid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTOSError.html#pygmt.exceptions.GMTOSError" title="pygmt.exceptions.GMTOSError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTOSError</span></code></a></p></td>
 <td><p>Unsupported operating system.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError" title="pygmt.exceptions.GMTCLibError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibError</span></code></a></p></td>
-<td><p>Error encountered when running a function from the GMT shared library.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError" title="pygmt.exceptions.GMTCLibNoSessionError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibNoSessionError</span></code></a></p></td>
-<td><p>Tried to access GMT API without a currently open GMT session.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError" title="pygmt.exceptions.GMTCLibNotFoundError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTCLibNotFoundError</span></code></a></p></td>
-<td><p>Could not find the GMT shared library.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTParameterError.html#pygmt.exceptions.GMTParameterError" title="pygmt.exceptions.GMTParameterError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTParameterError</span></code></a>(*[, required, ...])</p></td>
+<td><p>Raised when parameters are missing or invalid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTTypeError.html#pygmt.exceptions.GMTTypeError" title="pygmt.exceptions.GMTTypeError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTTypeError</span></code></a>(dtype, /[, reason])</p></td>
 <td><p>Raised when an invalid type is passed to a function/method.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTValueError.html#pygmt.exceptions.GMTValueError" title="pygmt.exceptions.GMTValueError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTValueError</span></code></a>(value, /[, ...])</p></td>
 <td><p>Raised when an invalid value is passed to a function/method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.exceptions.GMTVersionError.html#pygmt.exceptions.GMTVersionError" title="pygmt.exceptions.GMTVersionError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exceptions.GMTVersionError</span></code></a></p></td>
+<td><p>Raised when an incompatible version of GMT is being used.</p></td>
 </tr>
 </tbody>
 </table>
@@ -887,7 +903,7 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tbody>
 </table>
 <p>Passing memory blocks between Python data objects (e.g. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v3.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
 <em>virtual files</em>. These methods are context managers that automate the conversion of
 Python objects to and from GMT virtual files:</p>
 <table class="autosummary longtable docutils align-default">
@@ -902,7 +918,7 @@ Python objects to and from GMT virtual files:</p>
 <td><p>Output a tabular dataset stored in a virtual file to a different format.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster" title="pygmt.clib.Session.virtualfile_to_raster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.virtualfile_to_raster</span></code></a>(vfname[, ...])</p></td>
-<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
+<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
 </tr>
 </tbody>
 </table>
@@ -990,9 +1006,9 @@ Python objects to and from GMT virtual files:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b0f364dbb">b0f364db</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jan 30, 2026.
       </span></p>
   </div>
 
