@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdgradient"]
@@ -174,11 +174,10 @@ def grdgradient(
         and kwargs.get("D") is None
         and kwargs.get("E", radiance) is None
     ):
-        msg = (
-            "At least one of the following parameters must be specified: "
-            "azimuth, direction, or radiance."
+        raise GMTParameterError(
+            at_least_one={"azimuth", "direction", "radiance"},
+            reason="At least one of these parameters must be specified to compute gradients.",
         )
-        raise GMTInvalidInput(msg)
 
     aliasdict = AliasSystem(
         A=Alias(azimuth, name="azimuth", sep="/", size=2),
