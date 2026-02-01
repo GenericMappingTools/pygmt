@@ -141,7 +141,7 @@ class GMTParameterError(GMTError):
     required
        Name or a set of names of required parameters.
     at_least_one
-       A set of names of parameters where at least one must be specified.
+       A set of parameter names, of which at least one must be specified.
     reason
         Detailed reason why the parameters are invalid.
     """
