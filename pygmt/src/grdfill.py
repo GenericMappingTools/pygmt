@@ -58,8 +58,7 @@ def _validate_params(
         raise GMTInvalidInput(msg)
     if n_given == 0:  # No parameters are given.
         raise GMTParameterError(
-            at_least_one={"constant_fill", "grid_fill", "neighbor_fill", "spline_fill"},
-            reason="Need to specify a fill parameter or 'inquire' for inquiring the bounds of each hole.",
+            at_least_one={"constant_fill", "grid_fill", "neighbor_fill", "spline_fill", "inquire"},
         )
 
 
