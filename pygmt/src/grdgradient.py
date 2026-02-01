@@ -176,7 +176,6 @@ def grdgradient(
     ):
         raise GMTParameterError(
             at_least_one={"azimuth", "direction", "radiance"},
-            reason="At least one of these parameters must be specified to compute gradients.",
         )
 
     aliasdict = AliasSystem(
