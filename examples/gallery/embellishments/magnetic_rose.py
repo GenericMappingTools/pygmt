@@ -3,10 +3,10 @@ Magnetic rose
 =============
 
 The method :meth:`pygmt.Figure.magnetic_rose` can be used to add a magnetic rose
-to a map or plot.
-
+to a map or plot. This example shows how such a magnetic rose can be customized.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
