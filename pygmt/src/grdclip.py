@@ -112,7 +112,6 @@ def grdclip(
     if all(v is None for v in (above, below, between, replace)):
         raise GMTParameterError(
             at_least_one={"above", "below", "between", "replace"},
-            reason="Must specify at least one of the clipping parameters.",
         )
 
     aliasdict = AliasSystem(
