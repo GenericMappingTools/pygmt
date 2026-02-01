@@ -110,9 +110,7 @@ def grdclip(
     [np.float32(0.0), np.float32(10000.0)]
     """
     if all(v is None for v in (above, below, between, replace)):
-        raise GMTParameterError(
-            at_least_one={"above", "below", "between", "replace"}
-        )
+        raise GMTParameterError(at_least_one={"above", "below", "between", "replace"})
 
     aliasdict = AliasSystem(
         Sa=Alias(above, name="above", sep="/", size=2),

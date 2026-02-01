@@ -58,7 +58,13 @@ def _validate_params(
         raise GMTInvalidInput(msg)
     if n_given == 0:  # No parameters are given.
         raise GMTParameterError(
-            at_least_one={"constant_fill", "grid_fill", "neighbor_fill", "spline_fill", "inquire"}
+            at_least_one={
+                "constant_fill",
+                "grid_fill",
+                "neighbor_fill",
+                "spline_fill",
+                "inquire",
+            }
         )
 
 
