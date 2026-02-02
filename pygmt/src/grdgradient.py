@@ -106,7 +106,7 @@ def grdgradient(  # noqa: PLR0913
     .. hlist::
        :columns: 1
 
-       - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma, 
+       - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma,
          **+o**: norm_offset
 
     Parameters
