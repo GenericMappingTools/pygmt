@@ -98,12 +98,16 @@ def grdgradient(  # noqa: PLR0913
 
     $aliases
        - A = azimuth
-       - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma,
-         **+o**: norm_offset
        - E = radiance
        - G = outgrid
        - R = region
        - V = verbose
+
+    .. hlist::
+       :columns: 1
+
+       - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma, 
+         **+o**: norm_offset
 
     Parameters
     ----------
