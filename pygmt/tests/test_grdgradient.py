@@ -78,15 +78,15 @@ def test_grdgradient_normalize_mixed_syntax(grid):
     Test that mixed syntax for normalize in grdgradient raises GMTInvalidInput.
     """
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid, normalize="t", norm_amp=2)
+        grdgradient(grid=grid, azimuth=10, normalize="t", norm_amp=2)
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid, normalize="t1", norm_amp=2)
+        grdgradient(grid=grid, azimuth=10, normalize="t1", norm_amp=2)
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid, normalize="t1", norm_sigma=2)
+        grdgradient(grid=grid, azimuth=10, normalize="t1", norm_sigma=2)
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid, normalize="e", norm_offset=5)
+        grdgradient(grid=grid, azimuth=10, normalize="e", norm_offset=5)
     with pytest.raises(GMTInvalidInput):
-        grdgradient(grid=grid, normalize="e", norm_ambient=0.1)
+        grdgradient(grid=grid, azimuth=10, normalize="e", norm_ambient=0.1)
 
 
 def test_grdgradient_fails(grid):
