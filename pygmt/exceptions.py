@@ -164,9 +164,8 @@ class GMTParameterError(GMTError):
                 )
         if at_least_one:
             msg.append(
-                "Missing required parameters: "
-                f"{', '.join(repr(par) for par in at_least_one)}. "
-                "Must specify at least one."
+                "Missing parameter: requires at least one of:"
+                f"{', '.join(repr(par) for par in at_least_one)}."
             )
         if reason:
             msg.append(reason)
