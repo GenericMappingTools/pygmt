@@ -79,6 +79,7 @@ def nearneighbor(
     Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

@@ -9,7 +9,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -200,8 +200,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     if position is not None:
         if text is None:
-            msg = "'text' can't be None when 'position' is given."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                required="text", reason="Required when 'position' is set."
+            )
         if is_nonstr_iter(text):
             raise GMTTypeError(
                 type(text),
@@ -212,8 +213,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         msg = "'text' can't be specified when 'textfiles' is given."
         raise GMTInvalidInput(msg)
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="text", reason="Required when 'x' and 'y' are set."
+        )
 
     # Arguments that can accept arrays.
     array_args = [

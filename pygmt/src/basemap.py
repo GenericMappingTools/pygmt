@@ -11,20 +11,18 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    L="map_scale",
-    F="box",
-    Td="rose",
-    Tm="compass",
-    f="coltypes",
-)
-def basemap(
+@use_alias(f="coltypes")
+def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
+    map_scale: str | None = None,
+    compass: str | None = None,
+    rose: str | None = None,
+    box: str | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -32,16 +30,27 @@ def basemap(
     perspective: float | Sequence[float] | str | bool = False,
     **kwargs,
 ):
-    r"""
+    """
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several
-    map projections are available, and the user may specify separate
-    tick-mark intervals for boundary annotation, ticking, and [optionally]
-    gridlines. A simple map scale or directional rose may also be plotted.
+    Creates a basic or fancy basemap with axes, fill, and titles. Several map
+    projections are available, and separate tick-mark intervals for axis annotation,
+    ticking, and gridlines can be specified.
 
-    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
-    ``compass`` must be specified if not in subplot mode.
+    If not in subplot mode (see :meth:`pygmt.Figure.subplot`), at least one of the
+    parameters ``frame``, ``map_scale``, ``rose``, or ``compass`` must be specified.
+
+    .. note::
+
+        Parameters ``map_scale``, ``rose``, ``compass``, and ``box`` are deprecated in
+        favor of the dedicated higher-level methods:
+
+        - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
+        - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.
+        - :meth:`pygmt.Figure.magnetic_rose`: Add a magnetic rose on the plot.
+
+        These methods provide more comprehensive and flexible APIs for their respective
+        plot elements.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
@@ -50,7 +59,9 @@ def basemap(
        - J = projection
        - Jz = zscale
        - JZ = zsize
+       - L = map_scale
        - R = region
+       - Td = rose
        - V = verbose
        - c = panel
        - p = perspective
@@ -59,39 +70,45 @@ def basemap(
     Parameters
     ----------
     $projection
-    zscale/zsize
+    zscale
+    zsize
         Set z-axis scaling or z-axis size.
     $region
         *Required if this is the first plot command.*
     $frame
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
-        **+w**\ *length*.
-        Draw a simple map scale centered on the reference point specified.
-    box : bool or str
-        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
-        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draw a rectangular border around the
-        map scale or rose. Alternatively, specify a different pen with
-        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
-        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
-        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
-        separate x and y, or individual side spacings between scale and
-        border. Append **+i** to draw a secondary, inner border as well.
-        We use a uniform gap between borders of 2 points and the
-        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
-        **+r** to draw rounded rectangular borders instead, with a 6-points
-        corner radius. You can override this radius by appending another value.
-        Finally, append **+s** to draw an offset background shaded region.
-        Here, *dx/dy* indicates the shift relative to the foreground frame
-        [Default is ``"4p/-4p"``] and shade sets the fill style to use for
-        shading [Default is ``"gray50"``].
-    rose : str
-        Draw a map directional rose on the map at the location defined by
-        the reference and anchor points.
-    compass : str
-        Draw a map magnetic rose on the map at the location defined by the
-        reference and anchor points.
+    map_scale
+        Draw a map scale bar on the plot.
+
+        .. deprecated:: v0.19.0
+
+            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained
+            for backward compatibility and accepts raw GMT CLI strings for the ``-L``
+            option.
+    compass
+        Draw a map magnetic rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            Use :meth:`pygmt.Figure.magnetic_rose` instead. This parameter is maintained
+            for backward compatibility and accepts raw GMT CLI strings for the ``-Tm``
+            option.
+    rose
+        Draw a map directional rose on the map.
+
+        .. deprecated:: v0.19.0
+
+            Use :meth:`pygmt.Figure.directional_rose` instead. This parameter is
+            maintained for backward compatibility and accepts raw GMT CLI strings for
+            the ``-Td`` option.
+    box
+        Draw a background box behind the scalebar, directional rose, or magnetic rose.
+
+        .. deprecated:: v0.19.0
+
+            Use the ``box`` parameter in :meth:`pygmt.Figure.scalebar`,
+            :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`
+            instead. This parameter is maintained for backward compatibility and accepts
+            raw GMT CLI strings for the ``-F`` option.
     $verbose
     $panel
     $coltypes
@@ -101,8 +118,12 @@ def basemap(
     self._activate_figure()
 
     aliasdict = AliasSystem(
+        F=Alias(box, name="box"),  # Deprecated.
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
+        L=Alias(map_scale, name="map_scale"),  # Deprecated.
+        Td=Alias(rose, name="rose"),  # Deprecated.
+        Tm=Alias(compass, name="compass"),  # Deprecated.
     ).add_common(
         B=frame,
         J=projection,

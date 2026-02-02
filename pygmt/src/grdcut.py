@@ -47,6 +47,7 @@ def grdcut(
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
     $aliases
+       - G = outgrid
        - J = projection
        - R = region
        - V = verbose

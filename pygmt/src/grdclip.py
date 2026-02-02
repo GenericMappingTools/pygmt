@@ -10,14 +10,12 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["grdclip"]
 
 
-# TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
-@deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
 def grdclip(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -52,6 +50,7 @@ def grdclip(
     .. hlist::
        :columns: 3
 
+       - G = outgrid
        - R = region
        - Sa = above
        - Sb = below
@@ -112,8 +111,8 @@ def grdclip(
     """
     if all(v is None for v in (above, below, between, replace)):
         msg = (
-            "Must specify at least one of the following parameters: ",
-            "'above', 'below', 'between', or 'replace'.",
+            "Must specify at least one of the following parameters: "
+            "'above', 'below', 'between', or 'replace'."
         )
         raise GMTInvalidInput(msg)
 

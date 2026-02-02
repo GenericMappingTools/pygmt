@@ -15,7 +15,7 @@ __doctest_skip__ = ["coast"]
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", C="lakes", E="dcw", L="map_scale")
+@use_alias(A="area_thresh", C="lakes", E="dcw")
 def coast(  # noqa: PLR0913
     self,
     resolution: Literal[
@@ -26,6 +26,7 @@ def coast(  # noqa: PLR0913
     rivers: int | str | Sequence[int | str] | None = None,
     borders: int | str | Sequence[int | str] | None = None,
     shorelines: bool | str | Sequence[int | str] = False,
+    map_scale: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -63,6 +64,7 @@ def coast(  # noqa: PLR0913
        - G = land
        - I = rivers
        - J = projection
+       - L = map_scale
        - R = region
        - S = water
        - V = verbose
@@ -127,9 +129,14 @@ def coast(  # noqa: PLR0913
         - ``rivers=["1/0.5p,blue", "5/0.3p,cyan,dashed"]``: Draw permanent major rivers
           with a 0.5-point blue pen and intermittent major rivers with a 0.3-point
           dashed cyan pen.
-    map_scale : str
-        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.
-        Draw a simple map scale centered on the reference point specified.
+    map_scale
+        Draw a map scale bar on the plot.
+
+        .. deprecated:: v0.19.0
+
+            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained
+            for backward compatibility and accepts raw GMT CLI strings for the ``-L``
+            option.
     box
         Draw a background box behind the map scale or rose. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -256,6 +263,7 @@ def coast(  # noqa: PLR0913
         F=Alias(box, name="box"),
         G=Alias(land, name="land"),
         I=Alias(rivers, name="rivers"),
+        L=Alias(map_scale, name="map_scale"),  # Deprecated.
         N=Alias(borders, name="borders"),
         S=Alias(water, name="water"),
         W=Alias(shorelines, name="shorelines"),
