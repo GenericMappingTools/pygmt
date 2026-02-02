@@ -2,8 +2,8 @@
 Scale bar
 =========
 
-The the :meth:`pygmt.Figure.scalebar` method can be used to add a scale bar
-to a map. This example shows how such a scale bar can be customized.
+The the :meth:`pygmt.Figure.scalebar` method can be used to add a scale bar to a map.
+This example shows how such a scale bar can be customized.
 """
 
 # %%
@@ -19,8 +19,8 @@ fig.basemap(region=[-45, -25, -15, 0], projection="M0/0/10c", frame=["WSne", "af
 # -----------------------------------------------------------------------------
 # Top Left: Add a plain scale bar
 # It is placed based on geographic coordinates 42° West and 1° South,
-# applies at the reference point (scale_loc not specified) and represents a
-# length of 500 kilometers
+# applies at the reference point (scale_loc is not used and by default False), and
+# represents a length of 500 kilometers
 # fig.basemap(map_scale="g-42/-1+w500k")
 fig.scalebar(length="500k", position=Position((-42, -1), cstype="mapcoords"))
 
@@ -41,7 +41,7 @@ fig.scalebar(
 # Bottom Left: Add a thick scale bar
 # Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
 # only to the code within the "with" statement)
-# It applies at the middle of the map (no location is passed to scale_loc)
+# It applies at the middle of the map (scale_loc is set to True)
 # Without providing a text, the label parameter adds the distance unit as label
 with pygmt.config(MAP_SCALE_HEIGHT="10p"):
     # fig.basemap(map_scale="n0.2/0.15+c+w500k+f+l")
@@ -74,9 +74,8 @@ fig.show()
 
 # %%
 # The ``box`` parameter allows surrounding the scale bar. This can be useful when
-# adding a scale bar to a colorful map to improve the contrast and readability.
+# adding a scale bar to a colorful map to improve contrast and readability.
 
-# Create a new Figure instance
 fig = pygmt.Figure()
 
 fig.basemap(region=[-45, -25, -15, 0], projection="M10c", frame=["WSne", "af"])
