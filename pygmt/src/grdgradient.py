@@ -78,7 +78,7 @@ def grdgradient(  # noqa: PLR0913
     outgrid: PathLike | None = None,
     azimuth: float | Sequence[float] | None = None,
     radiance: Sequence[float] | str | None = None,
-    normalize: Literal["laplace", "cachy"] | bool = False,
+    normalize: Literal["laplace", "cauchy"] | bool = False,
     norm_amp: float | None = None,
     norm_ambient: float | None = None,
     norm_sigma: float | None = None,
