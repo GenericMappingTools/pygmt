@@ -20,8 +20,14 @@ StringArrayTypes = Sequence[str] | np.ndarray
 with contextlib.suppress(ImportError):
     StringArrayTypes |= importlib.import_module(name="pyarrow").StringArray
 
-# PathLike and TableLike types
+# PathLike, GeoLike, and TableLike types
 PathLike = str | os.PathLike
 TableLike = dict | np.ndarray | pd.DataFrame | xr.Dataset
-with contextlib.suppress(ImportError):
-    TableLike |= importlib.import_module(name="geopandas").GeoDataFrame
+try:
+    import geopandas
+
+    GeoLike = geopandas.GeoDataFrame
+except ImportError:
+    GeoLike = None
+if GeoLike is not None:
+    TableLike |= GeoLike

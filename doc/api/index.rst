@@ -25,6 +25,7 @@ Plotting map elements
     :toctree: generated
 
     Figure.basemap
+    Figure.choropleth
     Figure.coast
     Figure.colorbar
     Figure.directional_rose
