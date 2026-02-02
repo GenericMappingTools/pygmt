@@ -410,6 +410,7 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
         basemap,
+        choropleth,
         coast,
         colorbar,
         contour,

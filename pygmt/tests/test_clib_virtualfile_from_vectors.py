@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
 
@@ -141,7 +141,7 @@ def test_virtualfile_from_vectors_diff_size():
     x = np.arange(5)
     y = np.arange(6)
     with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             with lib.virtualfile_from_vectors((x, y)):
                 pass
 

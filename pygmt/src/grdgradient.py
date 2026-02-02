@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdgradient"]
@@ -228,8 +228,9 @@ def grdgradient(  # noqa: PLR0913
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
     if kwargs.get("Q") is not None and kwargs.get("N") is None:
-        msg = "Must specify normalize if tiles is specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="normalize", reason="Required when 'tiles' is set."
+        )
     if (
         kwargs.get("A", azimuth) is None
         and kwargs.get("D") is None

@@ -6,7 +6,7 @@ import warnings
 from typing import Literal
 
 from pygmt._typing import PathLike
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 def validate_output_table_type(
@@ -43,7 +43,7 @@ def validate_output_table_type(
     >>> validate_output_table_type("file", outfile=None)
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'outfile' for output_type='file'.
+    pygmt.exceptions.GMTParameterError: Missing required parameter: 'outfile'. ...
     >>> with warnings.catch_warnings(record=True) as w:
     ...     validate_output_table_type("pandas", outfile="not-none.txt")
     ...     assert len(w) == 1
@@ -57,8 +57,9 @@ def validate_output_table_type(
             choices=_valids,
         )
     if output_type == "file" and outfile is None:
-        msg = "Must specify 'outfile' for output_type='file'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="outfile", reason="Required when output_type='file'."
+        )
     if output_type != "file" and outfile is not None:
         msg = (
             f"Changing 'output_type' from '{output_type}' to 'file' since 'outfile' "

@@ -8,7 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdgradient
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -98,6 +98,6 @@ def test_grdgradient_fails(grid):
     """
     with pytest.raises(GMTInvalidInput):
         grdgradient(grid=grid)  # fails without required arguments
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # fails when tiles is specified but not normalize
         grdgradient(grid=grid, azimuth=10, direction="c", tiles="c")
