@@ -143,7 +143,7 @@ class GMTParameterError(GMTError):
     at_least_one
        A set of parameter names, of which at least one must be specified.
     at_most_one
-       A set of mutually exclusive parameter names, of which at most one must be
+       A set of mutually exclusive parameter names, of which at most one can be
        specified.
     reason
         Detailed reason why the parameters are invalid.
