@@ -18,16 +18,21 @@ from pygmt.params import Position
 fig = pygmt.Figure()
 
 y0 = 20
-y1 = 0
+y1 = -5
 width = "1.5c"
 
-fig.basemap(region=[-5, 80, -10, 32], projection="M10c", frame=True)
+fig.basemap(region=[-15, 85, -20, 32], projection="M10c", frame=True)
+
+# Simply add a directional rose which is placed in the lower left corner
+# of the map frame by default
+fig.directional_rose()
 
 # Plain rose of 1.5 cm width showing an arrow towards North, a cross
 # indicating the cardinal directions, and a label for the North direction
-fig.directional_rose(
-    width=width, labels=True, position=Position((0, y0), cstype="mapcoords")
-)
+fig.directional_rose(width=width,
+                    labels = True,
+                    position=Position((0, y0), cstype="mapcoords")
+                    )
 
 # Fancy, 1.5 cm wide rose of level 1 and labels indicating the different directions
 fig.directional_rose(
