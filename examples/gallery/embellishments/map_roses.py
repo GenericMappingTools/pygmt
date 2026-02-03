@@ -1,5 +1,5 @@
 """
-Directional map roses
+Directional map rose
 =====================
 
 The :meth:`pygmt.Figure.directional_rose` method allows to add
