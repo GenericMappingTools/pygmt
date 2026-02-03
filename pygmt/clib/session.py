@@ -27,7 +27,6 @@ from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
-    GMTInvalidInput,
     GMTTypeError,
     GMTValueError,
 )
@@ -1465,8 +1464,7 @@ class Session:
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
-            msg = "All arrays must have same size."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(arrays, reason="All arrays must have same size.")
 
         family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
         geometry = "GMT_IS_POINT"

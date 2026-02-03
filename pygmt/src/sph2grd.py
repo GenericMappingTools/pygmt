@@ -38,6 +38,7 @@ def sph2grd(
     Full GMT docs at :gmt-docs:`sph2grd.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

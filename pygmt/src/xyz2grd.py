@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["xyz2grd"]
@@ -53,6 +53,7 @@ def xyz2grd(
     Full GMT docs at :gmt-docs:`xyz2grd.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - J = projection
        - R = region
@@ -158,8 +159,7 @@ def xyz2grd(
     ... )
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
-        msg = "Both 'region' and 'spacing' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required={"region", "spacing"})
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

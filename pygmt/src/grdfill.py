@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfill"]
@@ -39,7 +39,7 @@ def _validate_params(
     >>> _validate_params()
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Need to specify parameter ...
+    pygmt.exceptions.GMTParameterError: Missing parameter: requires at least one ...
     """
     _fill_params = "'constant_fill'/'grid_fill'/'neighbor_fill'/'spline_fill'"
 
@@ -57,11 +57,15 @@ def _validate_params(
         msg = f"Parameters {_fill_params}/'inquire' are mutually exclusive."
         raise GMTInvalidInput(msg)
     if n_given == 0:  # No parameters are given.
-        msg = (
-            f"Need to specify parameter {_fill_params} for filling holes or "
-            "'inquire' for inquiring the bounds of each hole."
+        raise GMTParameterError(
+            at_least_one={
+                "constant_fill",
+                "grid_fill",
+                "neighbor_fill",
+                "spline_fill",
+                "inquire",
+            }
         )
-        raise GMTInvalidInput(msg)
 
 
 @fmt_docstring
@@ -105,6 +109,7 @@ def grdfill(
        - Ag = grid_fill
        - An = neighbor_fill
        - As = spline_fill
+       - G = outgrid
        - L = inquire
        - N = hole
        - R = region

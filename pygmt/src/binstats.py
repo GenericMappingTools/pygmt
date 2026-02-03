@@ -68,6 +68,7 @@ def binstats(
 
     $aliases
        - C = statistic
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

@@ -100,6 +100,7 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
         $aliases
+           - G = outgrid
            - I = spacing
            - J = projection
            - R = region
