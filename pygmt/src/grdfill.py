@@ -49,10 +49,13 @@ def _validate_params(
         "inquire": inquire,
     }
     n_given = sum(param is not None and param is not False for param in params.values())
-    if n_given > 1:
-        raise GMTParameterError(at_most_one=params)
-    if n_given == 0:
-        raise GMTParameterError(at_least_one=params)
+    match n_given:
+        case 0:
+            raise GMTParameterError(at_least_one=params)
+        case 1:
+            pass
+        case _:
+            raise GMTParameterError(at_most_one=params)
 
 
 @fmt_docstring
