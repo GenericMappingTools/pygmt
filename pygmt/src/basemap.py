@@ -117,6 +117,9 @@ def basemap(  # noqa: PLR0913
     """
     self._activate_figure()
 
+    # Update the current region tracking
+    self._update_current_region(region)
+
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),  # Deprecated.
         Jz=Alias(zscale, name="zscale"),
