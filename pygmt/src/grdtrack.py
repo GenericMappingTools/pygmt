@@ -299,7 +299,7 @@ def grdtrack(
     ... )
     """
     if points is not None and kwargs.get("E") is not None:
-        raise GMTParameterError(exactly_one={"points", "profile"})
+        raise GMTParameterError(at_most_one={"points", "profile"})
 
     if points is None and kwargs.get("E") is None:
         raise GMTParameterError(at_least_one={"points", "profile"})

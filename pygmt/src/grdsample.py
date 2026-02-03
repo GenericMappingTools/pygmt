@@ -101,7 +101,7 @@ def grdsample(
     >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
     if kwargs.get("T", toggle) and kwargs.get("r", registration):
-        raise GMTParameterError(exactly_one={"toggle", "registration"})
+        raise GMTParameterError(at_most_one={"toggle", "registration"})
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

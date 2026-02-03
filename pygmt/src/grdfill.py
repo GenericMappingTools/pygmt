@@ -53,7 +53,7 @@ def _validate_params(
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
         raise GMTParameterError(
-            exactly_one={
+            at_most_one={
                 "constant_fill",
                 "grid_fill",
                 "neighbor_fill",
