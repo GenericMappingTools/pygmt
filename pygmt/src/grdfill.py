@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfill"]
@@ -31,18 +31,16 @@ def _validate_params(
     >>> _validate_params(constant_fill=20.0, grid_fill="bggrid.nc")
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
     >>> _validate_params(constant_fill=20.0, inquire=True)
     Traceback (most recent call last):
     ...
-    pygmt.exceptions.GMTInvalidInput: Parameters ... are mutually exclusive.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
     >>> _validate_params()
     Traceback (most recent call last):
     ...
     pygmt.exceptions.GMTParameterError: Missing parameter: requires at least one ...
     """
-    _fill_params = "'constant_fill'/'grid_fill'/'neighbor_fill'/'spline_fill'"
-
     n_given = sum(
         param is not None and param is not False
         for param in [
@@ -54,8 +52,15 @@ def _validate_params(
         ]
     )
     if n_given > 1:  # More than one mutually exclusive parameter is given.
-        msg = f"Parameters {_fill_params}/'inquire' are mutually exclusive."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            exactly_one={
+                "constant_fill",
+                "grid_fill",
+                "neighbor_fill",
+                "spline_fill",
+                "inquire",
+            }
+        )
     if n_given == 0:  # No parameters are given.
         raise GMTParameterError(
             at_least_one={
