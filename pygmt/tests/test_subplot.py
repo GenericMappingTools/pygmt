@@ -4,10 +4,7 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import (
-    GMTParameterError,
-    GMTValueError,
-)
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.params import Position
 
 
