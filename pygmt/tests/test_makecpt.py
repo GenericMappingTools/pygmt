@@ -7,10 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.exceptions import (
-    GMTParameterError,
-    GMTValueError,
-)
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
