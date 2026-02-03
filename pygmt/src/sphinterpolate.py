@@ -2,23 +2,24 @@
 sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
-@use_alias(I="spacing", R="region")
-@kwargs_to_strings(I="sequence", R="sequence")
 def sphinterpolate(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -34,7 +35,14 @@ def sphinterpolate(
 
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist:
+       :columns: 2
+
+       - G = outgrid
+       - I = spacing
+       - R = region
        - V = verbose
 
     Parameters
@@ -42,11 +50,11 @@ def sphinterpolate(
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {outgrid}
-    {spacing}
-    {region}
-    {verbose}
+        $table_classes.
+    $outgrid
+    $spacing
+    $region
+    $verbose
 
     Returns
     -------
@@ -66,7 +74,10 @@ def sphinterpolate(
     >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)

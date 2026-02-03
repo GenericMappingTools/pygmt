@@ -2,7 +2,7 @@
 file_format: mystnb
 ---
 
-# Justification codes
+# Justification Codes
 
 To place plot embellishments, such as scalebars, directional roses, colorbars, legends,
 text, or images on a figure, two points have to be specified: a point somewhere on the
@@ -105,7 +105,14 @@ Script showing justification codes for plot embellishments, e.g., a colorbar.
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
-fig.colorbar(cmap="buda", frame=0, position="jMC+w10c/2c+h")
+fig.colorbar(
+    cmap="SCM/buda",
+    frame=0,
+    position="MC",
+    length=10,
+    width=2,
+    orientation="horizontal",
+)
 
 for code in codes:
     fig.text(

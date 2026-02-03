@@ -2,33 +2,31 @@
 binstats - Bin spatial data and determine statistics per bin.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTTypeError, GMTValueError
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
     E="empty",
-    I="spacing",
     N="normalize",
-    R="region",
     S="search_radius",
     W="weight",
     a="aspatial",
     b="binary",
     h="header",
-    i="incols",
-    r="registration",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def binstats(
     data: PathLike | TableLike,
     outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
     statistic: Literal[
         "mean",
         "mad",
@@ -48,8 +46,11 @@ def binstats(
         "sum",
     ] = "number",
     quantile_value: float = 50,
+    region: Sequence[float | str] | str | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -65,15 +66,20 @@ def binstats(
 
     Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
-    {aliases}
+    $aliases
        - C = statistic
+       - G = outgrid
+       - I = spacing
+       - R = region
        - V = verbose
+       - i = incols
+       - r = registration
 
     Parameters
     ----------
     data
-        A file name of an ASCII data table or a 2-D {table-classes}.
-    {outgrid}
+        A file name of an ASCII data table or a 2-D $table_classes.
+    $outgrid
     statistic
         Choose the statistic that will be computed per node based on the points that are
         within *radius* distance of the node. Select one of:
@@ -112,14 +118,14 @@ def binstats(
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {header}
-    {incols}
-    {registration}
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $header
+    $incols
+    $registration
 
     Returns
     -------
@@ -153,11 +159,25 @@ def binstats(
                 "sum": "z",
             },
         ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
+        R=region,
         V=verbose,
+        i=incols,
+        r=registration,
     )
     aliasdict.merge(kwargs)
     if statistic == "quantile":
+        if not isinstance(quantile_value, (int, float)):
+            raise GMTTypeError(
+                quantile_value, reason="quantile_value must be an 'int' or 'float'."
+            )
+        if not (0 <= quantile_value <= 100):
+            raise GMTValueError(
+                quantile_value,
+                description="quantile_value",
+                reason="Must be a value between 0 and 100.",
+            )
         aliasdict["C"] += f"{quantile_value}"
 
     with Session() as lib:

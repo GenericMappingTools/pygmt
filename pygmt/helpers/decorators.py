@@ -2,11 +2,11 @@
 Decorators to help wrap the GMT modules.
 
 Apply them to functions wrapping GMT modules to automate: alias generation for
-arguments, insert common text into docstrings, transform arguments to strings,
-etc.
+arguments, insert common text into docstrings, transform arguments to strings, etc.
 """
 
 import functools
+import string
 import textwrap
 import warnings
 from inspect import Parameter, signature
@@ -22,14 +22,12 @@ COMMON_DOCSTRINGS = {
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
             hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is ``"0/0/4"`` (all
-            features)].""",
+            *max_level* will not be plotted [Default is ``"0/0/4"`` (all features)].""",
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
-            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
-         """,
+            Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.""",
     "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
@@ -37,25 +35,25 @@ COMMON_DOCSTRINGS = {
             (using ``binary="o"``), where *ncols* is the number of data columns
             of *type*, which must be one of:
 
-                - **c**: int8_t (1-byte signed char)
-                - **u**: uint8_t (1-byte unsigned char)
-                - **h**: int16_t (2-byte signed int)
-                - **H**: uint16_t (2-byte unsigned int)
-                - **i**: int32_t (4-byte signed int)
-                - **I**: uint32_t (4-byte unsigned int)
-                - **l**: int64_t (8-byte signed int)
-                - **L**: uint64_t (8-byte unsigned int)
-                - **f**: 4-byte single-precision float
-                - **d**: 8-byte double-precision float
-                - **x**: use to skip *ncols* anywhere in the record
+            - **c**: int8_t (1-byte signed char)
+            - **u**: uint8_t (1-byte unsigned char)
+            - **h**: int16_t (2-byte signed int)
+            - **H**: uint16_t (2-byte unsigned int)
+            - **i**: int32_t (4-byte signed int)
+            - **I**: uint32_t (4-byte unsigned int)
+            - **l**: int64_t (8-byte signed int)
+            - **L**: uint64_t (8-byte unsigned int)
+            - **f**: 4-byte single-precision float
+            - **d**: 8-byte double-precision float
+            - **x**: use to skip *ncols* anywhere in the record
 
             For records with mixed types, append additional comma-separated
             combinations of *ncols* *type* (no space). The following modifiers
             are supported:
 
-                - **w** after any item to force byte-swapping.
-                - **+l**\|\ **b** to indicate that the entire data file should
-                  be read as little- or big-endian, respectively.
+            - **w** after any item to force byte-swapping.
+            - **+l**\|\ **b** to indicate that the entire data file should be
+              read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "cmap": r"""
@@ -66,11 +64,10 @@ COMMON_DOCSTRINGS = {
     "coltypes": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
-            Specify data types of input and/or output columns (time or
-            geographical data). Full documentation is at
-            :gmt-docs:`gmt.html#f-full`.""",
+            Specify data types of input and/or output columns (time or geographical
+            data). Full documentation is at :gmt-docs:`gmt.html#f-full`.""",
     "cores": r"""
-        cores : bool or int
+        cores
             Specify the number of active cores to be used in any OpenMP-enabled
             multi-threaded algorithms. By default, all available cores are used. Set a
             positive number *n* to use *n* cores (if too large it will be truncated to
@@ -95,7 +92,7 @@ COMMON_DOCSTRINGS = {
     "frame": r"""
         frame : bool, str, or list
             Set map boundary
-            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
+            :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
@@ -105,38 +102,34 @@ COMMON_DOCSTRINGS = {
             a list with each item containing a string describing one set of
             criteria.
 
-                - **x**\|\ **X**: define a gap when there is a large enough
-                  change in the x coordinates (uppercase to use projected
-                  coordinates).
-                - **y**\|\ **Y**: define a gap when there is a large enough
-                  change in the y coordinates (uppercase to use projected
-                  coordinates).
-                - **d**\|\ **D**: define a gap when there is a large enough
-                  distance between coordinates (uppercase to use projected
-                  coordinates).
-                - **z**: define a gap when there is a large enough change in
-                  the z data. Use **+c**\ *col* to change the z data column
-                  [Default *col* is 2 (i.e., 3rd column)].
+            - **x**\|\ **X**: define a gap when there is a large enough
+              change in the x coordinates (uppercase to use projected coordinates).
+            - **y**\|\ **Y**: define a gap when there is a large enough
+              change in the y coordinates (uppercase to use projected coordinates).
+            - **d**\|\ **D**: define a gap when there is a large enough
+              distance between coordinates (uppercase to use projected coordinates).
+            - **z**: define a gap when there is a large enough change in
+              the z data. Use **+c**\ *col* to change the z data column
+              [Default *col* is 2 (i.e., 3rd column)].
 
             A unit **u** may be appended to the specified *gap*:
 
-                - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
-                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-                  **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ters)].
-                - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
+            - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
+              be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
+              or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
+              **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
+            - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
+              **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
 
             One of the following modifiers can be appended:
 
-                - **+n**: specify that the previous value minus the current
-                  column value must exceed *gap* for a break to be imposed.
-                - **+p**: specify that the current value minus the previous
-                  value must exceed *gap* for a break to be imposed.""",
+            - **+n**: specify that the previous value minus the current
+              column value must exceed *gap* for a break to be imposed.
+            - **+p**: specify that the current value minus the previous
+              value must exceed *gap* for a break to be imposed.""",
     "grid": r"""
         grid
             Name of the input grid file or the grid loaded as a
@@ -153,54 +146,47 @@ COMMON_DOCSTRINGS = {
             header records. Prepend **o** to control the writing of header
             records, with the following modifiers supported:
 
-                - **+d** to remove existing header records.
-                - **+c** to add a header comment with column names to the
-                  output [Default is no column names].
-                - **+m** to add a segment header *segheader* to the output
-                  after the header block [Default is no segment header].
-                - **+r** to add a *remark* comment to the output [Default is no
-                  comment]. The *remark* string may contain \\n to indicate
-                  line-breaks.
-                - **+t** to add a *title* comment to the output [Default is no
-                  title]. The *title* string may contain \\n to indicate
-                  line-breaks.
+            - **+d** to remove existing header records.
+            - **+c** to add a header comment with column names to the
+              output [Default is no column names].
+            - **+m** to add a segment header *segheader* to the output
+              after the header block [Default is no segment header].
+            - **+r** to add a *remark* comment to the output [Default is no
+              comment]. The *remark* string may contain \\n to indicate
+              line-breaks.
+            - **+t** to add a *title* comment to the output [Default is no
+              title]. The *title* string may contain \\n to indicate
+              line-breaks.
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1-D array
-            Specify data columns for primary input in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            reads all columns in order, starting with the first (i.e., column
-            0)].
+        incols
+            Specify data columns for primary input in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default reads all columns
+            in order, starting with the first (i.e., column 0)].
 
-            - For *1-D array*: specify individual columns in input order (e.g.,
-              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
-              first three columns followed by the log-transformed 5th column).
-              To read from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To read trailing
-              text, add the column **t**. Append the word number to **t** to
-              ingest only a single word from the trailing text. Instead of
-              specifying columns, use ``incols="n"`` to simply read numerical
-              input and skip trailing text. Optionally, append one of the
-              following modifiers to any column or column range to transform
-              the input columns:
+            - For a sequence: specify individual columns in input order (e.g.,
+              ``incols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``incols="0:2,4+l"`` to input the first three columns followed by the
+              log10-transformed 5th column). To read from a given column until the end of
+              the record, leave off *stop* when specifying the column range. To read
+              trailing text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of specifying
+              columns, use ``incols="n"`` to simply read numerical input and skip
+              trailing text. Optionally, append one of the following modifiers to any
+              column or column range to transform the input columns:
 
-                - **+l** to take the *log10* of the input values.
-                - **+d** to divide the input values by the factor *divisor*
-                  [Default is 1].
-                - **+s** to multiple the input values by the factor *scale*
-                  [Default is 1].
-                - **+o** to add the given *offset* to the input values [Default
-                  is 0].""",
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the input values by the factor *divisor* [Default is 1].
+              - **+s** to multiple the input values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the input values [Default is 0].""",
     "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
-            Select interpolation mode for grids. You can select the type of
-            spline used:
+            Select interpolation mode for grids. You can select the type of spline used:
 
             - **b** for B-spline
             - **c** for bicubic [Default]
@@ -219,28 +205,35 @@ COMMON_DOCSTRINGS = {
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "outcols": r"""
-        outcols : str or 1-D array
+        outcols
             *cols*\ [,...][,\ **t**\ [*word*]].
-            Specify data columns for primary output in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            writes all columns in order, starting with the first (i.e., column
-            0)].
 
-            - For *1-D array*: specify individual columns in output order (e.g.,
-              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``outcols="0:2,4"`` to output the
-              first three columns followed by the 5th column).
-              To write from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To write trailing
-              text, add the column **t**. Append the word number to **t** to
-              write only a single word from the trailing text. Instead of
-              specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. **Note**: If ``incols`` is also
-              used then the columns given to ``outcols`` correspond to the
-              order after the ``incols`` selection has taken place.""",
+            Specify data columns for primary output in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default writes all columns
+            in order, starting with the first (i.e., column 0)].
+
+            - For a sequence: specify individual columns in output order (e.g.,
+              ``outcols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``outcols="0:2,4"`` to output the first three columns followed by the 5th
+              column). To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing text, add
+              the column **t**. Append the word number to **t** to write only a single
+              word from the trailing text. Instead of specifying columns, use
+              ``outcols="n"`` to simply read numerical input and skip trailing text.
+              **Note**: If ``incols`` is also used then the columns given to ``outcols``
+              correspond to the order after the ``incols`` selection has taken place.
+
+              Optionally, append one of the following modifiers to any column or column
+              range to transform the output columns:
+
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the output values by the factor *divisor* [Default is
+                1].
+              - **+s** to multiply the output values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the output values [Default is 0].""",
     "outfile": """
         outfile
             File name for saving the result data. Required if ``output_type="file"``.
@@ -258,8 +251,7 @@ COMMON_DOCSTRINGS = {
             Name of the output netCDF grid file. If not specified, will return an
             :class:`xarray.DataArray` object. For writing a specific grid file format or
             applying basic data operations to the output grid, see
-            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
-        """,
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "panel": r"""
         panel
             Select a specific subplot panel. Only allowed when used in
@@ -275,15 +267,27 @@ COMMON_DOCSTRINGS = {
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "perspective": r"""
-        perspective : list or str
-            [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
-            [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
-            Select perspective view and set the azimuth and elevation angle of
-            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
-            :gmt-docs:`gmt.html#perspective-full`.
-        """,
+        perspective
+            Select perspective view and set the azimuth and elevation of the viewpoint.
+
+            Accepts a single value or a sequence of two or three values: *azimuth*,
+            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
+
+            - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
+              i.e., looking from south to north].
+            - *elevation*: Elevation angle of the viewpoint above the horizon [Default
+              is 90, i.e., looking straight down at nadir].
+            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+              Only applied when used together with ``zsize`` or ``zscale``. [Default is
+              at the bottom of the z-axis].
+
+            Alternatively, set ``perspective=True`` to reuse the perspective setting
+            from the previous plotting method, or pass a string following the full
+            GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
+            select an axis location other than the plot origin). See
+            :gmt-docs:`gmt.html#perspective-full` for details.""",
     "projection": r"""
-        projection : str
+        projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
@@ -291,11 +295,10 @@ COMMON_DOCSTRINGS = {
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
-        registration : str
-            **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration
-            [Default is **g**\ (ridline)].
-        """,
+        registration
+            Select gridline or pixel node registration. Valid values are ``"gridline"``,
+            ``"pixel"``, and bool. GMT default is gridline registration. If
+            ``True``, select pixel registration.""",
     "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
@@ -307,11 +310,11 @@ COMMON_DOCSTRINGS = {
             *inc* defaults to 1 if not specified. The following modifiers are
             supported:
 
-                - **+r** to reverse the suppression, i.e., only output the
-                  records whose *z*-value equals NaN.
-                - **+a** to suppress the output of the record if just one or
-                  more of the columns equal NaN [Default skips record only
-                  if values in all specified *cols* equal NaN].""",
+            - **+r** to reverse the suppression, i.e., only output the
+              records whose *z*-value equals NaN.
+            - **+a** to suppress the output of the record if just one or
+              more of the columns equal NaN [Default skips record only
+              if values in all specified *cols* equal NaN].""",
     "spacing": r"""
         spacing : float, str, or list
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
@@ -349,7 +352,7 @@ COMMON_DOCSTRINGS = {
             [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
-            in the image (for further processing). """,
+            in the image (for further processing).""",
     "verbose": r"""
         verbose : bool or str
             Select verbosity level [:term:`Full usage <verbose>`].""",
@@ -361,14 +364,14 @@ COMMON_DOCSTRINGS = {
             different column if selected via **+c**\ *col*. The following
             cyclical coordinate transformations are supported:
 
-                - **y**: yearly cycle (normalized)
-                - **a**: annual cycle (monthly)
-                - **w**: weekly cycle (day)
-                - **d**: daily cycle (hour)
-                - **h**: hourly cycle (minute)
-                - **m**: minute cycle (second)
-                - **s**: second cycle (second)
-                - **c**: custom cycle (normalized)
+            - **y**: yearly cycle (normalized)
+            - **a**: annual cycle (monthly)
+            - **w**: weekly cycle (day)
+            - **d**: daily cycle (hour)
+            - **h**: hourly cycle (minute)
+            - **m**: minute cycle (second)
+            - **s**: second cycle (second)
+            - **c**: custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
 }
@@ -408,11 +411,11 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
-    ...         {table-classes}.
-    ...     {region}
-    ...     {projection}
+    ...         $table_classes.
+    ...     $region
+    ...     $projection
     ...
-    ...     {aliases}
+    ...     $aliases
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -430,11 +433,12 @@ def fmt_docstring(module_func):
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
-    projection : str
+    projection
         *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
+    <BLANKLINE>
     .. hlist::
        :columns: 3
     <BLANKLINE>
@@ -453,7 +457,7 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-classes"] = (
+    filler_text["table_classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
@@ -468,8 +472,7 @@ def fmt_docstring(module_func):
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
 
-    module_func.__doc__ = docstring.format(**filler_text)
-
+    module_func.__doc__ = string.Template(docstring).safe_substitute(**filler_text)
     return module_func
 
 
@@ -528,9 +531,7 @@ def use_alias(**aliases):
     R = bla J = meh
     >>> my_module(region="bla", projection="meh")
     R = bla J = meh
-    >>> my_module(
-    ...     region="bla", projection="meh", J="bla"
-    ... )  # doctest: +NORMALIZE_WHITESPACE
+    >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:

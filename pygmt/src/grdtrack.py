@@ -2,6 +2,7 @@
 grdtrack - Sample one or more grids at specified locations.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -10,7 +11,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -29,7 +30,6 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
@@ -41,22 +41,23 @@ __doctest_skip__ = ["grdtrack"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     j="distcalc",
     n="interpolation",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(S="sequence")
 def grdtrack(
     grid: PathLike | xr.DataArray,
     points: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
     newcolname=None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -78,18 +79,21 @@ def grdtrack(
 
     Full GMT docs at :gmt-docs:`grdtrack.html`.
 
-    {aliases}
-        - V = verbose
+    $aliases
+       - R = region
+       - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
-    {grid}
+    $grid
 
     points
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
+        $table_classes.
+    $output_type
+    $outfile
     newcolname : str
         Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
         new column in the track :class:`pandas.DataFrame` table where the
@@ -193,7 +197,7 @@ def grdtrack(
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {region}
+    $region
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within the grid domain].
@@ -251,22 +255,22 @@ def grdtrack(
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {verbose}
+    $verbose
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {distcalc}
-    {interpolation}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $distcalc
+    $interpolation
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
@@ -303,8 +307,9 @@ def grdtrack(
         raise GMTInvalidInput(msg)
 
     if hasattr(points, "columns") and newcolname is None:
-        msg = "Please pass in a str to 'newcolname'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="newcolname", reason="Pass in a string to 'newcolname'."
+        )
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -313,7 +318,10 @@ def grdtrack(
         column_names = [*points.columns.to_list(), newcolname]
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
+        i=incols,
+        o=outcols,
     )
     aliasdict.merge(kwargs)
 

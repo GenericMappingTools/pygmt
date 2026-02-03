@@ -1,0 +1,5 @@
+outs:
+- md5: 78c53322b2514fbcd56483b793d47ebe
+  size: 28831
+  hash: md5
+  path: test_magnetic_rose_complete.png

@@ -18,6 +18,7 @@ In this tutorial, different histogram related aspects are addressed:
 # Import the required packages
 import numpy as np
 import pygmt
+from pygmt.params import Pattern
 
 # %%
 # Generate random data from a normal distribution:
@@ -119,7 +120,7 @@ fig.histogram(
     frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
-    # Draw a 1.5-points thick, dashed outline in "orange"
+    # Draw a 1.5-point thick, dashed outline in "orange"
     pen="1.5p,orange,dashed",
     histtype=0,
     stairs=True,
@@ -174,10 +175,10 @@ fig.show()
 # Cumulative values
 # -----------------
 #
-# To create a histogram showing the cumulative values set ``cumulative=True``. Here,
-# the bars of the cumulative histogram are filled with a pattern via the ``fill``
-# parameter. Annotate each bar with the counts it represents using the ``annotate``
-# parameter.
+# To create a histogram showing the cumulative values set ``cumulative=True``. Here, the
+# bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern` via
+# the ``fill`` parameter. Annotate each bar with the counts it represents using the
+# ``annotate`` parameter.
 
 fig = pygmt.Figure()
 
@@ -204,10 +205,8 @@ fig.histogram(
     frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
     data=data01,
     series=10,
-    # Use pattern ("p") number 8 as fill for the bars
-    # Set the background ("+b") to white [Default]
-    # Set the foreground ("+f") to black [Default]
-    fill="p8+bwhite+fblack",
+    # Fill bars with GMT pattern 8, with white background and black foreground.
+    fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="1p,darkgray,solid",
     histtype=0,
     # Show cumulative counts
@@ -321,7 +320,7 @@ fig.show()
 # Grouped bars
 # ------------
 #
-# By setting the ``barwidth`` parameter in respect to the values passed to the
+# By setting the ``bar_width`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
 #
 # Limitations of histograms with grouped bars are:
@@ -346,9 +345,9 @@ fig.histogram(
     histtype=0,
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
-    # Offset ("+o") the bars to align each bar with the left limit of the corresponding
-    # bin
-    barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
+    bar_width=binwidth / 2,
+    # Offset the bars to align each bar with the left limit of the corresponding bin
+    bar_offset=-binwidth / 4,
     label="data01",
 )
 
@@ -359,7 +358,8 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray,solid",
     histtype=0,
-    barwidth=f"{binwidth / 2}+o{binwidth / 4}",
+    bar_width=binwidth / 2,
+    bar_offset=binwidth / 4,
     label="data02",
 )
 

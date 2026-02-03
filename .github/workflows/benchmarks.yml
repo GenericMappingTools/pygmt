@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -48,15 +48,15 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@b09ef9b599704322748535812ca03efb2625677b # v2.0.5
+        uses: mamba-org/setup-micromamba@add3a49764cedee8ee24e82dfde87f5bc2914462 # v2.0.7
         with:
           environment-name: pygmt
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            gmt=6.5.0
-            python=3.13
+            gmt=6.6.0
+            python=3.14
             numpy
             pandas
             xarray
@@ -84,7 +84,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@6eeb021fd0f305388292348b775d96d95253adf4 # v4.0.0
+        uses: CodSpeedHQ/action@972e3437949c89e1357ebd1a2dbc852fcbc57245 # v4.5.1
         with:
           mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.

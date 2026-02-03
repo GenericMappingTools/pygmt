@@ -5,7 +5,7 @@ Test Figure.velo.
 import pandas as pd
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -60,7 +60,7 @@ def test_velo_without_spec(dataframe):
     Check that velo fails when the spec parameter is not given.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.velo(data=dataframe)
 
 
@@ -79,7 +79,7 @@ def test_velo_pandas_dataframe(dataframe):
         region=[-10, 8, -10, 6],
         projection="x0.8c",
         pen="0.6p,red",
-        uncertaintyfill="lightblue1",
+        uncertainty_fill="lightblue1",
         line=True,
     )
     return fig

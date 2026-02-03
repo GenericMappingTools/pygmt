@@ -141,7 +141,7 @@ def test_plot_colors(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="cubhelix",
+        cmap="cpt-city/cubhelix",
         frame="af",
     )
     return fig
@@ -180,7 +180,7 @@ def test_plot_colors_sizes(data, region):
         region=region,
         projection="X10c",
         style="cc",
-        cmap="copper",
+        cmap="matlab/copper",
         frame="af",
     )
     return fig
@@ -199,7 +199,7 @@ def test_plot_colors_sizes_proj(data, region):
         fill=data[:, 2],
         size=0.5 * data[:, 2],
         style="cc",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -293,7 +293,7 @@ def test_plot_sizes_colors_transparencies():
         style="cc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
     )
     return fig
@@ -348,7 +348,7 @@ def test_plot_matrix_color(data):
         region=[10, 70, -5, 10],
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
+        cmap="gmt/rainbow",
         frame="a",
     )
     return fig
@@ -483,14 +483,15 @@ def test_plot_timedelta64():
     """
     Test plotting numpy.timedelta64 input data.
     """
+    tmin, tmax = np.timedelta64(0, "D"), np.timedelta64(8, "D")
     fig = Figure()
     fig.basemap(
         projection="X8c/5c",
-        region=[0, 8, 0, 10],
+        region=[tmin, tmax, 0, 10],
         frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
     )
     fig.plot(
-        x=np.arange(np.timedelta64(0, "D"), np.timedelta64(8, "D")),
+        x=np.arange(tmin, tmax),
         y=np.geomspace(start=0.1, stop=9, num=8),
         style="c0.2c",
         pen="1p",

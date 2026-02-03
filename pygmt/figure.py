@@ -4,7 +4,6 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-import warnings
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
@@ -119,21 +118,6 @@ class Figure:
         fmt = "-"  # Passing format "-" tells pygmt.end to not produce any files.
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
-
-    # TODO(PyGMT>=v0.18.0):  Remove the _preprocess method.
-    def _preprocess(self, **kwargs):
-        """
-        Call the ``figure`` module before each plotting command to ensure we're plotting
-        to this particular figure.
-        """
-        self._activate_figure()
-        warnings.warn(
-            "The Figure._preprocess() method is deprecated since v0.16.0 and will be "
-            "removed in v0.18.0. Use Figure._activate_figure() instead.",
-            FutureWarning,
-            stacklevel=2,
-        )
-        return kwargs
 
     @property
     def region(self) -> np.ndarray:
@@ -268,12 +252,6 @@ class Figure:
         # not recognized. So remove it before calling Figure.psconvert.
         kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
-
-        # TODO(GMT>=6.5.0): Remove the workaround for upstream bug in GMT<6.5.0.
-        # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
-        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff":
-            fname.with_suffix(".pgw").unlink(missing_ok=True)
 
         # Rename if file extension doesn't match the input file suffix.
         if ext != suffix[1:]:
@@ -432,9 +410,11 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
         basemap,
+        choropleth,
         coast,
         colorbar,
         contour,
+        directional_rose,
         grdcontour,
         grdimage,
         grdview,
@@ -444,11 +424,13 @@ class Figure:
         inset,
         legend,
         logo,
+        magnetic_rose,
         meca,
         plot,
         plot3d,
         psconvert,
         rose,
+        scalebar,
         set_panel,
         shift_origin,
         solar,

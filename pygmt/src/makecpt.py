@@ -2,6 +2,7 @@
 makecpt - Make GMT color palette tables.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
@@ -24,7 +25,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 )
 @kwargs_to_strings(T="sequence")
 def makecpt(
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,
@@ -72,7 +73,7 @@ def makecpt(
 
     Full GMT docs at :gmt-docs:`makecpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg
@@ -156,12 +157,12 @@ def makecpt(
     continuous
         Force a continuous CPT when building from a list of colors and a list of
         z-values [Default is False, i.e. discrete CPT].
-    {verbose}
+    $verbose
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like ``cmap="categorical"``.
+        a categorical color table, like ``cmap="gmt/categorical"``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with

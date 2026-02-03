@@ -20,6 +20,7 @@ of each point.
 
 # %%
 import pygmt
+from pygmt.params import Position
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45])
@@ -27,7 +28,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45
 fig = pygmt.Figure()
 
 # Define a colormap to be used for topography
-pygmt.makecpt(cmap="terra", series=[-7000, 7000])
+pygmt.makecpt(cmap="gmt/terra", series=[-7000, 7000])
 
 # Define figure configuration
 pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")
@@ -59,6 +60,12 @@ with fig.subplot(
                 panel=True,
             )
 
-fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
+fig.colorbar(
+    position=Position("BC", cstype="outside"),
+    length=14,
+    width=0.4,
+    orientation="horizontal",
+    frame="xa2000f500+lElevation (m)",
+)
 
 fig.show()

@@ -2,6 +2,7 @@
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
@@ -22,12 +23,13 @@ __doctest_skip__ = ["grdvolume"]
 
 
 @fmt_docstring
-@use_alias(C="contour", R="region", S="unit")
-@kwargs_to_strings(C="sequence", R="sequence")
+@use_alias(C="contour", S="unit")
+@kwargs_to_strings(C="sequence")
 def grdvolume(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -43,14 +45,15 @@ def grdvolume(
 
     Full GMT docs at :gmt-docs:`grdvolume.html`.
 
-    {aliases}
+    $aliases
+       - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {output_type}
-    {outfile}
+    $grid
+    $output_type
+    $outfile
     contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
@@ -65,8 +68,8 @@ def grdvolume(
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-    {region}
-    {verbose}
+    $region
+    $verbose
 
     Returns
     -------
@@ -104,6 +107,7 @@ def grdvolume(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     aliasdict = AliasSystem().add_common(
+        R=region,
         V=verbose,
     )
     aliasdict.merge(kwargs)
