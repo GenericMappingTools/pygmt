@@ -84,7 +84,7 @@ jobs:
       # Install the package that we want to test
       - name: Install the package
         run: |
-          uv run --with pip==23 --resolution lowest-direct --all-extras --dev make install
+          uv run --with pip==24 --resolution lowest-direct --all-extras --dev make install
           uv pip list
 
       # Run the tests but skip images
