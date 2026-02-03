@@ -42,13 +42,13 @@ def _validate_params(
     pygmt.exceptions.GMTParameterError: Missing parameter: requires at least one ...
     """
     params = {
-        "constant_fill": constant_fill
+        "constant_fill": constant_fill,
         "grid_fill": grid_fill,
-        "neighbor_fill": 'neighbor_fill',
-        "spline_fill": 'spline_fill',
+        "neighbor_fill": neighbor_fill,
+        "spline_fill": spline_fill,
         "inquire": inquire,
     }
-    n_given = sum(param is not None and param is not False for param in param_values)
+    n_given = sum(param is not None and param is not False for param in params.values())
     if n_given > 1:
         raise GMTParameterError(at_most_one=params)
     if n_given == 0:
