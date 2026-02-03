@@ -3,8 +3,7 @@ Directional map roses
 =====================
 
 The :meth:`pygmt.Figure.directional_rose` method allows to add
-directional roses on maps when using :meth:`pygmt.Figure.basemap`
-or :meth:`pygmt.Figure.coast`. This example shows how such a map
+directional roses on maps. This example shows how such a map
 rose can be customized.
 
 Colors of the map roses can be adjusted using :gmt-term:`MAP_DEFAULT_PEN`
@@ -38,8 +37,7 @@ fig.directional_rose(
     fancy=True,
 )
 
-# Fancy, 1.5 cm wide rose of level 2 and labels indicating the different
-# directions
+# Fancy, 1.5 cm wide rose of level 2 and labels indicating the different directions
 fig.directional_rose(
     width=width,
     labels=True,
@@ -47,8 +45,7 @@ fig.directional_rose(
     fancy=2,
 )
 
-# Fancy, 1.5 cm wide rose of level 3 and labels indicating the different
-# directions
+# Fancy, 1.5 cm wide rose of level 3 and labels indicating the different directions
 fig.directional_rose(
     width=width,
     labels=True,
@@ -83,8 +80,7 @@ with pygmt.config(
     )
 
 # Fancy, 1.5 cm wide rose of level 2 with two labels indicating the West and
-# East directions. Colors of the rose and labels are defined via
-# MAP_DEFAULT_PEN, MAP_TICK_PEN_PRIMARY and FONT_TITLE, respectively
+# East directions
 with pygmt.config(
     MAP_DEFAULT_PEN="default,lightorange",
     MAP_TICK_PEN_PRIMARY="darkorange",
@@ -98,8 +94,7 @@ with pygmt.config(
     )
 
 # Fancy, 1.5 cm wide rose of level 3 with two labels indicating the North and
-# South directions. Colors of the rose and labels are defined via
-# MAP_DEFAULT_PEN, MAP_TICK_PEN_PRIMARY and FONT_TITLE, respectively
+# South directions
 with pygmt.config(
     MAP_DEFAULT_PEN="default,Dodgerblue4",
     MAP_TICK_PEN_PRIMARY="Dodgerblue",
