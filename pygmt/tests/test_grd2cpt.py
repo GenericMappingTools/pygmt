@@ -6,11 +6,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.exceptions import (
-    GMTParameterError,
-    GMTTypeError,
-    GMTValueError,
-)
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
