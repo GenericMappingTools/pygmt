@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -227,8 +227,7 @@ def project(  # noqa: PLR0913
             required="data", reason="Required unless 'generate' is set."
         )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        msg = "The 'convention' parameter is not allowed with 'generate'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one={"convention", "generate"})
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
