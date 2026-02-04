@@ -60,7 +60,7 @@ jobs:
           create-args: >-
             python=3.12
             gmt=${{ matrix.gmt_version }}
-            ghostscript<10
+            ghostscript<10.04
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
