@@ -418,13 +418,22 @@ class AliasSystem(UserDict):
             if long_param_given:
                 if not isinstance(aliases, Sequence):  # Single Alias object.
                     raise GMTParameterError(
-                        conflicts_with={short_param: {aliases.name}},
+                        conflicts_with={aliases.name: {short_param}},
                         reason=f"'{aliases.name}' is already specified using the long-form parameter.",
                     )
                 # Sequence of Alias objects.
                 long_params = {v.name for v in aliases if not v.prefix}
+                if len(long_params) == 1:
+                    param_list = f"{sorted(long_params)[0]!r} is"
+                else:
+                    param_list = (
+                        f"{', '.join(repr(p) for p in sorted(long_params))} are"
+                    )
                 raise GMTParameterError(
-                    conflicts_with={short_param: long_params},
+                    conflicts_with={
+                        long_param: {short_param} for long_param in long_params
+                    },
+                    reason=f"{param_list} already specified using long-form parameters.",
                 )
 
             # Long-form parameters are not specified.

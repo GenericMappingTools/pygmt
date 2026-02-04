@@ -78,7 +78,7 @@ def test_alias_system_one_alias_short_form():
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'J' cannot be used with 'projection'. 'projection' is already specified using the long-form parameter.",
+        match=r"Conflicting parameters: 'projection' cannot be used with 'J'. 'projection' is already specified using the long-form parameter.",
     ):
         func(projection="X10c", J="H10c")
 
