@@ -142,6 +142,9 @@ class GMTParameterError(GMTError):
        Name or a set of names of required parameters.
     at_least_one
        A set of parameter names, of which at least one must be specified.
+    at_most_one
+       A set of mutually exclusive parameter names, of which at most one can be
+       specified.
     reason
         Detailed reason why the parameters are invalid.
     """
@@ -151,6 +154,7 @@ class GMTParameterError(GMTError):
         *,
         required: str | set[str] | None = None,
         at_least_one: set[str] | None = None,
+        at_most_one: set[str] | None = None,
         reason: str | None = None,
     ):
         msg = []
@@ -166,6 +170,12 @@ class GMTParameterError(GMTError):
             msg.append(
                 "Missing parameter: requires at least one of "
                 f"{', '.join(repr(par) for par in at_least_one)}."
+            )
+        if at_most_one:
+            msg.append(
+                "Mutually exclusive parameters: "
+                f"{', '.join(repr(par) for par in at_most_one)}. "
+                "Specify at most one of them."
             )
         if reason:
             msg.append(reason)
