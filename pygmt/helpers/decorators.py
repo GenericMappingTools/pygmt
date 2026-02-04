@@ -12,7 +12,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -534,8 +534,8 @@ def use_alias(**aliases):
     >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
-    pygmt.exceptions.GMTInvalidInput:
-        Parameters in short-form (J) and long-form (projection) can't coexist.
+    pygmt.exceptions.GMTParameterError:
+        Mutually exclusive parameters: 'J', 'projection'. Specify at most one of them.
     """
 
     def alias_decorator(module_func):
@@ -550,11 +550,7 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    msg = (
-                        f"Parameters in short-form ({short_param}) and "
-                        f"long-form ({long_alias}) can't coexist."
-                    )
-                    raise GMTInvalidInput(msg)
+                    raise GMTParameterError(at_most_one={short_param, long_alias})
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -566,27 +562,27 @@ def use_alias(**aliases):
 
             # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                msg = (
-                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
-                    "Use Figure.timestamp() instead."
+                raise GMTParameterError(
+                    at_most_one={"U", "timestamp"},
+                    reason="Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
+                    "Use Figure.timestamp() instead.",
                 )
-                raise GMTInvalidInput(msg)
 
             # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                msg = (
-                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(xshift=...) instead."
+                raise GMTParameterError(
+                    at_most_one={"X", "xshift"},
+                    reason="Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                    "Use Figure.shift_origin(xshift=...) instead.",
                 )
-                raise GMTInvalidInput(msg)
 
             # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                msg = (
-                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(yshift=...) instead."
+                raise GMTParameterError(
+                    at_most_one={"Y", "yshift"},
+                    reason="Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                    "Use Figure.shift_origin(yshift=...) instead.",
                 )
-                raise GMTInvalidInput(msg)
 
             return module_func(*args, **kwargs)
 
@@ -802,9 +798,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ...         assert issubclass(w[i].category, FutureWarning)
     ...         assert "deprecated" in str(w[i].message)
     data=table.txt, size=5.0, color=red
-    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> # using both old and new names will raise an GMTParameterError exception
     >>> import pytest
-    >>> with pytest.raises(GMTInvalidInput):
+    >>> with pytest.raises(GMTParameterError):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
     """
 
@@ -821,8 +817,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    msg = f"Can't provide both '{newname}' and '{oldname}'."
-                    raise GMTInvalidInput(msg)
+                    raise GMTParameterError(at_most_one={newname, oldname})
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."

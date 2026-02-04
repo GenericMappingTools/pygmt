@@ -9,7 +9,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -34,7 +34,7 @@ from pygmt.helpers import (
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913, PLR0915
+def text_(  # noqa: PLR0912, PLR0913
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -191,8 +191,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one={"textfiles", "position", "x/y"})
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
@@ -209,8 +208,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
             )
 
     if textfiles is not None and text is not None:
-        msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one={"text", "textfiles"})
     if kind == "empty" and text is None:
         raise GMTParameterError(
             required="text", reason="Required when 'x' and 'y' are set."

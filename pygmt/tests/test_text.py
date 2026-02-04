@@ -9,7 +9,6 @@ import pytest
 from pygmt import Figure, config
 from pygmt.exceptions import (
     GMTCLibError,
-    GMTInvalidInput,
     GMTParameterError,
     GMTTypeError,
 )
@@ -151,11 +150,11 @@ def test_text_invalid_inputs(region):
     Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
     with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", position="MC", text=None)
@@ -163,7 +162,7 @@ def test_text_invalid_inputs(region):
         fig.text(
             region=region, projection="x1c", position="MC", text=["text1", "text2"]
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
