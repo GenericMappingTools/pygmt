@@ -365,7 +365,8 @@ def _parse_position(
             elif kwdict is not None:  # Raw GMT command string with potential conflicts.
                 if any(v is not None and v is not False for v in kwdict.values()):
                     raise GMTParameterError(
-                        conflicts_with={"position": set(kwdict.keys())}
+                        conflicts_with={"position": set(kwdict.keys())},
+                        reason="Parameter 'position' is given with a raw GMT command string",
                     )
             else:
                 # No conflicting parameters to check, indicating it's a new function.
