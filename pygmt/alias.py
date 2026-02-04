@@ -7,7 +7,7 @@ from collections import UserDict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -416,11 +416,19 @@ class AliasSystem(UserDict):
 
             # Long-form parameters are already specified.
             if long_param_given:
-                msg = (
-                    f"Short-form parameter {short_param!r} conflicts with long-form "
-                    f"parameters and is not recommended. {_msg_long}"
+                if not isinstance(aliases, Sequence):  # Single Alias object.
+                    raise GMTParameterError(
+                        conflicts_with={aliases.name: {short_param}},
+                        reason=f"'{aliases.name}' is already specified using the long-form parameter.",
+                    )
+                # Sequence of Alias objects.
+                long_params = {v.name for v in aliases if not v.prefix}
+                params_str = ", ".join(repr(p) for p in sorted(long_params))
+                verb = "is" if len(long_params) == 1 else "are"
+                raise GMTParameterError(
+                    conflicts_with={param: {short_param} for param in long_params},
+                    reason=f"{params_str} {verb} already specified using long-form parameters.",
                 )
-                raise GMTInvalidInput(msg)
 
             # Long-form parameters are not specified.
             msg = (
