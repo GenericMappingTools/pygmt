@@ -7,11 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import (
-    GMTParameterError,
-    GMTTypeError,
-    GMTValueError,
-)
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
