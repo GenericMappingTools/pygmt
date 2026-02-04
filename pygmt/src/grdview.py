@@ -75,7 +75,7 @@ def _alias_option_Q(  # noqa: N802
             conflicts_with={
                 "surftype": {"dpi", "mesh_fill", "monochrome", "nan_transparent"}
             },
-            reason="Parameter 'surftype' is given with a raw GMT command string",
+            reason="'surftype' is specified using the unrecommended GMT command string syntax.",
         )
 
     if dpi is not None and surftype != "image":
