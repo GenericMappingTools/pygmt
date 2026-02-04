@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdproject"]
@@ -121,8 +121,7 @@ def grdproject(  # noqa: PLR0913
         raise GMTParameterError(required="projection")
 
     if kwargs.get("M", unit) is not None and kwargs.get("F", scaling) is not False:
-        msg = "Cannot use both 'unit' and 'scaling'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one={"unit", "scaling"})
 
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),

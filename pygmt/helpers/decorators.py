@@ -12,7 +12,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -534,8 +534,7 @@ def use_alias(**aliases):
     >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
-    pygmt.exceptions.GMTInvalidInput:
-        Parameters in short-form (J) and long-form (projection) can't coexist.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
     """
 
     def alias_decorator(module_func):
@@ -550,11 +549,10 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    msg = (
-                        f"Parameters in short-form ({short_param}) and "
-                        f"long-form ({long_alias}) can't coexist."
+                    raise GMTParameterError(
+                        at_most_one={long_alias, short_param},
+                        reason=f"Long-form parameter {long_alias!r} is recommended.",
                     )
-                    raise GMTInvalidInput(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
@@ -802,9 +800,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ...         assert issubclass(w[i].category, FutureWarning)
     ...         assert "deprecated" in str(w[i].message)
     data=table.txt, size=5.0, color=red
-    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> # using both old and new names will raise an GMTParameterError exception
     >>> import pytest
-    >>> with pytest.raises(GMTInvalidInput):
+    >>> with pytest.raises(GMTParameterError):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
     """
 
@@ -821,8 +819,10 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    msg = f"Can't provide both '{newname}' and '{oldname}'."
-                    raise GMTInvalidInput(msg)
+                    raise GMTParameterError(
+                        at_most_one={newname, oldname},
+                        reason=f"{oldname!r} is deprecated and {newname!r} is recommended.",
+                    )
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
