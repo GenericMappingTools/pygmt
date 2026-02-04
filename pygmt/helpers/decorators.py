@@ -552,7 +552,7 @@ def use_alias(**aliases):
                 if long_alias in kwargs and short_param in kwargs:
                     raise GMTParameterError(
                         at_most_one={long_alias, short_param},
-                        reason="Long-form parameter {long_alias!r} is recommended."
+                        reason=f"Long-form parameter {long_alias!r} is recommended."
                     )
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
