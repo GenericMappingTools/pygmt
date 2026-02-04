@@ -817,7 +817,10 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    raise GMTParameterError(at_most_one={newname, oldname})
+                    raise GMTParameterError(
+                        at_most_one={newname, oldname}, 
+                        reason="{oldname!r} is deprecated and {newname!r} is recommended.",
+                    )
                 msg = (
                     f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
