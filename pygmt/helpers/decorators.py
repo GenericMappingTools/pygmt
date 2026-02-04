@@ -534,8 +534,7 @@ def use_alias(**aliases):
     >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
-    pygmt.exceptions.GMTParameterError:
-        Mutually exclusive parameters: 'J', 'projection'. Specify at most...
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
     """
 
     def alias_decorator(module_func):
