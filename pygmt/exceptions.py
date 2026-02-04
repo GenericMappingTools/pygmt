@@ -145,6 +145,9 @@ class GMTParameterError(GMTError):
     at_most_one
        A set of mutually exclusive parameter names, of which at most one can be
        specified.
+    conflicts_with
+       A dictionary mapping parameter names to sets of conflicting parameter
+       names. Used to indicate which parameters cannot be used together.
     reason
         Detailed reason why the parameters are invalid.
     """
@@ -155,6 +158,7 @@ class GMTParameterError(GMTError):
         required: str | set[str] | None = None,
         at_least_one: set[str] | None = None,
         at_most_one: set[str] | None = None,
+        conflicts_with: dict[str, set[str]] | None = None,
         reason: str | None = None,
     ):
         msg = []
@@ -177,6 +181,12 @@ class GMTParameterError(GMTError):
                 f"{', '.join(repr(par) for par in at_most_one)}. "
                 "Specify at most one of them."
             )
+        if conflicts_with:
+            for param, conflicts in conflicts_with.items():
+                msg.append(
+                    f"Conflicting parameters: {param!r} cannot be used with "
+                    f"{', '.join(repr(c) for c in sorted(conflicts))}."
+                )
         if reason:
             msg.append(reason)
         super().__init__(" ".join(msg))
