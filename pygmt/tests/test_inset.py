@@ -4,7 +4,7 @@ Test Figure.inset.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.params import Box, Position
 
 
@@ -86,11 +86,11 @@ def test_inset_invalid_inputs():
     fig = Figure()
     fig.basemap(region="MG+r2", frame="afg")
     # Width is not given
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         with fig.inset(position=Position("TL")):
             pass
     # Height is given but width is not given
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         with fig.inset(position=Position("TL"), height="5c"):
             pass
     # Old position syntax conflicts with width/height

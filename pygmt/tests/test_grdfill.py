@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import grdfill
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -146,7 +146,7 @@ def test_grdfill_required_args(grid):
     """
     Test that grdfill fails without filling parameters or 'inquire'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdfill(grid=grid)
 
 
@@ -154,5 +154,5 @@ def test_grdfill_inquire_and_fill(grid):
     """
     Test that grdfill fails if both inquire and fill parameters are given.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdfill(grid=grid, inquire=True, constant_fill=20)

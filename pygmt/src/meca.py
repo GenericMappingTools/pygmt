@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -31,8 +31,7 @@ def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvent
 
     # Determine the convention from the 'convention' parameter.
     if convention is None:
-        msg = "Parameter 'convention' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="convention")
     return _FocalMechanismConvention(convention=convention, component=component)
 
 

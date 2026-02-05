@@ -8,7 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdproject
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -86,7 +86,7 @@ def test_grdproject_unit_scaling(grid):
     Test that the input validation to prevent passing both 'unit' and
     'scaling' is performed.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdproject(
             grid=grid,
             projection="M10c",
@@ -101,5 +101,5 @@ def test_grdproject_fails(grid):
     """
     Check that grdproject fails correctly.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdproject(grid=grid)

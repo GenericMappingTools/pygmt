@@ -4,7 +4,7 @@ Test Figure.magnetic_rose.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Position
 
 
@@ -46,5 +46,5 @@ def test_magnetic_rose_invalid_declination_label():
     """
     fig = Figure()
     fig.basemap(region=[-10, 10, -10, 10], projection="M10c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.magnetic_rose(declination_label="11.5°E")
