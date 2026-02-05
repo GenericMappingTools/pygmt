@@ -33,7 +33,7 @@ def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=No
     dtype = "object" if Version(pd.__version__) < Version("3.0.0.dev0") else "str"
     string_columns = df.select_dtypes(include=[dtype]).columns
     if len(string_columns) > 1:
-        df[string_columns[0]] = df[string_columns].apply(lambda x: " ".join(x), axis=1)
+        df[string_columns[0]] = df[string_columns].agg(func=" ".join, axis=1)
         df = df.drop(string_columns[1:], axis=1)
     # Convert 'object' to 'string' type
     df = df.convert_dtypes(

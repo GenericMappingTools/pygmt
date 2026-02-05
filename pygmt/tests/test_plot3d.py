@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -97,7 +97,7 @@ def test_plot3d_fail_no_data(data, region):
         fig.plot3d(
             style="c0.2c", x=data[0], y=data[1], region=region, projection="X10c"
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot3d(
             style="c0.2c", data=data, x=data[0], region=region, projection="X10c"
         )

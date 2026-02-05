@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure, which
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -78,7 +78,7 @@ def test_plot_fail_no_data(data, region):
             frame="afg",
         )
     # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(
             x=data[:, 0],
             y=data[:, 1],
@@ -483,14 +483,15 @@ def test_plot_timedelta64():
     """
     Test plotting numpy.timedelta64 input data.
     """
+    tmin, tmax = np.timedelta64(0, "D"), np.timedelta64(8, "D")
     fig = Figure()
     fig.basemap(
         projection="X8c/5c",
-        region=[0, 8, 0, 10],
+        region=[tmin, tmax, 0, 10],
         frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
     )
     fig.plot(
-        x=np.arange(np.timedelta64(0, "D"), np.timedelta64(8, "D")),
+        x=np.arange(tmin, tmax),
         y=np.geomspace(start=0.1, stop=9, num=8),
         style="c0.2c",
         pen="1p",

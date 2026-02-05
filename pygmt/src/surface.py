@@ -15,6 +15,7 @@ __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'maxradius' parameter.
 @deprecate_parameter("maxradius", "max_radius", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="convergence",
@@ -77,6 +78,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose

@@ -4,7 +4,7 @@ Test Figure.logo.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.params import Position
 
 
@@ -57,7 +57,7 @@ def test_logo_width_and_height():
     Test that an error is raised when both width and height are specified.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.logo(width="5c", height="5c")
 
 

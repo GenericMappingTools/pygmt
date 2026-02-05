@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -19,6 +19,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'barwidth' parameter.
 @deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="horizontal",
@@ -162,8 +163,9 @@ def histogram(  # noqa: PLR0913
     self._activate_figure()
 
     if bar_offset is not None and bar_width is None:
-        msg = "Setting 'bar_offset' requires setting 'bar_width'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="bar_width", reason="Required when 'bar_offset' is set."
+        )
 
     aliasdict = AliasSystem(
         E=[

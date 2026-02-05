@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2cpt"]
@@ -66,7 +66,7 @@ def grd2cpt(
     *z*-value, the foreground color (F) assigned to values higher than the
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
+    `cpt-city <https://phillips.shef.ac.uk/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
@@ -199,8 +199,7 @@ def grd2cpt(
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        msg = "Set only 'categorical' or 'cyclic' to True, not both."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one={"categorical", "cyclic"})
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True
