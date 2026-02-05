@@ -11,11 +11,12 @@ dark mode. The wordmark can be added at the right side or bottom of the visual.
 """
 
 # %%
+import pygmt
+
 # All versions
 # modified from
 # https://github.com/GenericMappingTools/pygmt/pull/3849#issuecomment-2753372170
 # by @seisman
-
 fig = pygmt.Figure()
 
 # Logo without workmark.
