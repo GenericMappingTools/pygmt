@@ -407,10 +407,7 @@ class AliasSystem(UserDict):
             if not isinstance(aliases, Sequence):  # Single Alias object.
                 long_params = [aliases.name]
             else:  # Sequence of Alias objects.
-                long_params = [
-                    f"{alias.name} ({alias.prefix})" if alias.prefix else alias.name
-                    for alias in aliases
-                ]
+                long_params = [alias.name for alias in aliases]
 
             long_params_text = ", ".join(repr(name) for name in long_params)
             msg = (
