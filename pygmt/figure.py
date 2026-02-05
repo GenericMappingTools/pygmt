@@ -429,6 +429,7 @@ class Figure:
         plot,
         plot3d,
         psconvert,
+        pygmtlogo,
         rose,
         scalebar,
         set_panel,
