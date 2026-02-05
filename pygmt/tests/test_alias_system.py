@@ -71,14 +71,14 @@ def test_alias_system_one_alias_short_form():
     # Long-form exists but is not given, and short-form is given.
     with pytest.warns(
         SyntaxWarning,
-        match=r"Short-form parameter 'J' is not recommended. Use long-form parameter 'projection' instead.",
+        match=r"Short-form parameter 'J' is not recommended. Use long-form parameter\(s\) 'projection' instead.",
     ):
         assert func(J="X10c") == ["-JX10c"]
 
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'projection' cannot be used with 'J'. 'projection' is already specified using the long-form parameter.",
+        match=r"Conflicting parameters: 'J' cannot be used with 'projection'. Short-form parameter 'J' is not recommended. Use long-form parameter\(s\) 'projection' instead.",
     ):
         func(projection="X10c", J="H10c")
 
@@ -88,7 +88,7 @@ def test_alias_system_multiple_aliases_short_form():
     Test that the alias system works with multiple aliases when short-form parameters
     are used.
     """
-    _msg_long = r"Use long-form parameters 'label', with optional parameters 'text' \(\+t\), 'offset' \(\+o\) instead."
+    _msg_long = r"Use long-form parameter\(s\) 'label', 'text \(\+t\)', 'offset \(\+o\)' instead."
     # Long-form exists but is not given, and short-form is given.
     msg = rf"Short-form parameter 'U' is not recommended. {_msg_long}"
     with pytest.warns(SyntaxWarning, match=msg):
@@ -97,13 +97,13 @@ def test_alias_system_multiple_aliases_short_form():
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'label' cannot be used with 'U'. 'label' is already specified using long-form parameters.",
+        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'text \(\+t\)', 'offset \(\+o\)'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text \(\+t\)', 'offset \(\+o\)' instead.",
     ):
         func(label="abcd", U="efg")
 
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'label' cannot be used with 'U'. 'label' is already specified using long-form parameters.",
+        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'text \(\+t\)', 'offset \(\+o\)'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text \(\+t\)', 'offset \(\+o\)' instead.",
     ):
         func(text="efg", U="efg")
 
