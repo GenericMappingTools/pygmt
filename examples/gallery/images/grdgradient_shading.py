@@ -5,16 +5,19 @@ Calculating grid gradient with custom azimuth and normalization parameters
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file. As input,
 :func:`pygmt.grdgradient` gets an :class:`xarray.DataArray` object or a path string to a
 grid file. It then calculates the respective gradient and returns an
-:class:`xarray.DataArray` object. The example below shows how to customize the gradient
-by setting azimuth and normalization parameters.
-
-- ``azimuth`` sets the illumination light source direction (0° is North, 90° is East,
-  180° is South, 270° is West).
-- ``normalize`` and related parameters enhances the 3-D sense of the topography.
+:class:`xarray.DataArray` object.
 
 The ``normalize`` parameter calculates the azimuthal gradient of each point along a
 certain azimuth angle, then adjusts the brightness value of the color according to the
-positive/negative of the azimuthal gradient and the amplitude of each point.
+positive/negative of the azimuthal gradient and the amplitude of each point. The example
+below shows how to customize the gradient by setting azimuth and normalization
+parameters.
+
+- ``azimuth`` sets the illumination light source direction (0° is North, 90° is East,
+  180° is South, 270° is West).
+- ``normalize`` sets the normalization method (e.g., Cauchy or Laplace distribution)
+- ``norm_amp`` sets the amplitude of the normalization
+- more parameters are available to further enhance the 3-D sense of the topography
 """
 
 # %%
