@@ -78,7 +78,7 @@ def _alias_option_A(  # noqa: N802
                 description="Box properties for 'tag_box' in 'Figure.subplot'",
                 reason="The 'inner_pen', 'inner_gap', and 'radius' properties are not supported.",
             )
-        if tag_box.clearance and len(tag_box.clearance) > 2:
+        if isinstance(tag_box.clearance, Sequence) and len(tag_box.clearance) > 2:
             raise GMTValueError(
                 tag_box,
                 description="Box 'clearance' property for 'tag_box' in 'Figure.subplot'",
