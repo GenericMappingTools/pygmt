@@ -23,7 +23,7 @@ y0 = 20
 y1 = -5
 width = "1.5c"
 
-fig.basemap(region=[-5, 80, -10, 32], projection="M10c", frame=True)
+fig.basemap(region=[-5, 80, -17, 32], projection="M10c", frame=True)
 
 
 # Plain rose of 1.5 cm width showing an arrow towards North, a cross
