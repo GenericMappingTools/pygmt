@@ -98,9 +98,8 @@ def _alias_option_A(  # noqa: N802
 
     return [
         Alias(autotag, name="autotag"),
-        Alias(
-            _parse_position(tag_position), name="tag_position", prefix="+"
-        ),  # Prefix is "+".
+        # tag_position's prefix is "+", not "+j" or "+J".
+        Alias(_parse_position(tag_position), name="tag_position", prefix="+"),
         Alias(tag_box, name="tag_box"),
         Alias(
             tag_number_style,
