@@ -11,7 +11,7 @@ import numpy as np
 import pygmt
 
 
-def create_logo(
+def create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["horizontal", "vertical"] | bool = True,
