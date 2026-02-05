@@ -409,7 +409,8 @@ class AliasSystem(UserDict):
             else:  # Sequence of Alias objects.
                 long_params = [alias.name for alias in aliases]
 
-            long_params_text = ", ".join(repr(name) for name in long_params)
+            long_params_sorted = sorted(long_params)
+            long_params_text = ", ".join(repr(name) for name in long_params_sorted)
             msg = (
                 f"Short-form parameter {short_param!r} is not recommended. "
                 f"Use long-form parameter(s) {long_params_text} instead."
@@ -417,7 +418,7 @@ class AliasSystem(UserDict):
 
             if long_param_given:
                 raise GMTParameterError(
-                    conflicts_with={short_param: long_params}, reason=msg
+                    conflicts_with={short_param: set(long_params_sorted)}, reason=msg
                 )
 
             # Long-form parameters are not specified.

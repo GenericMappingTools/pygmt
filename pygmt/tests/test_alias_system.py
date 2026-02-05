@@ -88,7 +88,7 @@ def test_alias_system_multiple_aliases_short_form():
     Test that the alias system works with multiple aliases when short-form parameters
     are used.
     """
-    _msg_long = r"Use long-form parameter\(s\) 'label', 'text', 'offset' instead."
+    _msg_long = r"Use long-form parameter\(s\) 'label', 'offset', 'text' instead."
     # Long-form exists but is not given, and short-form is given.
     msg = rf"Short-form parameter 'U' is not recommended. {_msg_long}"
     with pytest.warns(SyntaxWarning, match=msg):
@@ -97,13 +97,13 @@ def test_alias_system_multiple_aliases_short_form():
     # Coexistence of long-form and short-form parameters.
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'text', 'offset'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text', 'offset' instead.",
+        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'offset', 'text'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'offset', 'text' instead.",
     ):
         func(label="abcd", U="efg")
 
     with pytest.raises(
         GMTParameterError,
-        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'text', 'offset'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text', 'offset' instead.",
+        match=r"Conflicting parameters: 'U' cannot be used with 'label', 'offset', 'text'. Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'offset', 'text' instead.",
     ):
         func(text="efg", U="efg")
 
