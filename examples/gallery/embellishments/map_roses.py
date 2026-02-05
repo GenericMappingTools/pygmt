@@ -3,7 +3,7 @@ Directional map rose
 =====================
 
 The :meth:`pygmt.Figure.directional_rose` method allows to add
-directional roses on maps. Using `pygmt.Figure.directional_rose()`
+directional roses on maps. Using ``pygmt.Figure.directional_rose()``
 without any arguments will plot a rose at the bottom left corner,
 but this example will focus on customizing its position and
 apperance.
