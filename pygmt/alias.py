@@ -405,40 +405,24 @@ class AliasSystem(UserDict):
             # Long-form parameters exist.
             aliases = self.aliasdict.get(short_param)
             if not isinstance(aliases, Sequence):  # Single Alias object.
-                _msg_long = f"Use long-form parameter {aliases.name!r} instead."
+                long_params = [aliases.name]
             else:  # Sequence of Alias objects.
-                _params = [f"{v.name!r}" for v in aliases if not v.prefix]
-                _modifiers = [f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix]
-                _msg_long = (
-                    f"Use long-form parameters {', '.join(_params)}, "
-                    f"with optional parameters {', '.join(_modifiers)} instead."
-                )
+                long_params = [
+                    f"{alias.name} ({alias.prefix})" if alias.prefix else alias.name
+                    for alias in aliases
+                ]
 
-            # Long-form parameters are already specified.
+            long_params_text = ", ".join(repr(name) for name in long_params)
+            msg = (
+                f"Short-form parameter {short_param!r} is not recommended. "
+                f"Use long-form parameter(s) {long_params_text} instead."
+            )
+
             if long_param_given:
-                if not isinstance(aliases, Sequence):  # Single Alias object.
-                    raise GMTParameterError(
-                        conflicts_with={aliases.name: {short_param}},
-                        reason=f"'{aliases.name}' is already specified using the long-form parameter.",
-                    )
-                # Sequence of Alias objects.
-                long_params = {v.name for v in aliases if not v.prefix}
-                if len(long_params) == 1:
-                    param_list = f"{sorted(long_params)[0]!r} is"
-                else:
-                    param_list = (
-                        f"{', '.join(repr(p) for p in sorted(long_params))} are"
-                    )
                 raise GMTParameterError(
-                    conflicts_with={
-                        long_param: {short_param} for long_param in long_params
-                    },
-                    reason=f"{param_list} already specified using long-form parameters.",
+                    conflicts_with={short_param: long_params}, reason=msg
                 )
 
             # Long-form parameters are not specified.
-            msg = (
-                f"Short-form parameter {short_param!r} is not recommended. {_msg_long}"
-            )
             warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
         return self
