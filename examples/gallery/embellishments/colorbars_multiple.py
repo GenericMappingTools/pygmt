@@ -19,9 +19,9 @@ subset_region = [-14, 30, 35, 60]
 grid_subset = pygmt.datasets.load_earth_relief(resolution="10m", region=subset_region)
 
 # Define a 1-row, 2-column subplot layout. The overall figure dimensions are set to be
-# 15 cm wide and 8 cm high. Each subplot is automatically labelled. The space between
-# the subplots is set to be 0.5 cm.
-with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), autotag=True, margins="0.5c"):
+# 15 cm wide and 8 cm high. Each subplot is automatically tagged. The space between the
+# subplots is set to be 0.5 cm.
+with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), autotag=True, margins=0.5):
     # Activate the first panel so that the colormap created by the makecpt function is
     # a panel-level CPT
     with fig.set_panel(panel=0):

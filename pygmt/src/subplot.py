@@ -60,7 +60,7 @@ def _alias_option_A(  # noqa: N802
             for v in [autotag, tag_position, tag_box, tag_number_style, tag_orientation]
         ):
             msg = (
-                "The 'autolabel' parameter is deprecated since v0.18.0. "
+                "The 'autolabel' parameter is deprecated since v0.19.0. "
                 "Please use the parameters 'autotag', 'tag_position', 'tag_box', "
                 "'tag_number_style', 'tag_orientation', and 'tag_font' instead."
             )

@@ -6,6 +6,7 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTValueError
 from pygmt.params import Position
+from pygmt.params.box import Box
 
 
 @pytest.mark.benchmark
@@ -127,7 +128,7 @@ def test_subplot_outside_plotting_positioning():
     return fig
 
 
-def test_deprecated_autolabel():
+def test_subplot_deprecated_autolabel():
     """
     Test that using the deprecated autolabel parameter raises a warning when conflicted
     with tag parameters.
@@ -147,4 +148,42 @@ def test_deprecated_autolabel():
             pass
     with pytest.raises(GMTInvalidInput):
         with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
+
+
+def test_subplot_invalid_tag_box_position():
+    """
+    Test that using an invalid tag_box/tag_position raises an error.
+    """
+    fig = Figure()
+    # Box properties "inner_pen", "inner_gap", and "radius" are not supported.
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_pen="1p")):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_gap=1)):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(radius=1)):
+            pass
+    # Box clearance must be a single value or a tuple of two values.
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(clearance=(1, 2, 3, 4))):
+            pass
+
+    # Position's cstype must be "inside" or "outside".
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="mapcoords")
+        ):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="boxcoords")
+        ):
+            pass
+    with pytest.raises(GMTInvalidInput):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="plotcoords")
+        ):
             pass
