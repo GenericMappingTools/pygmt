@@ -9,7 +9,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
