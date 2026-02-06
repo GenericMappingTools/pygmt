@@ -227,7 +227,7 @@ def project(  # noqa: PLR0913
             required="data", reason="Required unless 'generate' is set."
         )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        raise GMTParameterError(at_most_one={"convention", "generate"})
+        raise GMTParameterError(at_most_one=["convention", "generate"])
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

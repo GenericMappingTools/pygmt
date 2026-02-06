@@ -139,12 +139,12 @@ class GMTParameterError(GMTError):
     Parameters
     ----------
     required
-       Name or a set of names of required parameters.
+        Name or a collection of names of required parameters.
     at_least_one
-       A set of parameter names, of which at least one must be specified.
+        A collection of parameter names, of which at least one must be specified.
     at_most_one
-       A set of mutually exclusive parameter names, of which at most one can be
-       specified.
+        A collection of mutually exclusive parameter names, of which at most one can be
+        specified.
     reason
         Detailed reason why the parameters are invalid.
     """
@@ -152,9 +152,9 @@ class GMTParameterError(GMTError):
     def __init__(
         self,
         *,
-        required: str | set[str] | None = None,
-        at_least_one: set[str] | None = None,
-        at_most_one: set[str] | None = None,
+        required: str | Iterable[str] | None = None,
+        at_least_one: Iterable[str] | None = None,
+        at_most_one: Iterable[str] | None = None,
         reason: str | None = None,
     ):
         msg = []

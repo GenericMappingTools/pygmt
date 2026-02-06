@@ -169,7 +169,7 @@ def makecpt(
         ``categorical=True``.
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTParameterError(at_most_one={"categorical", "cyclic"})
+        raise GMTParameterError(at_most_one=["categorical", "cyclic"])
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

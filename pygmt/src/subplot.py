@@ -296,7 +296,7 @@ def subplot(  # noqa: PLR0913
         )
 
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        raise GMTParameterError(at_most_one={"figsize", "subsize"})
+        raise GMTParameterError(at_most_one=["figsize", "subsize"])
 
     aliasdict = AliasSystem(
         A=_alias_option_A(

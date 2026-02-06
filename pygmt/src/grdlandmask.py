@@ -119,7 +119,7 @@ def grdlandmask(
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
-        raise GMTParameterError(required={"region", "spacing"})
+        raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
         D=Alias(
