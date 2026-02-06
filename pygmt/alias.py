@@ -418,7 +418,7 @@ class AliasSystem(UserDict):
 
             if long_param_given:
                 raise GMTParameterError(
-                    conflicts_with={short_param: long_params}, reason=msg
+                    conflicts_with=(short_param, long_params), reason=msg
                 )
 
             # Long-form parameters are not specified.
