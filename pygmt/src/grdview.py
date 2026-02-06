@@ -10,7 +10,7 @@ from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.src.grdinfo import grdinfo
 
@@ -71,11 +71,13 @@ def _alias_option_Q(  # noqa: N802
         v is not None and v is not False
         for v in (dpi, mesh_fill, monochrome, nan_transparent)
     ):
-        msg = (
-            "Parameter 'surftype' is given with a raw GMT command string, and conflicts "
-            "with parameters 'dpi', 'mesh_fill', 'monochrome', or 'nan_transparent'."
+        raise GMTParameterError(
+            conflicts_with=(
+                "surftype",
+                ["dpi", "mesh_fill", "monochrome", "nan_transparent"],
+            ),
+            reason="'surftype' is specified using the unrecommended GMT command string syntax.",
         )
-        raise GMTInvalidInput(msg)
 
     if dpi is not None and surftype != "image":
         msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."

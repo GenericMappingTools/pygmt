@@ -4,7 +4,7 @@ Test Figure.image.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Box, Position
 
 
@@ -66,11 +66,11 @@ def test_image_position_mixed_syntax():
     and conflicts with other parameters.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.image(imagefile="@circuit.png", position="x0/0", width="4c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.image(imagefile="@circuit.png", position="x0/0", height="3c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.image(imagefile="@circuit.png", position="x0/0", dpi="300")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.image(imagefile="@circuit.png", position="x0/0", replicate=(2, 1))
