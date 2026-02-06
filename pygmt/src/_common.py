@@ -365,7 +365,7 @@ def _parse_position(
             elif kwdict is not None:  # Raw GMT command string with potential conflicts.
                 if any(v is not None and v is not False for v in kwdict.values()):
                     raise GMTParameterError(
-                        conflicts_with=("position", set(kwdict)),
+                        conflicts_with=("position", kwdict.keys()),
                         reason="'position' is specified using the unrecommended GMT command string syntax.",
                     )
             else:
