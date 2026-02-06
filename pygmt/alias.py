@@ -410,7 +410,9 @@ class AliasSystem(UserDict):
             long_params = [v.name for v in aliases]
             long_params_text = ", ".join(
                 [
-                    f"{v.name!r} ({v.prefix})" if v.prefix.startswith("+") else v.name
+                    f"{v.name!r} ({v.prefix})"
+                    if v.prefix.startswith("+")
+                    else f"{v.name!r}"
                     for v in aliases
                 ]
             )
