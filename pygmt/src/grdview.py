@@ -74,7 +74,7 @@ def _alias_option_Q(  # noqa: N802
         raise GMTParameterError(
             conflicts_with=(
                 "surftype",
-                {"dpi", "mesh_fill", "monochrome", "nan_transparent"},
+                ["dpi", "mesh_fill", "monochrome", "nan_transparent"],
             ),
             reason="'surftype' is specified using the unrecommended GMT command string syntax.",
         )
