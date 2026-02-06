@@ -191,7 +191,7 @@ def text_(  # noqa: PLR0912, PLR0913
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        raise GMTParameterError(at_most_one={"textfiles", "position/text", "x/y/text"})
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
@@ -208,7 +208,7 @@ def text_(  # noqa: PLR0912, PLR0913
             )
 
     if textfiles is not None and text is not None:
-        raise GMTParameterError(at_most_one={"text", "textfiles"})
+        raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
         raise GMTParameterError(
             required="text", reason="Required when 'x' and 'y' are set."
