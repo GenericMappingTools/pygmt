@@ -240,7 +240,7 @@ def grdgradient(  # noqa: PLR0913
         and kwargs.get("D") is None
         and kwargs.get("E", radiance) is None
     ):
-        raise GMTParameterError(at_least_one={"azimuth", "direction", "radiance"})
+        raise GMTParameterError(at_least_one=["azimuth", "direction", "radiance"])
 
     aliasdict = AliasSystem(
         A=Alias(azimuth, name="azimuth", sep="/", size=2),

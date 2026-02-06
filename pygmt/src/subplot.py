@@ -166,7 +166,7 @@ def subplot(
         )
 
     if kwargs.get("Ff") and kwargs.get("Fs"):
-        raise GMTParameterError(at_most_one={"figsize", "subsize"})
+        raise GMTParameterError(at_most_one=["figsize", "subsize"])
 
     aliasdict = AliasSystem(
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),

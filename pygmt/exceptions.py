@@ -152,9 +152,9 @@ class GMTParameterError(GMTError):
     def __init__(
         self,
         *,
-        required: str | set[str] | None = None,
-        at_least_one: set[str] | None = None,
-        at_most_one: set[str] | None = None,
+        required: str | Iterable[str] | None = None,
+        at_least_one: Iterable[str] | None = None,
+        at_most_one: Iterable[str] | None = None,
         reason: str | None = None,
     ):
         msg = []
