@@ -85,9 +85,9 @@ def test_alias_system_multiple_aliases_short_form():
     are used.
     """
     _msg_conflict = (
-        "Conflicting parameters: 'U' cannot be used with 'label', 'offset', 'text'."
+        "Conflicting parameters: 'U' cannot be used with 'label', 'text', 'offset'."
     )
-    _msg_reason = r"Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'offset', 'text' instead."
+    _msg_reason = r"Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text' \(\+t\), 'offset' \(\+o\) instead."
     # Long-form exists but is not given, and short-form is given.
     with pytest.warns(SyntaxWarning, match=_msg_reason):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
