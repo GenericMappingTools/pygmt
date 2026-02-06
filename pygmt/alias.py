@@ -404,13 +404,16 @@ class AliasSystem(UserDict):
 
             # Long-form parameters exist.
             aliases = self.aliasdict.get(short_param)
-            long_params = set(
-                [v.name for v in aliases]
-                if isinstance(aliases, Sequence)
-                else [aliases.name]
-            )
+            if not isinstance(aliases, Sequence):
+                aliases = [aliases]
 
-            long_params_text = ", ".join(repr(name) for name in sorted(long_params))
+            long_params = [v.name for v in aliases]
+            long_params_text = ", ".join(
+                [
+                    f"{v.name!r} ({v.prefix})" if v.prefix.startswith("+") else v.name
+                    for v in aliases
+                ]
+            )
             msg = (
                 f"Short-form parameter {short_param!r} is not recommended. "
                 f"Use long-form parameter(s) {long_params_text} instead."
