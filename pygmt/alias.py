@@ -407,7 +407,7 @@ class AliasSystem(UserDict):
             if not isinstance(aliases, Sequence):
                 aliases = [aliases]
 
-            long_params = [v.name for v in aliases]
+            long_params = {v.name for v in aliases}
             long_params_text = ", ".join(
                 [
                     f"{v.name!r} ({v.prefix})"
