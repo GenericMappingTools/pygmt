@@ -146,7 +146,7 @@ class GMTParameterError(GMTError):
        A set of mutually exclusive parameter names, of which at most one can be
        specified.
     conflicts_with
-       A tuple with the parameter name and a set of conflicting parameter names,
+       A tuple with the parameter name and a collection of conflicting parameter names,
        indicating which parameters cannot be used together.
     reason
         Detailed reason why the parameters are invalid.
