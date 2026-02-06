@@ -158,7 +158,7 @@ class GMTParameterError(GMTError):
         required: str | set[str] | None = None,
         at_least_one: set[str] | None = None,
         at_most_one: set[str] | None = None,
-        conflicts_with: tuple[str, set[str]] | None = None,
+        conflicts_with: tuple[str, Iterable[str]] | None = None,
         reason: str | None = None,
     ):
         msg = []
