@@ -182,11 +182,11 @@ class GMTParameterError(GMTError):
                 "Specify at most one of them."
             )
         if conflicts_with:
-            for param, conflicts in conflicts_with.items():
-                msg.append(
-                    f"Conflicting parameters: {param!r} cannot be used with "
-                    f"{', '.join(repr(c) for c in conflicts)}."
-                )
+            param, conflicts = conflicts_with
+            msg.append(
+                f"Conflicting parameters: {param!r} cannot be used with "
+                f"{', '.join(repr(c) for c in conflicts)}."
+            )
         if reason:
             msg.append(reason)
         super().__init__(" ".join(msg))
