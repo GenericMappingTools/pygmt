@@ -144,7 +144,7 @@ def dimfilter(
     ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
-        raise GMTParameterError(at_least_one={"distance", "filters", "sectors"})
+        raise GMTParameterError(at_least_one=["distance", "filters", "sectors"])
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

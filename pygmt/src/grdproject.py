@@ -121,7 +121,7 @@ def grdproject(  # noqa: PLR0913
         raise GMTParameterError(required="projection")
 
     if kwargs.get("M", unit) is not None and kwargs.get("F", scaling) is not False:
-        raise GMTParameterError(at_most_one={"unit", "scaling"})
+        raise GMTParameterError(at_most_one=["unit", "scaling"])
 
     aliasdict = AliasSystem(
         C=Alias(center, name="center", sep="/", size=2),

@@ -272,7 +272,7 @@ def plot(  # noqa: PLR0912, PLR0913
             data["symbol"] = symbol
     else:
         if any(v is not None for v in (x, y)):
-            raise GMTParameterError(at_most_one={"data", "x/y/z"})
+            raise GMTParameterError(at_most_one=["data", "x/y/z"])
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),

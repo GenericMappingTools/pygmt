@@ -550,7 +550,7 @@ def use_alias(**aliases):
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
                     raise GMTParameterError(
-                        at_most_one={long_alias, short_param},
+                        at_most_one=[long_alias, short_param],
                         reason=f"Long-form parameter {long_alias!r} is recommended.",
                     )
                 if long_alias in kwargs:
@@ -820,7 +820,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             if oldname in kwargs:
                 if newname in kwargs:
                     raise GMTParameterError(
-                        at_most_one={newname, oldname},
+                        at_most_one=[newname, oldname],
                         reason=f"{oldname!r} is deprecated and {newname!r} is recommended.",
                     )
                 msg = (
