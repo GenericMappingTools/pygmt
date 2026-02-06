@@ -4,7 +4,7 @@ Test Figure.logo.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Position
 
 
@@ -66,7 +66,7 @@ def test_logo_position_mixed_syntax():
     Test that an error is raised when mixing new and deprecated syntax in 'position'.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.logo(position="jTL", width="5c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.logo(position="jTL", height="6c")

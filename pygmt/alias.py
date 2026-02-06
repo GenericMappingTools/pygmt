@@ -7,7 +7,7 @@ from collections import UserDict
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter, sequence_join
 
 
@@ -404,27 +404,28 @@ class AliasSystem(UserDict):
 
             # Long-form parameters exist.
             aliases = self.aliasdict.get(short_param)
-            if not isinstance(aliases, Sequence):  # Single Alias object.
-                _msg_long = f"Use long-form parameter {aliases.name!r} instead."
-            else:  # Sequence of Alias objects.
-                _params = [f"{v.name!r}" for v in aliases if not v.prefix]
-                _modifiers = [f"{v.name!r} ({v.prefix})" for v in aliases if v.prefix]
-                _msg_long = (
-                    f"Use long-form parameters {', '.join(_params)}, "
-                    f"with optional parameters {', '.join(_modifiers)} instead."
-                )
+            if not isinstance(aliases, Sequence):
+                aliases = [aliases]
 
-            # Long-form parameters are already specified.
+            long_params = [v.name for v in aliases]
+            long_params_text = ", ".join(
+                [
+                    f"{v.name!r} ({v.prefix})"
+                    if v.prefix.startswith("+")
+                    else f"{v.name!r}"
+                    for v in aliases
+                ]
+            )
+            msg = (
+                f"Short-form parameter {short_param!r} is not recommended. "
+                f"Use long-form parameter(s) {long_params_text} instead."
+            )
+
             if long_param_given:
-                msg = (
-                    f"Short-form parameter {short_param!r} conflicts with long-form "
-                    f"parameters and is not recommended. {_msg_long}"
+                raise GMTParameterError(
+                    conflicts_with=(short_param, long_params), reason=msg
                 )
-                raise GMTInvalidInput(msg)
 
             # Long-form parameters are not specified.
-            msg = (
-                f"Short-form parameter {short_param!r} is not recommended. {_msg_long}"
-            )
             warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
         return self
