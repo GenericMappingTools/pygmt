@@ -143,8 +143,8 @@ class GMTParameterError(GMTError):
     at_least_one
         A collection of parameter names, of which at least one must be specified.
     at_most_one
-       A set of mutually exclusive parameter names, of which at most one can be
-       specified.
+        A collection of mutually exclusive parameter names, of which at most one can be
+        specified.
     conflicts_with
         A tuple with the parameter name and a collection of conflicting parameter names,
         indicating which parameters cannot be used together.
