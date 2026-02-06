@@ -409,7 +409,6 @@ class AliasSystem(UserDict):
             else:  # Sequence of Alias objects.
                 long_params = [alias.name for alias in aliases]
 
-            long_params_sorted = sorted(long_params)
             long_params_text = ", ".join(repr(name) for name in long_params_sorted)
             msg = (
                 f"Short-form parameter {short_param!r} is not recommended. "
