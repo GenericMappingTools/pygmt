@@ -185,7 +185,7 @@ class GMTParameterError(GMTError):
             for param, conflicts in conflicts_with.items():
                 msg.append(
                     f"Conflicting parameters: {param!r} cannot be used with "
-                    f"{', '.join(repr(c) for c in sorted(conflicts))}."
+                    f"{', '.join(repr(c) for c in conflicts)}."
                 )
         if reason:
             msg.append(reason)
