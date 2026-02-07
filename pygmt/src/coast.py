@@ -242,7 +242,7 @@ def coast(  # noqa: PLR0913
         and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
     ):
         raise GMTParameterError(
-            at_least_one={
+            at_least_one=[
                 "land",
                 "water",
                 "rivers",
@@ -251,7 +251,7 @@ def coast(  # noqa: PLR0913
                 "lakes",
                 "dcw",
                 "Q",
-            }
+            ]
         )
 
     aliasdict = AliasSystem(

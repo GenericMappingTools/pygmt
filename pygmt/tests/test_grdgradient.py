@@ -8,7 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdgradient
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -75,17 +75,17 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
 
 def test_grdgradient_normalize_mixed_syntax(grid):
     """
-    Test that mixed syntax for normalize in grdgradient raises GMTInvalidInput.
+    Test that mixed syntax for normalize in grdgradient raises GMTParameterError.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdgradient(grid=grid, azimuth=10, normalize="t", norm_amp=2)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdgradient(grid=grid, azimuth=10, normalize="t1", norm_amp=2)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdgradient(grid=grid, azimuth=10, normalize="t1", norm_sigma=2)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdgradient(grid=grid, azimuth=10, normalize="e", norm_offset=5)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdgradient(grid=grid, azimuth=10, normalize="e", norm_ambient=0.1)
 
 

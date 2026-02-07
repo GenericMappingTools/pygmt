@@ -4,7 +4,7 @@ Test Figure.colorbar.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.params.position import Position
 
 
@@ -50,21 +50,21 @@ def test_image_position_mixed_syntax():
     Test that mixing deprecated GMT CLI syntax string with new parameters.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", length="4c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", width="0.5c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", orientation="horizontal")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", reverse=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", nan=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(
             cmap="gmt/rainbow", position="x0/0", fg_triangle=True, bg_triangle=True
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", move_text="label")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.colorbar(cmap="gmt/rainbow", position="x0/0", label_as_column=True)

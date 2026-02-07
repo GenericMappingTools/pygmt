@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdgradient"]
@@ -54,12 +54,13 @@ def _alias_option_N(  # noqa: N802
             v is not None and v is not False
             for v in [norm_amp, norm_ambient, norm_sigma, norm_offset]
         ):
-            msg = (
-                "Parameter 'normalize' using old syntax with raw GMT CLI string "
-                "conflicts with parameters 'norm_amp', 'norm_ambient', 'norm_sigma', "
-                "or 'norm_offset'."
+            raise GMTParameterError(
+                conflicts_with=(
+                    "normalize",
+                    ["norm_amp", "norm_ambient", "norm_sigma", "norm_offset"],
+                ),
+                reason="'normalize' is specified using the unrecommended GMT command string syntax.",
             )
-            raise GMTInvalidInput(msg)
         _normalize_mapping = None
 
     return [
@@ -240,7 +241,7 @@ def grdgradient(  # noqa: PLR0913
         and kwargs.get("D") is None
         and kwargs.get("E", radiance) is None
     ):
-        raise GMTParameterError(at_least_one={"azimuth", "direction", "radiance"})
+        raise GMTParameterError(at_least_one=["azimuth", "direction", "radiance"])
 
     aliasdict = AliasSystem(
         A=Alias(azimuth, name="azimuth", sep="/", size=2),

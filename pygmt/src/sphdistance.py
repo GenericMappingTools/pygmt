@@ -123,7 +123,7 @@ def sphdistance(
     ... )
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
-        raise GMTParameterError(required={"region", "spacing"})
+        raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),
