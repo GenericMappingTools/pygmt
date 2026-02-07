@@ -19,7 +19,7 @@ fig.basemap(region=[-45, -25, -15, 0], projection="M0/0/10c", frame=["WSne", "af
 # -----------------------------------------------------------------------------
 # Top Left: Add a plain scale bar
 # It is placed based on geographic coordinates 42° West and 1° South,
-# applies at the reference point (scale_loc is not used and by default False), and
+# applies at the reference point by default, and
 # represents a length of 500 kilometers
 fig.scalebar(length="500k", position=Position((-42, -1), cstype="mapcoords"))
 
