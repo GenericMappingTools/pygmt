@@ -5,8 +5,7 @@ Test Figure.subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.params import Position
-from pygmt.params.box import Box
+from pygmt.params import Box, Position
 
 
 @pytest.mark.benchmark

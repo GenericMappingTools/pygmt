@@ -68,7 +68,6 @@ def _alias_option_A(  # noqa: N802
                         "tag_box",
                         "tag_number_style",
                         "tag_orientation",
-                        "tag_font",
                     ],
                 ),
                 reason="'autolabel' is specified using a unrecommend GMT command string syntax.",
@@ -209,7 +208,7 @@ def subplot(  # noqa: PLR0913
         **Notes on the use of the ``Box`` class:**
 
         - The property ``clearance`` only accept one or two values.
-        - The property ``inner_pen``/``inner_gap``/``radius`` is not supported.
+        - The properties ``inner_pen``, ``inner_gap``, ``radius`` are not supported.
     tag_number_style
         Style of the subplot tag numbers. It can be:
 
@@ -224,7 +223,7 @@ def subplot(  # noqa: PLR0913
     tag_font
         Font for the subplot tag [Default to ``"20p,Helvetica,black"``].
     autolabel
-        Specify automatic tagging of each subplot.
+        Specify automatic tag of each subplot.
 
         .. deprecated:: v0.19.0
 
