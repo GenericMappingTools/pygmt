@@ -37,18 +37,16 @@ fig.scalebar(
 
 # -----------------------------------------------------------------------------
 # Bottom Left: Add a thick scale bar
-# Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
-# only to the code within the "with" statement)
 # It applies at the middle of the map (scale_loc is set to True)
 # Without providing a text, the label parameter adds the distance unit as label
-with pygmt.config(MAP_SCALE_HEIGHT="10p"):
-    fig.scalebar(
-        position=Position((0.2, 0.15), cstype="boxcoords"),
-        scale_loc=True,
-        length="500k",
-        fancy=True,
-        label=True,
-    )
+fig.scalebar(
+    position=Position((0.2, 0.15), cstype="boxcoords"),
+    scale_loc=True,
+    length="500k",
+    height="10p",
+    fancy=True,
+    label=True,
+)
 
 # -----------------------------------------------------------------------------
 # Bottom Right: Add a scale bar valid for a specific location
