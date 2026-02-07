@@ -100,7 +100,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     figsize=("15c", "6c"),
-    autotag=True,
+    tag=True,
     frame=["af", "WSne"],
     margins=["0.1c", "0.2c"],
     title="My Subplot Heading",
@@ -117,7 +117,7 @@ fig.show()
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``autotag=True``: Each subplot is automatically tagged 'abcd'.
+# - ``tag=True``: Each subplot is automatically tagged 'abcd'.
 # - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
 #   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
 #   y-direction.
@@ -168,7 +168,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     figsize=("15c", "6c"),  # width of 15 cm, height of 6 cm
-    autotag=True,
+    tag=True,
     margins=["0.3c", "0.2c"],  # horizontal 0.3 cm and vertical 0.2 cm margins
     title="My Subplot Heading",
     sharex="b",  # shared x-axis on the bottom side
@@ -204,7 +204,7 @@ fig.show()
 
 fig = pygmt.Figure()
 # Bottom row, two subplots
-with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autotag="b)"):
+with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), tag="b)"):
     fig.basemap(
         region=[0, 5, 0, 5], projection="X?", frame=["af", "WSne"], panel=[0, 0]
     )
@@ -214,7 +214,7 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), autotag="b)"):
 # Move plot origin by 1 cm above the height of the entire figure
 fig.shift_origin(yshift="h+1c")
 # Top row, one subplot
-with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autotag="a)"):
+with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), tag="a)"):
     fig.basemap(
         region=[0, 10, 0, 10], projection="X?", frame=["af", "WSne"], panel=[0, 0]
     )
@@ -223,18 +223,18 @@ with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), autotag="a)"):
 fig.show()
 
 # %%
-# We start by drawing the bottom two subplots, setting ``autotag="b)"`` so
+# We start by drawing the bottom two subplots, setting ``tag="b)"`` so
 # that the subplots are tagged 'b)' and 'c)'. Next, we use
 # :meth:`pygmt.Figure.shift_origin` to move the plot origin 1 cm above the
 # **h**\ eight of the entire figure that is currently plotted (i.e. the bottom
 # row subplots). A single subplot is then plotted on the top row. You may need
 # to adjust the ``yshift`` parameter to make your plot look nice. This top row
-# uses ``autotag="a)"``, and we also plotted some text inside. Note that
+# uses ``tag="a)"``, and we also plotted some text inside. Note that
 # ``projection="X?"`` was used to let GMT automatically determine the size of
 # the subplot according to the size of the subplot area.
 
 # %%
-# You can also manually override the ``autotag`` for each subplot using for
+# You can also manually override the ``tag`` for each subplot using for
 # example, ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow
 # you to manually tag a single subplot as you wish. This can be useful for
 # adding a more descriptive subtitle to individual subplots.

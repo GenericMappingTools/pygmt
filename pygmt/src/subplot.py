@@ -9,14 +9,14 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
 
 
 def _alias_option_A(  # noqa: N802
-    autotag: str | bool = False,
+    tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,
     tag_number_style: Literal["arabic", "roman", "Roman"] | None = None,
@@ -30,7 +30,7 @@ def _alias_option_A(  # noqa: N802
     --------
     >>> def parse(**kwargs):
     ...     return AliasSystem(A=_alias_option_A(**kwargs)).get("A")
-    >>> parse(autotag="a)")
+    >>> parse(tag="a)")
     'a)'
     >>> parse(tag_position="TL")
     '+jTL'
@@ -45,7 +45,7 @@ def _alias_option_A(  # noqa: N802
     >>> parse(tag_orientation="vertical")
     '+v'
     >>> parse(
-    ...     autotag="(1)",
+    ...     tag="(1)",
     ...     tag_position="TL",
     ...     tag_box=Box(pen="1p,red"),
     ...     tag_number_style="Roman",
@@ -57,14 +57,22 @@ def _alias_option_A(  # noqa: N802
     if autolabel:
         if any(
             v is not None and v is not False
-            for v in [autotag, tag_position, tag_box, tag_number_style, tag_orientation]
+            for v in [tag, tag_position, tag_box, tag_number_style, tag_orientation]
         ):
-            msg = (
-                "The 'autolabel' parameter is deprecated since v0.19.0. "
-                "Please use the parameters 'autotag', 'tag_position', 'tag_box', "
-                "'tag_number_style', 'tag_orientation', and 'tag_font' instead."
+            raise GMTParameterError(
+                conflicts_with=(
+                    "autolabel",
+                    [
+                        "tag",
+                        "tag_position",
+                        "tag_box",
+                        "tag_number_style",
+                        "tag_orientation",
+                        "tag_font",
+                    ],
+                ),
+                reason="'autolabel' is specified using a unrecommend GMT command string syntax.",
             )
-            raise GMTInvalidInput(msg)
         return Alias(autolabel, name="autolabel")
 
     # Validate tag_box if provided.
@@ -97,7 +105,7 @@ def _alias_option_A(  # noqa: N802
         )
 
     return [
-        Alias(autotag, name="autotag"),
+        Alias(tag, name="tag"),
         # tag_position's prefix is "+", not "+j" or "+J".
         Alias(_parse_position(tag_position), name="tag_position", prefix="+"),
         Alias(tag_box, name="tag_box"),
@@ -122,7 +130,7 @@ def subplot(  # noqa: PLR0913
     self,
     nrows: int = 1,
     ncols: int = 1,
-    autotag: str | bool = False,
+    tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,
     tag_orientation: Literal["horizontal", "vertical"] | None = None,
@@ -169,7 +177,7 @@ def subplot(  # noqa: PLR0913
         Specify the dimensions of each subplot directly as [*width*, *height*].
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
-    autotag
+    tag
         Specify automatic tagging of each subplot. It can accept a number, or a letter.
         The number or letter can be surrounded by parentheses on any side if these
         should be typeset as part of the tag. This sets the tag of the first, top-left
@@ -177,11 +185,11 @@ def subplot(  # noqa: PLR0913
 
         Examples are:
 
-        - ``autotag="a"``: tags are ``a``, ``b``, ``c``, ...
-        - ``autotag="1"``: tags are ``1``, ``2``, ``3``, ...
-        - ``autotag="a)"``: tags are ``a)``, ``b)``, ``c)``, ...
-        - ``autotag="(c)"``: tags are ``(c)``, ``(d)``, ``(e)``, ...
-        - ``autotag=True``: same as ``autotag="a)"``.
+        - ``tag="a"``: tags are ``a``, ``b``, ``c``, ...
+        - ``tag="1"``: tags are ``1``, ``2``, ``3``, ...
+        - ``tag="a)"``: tags are ``a)``, ``b)``, ``c)``, ...
+        - ``tag="(c)"``: tags are ``(c)``, ``(d)``, ``(e)``, ...
+        - ``tag=True``: same as ``tag="a)"``.
     tag_position
         Position of the subplot tag on the plot. It can be specified in two ways:
 
@@ -220,7 +228,7 @@ def subplot(  # noqa: PLR0913
 
         .. deprecated:: v0.19.0
 
-           Use the parameters ``autotag``, ``tag_position``, ``tag_box``,
+           Use the parameters ``tag``, ``tag_position``, ``tag_box``,
            ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
     clearance : str or list
         [*side*]\ *clearance*.
@@ -300,7 +308,7 @@ def subplot(  # noqa: PLR0913
 
     aliasdict = AliasSystem(
         A=_alias_option_A(
-            autotag=autotag,
+            tag=tag,
             tag_position=tag_position,
             tag_box=tag_box,
             tag_number_style=tag_number_style,

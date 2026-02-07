@@ -40,9 +40,9 @@ def test_subplot_direct():
 
 
 @pytest.mark.mpl_image_compare
-def test_subplot_autotag_margins_title():
+def test_subplot_tag_margins_title():
     """
-    Make subplot figure with autotags, setting some margins and a title.
+    Make subplot figure with tags, setting some margins and a title.
     """
     fig = Figure()
 
@@ -50,7 +50,7 @@ def test_subplot_autotag_margins_title():
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
-        autotag=True,
+        tag=True,
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
@@ -135,7 +135,7 @@ def test_subplot_deprecated_autolabel():
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
-        with fig.subplot(nrows=1, ncols=1, autolabel=True, autotag="a)"):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag="a)"):
             pass
     with pytest.raises(GMTInvalidInput):
         with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
