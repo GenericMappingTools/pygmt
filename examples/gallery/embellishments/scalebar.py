@@ -2,7 +2,7 @@
 Scale bar
 =========
 
-The the :meth:`pygmt.Figure.scalebar` method can be used to add a scale bar to a map.
+The :meth:`pygmt.Figure.scalebar` method can be used to add a scale bar to a map.
 This example shows how such a scale bar can be customized.
 """
 
