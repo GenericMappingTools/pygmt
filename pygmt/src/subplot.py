@@ -196,7 +196,7 @@ def subplot(  # noqa: PLR0913
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
         - A :class:`pygmt.params.Position` object to fully control the position and
-          offset. **Note**: the ``refpoint`` propterty of the Position object must be
+          offset. **Note**: the ``refpoint`` property of the Position object must be
           an two-character justification code, and ``cstype`` must be set to either
           ``"inside"`` or ``"outside"``,
 
