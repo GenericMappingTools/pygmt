@@ -33,8 +33,9 @@ fig.scalebar(
 )
 
 # --- Bottom Left: Add a thick scale bar ---
-# It applies at the middle of the map (scale_loc is set to True). Use Without providing
-# text, the label parameter adds the distance unit as label.
+# It applies at the middle of the map (scale_loc is set to True). Use the height
+# parameter to adjust the thickness of the scale bar Without providing text, the label
+# parameter adds the distance unit as label.
 fig.scalebar(
     position=Position((0.2, 0.15), cstype="boxcoords"),
     scale_loc=True,
