@@ -10,7 +10,7 @@ from packaging.version import Version
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
 from pygmt.src.grdinfo import grdinfo
 
@@ -80,17 +80,20 @@ def _alias_option_Q(  # noqa: N802
         )
 
     if dpi is not None and surftype != "image":
-        msg = "Parameter 'dpi' can only be used when 'surftype' is 'image'."
-        raise GMTInvalidInput(msg)
-    if nan_transparent and surftype != "image":
-        msg = "Parameter 'nan_transparent' can only be used when 'surftype' is 'image'."
-        raise GMTInvalidInput(msg)
-    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
-        msg = (
-            "Parameter 'mesh_fill' can only be used when 'surftype' is 'mesh', "
-            "'waterfall_x', or 'waterfall_y'."
+        raise GMTParameterError(
+            conflicts_with=("dpi", [f"surftype={surftype!r}"]),
+            reason="'dpi' is allowed only when 'surftype' is 'image'.",
         )
-        raise GMTInvalidInput(msg)
+    if nan_transparent and surftype != "image":
+        raise GMTParameterError(
+            conflicts_with=("nan_transparent", [f"surftype={surftype!r}"]),
+            reason="'nan_transparent' is allowed only when 'surftype' is 'image'.",
+        )
+    if mesh_fill is not None and surftype not in {"mesh", "waterfall_x", "waterfall_y"}:
+        raise GMTParameterError(
+            conflicts_with=("mesh_fill", [f"surftype={surftype!r}"]),
+            reason="'mesh_fill' is allowed only when 'surftype' is 'mesh', 'waterfall_x', or 'waterfall_y'.",
+        )
 
     return [
         Alias(
