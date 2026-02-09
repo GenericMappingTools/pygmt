@@ -1,7 +1,7 @@
 # Map author/committer names and/or email addresses for git.
 # Reference: https://git-scm.com/docs/gitmailmap
 
-# Canonical identities
+# Canonical identities: "Canonical Name <Canonical Email>"
 Dongdong Tian <seisman.info@gmail.com>
 Jiayuan Yao <coreman.seism@gmail.com>
 Jing-Hui Tong <86273921+JingHuiTong@users.noreply.github.com>
@@ -12,7 +12,7 @@ Wei Ji Leong <23487320+weiji14@users.noreply.github.com>
 Will Schlitzer <schlitzer90@gmail.com>
 Yvonne Fröhlich <94163266+yvonnefroehlich@users.noreply.github.com>
 
-# Alias mappings
+# Alias mappings: "Canonical Name <Canonical Email> <Alias Email>"
 Dongdong Tian <seisman.info@gmail.com> <seisman@users.noreply.github.com>
 Jiayuan Yao <coreman.seism@gmail.com> <core-man@users.noreply.github.com>
 Jing-Hui Tong <86273921+JingHuiTong@users.noreply.github.com> <r0922422020@g.ntu.edu.tw>
