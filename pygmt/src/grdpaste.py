@@ -84,11 +84,11 @@ def grdpaste(
         with (
             lib.virtualfile_in(check_kind="raster", data=grid_a) as vingrd_a,
             lib.virtualfile_in(check_kind="raster", data=grid_b) as vingrd_b,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-                aliasdict["G"] = voutgrd
-                lib.call_module(
-                    module="grdpaste",
-                    args=build_arg_list(aliasdict, infile=[vingrd_a, vingrd_b]),
-                )
-                return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="grdpaste",
+                args=build_arg_list(aliasdict, infile=[vingrd_a, vingrd_b]),
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
