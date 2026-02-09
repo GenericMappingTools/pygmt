@@ -121,6 +121,50 @@ def _alias_option_A(  # noqa: N802
     ]
 
 
+def _alias_option_Sc(sharex=False):  # noqa: N802
+    """
+    Helper function to create the alias for the -Sc option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(Sc=_alias_option_Sc(**kwargs)).get("Sc")
+    >>> parse(sharex=True)
+    ''
+    >>> parse(sharex="top")
+    't'
+    >>> parse(sharex="bottom")
+    'b'
+    >>> parse(sharex="b+l")
+    "b+l"
+    """
+    if isinstance(sharex, str) and "+" in sharex:  # Raw GMT command string.
+        return Alias(sharex, name="sharex")
+    return Alias(sharex, name="sharex", mapping={"top": "t", "bottom": "b"})
+
+
+def _alias_option_Sr(sharey=False):  # noqa: N802
+    """
+    Helper function to create the alias for the -Sr option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(Sr=_alias_option_Sr(**kwargs)).get("Sr")
+    >>> parse(sharey=True)
+    ''
+    >>> parse(sharey="left")
+    'l'
+    >>> parse(sharey="right")
+    'r'
+    >>> parse(sharey="l+s")
+    "l+s"
+    """
+    if isinstance(sharey, str) and "+" in sharey:  # Raw GMT command string.
+        return Alias(sharey, name="sharey")
+    return Alias(sharey, name="sharey", mapping={"left": "l", "right": "r"})
+
+
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(Ff="figsize", Fs="subsize", C="clearance")
@@ -313,8 +357,8 @@ def subplot(  # noqa: PLR0913
             autolabel=autolabel,
         ),
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
-        Sc=Alias(sharex, name="sharex", mapping={"top": "t", "bottom": "b"}),
-        Sr=Alias(sharey, name="sharey", mapping={"left": "l", "right": "r"}),
+        Sc=_alias_option_Sc(sharex=sharex),
+        Sr=_alias_option_Sr(sharey=sharey),
         T=Alias(title, name="title"),
     ).add_common(
         B=frame,
