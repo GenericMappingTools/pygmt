@@ -77,9 +77,7 @@ def grdpaste(
     >>> # Paste the two grids together along their common edge (15° N)
     >>> new_grid = pygmt.grdpaste(grid_a=grid_a, grid_b=grid_b)
     """
-    aliasdict = AliasSystem().add_common(
-        V=verbose,
-    )
+    aliasdict = AliasSystem().add_common(V=verbose)
     aliasdict.merge(kwargs)
 
     with Session() as lib:
