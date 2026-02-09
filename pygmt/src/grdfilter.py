@@ -46,7 +46,7 @@ def _alias_option_F(  # noqa: N802
                 conflicts_with=("filter", kwdict.keys()),
                 reason="'filter' is specified using the unrecommended GMT command string syntax.",
             )
-        return Alias(filter, name="filter")  # Deprecated raw GMT string.
+        return Alias(filter, name="filter")  # Deprecated raw GMT command string.
 
     return [
         Alias(
@@ -62,7 +62,7 @@ def _alias_option_F(  # noqa: N802
                 "maxneg": "U",
             },
         ),
-        Alias(filter_width, name="filter_width", sep="/"),
+        Alias(filter_width, name="filter_width", sep="/", size=2),
         Alias(highpass, name="highpass", prefix="+h"),
     ]
 
@@ -73,16 +73,10 @@ def grdfilter(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     filter_type: Literal[
-        "boxcar",
-        "cosine_arch",
-        "gaussian",
-        "minall",
-        "minpos",
-        "maxall",
-        "maxneg",
+        "boxcar", "cosine_arch", "gaussian", "minall", "minpos", "maxall", "maxneg"
     ]
     | None = None,
-    filter_width: Sequence[float] | None = None,
+    filter_width: float | Sequence[float] | None = None,
     highpass: bool = False,
     filter: str | None = None,  # noqa: A002
     spacing: Sequence[float | str] | None = None,
@@ -230,6 +224,9 @@ def grdfilter(  # noqa: PLR0913
     ...     grid=grid, filter="gaussian", filter_width=600, distance="4"
     ... )
     """
+    if filter is None and filter_type is None:
+        raise GMTParameterError(required="filter_type")
+
     aliasdict = AliasSystem(
         F=_alias_option_F(
             filter_type=filter_type,

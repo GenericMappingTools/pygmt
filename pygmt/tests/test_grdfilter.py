@@ -9,7 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import grdfilter
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -87,3 +87,36 @@ def test_grdfilter_fails():
     """
     with pytest.raises(GMTTypeError):
         grdfilter(np.arange(10).reshape((5, 2)))
+
+
+def test_grdfilter_filter_type_required(grid):
+    """
+    Test that grdfilter raises GMTParameterError when neither filter nor filter_type is
+    provided.
+    """
+    with pytest.raises(GMTParameterError):
+        grdfilter(grid=grid)
+    with pytest.raises(GMTParameterError):
+        grdfilter(grid=grid, filter_width=600, distance=4)
+
+
+def test_grdfilter_mixed_syntax(grid):
+    """
+    Test grdfilter's filter parameter with mixed syntax.
+    """
+    with pytest.raises(GMTParameterError):
+        grdfilter(
+            grid=grid,
+            filter="median",
+            filter_type="gaussian",
+            filter_width=600,
+            distance=4,
+        )
+    with pytest.raises(GMTParameterError):
+        grdfilter(
+            grid=grid,
+            filter="median",
+            filter_width=600,
+            highpass=True,
+            distance=4,
+        )
