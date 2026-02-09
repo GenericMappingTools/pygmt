@@ -137,7 +137,9 @@ def grdfilter(  # noqa: PLR0913
       - ``"maxneg"``: Return maximum of all negative values only.
 
       **Note**: There are still a few other filter types available in GMT (e.g.,
-      histogram and mode filters), but they are not implemented in PyGMT yet.
+      histogram and mode filters), but they are not implemented in PyGMT yet. Pass the
+      raw GMT command string to the ``filter`` parameter to use these other filter
+      types.
     filter_width
         The full diameter width of the filter. It can be a single value for an isotropic
         filter, or a pair of values for a rectangular filter (width in x- and
