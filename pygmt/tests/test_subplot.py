@@ -150,9 +150,9 @@ def test_subplot_deprecated_autolabel():
             pass
 
 
-def test_subplot_invalid_tag_box_position():
+def test_subplot_invalid_tag_box():
     """
-    Test that using an invalid tag_box/tag_position raises an error.
+    Test that using an invalid tag_box raises an error.
     """
     fig = Figure()
     # Box properties "inner_pen", "inner_gap", and "radius" are not supported.
@@ -170,6 +170,12 @@ def test_subplot_invalid_tag_box_position():
         with fig.subplot(nrows=1, ncols=1, tag_box=Box(clearance=(1, 2, 3, 4))):
             pass
 
+
+def test_subplot_invalid_tag_position():
+    """
+    Test that using an invalid tag_position raises an error.
+    """
+    fig = Figure()
     # Position's cstype must be "inside" or "outside".
     with pytest.raises(GMTValueError):
         with fig.subplot(
