@@ -211,7 +211,7 @@ def grdfilter(  # noqa: PLR0913
     >>> # and return a filtered grid (saved as netCDF file).
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
-    ...     filter="median",
+    ...     filter_type="median",
     ...     filter_width=600,
     ...     distance="4",
     ...     region=[150, 250, 10, 40],
@@ -223,7 +223,7 @@ def grdfilter(  # noqa: PLR0913
     >>> # a filtered DataArray with the smoothed grid.
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(
-    ...     grid=grid, filter="gaussian", filter_width=600, distance="4"
+    ...     grid=grid, filter_type="gaussian", filter_width=600, distance="4"
     ... )
     """
     if filter is None and filter_type is None:
