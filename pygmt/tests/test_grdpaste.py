@@ -48,23 +48,6 @@ def test_grdpaste_outgrid():
         assert temp_grid.shape == (6, 4)
 
 
-def test_grdpaste_edgeinfo():
-    """
-    Test grdpaste with edgeinfo parameter.
-    """
-    grid = load_static_earth_relief()
-
-    # Cut the grid into two non-overlapping parts
-    grid_top = grdcut(grid, region=[-53, -49, -19, -16])
-    grid_bottom = grdcut(grid, region=[-53, -49, -22, -19])
-
-    # Get edge information without pasting
-    result = grdpaste(grid_a=grid_top, grid_b=grid_bottom, edgeinfo=True)
-    # Should return a string with edge information
-    assert isinstance(result, str)
-    assert len(result) > 0
-
-
 def test_grdpaste_coltypes():
     """
     Test grdpaste with coltypes parameter.

@@ -8,13 +8,13 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import GMTTempFile, build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdpaste"]
 
 
 @fmt_docstring
-@use_alias(f="coltypes", S="edgeinfo")
+@use_alias(f="coltypes")
 def grdpaste(
     grid_a: PathLike | xr.DataArray,
     grid_b: PathLike | xr.DataArray,
@@ -22,7 +22,7 @@ def grdpaste(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
-) -> xr.DataArray | None | str:
+) -> xr.DataArray | None:
     r"""
     Join two grids along their common edge.
 
@@ -50,24 +50,17 @@ def grdpaste(
         The second grid file to be pasted. Can be a file name or an
         :class:`xarray.DataArray`.
     $outgrid
-    edgeinfo : bool
-        Just prints a code number and a description of the sides at which the grids
-        are pasted. No pasting actually happens. ``outgrid`` is ignored. This option
-        is useful for externals that want to reimplement the grdpaste utility since it
-        doesn't work for them.
     $verbose
     $coltypes
 
     Returns
     -------
     ret
-        Return type depends on the parameters:
+        Return type depends on whether the ``outgrid`` parameter is set:
 
-        - :class:`xarray.DataArray` if ``outgrid`` is not set and ``edgeinfo`` is not
-          set
+        - :class:`xarray.DataArray` if ``outgrid`` is not set
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
-        - ``str`` if ``edgeinfo`` is set (returns the edge information)
 
     Example
     -------
@@ -94,16 +87,6 @@ def grdpaste(
             lib.virtualfile_in(check_kind="raster", data=grid_a) as vingrd_a,
             lib.virtualfile_in(check_kind="raster", data=grid_b) as vingrd_b,
         ):
-            if aliasdict.get("S") is not None:
-                with GMTTempFile() as outfile:
-                    lib.call_module(
-                        module="grdpaste",
-                        args=build_arg_list(
-                            aliasdict, infile=[vingrd_a, vingrd_b], outfile=outfile.name
-                        ),
-                    )
-                    return outfile.read()
-
             with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
                 aliasdict["G"] = voutgrd
                 lib.call_module(
