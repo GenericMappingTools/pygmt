@@ -23,7 +23,7 @@ def grdpaste(
     | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
-    r"""
+    """
     Join two grids along their common edge.
 
     Combine ``grid1`` and ``grid2`` into ``outgrid`` by pasting them together
