@@ -251,7 +251,7 @@ def subplot(  # noqa: PLR0913
         Draw a box around the subplot tag. See :class:`pygmt.params.Box` for details on
         how to specify the box.
 
-        **Notes on the use of the ``Box`` class:**
+        **Notes** on the use of the ``Box`` class:
 
         - The property ``clearance`` only accept one or two values.
         - The properties ``inner_pen``, ``inner_gap``, ``radius`` are not supported.
@@ -318,13 +318,11 @@ def subplot(  # noqa: PLR0913
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
 
-        **Notes**:
-
-        The ``sharex`` and ``sharey`` are aliased to the ``-Sc`` and ``-Sr`` options of
-        GMT's ``subplot`` module, which have more modifiers that are not implemented in
-        the current version of PyGMT. If you need more control, you can pass the raw
-        GMT command string to these two parameters as a temporary workaround. For
-        examples, ``sharex="t+l"``.
+        **Notes**: The ``sharex`` and ``sharey`` are aliased to the ``-Sc`` and ``-Sr`` 
+        options of GMT's ``subplot`` module, which have more modifiers that are not 
+        implemented in the current version of PyGMT. If you need more control, you can 
+        pass the raw GMT command string to these two parameters as a temporary 
+        workaround. For examples, ``sharex="t+l"``.
     title
         Set the overarching heading of the entire figure [Default is no heading]. Font
         is determined by :gmt-term:`FONT_HEADING`. Individual subplot can have titles
