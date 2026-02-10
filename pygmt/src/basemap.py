@@ -17,7 +17,7 @@ def basemap(  # noqa: PLR0913
     projection: str | None = None,
     zsize: float | str | None = None,
     zscale: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     region: Sequence[float | str] | str | None = None,
     map_scale: str | None = None,
     compass: str | None = None,

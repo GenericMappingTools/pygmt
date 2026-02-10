@@ -19,7 +19,7 @@ def ternary(  # noqa: PLR0913
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
