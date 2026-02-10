@@ -155,8 +155,8 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
-    grdproject
     grdpaste
+    grdproject
     grdsample
     grdtrack
     grdvolume
