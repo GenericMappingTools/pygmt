@@ -167,8 +167,8 @@ with fig.subplot(
     tag=True,
     margins=["0.3c", "0.2c"],  # horizontal 0.3 cm and vertical 0.2 cm margins
     title="My Subplot Heading",
-    sharex="bottom",  # shared x-axis on the bottom side
-    sharey="left",  # shared y-axis on the left side
+    sharex="bottom",  # shared x-axis with annotations on the bottom side
+    sharey="left",  # shared y-axis with annotations on the left side
     frame="WSrt",
 ):
     fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
@@ -179,8 +179,8 @@ fig.show()
 
 # %%
 # ``sharex="bottom"`` indicates that subplots in a column will share the x-axis, and
-# only the bottom axis is displayed. ``sharey="left"`` indicates that subplots within a
-# row will share the y-axis, and only the left axis is displayed.
+# only the bottom axis have annotations. ``sharey="left"`` indicates that subplots
+# within a row will share the y-axis, and only the left axis have annotations.
 #
 # Of course, instead of using the ``sharex``/``sharey`` parameters, you can also set a
 # different ``frame`` for each subplot to control the axis properties individually for
