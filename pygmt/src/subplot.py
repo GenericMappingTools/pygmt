@@ -6,27 +6,136 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box, Position
+from pygmt.src._common import _parse_position
+
+
+def _alias_option_A(  # noqa: N802
+    tag: str | bool = False,
+    tag_position: AnchorCode | Position | None = None,
+    tag_box: Box | None = None,
+    tag_number_style: Literal["arabic", "roman", "Roman"] | None = None,
+    tag_orientation: Literal["horizontal", "vertical"] | None = None,
+    autolabel: str | bool = False,
+):
+    """
+    Helper function to create the alias list for the -A option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(A=_alias_option_A(**kwargs)).get("A")
+    >>> parse(tag="a)")
+    'a)'
+    >>> parse(tag_position="TL")
+    '+jTL'
+    >>> parse(tag_position=Position("TL", cstype="inside", offset=("2c", "2c")))
+    '+jTL+o2c/2c'
+    >>> parse(tag_position=Position("TL", cstype="outside", offset=("2c", "2c")))
+    '+JTL+o2c/2c'
+    >>> parse(tag_box=Box(pen="1p,red", clearance="2c"))
+    '+c2c+p1p,red'
+    >>> parse(tag_number_style="roman")
+    '+r'
+    >>> parse(tag_orientation="vertical")
+    '+v'
+    >>> parse(
+    ...     tag="(1)",
+    ...     tag_position="TL",
+    ...     tag_box=Box(pen="1p,red"),
+    ...     tag_number_style="Roman",
+    ...     tag_orientation="horizontal",
+    ... )
+    '(1)+jTL+p1p,red+R'
+    """
+    # Check conflicts with deprecated 'autolabel' parameter.
+    if autolabel:
+        if any(
+            v is not None and v is not False
+            for v in [tag, tag_position, tag_box, tag_number_style, tag_orientation]
+        ):
+            raise GMTParameterError(
+                conflicts_with=(
+                    "autolabel",
+                    [
+                        "tag",
+                        "tag_position",
+                        "tag_box",
+                        "tag_number_style",
+                        "tag_orientation",
+                    ],
+                ),
+                reason="'autolabel' is specified using a unrecommend GMT command string syntax.",
+            )
+        return Alias(autolabel, name="autolabel")
+
+    # Validate tag_box if provided.
+    if tag_box:
+        if any(
+            v is not None and v is not False
+            for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
+        ):
+            raise GMTValueError(
+                tag_box,
+                description="Box properties for 'tag_box' in 'Figure.subplot'",
+                reason="The 'inner_pen', 'inner_gap', and 'radius' properties are not supported.",
+            )
+        if isinstance(tag_box.clearance, Sequence) and len(tag_box.clearance) > 2:
+            raise GMTValueError(
+                tag_box,
+                description="Box 'clearance' property for 'tag_box' in 'Figure.subplot'",
+                reason="Only one or two values are accepted.",
+            )
+    # Validate the tag_position if provided.
+    if getattr(tag_position, "cstype", None) in {
+        "mapcoords",
+        "plotcoords",
+        "boxcoords",
+    }:
+        raise GMTValueError(
+            tag_position,
+            description="tag position for 'Figure.subplot'.",
+            reason="Only 'inside' or 'outside' cstype is allowed.",
+        )
+
+    return [
+        Alias(tag, name="tag"),
+        # tag_position's prefix is "+", not "+j" or "+J".
+        Alias(_parse_position(tag_position), name="tag_position", prefix="+"),
+        Alias(tag_box, name="tag_box"),
+        Alias(
+            tag_number_style,
+            name="tag_number_style",
+            mapping={"arabic": "", "roman": "+r", "Roman": "+R"},
+        ),
+        Alias(
+            tag_orientation,
+            name="tag_orientation",
+            mapping={"horizontal": "", "vertical": "+v"},
+        ),
+    ]
 
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(
-    Ff="figsize",
-    Fs="subsize",
-    A="autolabel",
-    C="clearance",
-    SC="sharex",
-    SR="sharey",
-)
+@use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(
+def subplot(  # noqa: PLR0913
     self,
     nrows: int = 1,
     ncols: int = 1,
+    tag: str | bool = False,
+    tag_position: AnchorCode | Position | None = None,
+    tag_box: Box | None = None,
+    tag_orientation: Literal["horizontal", "vertical"] | None = None,
+    tag_number_style: Literal["arabic", "roman", "Roman"] | None = None,
+    tag_font: str | None = None,
+    autolabel: str | bool = False,
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
     projection: str | None = None,
@@ -67,31 +176,59 @@ def subplot(
         Specify the dimensions of each subplot directly as [*width*, *height*].
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
+    tag
+        Specify automatic tagging of each subplot. It can accept a number, or a letter.
+        The number or letter can be surrounded by parentheses on any side if these
+        should be typeset as part of the tag. This sets the tag of the first, top-left
+        subplot and others follow sequentially. If set to ``True``, default to ``"a)"``.
 
-    autolabel : bool or str
-        [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\
-        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]\ [**+v**].
-        Specify automatic tagging of each subplot. Append either a number or letter
-        [Default is ``"a"``]. This sets the tag of the first, top-left subplot and
-        others follow sequentially. Surround the number or letter by parentheses on
-        any side if these should be typeset as part of the tag [Default is ``")"``].
-        Use **+j**\|\ **J** for setting *refpoint* via a
-        :doc:`2-character justification code </techref/justification_codes>`
-        to specify where the tag should be placed in the subplot [Default is ``"TL"``
-        for the Top Left corner]. **Note**: **+j** sets the justification of the tag
-        to *refpoint* (suitable for interior tags) while **+J** instead selects the
-        mirror opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to
-        set the clearance between the tag and a surrounding text box requested via
-        **+g** or **+p** [Default is ``"3p/3p"``, i.e., 15 % of the
-        :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to paint the tag's
-        text box with *fill* [Default is no fill]. Append **+o**\ *dx*\ [/*dy*] to
-        offset the tag's reference point in the direction implied by the justification
-        [Default is ``"4p/4p"``, i.e., 20 % of the :gmt-term:`FONT_TAG` size]. Append
-        **+p**\ *pen* to draw the outline of the tag's text box using the selected *pen*
-        [Default is no outline]. Append **+r** to typeset your tag numbers using
-        lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is
-        Arabic numerals]. Append **+v** to increase tag numbers vertically down columns
-        [Default is horizontally across rows].
+        Examples are:
+
+        - ``tag="a"``: tags are ``a``, ``b``, ``c``, ...
+        - ``tag="1"``: tags are ``1``, ``2``, ``3``, ...
+        - ``tag="a)"``: tags are ``a)``, ``b)``, ``c)``, ...
+        - ``tag="(c)"``: tags are ``(c)``, ``(d)``, ``(e)``, ...
+        - ``tag=True``: same as ``tag="a)"``.
+    tag_position
+        Position of the subplot tag on the plot. It can be specified in two ways:
+
+        - A :doc:`2-character justification code </techref/justification_codes>` for a
+          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
+        - A :class:`pygmt.params.Position` object to fully control the position and
+          offset. **Note**: the ``refpoint`` property of the Position object must be
+          an two-character justification code, and ``cstype`` must be set to either
+          ``"inside"`` or ``"outside"``,
+
+        If not specified, defaults to Top Left corner inside the plot with the offset
+        default to ``("4p", "4p")``, i.e., 20% of the :gmt-term:`FONT_TAG` size.
+    tag_box
+        Draw a box around the subplot tag. See :class:`pygmt.params.Box` for details on
+        how to specify the box.
+
+        **Notes on the use of the ``Box`` class:**
+
+        - The property ``clearance`` only accept one or two values.
+        - The properties ``inner_pen``, ``inner_gap``, ``radius`` are not supported.
+    tag_number_style
+        Style of the subplot tag numbers. It can be:
+
+        - ``"arabic"``: Arabic numerals: 1, 2, 3, ... [Default].
+        - ``"roman"``: Lowercase Roman numerals: i, ii, iii, ...
+        - ``"Roman"``: Uppercase Roman numerals: I, II, III, ...
+    tag_orientation
+        Orientation of the subplot tag. It can be:
+
+        - ``"horizontal"``: Increase tag numbers horizontally across rows [Default].
+        - ``"vertical"``: Increase tag numbers vertically down columns.
+    tag_font
+        Font for the subplot tag [Default to ``"20p,Helvetica,black"``].
+    autolabel
+        Specify automatic tag of each subplot.
+
+        .. deprecated:: v0.19.0
+
+           Use the parameters ``tag``, ``tag_position``, ``tag_box``,
+           ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -169,6 +306,14 @@ def subplot(
         raise GMTParameterError(at_most_one=["figsize", "subsize"])
 
     aliasdict = AliasSystem(
+        A=_alias_option_A(
+            tag=tag,
+            tag_position=tag_position,
+            tag_box=tag_box,
+            tag_number_style=tag_number_style,
+            tag_orientation=tag_orientation,
+            autolabel=autolabel,
+        ),
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
         T=Alias(title, name="title"),
     ).add_common(
@@ -179,6 +324,9 @@ def subplot(
     )
     aliasdict.merge(kwargs)
 
+    # Configure FONT_TAG if tag_font is set
+    confdict = {"FONT_TAG": tag_font} if tag_font is not None else {}
+
     # Need to use separate sessions for "subplot begin" and "subplot end".
     # Otherwise, "subplot end" will use the last session, which may cause
     # strange positioning issues for later plotting calls.
@@ -187,7 +335,11 @@ def subplot(
         with Session() as lib:
             lib.call_module(
                 module="subplot",
-                args=["begin", f"{nrows}x{ncols}", *build_arg_list(aliasdict)],
+                args=[
+                    "begin",
+                    f"{nrows}x{ncols}",
+                    *build_arg_list(aliasdict, confdict=confdict),
+                ],
             )
             yield
     finally:
