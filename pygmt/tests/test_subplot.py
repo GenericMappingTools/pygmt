@@ -66,21 +66,19 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
     axis labels across columns and rows.
     """
     fig = Figure()
-
     with fig.subplot(
         nrows=2,
         ncols=2,
         figsize=("5c", "5c"),
         frame="WSrt",
         clearance=["s0.2c", "n0.2c"],
-        sharex="t",
+        sharex="top",
         sharey=True,
     ):
         fig.basemap(region=[0, 4, 0, 4], projection="X?", panel=True)
         fig.basemap(region=[0, 8, 0, 4], projection="X?", panel=True)
         fig.basemap(region=[0, 4, 0, 8], projection="X?", panel=True)
         fig.basemap(region=[0, 8, 0, 8], projection="X?", panel=True)
-
     return fig
 
 

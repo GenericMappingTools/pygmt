@@ -40,8 +40,8 @@ with fig.subplot(
     nrows=3,
     ncols=4,
     figsize=("28c", "21c"),
-    sharex="b",
-    sharey="l",
+    sharex="bottom",
+    sharey="left",
 ):
     # Setting azimuth angles, e.g. (0, 90) illuminates light source from the North (top)
     # and East (right).
