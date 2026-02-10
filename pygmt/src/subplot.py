@@ -321,7 +321,7 @@ def subplot(  # noqa: PLR0913
         **Notes**:
 
         The ``sharex`` and ``sharey`` are aliased to the ``-Sc`` and ``-Sr`` options of
-        the GMT subplot module, which have more modifiers which are not implemented in
+        GMT's ``subplot`` module, which have more modifiers that are not implemented in
         the current version of PyGMT. If you need more control, you can pass the raw
         GMT command string to these two parameters as a temporary workaround. For
         examples, ``sharex="t+l"``.
