@@ -11,10 +11,56 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 __doctest_skip__ = ["colorbar"]
+
+
+def _build_frame(
+    annot: float | None = None,
+    tick: float | None = None,
+    grid: float | None = None,
+    annot_angel: float | None = None,
+    annot_prefix: str | None = None,
+    annot_unit: str | None = None,
+    label: str | None = None,
+    unit: str | None = None,
+    frame=None,
+):
+    """
+    Create the list of Alias objects for the -B option.
+
+    >>> _build_frame(annot=1, tick=0.5, xlabel="Distance", ylabel="Depth")
+    Frame(xaxis=Axis(annot=1, tick=0.5, label='Distance'), yaxis=Axis(label='Depth'))
+    """
+    if frame is not None and frame is not False:
+        return frame
+
+    _xaxis_is_set = any(
+        v is not None
+        for v in {annot, tick, grid, annot_angel, annot_prefix, annot_unit, label}
+    )
+    _yaxis_is_set = unit is not None
+
+    # Need to return None if no parameters are give. Otherwise, it may return "".
+    if not (_xaxis_is_set or _yaxis_is_set):
+        return None
+
+    xaxis, yaxis = None, None
+    if _xaxis_is_set:
+        xaxis = Axis(
+            annot=annot,
+            tick=tick,
+            grid=grid,
+            # angle=annot_angel,
+            # prefix=annot_prefix,
+            # unit=annot_unit,
+            label=label,
+        )
+    if _yaxis_is_set:
+        yaxis = Axis(label=unit)
+    return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
 def _alias_option_D(  # noqa: N802, PLR0913
@@ -153,6 +199,15 @@ def colorbar(  # noqa: PLR0913
     length: float | str | None = None,
     width: float | str | None = None,
     orientation: Literal["horizontal", "vertical"] | None = None,
+    label: str | None = None,
+    unit: str | None = None,
+    annot: float | None = None,
+    tick: float | None = None,
+    grid: float | None = None,
+    annot_angel: float | None = None,
+    annot_prefix: str | None = None,
+    annot_unit: str | None = None,
+    frame: str | Sequence[str] | bool = False,
     reverse: bool = False,
     nan: bool = False,
     nan_position: Literal["start", "end"] | None = None,
@@ -168,7 +223,6 @@ def colorbar(  # noqa: PLR0913
     scale: float | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -201,7 +255,6 @@ def colorbar(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     $aliases
-       - B = frame
        - F = box
        - G = truncate
        - I = shading
@@ -217,6 +270,7 @@ def colorbar(  # noqa: PLR0913
     .. hlist::
        :columns: 1
 
+       - B = label, unit, annot, tick, grid, annot_angel, annot_prefix, annot_unit
        - D = position, **+w**: length/width, **+h**/**+v**: orientation,
          **+r**: reverse, **+n**: nan/nan_position,
          **+e**: fg_triangle/bg_triangle/triangle_height,
@@ -244,6 +298,26 @@ def colorbar(  # noqa: PLR0913
         given with unit ``%`` then it is in percentage of the bar length. [Length
         defaults to 80% of the corresponding plot side dimension, and width defaults
         to 4% of the bar length].
+    label
+    unit
+        Set the label and unit for the colorbar. The label is placed along the colorbar
+        and the unit is placed at the end of the colorbar.
+    annot
+    grid
+    tick
+        Intervals for annotations, grid lines, and ticks. Refer to
+        :class:`pygmt.params.Axis` for more details on how these parameters work.
+        Parameters ``annot_prefix``, ``annot_unit``, and ``annot_angel`` can be used to
+        further customize the annotations.
+    frame
+        Set colorbar boundary frame, labels, and axes attributes.
+
+        .. deprecated:: v0.19.0
+
+            Use ``annot``, ``tick``, ``grid``, ``annot_angel``, ``annot_prefix``,
+            ``annot_unit``, ``label``, and ``unit`` parameters to customize the colorbar
+            annotations and labels.
+
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center
@@ -321,8 +395,6 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     $projection
     $region
-    frame
-        Set colorbar boundary frame, labels, and axes attributes.
     $verbose
     $panel
     $perspective
@@ -336,12 +408,7 @@ def colorbar(  # noqa: PLR0913
     >>> # Create a basemap
     >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
     >>> # Call the colorbar method for the plot
-    >>> fig.colorbar(
-    ...     # Set cmap to the "roma" CPT
-    ...     cmap="SCM/roma",
-    ...     # Label the x-axis "Velocity" and the y-axis "m/s"
-    ...     frame=["x+lVelocity", "y+lm/s"],
-    ... )
+    >>> fig.colorbar(cmap="SCM/roma", label="Velocity", unit="m/s")
     >>> # Show the plot
     >>> fig.show()
     """
@@ -386,7 +453,17 @@ def colorbar(  # noqa: PLR0913
         Q=Alias(log, name="log"),
         W=Alias(scale, name="scale"),
     ).add_common(
-        B=frame,
+        B=_build_frame(
+            annot=annot,
+            tick=tick,
+            grid=grid,
+            annot_angel=annot_angel,
+            annot_prefix=annot_prefix,
+            annot_unit=annot_unit,
+            label=label,
+            unit=unit,
+            frame=frame,
+        ),
         J=projection,
         R=region,
         V=verbose,
