@@ -322,7 +322,8 @@ def colorbar(  # noqa: PLR0913
     $projection
     $region
     frame
-        Set colorbar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
+        then no frame will be drawn.
     $verbose
     $panel
     $perspective
