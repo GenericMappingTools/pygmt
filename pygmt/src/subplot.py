@@ -136,7 +136,7 @@ def _alias_option_Sc(sharex=False):  # noqa: N802
     >>> parse(sharex="bottom")
     'b'
     >>> parse(sharex="b+l")
-    "b+l"
+    'b+l'
     """
     if isinstance(sharex, str) and "+" in sharex:  # Raw GMT command string.
         return Alias(sharex, name="sharex")
@@ -158,7 +158,7 @@ def _alias_option_Sr(sharey=False):  # noqa: N802
     >>> parse(sharey="right")
     'r'
     >>> parse(sharey="l+s")
-    "l+s"
+    'l+s'
     """
     if isinstance(sharey, str) and "+" in sharey:  # Raw GMT command string.
         return Alias(sharey, name="sharey")
