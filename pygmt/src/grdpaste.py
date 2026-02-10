@@ -44,11 +44,9 @@ def grdpaste(
     Parameters
     ----------
     grid1
-        The first grid file to be pasted. Can be a file name or an
-        :class:`xarray.DataArray`.
     grid2
-        The second grid file to be pasted. Can be a file name or an
-        :class:`xarray.DataArray`.
+        The two grids to be pasted. Each can be a file name or a
+        :class:`xarray.DataArray` object.
     $outgrid
     $verbose
     $coltypes
