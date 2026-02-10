@@ -151,12 +151,12 @@ Operations on raster data
     grdfill
     grdfilter
     grdgradient
-    grdpaste
     grdhisteq
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
     grdproject
+    grdpaste
     grdsample
     grdtrack
     grdvolume

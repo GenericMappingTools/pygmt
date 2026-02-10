@@ -16,8 +16,8 @@ __doctest_skip__ = ["grdpaste"]
 @fmt_docstring
 @use_alias(f="coltypes")
 def grdpaste(
-    grid_a: PathLike | xr.DataArray,
-    grid_b: PathLike | xr.DataArray,
+    grid1: PathLike | xr.DataArray,
+    grid2: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -26,7 +26,7 @@ def grdpaste(
     r"""
     Join two grids along their common edge.
 
-    Combine ``grid_a`` and ``grid_b`` into ``outgrid`` by pasting them together
+    Combine ``grid1`` and ``grid2`` into ``outgrid`` by pasting them together
     along their common edge. The two input grids must have the same grid spacings
     and registration, and must have one edge in common. If in doubt, check with
     :func:`pygmt.grdinfo` and use :func:`pygmt.grdcut` and/or
@@ -43,10 +43,10 @@ def grdpaste(
 
     Parameters
     ----------
-    grid_a
+    grid1
         The first grid file to be pasted. Can be a file name or an
         :class:`xarray.DataArray`.
-    grid_b
+    grid2
         The second grid file to be pasted. Can be a file name or an
         :class:`xarray.DataArray`.
     $outgrid
@@ -66,29 +66,29 @@ def grdpaste(
     -------
     >>> import pygmt
     >>> # Create two grids with a common edge
-    >>> # Grid A: longitude range of 10° E to 20° E, latitude range of 15° N to 25° N
-    >>> grid_a = pygmt.datasets.load_earth_relief(
+    >>> # Grid 1: longitude range of 10° E to 20° E, latitude range of 15° N to 25° N
+    >>> grid1 = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 20, 15, 25]
     ... )
-    >>> # Grid B: longitude range of 10° E to 20° E, latitude range of 10° N to 15° N
-    >>> grid_b = pygmt.datasets.load_earth_relief(
+    >>> # Grid 2: longitude range of 10° E to 20° E, latitude range of 10° N to 15° N
+    >>> grid2 = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 20, 10, 15]
     ... )
     >>> # Paste the two grids together along their common edge (15° N)
-    >>> new_grid = pygmt.grdpaste(grid_a=grid_a, grid_b=grid_b)
+    >>> new_grid = pygmt.grdpaste(grid1=grid1, grid2=grid2)
     """
     aliasdict = AliasSystem().add_common(V=verbose)
     aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid_a) as vingrd_a,
-            lib.virtualfile_in(check_kind="raster", data=grid_b) as vingrd_b,
+            lib.virtualfile_in(check_kind="raster", data=grid1) as vingrd1,
+            lib.virtualfile_in(check_kind="raster", data=grid2) as vingrd2,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
             lib.call_module(
                 module="grdpaste",
-                args=build_arg_list(aliasdict, infile=[vingrd_a, vingrd_b]),
+                args=build_arg_list(aliasdict, infile=[vingrd1, vingrd2]),
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
