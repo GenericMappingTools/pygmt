@@ -216,7 +216,9 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
     Position
 
