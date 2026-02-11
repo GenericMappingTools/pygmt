@@ -29,14 +29,14 @@ def _alias_option_F(  # noqa: N802
     ...     return AliasSystem(F=_alias_option_F(**kwargs)).get("F")
     >>> parse(filter="boxcar", width=2.0)
     'b2.0'
-    >>> parse(filter="cosine_arch", width=(5, 10))
+    >>> parse(filter="cosarch", width=(5, 10))
     'c5/10'
     >>> parse(filter="gaussian", width=100, highpass=True)
     'g100+h'
     """
     _filter_mapping = {
         "boxcar": "b",
-        "cosine_arch": "c",
+        "cosarch": "c",
         "gaussian": "g",
         "minall": "l",
         "minpos": "L",
@@ -47,10 +47,7 @@ def _alias_option_F(  # noqa: N802
     _old_filter_syntax = isinstance(filter, str) and filter not in _filter_mapping
 
     if _old_filter_syntax:
-        kwdict = {
-            "width": width,
-            "highpass": highpass,
-        }
+        kwdict = {"width": width, "highpass": highpass}
         if any(v is not None and v is not False for v in kwdict.values()):
             raise GMTParameterError(
                 conflicts_with=("filter", kwdict.keys()),
@@ -74,7 +71,7 @@ def grdfilter(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     filter: Literal[  # noqa: A002
-        "boxcar", "cosine_arch", "gaussian", "minall", "minpos", "maxall", "maxneg"
+        "boxcar", "cosarch", "gaussian", "minall", "minpos", "maxall", "maxneg"
     ]
     | str
     | None = None,
@@ -126,7 +123,7 @@ def grdfilter(  # noqa: PLR0913
       Convolution filters include:
 
       - ``"boxcar"``: All weights are equal.
-      - ``"cosine_arch"``: Weights follow a cosine arch curve.
+      - ``"cosarch"``: Weights follow a cosine arch curve.
       - ``"gaussian"``: Weights are given by the Gaussian function, where filter width
         is 6 times the conventional Gaussian sigma.
 
