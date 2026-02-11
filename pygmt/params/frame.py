@@ -15,10 +15,20 @@ class Axis(BaseParam):
     Class for setting up one axis of a plot.
     """
 
-    #: Specify the intervals for annotations, ticks, and gridlines.
-    annot: float | None = None
-    tick: float | None = None
-    grid: float | None = None
+    #: Specify the interval for annoations. It can be ``True`` to let GMT decide the
+    #: interval automatically; or a value to set a specific interval in the format of
+    #: *stride*[±*phase*][*unit*], where, *stride* is the interval, *phase* is the
+    #: offset to shift the annotations by that amount, and *unit* is one of the
+    #: :gmt-docs:`18 supported unit codes <reference/options.html#tbl-units>` related to
+    #: time intervals.
+    annot: float | bool = False
+
+    #: Specify the interval for ticks. Same format as ``annot``.
+    tick: float | bool = False
+
+    #: Specify the interval for gridlines. Same format as ``annot``.
+    grid: float | bool = False
+
     #: Label for the axis [Default is no label].
     label: str | None = None
 
@@ -104,12 +114,12 @@ class Frame(BaseParam):
     #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
 
-    #: Specify the attributes for axes.
+    #: Specify the attributes for axes by an :class:`Axis` object.
     #:
-    #: The attributes for each axis can be specified in two ways:
-    #: #. specifying the same attributes for all axes using the ``axis`` parameter
-    #: #. specifying the attributes for each axis separately using the ``xaxis``,
-    #: ``yaxis``, ``zaxis`` parameter for the x-, y, and z-axes, respectively.
+    #: The attributes for each axis can be specified in two ways: (1) specifying the
+    #: same attributes for all axes using the ``axis`` parameter; (2) specifying the
+    #: attributes for each axis separately using the ``xaxis``, ``yaxis``, ``zaxis``
+    #: parameter for the x-, y, and z-axes, respectively.
     #:
     #: GMT uses the notion of primary (the default) and secondary axes, while secondary
     #: axes are optional and mostly used for time axes annotations. To specify the
