@@ -86,7 +86,9 @@ def test_grdfilter_fails():
     Check that grdfilter fails correctly.
     """
     with pytest.raises(GMTTypeError):
-        grdfilter(np.arange(10).reshape((5, 2)))
+        grdfilter(
+            np.arange(10).reshape((5, 2)), filter="gaussian", width=600, distance=4
+        )
 
 
 def test_grdfilter_filter_width_required(grid):

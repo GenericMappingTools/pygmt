@@ -34,8 +34,17 @@ def _alias_option_F(  # noqa: N802
     >>> parse(filter="gaussian", width=100, highpass=True)
     'g100+h'
     """
+    _filter_mapping = {
+        "boxcar": "b",
+        "cosine_arch": "c",
+        "gaussian": "g",
+        "minall": "l",
+        "minpos": "L",
+        "maxall": "u",
+        "maxneg": "U",
+    }
     # Check if the 'filter' parameter is using the old GMT command string syntax.
-    _old_filter_syntax = isinstance(filter, str) and "+" in filter
+    _old_filter_syntax = isinstance(filter, str) and filter not in _filter_mapping
 
     if _old_filter_syntax:
         kwdict = {
@@ -53,19 +62,7 @@ def _alias_option_F(  # noqa: N802
         raise GMTParameterError(required=["filter", "width"])
 
     return [
-        Alias(
-            filter,
-            name="filter",
-            mapping={
-                "boxcar": "b",
-                "cosine_arch": "c",
-                "gaussian": "g",
-                "minall": "l",
-                "minpos": "L",
-                "maxall": "u",
-                "maxneg": "U",
-            },
-        ),
+        Alias(filter, name="filter", mapping=_filter_mapping),
         Alias(width, name="width", sep="/", size=2),
         Alias(highpass, name="highpass", prefix="+h"),
     ]
