@@ -48,7 +48,7 @@ def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     """
     result = grdfilter(
         grid=grid,
-        filter_type="gaussian",
+        filter="gaussian",
         width=600,
         distance="4",
         region=[-53, -49, -20, -17],
@@ -70,7 +70,7 @@ def test_grdfilter_dataarray_in_file_out(grid, expected_grid):
         result = grdfilter(
             grid,
             outgrid=tmpfile.name,
-            filter_type="gaussian",
+            filter="gaussian",
             width=600,
             distance="4",
             region=[-53, -49, -20, -17],
@@ -89,9 +89,9 @@ def test_grdfilter_fails():
         grdfilter(np.arange(10).reshape((5, 2)))
 
 
-def test_grdfilter_filter_type_required(grid):
+def test_grdfilter_filter_required(grid):
     """
-    Test that grdfilter raises GMTParameterError when neither filter nor filter_type is
+    Test that grdfilter raises GMTParameterError when neither filter nor filter is
     provided.
     """
     with pytest.raises(GMTParameterError):
@@ -107,16 +107,15 @@ def test_grdfilter_mixed_syntax(grid):
     with pytest.raises(GMTParameterError):
         grdfilter(
             grid=grid,
-            filter="median",
-            filter_type="gaussian",
+            filter="g600",
             width=600,
             distance=4,
         )
+
     with pytest.raises(GMTParameterError):
         grdfilter(
             grid=grid,
-            filter="median",
-            width=600,
+            filter="g600",
             highpass=True,
             distance=4,
         )

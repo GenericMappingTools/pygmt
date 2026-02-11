@@ -16,10 +16,9 @@ __doctest_skip__ = ["grdfilter"]
 
 
 def _alias_option_F(  # noqa: N802
-    filter_type=None,
+    filter=None,  # noqa: A002
     width=None,
     highpass=False,
-    filter=None,  # noqa: A002
 ):
     """
     Helper function to create the alias list for the -F option.
@@ -28,16 +27,18 @@ def _alias_option_F(  # noqa: N802
     --------
     >>> def parse(**kwargs):
     ...     return AliasSystem(F=_alias_option_F(**kwargs)).get("F")
-    >>> parse(filter_type="boxcar", width=2.0)
+    >>> parse(filter="boxcar", width=2.0)
     'b2.0'
-    >>> parse(filter_type="cosine_arch", width=(5, 10))
+    >>> parse(filter="cosine_arch", width=(5, 10))
     'c5/10'
-    >>> parse(filter_type="gaussian", width=100, highpass=True)
+    >>> parse(filter="gaussian", width=100, highpass=True)
     'g100+h'
     """
-    if filter is not None:
+    # Check if the 'filter' parameter is using the old GMT command string syntax.
+    _old_filter_syntax = isinstance(filter, str) and "+" in filter
+
+    if _old_filter_syntax:
         kwdict = {
-            "filter_type": filter_type,
             "width": width,
             "highpass": highpass,
         }
@@ -50,8 +51,8 @@ def _alias_option_F(  # noqa: N802
 
     return [
         Alias(
-            filter_type,
-            name="filter_type",
+            filter,
+            name="filter",
             mapping={
                 "boxcar": "b",
                 "cosine_arch": "c",
@@ -72,13 +73,13 @@ def _alias_option_F(  # noqa: N802
 def grdfilter(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    filter_type: Literal[
+    filter: Literal[  # noqa: A002
         "boxcar", "cosine_arch", "gaussian", "minall", "minpos", "maxall", "maxneg"
     ]
+    | str
     | None = None,
     width: float | Sequence[float] | None = None,
     highpass: bool = False,
-    filter: str | None = None,  # noqa: A002
     spacing: Sequence[float | str] | None = None,
     nans: Literal["ignore", "replace", "preserve"] | None = None,
     toggle: bool = False,
@@ -89,7 +90,7 @@ def grdfilter(  # noqa: PLR0913
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
-    r"""
+    """
     Filter a grid in the space (or time) domain.
 
     Filter a grid file in the space (or time) domain using one of the selected
@@ -105,7 +106,7 @@ def grdfilter(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     $aliases
-       - F = filter_type, width, **+h**: highpass
+       - F = filter, width, **+h**: highpass
        - G = outgrid
        - I = spacing
        - N = nans
@@ -119,7 +120,7 @@ def grdfilter(  # noqa: PLR0913
     ----------
     $grid
     $outgrid
-    filter_type
+    filter
       The filter type. Choose among convolution and non-convolution filters.
 
       Convolution filters include:
@@ -137,9 +138,10 @@ def grdfilter(  # noqa: PLR0913
       - ``"maxneg"``: Return maximum of all negative values only.
 
       **Note**: There are still a few other filter types available in GMT (e.g.,
-      histogram and mode filters), but they are not implemented in PyGMT yet. Pass the
-      raw GMT command string to the ``filter`` parameter to use these other filter
-      types.
+      histogram and mode filters), but they are not implemented in PyGMT yet. As a
+      workaround, pass the raw GMT command string to this parameter to use these other
+      filter types. Refer to :gmt-docs:`grdfilter.html#f` for the full syntax of this
+      parameter.
     width
         The full diameter width of the filter. It can be a single value for an isotropic
         filter, or a pair of values for a rectangular filter (width in x- and
@@ -147,11 +149,6 @@ def grdfilter(  # noqa: PLR0913
     highpass
         By default, the filter is a low-pass filter. If True, then the filter is a
         high-pass filter. [Default is ``False``].
-    filter
-        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
-        [/*width2*\][*modifiers*].
-        Name of the filter type you wish to apply, followed by the *width*. Refer to
-        :gmt-docs:`grdfilter.html#f` for the full syntax of this parameter.
     distance : str
         State how the grid (x,y) relates to the filter *width*:
 
@@ -211,7 +208,7 @@ def grdfilter(  # noqa: PLR0913
     >>> # and return a filtered grid (saved as netCDF file).
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
-    ...     filter_type="median",
+    ...     filter="gaussian",
     ...     width=600,
     ...     distance="4",
     ...     region=[150, 250, 10, 40],
@@ -223,18 +220,17 @@ def grdfilter(  # noqa: PLR0913
     >>> # a filtered DataArray with the smoothed grid.
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(
-    ...     grid=grid, filter_type="gaussian", width=600, distance="4"
+    ...     grid=grid, filter="gaussian", width=600, distance="4"
     ... )
     """
-    if filter is None and filter_type is None:
-        raise GMTParameterError(required="filter_type")
+    if kwargs.get("F", filter) is None:
+        raise GMTParameterError(required="filter")
 
     aliasdict = AliasSystem(
         F=_alias_option_F(
-            filter_type=filter_type,
+            filter=filter,
             width=width,
             highpass=highpass,
-            filter=filter,
         ),
         I=Alias(spacing, name="spacing", sep="/", size=2),
         N=Alias(
