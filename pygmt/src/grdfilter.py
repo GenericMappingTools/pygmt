@@ -83,13 +83,16 @@ def grdfilter(
         - **h**: Histogram
 
     distance
-        Distance *flag* tells how grid (*x, y*) relates to filter *width* as follows:
+        Determine how grid (*x, y*) relates to filter *width* and how distances are
+        calculated. Valid values are list below. The first four options are fastest
+        because they allow weight matrix to be computed only once. The last three
+        options are slower because they recompute weights for each latitude.
 
         .. list-table::
             :header-rows: 1
             :widths: 16 32 20 32
 
-            * - Name
+            * - Value
               - Grid (x,y)
               - Width
               - Distance Calculation
@@ -121,11 +124,6 @@ def grdfilter(
               - Mercator **-Jm1** img units
               - km
               - Spherical
-
-        The first four options are fastest because they allow weight matrix to be
-        computed only once. The last three options are slower because they recompute
-        weights for each latitude.
-
     $spacing
     nans
         Determine how NaN-values in the input grid affect the filtered output grid.
