@@ -92,11 +92,10 @@ COMMON_DOCSTRINGS = {
     "frame": r"""
         frame
             Set frame and axes attributes for the plot. It can be a bool, a string, or
-            a list of strings. If ``frame=True`` then the default frame attributes will
-            be used. If ``frame="none"`` then no frame will be drawn. A tutorial is
+            a list of strings. If ``frame=True``, frame will be drawn with the default
+            attributes. If ``frame="none"``, no frame will be drawn. A tutorial is
             available at :doc:`frame and axes attributes </tutorials/basics/frames>`.
-            Full documentation is at :gmt-docs:`gmt.html#b-full`.
-            """,
+            Full documentation is at :gmt-docs:`gmt.html#b-full`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
