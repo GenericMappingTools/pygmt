@@ -83,7 +83,7 @@ class Frame(BaseParam):
     #: - ``"WS"``: Draw the west and south axes with both tick marks and annotations,
     #:   but do not draw the east and north axes.
     #: - ``"WSen"``: Draw the west and south axes with both tick marks and annotations,
-    #:    draw the east and north axes with tick marks but without annotations.
+    #:   draw the east and north axes with tick marks but without annotations.
     #: - ``"WSrt"``: Draw the west and south axes with both tick marks and annotations,
     #:   draw the east and north axes without tick marks or annotations.
     #: - ``"WSrtZ"``: Draw the west and south axes with both tick marks and annotations,
@@ -93,7 +93,7 @@ class Frame(BaseParam):
     #: For a 3-D plot, if the z-axis code is specified, a single vertical axis will be
     #: drawn at the most suitable corner by default. Append any combination of the
     #: corner IDs from 1 to 4 to draw one or more vertical axes at the corresponding
-    #: corners. For example, `"WSrtZ1234"`.
+    #: corners (e.g., ``"WSrtZ1234"``):
     #:
     #: - **1**: the south-western (lower-left) corner
     #: - **2**: the south-eastern (lower-right) corner
