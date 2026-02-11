@@ -15,12 +15,19 @@ class Axis(BaseParam):
     Class for setting up one axis of a plot.
     """
 
-    # Specify the intervals for annotations, ticks, and gridlines.
+    #: Specify the intervals for annotations, ticks, and gridlines.
     annot: float | None = None
     tick: float | None = None
     grid: float | None = None
-    # The label for the axis [Default is no label].
+    #: Label for the axis [Default is no label].
     label: str | None = None
+
+    #: A leading text prefix for the axis annotations (e.g., dollar sign for plots
+    #: related to money) [For Cartesian plots only].
+    prefix: str | None = None
+
+    #: Unix to append to the axis annotations [For Cartesian plots only].
+    unit: str | None = None
 
     @property
     def _aliases(self):
@@ -29,6 +36,8 @@ class Axis(BaseParam):
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
             Alias(self.label, name="label", prefix="+l"),
+            Alias(self.prefix, name="prefix", prefix="+p"),
+            Alias(self.unit, name="unit", prefix="+u"),
         ]
 
 
@@ -38,7 +47,6 @@ class _Axes(BaseParam):
     A private class to build the Axes part of the Frame class.
     """
 
-    # Refer to the Frame class for full documentation.
     axes: str | None = None
     title: str | None = None
 
@@ -53,10 +61,44 @@ class _Axes(BaseParam):
 @dataclasses.dataclass(repr=False)
 class Frame(BaseParam):
     """
-    Class for setting up the frame of a plot.
+    Class for setting up the frame and axes of a plot.
     """
 
-    #: Specify which axes to draw and their attributes.
+    #: Controls which axes are drawn and whether they are annotated, using a combination
+    #: of the codes below. Axis ommitted from the set will not be drawn.
+    #:
+    #: For a 2-D plot, there are four axes: west, east, south, and north (or left,
+    #: right, bottom, top if you prefer); For a 3-D plot, there is an extra Z-axis.
+    #: They can be denoted by the following codes:
+    #:
+    #: - **W** (west), **E** (east), **S** (south), **N** (north), **Z**: Draw axes with
+    #:   both tick marks and annotations.
+    #: - **w** (west), **e** (east), **s** (south), **n** (north), **z**: Draw axes with
+    #:   tick marks but without annotations.
+    #: - **l** (left), **r** (right), **b** (bottom), **t** (top), **u** (up): Draw axes
+    #:   without tick marks or annotations.
+    #:
+    #: For examples:
+    #:
+    #: - ``"WS"``: Draw the west and south axes with both tick marks and annotations,
+    #:   but do not draw the east and north axes.
+    #: - ``"WSen"``: Draw the west and south axes with both tick marks and annotations,
+    #:    draw the east and north axes with tick marks but without annotations.
+    #: - ``"WSrt"``: Draw the west and south axes with both tick marks and annotations,
+    #:   draw the east and north axes without tick marks or annotations.
+    #: - ``"WSrtZ"``: Draw the west and south axes with both tick marks and annotations,
+    #:   draw the east and north axes without tick marks or annotations, and draw the
+    #:   z-axis with both tick marks and annotations.
+    #:
+    #: For a 3-D plot, if the z-axis code is specified, a single vertical axis will be
+    #: drawn at the most suitable corner by default. Append any combination of the
+    #: corner IDs from 1 to 4 to draw one or more vertical axes at the corresponding
+    #: corners. For example, `"WSrtZ1234"`.
+    #:
+    #: - **1**: the south-western (lower-left) corner
+    #: - **2**: the south-eastern (lower-right) corner
+    #: - **3**: the north-eastern (upper-right) corner
+    #: - **4**: the north-western (upper-left) corner
     axes: str | None = None
 
     #: The title string centered above the plot frame [Default is no title].
