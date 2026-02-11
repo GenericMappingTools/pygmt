@@ -13,6 +13,20 @@ from pygmt.params.base import BaseParam
 class Axis(BaseParam):
     """
     Class for setting up one axis of a plot.
+
+    Examples
+    --------
+    To specify the same attributes for all axes, with intervals of 4 for annotations,
+    2 for ticks, and 1 for gridlines:
+
+    >>> import pygmt
+    >>> fig = pygmmt.Figure()
+    >>> fig.basemap(
+    ...     region=[0, 10, 0, 20],
+    ...     projection="X10c/10c",
+    ...     frame=Axis(annot=4, tick=2, grid=1),
+    ... )
+    >>> fig.show()
     """
 
     #: Specify the interval for annoations. It can be ``True`` to let GMT decide the
@@ -72,6 +86,43 @@ class _Axes(BaseParam):
 class Frame(BaseParam):
     """
     Class for setting up the frame and axes of a plot.
+
+    Examples
+    --------
+    To specify the west and south axes with both tick marks and annotations, draw the
+    east and north axes with tick marks but without annotations:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(
+    ...     region=[0, 10, 0, 20], projection="X10c/10c", frame=Frame(axes="WSen")
+    ... )
+    >>> fig.show()
+
+    To specify the same attributes for all axes, with intervals of 4 for annotations,
+    2 for ticks, and 1 for gridlines:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(
+    ...     region=[0, 10, 0, 20],
+    ...     projection="X10c/10c",
+    ...     frame=Frame(axes="WSrt", axis=Axis(annot=4, tick=2, grid=1)),
+    ... )
+    ... fig.show()
+
+    To specify the attributes for each axis separately:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(
+    ...     region=[0, 10, 0, 20],
+    ...     projection="X10c/10c",
+    ...     frame=Frame(
+    ...         axes="WSrt",
+    ...         xaxis=Axis(annot=4, tick=2, grid=1, label="X-axis"),
+    ...         yaxis=Axis(annot=5, tick=2.5, grid=1, label="Y-axis"),
+    ...     ),
+    ... )
+    ... fig.show()
     """
 
     #: Controls which axes are drawn and whether they are annotated, using a combination
