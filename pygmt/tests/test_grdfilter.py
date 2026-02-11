@@ -91,7 +91,7 @@ def test_grdfilter_fails():
         )
 
 
-def test_grdfilter_filter_width_required(grid):
+def test_grdfilter_required(grid):
     """
     Test that grdfilter raises GMTParameterError when neither filter nor filter is
     provided.
@@ -108,18 +108,8 @@ def test_grdfilter_mixed_syntax(grid):
     """
     Test grdfilter's filter parameter with mixed syntax.
     """
+    kwargs = {"grid": grid, "filter": "g600", "distance": 4}
     with pytest.raises(GMTParameterError):
-        grdfilter(
-            grid=grid,
-            filter="g600",
-            width=600,
-            distance=4,
-        )
-
+        grdfilter(width=600, **kwargs)
     with pytest.raises(GMTParameterError):
-        grdfilter(
-            grid=grid,
-            filter="g600",
-            highpass=True,
-            distance=4,
-        )
+        grdfilter(highpass=True, **kwargs)
