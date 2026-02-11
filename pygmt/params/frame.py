@@ -33,7 +33,7 @@ class Axis(BaseParam):
 
     #: Specify the interval for annoations. It can be ``True`` to let GMT decide the
     #: interval automatically; or a value to set a specific interval in the format of
-    #: *stride*[±*phase*][*unit*], where, *stride* is the interval, *phase* is the
+    #: *stride*\ [±\ *phase*][*unit*], where, *stride* is the interval, *phase* is the
     #: offset to shift the annotations by that amount, and *unit* is one of the
     #: :gmt-docs:`18 supported unit codes <reference/options.html#tbl-units>` related to
     #: time intervals.
