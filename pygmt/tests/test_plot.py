@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure, which
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -78,7 +78,7 @@ def test_plot_fail_no_data(data, region):
             frame="afg",
         )
     # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(
             x=data[:, 0],
             y=data[:, 1],

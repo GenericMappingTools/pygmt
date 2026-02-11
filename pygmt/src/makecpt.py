@@ -7,7 +7,7 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -49,7 +49,7 @@ def makecpt(
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
     discrete. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
+    `cpt-city <https://phillips.shef.ac.uk/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     The CPT includes three additional colors beyond the range of z-values.
@@ -169,8 +169,7 @@ def makecpt(
         ``categorical=True``.
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        msg = "Set only categorical or cyclic to True, not both."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["categorical", "cyclic"])
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

@@ -8,7 +8,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
@@ -103,10 +103,8 @@ def logo(  # noqa: PLR0913
         kwdict={"width": width, "height": height},
     )
 
-    # width and height are mutually exclusive.
     if width is not None and height is not None:
-        msg = "Cannot specify both 'width' and 'height'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["width", "height"])
 
     aliasdict = AliasSystem(
         D=[

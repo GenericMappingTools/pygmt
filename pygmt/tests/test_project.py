@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -87,6 +87,6 @@ def test_project_incorrect_parameters():
     with pytest.raises(GMTParameterError):
         # No `data` or `generate`
         project(center=[0, -1], azimuth=45, flat_earth=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # Using `generate` with `convention`
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
