@@ -10,7 +10,13 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
 
@@ -352,10 +358,13 @@ def subplot(  # noqa: PLR0913
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(A="fixedlabel", C="clearance")
+# TODO(PyGMT>=0.23.0): Remove the deprecated 'fixedlabel' parameter.
+@deprecate_parameter("fixedlabel", "tag", "v0.19.0", remove_version="v0.23.0")
+@use_alias(C="clearance")
 def set_panel(
     self,
     panel: int | Sequence[int] | None = None,
+    tag: str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -372,6 +381,7 @@ def set_panel(
     ``projection="X"`` will fill the subplot by using unequal scales].
 
     $aliases
+       - A = tag
        - V = verbose
 
     Parameters
@@ -386,13 +396,10 @@ def set_panel(
         GMT maintains information about the current figure and subplot. Also, you may
         give the one-dimensional *index* instead which starts at 0 and follows the row
         or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.
-
-    fixedlabel : str
-        Overrides the automatic labeling with the given string. No modifiers
-        are allowed. Placement, justification, etc. are all inherited from how
-        ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`
-        command.
-
+    tag
+        Tag for the current subplot. It overrides the automatic tag set by the
+        :meth:`pygmt.Figure.subplot` method. Use ``tag="-"`` to skip the tag for this
+        panel.
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -409,9 +416,7 @@ def set_panel(
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
-        V=verbose,
-    )
+    aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
     with Session() as lib:
