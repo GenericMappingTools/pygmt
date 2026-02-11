@@ -8,6 +8,8 @@ from pygmt.alias import Alias
 from pygmt.exceptions import GMTParameterError
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Axis", "Frame"]
+
 
 @dataclasses.dataclass(repr=False)
 class Axis(BaseParam):
@@ -20,7 +22,7 @@ class Axis(BaseParam):
     2 for ticks, and 1 for gridlines:
 
     >>> import pygmt
-    >>> fig = pygmmt.Figure()
+    >>> fig = pygmt.Figure()
     >>> fig.basemap(
     ...     region=[0, 10, 0, 20],
     ...     projection="X10c/10c",
@@ -108,7 +110,7 @@ class Frame(BaseParam):
     ...     projection="X10c/10c",
     ...     frame=Frame(axes="WSrt", axis=Axis(annot=4, tick=2, grid=1)),
     ... )
-    ... fig.show()
+    >>> fig.show()
 
     To specify the attributes for each axis separately:
 
@@ -118,11 +120,11 @@ class Frame(BaseParam):
     ...     projection="X10c/10c",
     ...     frame=Frame(
     ...         axes="WSrt",
-    ...         xaxis=Axis(annot=4, tick=2, grid=1, label="X-axis"),
-    ...         yaxis=Axis(annot=5, tick=2.5, grid=1, label="Y-axis"),
+    ...         xaxis=Axis(annot=4, tick=2, grid=1, label="X Label"),
+    ...         yaxis=Axis(annot=5, tick=2.5, grid=1, label="Y Label"),
     ...     ),
     ... )
-    ... fig.show()
+    >>> fig.show()
     """
 
     #: Controls which axes are drawn and whether they are annotated, using a combination
