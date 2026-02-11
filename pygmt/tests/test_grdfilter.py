@@ -89,13 +89,15 @@ def test_grdfilter_fails():
         grdfilter(np.arange(10).reshape((5, 2)))
 
 
-def test_grdfilter_filter_required(grid):
+def test_grdfilter_filter_width_required(grid):
     """
     Test that grdfilter raises GMTParameterError when neither filter nor filter is
     provided.
     """
     with pytest.raises(GMTParameterError):
         grdfilter(grid=grid)
+    with pytest.raises(GMTParameterError):
+        grdfilter(grid=grid, filter="gaussian")
     with pytest.raises(GMTParameterError):
         grdfilter(grid=grid, width=600, distance=4)
 

@@ -49,6 +49,9 @@ def _alias_option_F(  # noqa: N802
             )
         return Alias(filter, name="filter")  # Deprecated raw GMT command string.
 
+    if filter is None or width is None:
+        raise GMTParameterError(required=["filter", "width"])
+
     return [
         Alias(
             filter,
