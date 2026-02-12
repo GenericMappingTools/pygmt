@@ -64,6 +64,7 @@ def grdlandmask(
     ----------
     $outgrid
     $spacing
+    $area_thresh
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
@@ -98,7 +99,6 @@ def grdlandmask(
         setting nodes to NaN.
     $region
     $verbose
-    $area_thresh
     $registration
     $cores
 

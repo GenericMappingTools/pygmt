@@ -195,7 +195,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     $projection
-    zscale/zsize
+    zscale
+    zsize
         Set z-axis scaling or z-axis size.
     $region
     $frame

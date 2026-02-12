@@ -22,6 +22,7 @@ def scalebar(  # noqa: PLR0913
     height: float | str | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     scale_loc: float | Sequence[float] | bool = False,
+    label: str | bool = False,
     label_alignment: Literal["left", "right", "top", "bottom"] | None = None,
     unit: bool = False,
     fancy: bool = False,
@@ -30,7 +31,6 @@ def scalebar(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    label: str | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
 ):

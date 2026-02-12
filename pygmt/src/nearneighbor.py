@@ -36,10 +36,10 @@ def nearneighbor(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    incols: int | str | Sequence[int | str] | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -118,10 +118,7 @@ def nearneighbor(
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    $registration
-
     $region
-
     $verbose
     $aspatial
     $binary
@@ -131,6 +128,7 @@ def nearneighbor(
     $gap
     $header
     $incols
+    $registration
     $wrap
 
     Returns

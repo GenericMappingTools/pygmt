@@ -45,9 +45,9 @@ from pygmt.helpers import (
 def histogram(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
-    projection: str | None = None,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
+    projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
