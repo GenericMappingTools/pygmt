@@ -37,6 +37,12 @@ class FakedLibGMT:
         """
         return self._name
 
+    def __repr__(self):
+        """
+        Repr representation to match how real paths are formatted with !r.
+        """
+        return repr(self._name)
+
 
 def test_check_libgmt():
     """
