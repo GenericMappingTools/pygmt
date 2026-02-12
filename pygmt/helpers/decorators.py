@@ -627,7 +627,7 @@ def kwargs_to_strings(**conversions):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
@@ -682,7 +682,7 @@ def kwargs_to_strings(**conversions):
     ...     print(offset, end=" ")
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
