@@ -44,6 +44,12 @@ def test_params_frame_separate_axes():
     Test the Frame class with separate axis settings.
     """
     frame = Frame(
+        xaxis=Axis(annot=10, tick=5, grid=2.5),
+        yaxis=Axis(annot=20, tick=10, grid=5),
+    )
+    assert list(frame) == ["xa10f5g2.5", "ya20f10g5"]
+
+    frame = Frame(
         axes="lrtb",
         title="My Title",
         xaxis=Axis(annot=10, tick=5, grid=2),

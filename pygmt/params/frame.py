@@ -203,8 +203,11 @@ class Frame(BaseParam):
 
     @property
     def _aliases(self):
+        # _Axes() maps to an empty string, which becomes '-B' without arguments and is
+        # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
+        frame_settings = _Axes(axes=self.axes, title=self.title)
         return [
-            Alias(_Axes(axes=self.axes, title=self.title)),
+            Alias(frame_settings) if str(frame_settings) else Alias(None),
             Alias(self.axis, name="axis"),
             Alias(self.xaxis, name="xaxis", prefix="px" if self.xaxis2 else "x"),
             Alias(self.yaxis, name="yaxis", prefix="py" if self.yaxis2 else "y"),
