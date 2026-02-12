@@ -269,8 +269,8 @@ def grdtrack(
     $distcalc
     $interpolation
     $outcols
-    $wrap
     $skiprows
+    $wrap
 
     Returns
     -------
