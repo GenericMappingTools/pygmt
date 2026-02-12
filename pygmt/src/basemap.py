@@ -69,13 +69,9 @@ def basemap(  # noqa: PLR0913
 
     Parameters
     ----------
-    $projection
     zscale
     zsize
         Set z-axis scaling or z-axis size.
-    $region
-        *Required if this is the first plot command.*
-    $frame
     map_scale
         Draw a map scale bar on the plot.
 
@@ -109,6 +105,10 @@ def basemap(  # noqa: PLR0913
             :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`
             instead. This parameter is maintained for backward compatibility and accepts
             raw GMT CLI strings for the ``-F`` option.
+    $projection
+    $region
+        *Required if this is the first plot command.*
+    $frame
     $verbose
     $panel
     $coltypes
