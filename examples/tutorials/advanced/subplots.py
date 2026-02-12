@@ -229,8 +229,8 @@ fig.show()
 
 # %%
 # You can also manually override the ``tag`` for each subplot using for example,
-# ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow you to manually tag
-# a single subplot as you wish. This can be useful for adding a more descriptive
-# subtitle to individual subplots.
+# ``fig.set_panel(..., tag="b) Panel 2")`` which would allow you to manually tag a
+# single subplot as you wish. This can be useful for adding a more descriptive subtitle
+# to individual subplots.
 
 # sphinx_gallery_thumbnail_number = 3
