@@ -21,7 +21,7 @@ def _build_frame(
     annot: float | bool = False,
     tick: float | bool = False,
     grid: float | bool = False,
-    annot_angel: float | None = None,
+    annot_angle: float | None = None,
     annot_prefix: str | None = None,
     annot_unit: str | None = None,
     label: str | None = None,
@@ -40,7 +40,7 @@ def _build_frame(
 
     _xaxis_is_set = any(
         v is not None
-        for v in {annot, tick, grid, annot_angel, annot_prefix, annot_unit, label}
+        for v in {annot, tick, grid, annot_angle, annot_prefix, annot_unit, label}
     )
     _yaxis_is_set = unit is not None
 
@@ -54,7 +54,7 @@ def _build_frame(
             annot=annot,
             tick=tick,
             grid=grid,
-            angle=annot_angel,
+            angle=annot_angle,
             prefix=annot_prefix,
             unit=annot_unit,
             label=label,
@@ -205,7 +205,7 @@ def colorbar(  # noqa: PLR0913
     annot: float | bool = False,
     tick: float | bool = False,
     grid: float | bool = False,
-    annot_angel: float | None = None,
+    annot_angle: float | None = None,
     annot_prefix: str | None = None,
     annot_unit: str | None = None,
     frame: str | Sequence[str] | bool = False,
@@ -271,7 +271,7 @@ def colorbar(  # noqa: PLR0913
     .. hlist::
        :columns: 1
 
-       - B = label, unit, annot, tick, grid, annot_angel, annot_prefix, annot_unit
+       - B = label, unit, annot, tick, grid, annot_angle, annot_prefix, annot_unit
        - D = position, **+w**: length/width, **+h**/**+v**: orientation,
          **+r**: reverse, **+n**: nan/nan_position,
          **+e**: fg_triangle/bg_triangle/triangle_height,
@@ -308,14 +308,14 @@ def colorbar(  # noqa: PLR0913
     tick
         Intervals for annotations, grid lines, and ticks. Refer to
         :class:`pygmt.params.Axis` for more details on how these parameters work.
-        Parameters ``annot_prefix``, ``annot_unit``, and ``annot_angel`` can be used to
+        Parameters ``annot_prefix``, ``annot_unit``, and ``annot_angle`` can be used to
         further customize the annotations.
     frame
         Set colorbar boundary frame, labels, and axes attributes.
 
         .. deprecated:: v0.19.0
 
-            Use ``annot``, ``tick``, ``grid``, ``annot_angel``, ``annot_prefix``,
+            Use ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
             ``annot_unit``, ``label``, and ``unit`` parameters to customize the colorbar
             annotations and labels.
 
@@ -458,7 +458,7 @@ def colorbar(  # noqa: PLR0913
             annot=annot,
             tick=tick,
             grid=grid,
-            annot_angel=annot_angel,
+            annot_angle=annot_angle,
             annot_prefix=annot_prefix,
             annot_unit=annot_unit,
             label=label,
