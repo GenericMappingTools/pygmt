@@ -39,7 +39,7 @@ def _build_frame(
     ...         annot=1,
     ...         tick=0.5,
     ...         grid=0.2,
-    ...         annot_angel=30,
+    ...         annot_angle=30,
     ...         annot_prefix="m",
     ...         annot_unit="s",
     ...         label="Distance",
