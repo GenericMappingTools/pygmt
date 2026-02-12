@@ -34,6 +34,7 @@ def _build_frame(
     >>> list(_build_frame(annot=1, tick=0.5, label="Distance", unit="Depth"))
     ['xa1f0.5+lDistance', 'y+lDepth']
     """
+    # Using the old 'frame' parameter.
     if frame is not None and frame is not False:
         return frame
 
@@ -53,9 +54,9 @@ def _build_frame(
             annot=annot,
             tick=tick,
             grid=grid,
-            # angle=annot_angel,
-            # prefix=annot_prefix,
-            # unit=annot_unit,
+            angle=annot_angel,
+            prefix=annot_prefix,
+            unit=annot_unit,
             label=label,
         )
     if _yaxis_is_set:
