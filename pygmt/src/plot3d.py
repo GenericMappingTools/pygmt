@@ -54,14 +54,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
     projection: str | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -119,8 +119,6 @@ def plot3d(  # noqa: PLR0912, PLR0913
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    zscale/zsize
-        Set z-axis scaling or z-axis size.
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -197,6 +195,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     $projection
+    zscale/zsize
+        Set z-axis scaling or z-axis size.
     $region
     $frame
     $verbose

@@ -225,6 +225,7 @@ def grdview(  # noqa: PLR0913
         **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
+    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
     region : str or list
@@ -232,7 +233,6 @@ def grdview(  # noqa: PLR0913
         Specify the :doc:`region </tutorials/basics/regions>` of interest. When used
         with ``perspective``, optionally append */zmin/zmax* to indicate the range to
         use for the 3-D axes [Default is the region given by the input grid].
-    $projection
     $frame
     $verbose
     $panel
