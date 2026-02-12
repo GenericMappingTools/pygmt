@@ -79,14 +79,10 @@ def histogram(  # noqa: PLR0913
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    $projection
-    $region
-    $frame
     $cmap
     fill : str
          Set color or pattern for filling bars [Default is no fill].
     $pen
-    $panel
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -149,8 +145,12 @@ def histogram(  # noqa: PLR0913
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    $projection
+    $region
+    $frame
     $verbose
     $binary
+    $panel
     $nodata
     $find
     $header

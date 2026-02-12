@@ -119,10 +119,8 @@ def plot3d(  # noqa: PLR0912, PLR0913
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    $projection
     zscale/zsize
         Set z-axis scaling or z-axis size.
-    $region
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -148,7 +146,6 @@ def plot3d(  # noqa: PLR0912, PLR0913
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    $frame
     $cmap
     offset : str
         *dx*/*dy*\ [/*dz*].
@@ -189,7 +186,6 @@ def plot3d(  # noqa: PLR0912, PLR0913
         the foreground are plotted after items in the background.
     style : str
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
-    $verbose
     $pen
     zvalue : str
         *value*\|\ *file*.
@@ -200,6 +196,10 @@ def plot3d(  # noqa: PLR0912, PLR0913
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
+    $projection
+    $region
+    $frame
+    $verbose
     $aspatial
     $binary
     $panel
