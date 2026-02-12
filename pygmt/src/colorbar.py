@@ -40,14 +40,12 @@ def _build_frame(
     ...         tick=0.5,
     ...         grid=0.2,
     ...         annot_angle=30,
-    ...         annot_prefix="m",
-    ...         annot_unit="s",
     ...         label="Distance",
     ...         unit="km",
     ...     )
     ... )
-    ['xa1f0.5g0.2a30+m+s+lDistance', 'y+lkm']
-    >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"])))
+    ['xa1f0.5g0.2+lDistance+a30', 'y+lkm']
+    >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"]))
     ['xaf0.5+lDistance', 'y+lkm']
 
     """
