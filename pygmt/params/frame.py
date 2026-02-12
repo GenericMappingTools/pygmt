@@ -55,6 +55,9 @@ class Axis(BaseParam):
     #: Unix to append to the axis annotations [For Cartesian plots only].
     unit: str | None = None
 
+    #: Angle of the axis annotations.
+    angle: float | None = None
+
     @property
     def _aliases(self):
         return [
@@ -62,6 +65,7 @@ class Axis(BaseParam):
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
             Alias(self.label, name="label", prefix="+l"),
+            Alias(self.angle, name="angle", prefix="+a"),
             Alias(self.prefix, name="prefix", prefix="+p"),
             Alias(self.unit, name="unit", prefix="+u"),
         ]
