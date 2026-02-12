@@ -39,7 +39,7 @@ class FakedLibGMT:
 
     def __repr__(self):
         """
-        Repr representation to match how real paths are formatted with !r.
+        Return repr representation to match how real paths are formatted with !r.
         """
         return repr(self._name)
 
