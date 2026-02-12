@@ -31,8 +31,25 @@ def _build_frame(
     """
     Create the list of Alias objects for the -B option.
 
-    >>> list(_build_frame(annot=1, tick=0.5, label="Distance", unit="Depth"))
-    ['xa1f0.5+lDistance', 'y+lDepth']
+    >>> list(_build_frame(annot=1, tick=0.5, label="Distance", unit="km"))
+    ['xa1f0.5+lDistance', 'y+lkm']
+
+    >>> list(
+    ...     _build_frame(
+    ...         annot=1,
+    ...         tick=0.5,
+    ...         grid=0.2,
+    ...         annot_angel=30,
+    ...         annot_prefix="m",
+    ...         annot_unit="s",
+    ...         label="Distance",
+    ...         unit="km",
+    ...     )
+    ... )
+    ['xa1f0.5g0.2a30+m+s+lDistance', 'y+lkm']
+    >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"])))
+    ['xaf0.5+lDistance', 'y+lkm']
+
     """
     # Using the old 'frame' parameter.
     if frame is not None and frame is not False:
