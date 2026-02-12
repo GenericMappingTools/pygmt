@@ -18,9 +18,9 @@ __doctest_skip__ = ["colorbar"]
 
 
 def _build_frame(
-    annot: float | None = None,
-    tick: float | None = None,
-    grid: float | None = None,
+    annot: float | bool = False,
+    tick: float | bool = False,
+    grid: float | bool = False,
     annot_angel: float | None = None,
     annot_prefix: str | None = None,
     annot_unit: str | None = None,
@@ -201,9 +201,9 @@ def colorbar(  # noqa: PLR0913
     orientation: Literal["horizontal", "vertical"] | None = None,
     label: str | None = None,
     unit: str | None = None,
-    annot: float | None = None,
-    tick: float | None = None,
-    grid: float | None = None,
+    annot: float | bool = False,
+    tick: float | bool = False,
+    grid: float | bool = False,
     annot_angel: float | None = None,
     annot_prefix: str | None = None,
     annot_unit: str | None = None,
