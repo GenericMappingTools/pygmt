@@ -84,7 +84,7 @@ def which(
     match paths.size:
         case 0:
             _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname  # type: ignore[arg-type]
-            msg = f"File(s) '{_fname}' not found."
+            msg = f"File(s) {_fname!r} not found."
             raise FileNotFoundError(msg)
         case 1:
             return paths[0]

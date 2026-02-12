@@ -558,7 +558,7 @@ def use_alias(**aliases):
                 elif short_param in kwargs:
                     msg = (
                         f"Short-form parameter ({short_param}) is not recommended. "
-                        f"Use long-form parameter '{long_alias}' instead."
+                        f"Use long-form parameter {long_alias!r} instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
@@ -703,7 +703,7 @@ def kwargs_to_strings(**conversions):
         if fmt not in separators:
             raise GMTValueError(
                 fmt,
-                description=f"conversion type for parameter '{arg}'",
+                description=f"conversion type for parameter {arg!r}",
                 choices=separators.keys(),
             )
 
@@ -824,9 +824,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
                         reason=f"{oldname!r} is deprecated and {newname!r} is recommended.",
                     )
                 msg = (
-                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f"The {oldname!r} parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
-                    f" Please use '{newname}' instead."
+                    f" Please use {newname!r} instead."
                 )
                 warnings.warn(msg, category=FutureWarning, stacklevel=2)
                 kwargs[newname] = kwargs.pop(oldname)

@@ -283,7 +283,7 @@ class Session:
         session = None
         value = c_get_enum(session, name.encode())
         if value is None or value == -99999:
-            msg = f"Constant '{name}' doesn't exist in libgmt."
+            msg = f"Constant {name!r} doesn't exist in libgmt."
             raise GMTCLibError(msg)
         return value
 
@@ -506,7 +506,7 @@ class Session:
         value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
         if status != 0:
-            msg = f"Error getting value for '{name}' (error code {status})."
+            msg = f"Error getting value for {name!r} (error code {status})."
             raise GMTCLibError(msg)
         return value.value.decode()
 
@@ -666,7 +666,7 @@ class Session:
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            msg = f"Module {module!r} failed with status code {status}:\n{self._error_message}"
             raise GMTCLibError(msg)
 
     def create_data(
@@ -1209,7 +1209,7 @@ class Session:
             data,
         )
         if data_ptr is None:
-            msg = f"Failed to read dataset from '{infile}'."
+            msg = f"Failed to read dataset from {infile!r}."
             raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
@@ -1280,7 +1280,7 @@ class Session:
             data,
         )
         if status != 0:
-            msg = f"Failed to write dataset to '{output}'."
+            msg = f"Failed to write dataset to {output!r}."
             raise GMTCLibError(msg)
 
     @contextlib.contextmanager
@@ -1395,7 +1395,7 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                msg = f"Failed to close virtual file '{vfname}'."
+                msg = f"Failed to close virtual file {vfname!r}."
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
