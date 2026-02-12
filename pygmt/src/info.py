@@ -68,12 +68,14 @@ def info(
         **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
+    registration
+        [**g**\|\ **p**].
+        Select gridline or pixel node registration [Default is gridline].
 
     $verbose
     $aspatial
-    $incols
     $coltypes
-    $registration
+    $incols
 
     Returns
     -------

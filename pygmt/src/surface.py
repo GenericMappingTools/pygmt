@@ -141,6 +141,7 @@ def surface(
         set boundary tension. If you do not prepend **i** or **b**, both
         will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
+
     $verbose
     $aspatial
     $binary

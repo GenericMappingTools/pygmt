@@ -54,13 +54,13 @@ def sph2grd(
         $table_classes.
     $outgrid
     $spacing
+    $cores
     $region
     $verbose
     $binary
     $header
     $incols
     $registration
-    $cores
 
     Returns
     -------

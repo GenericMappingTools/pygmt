@@ -97,8 +97,6 @@ def nearneighbor(
 
     $spacing
 
-    $region
-
     search_radius : str
         Set the search radius that determines which data points are considered
         close to a node.
@@ -120,16 +118,19 @@ def nearneighbor(
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
+    $registration
+
+    $region
+
     $verbose
     $aspatial
     $binary
-    $nodata
-    $find
     $coltypes
+    $find
     $gap
     $header
     $incols
-    $registration
+    $nodata
     $wrap
 
     Returns
