@@ -48,14 +48,14 @@ def histogram(  # noqa: PLR0913
     projection: str | None = None,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""

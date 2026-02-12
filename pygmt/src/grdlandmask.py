@@ -99,8 +99,8 @@ def grdlandmask(
     $region
     $verbose
     $area_thresh
-    $cores
     $registration
+    $cores
 
     Returns
     -------

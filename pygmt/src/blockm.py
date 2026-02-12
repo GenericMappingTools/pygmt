@@ -144,9 +144,9 @@ def blockmean(  # noqa: PLR0913
     $binary
     $nodata
     $find
-    $incols
     $coltypes
     $header
+    $incols
     $outcols
     $registration
     $wrap

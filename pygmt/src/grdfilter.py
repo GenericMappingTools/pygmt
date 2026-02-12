@@ -110,8 +110,8 @@ def grdfilter(
     $region
     $verbose
     $coltypes
-    $cores
     $registration
+    $cores
 
     Returns
     -------

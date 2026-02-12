@@ -68,12 +68,12 @@ class triangulate:  # noqa: N801
         spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
+        incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
-        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -197,12 +197,12 @@ class triangulate:  # noqa: N801
         spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
+        incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
-        incols: int | str | Sequence[int | str] | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """

@@ -115,9 +115,9 @@ def grd2xyz(
         will be output.
     $verbose
     $binary
+    $nodata
     $coltypes
     $header
-    $nodata
     $outcols
     $skiprows
 

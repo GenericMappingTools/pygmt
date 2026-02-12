@@ -75,9 +75,9 @@ def grdsample(
     $region
     $verbose
     $coltypes
-    $cores
     $interpolation
     $registration
+    $cores
 
     Returns
     -------

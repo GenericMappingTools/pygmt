@@ -260,17 +260,17 @@ def grdtrack(
     $region
     $aspatial
     $binary
-    $coltypes
+    $nodata
     $find
+    $coltypes
     $gap
     $header
     $incols
     $distcalc
     $interpolation
-    $nodata
     $outcols
-    $skiprows
     $wrap
+    $skiprows
 
     Returns
     -------

@@ -18,10 +18,10 @@ def info(
     data: PathLike | TableLike,
     spacing: Sequence[float] | str | None = None,
     per_column: bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> np.ndarray | str:
     r"""

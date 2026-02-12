@@ -129,11 +129,11 @@ def xyz2grd(
     $region
     $verbose
     $binary
-    $coltypes
+    $nodata
     $find
+    $coltypes
     $header
     $incols
-    $nodata
     $wrap
 
     Returns
