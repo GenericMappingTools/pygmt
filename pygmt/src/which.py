@@ -83,7 +83,7 @@ def which(
 
     match paths.size:
         case 0:
-            if is_nonstr_iter(fname):  # type: ignore[arg-type]
+            if is_nonstr_iter(fname):
                 # Format list as 'a.txt', 'b.txt'
                 _fname = "', '".join(fname)  # type: ignore[arg-type]
                 msg = f"File(s) '{_fname}' not found."
