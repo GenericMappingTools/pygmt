@@ -4,7 +4,7 @@ Test Figure.shift_origin.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 
 
 def _numbered_basemap(fig, number, size=3):
@@ -104,11 +104,11 @@ def test_shift_origin_unsupported_xshift_yshift():
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(x=1, y=1, style="c3c", xshift="3c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(x=1, y=1, style="c3c", X="3c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(x=1, y=1, style="c3c", Y="3c")
