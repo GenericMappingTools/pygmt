@@ -3,17 +3,19 @@ grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
 from collections.abc import Sequence
+from contextlib import ExitStack
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import AliasSystem, Alias
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
+    tempfile_from_geojson,
     use_alias,
 )
 
@@ -30,6 +32,9 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    polygon: PathLike | None = None,
+    crop: bool = False,
+    invert: bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -87,6 +92,17 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+    polygon : str, geopandas.GeoDataFrame, or shapely.geometry
+        Extract a subregion using a polygon. Can be either:
+        - A GMT ASCII polygon file (`.gmt`)
+        - A geopandas.GeoDataFrame
+        - A shapely.geometry.Polygon or MultiPolygon
+        The polygon can have holes or multiple rings.
+        Optional modifiers:
+        - crop : bool
+            If True, crop the output grid region to the bounding box of the polygon.
+        - invert : bool
+            If True, invert the selection, setting all nodes inside the polygon to NaN.
 
     $verbose
     $coltypes
@@ -124,7 +140,12 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F = [
+            Alias(crop, name="crop", prefix="+c"),
+            Alias(invert, name="invert", prefix="+i"),
+        ]
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
@@ -134,9 +155,27 @@ def grdcut(
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="vector", data=polygon, required=False
+            ) as vinpoly,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
+
+            if polygon is not None:
+                if isinstance(polygon, PathLike) or hasattr(
+                    polygon, "__geo_interface__"
+                ):
+                    aliasdict["F"] = str(vinpoly) + aliasdict.get("F", "")
+                else:
+                    polygon_type = type(polygon).__name__
+                    err_msg = "Invalid polygon type"
+                    raise GMTValueError(
+                        err_msg,
+                        polygon_type,
+                        "Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+                    )
+
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
             )
