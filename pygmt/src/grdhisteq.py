@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -78,6 +78,7 @@ class grdhisteq:  # noqa: N801
         Full GMT docs at :gmt-docs:`grdhisteq.html`.
 
         $aliases
+           - G = outgrid
            - R = region
            - V = verbose
 
@@ -234,8 +235,10 @@ class grdhisteq:  # noqa: N801
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if kwargs.get("h") is not None and output_type != "file":
-            msg = "'header' is only allowed with output_type='file'."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                conflicts_with=("header", [f"output_type={output_type!r}"]),
+                reason="'header' is allowed only when 'output_type' is 'file'.",
+            )
 
         aliasdict = AliasSystem().add_common(
             R=region,

@@ -23,11 +23,13 @@ assignees: ''
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy, pandas, Xarray)
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] README looks good on TestPyPI. Visit [TestPyPI](https://test.pypi.org/project/pygmt/#history), click the latest pre-release, and check the homepage.
+- [ ] Review new parameter names added/changed for clarity and consistency across the API
 - [ ] Check to ensure that:
   - [ ] Deprecated workarounds/codes/tests are removed. Run `grep -r "# TODO" --include="*.py" .` to find all potential TODOs.
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
+  - [ ] All links work in the ["Check Links" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/check-links.yml)
 - [ ] Update warnings in `pygmt/_show_versions.py` as well as notes in [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency) regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
@@ -52,7 +54,7 @@ assignees: ''
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! Requires moderator status)
-  - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement; download the ZIP file of the new release from the release page and add it as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
+  - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement; download the ZIP file of the new release from Zenodo and add it as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
 - [ ] Update release checklist template with any additional bullet points that may have arisen during the release
 
 ---

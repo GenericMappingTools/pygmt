@@ -9,23 +9,19 @@ import numpy as np
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_list,
-    fmt_docstring,
-    use_alias,
-)
+from pygmt.helpers import GMTTempFile, build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(C="per_column", T="nearest_multiple", a="aspatial", f="coltypes")
+@use_alias(T="nearest_multiple", a="aspatial", f="coltypes")
 def info(
     data: PathLike | TableLike,
     spacing: Sequence[float] | str | None = None,
+    per_column: bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> np.ndarray | str:
     r"""
@@ -47,6 +43,7 @@ def info(
     Full GMT docs at :gmt-docs:`gmtinfo.html`.
 
     $aliases
+       - C = per_column
        - I = spacing
        - V = verbose
        - i = incols
@@ -57,8 +54,9 @@ def info(
     data
         Pass in either a file name to an ASCII data table, a 1-D/2-D
         $table_classes.
-    per_column : bool
-        Report the min/max values per column in separate columns.
+    per_column
+        Report the min/max values per column in separate columns [Default is the format
+        <min/max>].
     spacing
         [**b**\|\ **p**\|\ **f**\|\ **s**]\ *dx*\[/*dy*\[/*dz*...]].
         Compute the min/max values of the first n columns to the nearest
@@ -70,11 +68,10 @@ def info(
         **dz**\[\ **+c**\ *col*].
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
-
     $verbose
     $aspatial
-    $incols
     $coltypes
+    $incols
     $registration
 
     Returns
@@ -87,6 +84,7 @@ def info(
         - str if none of the above parameters are used.
     """
     aliasdict = AliasSystem(
+        C=Alias(per_column, name="per_column"),
         I=Alias(spacing, name="spacing", sep="/"),
     ).add_common(
         V=verbose,
@@ -105,7 +103,7 @@ def info(
             result = tmpfile.read()
 
         if (
-            kwargs.get("C") is not None
+            kwargs.get("C", per_column) is not False
             or kwargs.get("I", spacing) is not None
             or kwargs.get("T") is not None
         ):

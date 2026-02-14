@@ -40,9 +40,9 @@ def surface(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -78,6 +78,7 @@ def surface(
     Full GMT docs at :gmt-docs:`surface.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose
@@ -91,10 +92,7 @@ def surface(
         $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-
     $spacing
-
-    $region
     $outgrid
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
@@ -140,6 +138,7 @@ def surface(
         set boundary tension. If you do not prepend **i** or **b**, both
         will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
+    $region
     $verbose
     $aspatial
     $binary

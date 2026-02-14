@@ -45,6 +45,7 @@ def grdfilter(
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - N = nans
        - R = region

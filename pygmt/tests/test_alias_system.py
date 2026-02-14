@@ -4,7 +4,7 @@ Tests for the alias system.
 
 import pytest
 from pygmt.alias import Alias, AliasSystem
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list
 
 
@@ -65,21 +65,17 @@ def test_alias_system_one_alias_short_form():
     """
     Test that the alias system works when short-form parameters coexist.
     """
+    _msg_conflict = "Conflicting parameters: 'J' cannot be used with 'projection'."
+    _msg_reason = r"Short-form parameter 'J' is not recommended. Use long-form parameter\(s\) 'projection' instead."
     # Long-form does not exist.
     assert func(A="abc") == ["-Aabc"]
 
     # Long-form exists but is not given, and short-form is given.
-    with pytest.warns(
-        SyntaxWarning,
-        match=r"Short-form parameter 'J' is not recommended. Use long-form parameter 'projection' instead.",
-    ):
+    with pytest.warns(SyntaxWarning, match=_msg_reason):
         assert func(J="X10c") == ["-JX10c"]
 
     # Coexistence of long-form and short-form parameters.
-    with pytest.raises(
-        GMTInvalidInput,
-        match=r"Short-form parameter 'J' conflicts with long-form parameters and is not recommended. Use long-form parameter 'projection' instead.",
-    ):
+    with pytest.raises(GMTParameterError, match=rf"{_msg_conflict} {_msg_reason}"):
         func(projection="X10c", J="H10c")
 
 
@@ -88,18 +84,19 @@ def test_alias_system_multiple_aliases_short_form():
     Test that the alias system works with multiple aliases when short-form parameters
     are used.
     """
-    _msg_long = r"Use long-form parameters 'label', with optional parameters 'text' \(\+t\), 'offset' \(\+o\) instead."
+    _msg_conflict = (
+        "Conflicting parameters: 'U' cannot be used with 'label', 'text', 'offset'."
+    )
+    _msg_reason = r"Short-form parameter 'U' is not recommended. Use long-form parameter\(s\) 'label', 'text' \(\+t\), 'offset' \(\+o\) instead."
     # Long-form exists but is not given, and short-form is given.
-    msg = rf"Short-form parameter 'U' is not recommended. {_msg_long}"
-    with pytest.warns(SyntaxWarning, match=msg):
+    with pytest.warns(SyntaxWarning, match=_msg_reason):
         assert func(U="abcd+tefg") == ["-Uabcd+tefg"]
 
     # Coexistence of long-form and short-form parameters.
-    msg = rf"Short-form parameter 'U' conflicts with long-form parameters and is not recommended. {_msg_long}"
-    with pytest.raises(GMTInvalidInput, match=msg):
+    with pytest.raises(GMTParameterError, match=rf"{_msg_conflict} {_msg_reason}"):
         func(label="abcd", U="efg")
 
-    with pytest.raises(GMTInvalidInput, match=msg):
+    with pytest.raises(GMTParameterError, match=rf"{_msg_conflict} {_msg_reason}"):
         func(text="efg", U="efg")
 
 

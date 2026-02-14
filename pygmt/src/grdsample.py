@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -55,6 +55,7 @@ def grdsample(
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose
@@ -66,12 +67,12 @@ def grdsample(
     $grid
     $outgrid
     $spacing
-    $region
     toggle
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
         *Note**: ``toggle`` and ``registration`` are mutually exclusive.
+    $region
     $verbose
     $coltypes
     $interpolation
@@ -99,10 +100,8 @@ def grdsample(
     >>> # and set both x- and y-spacings to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])
     """
-    # Enforce mutual exclusivity between -T (toggle) and -r (registration)
     if kwargs.get("T", toggle) and kwargs.get("r", registration):
-        msg = "Parameters 'toggle' and 'registration' cannot be used together."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["toggle", "registration"])
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

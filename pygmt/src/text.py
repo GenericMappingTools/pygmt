@@ -9,7 +9,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -34,7 +34,7 @@ from pygmt.helpers import (
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913, PLR0915
+def text_(  # noqa: PLR0912, PLR0913
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -46,13 +46,13 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -133,9 +133,6 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    $projection
-    $region
-        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -167,6 +164,9 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
+    $projection
+    $region
+        *Required if this is the first plot command.*
     $verbose
     $aspatial
     $panel
@@ -191,16 +191,16 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
     if position is not None:
         if text is None:
-            msg = "'text' can't be None when 'position' is given."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                required="text", reason="Required when 'position' is set."
+            )
         if is_nonstr_iter(text):
             raise GMTTypeError(
                 type(text),
@@ -208,11 +208,11 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
             )
 
     if textfiles is not None and text is not None:
-        msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="text", reason="Required when 'x' and 'y' are set."
+        )
 
     # Arguments that can accept arrays.
     array_args = [

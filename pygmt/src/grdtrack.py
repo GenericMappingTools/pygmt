@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -197,7 +197,6 @@ def grdtrack(
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    $region
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within the grid domain].
@@ -255,9 +254,10 @@ def grdtrack(
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    $verbose
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
+    $verbose
+    $region
     $aspatial
     $binary
     $nodata
@@ -299,16 +299,15 @@ def grdtrack(
     ... )
     """
     if points is not None and kwargs.get("E") is not None:
-        msg = "Can't set both 'points' and 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["points", "profile"])
 
     if points is None and kwargs.get("E") is None:
-        msg = "Must give 'points' or set 'profile'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_least_one=["points", "profile"])
 
     if hasattr(points, "columns") and newcolname is None:
-        msg = "Please pass in a str to 'newcolname'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="newcolname", reason="Pass in a string to 'newcolname'."
+        )
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
