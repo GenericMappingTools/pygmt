@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTParameterError
+==================================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTParameterError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
