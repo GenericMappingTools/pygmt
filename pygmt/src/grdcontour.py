@@ -39,13 +39,13 @@ def grdcontour(
     self,
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -94,16 +94,12 @@ def grdcontour(
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    $projection
-    $region
-    $frame
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    $verbose
     pen : str or list
         [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].
         *type*, if present, can be **a** for annotated contours or **c** for regular
@@ -114,8 +110,6 @@ def grdcontour(
         contour lines are taken from the CPT (see ``levels``). If **+cf** is
         appended the colors from the CPT file are applied to the contour annotations.
         Select **+c** for both effects.
-    $panel
-    $coltypes
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -123,6 +117,12 @@ def grdcontour(
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $coltypes
     $perspective
     $transparency
 
