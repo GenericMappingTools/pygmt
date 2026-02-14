@@ -232,7 +232,7 @@ class Figure:
             raise GMTValueError(
                 transparent,
                 description="value for parameter 'transparent'",
-                reason=f"Transparency unavailable for '{ext}', only for png and kml.",
+                reason=f"Transparency unavailable for {ext!r}, only for png and kml.",
             )
         if anti_alias:
             kwargs["Qt"] = 2
