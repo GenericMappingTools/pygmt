@@ -231,9 +231,9 @@ def project(  # noqa: PLR0913
 
     # Input validation for only one geometry parameter
     geometry_params = [
-        kwargs.get("A") is not None, 
-        kwargs.get("E", endpoint) is not None, 
-        kwargs.get("T", pole) is not None, 
+        kwargs.get("A") is not None,
+        kwargs.get("E", endpoint) is not None,
+        kwargs.get("T", pole) is not None,
     ]
     if sum(geometry_params) > 1:
         msg = "Must specify only one of 'azimuth', 'endpoint', or 'pole'."
