@@ -12,8 +12,8 @@
 name: GMT Dev Tests
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main, ci/test-dev ]
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
     paths:
@@ -96,8 +96,8 @@ jobs:
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
         uses: actions/checkout@v6.0.1
         with:
-          repository: 'GenericMappingTools/gmt'
-          ref: ${{ matrix.gmt_git_ref }}
+          repository: 'Chuan1937/gmt'
+          ref: 'grdpaste'
           path: 'gmt'
           persist-credentials: false
 
