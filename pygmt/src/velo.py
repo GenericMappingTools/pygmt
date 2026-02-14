@@ -40,14 +40,14 @@ def velo(  # noqa : PLR0913
     data: PathLike | TableLike | None = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -174,14 +174,11 @@ def velo(  # noqa : PLR0913
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    $projection
-    $region
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    $frame
     $cmap
     rescale : str
         Can be used to rescale the uncertainties of velocities (``spec="e"``
@@ -228,7 +225,6 @@ def velo(  # noqa : PLR0913
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
-    $verbose
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -246,6 +242,10 @@ def velo(  # noqa : PLR0913
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
+    $projection
+    $region
+    $frame
+    $verbose
     $panel
     $nodata
     $find
