@@ -53,7 +53,7 @@ def contour(  # noqa: PLR0913
     Contour table data by direct triangulation.
 
     Takes a matrix, (x, y, z) triplets, or a file name as input and plots,
-    lines, polygons, or symbols at those locations on a map.
+    lines, polygons, or symbols at those locations on a plot.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 

@@ -91,7 +91,7 @@ COMMON_DOCSTRINGS = {
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
         frame : bool, str, or list
-            Set map boundary
+            Set plot boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
     "gap": r"""
         gap : str or list
@@ -277,7 +277,7 @@ COMMON_DOCSTRINGS = {
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+            - *zlevel*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
 
