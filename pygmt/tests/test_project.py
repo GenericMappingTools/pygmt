@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -90,3 +90,38 @@ def test_project_incorrect_parameters():
     with pytest.raises(GMTParameterError):
         # Using `generate` with `convention`
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
+
+
+@pytest.mark.parametrize(
+    ("kwargs"),
+    [
+        {
+            "center": [0, -1],
+            "generate": 0.5,
+            "data": [[0, 0]],
+            "azimuth": 45,
+            "endpoint": [0, 1],
+        },
+        {
+            "center": [0, -1],
+            "generate": 0.5,
+            "data": [[0, 0]],
+            "azimuth": 45,
+            "pole": [0, 90],
+        },
+        {
+            "center": [0, -1],
+            "generate": 0.5,
+            "data": [[0, 0]],
+            "endpoint": [0, 1],
+            "pole": [0, 90],
+        },
+    ],
+)
+def test_project_geometry_definition_validation(kwargs):
+    """
+    Validate input validation for mutually
+    exclusive projection geometry parameters.
+    """
+    with pytest.raises(GMTInvalidInput):
+        project(**kwargs)

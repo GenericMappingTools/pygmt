@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -228,6 +228,16 @@ def project(  # noqa: PLR0913
         )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTParameterError(at_most_one=["convention", "generate"])
+
+    # Input validation for only one geometry parameter
+    geometry_params = [
+        kwargs.get("A") is not None, 
+        kwargs.get("E", endpoint) is not None, 
+        kwargs.get("T", pole) is not None, 
+    ]
+    if sum(geometry_params) > 1:
+        msg = "Must specify only one of 'azimuth', 'endpoint', or 'pole'."
+        raise GMTInvalidInput(msg)
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
