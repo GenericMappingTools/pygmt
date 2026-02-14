@@ -55,7 +55,7 @@ def grdsample(
     with ``interpolation``. Note that using ``region`` only is equivalent to
     :func:`pygmt.grdcut` or ``grdedit -S``. ``grdsample`` safely creates a fine mesh
     from a coarse one; the converse may suffer aliasing unless the data are filtered
-    :func:`pygmt.grdfilter` or ``grdfft``.
+    using :func:`pygmt.grdfilter` or ``grdfft``.
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
