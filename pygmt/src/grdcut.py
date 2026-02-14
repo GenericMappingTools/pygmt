@@ -61,8 +61,6 @@ def grdcut(
         or an image, so we need to specify the raster kind explicitly. The default is
         ``"grid"``.
     $outgrid
-    $projection
-    $region
     extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
@@ -87,7 +85,8 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
-
+    $projection
+    $region
     $verbose
     $coltypes
 

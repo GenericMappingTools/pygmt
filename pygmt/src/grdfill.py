@@ -131,8 +131,8 @@ def grdfill(
         is ignored.
 
     $region
-    $coltypes
     $verbose
+    $coltypes
 
     Returns
     -------

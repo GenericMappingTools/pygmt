@@ -52,14 +52,14 @@ def plot(  # noqa: PLR0912, PLR0913
     direction=None,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -116,8 +116,6 @@ def plot(  # noqa: PLR0912, PLR0913
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    $projection
-    $region
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -141,7 +139,6 @@ def plot(  # noqa: PLR0912, PLR0913
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    $frame
     $cmap
     offset : str
         *dx*/*dy*.
@@ -210,7 +207,6 @@ def plot(  # noqa: PLR0912, PLR0913
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
     $pen
-    $verbose
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -220,6 +216,10 @@ def plot(  # noqa: PLR0912, PLR0913
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
+    $projection
+    $region
+    $frame
+    $verbose
     $aspatial
     $binary
     $panel
