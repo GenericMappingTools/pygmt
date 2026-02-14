@@ -39,7 +39,7 @@ def image(  # noqa: PLR0913
     r"""
     Plot raster or EPS images.
 
-    Reads an Encapsulated PostScript file or a raster image file and plot it on a map.
+    Reads an Encapsulated PostScript file or a raster image file and plot it on a plot.
     The image can be scaled arbitrarily, and 1-bit raster images can be:
 
     - inverted, i.e., black pixels (on) become white (off) and vice versa.
