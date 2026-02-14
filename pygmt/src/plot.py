@@ -196,7 +196,7 @@ def plot(  # noqa: PLR0912, PLR0913
         [Default plots points whose coordinates are strictly inside the
         frame boundaries only].
         The parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360-longitude) maps we
+        clipped to the plot region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
