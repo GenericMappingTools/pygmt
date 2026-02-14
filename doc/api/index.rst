@@ -18,8 +18,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements
-~~~~~~~~~~~~~~~~~~~~~
+Plotting embellishments
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated

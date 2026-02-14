@@ -91,7 +91,7 @@ COMMON_DOCSTRINGS = {
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
         frame : bool, str, or list
-            Set map boundary
+            Set plot boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
     "gap": r"""
         gap : str or list
