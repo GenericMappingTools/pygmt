@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -98,10 +98,11 @@ def test_project_geometry_definition_validation(dataframe):
     exclusive projection geometry parameters.
     """
     with pytest.raises(GMTParameterError):
-        project(center= [0, -1],
-            generate= 0.5,
+        project(
+            center=[0, -1],
+            generate=0.5,
             data=dataframe,
             endpoint=[0, 1],
             azimuth=45,
-            pole=[0, 90],)
-        
+            pole=[0, 90],
+        )
