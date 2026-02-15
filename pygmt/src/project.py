@@ -236,8 +236,7 @@ def project(  # noqa: PLR0913
         kwargs.get("T", pole) is not None,
     ]
     if sum(geometry_params) > 1:
-        msg = "Must specify only one of 'azimuth', 'endpoint', or 'pole'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["azimuth", "endpoint", "pole"])
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
