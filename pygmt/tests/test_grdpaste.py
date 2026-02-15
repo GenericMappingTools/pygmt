@@ -72,6 +72,7 @@ def test_grdpaste_file_in_xarray_out(grid_top, grid_bottom):
         assert isinstance(result, xr.DataArray)
         assert result.shape == (6, 4)
 
+
 # TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) < Version("6.7"),
