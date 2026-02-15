@@ -62,8 +62,6 @@ def sphdistance(
         Arrays of x and y coordinates.
     $outgrid
     $spacing
-    $region
-    $verbose
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates
@@ -99,6 +97,8 @@ def sphdistance(
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
         [Default performs the Voronoi construction on input data].
+    $region
+    $verbose
 
     Returns
     -------
