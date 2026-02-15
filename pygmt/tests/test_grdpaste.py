@@ -4,7 +4,9 @@ Test pygmt.grdpaste.
 
 import pytest
 import xarray as xr
+from packaging.version import Version
 from pygmt import grdcut, grdpaste
+from pygmt.clib import __gmt_version__
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -33,6 +35,11 @@ def fixture_grid_bottom(grid):
     return grdcut(grid, region=[-53, -49, -22, -19])
 
 
+# TODO(GMT>=6.6.0): Remove the xfail marker for GMT<6.6.0.
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.6.0"),
+    reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
+)
 def test_grdpaste(grid_top, grid_bottom):
     """
     Test grdpaste by pasting two grids together along their common edge.
@@ -49,6 +56,11 @@ def test_grdpaste(grid_top, grid_bottom):
     assert result.max().values == max(grid_top.max().values, grid_bottom.max().values)
 
 
+# TODO(GMT>=6.6.0): Remove the xfail marker for GMT<6.6.0.
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.6.0"),
+    reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
+)
 def test_grdpaste_outgrid(grid_top, grid_bottom):
     """
     Test grdpaste with outgrid parameter.

@@ -26,6 +26,8 @@ def grdpaste(
     """
     Join two grids along their common edge.
 
+    Requires GMT dev version (>=6.6.0).
+
     Combine ``grid1`` and ``grid2`` into a single grid by pasting them together
     along their common edge. The two input grids must have the same grid spacings
     and registration, and must have one edge in common. If in doubt, check with
