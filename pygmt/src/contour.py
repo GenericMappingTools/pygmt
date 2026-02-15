@@ -39,14 +39,14 @@ def contour(  # noqa: PLR0913
     z=None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -78,8 +78,6 @@ def contour(  # noqa: PLR0913
         $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    $projection
-    $region
     annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``levels``.
@@ -90,7 +88,6 @@ def contour(  # noqa: PLR0913
         - Adjust the appearance by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points and
           a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.
-    $frame
     levels : float, list, or str
         Specify the contour lines to generate.
 
@@ -139,6 +136,9 @@ def contour(  # noqa: PLR0913
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
+    $projection
+    $region
+    $frame
     $verbose
     $binary
     $panel

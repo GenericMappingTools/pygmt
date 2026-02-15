@@ -31,13 +31,13 @@ def grdimage(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     cores: int | bool = False,
     **kwargs,
 ):
@@ -89,7 +89,6 @@ def grdimage(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    $frame
     $cmap
     img_in : str
         [**r**].
@@ -132,7 +131,6 @@ def grdimage(  # noqa: PLR0913
         suitable modifiers [Default is no illumination]. **Note**: If the
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
-    $projection
     monochrome
         Force conversion to monochrome image using the (television) YIQ transformation.
         Cannot be used with ``nan_transparent``.
@@ -146,7 +144,9 @@ def grdimage(  # noqa: PLR0913
         3). If the input is a grid, use **+z** to select another grid value
         than NaN. If input is instead an image, append an alternate *color* to
         select another pixel value to be transparent [Default is ``"black"``].
+    $projection
     $region
+    $frame
     $verbose
     $panel
     $coltypes

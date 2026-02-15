@@ -22,13 +22,13 @@ def solar(  # noqa: PLR0913
     fill: str | None = None,
     pen: str | None = None,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -74,13 +74,13 @@ def solar(  # noqa: PLR0913
         integer number of hours (e.g., -8 or +5); fractional hours are truncated
         towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
         current UTC date and time].
-    $region
-    $projection
-    $frame
     fill
         Set color or pattern for filling terminators [Default is no fill].
     pen
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
+    $projection
+    $region
+    $frame
     $verbose
     $panel
     $perspective
