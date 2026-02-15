@@ -8,7 +8,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import GMTTempFile, build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdpaste"]
 
@@ -80,27 +80,13 @@ def grdpaste(
 
     with Session() as lib:
         with (
-            GMTTempFile(suffix=".nc") as tmpfile1,
-            GMTTempFile(suffix=".nc") as tmpfile2,
+            lib.virtualfile_in(check_kind="raster", data=grid1) as vfile1,
+            lib.virtualfile_in(check_kind="raster", data=grid2) as vfile2,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            if isinstance(grid1, xr.DataArray):
-                grid1.to_netcdf(tmpfile1.name)
-                in_grid1 = tmpfile1.name
-            else:
-                in_grid1 = grid1
-
-            if isinstance(grid2, xr.DataArray):
-                grid2.to_netcdf(tmpfile2.name)
-                in_grid2 = tmpfile2.name
-            else:
-                in_grid2 = grid2
-
-            with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
-                aliasdict["G"] = voutgrd
-                lib.call_module(
-                    module="grdpaste",
-                    args=build_arg_list(aliasdict, infile=[in_grid1, in_grid2]),
-                )
-                return lib.virtualfile_to_raster(
-                    vfname=voutgrd, kind="grid", outgrid=outgrid
-                )
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="grdpaste",
+                args=build_arg_list(aliasdict, infile=[vfile1, vfile2]),
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
