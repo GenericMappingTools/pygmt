@@ -35,9 +35,9 @@ def fixture_grid_bottom(grid):
     return grdcut(grid, region=[-53, -49, -22, -19])
 
 
-# TODO(GMT>=6.6.0): Remove the xfail marker for GMT<6.6.
+# TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.6"),
+    condition=Version(__gmt_version__) < Version("6.7"),
     reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
 )
 def test_grdpaste(grid_top, grid_bottom):
@@ -56,9 +56,9 @@ def test_grdpaste(grid_top, grid_bottom):
     assert result.max().values == max(grid_top.max().values, grid_bottom.max().values)
 
 
-# TODO(GMT>=6.6.0): Remove the xfail marker for GMT<6.6.
+# TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.6"),
+    condition=Version(__gmt_version__) < Version("6.7"),
     reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
 )
 def test_grdpaste_outgrid(grid_top, grid_bottom):
