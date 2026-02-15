@@ -68,10 +68,6 @@ def grd2xyz(
         **f** to start at 1 (Fortran-style counting). Alternatively, append
         **i** to write just the two columns *index* and *z*, where *index*
         is the 1-D indexing that GMT uses when referring to grid nodes.
-    $region
-        Adding ``region`` will select a subsection of the grid. If this
-        subsection exceeds the boundaries of the grid, only the common region
-        will be output.
     weight : str
         [**a**\ [**+u**\ *unit*]\|\ *weight*].
         Write out *x,y,z,w*\ , where *w* is the supplied *weight* (or 1 if not
@@ -83,7 +79,6 @@ def grd2xyz(
         this by appending **+u**\ *unit*. For such grids, the area
         varies with latitude and also sees special cases for
         gridline-registered layouts at sides, corners, and poles.
-    $verbose
     convention : str
         [*flags*].
         Write a 1-column ASCII [or binary] table. Output will be organized
@@ -114,6 +109,11 @@ def grd2xyz(
         - **d**: 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
+    $region
+        Adding ``region`` will select a subsection of the grid. If this
+        subsection exceeds the boundaries of the grid, only the common region
+        will be output.
+    $verbose
     $binary
     $nodata
     $coltypes

@@ -42,7 +42,6 @@ def wiggle(  # noqa: PLR0913
     z=None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
-    label: str | None = None,
     label_alignment: Literal["left", "right"] | None = None,
     positive_fill: str | None = None,
     negative_fill: str | None = None,
@@ -52,9 +51,10 @@ def wiggle(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    label: str | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
-    incols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ):
     r"""

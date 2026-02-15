@@ -12,7 +12,7 @@ import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -558,34 +558,36 @@ def use_alias(**aliases):
                 elif short_param in kwargs:
                     msg = (
                         f"Short-form parameter ({short_param}) is not recommended. "
-                        f"Use long-form parameter '{long_alias}' instead."
+                        f"Use long-form parameter {long_alias!r} instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
             # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                msg = (
-                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
-                    "Use Figure.timestamp() instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
+                        "Use Figure.timestamp() instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
 
             # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                msg = (
-                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(xshift=...) instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                        "Use Figure.shift_origin(xshift=...) instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
 
             # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                msg = (
-                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(yshift=...) instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                        "Use Figure.shift_origin(yshift=...) instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
-
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
@@ -627,7 +629,7 @@ def kwargs_to_strings(**conversions):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
@@ -682,7 +684,7 @@ def kwargs_to_strings(**conversions):
     ...     print(offset, end=" ")
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
@@ -703,7 +705,7 @@ def kwargs_to_strings(**conversions):
         if fmt not in separators:
             raise GMTValueError(
                 fmt,
-                description=f"conversion type for parameter '{arg}'",
+                description=f"conversion type for parameter {arg!r}",
                 choices=separators.keys(),
             )
 
@@ -824,9 +826,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
                         reason=f"{oldname!r} is deprecated and {newname!r} is recommended.",
                     )
                 msg = (
-                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f"The {oldname!r} parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
-                    f" Please use '{newname}' instead."
+                    f" Please use {newname!r} instead."
                 )
                 warnings.warn(msg, category=FutureWarning, stacklevel=2)
                 kwargs[newname] = kwargs.pop(oldname)
