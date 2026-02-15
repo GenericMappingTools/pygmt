@@ -35,6 +35,43 @@ def fixture_grid_bottom(grid):
     return grdcut(grid, region=[-53, -49, -22, -19])
 
 
+def test_grdpaste_file_in_file_out(grid_top, grid_bottom):
+    """
+    Test grdpaste with file input and file output.
+    """
+    with (
+        GMTTempFile(suffix=".nc") as tmp1,
+        GMTTempFile(suffix=".nc") as tmp2,
+        GMTTempFile(suffix=".nc") as tmpout,
+    ):
+        grid_top.to_netcdf(tmp1.name)
+        grid_bottom.to_netcdf(tmp2.name)
+        result = grdpaste(grid1=tmp1.name, grid2=tmp2.name, outgrid=tmpout.name)
+        assert result is None  # grdpaste returns None if output to a file
+        temp_grid = xr.load_dataarray(tmpout.name, engine="gmt", raster_kind="grid")
+        assert isinstance(temp_grid, xr.DataArray)
+        assert temp_grid.shape == (6, 4)
+
+
+# TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.7"),
+    reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
+)
+def test_grdpaste_file_in_xarray_out(grid_top, grid_bottom):
+    """
+    Test grdpaste with file input and xarray output.
+    """
+    with (
+        GMTTempFile(suffix=".nc") as tmp1,
+        GMTTempFile(suffix=".nc") as tmp2,
+    ):
+        grid_top.to_netcdf(tmp1.name)
+        grid_bottom.to_netcdf(tmp2.name)
+        result = grdpaste(grid1=tmp1.name, grid2=tmp2.name)
+        assert isinstance(result, xr.DataArray)
+        assert result.shape == (6, 4)
+
 # TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
 @pytest.mark.xfail(
     condition=Version(__gmt_version__) < Version("6.7"),
