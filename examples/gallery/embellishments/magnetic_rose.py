@@ -2,8 +2,8 @@
 Magnetic rose
 =============
 
-The method :meth:`pygmt.Figure.magnetic_rose` can be used to add a magnetic rose
-to a map or plot. This example shows how such a magnetic rose can be customized.
+The method :meth:`pygmt.Figure.magnetic_rose` can be used to add a magnetic rose to a
+map. This example shows how such a magnetic rose can be customized.
 """
 
 # %%
@@ -35,8 +35,8 @@ with pygmt.config(
         declination=14.3,
         # Adjust the label added to the declination arrow
         # declination_label="14.3 N°E",  # white spaces are not supported
-        # Add labels for the geographic directions. Use a * to get a North star.
-        # Use "" to skip a label.
+        # Add labels for the geographic directions. Use a * to get a North star and
+        # "" to skip a label
         labels=["W", "E", "South", "*"],
         # Draw an outer circle with the provided pen
         outer_pen="1p,red",
