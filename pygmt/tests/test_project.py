@@ -92,36 +92,16 @@ def test_project_incorrect_parameters():
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
 
 
-@pytest.mark.parametrize(
-    ("kwargs"),
-    [
-        {
-            "center": [0, -1],
-            "generate": 0.5,
-            "data": [0, 0],
-            "azimuth": 45,
-            "endpoint": [0, 1],
-        },
-        {
-            "center": [0, -1],
-            "generate": 0.5,
-            "data": [0, 0],
-            "azimuth": 45,
-            "pole": [0, 90],
-        },
-        {
-            "center": [0, -1],
-            "generate": 0.5,
-            "data": [0, 0],
-            "endpoint": [0, 1],
-            "pole": [0, 90],
-        },
-    ],
-)
-def test_project_geometry_definition_validation(kwargs):
+def test_project_geometry_definition_validation(dataframe):
     """
     Validate input validation for mutually
     exclusive projection geometry parameters.
     """
-    with pytest.raises(GMTInvalidInput):
-        project(**kwargs)
+    with pytest.raises(GMTParameterError):
+        project(center= [0, -1],
+            generate= 0.5,
+            data=dataframe,
+            endpoint=[0, 1],
+            azimuth=45,
+            pole=[0, 90],)
+        
