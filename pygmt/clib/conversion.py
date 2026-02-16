@@ -109,16 +109,16 @@ def dataarray_to_matrix(
             # Calculate the increment if irregular spacing is found.
             coord_inc = (coord[-1] - coord[0]) / (coord.size - 1)
             msg = (
-                f"Grid may have irregular spacing in the '{dim}' dimension, "
+                f"Grid may have irregular spacing in the {dim!r} dimension, "
                 "but GMT only supports regular spacing. Calculated regular spacing "
-                f"{coord_inc} is assumed in the '{dim}' dimension."
+                f"{coord_inc} is assumed in the {dim!r} dimension."
             )
             warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
             raise GMTValueError(
                 coord_inc,
                 description="grid increment",
-                reason=f"Grid has a zero increment in the '{dim}' dimension.",
+                reason=f"Grid has a zero increment in the {dim!r} dimension.",
             )
         region.extend(
             [

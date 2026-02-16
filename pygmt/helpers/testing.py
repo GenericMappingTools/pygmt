@@ -195,4 +195,4 @@ def skip_if_no(package):
         has_package = True
     except ImportError:
         has_package = False
-    return pytest.mark.skipif(not has_package, reason=f"Could not import '{package}'")
+    return pytest.mark.skipif(not has_package, reason=f"Could not import {package!r}")

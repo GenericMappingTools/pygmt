@@ -36,9 +36,9 @@ def xyz2grd(
     spacing: Sequence[float | str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -84,9 +84,6 @@ def xyz2grd(
         *x* and *y* as *z* is not consulted). Append **z** to sum multiple
         values that belong to the same node.
     $spacing
-    $projection
-    $region
-    $verbose
     convention : str
         [*flags*].
         Read a 1-column ASCII [or binary] table. This assumes that all the
@@ -127,6 +124,9 @@ def xyz2grd(
         each input record to have a single value, while the former can handle
         multiple values per record but can only parse regular floating point
         values. Translate incoming *z*-values via the ``incols`` parameter.
+    $projection
+    $region
+    $verbose
     $binary
     $nodata
     $find
