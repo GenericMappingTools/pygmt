@@ -156,3 +156,11 @@ def test_grdfill_inquire_and_fill(grid):
     """
     with pytest.raises(GMTParameterError):
         grdfill(grid=grid, inquire=True, constant_fill=20)
+    with pytest.raises(GMTParameterError):
+        grdfill(grid=grid, inquire=True, grid_fill=grid)
+    with pytest.raises(GMTParameterError):
+        grdfill(grid=grid, inquire=True, neighbor_fill=True)
+    with pytest.raises(GMTParameterError):
+        grdfill(grid=grid, inquire=True, spline_fill=True)
+    with pytest.raises(GMTParameterError):
+        grdfill(grid=grid, constant_fill=20, neighbor_fill=True)

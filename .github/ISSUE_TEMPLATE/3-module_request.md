@@ -27,6 +27,10 @@ labels: ["feature request"]
 - [ ] ~~`-X`/`-Y`~~: Use `Figure.shift_origin` instead.
 - [ ] ~~`--PAR=value`~~: Use `pygmt.config` instead.
 
+## Related GMT configurations
+
+*List any related GMT configurations that may affect the behavior.*
+
 ## Notes on Input Formats
 
 *Add any notes on the input formats, especially the meaning of columns.*
