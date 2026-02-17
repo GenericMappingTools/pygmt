@@ -82,8 +82,8 @@ def grdpaste(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid1) as vfile1,
-            lib.virtualfile_in(check_kind="raster", data=grid2) as vfile2,
+            lib.virtualfile_in(check_kind="raster", data=grid1) as vingrd1,
+            lib.virtualfile_in(check_kind="raster", data=grid2) as vingrd2,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
