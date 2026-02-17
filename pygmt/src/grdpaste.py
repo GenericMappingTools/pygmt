@@ -89,6 +89,6 @@ def grdpaste(
             aliasdict["G"] = voutgrd
             lib.call_module(
                 module="grdpaste",
-                args=build_arg_list(aliasdict, infile=[vfile1, vfile2]),
+                args=build_arg_list(aliasdict, infile=[vingrd1, vingrd2]),
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
