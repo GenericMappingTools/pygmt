@@ -92,7 +92,7 @@ def test_project_incorrect_parameters():
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
 
 
-def test_project_geometry_definition_validation(dataframe):
+def test_project_geometry_definition_validation():
     """
     Validate input validation for mutually
     exclusive projection geometry parameters.
