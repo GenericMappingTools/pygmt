@@ -25,6 +25,7 @@ from pygmt.src import (
 
 
 @xr.register_dataarray_accessor("gmt")
+@xr.register_dataset_accessor("gmt")
 class GMTDataArrayAccessor:
     """
     GMT accessor for :class:`xarray.DataArray`.
