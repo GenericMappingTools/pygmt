@@ -1,8 +1,8 @@
-# Test PyGMT with GMT legacy versions on Linux/macOS/Windows
+# Test PyGMT with GMT legacy versions and old Python dependencies on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the minor
-# baseline image changes between GMT versions, the workflow only runs the tests but
-# doesn't do image comparisons.
+# This workflow runs regular PyGMT tests with GMT legacy versions and old versions of
+# all optional and required Python dependencies. Due to minor baseline image changes
+# between GMT versions, the workflow runs the tests but doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
@@ -12,7 +12,7 @@ on:
   # push:
   #   branches: [ main ]
   # Uncomment the 'pull_request' line below to trigger the workflow in PR
-  # pull_request:
+  pull_request:
     # types: [ready_for_review]
     # paths:
     #  - 'pygmt/**'
@@ -60,23 +60,7 @@ jobs:
           create-args: >-
             python=3.12
             gmt=${{ matrix.gmt_version }}
-            ghostscript
-            numpy=2.0
-            pandas=2.2
-            xarray=2024.5
-            packaging=24.2
-            contextily=1.5
-            geopandas=1.0
-            ipython
-            pyarrow-core=16
-            rioxarray
-            sphinx-gallery
-            make
-            pip
-            python-build
-            pytest
-            pytest-doctestplus
-            pytest-mpl
+            ghostscript<10.04
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -89,10 +73,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      # Install uv package manager
+      - name: Install uv
+        uses: astral-sh/setup-uv@803947b9bd8e9f986429fa0c5a41c367cd732b41 # v7.2.1
+        with:
+          activate-environment: true
+          python-version: 3.12
+
       # Install the package that we want to test
       - name: Install the package
-        run: make install
+        run: |
+          uv run --with pip==24 --resolution lowest-direct --all-extras --dev make install
+          uv pip list
 
       # Run the tests but skip images
       - name: Run tests
-        run: make test_no_images PYTEST_EXTRA="-r P"
+        run: uv run --with pytest==8,pytest-mpl==0.17,pytest-doctestplus==1.2 --resolution lowest-direct --all-extras --dev make test_no_images PYTEST_EXTRA="-r P"
+        env:
+          GMT_LIBRARY_PATH: $CONDA_PREFIX/lib
