@@ -70,7 +70,6 @@ jobs:
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
           --exclude "^https://stackoverflow.com/a/69170441"
-          --verbose
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
