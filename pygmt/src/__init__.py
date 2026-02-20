@@ -25,6 +25,7 @@ from pygmt.src.grdhisteq import grdhisteq
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
+from pygmt.src.grdmix import grdmix
 from pygmt.src.grdproject import grdproject
 from pygmt.src.grdsample import grdsample
 from pygmt.src.grdtrack import grdtrack
