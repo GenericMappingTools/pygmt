@@ -118,7 +118,7 @@ def rose(  # noqa: PLR0913
          to 1.
 
     frame : str
-         Set map boundary frame and axes attributes. Remember that *x*
+         Set plot boundary frame and axes attributes. Remember that *x*
          here is radial distance and *y* is azimuth. The y label may be
          used to plot a figure caption. The scale bar length is determined
          by the radial gridline spacing.

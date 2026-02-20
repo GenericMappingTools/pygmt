@@ -77,7 +77,7 @@ fig.plot3d(
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
-    # Set map dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
+    # Set plot dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
     region=region,
     # Set frame parameters
     frame=[

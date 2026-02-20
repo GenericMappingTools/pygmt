@@ -105,12 +105,12 @@ def text_(  # noqa: PLR0912, PLR0913
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
     position
-        Set reference point on the map for the text by using x, y
+        Set reference point on the plot for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a
         :doc:`2-character justification code </techref/justification_codes>`.
         For example, ``position="TL"`` plots the text at the Top Left corner
-        of the map.
+        of the plot.
     text
         The text string, or an array of strings to plot on the figure.
     angle: float, str, bool or list

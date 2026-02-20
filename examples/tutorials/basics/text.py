@@ -2,7 +2,7 @@
 Plotting text
 =============
 
-It is often useful to add text annotations to a plot or map. This is handled by the
+It is often useful to add text annotations to a plot. This is handled by the
 :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 """
 
@@ -189,7 +189,7 @@ fig.show()
 # specified to set the reference point for the text on the plot. As for the ``justify``
 # parameter, the ``position`` parameter is specified by a
 # :doc:`2-character justification code </techref/justification_codes>`.
-# This can be helpful to add a tag to a subplot or text labels out of the plot or map
+# This can be helpful to add a tag to a subplot or text labels out of the plot
 # frame, e.g., for depth slices.
 
 fig = pygmt.Figure()
@@ -208,7 +208,7 @@ fig.text(
 fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
-# Right: Add a text label outside of the plot or map frame
+# Right: Add a text label outside of the plot frame
 fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
 
 fig.text(
@@ -216,7 +216,7 @@ fig.text(
     position="TC",  # Top Center
     justify="MC",  # Middle Center
     offset="0c/0.2c",
-    no_clip=True,  # Allow plotting outside of the map or plot frame
+    no_clip=True,  # Allow plotting outside of the plot frame
 )
 
 fig.show()
