@@ -78,10 +78,10 @@ def test_grdpaste_file_in_xarray_out(grid):
         assert result.shape == (6, 4)
 
 
-# TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
+# TODO(GMT>6.6.0): Remove the xfail marker.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.7"),
-    reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
+    condition=Version(__gmt_version__) > Version("6.6.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8901",
 )
 def test_grdpaste(grid_top, grid_bottom):
     """
@@ -99,10 +99,10 @@ def test_grdpaste(grid_top, grid_bottom):
     assert result.max().values == max(grid_top.max().values, grid_bottom.max().values)
 
 
-# TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
+# TODO(GMT>6.6.0): Remove the xfail marker.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.7"),
-    reason="Requires GMT dev version (https://github.com/GenericMappingTools/gmt/pull/8901)",
+    condition=Version(__gmt_version__) > Version("6.6.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8901",
 )
 def test_grdpaste_outgrid(grid_top, grid_bottom):
     """
