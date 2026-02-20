@@ -9,16 +9,74 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfilter"]
 
 
+def _alias_option_F(  # noqa: N802
+    filter=None,  # noqa: A002
+    width=None,
+    highpass=False,
+):
+    """
+    Helper function to create the alias list for the -F option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(F=_alias_option_F(**kwargs)).get("F")
+    >>> parse(filter="boxcar", width=2.0)
+    'b2.0'
+    >>> parse(filter="cosarch", width=(5, 10))
+    'c5/10'
+    >>> parse(filter="gaussian", width=100, highpass=True)
+    'g100+h'
+    """
+    _filter_mapping = {
+        "boxcar": "b",
+        "cosarch": "c",
+        "gaussian": "g",
+        "minall": "l",
+        "minpos": "L",
+        "maxall": "u",
+        "maxneg": "U",
+    }
+    # Check if the 'filter' parameter is using the old GMT command string syntax.
+    _old_filter_syntax = isinstance(filter, str) and filter not in _filter_mapping
+
+    if _old_filter_syntax:
+        kwdict = {"width": width, "highpass": highpass}
+        if any(v is not None and v is not False for v in kwdict.values()):
+            raise GMTParameterError(
+                conflicts_with=("filter", kwdict.keys()),
+                reason="'filter' is specified using the unrecommended GMT command string syntax.",
+            )
+        return Alias(filter, name="filter")  # Deprecated raw GMT command string.
+
+    if filter is None or width is None:
+        raise GMTParameterError(required=["filter", "width"])
+
+    return [
+        Alias(filter, name="filter", mapping=_filter_mapping),
+        Alias(width, name="width", sep="/", size=2),
+        Alias(highpass, name="highpass", prefix="+h"),
+    ]
+
+
 @fmt_docstring
-@use_alias(D="distance", F="filter", f="coltypes")
-def grdfilter(
+@use_alias(D="distance", f="coltypes")
+def grdfilter(  # noqa: PLR0913
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    filter: Literal[  # noqa: A002
+        "boxcar", "cosarch", "gaussian", "minall", "minpos", "maxall", "maxneg"
+    ]
+    | str
+    | None = None,
+    width: float | Sequence[float] | None = None,
+    highpass: bool = False,
     spacing: Sequence[float | str] | None = None,
     nans: Literal["ignore", "replace", "preserve"] | None = None,
     toggle: bool = False,
@@ -29,7 +87,7 @@ def grdfilter(
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
-    r"""
+    """
     Filter a grid in the space (or time) domain.
 
     Filter a grid file in the space (or time) domain using one of the selected
@@ -45,6 +103,7 @@ def grdfilter(
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     $aliases
+       - F = filter, width, **+h**: highpass
        - G = outgrid
        - I = spacing
        - N = nans
@@ -58,19 +117,35 @@ def grdfilter(
     ----------
     $grid
     $outgrid
-    filter : str
-        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
-        [/*width2*\][*modifiers*].
-        Name of the filter type you wish to apply, followed by the *width*:
+    filter
+      The filter type. Choose among convolution and non-convolution filters.
 
-        - **b**: Box Car
-        - **c**: Cosine Arch
-        - **g**: Gaussian
-        - **o**: Operator
-        - **m**: Median
-        - **p**: Maximum Likelihood probability
-        - **h**: Histogram
+      Convolution filters include:
 
+      - ``"boxcar"``: All weights are equal.
+      - ``"cosarch"``: Weights follow a cosine arch curve.
+      - ``"gaussian"``: Weights are given by the Gaussian function, where filter width
+        is 6 times the conventional Gaussian sigma.
+
+      Non-convolution filters include:
+
+      - ``"minall"``: Return minimum of all values.
+      - ``"minpos"``: Return minimum of all positive values only.
+      - ``"maxall"``: Return maximum of all values.
+      - ``"maxneg"``: Return maximum of all negative values only.
+
+      **Note**: There are still a few other filter types available in GMT (e.g.,
+      histogram and mode filters), but they are not implemented in PyGMT yet. As a
+      workaround, pass the raw GMT command string to this parameter to use these other
+      filter types. Refer to :gmt-docs:`grdfilter.html#f` for the full syntax of this
+      parameter.
+    width
+        The full diameter width of the filter. It can be a single value for an isotropic
+        filter, or a pair of values for a rectangular filter (width in x- and
+        y-directions, requiring ``distance`` be either ``"p"`` or ``0``).
+    highpass
+        By default, the filter is a low-pass filter. If True, then the filter is a
+        high-pass filter. [Default is ``False``].
     distance : str
         State how the grid (x,y) relates to the filter *width*:
 
@@ -130,7 +205,8 @@ def grdfilter(
     >>> # and return a filtered grid (saved as netCDF file).
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
-    ...     filter="m600",
+    ...     filter="gaussian",
+    ...     width=600,
     ...     distance="4",
     ...     region=[150, 250, 10, 40],
     ...     spacing=0.5,
@@ -140,9 +216,19 @@ def grdfilter(
     >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return
     >>> # a filtered DataArray with the smoothed grid.
     >>> grid = pygmt.datasets.load_earth_relief()
-    >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
+    >>> smooth_field = pygmt.grdfilter(
+    ...     grid=grid, filter="gaussian", width=600, distance="4"
+    ... )
     """
+    if kwargs.get("F", filter) is None:
+        raise GMTParameterError(required="filter")
+
     aliasdict = AliasSystem(
+        F=_alias_option_F(
+            filter=filter,
+            width=width,
+            highpass=highpass,
+        ),
         I=Alias(spacing, name="spacing", sep="/", size=2),
         N=Alias(
             nans, name="nans", mapping={"ignore": "i", "replace": "r", "preserve": "p"}
