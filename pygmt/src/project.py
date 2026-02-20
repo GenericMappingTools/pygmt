@@ -13,6 +13,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     use_alias,
     validate_output_table_type,
@@ -20,12 +21,13 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("unit", "units", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="azimuth",
     F="convention",
     G="generate",
     N="flat_earth",
-    Q="unit",
+    Q="units",
     S="sort",
     Z="ellipse",
     f="coltypes",
@@ -174,7 +176,7 @@ def project(  # noqa: PLR0913
         Make a Cartesian coordinate transformation in the plane.
         [Default is ``False``; plane created with spherical trigonometry.]
 
-    unit : bool
+    units : bool
         Set units for :math:`x, y, r, s` to degrees and
         :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}` to km.
         [Default is ``False``; all arguments use the same units]
