@@ -9,16 +9,27 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdfilter"]
 
 
 @fmt_docstring
-@use_alias(D="distance", F="filter", f="coltypes")
+@use_alias(F="filter", f="coltypes")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
+    distance: Literal[
+        "pixel",
+        "cartesian",
+        "geo_cartesian",
+        "geo_flatearth1",
+        "geo_flatearth2",
+        "geo_spherical",
+        "geo_mercator",
+    ]
+    | None = None,
     spacing: Sequence[float | str] | None = None,
     nans: Literal["ignore", "replace", "preserve"] | None = None,
     toggle: bool = False,
@@ -45,6 +56,7 @@ def grdfilter(
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
     $aliases
+       - D = distance
        - G = outgrid
        - I = spacing
        - N = nans
@@ -71,27 +83,48 @@ def grdfilter(
         - **p**: Maximum Likelihood probability
         - **h**: Histogram
 
-    distance : str
-        State how the grid (x,y) relates to the filter *width*:
+    distance
+        Determine how grid (*x, y*) relates to filter *width* and how distances are
+        calculated. Valid values are list below. The first four options are fastest
+        because they allow weight matrix to be computed only once. The last three
+        options are slower because they recompute weights for each latitude.
 
-        - ``"p"``: grid (px,py) with *width* an odd number of pixels,
-          Cartesian distances.
-        - ``"0"``: grid (x,y) same units as *width*, Cartesian distances.
-        - ``"1"``: grid (x,y) in degrees, *width* in kilometers, Cartesian
-          distances.
-        - ``"2"``: grid (x,y) in degrees, *width* in km, dx scaled by
-          cos(middle y), Cartesian distances.
+        .. list-table::
+            :header-rows: 1
+            :widths: 16 32 20 32
 
-        The above options are fastest because they allow weight matrix to be
-        computed only once. The next three options are slower because they
-        recompute weights for each latitude.
-
-        - ``"3"``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),
-          Cartesian distance calculation.
-        - ``"4"``: grid (x,y) in degrees, *width* in km, Spherical distance
-          calculation.
-        - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units,
-          *width* in km, Spherical distance calculation.
+            * - Value
+              - Grid (x,y)
+              - Width
+              - Distance Calculation
+            * - ``"pixel"``
+              - Pixels (px, py)
+              - Odd number of pixels
+              - Cartesian
+            * - ``"cartesian"``
+              - Same units as *width*
+              - Any
+              - Cartesian
+            * - ``"geo_cartesian"``
+              - Degrees
+              - km
+              - Cartesian
+            * - ``"geo_flatearth1"``
+              - Degrees
+              - km
+              - Cartesian, dx scaled by cos(middle y)
+            * - ``"geo_flatearth2"``
+              - Degrees
+              - km
+              - Cartesian, dx scaled by cos(y) per row
+            * - ``"geo_spherical"``
+              - Degrees
+              - km
+              - Spherical (great circle)
+            * - ``"geo_mercator"``
+              - Mercator **-Jm1** img units
+              - km
+              - Spherical
     $spacing
     nans
         Determine how NaN-values in the input grid affect the filtered output grid.
@@ -131,7 +164,7 @@ def grdfilter(
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
-    ...     distance="4",
+    ...     distance="geo_spherical",
     ...     region=[150, 250, 10, 40],
     ...     spacing=0.5,
     ...     outgrid="filtered_pacific.nc",
@@ -140,9 +173,25 @@ def grdfilter(
     >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return
     >>> # a filtered DataArray with the smoothed grid.
     >>> grid = pygmt.datasets.load_earth_relief()
-    >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
+    >>> smoothed = pygmt.grdfilter(grid=grid, filter="g600", distance="geo_spherical")
     """
+    if kwargs.get("D", distance) is None:
+        raise GMTParameterError(required="distance")
+
     aliasdict = AliasSystem(
+        D=Alias(
+            distance,
+            name="distance",
+            mapping={
+                "pixel": "p",
+                "cartesian": 0,
+                "geo_cartesian": 1,
+                "geo_flatearth1": 2,
+                "geo_flatearth2": 3,
+                "geo_spherical": 4,
+                "geo_mercator": 5,
+            },
+        ),
         I=Alias(spacing, name="spacing", sep="/", size=2),
         N=Alias(
             nans, name="nans", mapping={"ignore": "i", "replace": "r", "preserve": "p"}
