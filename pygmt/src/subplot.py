@@ -127,9 +127,53 @@ def _alias_option_A(  # noqa: N802
     ]
 
 
+def _alias_option_Sc(sharex=False):  # noqa: N802
+    """
+    Helper function to create the alias for the -Sc option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(Sc=_alias_option_Sc(**kwargs)).get("Sc")
+    >>> parse(sharex=True)
+    ''
+    >>> parse(sharex="top")
+    't'
+    >>> parse(sharex="bottom")
+    'b'
+    >>> parse(sharex="b+l")
+    'b+l'
+    """
+    if isinstance(sharex, str) and "+" in sharex:  # Raw GMT command string.
+        return Alias(sharex, name="sharex")
+    return Alias(sharex, name="sharex", mapping={"top": "t", "bottom": "b"})
+
+
+def _alias_option_Sr(sharey=False):  # noqa: N802
+    """
+    Helper function to create the alias for the -Sr option.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(Sr=_alias_option_Sr(**kwargs)).get("Sr")
+    >>> parse(sharey=True)
+    ''
+    >>> parse(sharey="left")
+    'l'
+    >>> parse(sharey="right")
+    'r'
+    >>> parse(sharey="l+s")
+    'l+s'
+    """
+    if isinstance(sharey, str) and "+" in sharey:  # Raw GMT command string.
+        return Alias(sharey, name="sharey")
+    return Alias(sharey, name="sharey", mapping={"left": "l", "right": "r"})
+
+
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
+@use_alias(Ff="figsize", Fs="subsize", C="clearance")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(  # noqa: PLR0913
     self,
@@ -144,6 +188,8 @@ def subplot(  # noqa: PLR0913
     autolabel: str | bool = False,
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
+    sharex: Literal["top", "bottom"] | bool = False,
+    sharey: Literal["left", "right"] | bool = False,
     projection: str | None = None,
     frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
@@ -211,7 +257,7 @@ def subplot(  # noqa: PLR0913
         Draw a box around the subplot tag. See :class:`pygmt.params.Box` for details on
         how to specify the box.
 
-        **Notes on the use of the ``Box`` class:**
+        **Notes** on the use of the ``Box`` class:
 
         - The property ``clearance`` only accept one or two values.
         - The properties ``inner_pen``, ``inner_gap``, ``radius`` are not supported.
@@ -261,34 +307,28 @@ def subplot(  # noqa: PLR0913
         The actual gap created is always a sum of the margins for the two opposing sides
         (e.g., east plus west or south plus north margins) [Default is half the primary
         annotation font size, giving the full annotation font size as the default gap].
-    sharex : bool or str
-        Set subplot layout for shared x-axes. Use when all subplots in a column
-        share a common *x*-range. If ``sharex=True``, the first (i.e.,
-        **t**\ op) and the last (i.e., **b**\ ottom) rows will have
-        *x*-annotations; use ``sharex="t"`` or ``sharex="b"`` to select only
-        one of those two rows [both]. Append **+l** if annotated *x*-axes
-        should have a label [none]; optionally append the label if it is the
-        same for the entire subplot. Append **+t** to make space for subplot
-        titles for each row; use **+tc** for top row titles only [no subplot
-        titles].
-    sharey : bool or str
-        Set subplot layout for shared y-axes. Use when all subplots in a row
-        share a common *y*-range. If ``sharey=True``, the first (i.e.,
-        **l**\ eft) and the last (i.e., **r**\ ight) columns will have
-        *y*-annotations; use ``sharey="l"`` or ``sharey="r"`` to select only
-        one of those two columns [both]. Append **+l** if annotated *y*-axes
-        will have a label [none]; optionally, append the label if it is the
-        same for the entire subplot. Append **+p** to make all annotations
-        axis-parallel [horizontal]; if not used you may have to set
-        ``clearance`` to secure extra space for long horizontal annotations.
+    sharex
+        Set all subplots in a column to share a common *x*-range. If set to ``True``,
+        the first (i.e., top) and the last (i.e., bottom) rows will have x-annotations.
+        To specify only one of those two rows, use ``"top"`` or ``"bottom"``.
+    sharey
+        Set all subplots in a row to share a common y-range. If set to ``True``, the
+        first (i.e., left) and the last (i.e., right) columns will have *y*-annotations.
+        To specify only one of those two columns, use ``"left"`` or ``"right"``.
 
-        Notes for ``sharex``/``sharey``:
+        **Notes** for ``sharex``/``sharey``:
 
         - Labels and titles that depends on which row or column are specified
           as usual via a subplot's own ``frame`` setting.
         - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw
           horizontal and vertical lines between interior panels using selected
           pen [no lines].
+
+        **Notes**: The ``sharex`` and ``sharey`` are aliased to the ``-Sc`` and ``-Sr``
+        options of GMT's ``subplot`` module, which have more modifiers that are not
+        implemented in the current version of PyGMT. If you need more control, you can
+        pass the raw GMT command string to these two parameters as a temporary
+        workaround. For examples, ``sharex="t+l"``.
     title
         Set the overarching heading of the entire figure [Default is no heading]. Font
         is determined by :gmt-term:`FONT_HEADING`. Individual subplot can have titles
@@ -321,6 +361,8 @@ def subplot(  # noqa: PLR0913
             autolabel=autolabel,
         ),
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
+        Sc=_alias_option_Sc(sharex=sharex),
+        Sr=_alias_option_Sr(sharey=sharey),
         T=Alias(title, name="title"),
     ).add_common(
         B=frame,
