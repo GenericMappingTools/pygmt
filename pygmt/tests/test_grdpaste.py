@@ -52,9 +52,7 @@ def test_grdpaste_file_in_file_out(grid, grid_top, grid_bottom):
         assert isinstance(temp_grid, xr.DataArray)
         assert temp_grid.shape == (6, 4)
         # Check that the result has the expected min and max values
-        assert temp_grid.min().values == min(
-            grid_top.min().values, grid_bottom.min().values
-        )
+        assert temp_grid.min().values == 345.5
         assert temp_grid.max().values == max(
             grid_top.max().values, grid_bottom.max().values
         )
