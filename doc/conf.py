@@ -193,11 +193,13 @@ sphinx_gallery_conf = {
 
 # Options for HTML output.
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {}
+html_theme_options = {
+    "logo_only": True,
+}
 html_title = project
 html_short_title = project
 html_baseurl = f"{doc_url}/dev/" if isdev else f"{doc_url}/latest/"
-html_logo = ""
+html_logo = "_static/pygmt_logo.png"
 html_favicon = "_static/favicon.png"
 html_css_files = ["style.css"]
 html_static_path = ["_static"]

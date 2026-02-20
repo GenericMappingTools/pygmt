@@ -30,7 +30,6 @@
     {% endif %}
 {% endblock %}
 
-
 {%- block sidebartitle %}
    {# the logo helper function was removed in Sphinx 6 and deprecated since Sphinx 4 #}
    {# the master_doc variable was renamed to root_doc in Sphinx 4 (master_doc still exists in later Sphinx versions) #}
@@ -49,8 +48,7 @@
      </div>
    {%- endif %}
    {%- include "searchbox.html" %}
- {% endblock %}
-
+{% endblock %}
 
 {% block menu %}
     {{ super() }}
