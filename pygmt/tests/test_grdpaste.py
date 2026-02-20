@@ -80,7 +80,7 @@ def test_grdpaste_file_in_xarray_out(grid):
 
 # TODO(GMT>6.6.0): Remove the xfail marker.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) > Version("6.6.0"),
+    condition=Version(__gmt_version__) <= Version("6.6.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8901",
 )
 def test_grdpaste(grid_top, grid_bottom):
@@ -101,7 +101,7 @@ def test_grdpaste(grid_top, grid_bottom):
 
 # TODO(GMT>6.6.0): Remove the xfail marker.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) > Version("6.6.0"),
+    condition=Version(__gmt_version__) <= Version("6.6.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8901",
 )
 def test_grdpaste_outgrid(grid_top, grid_bottom):
