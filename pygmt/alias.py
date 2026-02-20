@@ -338,7 +338,9 @@ class AliasSystem(UserDict):
         for key, value in kwargs.items():
             match key:
                 case "B":
-                    alias = Alias(value, name="frame")
+                    # Mapping frame="none" to '-B+n'.
+                    _value = "+n" if value == "none" else value
+                    alias = Alias(_value, name="frame")
                 case "J":
                     alias = Alias(value, name="projection")
                 case "R":

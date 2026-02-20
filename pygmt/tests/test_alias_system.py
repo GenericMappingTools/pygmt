@@ -23,15 +23,15 @@ def func(
     A simple function to test the alias system.
     """
     aliasdict = AliasSystem(
-        R=Alias(region, name="region", sep="/", size=[4, 6]),
-        B=Alias(frame, name="frame"),
         U=[
             Alias(label, name="label"),
             Alias(text, name="text", prefix="+t"),
             Alias(offset, name="offset", prefix="+o", sep="/"),
         ],
     ).add_common(
+        B=frame,
         J=projection,
+        R=region,
         V=verbose,
         c=panel,
     )
@@ -100,9 +100,18 @@ def test_alias_system_multiple_aliases_short_form():
         func(text="efg", U="efg")
 
 
+def test_alias_system_common_parameter_frame():
+    """
+    Test that the alias system works with the 'frame' parameter.
+    """
+    assert func(frame="WSen") == ["-BWSen"]
+    assert func(frame=["WSen", "xaf", "yaf"]) == ["-BWSen", "-Bxaf", "-Byaf"]
+    assert func(frame="none") == ["-B+n"]
+
+
 def test_alias_system_common_parameter_verbose():
     """
-    Test that the alias system works with common parameters.
+    Test that the alias system works with the 'verbose' parameter.
     """
     # Test the verbose parameter.
     assert func(verbose="quiet") == ["-Vq"]

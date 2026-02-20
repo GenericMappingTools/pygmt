@@ -27,7 +27,7 @@ world["POP_EST"] *= 1e-6
 africa = world[world["CONTINENT"] == "Africa"].copy()
 
 fig = pygmt.Figure()
-fig.basemap(region=[-19.5, 53, -37.5, 38], projection="M10c", frame="+n")
+fig.basemap(region=[-19.5, 53, -37.5, 38], projection="M10c", frame="none")
 
 # First, we define the colormap to fill the polygons based on the "POP_EST" column.
 pygmt.makecpt(cmap="SCM/acton", series=(0, 100), reverse=True)
