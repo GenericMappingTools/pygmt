@@ -60,7 +60,7 @@ def test_grdpaste_file_in_file_out(grid, grid_top, grid_bottom):
 
 # TODO(GMT>=6.7): Remove the xfail marker for GMT<6.7.
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.7"),
+    condition=Version(__gmt_version__) > Version("6.6.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8901",
 )
 def test_grdpaste_file_in_xarray_out(grid):
