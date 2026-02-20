@@ -34,7 +34,7 @@ def test_magnetic_rose_complete():
         outer_pen="1p,red",
         inner_pen="1p,blue",
         declination=11.5,
-        declination_label="11.5°E",
+        declination_label="11.5 °E",
     )
     return fig
 
