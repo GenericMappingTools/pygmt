@@ -101,7 +101,6 @@ def test_project_geometry_definition_validation(dataframe):
         project(
             center=[0, -1],
             generate=0.5,
-            data=dataframe,
             endpoint=[0, 1],
             azimuth=45,
             pole=[0, 90],
