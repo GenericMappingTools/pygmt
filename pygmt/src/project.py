@@ -197,7 +197,7 @@ def project(  # noqa: PLR0913
         with *major* and *minor* axes given in km (unless ``flat_earth`` is
         given for a Cartesian ellipse) and the *azimuth* of the major axis in
         degrees. Append **+e** to adjust the increment set via ``generate`` so
-        that the the ellipse has equal distance increments [Default uses the
+        that the ellipse has equal distance increments [Default uses the
         given increment and closes the ellipse].  Instead, append **+n** to set
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
