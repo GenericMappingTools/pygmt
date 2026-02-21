@@ -96,12 +96,12 @@ def test_project_geometry_definition_validation():
     """
     Validate input validation for mutually
     exclusive projection geometry parameters.
-    """
+    kwdict = {"center": [0, -1], "data": dataframe}
     with pytest.raises(GMTParameterError):
-        project(
-            center=[0, -1],
-            generate=0.5,
-            endpoint=[0, 1],
-            azimuth=45,
-            pole=[0, 90],
-        )
+        project(endpoint=[0, 1], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(endpoint=[0, 1], pole=[0, 90], **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, endpoint=[0, 1], **kwdict)        
