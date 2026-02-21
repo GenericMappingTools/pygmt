@@ -231,7 +231,7 @@ def project(  # noqa: PLR0913
 
     # Input validation for only one geometry parameter
     geometry_params = [
-        kwargs.get("A") is not None,
+        kwargs.get("A", azimuth) is not None,
         kwargs.get("E", endpoint) is not None,
         kwargs.get("T", pole) is not None,
     ]
