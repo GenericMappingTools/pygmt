@@ -26,15 +26,14 @@ def grdpaste(
 
     Requires GMT dev version (>=6.6.0).
 
-    Combine ``grid1`` and ``grid2`` into a single grid by pasting them together
-    along their common edge. The two input grids must have the same grid spacings
-    and registration, and must have one edge in common. If in doubt, check with
-    :func:`pygmt.grdinfo` and use :func:`pygmt.grdcut` and/or
-    :func:`pygmt.grdsample` if necessary to prepare the edge joint. Note: For
-    geographical grids, you may have to use ``coltypes`` to handle periodic
-    longitudes unless the input grids are properly recognized as such via their
-    meta-data. For stitching multiple grids, see ``grdblend`` (not implemented in
-    PyGMT yet) instead.
+    Combine ``grid1`` and ``grid2`` into a single grid by pasting them together along
+    their common edge. The two input grids must have the same grid spacings and
+    registration, and must have one edge in common. If in doubt, check with
+    :func:`pygmt.grdinfo` and use :func:`pygmt.grdcut` and/or :func:`pygmt.grdsample` if
+    necessary to prepare the edge joint. Note: For geographical grids, you may have to
+    use ``coltypes`` to handle periodic longitudes unless the input grids are properly
+    recognized as such via their meta-data. For stitching multiple grids, see
+    ``grdblend`` (not implemented in PyGMT yet) instead.
 
     Full GMT docs at :gmt-docs:`grdpaste.html`.
 
