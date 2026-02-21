@@ -53,9 +53,7 @@ def test_grdpaste_file_in_file_out(grid, grid_top, grid_bottom):
         assert temp_grid.shape == (6, 4)
         # Check that the result has the expected min and max values
         assert temp_grid.min().values == 345.5
-        assert temp_grid.max().values == max(
-            grid_top.max().values, grid_bottom.max().values
-        )
+        assert temp_grid.max().values == 886.0
 
 
 # TODO(GMT>6.6.0): Remove the xfail marker for GMT<6.7.
