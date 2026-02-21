@@ -93,8 +93,8 @@ def test_grdpaste(grid_top, grid_bottom):
     # grid_top has 3x4, grid_bottom has 3x4, so result should have 6x4
     assert result.shape == (6, 4)
     # Check that the result has the expected min and max values
-    assert result.min().values == min(grid_top.min().values, grid_bottom.min().values)
-    assert result.max().values == max(grid_top.max().values, grid_bottom.max().values)
+    assert result.min().values == 345.5
+    assert result.max().values == 886.0
 
 
 # TODO(GMT>6.6.0): Remove the xfail marker.
