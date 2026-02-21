@@ -94,8 +94,8 @@ def test_project_incorrect_parameters():
 
 def test_project_geometry_definition_validation():
     """
-    Validate input validation for mutually
-    exclusive projection geometry parameters.
+    Validate input validation for mutually exclusive projection geometry parameters.
+    """
     kwdict = {"center": [0, -1], "data": dataframe}
     with pytest.raises(GMTParameterError):
         project(endpoint=[0, 1], azimuth=45, **kwdict)
