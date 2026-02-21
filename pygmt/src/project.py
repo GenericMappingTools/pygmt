@@ -229,6 +229,15 @@ def project(  # noqa: PLR0913
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTParameterError(at_most_one=["convention", "generate"])
 
+    # Input validation for only one geometry parameter
+    geometry_params = [
+        kwargs.get("A", azimuth) is not None,
+        kwargs.get("E", endpoint) is not None,
+        kwargs.get("T", pole) is not None,
+    ]
+    if sum(geometry_params) > 1:
+        raise GMTParameterError(at_most_one=["azimuth", "endpoint", "pole"])
+
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
