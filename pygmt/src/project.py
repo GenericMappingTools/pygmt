@@ -21,7 +21,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    A="azimuth",
     F="convention",
     G="generate",
     N="flat_earth",
@@ -37,6 +36,7 @@ def project(  # noqa: PLR0913
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    azimuth: float | None = None,
     center: Sequence[float | str] | None = None,
     endpoint: Sequence[float | str] | None = None,
     width: Sequence[float | str] | None = None,
@@ -111,6 +111,7 @@ def project(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`project.html`.
 
     $aliases
+       - A = azimuth
        - C = center
        - E = endpoint
        - L = length
@@ -126,19 +127,18 @@ def project(  # noqa: PLR0913
         $table_classes.
     $output_type
     $outfile
-
     center
         Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1
         or 2. If Definition 3 is used, then (*cx*, *cy*) are the coordinates of a point
         through which the oblique zero meridian (:math:`p = 0`) should pass.
         (*cx*, *cy*) is not required to be 90 degrees from the pole set by ``pole``.
-    azimuth : float or str
-        Define the azimuth of the projection (Definition 1).
-
+    azimuth
+        Set the azimuth of the projection (Definition 1). The azimuth is clockwise from
+        North (the y-axis) regardless of whether spherical or Cartesian coordinate
+        transformation is applied.
     endpoint
         (*bx*, *by*).
         Set the end point of the projection path (Definition 2).
-
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
@@ -197,7 +197,7 @@ def project(  # noqa: PLR0913
         with *major* and *minor* axes given in km (unless ``flat_earth`` is
         given for a Cartesian ellipse) and the *azimuth* of the major axis in
         degrees. Append **+e** to adjust the increment set via ``generate`` so
-        that the the ellipse has equal distance increments [Default uses the
+        that the ellipse has equal distance increments [Default uses the
         given increment and closes the ellipse].  Instead, append **+n** to set
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
@@ -229,6 +229,15 @@ def project(  # noqa: PLR0913
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTParameterError(at_most_one=["convention", "generate"])
 
+    # Input validation for only one geometry parameter
+    geometry_params = [
+        kwargs.get("A", azimuth) is not None,
+        kwargs.get("E", endpoint) is not None,
+        kwargs.get("T", pole) is not None,
+    ]
+    if sum(geometry_params) > 1:
+        raise GMTParameterError(at_most_one=["azimuth", "endpoint", "pole"])
+
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
@@ -236,6 +245,7 @@ def project(  # noqa: PLR0913
         column_names = list("rsp")
 
     aliasdict = AliasSystem(
+        A=Alias(azimuth, name="azimuth"),
         C=Alias(center, name="center", sep="/", size=2),
         E=Alias(endpoint, name="endpoint", sep="/", size=2),
         L=Alias(length, name="length", sep="/", size=2, mapping={"limit": "w"}),
