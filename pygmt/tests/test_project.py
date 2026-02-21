@@ -92,7 +92,7 @@ def test_project_incorrect_parameters():
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
 
 
-def test_project_geometry_definition_validation():
+def test_project_geometry_definition_validation(dataframe):
     """
     Validate input validation for mutually exclusive projection geometry parameters.
     """
@@ -104,4 +104,4 @@ def test_project_geometry_definition_validation():
     with pytest.raises(GMTParameterError):
         project(pole=[0, 90], azimuth=45, **kwdict)
     with pytest.raises(GMTParameterError):
-        project(pole=[0, 90], azimuth=45, endpoint=[0, 1], **kwdict)        
+        project(pole=[0, 90], azimuth=45, endpoint=[0, 1], **kwdict)
