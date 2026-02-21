@@ -68,7 +68,7 @@ us to place the image at a specific location on the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.109 seconds)
+   **Total running time of the script:** (0 minutes 0.702 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:

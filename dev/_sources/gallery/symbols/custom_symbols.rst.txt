@@ -86,7 +86,7 @@ defining such a symbol it can be used in the same way as a built-in custom symbo
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.136 seconds)
+   **Total running time of the script:** (0 minutes 0.135 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_custom_symbols.py:

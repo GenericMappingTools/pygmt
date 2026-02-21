@@ -110,7 +110,7 @@ appearance can be set via the GMT default parameters :gmt-term:`PS_LINE_CAP`
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.211 seconds)
+   **Total running time of the script:** (0 minutes 0.204 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_line_segment_ends.py:

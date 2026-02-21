@@ -163,7 +163,7 @@ of :class:`pygmt.config` as a context manager is shown below:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.557 seconds)
+   **Total running time of the script:** (0 minutes 0.529 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_configuration.py:

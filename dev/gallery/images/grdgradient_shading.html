@@ -8,11 +8,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Calculating grid gradient with custom azimuth and normalize parameters &mdash; PyGMT</title>
+        <title>Calculating grid gradient with custom azimuth and normalization parameters &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/images/grdgradient_shading.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -96,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="grdgradient.html">Calculating grid gradient and radiance</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Calculating grid gradient with custom <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> and <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameters</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Calculating grid gradient with custom azimuth and normalization parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdclip.html">Clipping grid values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
@@ -165,7 +165,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
-      <li class="breadcrumb-item active">Calculating grid gradient with custom <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> and <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameters</li>
+      <li class="breadcrumb-item active">Calculating grid gradient with custom azimuth and normalization parameters</li>
     <li class="source-link">
         
             
@@ -193,22 +193,24 @@
 <p><a class="reference internal" href="#sphx-glr-download-gallery-images-grdgradient-shading-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="calculating-grid-gradient-with-custom-azimuth-and-normalize-parameters">
-<span id="sphx-glr-gallery-images-grdgradient-shading-py"></span><h1>Calculating grid gradient with custom <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> and <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameters<a class="headerlink" href="#calculating-grid-gradient-with-custom-azimuth-and-normalize-parameters" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> function calculates the gradient of a grid file.
-As input, <a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> gets an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object
-or a path string to a grid file. It then calculates the respective gradient
-and returns an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. The example below sets two
-main parameters:</p>
+<section class="sphx-glr-example-title" id="calculating-grid-gradient-with-custom-azimuth-and-normalization-parameters">
+<span id="sphx-glr-gallery-images-grdgradient-shading-py"></span><h1>Calculating grid gradient with custom azimuth and normalization parameters<a class="headerlink" href="#calculating-grid-gradient-with-custom-azimuth-and-normalization-parameters" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> function calculates the gradient of a grid file. As input,
+<a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> gets an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object or a path string to a
+grid file. It then calculates the respective gradient and returns an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameter calculates the azimuthal gradient of each point along a
+certain azimuth angle, then adjusts the brightness value of the color according to the
+positive/negative of the azimuthal gradient and the amplitude of each point. The example
+below shows how to customize the gradient by setting azimuth and normalization
+parameters.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">azimuth</span></code> to set the illumination light source direction (0° is North,
-90° is East, 180° is South, 270° is West).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">normalize</span></code> to enhance the three-dimensional sense of the topography.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">azimuth</span></code> sets the illumination light source direction (0° is North, 90° is East,
+180° is South, 270° is West).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normalize</span></code> sets the normalization method (e.g., Cauchy or Laplace distribution)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">norm_amp</span></code> sets the amplitude of the normalization</p></li>
+<li><p>more parameters are available to further enhance the 3-D sense of the topography</p></li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameter calculates the azimuthal gradient of each point
-along a certain azimuth angle, then adjusts the brightness value of the color
-according to the positive/negative of the azimuthal gradient and the amplitude
-of each point.</p>
 <img src="../../_images/sphx_glr_grdgradient_shading_001.png" srcset="../../_images/sphx_glr_grdgradient_shading_001.png" alt="grdgradient shading" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
 grdblend [NOTICE]: SRTM15 Earth Relief v2.7 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (15.7 km fullwidth) [Tozer et al., 2019].
 grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g): N00E000
@@ -226,7 +228,7 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Define a colormap to be used for topography</span>
-<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/terra&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/terra&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">7000</span><span class="p">,</span> <span class="mi">7000</span><span class="p">))</span>
 
 <span class="c1"># Define figure configuration</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FONT_TITLE</span><span class="o">=</span><span class="s2">&quot;10p,5&quot;</span><span class="p">,</span> <span class="n">MAP_TITLE_OFFSET</span><span class="o">=</span><span class="s2">&quot;1p&quot;</span><span class="p">,</span> <span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -239,24 +241,28 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
     <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>
     <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;l&quot;</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># E.g. &quot;0/90&quot; illuminates light source from the North (top) and East</span>
-    <span class="c1"># (right), and so on</span>
-    <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;0/90&quot;</span><span class="p">,</span> <span class="s2">&quot;0/300&quot;</span><span class="p">,</span> <span class="s2">&quot;180/225&quot;</span><span class="p">]:</span>
-        <span class="c1"># &quot;e&quot; and &quot;t&quot; are cumulative Laplace distribution and cumulative</span>
-        <span class="c1"># Cauchy distribution, respectively</span>
-        <span class="c1"># &quot;amp&quot; (e.g. 1 or 10) controls the brightness value of the color</span>
-        <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nor</span></a> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;t1&quot;</span><span class="p">,</span> <span class="s2">&quot;e1&quot;</span><span class="p">,</span> <span class="s2">&quot;t10&quot;</span><span class="p">,</span> <span class="s2">&quot;e10&quot;</span><span class="p">]:</span>
-            <span class="c1"># Making an intensity DataArray using azimuth and normalize</span>
-            <span class="c1"># parameters</span>
-            <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shade</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdgradient</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nor</span></a><span class="p">)</span>
-            <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span>
-                <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span>
-                <span class="n">shading</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shade</span></a><span class="p">,</span>
-                <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M?&quot;</span><span class="p">,</span>
-                <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a4f2&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;+tazimuth=</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a><span class="si">}</span><span class="s2">, normalize=</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">nor</span></a><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
-                <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span>
+    <span class="c1"># Setting azimuth angles, e.g. (0, 90) illuminates light source from the North (top)</span>
+    <span class="c1"># and East (right).</span>
+    <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">225</span><span class="p">)]:</span>
+        <span class="c1"># &quot;cauchy&quot;/&quot;laplace&quot; sets cumulative Cauchy/Laplace distribution, respectively.</span>
+        <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normalize</span></a> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cauchy&quot;</span><span class="p">,</span> <span class="s2">&quot;laplace&quot;</span><span class="p">):</span>
+            <span class="c1"># amp (e.g., 1 or 10) controls the brightness value of the color.</span>
+            <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">amp</span></a> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                <span class="c1"># Making an intensity DataArray using azimuth and normalize parameters</span>
+                <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shade</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdgradient</span></a><span class="p">(</span>
+                    <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normalize</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normalize</span></a><span class="p">,</span> <span class="n">norm_amp</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">amp</span></a>
+                <span class="p">)</span>
+                <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span>
+                    <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span>
+                    <span class="n">shading</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shade</span></a><span class="p">,</span>
+                    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M?&quot;</span><span class="p">,</span>
+                    <span class="n">frame</span><span class="o">=</span><span class="p">[</span>
+                        <span class="s2">&quot;a4f2&quot;</span><span class="p">,</span>
+                        <span class="sa">f</span><span class="s2">&quot;+tazimuth=</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">azi</span></a><span class="si">}</span><span class="s2">, normalize=</span><span class="si">{</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normalize</span></a><span class="si">}</span><span class="s2">, amp=</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">amp</span></a><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">panel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BC&quot;</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">),</span>
@@ -269,7 +275,7 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.245 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.532 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-grdgradient-shading-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/72cc0f422d759e4013fd91b8c060bfe8/grdgradient_shading.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">grdgradient_shading.ipynb</span></code></a></p>
@@ -297,9 +303,9 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/coast.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,7 +161,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">args_in_kwargs</span><span class="p">,</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span>
 
@@ -169,7 +169,7 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;lakes&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dcw&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;lakes&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dcw&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">coast</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">resolution</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
@@ -180,15 +180,16 @@
     <span class="n">rivers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">borders</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">shorelines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">map_scale</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -217,6 +218,7 @@
 <span class="sd">       - G = land</span>
 <span class="sd">       - I = rivers</span>
 <span class="sd">       - J = projection</span>
+<span class="sd">       - L = map_scale</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - S = water</span>
 <span class="sd">       - V = verbose</span>
@@ -226,11 +228,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    $projection</span>
-<span class="sd">    $region</span>
-<span class="sd">        *Required if this is the first plot command.*</span>
 <span class="sd">    $area_thresh</span>
-<span class="sd">    $frame</span>
 <span class="sd">    lakes : str or list</span>
 <span class="sd">        *fill*\ [**+l**\|\ **+r**].</span>
 <span class="sd">        Set the shade, color, or pattern for lakes and river-lakes. The</span>
@@ -285,9 +283,14 @@
 <span class="sd">        - ``rivers=[&quot;1/0.5p,blue&quot;, &quot;5/0.3p,cyan,dashed&quot;]``: Draw permanent major rivers</span>
 <span class="sd">          with a 0.5-point blue pen and intermittent major rivers with a 0.3-point</span>
 <span class="sd">          dashed cyan pen.</span>
-<span class="sd">    map_scale : str</span>
-<span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+w**\ *length*.</span>
-<span class="sd">        Draw a simple map scale centered on the reference point specified.</span>
+<span class="sd">    map_scale</span>
+<span class="sd">        Draw a map scale bar on the plot.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained</span>
+<span class="sd">            for backward compatibility and accepts raw GMT CLI strings for the ``-L``</span>
+<span class="sd">            option.</span>
 <span class="sd">    box</span>
 <span class="sd">        Draw a background box behind the map scale or rose. If set to ``True``, a simple</span>
 <span class="sd">        rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box</span>
@@ -350,10 +353,14 @@
 <span class="sd">        to any of the continent codes (e.g. ``&quot;=EU&quot;`` for Europe). Append</span>
 <span class="sd">        **+p**\ *pen* to draw polygon outlines [Default is no outline] and</span>
 <span class="sd">        **+g**\ *fill* to fill them [Default is no fill].</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">        *Required if this is the first plot command.*</span>
+<span class="sd">    $frame</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    $panel</span>
 <span class="sd">    $perspective</span>
 <span class="sd">    $transparency</span>
-<span class="sd">    $verbose</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -388,11 +395,18 @@
         <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
         <span class="ow">and</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;At least one of the following parameters must be specified: &quot;</span>
-            <span class="s2">&quot;land, water, rivers, borders, shorelines, lakes, dcw, or Q.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+            <span class="n">at_least_one</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;land&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;water&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rivers&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;borders&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;shorelines&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;lakes&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dcw&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Q&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
         <span class="p">)</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
@@ -410,6 +424,7 @@
         <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>
         <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">land</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;land&quot;</span><span class="p">),</span>
         <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">rivers</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rivers&quot;</span><span class="p">),</span>
+        <span class="n">L</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">map_scale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">),</span>  <span class="c1"># Deprecated.</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">borders</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;borders&quot;</span><span class="p">),</span>
         <span class="n">S</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">water</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;water&quot;</span><span class="p">),</span>
         <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">shorelines</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;shorelines&quot;</span><span class="p">),</span>
@@ -437,9 +452,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

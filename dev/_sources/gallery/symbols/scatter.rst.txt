@@ -80,7 +80,7 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.224 seconds)
+   **Total running time of the script:** (0 minutes 0.216 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_scatter.py:

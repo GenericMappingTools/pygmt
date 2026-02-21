@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdsample.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,7 +163,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">deprecate_parameter</span><span class="p">,</span>
@@ -186,33 +186,40 @@
     <span class="n">toggle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resample a grid onto a new lattice.</span>
 
-<span class="sd">    This reads a grid file and interpolates it to create a new grid</span>
-<span class="sd">    file. It can change the registration with ``toggle`` or</span>
-<span class="sd">    ``registration``, change the grid-spacing or number of nodes with</span>
-<span class="sd">    ``spacing``, and set a new sub-region using ``region``. A bicubic</span>
-<span class="sd">    [Default], bilinear, B-spline or nearest-neighbor interpolation is set</span>
-<span class="sd">    with ``interpolation``.</span>
+<span class="sd">    This function reads a grid and interpolates it to create a new grid. It can</span>
 
-<span class="sd">    When ``region`` is omitted, the output grid will cover the same region as</span>
-<span class="sd">    the input grid. When ``spacing`` is omitted, the grid spacing of the</span>
-<span class="sd">    output grid will be the same as the input grid. Either ``registration`` or</span>
-<span class="sd">    ``toggle`` can be used to change the grid registration. When omitted,</span>
-<span class="sd">    the output grid will have the same registration as the input grid.</span>
+<span class="sd">    - change the registration (via ``toggle`` or ``registration``)</span>
+<span class="sd">    - change the grid-spacing or number of nodes (via ``spacing``)</span>
+<span class="sd">    - set a new sub-region (via ``region``)</span>
+
+<span class="sd">    When ``region`` is omitted, the output grid will cover the same region as the input</span>
+<span class="sd">    grid. When ``spacing`` is omitted, the grid spacing of the output grid will be the</span>
+<span class="sd">    same as the input grid. Either ``registration`` or ``toggle`` can be used to change</span>
+<span class="sd">    the grid registration. When omitted, the output grid will have the same registration</span>
+<span class="sd">    as the input grid.</span>
+
+<span class="sd">    A bicubic [Default], bilinear, B-spline, or nearest-neighbor interpolation is set</span>
+<span class="sd">    with ``interpolation``. Note that using ``region`` only is equivalent to</span>
+<span class="sd">    :func:`pygmt.grdcut` or ``grdedit -S``. ``grdsample`` safely creates a fine mesh</span>
+<span class="sd">    from a coarse one; the converse may suffer aliasing unless the data are filtered</span>
+<span class="sd">    using :func:`pygmt.grdfilter` or ``grdfft``.</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`grdsample.html`.</span>
 
 <span class="sd">    $aliases</span>
+<span class="sd">       - G = outgrid</span>
 <span class="sd">       - I = spacing</span>
 <span class="sd">       - R = region</span>
+<span class="sd">       - T = toggle</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - r = registration</span>
 <span class="sd">       - x = cores</span>
@@ -222,12 +229,12 @@
 <span class="sd">    $grid</span>
 <span class="sd">    $outgrid</span>
 <span class="sd">    $spacing</span>
-<span class="sd">    $region</span>
 <span class="sd">    toggle</span>
 <span class="sd">        Toggle between grid and pixel registration; if the input is grid-registered, the</span>
 <span class="sd">        output will be pixel-registered and vice-versa. This is a *destructive* grid</span>
 <span class="sd">        change; see :gmt-docs:`reference/options.html#switch-registrations`.</span>
 <span class="sd">        *Note**: ``toggle`` and ``registration`` are mutually exclusive.</span>
+<span class="sd">    $region</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    $coltypes</span>
 <span class="sd">    $interpolation</span>
@@ -255,10 +262,8 @@
 <span class="sd">    &gt;&gt;&gt; # and set both x- and y-spacings to 0.5 arc-degrees</span>
 <span class="sd">    &gt;&gt;&gt; new_grid = pygmt.grdsample(grid=grid, toggle=True, spacing=[0.5, 0.5])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Enforce mutual exclusivity between -T (toggle) and -r (registration)</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Parameters &#39;toggle&#39; and &#39;registration&#39; cannot be used together.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">at_most_one</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;toggle&quot;</span><span class="p">,</span> <span class="s2">&quot;registration&quot;</span><span class="p">])</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
@@ -293,9 +298,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

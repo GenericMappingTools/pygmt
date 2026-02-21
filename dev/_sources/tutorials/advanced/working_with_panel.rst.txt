@@ -239,7 +239,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.634 seconds)
+   **Total running time of the script:** (0 minutes 1.602 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_working_with_panel.py:

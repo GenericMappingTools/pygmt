@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/figure.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -390,7 +390,7 @@
             <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
                 <span class="n">transparent</span><span class="p">,</span>
                 <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;transparent&#39;&quot;</span><span class="p">,</span>
-                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Transparency unavailable for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39;, only for png and kml.&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Transparency unavailable for </span><span class="si">{</span><span class="n">ext</span><span class="si">!r}</span><span class="s2">, only for png and kml.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">anti_alias</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -572,9 +572,11 @@
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type: ignore[misc] # noqa: PLC0415</span>
         <span class="n">basemap</span><span class="p">,</span>
+        <span class="n">choropleth</span><span class="p">,</span>
         <span class="n">coast</span><span class="p">,</span>
         <span class="n">colorbar</span><span class="p">,</span>
         <span class="n">contour</span><span class="p">,</span>
+        <span class="n">directional_rose</span><span class="p">,</span>
         <span class="n">grdcontour</span><span class="p">,</span>
         <span class="n">grdimage</span><span class="p">,</span>
         <span class="n">grdview</span><span class="p">,</span>
@@ -584,11 +586,13 @@
         <span class="n">inset</span><span class="p">,</span>
         <span class="n">legend</span><span class="p">,</span>
         <span class="n">logo</span><span class="p">,</span>
+        <span class="n">magnetic_rose</span><span class="p">,</span>
         <span class="n">meca</span><span class="p">,</span>
         <span class="n">plot</span><span class="p">,</span>
         <span class="n">plot3d</span><span class="p">,</span>
         <span class="n">psconvert</span><span class="p">,</span>
         <span class="n">rose</span><span class="p">,</span>
+        <span class="n">scalebar</span><span class="p">,</span>
         <span class="n">set_panel</span><span class="p">,</span>
         <span class="n">shift_origin</span><span class="p">,</span>
         <span class="n">solar</span><span class="p">,</span>
@@ -665,9 +669,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

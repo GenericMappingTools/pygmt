@@ -71,7 +71,7 @@ The positive and/or negative areas can be filled with color by setting the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.117 seconds)
+   **Total running time of the script:** (0 minutes 0.114 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_wiggle.py:

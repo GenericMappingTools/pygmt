@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/subplots.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -200,19 +200,19 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="making-subplots">
 <span id="sphx-glr-tutorials-advanced-subplots-py"></span><h1>Making subplots<a class="headerlink" href="#making-subplots" title="Link to this heading"></a></h1>
-<p>When you’re preparing a figure for a paper, there will often be times when
-you’ll need to put many individual plots into one large figure, and label them
-‘abcd’. These individual plots are called subplots.</p>
+<p>When you’re preparing a figure for a paper, there will often be times when you’ll need
+to put many individual plots into one large figure, and tag them ‘abcd’. These
+individual plots are called subplots.</p>
 <p>There are two main ways to create subplots in GMT:</p>
 <ul class="simple">
-<li><p>Use <a class="reference internal" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code></a> to manually move each individual plot
-to the right position.</p></li>
+<li><p>Use <a class="reference internal" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code></a> to manually move each individual plot to the
+right position.</p></li>
 <li><p>Use <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> to define the layout of the subplots.</p></li>
 </ul>
-<p>The first method is easier to use and should handle simple cases involving a
-couple of subplots. For more advanced subplot layouts, however, we recommend
-the use of <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> which offers finer grained control, and
-this is what the tutorial below will cover.</p>
+<p>The first method is easier to use and should handle simple cases involving a couple of
+subplots. For more advanced subplot layouts, however, we recommend the use of
+<a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> which offers finer grained control, and this is what the
+tutorial below will cover.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 </pre></div>
 </div>
@@ -222,19 +222,19 @@ this is what the tutorial below will cover.</p>
 </div>
 <section id="define-subplot-layout">
 <h2>Define subplot layout<a class="headerlink" href="#define-subplot-layout" title="Link to this heading"></a></h2>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> method is used to set up the layout, size,
-and other attributes of the figure. It divides the whole canvas into regular
-grid areas with <em>n</em> rows and <em>m</em> columns. Each grid area can contain an
-individual subplot. For example:</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> method is used to set up the layout, size, and other
+attributes of the figure. It divides the whole canvas into regular grid areas with
+<em>n</em> rows and <em>m</em> columns. Each grid area can contain an individual subplot. For
+example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;6c&quot;</span><span class="p">),</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;lrtb&quot;</span><span class="p">):</span>
     <span class="o">...</span>
 </pre></div>
 </div>
 <p>will define our figure to have a 2 row and 3 column grid layout.
-<code class="docutils literal notranslate"><span class="pre">figsize=(&quot;15c&quot;,</span> <span class="pre">&quot;6c&quot;)</span></code> defines the overall size of the figure to be 15 cm
-wide by 6 cm high. Using <code class="docutils literal notranslate"><span class="pre">frame=&quot;lrtb&quot;</span></code> allows us to customize the map
-frame for all subplots instead of setting them individually. The figure
-layout will look like the following:</p>
+<code class="docutils literal notranslate"><span class="pre">figsize=(&quot;15c&quot;,</span> <span class="pre">&quot;6c&quot;)</span></code> defines the overall size of the figure to be 15 cm wide by
+6 cm high. Using <code class="docutils literal notranslate"><span class="pre">frame=&quot;lrtb&quot;</span></code> allows us to customize the map frame for all
+subplots instead of setting them individually. The figure layout will look like the
+following:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;6c&quot;</span><span class="p">),</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;lrtb&quot;</span><span class="p">):</span>
     <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>  <span class="c1"># row number starting from 0</span>
         <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">j</span></a> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>  <span class="c1"># column number starting from 0</span>
@@ -248,36 +248,35 @@ layout will look like the following:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_001.png" srcset="../../_images/sphx_glr_subplots_001.png" alt="subplots" class = "sphx-glr-single-img"/><p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> method activates a specified subplot,
-and all subsequent plotting methods will take place in that subplot panel.
-This is similar to matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.sca</span></code> method. In order to specify a
-subplot, you will need to provide the identifier for that subplot via the
-<code class="docutils literal notranslate"><span class="pre">panel</span></code> parameter. Pass in either the <em>index</em> number, or a tuple/list like
-(<em>row</em>, <em>col</em>) to <code class="docutils literal notranslate"><span class="pre">panel</span></code>.</p>
+<img src="../../_images/sphx_glr_subplots_001.png" srcset="../../_images/sphx_glr_subplots_001.png" alt="subplots" class = "sphx-glr-single-img"/><p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> method activates a specified subplot, and all
+subsequent plotting methods will take place in that subplot panel. This is similar to
+matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.sca</span></code> method. In order to specify a subplot, you will need to
+provide the identifier for that subplot via the <code class="docutils literal notranslate"><span class="pre">panel</span></code> parameter. Pass in either
+the <em>index</em> number, or a tuple/list like (<em>row</em>, <em>col</em>) to <code class="docutils literal notranslate"><span class="pre">panel</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The row and column numbering starts from 0. So for a subplot layout with
-N rows and M columns, row numbers will go from 0 to N-1, and column
-numbers will go from 0 to M-1.</p>
+<p>The row and column numbering starts from 0. So for a subplot layout with N rows
+and M columns, row numbers will go from 0 to N-1, and column numbers will go from
+0 to M-1.</p>
 </div>
-<p>For example, to activate the subplot on the top right corner (index: 2) at
-<em>row</em>=0 and <em>col</em>=2, so that all subsequent plotting commands happen
-there, you can use the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">set_panel</span></a><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]):</span>
+<p>For example, to activate the subplot on the top right corner (index: 2) at <em>row</em>=0
+and <em>col</em>=2, so that all subsequent plotting commands happen there, you can use the
+following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">set_panel</span></a><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
     <span class="o">...</span>
 </pre></div>
 </div>
 </section>
 <section id="making-your-first-subplot">
 <h2>Making your first subplot<a class="headerlink" href="#making-your-first-subplot" title="Link to this heading"></a></h2>
-<p>Next, let’s use what we learned above to make a 2 row by 2 column subplot
-figure. We’ll also pick up on some new parameters to configure our subplot.</p>
+<p>Next, let’s use what we learned above to make a 2 row by 2 column subplot figure.
+We’ll also pick up on some new parameters to configure our subplot.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span>
     <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;6c&quot;</span><span class="p">),</span>
-    <span class="n">autolabel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne&quot;</span><span class="p">],</span>
     <span class="n">margins</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;0.1c&quot;</span><span class="p">,</span> <span class="s2">&quot;0.2c&quot;</span><span class="p">],</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;My Subplot Heading&quot;</span><span class="p">,</span>
@@ -290,56 +289,53 @@ figure. We’ll also pick up on some new parameters to configure our subplot.</p
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_subplots_002.png" srcset="../../_images/sphx_glr_subplots_002.png" alt="subplots" class = "sphx-glr-single-img"/><p>In this example, we define a 2-row, 2-column (2x2) subplot layout using
-<a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. The overall figure dimensions is set to be
-15 cm wide and 6 cm high (<code class="docutils literal notranslate"><span class="pre">figsize=[&quot;15c&quot;,</span> <span class="pre">&quot;6c&quot;]</span></code>). In addition, we use
-some optional parameters to fine-tune some details of the figure creation:</p>
+<a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. The overall figure dimensions is set to be 15 cm wide
+and 6 cm high (<code class="docutils literal notranslate"><span class="pre">figsize=(&quot;15c&quot;,</span> <span class="pre">&quot;6c&quot;)</span></code>). In addition, we use some optional
+parameters to fine-tune some details of the figure creation:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">autolabel=True</span></code>: Each subplot is automatically labelled ‘abcd’.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">margins=[&quot;0.1c&quot;,</span> <span class="pre">&quot;0.2c&quot;]</span></code>: Adjusts the space between adjacent subplots.
-In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
-y-direction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tag=True</span></code>: Each subplot is automatically tagged ‘abcd’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">margins=[&quot;0.1c&quot;,</span> <span class="pre">&quot;0.2c&quot;]</span></code>: Adjusts the space between adjacent subplots. In this
+case, it is set as 0.1 cm in the x-direction and 0.2 cm in the y-direction.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">title=&quot;My</span> <span class="pre">Subplot</span> <span class="pre">Heading&quot;</span></code>: Adds a title on top of the whole figure.</p></li>
 </ul>
-<p>Notice that each subplot was set to use a linear projection <code class="docutils literal notranslate"><span class="pre">&quot;X?&quot;</span></code>.
-Usually, we need to specify the width and height of the map frame, but it is
-also possible to use a question mark <code class="docutils literal notranslate"><span class="pre">&quot;?&quot;</span></code> to let GMT decide automatically
-on what is the most appropriate width/height for each subplot’s map frame.</p>
+<p>Notice that each subplot was set to use a linear projection <code class="docutils literal notranslate"><span class="pre">&quot;X?&quot;</span></code>. Usually, we need
+to specify the width and height of the map frame, but it is also possible to use a
+question mark <code class="docutils literal notranslate"><span class="pre">&quot;?&quot;</span></code> to let GMT decide automatically on what is the most appropriate
+width/height for each subplot’s map frame.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>In the above example, we used the following commands to activate the
-four subplots explicitly one after another:</p>
+<p>In the above example, we used the following commands to activate the four subplots
+explicitly one after another:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>In fact, we can just use <code class="docutils literal notranslate"><span class="pre">fig.basemap(...,</span> <span class="pre">panel=True)</span></code> without
-specifying any subplot index number, and GMT will automatically activate
-the next subplot panel.</p>
+<p>In fact, we can just use <code class="docutils literal notranslate"><span class="pre">fig.basemap(...,</span> <span class="pre">panel=True)</span></code> without specifying any
+subplot index number, and GMT will automatically activate the next subplot panel.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All plotting methods (e.g. <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a>,
-<a class="reference internal" href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a>, etc) are able to use <code class="docutils literal notranslate"><span class="pre">panel</span></code> parameter when
-in subplot mode. Once a panel is activated using <code class="docutils literal notranslate"><span class="pre">panel</span></code> or
-<a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a>, subsequent plotting commands that don’t
-set a <code class="docutils literal notranslate"><span class="pre">panel</span></code> will have their elements added to the same panel as
-before.</p>
+<p>All plotting methods (e.g. <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a>, <a class="reference internal" href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a>,
+etc) are able to use <code class="docutils literal notranslate"><span class="pre">panel</span></code> parameter when in subplot mode. Once a panel is
+activated using <code class="docutils literal notranslate"><span class="pre">panel</span></code> or <a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a>, subsequent plotting
+commands that don’t set a <code class="docutils literal notranslate"><span class="pre">panel</span></code> will have their elements added to the same
+panel as before.</p>
 </div>
 </section>
 <section id="shared-x-and-y-axes">
 <h2>Shared x- and y-axes<a class="headerlink" href="#shared-x-and-y-axes" title="Link to this heading"></a></h2>
-<p>In the example above with the four subplots, the two subplots for each row
-have the same y-axis range, and the two subplots for each column have the
-same x-axis range. You can use the <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> parameters to set a
-common x- and/or y-axis between subplots.</p>
+<p>In the example above with the four subplots, the two subplots for each row have the
+same y-axis range, and the two subplots for each column have the same x-axis range.
+You can use the <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> parameters to set a common x- and/or y-axis
+between subplots.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span>
     <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;6c&quot;</span><span class="p">),</span>  <span class="c1"># width of 15 cm, height of 6 cm</span>
-    <span class="n">autolabel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">margins</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;0.3c&quot;</span><span class="p">,</span> <span class="s2">&quot;0.2c&quot;</span><span class="p">],</span>  <span class="c1"># horizontal 0.3 cm and vertical 0.2 cm margins</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;My Subplot Heading&quot;</span><span class="p">,</span>
     <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span>  <span class="c1"># shared x-axis on the bottom side</span>
@@ -353,23 +349,22 @@ common x- and/or y-axis between subplots.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_003.png" srcset="../../_images/sphx_glr_subplots_003.png" alt="subplots" class = "sphx-glr-single-img"/><p><code class="docutils literal notranslate"><span class="pre">sharex=&quot;b&quot;</span></code> indicates that subplots in a column will share the x-axis, and
-only the <strong>b</strong>ottom axis is displayed. <code class="docutils literal notranslate"><span class="pre">sharey=&quot;l&quot;</span></code> indicates that
-subplots within a row will share the y-axis, and only the <strong>l</strong>eft axis is
-displayed.</p>
-<p>Of course, instead of using the <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> parameters, you can
-also set a different <code class="docutils literal notranslate"><span class="pre">frame</span></code> for each subplot to control the axis
-properties individually for each subplot.</p>
+<img src="../../_images/sphx_glr_subplots_003.png" srcset="../../_images/sphx_glr_subplots_003.png" alt="subplots" class = "sphx-glr-single-img"/><p><code class="docutils literal notranslate"><span class="pre">sharex=&quot;b&quot;</span></code> indicates that subplots in a column will share the x-axis, and only the
+<strong>b</strong>ottom axis is displayed. <code class="docutils literal notranslate"><span class="pre">sharey=&quot;l&quot;</span></code> indicates that subplots within a row
+will share the y-axis, and only the <strong>l</strong>eft axis is displayed.</p>
+<p>Of course, instead of using the <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> parameters, you can also set a
+different <code class="docutils literal notranslate"><span class="pre">frame</span></code> for each subplot to control the axis properties individually for
+each subplot.</p>
 </section>
 <section id="advanced-subplot-layouts">
 <h2>Advanced subplot layouts<a class="headerlink" href="#advanced-subplot-layouts" title="Link to this heading"></a></h2>
-<p>Nested subplots are currently not supported. If you want to create more
-complex subplot layouts, some manual adjustments are needed.</p>
-<p>The following example draws three subplots in a 2-row, 2-column layout, with
-the first subplot occupying the first row.</p>
+<p>Nested subplots are currently not supported. If you want to create more complex
+subplot layouts, some manual adjustments are needed.</p>
+<p>The following example draws three subplots in a 2-row, 2-column layout, with the first
+subplot occupying the first row.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Bottom row, two subplots</span>
-<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;3c&quot;</span><span class="p">),</span> <span class="n">autolabel</span><span class="o">=</span><span class="s2">&quot;b)&quot;</span><span class="p">):</span>
+<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;3c&quot;</span><span class="p">),</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;b)&quot;</span><span class="p">):</span>
     <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
         <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X?&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne&quot;</span><span class="p">],</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="p">)</span>
@@ -379,7 +374,7 @@ the first subplot occupying the first row.</p>
 <span class="c1"># Move plot origin by 1 cm above the height of the entire figure</span>
 <a href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span></a><span class="p">(</span><span class="n">yshift</span><span class="o">=</span><span class="s2">&quot;h+1c&quot;</span><span class="p">)</span>
 <span class="c1"># Top row, one subplot</span>
-<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;3c&quot;</span><span class="p">),</span> <span class="n">autolabel</span><span class="o">=</span><span class="s2">&quot;a)&quot;</span><span class="p">):</span>
+<span class="k">with</span> <a href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">subplot</span></a><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;15c&quot;</span><span class="p">,</span> <span class="s2">&quot;3c&quot;</span><span class="p">),</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;a)&quot;</span><span class="p">):</span>
     <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
         <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X?&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne&quot;</span><span class="p">],</span> <span class="n">panel</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="p">)</span>
@@ -388,20 +383,19 @@ the first subplot occupying the first row.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_004.png" srcset="../../_images/sphx_glr_subplots_004.png" alt="subplots" class = "sphx-glr-single-img"/><p>We start by drawing the bottom two subplots, setting <code class="docutils literal notranslate"><span class="pre">autolabel=&quot;b)&quot;</span></code> so
-that the subplots are labelled ‘b)’ and ‘c)’. Next, we use
-<a class="reference internal" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code></a> to move the plot origin 1 cm above the
-<strong>h</strong>eight of the entire figure that is currently plotted (i.e. the bottom
-row subplots). A single subplot is then plotted on the top row. You may need
-to adjust the <code class="docutils literal notranslate"><span class="pre">yshift</span></code> parameter to make your plot look nice. This top row
-uses <code class="docutils literal notranslate"><span class="pre">autolabel=&quot;a)&quot;</span></code>, and we also plotted some text inside. Note that
-<code class="docutils literal notranslate"><span class="pre">projection=&quot;X?&quot;</span></code> was used to let GMT automatically determine the size of
-the subplot according to the size of the subplot area.</p>
-<p>You can also manually override the <code class="docutils literal notranslate"><span class="pre">autolabel</span></code> for each subplot using for
-example, <code class="docutils literal notranslate"><span class="pre">fig.set_panel(...,</span> <span class="pre">fixedlabel=&quot;b)</span> <span class="pre">Panel</span> <span class="pre">2&quot;)</span></code> which would allow
-you to manually label a single subplot as you wish. This can be useful for
-adding a more descriptive subtitle to individual subplots.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.572 seconds)</p>
+<img src="../../_images/sphx_glr_subplots_004.png" srcset="../../_images/sphx_glr_subplots_004.png" alt="subplots" class = "sphx-glr-single-img"/><p>We start by drawing the bottom two subplots, setting <code class="docutils literal notranslate"><span class="pre">tag=&quot;b)&quot;</span></code> so that the subplots
+are tagged ‘b)’ and ‘c)’. Next, we use <a class="reference internal" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code></a> to move the
+plot origin 1 cm above the <strong>h</strong>eight of the entire figure that is currently plotted
+(i.e. the bottom row subplots). A single subplot is then plotted on the top row. You
+may need to adjust the <code class="docutils literal notranslate"><span class="pre">yshift</span></code> parameter to make your plot look nice. This top row
+uses <code class="docutils literal notranslate"><span class="pre">tag=&quot;a)&quot;</span></code>, and we also plotted some text inside. Note that <code class="docutils literal notranslate"><span class="pre">projection=&quot;X?&quot;</span></code>
+was used to let GMT automatically determine the size of the subplot according to the
+size of the subplot area.</p>
+<p>You can also manually override the <code class="docutils literal notranslate"><span class="pre">tag</span></code> for each subplot using for example,
+<code class="docutils literal notranslate"><span class="pre">fig.set_panel(...,</span> <span class="pre">tag=&quot;b)</span> <span class="pre">Panel</span> <span class="pre">2&quot;)</span></code> which would allow you to manually tag a
+single subplot as you wish. This can be useful for adding a more descriptive subtitle
+to individual subplots.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.548 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-subplots-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/f54bcce86166269d8114eb54b9040402/subplots.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">subplots.ipynb</span></code></a></p>
@@ -430,9 +424,9 @@ adding a more descriptive subtitle to individual subplots.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

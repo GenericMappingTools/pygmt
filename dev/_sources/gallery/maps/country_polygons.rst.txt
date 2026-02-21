@@ -169,7 +169,7 @@ If available, states/territories of a country can be highlighted, too.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.420 seconds)
+   **Total running time of the script:** (0 minutes 7.222 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_country_polygons.py:

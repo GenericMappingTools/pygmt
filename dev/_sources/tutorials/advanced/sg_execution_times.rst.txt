@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:21.716** total execution time for 15 files **from tutorials/advanced**:
+**00:20.075** total execution time for 15 files **from tutorials/advanced**:
 
 .. container::
 
@@ -33,47 +33,47 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_tutorials_advanced_draping_on_3d_surface.py` (``draping_on_3d_surface.py``)
-     - 00:06.160
+     - 00:05.086
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``vectors.py``)
-     - 00:02.415
+     - 00:02.316
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``working_with_panel.py``)
-     - 00:01.634
+     - 00:01.602
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``contour_map.py``)
-     - 00:01.416
+     - 00:01.381
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
-     - 00:01.341
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``earth_relief.py``)
-     - 00:01.202
+     - 00:01.288
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_focal_mechanisms.py` (``focal_mechanisms.py``)
-     - 00:01.197
+     - 00:01.168
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``earth_relief.py``)
+     - 00:01.159
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py` (``cartesian_histograms.py``)
-     - 00:01.195
+     - 00:01.151
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_date_time_charts.py` (``date_time_charts.py``)
-     - 00:01.190
+     - 00:01.133
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``insets.py``)
-     - 00:01.041
+     - 00:00.980
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``3d_perspective_image.py``)
-     - 00:00.960
+     - 00:00.922
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_legends.py` (``legends.py``)
-     - 00:00.666
+     - 00:00.645
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``subplots.py``)
-     - 00:00.572
+     - 00:00.548
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``configuration.py``)
-     - 00:00.557
+     - 00:00.529
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_non_ascii_text.py` (``non_ascii_text.py``)
-     - 00:00.170
+     - 00:00.168
      - 0.0

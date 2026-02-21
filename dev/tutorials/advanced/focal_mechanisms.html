@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/focal_mechanisms.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -253,7 +253,7 @@ moment tensor and Aki and Richards conventions:</p>
 to <code class="docutils literal notranslate"><span class="pre">spec</span></code>). Additionally, the <code class="docutils literal notranslate"><span class="pre">convention</span></code> parameter is required if <code class="docutils literal notranslate"><span class="pre">spec</span></code> is
 an 1-D or 2-D numpy array; for the input types dictionary and <code class="docutils literal notranslate"><span class="pre">pandas.Dataframe</span></code>,
 the focal mechanism convention is automatically determined from dictionary keys or
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> column names. The <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter controls the radius
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> column names. The <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter controls the radius
 of the beachball. By default, the value defines the size for a magnitude of 5 (i.e.,
 a scalar seismic moment of <span class="math notranslate nohighlight">\(M_0 = 4.0 \times 10^{23}\)</span> dyn cm) and the beachball
 size is proportional to the magnitude. Append <code class="docutils literal notranslate"><span class="pre">&quot;+l&quot;</span></code> to force the radius to be
@@ -438,7 +438,7 @@ compressive quadrants.</p>
 use data of four earthquakes taken from USGS. For each focal mechanism parameter a
 list with a length corresponding to the number of events has to be given.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up a pandas.DataFrame with multiple focal mechanism parameters.</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
     <span class="p">{</span>
         <span class="s2">&quot;strike&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">295</span><span class="p">,</span> <span class="mi">318</span><span class="p">],</span>
         <span class="s2">&quot;dip&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">70</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">89</span><span class="p">],</span>
@@ -473,7 +473,7 @@ beachball by appending <strong>+m</strong> to the argument passed to the <code c
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">projection</span></a><span class="o">=</span><span class="s2">&quot;N10c&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">frame</span></a><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<a href="../../api/generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">meca</span></a><span class="p">(</span><span class="n">spec</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;0.4c+m+f5p&quot;</span><span class="p">,</span> <span class="n">label_box</span><span class="o">=</span><span class="s2">&quot;white@30&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;+s0.1c&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">meca</span></a><span class="p">(</span><span class="n">spec</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;0.4c+m+f5p&quot;</span><span class="p">,</span> <span class="n">label_box</span><span class="o">=</span><span class="s2">&quot;white@30&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;+s0.1c&quot;</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -493,7 +493,7 @@ indicating the event locations are given by the colormap.</p>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">frame</span></a><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lhypocentral depth&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lkm&quot;</span><span class="p">])</span>
 
 <a href="../../api/generated/pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">meca</span></a><span class="p">(</span>
-    <span class="n">spec</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a><span class="p">,</span>
+    <span class="n">spec</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">aki_multiple</span></a><span class="p">,</span>
     <span class="n">scale</span><span class="o">=</span><span class="s2">&quot;0.4c+f5p&quot;</span><span class="p">,</span>
     <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0.2p,gray30+s0.1c&quot;</span><span class="p">,</span>
     <span class="n">label_box</span><span class="o">=</span><span class="s2">&quot;white@30&quot;</span><span class="p">,</span>
@@ -504,7 +504,7 @@ indicating the event locations are given by the colormap.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_focal_mechanisms_008.png" srcset="../../_images/sphx_glr_focal_mechanisms_008.png" alt="focal mechanisms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.197 seconds)</p>
+<img src="../../_images/sphx_glr_focal_mechanisms_008.png" srcset="../../_images/sphx_glr_focal_mechanisms_008.png" alt="focal mechanisms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.168 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-focal-mechanisms-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c38dfe64b4a01a2d6687b0f98cdc0753/focal_mechanisms.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">focal_mechanisms.ipynb</span></code></a></p>
@@ -533,9 +533,9 @@ indicating the event locations are given by the colormap.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

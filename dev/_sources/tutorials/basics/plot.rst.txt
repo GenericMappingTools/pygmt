@@ -34,7 +34,7 @@ the first time you use them (usually ``~/.gmt/cache``).
     import io
 
     import pygmt
-    from pygmt.params import Position
+    from pygmt.params import Box, Position
 
 
 
@@ -223,7 +223,7 @@ create an :class:`io.StringIO` object, which can be passed to the ``spec`` param
 of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutorial
 :doc:`multiple-column legend </tutorials/advanced/legends>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-78
+.. GENERATED FROM PYTHON SOURCE LINES 60-83
 
 .. code-block:: Python
 
@@ -242,7 +242,12 @@ of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutoria
     legend = io.StringIO(
         "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
     )
-    fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
+    fig.legend(
+        spec=legend,
+        position=Position("BR", offset=0.2),
+        line_spacing=2,
+        box=Box(fill="white", pen="black"),
+    )
     fig.show()
 
 
@@ -257,7 +262,7 @@ of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutoria
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-90
+.. GENERATED FROM PYTHON SOURCE LINES 84-95
 
 Notice that we didn't include the size in the ``style`` parameter this time,
 just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
@@ -271,7 +276,7 @@ the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 also plot a colorbar showing the colormap used in the plot.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-110
+.. GENERATED FROM PYTHON SOURCE LINES 95-120
 
 .. code-block:: Python
 
@@ -292,7 +297,12 @@ also plot a colorbar showing the colormap used in the plot.
         pen="black",
     )
     fig.colorbar(frame="xaf+lDepth (km)")
-    fig.legend(spec=legend, position=Position("BR", offset=0.2), line_spacing=2.0, box=True)
+    fig.legend(
+        spec=legend,
+        position=Position("BR", offset=0.2),
+        line_spacing=2,
+        box=Box(fill="white", pen="black"),
+    )
     fig.show()
 
 
@@ -310,7 +320,7 @@ also plot a colorbar showing the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.523 seconds)
+   **Total running time of the script:** (0 minutes 0.726 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:

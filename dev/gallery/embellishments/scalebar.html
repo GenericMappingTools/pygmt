@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/scalebar.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -196,48 +196,10 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="scale-bar">
 <span id="sphx-glr-gallery-embellishments-scalebar-py"></span><h1>Scale bar<a class="headerlink" href="#scale-bar" title="Link to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">map_scale</span></code> parameter of the <a class="reference internal" href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a> and
-<a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> methods is used to add a scale bar to a map.
-This example shows how such a scale bar can be customized:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>position: <strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>. Set the position
-of the reference point. Choose from</p>
-<ul>
-<li><p><strong>g</strong>: Give map coordinates as <em>longitude</em>/<em>latitude</em>.</p></li>
-<li><p><strong>j</strong>|<strong>J</strong>: Specify a
-<a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>.
-Lower / uppercase <strong>j</strong> / <strong>J</strong> mean inside / outside of the map
-bounding box.</p></li>
-<li><p><strong>n</strong>: Give normalized bounding box coordinates as <em>nx</em>/<em>ny</em>.</p></li>
-<li><p><strong>x</strong>: Give plot coordinates as <em>x</em>/<em>y</em>.</p></li>
-</ul>
-</li>
-<li><p>length: <strong>+w</strong>. Give a distance value, and, optionally a distance unit.
-Choose from <strong>e</strong> (meters), <strong>f</strong> (feet), <strong>k</strong> (kilometers) [Default],
-<strong>M</strong> (statute miles), <strong>n</strong> (nautical miles), or <strong>u</strong> (US survey feet).</p></li>
-<li><p>origin: <strong>+c</strong>[<em>slon</em>/]<em>slat</em>. Control where on the map the scale bar
-applies. If <strong>+c</strong> is not given the reference point is used. If only
-<strong>+c</strong> is appended the middle of the map is used. Note that <em>slon</em> is only
-optional for projections with constant scale along parallels, e.g.,
-Mercator projection.</p></li>
-<li><p>justify: <strong>+j</strong>. Set the anchor point. Specify a
-<a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>.</p></li>
-<li><p>offset: <strong>+o</strong><em>offset</em> or <strong>+o</strong><em>xoffset</em>/<em>yoffset</em>. Give either a
-common shift or individual shifts in x- (longitude) and y- (latitude)
-directions.</p></li>
-<li><p>height: Use <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-MAP_SCALE_HEIGHT">MAP_SCALE_HEIGHT</a> via <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>.</p></li>
-<li><p>fancy style: <strong>+f</strong>. Get a scale bar that looks like train tracks.</p></li>
-<li><p>unit: <strong>+u</strong>. Add the distance unit given via <strong>+w</strong> to the single
-distance values.</p></li>
-<li><p>label: <strong>+l</strong>. Add the distance unit given via <strong>+w</strong> as label. Append
-text to get a customized label instead.</p></li>
-<li><p>alignment: <strong>+a</strong>. Set the label alignment. Choose from <strong>t</strong>(op)
-[Default], <strong>b</strong>(ottom), <strong>l</strong>(eft), or <strong>r</strong>(ight).</p></li>
-</ul>
-</div></blockquote>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.scalebar</span></code></a> method can be used to add a scale bar to a map. This
+example shows how such a scale bar can be customized.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <span class="c1"># Create a new Figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -245,65 +207,74 @@ text to get a customized label instead.</p></li>
 <span class="c1"># Mercator projection with 10 centimeters width</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M0/0/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">])</span>
 
-<span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="c1"># Top Left: Add a plain scale bar</span>
-<span class="c1"># It is placed based on geographic coordinates (g) 42° West and 1° South,</span>
-<span class="c1"># applies at the reference point (+c is not given), and represents a</span>
-<span class="c1"># length (+w) of 500 kilometers</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;g-42/-1+w500k&quot;</span><span class="p">)</span>
+<span class="c1"># --- Top Left: Add a plain scale bar ---</span>
+<span class="c1"># It is placed based on geographic coordinates 42° West and 1° South, applies at the</span>
+<span class="c1"># reference point by default, and represents a length of 500 kilometers.</span>
+<a href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">scalebar</span></a><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="s2">&quot;500k&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">((</span><span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;mapcoords&quot;</span><span class="p">))</span>
 
-<span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="c1"># Top Right: Add a fancy scale bar</span>
-<span class="c1"># It is placed based on normalized bounding box coordinates (n)</span>
-<span class="c1"># Use a fancy style (+f) to get a scale bar that looks like train tracks</span>
-<span class="c1"># Add the distance unit (+u) to the single distance values</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;n0.8/0.95+w500k+f+u&quot;</span><span class="p">)</span>
+<span class="c1"># --- Top Right: Add a fancy scale bar ---</span>
+<span class="c1"># It is placed based on normalized bounding box coordinates. Use a fancy style to get a</span>
+<span class="c1"># scale bar that looks like train tracks. Add the distance unit to the single distance</span>
+<span class="c1"># values.</span>
+<a href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">scalebar</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">((</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;boxcoords&quot;</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="s2">&quot;500k&quot;</span><span class="p">,</span>
+    <span class="n">fancy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="c1"># Bottom Left: Add a thick scale bar</span>
-<span class="c1"># Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies</span>
-<span class="c1"># only to the code within the &quot;with&quot; statement)</span>
-<span class="c1"># It applies (+c) at the middle of the map (no location is appended to +c)</span>
-<span class="c1"># Without appending text, +l adds the distance unit as label</span>
-<span class="k">with</span> <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_SCALE_HEIGHT</span><span class="o">=</span><span class="s2">&quot;10p&quot;</span><span class="p">):</span>
-    <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;n0.2/0.15+c+w500k+f+l&quot;</span><span class="p">)</span>
+<span class="c1"># --- Bottom Left: Add a thick scale bar ---</span>
+<span class="c1"># It applies at the middle of the map (scale_loc is set to True). Use the height</span>
+<span class="c1"># parameter to adjust the thickness of the scale bar Without providing text, the label</span>
+<span class="c1"># parameter adds the distance unit as label.</span>
+<a href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">scalebar</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">((</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;boxcoords&quot;</span><span class="p">),</span>
+    <span class="n">scale_loc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">length</span><span class="o">=</span><span class="s2">&quot;500k&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="s2">&quot;10p&quot;</span><span class="p">,</span>
+    <span class="n">fancy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># -----------------------------------------------------------------------------</span>
-<span class="c1"># Bottom Right: Add a scale bar valid for a specific location</span>
-<span class="c1"># It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with</span>
-<span class="c1"># an offset (+o) of 1 centimeter in both x- and y-directions</span>
-<span class="c1"># It applies (+c) at -7° South, add a customized label by appending text to +l</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S&quot;</span><span class="p">)</span>
+<span class="c1"># --- Bottom Right: Add a scale bar valid for a specific location ---</span>
+<span class="c1"># It is placed at BottomRight using MiddleRight as anchor point with an offset of 1</span>
+<span class="c1"># centimeter in both x- and y-directions. It applies at -7° South. A customized label</span>
+<span class="c1"># is added via the label parameter.</span>
+<a href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">scalebar</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BR&quot;</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">&quot;MR&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">scale_loc</span><span class="o">=-</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">length</span><span class="o">=</span><span class="s2">&quot;500k&quot;</span><span class="p">,</span>
+    <span class="n">fancy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;valid at 7° S&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_scalebar_001.png" srcset="../../_images/sphx_glr_scalebar_001.png" alt="scalebar" class = "sphx-glr-single-img"/><p>The <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter allows surrounding the scale bar. This can be useful
-when adding a scale bar to a colorful map. To fill the box, append <strong>+g</strong>
-with the desired color (or pattern). The outline of the box can be adjusted
-by appending <strong>+p</strong> with the desired thickness, color, and style. To force
-rounded edges append <strong>+r</strong> with the desired radius.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new Figure instance</span>
-<a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<img src="../../_images/sphx_glr_scalebar_001.png" srcset="../../_images/sphx_glr_scalebar_001.png" alt="scalebar" class = "sphx-glr-single-img"/><p>The <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter allows surrounding the scale bar. This can be useful when adding
+a scale bar to a colorful map to improve contrast and readability.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
-<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">],</span>
-    <span class="c1"># Set the label alignment (+a) to right (r)</span>
-    <span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;jBL+o1c/1c+c-7+w500k+f+lkm+ar&quot;</span><span class="p">,</span>
-    <span class="c1"># Fill the box in white with a transparency of 30 percent, add a solid</span>
-    <span class="c1"># outline in darkgray (gray30) with a thickness of 0.5 points, and use</span>
-    <span class="c1"># rounded edges with a radius of 3 points</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">scalebar</span></a><span class="p">(</span>
+    <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BL&quot;</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;inside&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">scale_loc</span><span class="o">=-</span><span class="mi">7</span><span class="p">,</span>
+    <span class="n">length</span><span class="o">=</span><span class="s2">&quot;500k&quot;</span><span class="p">,</span>
+    <span class="n">fancy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;km&quot;</span><span class="p">,</span>
+    <span class="n">label_alignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+    <span class="c1"># Fill the box in white with a transparency of 30 percent, add a solid outline in</span>
+    <span class="c1"># darkgray (gray30) with a thickness of 0.5 points, and use rounded edges with a</span>
+    <span class="c1"># radius of 3 points</span>
     <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white@30&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.5p,gray30,solid&quot;</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s2">&quot;3p&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_scalebar_002.png" srcset="../../_images/sphx_glr_scalebar_002.png" alt="scalebar" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.323 seconds)</p>
+<img src="../../_images/sphx_glr_scalebar_002.png" srcset="../../_images/sphx_glr_scalebar_002.png" alt="scalebar" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.317 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-scalebar-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/004f6d23a04369ca0db9c83de3b6182d/scalebar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">scalebar.ipynb</span></code></a></p>
@@ -331,9 +302,9 @@ rounded edges append <strong>+r</strong> with the desired radius.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

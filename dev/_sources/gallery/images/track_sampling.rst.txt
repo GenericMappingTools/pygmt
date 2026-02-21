@@ -77,7 +77,7 @@ argument needs to be passed to the ``outfile`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.378 seconds)
+   **Total running time of the script:** (0 minutes 0.371 seconds)
 
 
 .. _sphx_glr_download_gallery_images_track_sampling.py:

@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/subplot.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,27 +160,142 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span><span class="p">,</span> <span class="n">GMTValueError</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span><span class="p">,</span> <span class="n">GMTValueError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_A</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tag_position</span><span class="p">:</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="n">Position</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_number_style</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;roman&quot;</span><span class="p">,</span> <span class="s2">&quot;Roman&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">autolabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create the alias list for the -A option.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
+<span class="sd">    ...     return AliasSystem(A=_alias_option_A(**kwargs)).get(&quot;A&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag=&quot;a)&quot;)</span>
+<span class="sd">    &#39;a)&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_position=&quot;TL&quot;)</span>
+<span class="sd">    &#39;+jTL&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_position=Position(&quot;TL&quot;, cstype=&quot;inside&quot;, offset=(&quot;2c&quot;, &quot;2c&quot;)))</span>
+<span class="sd">    &#39;+jTL+o2c/2c&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_position=Position(&quot;TL&quot;, cstype=&quot;outside&quot;, offset=(&quot;2c&quot;, &quot;2c&quot;)))</span>
+<span class="sd">    &#39;+JTL+o2c/2c&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_box=Box(pen=&quot;1p,red&quot;, clearance=&quot;2c&quot;))</span>
+<span class="sd">    &#39;+c2c+p1p,red&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_number_style=&quot;roman&quot;)</span>
+<span class="sd">    &#39;+r&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(tag_orientation=&quot;vertical&quot;)</span>
+<span class="sd">    &#39;+v&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(</span>
+<span class="sd">    ...     tag=&quot;(1)&quot;,</span>
+<span class="sd">    ...     tag_position=&quot;TL&quot;,</span>
+<span class="sd">    ...     tag_box=Box(pen=&quot;1p,red&quot;),</span>
+<span class="sd">    ...     tag_number_style=&quot;Roman&quot;,</span>
+<span class="sd">    ...     tag_orientation=&quot;horizontal&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &#39;(1)+jTL+p1p,red+R&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check conflicts with deprecated &#39;autolabel&#39; parameter.</span>
+    <span class="k">if</span> <span class="n">autolabel</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="n">tag</span><span class="p">,</span> <span class="n">tag_position</span><span class="p">,</span> <span class="n">tag_box</span><span class="p">,</span> <span class="n">tag_number_style</span><span class="p">,</span> <span class="n">tag_orientation</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+                <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;autolabel&quot;</span><span class="p">,</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;tag&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;tag_position&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;tag_box&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;tag_number_style&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;tag_orientation&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;autolabel&#39; is specified using a unrecommend GMT command string syntax.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Alias</span><span class="p">(</span><span class="n">autolabel</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;autolabel&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Validate tag_box if provided.</span>
+    <span class="k">if</span> <span class="n">tag_box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">{</span><span class="n">tag_box</span><span class="o">.</span><span class="n">inner_pen</span><span class="p">,</span> <span class="n">tag_box</span><span class="o">.</span><span class="n">inner_gap</span><span class="p">,</span> <span class="n">tag_box</span><span class="o">.</span><span class="n">radius</span><span class="p">}</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">tag_box</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Box properties for &#39;tag_box&#39; in &#39;Figure.subplot&#39;&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;The &#39;inner_pen&#39;, &#39;inner_gap&#39;, and &#39;radius&#39; properties are not supported.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tag_box</span><span class="o">.</span><span class="n">clearance</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tag_box</span><span class="o">.</span><span class="n">clearance</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+                <span class="n">tag_box</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Box &#39;clearance&#39; property for &#39;tag_box&#39; in &#39;Figure.subplot&#39;&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Only one or two values are accepted.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="c1"># Validate the tag_position if provided.</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tag_position</span><span class="p">,</span> <span class="s2">&quot;cstype&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span>
+        <span class="s2">&quot;mapcoords&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;plotcoords&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;boxcoords&quot;</span><span class="p">,</span>
+    <span class="p">}:</span>
+        <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
+            <span class="n">tag_position</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;tag position for &#39;Figure.subplot&#39;.&quot;</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Only &#39;inside&#39; or &#39;outside&#39; cstype is allowed.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">),</span>
+        <span class="c1"># tag_position&#39;s prefix is &quot;+&quot;, not &quot;+j&quot; or &quot;+J&quot;.</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">_parse_position</span><span class="p">(</span><span class="n">tag_position</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag_position&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">tag_box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag_box&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span>
+            <span class="n">tag_number_style</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag_number_style&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;arabic&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;roman&quot;</span><span class="p">:</span> <span class="s2">&quot;+r&quot;</span><span class="p">,</span> <span class="s2">&quot;Roman&quot;</span><span class="p">:</span> <span class="s2">&quot;+R&quot;</span><span class="p">},</span>
+        <span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span>
+            <span class="n">tag_orientation</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag_orientation&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;horizontal&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span> <span class="s2">&quot;+v&quot;</span><span class="p">},</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span>
-    <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;subsize&quot;</span><span class="p">,</span>
-    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;autolabel&quot;</span><span class="p">,</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span>
-    <span class="n">SC</span><span class="o">=</span><span class="s2">&quot;sharex&quot;</span><span class="p">,</span>
-    <span class="n">SR</span><span class="o">=</span><span class="s2">&quot;sharey&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;subsize&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span> <span class="n">SC</span><span class="o">=</span><span class="s2">&quot;sharex&quot;</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="s2">&quot;sharey&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">subplot</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">subplot</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">nrows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">ncols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tag_position</span><span class="p">:</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="n">Position</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_box</span><span class="p">:</span> <span class="n">Box</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_number_style</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;arabic&quot;</span><span class="p">,</span> <span class="s2">&quot;roman&quot;</span><span class="p">,</span> <span class="s2">&quot;Roman&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag_font</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">autolabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">margins</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -221,31 +336,59 @@
 <span class="sd">        Specify the dimensions of each subplot directly as [*width*, *height*].</span>
 <span class="sd">        Note that only one of ``figsize`` or ``subsize`` can be provided at</span>
 <span class="sd">        once.</span>
+<span class="sd">    tag</span>
+<span class="sd">        Specify automatic tagging of each subplot. It can accept a number, or a letter.</span>
+<span class="sd">        The number or letter can be surrounded by parentheses on any side if these</span>
+<span class="sd">        should be typeset as part of the tag. This sets the tag of the first, top-left</span>
+<span class="sd">        subplot and others follow sequentially. If set to ``True``, default to ``&quot;a)&quot;``.</span>
 
-<span class="sd">    autolabel : bool or str</span>
-<span class="sd">        [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\</span>
-<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]\ [**+v**].</span>
-<span class="sd">        Specify automatic tagging of each subplot. Append either a number or letter</span>
-<span class="sd">        [Default is ``&quot;a&quot;``]. This sets the tag of the first, top-left subplot and</span>
-<span class="sd">        others follow sequentially. Surround the number or letter by parentheses on</span>
-<span class="sd">        any side if these should be typeset as part of the tag [Default is ``&quot;)&quot;``].</span>
-<span class="sd">        Use **+j**\|\ **J** for setting *refpoint* via a</span>
-<span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`</span>
-<span class="sd">        to specify where the tag should be placed in the subplot [Default is ``&quot;TL&quot;``</span>
-<span class="sd">        for the Top Left corner]. **Note**: **+j** sets the justification of the tag</span>
-<span class="sd">        to *refpoint* (suitable for interior tags) while **+J** instead selects the</span>
-<span class="sd">        mirror opposite (suitable for exterior tags). Append **+c**\ *dx*\[/*dy*] to</span>
-<span class="sd">        set the clearance between the tag and a surrounding text box requested via</span>
-<span class="sd">        **+g** or **+p** [Default is ``&quot;3p/3p&quot;``, i.e., 15 % of the</span>
-<span class="sd">        :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to paint the tag&#39;s</span>
-<span class="sd">        text box with *fill* [Default is no fill]. Append **+o**\ *dx*\ [/*dy*] to</span>
-<span class="sd">        offset the tag&#39;s reference point in the direction implied by the justification</span>
-<span class="sd">        [Default is ``&quot;4p/4p&quot;``, i.e., 20 % of the :gmt-term:`FONT_TAG` size]. Append</span>
-<span class="sd">        **+p**\ *pen* to draw the outline of the tag&#39;s text box using the selected *pen*</span>
-<span class="sd">        [Default is no outline]. Append **+r** to typeset your tag numbers using</span>
-<span class="sd">        lowercase Roman numerals; use **+R** for uppercase Roman numerals [Default is</span>
-<span class="sd">        Arabic numerals]. Append **+v** to increase tag numbers vertically down columns</span>
-<span class="sd">        [Default is horizontally across rows].</span>
+<span class="sd">        Examples are:</span>
+
+<span class="sd">        - ``tag=&quot;a&quot;``: tags are ``a``, ``b``, ``c``, ...</span>
+<span class="sd">        - ``tag=&quot;1&quot;``: tags are ``1``, ``2``, ``3``, ...</span>
+<span class="sd">        - ``tag=&quot;a)&quot;``: tags are ``a)``, ``b)``, ``c)``, ...</span>
+<span class="sd">        - ``tag=&quot;(c)&quot;``: tags are ``(c)``, ``(d)``, ``(e)``, ...</span>
+<span class="sd">        - ``tag=True``: same as ``tag=&quot;a)&quot;``.</span>
+<span class="sd">    tag_position</span>
+<span class="sd">        Position of the subplot tag on the plot. It can be specified in two ways:</span>
+
+<span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
+<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
+<span class="sd">        - A :class:`pygmt.params.Position` object to fully control the position and</span>
+<span class="sd">          offset. **Note**: the ``refpoint`` property of the Position object must be</span>
+<span class="sd">          an two-character justification code, and ``cstype`` must be set to either</span>
+<span class="sd">          ``&quot;inside&quot;`` or ``&quot;outside&quot;``,</span>
+
+<span class="sd">        If not specified, defaults to Top Left corner inside the plot with the offset</span>
+<span class="sd">        default to ``(&quot;4p&quot;, &quot;4p&quot;)``, i.e., 20% of the :gmt-term:`FONT_TAG` size.</span>
+<span class="sd">    tag_box</span>
+<span class="sd">        Draw a box around the subplot tag. See :class:`pygmt.params.Box` for details on</span>
+<span class="sd">        how to specify the box.</span>
+
+<span class="sd">        **Notes on the use of the ``Box`` class:**</span>
+
+<span class="sd">        - The property ``clearance`` only accept one or two values.</span>
+<span class="sd">        - The properties ``inner_pen``, ``inner_gap``, ``radius`` are not supported.</span>
+<span class="sd">    tag_number_style</span>
+<span class="sd">        Style of the subplot tag numbers. It can be:</span>
+
+<span class="sd">        - ``&quot;arabic&quot;``: Arabic numerals: 1, 2, 3, ... [Default].</span>
+<span class="sd">        - ``&quot;roman&quot;``: Lowercase Roman numerals: i, ii, iii, ...</span>
+<span class="sd">        - ``&quot;Roman&quot;``: Uppercase Roman numerals: I, II, III, ...</span>
+<span class="sd">    tag_orientation</span>
+<span class="sd">        Orientation of the subplot tag. It can be:</span>
+
+<span class="sd">        - ``&quot;horizontal&quot;``: Increase tag numbers horizontally across rows [Default].</span>
+<span class="sd">        - ``&quot;vertical&quot;``: Increase tag numbers vertically down columns.</span>
+<span class="sd">    tag_font</span>
+<span class="sd">        Font for the subplot tag [Default to ``&quot;20p,Helvetica,black&quot;``].</span>
+<span class="sd">    autolabel</span>
+<span class="sd">        Specify automatic tag of each subplot.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">           Use the parameters ``tag``, ``tag_position``, ``tag_box``,</span>
+<span class="sd">           ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.</span>
 <span class="sd">    clearance : str or list</span>
 <span class="sd">        [*side*]\ *clearance*.</span>
 <span class="sd">        Reserve a space of dimension *clearance* between the margin and the</span>
@@ -320,10 +463,17 @@
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Ff&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Fs&quot;</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Please provide either one of &#39;figsize&#39; or &#39;subsize&#39; only.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">at_most_one</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="s2">&quot;subsize&quot;</span><span class="p">])</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">A</span><span class="o">=</span><span class="n">_alias_option_A</span><span class="p">(</span>
+            <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+            <span class="n">tag_position</span><span class="o">=</span><span class="n">tag_position</span><span class="p">,</span>
+            <span class="n">tag_box</span><span class="o">=</span><span class="n">tag_box</span><span class="p">,</span>
+            <span class="n">tag_number_style</span><span class="o">=</span><span class="n">tag_number_style</span><span class="p">,</span>
+            <span class="n">tag_orientation</span><span class="o">=</span><span class="n">tag_orientation</span><span class="p">,</span>
+            <span class="n">autolabel</span><span class="o">=</span><span class="n">autolabel</span><span class="p">,</span>
+        <span class="p">),</span>
         <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">margins</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;margins&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
         <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
@@ -334,6 +484,9 @@
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="c1"># Configure FONT_TAG if tag_font is set</span>
+    <span class="n">confdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;FONT_TAG&quot;</span><span class="p">:</span> <span class="n">tag_font</span><span class="p">}</span> <span class="k">if</span> <span class="n">tag_font</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
+
     <span class="c1"># Need to use separate sessions for &quot;subplot begin&quot; and &quot;subplot end&quot;.</span>
     <span class="c1"># Otherwise, &quot;subplot end&quot; will use the last session, which may cause</span>
     <span class="c1"># strange positioning issues for later plotting calls.</span>
@@ -342,7 +495,11 @@
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
                 <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span>
-                <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;begin&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nrows</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">ncols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">)],</span>
+                <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s2">&quot;begin&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nrows</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">ncols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">confdict</span><span class="o">=</span><span class="n">confdict</span><span class="p">),</span>
+                <span class="p">],</span>
             <span class="p">)</span>
             <span class="k">yield</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -355,10 +512,13 @@
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;fixedlabel&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">)</span>
+<span class="c1"># TODO(PyGMT&gt;=0.23.0): Remove the deprecated &#39;fixedlabel&#39; parameter.</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;fixedlabel&quot;</span><span class="p">,</span> <span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.19.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.23.0&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_panel</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -375,6 +535,7 @@
 <span class="sd">    ``projection=&quot;X&quot;`` will fill the subplot by using unequal scales].</span>
 
 <span class="sd">    $aliases</span>
+<span class="sd">       - A = tag</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
@@ -389,13 +550,10 @@
 <span class="sd">        GMT maintains information about the current figure and subplot. Also, you may</span>
 <span class="sd">        give the one-dimensional *index* instead which starts at 0 and follows the row</span>
 <span class="sd">        or column order set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.</span>
-
-<span class="sd">    fixedlabel : str</span>
-<span class="sd">        Overrides the automatic labeling with the given string. No modifiers</span>
-<span class="sd">        are allowed. Placement, justification, etc. are all inherited from how</span>
-<span class="sd">        ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`</span>
-<span class="sd">        command.</span>
-
+<span class="sd">    tag</span>
+<span class="sd">        Tag for the current subplot. It overrides the automatic tag set by the</span>
+<span class="sd">        :meth:`pygmt.Figure.subplot` method. Use ``tag=&quot;-&quot;`` to skip the tag for this</span>
+<span class="sd">        panel.</span>
 <span class="sd">    clearance : str or list</span>
 <span class="sd">        [*side*]\ *clearance*.</span>
 <span class="sd">        Reserve a space of dimension *clearance* between the margin and the</span>
@@ -412,9 +570,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
-        <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span><span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -438,9 +594,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

@@ -76,7 +76,7 @@ east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.194 seconds)
+   **Total running time of the script:** (0 minutes 0.191 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py:

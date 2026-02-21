@@ -99,7 +99,7 @@ background colors. The foreground and background colors can also be inverted.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.231 seconds)
+   **Total running time of the script:** (0 minutes 0.227 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_patterns.py:

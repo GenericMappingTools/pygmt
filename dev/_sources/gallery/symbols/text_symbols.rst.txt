@@ -75,7 +75,7 @@ set with the ``fill`` parameter, and the outline width can be customized with th
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.127 seconds)
+   **Total running time of the script:** (0 minutes 0.124 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_text_symbols.py:

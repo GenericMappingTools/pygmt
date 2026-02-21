@@ -25,12 +25,16 @@ Plotting map elements
     :toctree: generated
 
     Figure.basemap
+    Figure.choropleth
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
@@ -290,14 +294,15 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     :toctree: generated
 
     exceptions.GMTError
-    exceptions.GMTInvalidInput
-    exceptions.GMTVersionError
-    exceptions.GMTOSError
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTInvalidInput
+    exceptions.GMTOSError
+    exceptions.GMTParameterError
     exceptions.GMTTypeError
     exceptions.GMTValueError
+    exceptions.GMTVersionError
 
 
 .. currentmodule:: pygmt

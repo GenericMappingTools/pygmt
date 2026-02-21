@@ -88,7 +88,7 @@ defined via the ``font`` parameter and the timestamp string format via ``timefmt
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.331 seconds)
+   **Total running time of the script:** (0 minutes 0.327 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_timestamp.py:

@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -230,28 +230,34 @@ for Japan):</p>
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.basemap</span></code></a>([projection, zsize, zscale, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.basemap</span></code></a>([projection, zscale, zsize, ...])</p></td>
 <td><p>Plot base maps and frames.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.coast</span></code></a>([resolution, land, water, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.choropleth.html#pygmt.Figure.choropleth" title="pygmt.Figure.choropleth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.choropleth</span></code></a>(data, column[, cmap])</p></td>
+<td><p>Plot a choropleth map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.coast</span></code></a>([resolution, land, water, ...])</p></td>
 <td><p>Plot continents, countries, shorelines, rivers, and borders.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.colorbar</span></code></a>([position, length, width, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.colorbar</span></code></a>([position, length, width, ...])</p></td>
 <td><p>Plot gray scale or color scale bar.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([data, x, y, z, no_clip, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.contour.html#pygmt.Figure.contour" title="pygmt.Figure.contour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.contour</span></code></a>([data, x, y, z, no_clip, ...])</p></td>
 <td><p>Contour table data by direct triangulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid[, projection, frame, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.directional_rose.html#pygmt.Figure.directional_rose" title="pygmt.Figure.directional_rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.directional_rose</span></code></a>([position, width, ...])</p></td>
+<td><p>Add a directional rose on the map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdcontour.html#pygmt.Figure.grdcontour" title="pygmt.Figure.grdcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdcontour</span></code></a>(grid[, projection, ...])</p></td>
 <td><p>Make contour map using a grid.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdimage</span></code></a>(grid[, monochrome, no_clip, ...])</p></td>
 <td><p>Project and plot grids or images.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid[, contour_pen, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid[, surftype, dpi, ...])</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(data[, projection, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.histogram</span></code></a>(data[, bar_width, ...])</p></td>
 <td><p>Calculate and plot histograms.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.hlines.html#pygmt.Figure.hlines" title="pygmt.Figure.hlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.hlines</span></code></a>(y[, xmin, xmax, pen, label, ...])</p></td>
@@ -269,25 +275,31 @@ for Japan):</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.logo.html#pygmt.Figure.logo" title="pygmt.Figure.logo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.logo</span></code></a>([position, width, height, box, ...])</p></td>
 <td><p>Plot the GMT logo.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.meca</span></code></a>(spec, scale[, convention, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.magnetic_rose.html#pygmt.Figure.magnetic_rose" title="pygmt.Figure.magnetic_rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.magnetic_rose</span></code></a>([position, width, ...])</p></td>
+<td><p>Add a magnetic rose to the map.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.meca.html#pygmt.Figure.meca" title="pygmt.Figure.meca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.meca</span></code></a>(spec, scale[, convention, ...])</p></td>
 <td><p>Plot focal mechanisms.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot</span></code></a>([data, x, y, size, symbol, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot</span></code></a>([data, x, y, size, symbol, ...])</p></td>
 <td><p>Plot lines, polygons, and symbols in 2-D.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot3d</span></code></a>([data, x, y, z, size, symbol, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.plot3d</span></code></a>([data, x, y, z, size, symbol, ...])</p></td>
 <td><p>Plot lines, polygons, and symbols in 3-D.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.psconvert</span></code></a>([prefix, dpi, gs_option, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.psconvert</span></code></a>([prefix, dpi, gs_option, ...])</p></td>
 <td><p>Convert [E]PS file(s) to other formats using Ghostscript.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([data, length, azimuth, frame, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.rose.html#pygmt.Figure.rose" title="pygmt.Figure.rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.rose</span></code></a>([data, length, azimuth, region, ...])</p></td>
 <td><p>Plot a polar histogram (rose, sector, windrose diagrams).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.savefig</span></code></a>(fname[, transparent, crop, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.savefig.html#pygmt.Figure.savefig" title="pygmt.Figure.savefig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.savefig</span></code></a>(fname[, transparent, crop, ...])</p></td>
 <td><p>Save the figure to an image file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.set_panel</span></code></a>([panel, verbose])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.scalebar.html#pygmt.Figure.scalebar" title="pygmt.Figure.scalebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.scalebar</span></code></a>(length[, height, position, ...])</p></td>
+<td><p>Add a scale bar on the plot.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.set_panel</span></code></a>([panel, tag, verbose])</p></td>
 <td><p>Set the current subplot panel to plot on.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.shift_origin</span></code></a>([xshift, yshift])</p></td>
@@ -299,7 +311,7 @@ for Japan):</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.solar.html#pygmt.Figure.solar" title="pygmt.Figure.solar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.solar</span></code></a>([terminator, ...])</p></td>
 <td><p>Plot day-night terminators and other sunlight parameters.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a>([nrows, ncols, margins, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a>([nrows, ncols, tag, ...])</p></td>
 <td><p>Manage figure subplot configuration and selection.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.Figure.ternary.html#pygmt.Figure.ternary" title="pygmt.Figure.ternary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.ternary</span></code></a>(data[, alabel, blabel, ...])</p></td>
@@ -327,7 +339,10 @@ for Japan):</p>
 </table>
 <section id="examples-using-pygmt-figure">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code><a class="headerlink" href="#examples-using-pygmt-figure" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A 3-D bar plot can be created from any collection of three-dimensional tabular data. The data points can lie on a regular grid or be irregularly scattered. A special case is creating such a 3-D bar plot based on a grid. This can be done in two steps:"><img alt="" src="../../_images/sphx_glr_3d_bar_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/3d_bar.html"><span class="doc">3-D bar plot</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D bar plot</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;surface&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html"><span class="doc">Plotting a surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
@@ -357,7 +372,7 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygmt.Figure.plot. A legend entry is only added when the label parameter is used to state the desired text. Optionally, to adjust the legend, users can append different modifiers. A list of all available modifiers can be found at gmt.html#l-full. To create a multiple-column legend +N is used with the desired number of columns. For more complicated legends, users may want to write an ASCII file with instructions for the layout of the legend items and pass it to the spec parameter of pygmt.Figure.legend. For details on how to set up such a file, please see the GMT documentation at legend.html#legend-codes."><img alt="" src="../../_images/sphx_glr_legend_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/legend.html"><span class="doc">Legend</span></a></p>
   <div class="sphx-glr-thumbnail-title">Legend</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The map_scale parameter of the pygmt.Figure.basemap and pygmt.Figure.coast methods is used to add a scale bar to a map. This example shows how such a scale bar can be customized:"><img alt="" src="../../_images/sphx_glr_scalebar_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.scalebar method can be used to add a scale bar to a map. This example shows how such a scale bar can be customized."><img alt="" src="../../_images/sphx_glr_scalebar_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/scalebar.html"><span class="doc">Scale bar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scale bar</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. The parameter terminator is used to set the twilight stage, and can be either &quot;day_night&quot; (brightest), &quot;civil&quot;, &quot;nautical&quot;, or &quot;astronomical&quot; (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for more information."><img alt="" src="../../_images/sphx_glr_solar_thumb.png" />
@@ -393,9 +408,9 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html"><span class="doc">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html"><span class="doc">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html"><span class="doc">Calculating grid gradient with custom azimuth and normalization parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalization parameters</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdlandmask function allows setting all nodes on land or water to a specified value using the mask_values parameter."><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdlandmask.html"><span class="doc">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
@@ -453,7 +468,7 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot and the pen used to draw them. Choose from the list of boundaries below:"><img alt="" src="../../_images/sphx_glr_borders_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/borders.html"><span class="doc">Political boundaries</span></a></p>
   <div class="sphx-glr-thumbnail-title">Political boundaries</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.choropleth method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object or an OGR_GMT file. Use geopandas.read_file to load data from any supported OGR formats such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.choropleth, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to specify the column name to the column parameter."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/choropleth_map.html"><span class="doc">Choropleth map</span></a></p>
   <div class="sphx-glr-thumbnail-title">Choropleth map</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts the country code (following the 2-letter ISO 3166-1 alpha-2 convention) or full country name and can draw its borders and add a color to its landmass. It&#x27;s also possible to define multiple countries at once by separating the individual names with commas."><img alt="" src="../../_images/sphx_glr_country_polygons_thumb.png" />
@@ -477,7 +492,7 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. The example below plots red velocity arrows with lightblue confidence ellipses outlined in red with the east_velocity x north_velocity used for the station names. Note that the velocity arrows are scaled by 0.2 and the 39% confidence limit will give an ellipse which fits inside a rectangle of dimension east_sigma by north_sigma."><img alt="" src="../../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
 <p><a class="reference internal" href="../../gallery/seismology/velo_arrow_ellipse.html"><span class="doc">Velocity arrows and confidence ellipses</span></a></p>
   <div class="sphx-glr-thumbnail-title">Velocity arrows and confidence ellipses</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for vertical bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html"><span class="doc">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
@@ -654,7 +669,7 @@ for Japan):</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html"><span class="doc">Typesetting non-ASCII text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and tag them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/subplots.html"><span class="doc">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_vectors_thumb.png" />
@@ -700,9 +715,9 @@ for Japan):</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

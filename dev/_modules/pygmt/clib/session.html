@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/clib/session.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -181,7 +181,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTCLibError</span><span class="p">,</span>
     <span class="n">GMTCLibNoSessionError</span><span class="p">,</span>
-    <span class="n">GMTInvalidInput</span><span class="p">,</span>
     <span class="n">GMTTypeError</span><span class="p">,</span>
     <span class="n">GMTValueError</span><span class="p">,</span>
 <span class="p">)</span>
@@ -451,7 +450,7 @@
         <span class="n">session</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">c_get_enum</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">99999</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; doesn&#39;t exist in libgmt.&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Constant </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> doesn&#39;t exist in libgmt.&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span></div>
 
@@ -686,7 +685,7 @@
         <span class="n">value</span> <span class="o">=</span> <span class="n">ctp</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_get_default</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error getting value for &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (error code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Error getting value for </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> (error code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">).&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
 
@@ -852,7 +851,7 @@
 
         <span class="n">status</span> <span class="o">=</span> <span class="n">c_call_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">mode</span><span class="p">,</span> <span class="n">argv</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Module &#39;</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">&#39; failed with status code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Module </span><span class="si">{</span><span class="n">module</span><span class="si">!r}</span><span class="s2"> failed with status code </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
@@ -1410,7 +1409,7 @@
             <span class="n">data</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">data_ptr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to read dataset from &#39;</span><span class="si">{</span><span class="n">infile</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to read dataset from </span><span class="si">{</span><span class="n">infile</span><span class="si">!r}</span><span class="s2">.&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ctp</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">data_ptr</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span></div>
 
@@ -1484,7 +1483,7 @@
             <span class="n">data</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to write dataset to &#39;</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to write dataset to </span><span class="si">{</span><span class="n">output</span><span class="si">!r}</span><span class="s2">.&quot;</span>
             <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
@@ -1602,7 +1601,7 @@
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">c_close_virtualfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span> <span class="n">vfname</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
             <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to close virtual file &#39;</span><span class="si">{</span><span class="n">vfname</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to close virtual file </span><span class="si">{</span><span class="n">vfname</span><span class="si">!r}</span><span class="s2">.&quot;</span>
                 <span class="k">raise</span> <span class="n">GMTCLibError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
@@ -1674,8 +1673,7 @@
 
         <span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">rows</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;All arrays must have same size.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span><span class="n">arrays</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;All arrays must have same size.&quot;</span><span class="p">)</span>
 
         <span class="n">family</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_DATASET|GMT_VIA_VECTOR&quot;</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;GMT_IS_POINT&quot;</span>
@@ -2623,9 +2621,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

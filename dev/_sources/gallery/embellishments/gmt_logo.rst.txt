@@ -52,7 +52,7 @@ The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.205 seconds)
+   **Total running time of the script:** (0 minutes 0.198 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_gmt_logo.py:

@@ -110,7 +110,7 @@ Here are some important tips when using non-ASCII characters:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.170 seconds)
+   **Total running time of the script:** (0 minutes 0.168 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_non_ascii_text.py:

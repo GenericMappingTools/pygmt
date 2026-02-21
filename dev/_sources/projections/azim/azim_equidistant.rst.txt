@@ -51,7 +51,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
  .. code-block:: none
 
     coast [WARNING]: Fill/clip continent option (-G) may not work for this projection.
-    coast [WARNING]: If the antipode (0/4.63698e-310) is in the ocean then chances are good it will work.
+    coast [WARNING]: If the antipode (0/4.68889e-310) is in the ocean then chances are good it will work.
     coast [WARNING]: Otherwise, avoid projection center coordinates that are exact multiples of 80 degrees.
 
 
@@ -74,7 +74,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.354 seconds)
+   **Total running time of the script:** (0 minutes 0.350 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_equidistant.py:

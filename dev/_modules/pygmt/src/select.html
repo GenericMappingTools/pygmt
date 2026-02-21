@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/select.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -179,6 +179,8 @@
 <div class="viewcode-block" id="select">
 <a class="viewcode-back" href="../../../api/generated/pygmt.select.html#pygmt.select">[docs]</a>
 <span class="nd">@fmt_docstring</span>
+<span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated &#39;mask&#39; parameter.</span>
+<span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated &#39;gridmask&#39; parameter.</span>
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_values&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;gridmask&quot;</span><span class="p">,</span> <span class="s2">&quot;mask_grid&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
@@ -304,7 +306,6 @@
 <span class="sd">          (and ``area_thresh``, ``resolution``).</span>
 <span class="sd">        - **z** select records NOT within the range specified by</span>
 <span class="sd">          ``z_subregion``.</span>
-<span class="sd">    $projection</span>
 <span class="sd">    mask_values : str or list</span>
 <span class="sd">        Pass all records whose location is inside specified geographical features.</span>
 <span class="sd">        Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:</span>
@@ -322,8 +323,6 @@
 <span class="sd">        the coastlines differ in details, a node in a mask file using one resolution is</span>
 <span class="sd">        not guaranteed to remain inside [or outside] when a different resolution is</span>
 <span class="sd">        selected. If ``None``, the low resolution is used by default.</span>
-<span class="sd">    $region</span>
-<span class="sd">    $verbose</span>
 <span class="sd">    z_subregion : str or list</span>
 <span class="sd">        *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].</span>
 <span class="sd">        Pass all records whose 3rd column (*z*; *col* = 2) lies within the</span>
@@ -343,6 +342,9 @@
 <span class="sd">        and **+i** reverses the tests to pass record with *z* value NOT in the</span>
 <span class="sd">        given range. Finally, if **+c** is not used then it is automatically</span>
 <span class="sd">        incremented for each new ``z_subregion`` argument, starting with 2.</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    $binary</span>
 <span class="sd">    $nodata</span>
 <span class="sd">    $find</span>
@@ -427,9 +429,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

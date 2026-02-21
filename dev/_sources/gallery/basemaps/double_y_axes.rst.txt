@@ -104,7 +104,7 @@ x-axis limits, but different y-axis limits.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.190 seconds)
+   **Total running time of the script:** (0 minutes 0.187 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_double_y_axes.py:

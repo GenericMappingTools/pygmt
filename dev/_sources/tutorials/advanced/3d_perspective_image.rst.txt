@@ -87,7 +87,7 @@ The default grid surface type is *mesh plot*.
 The grid surface type can be set with the ``surftype`` parameter.
 The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-57
+.. GENERATED FROM PYTHON SOURCE LINES 42-55
 
 .. code-block:: Python
 
@@ -99,10 +99,8 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
         frame=["xa", "yaf", "WSnE"],
         projection="M15c",
         zsize="1.5c",
-        # Set the surftype to "surface"
-        surftype="s",
-        # Set the CPT to "geo"
-        cmap="gmt/geo",
+        surftype="surface",
+        cmap="gmt/geo",  # Set the CPT to "geo"
     )
     fig.show()
 
@@ -118,12 +116,12 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-60
+.. GENERATED FROM PYTHON SOURCE LINES 56-58
 
 The ``plane`` parameter sets the elevation and color of a plane that provides a fill
 below the surface relief.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-75
+.. GENERATED FROM PYTHON SOURCE LINES 58-73
 
 .. code-block:: Python
 
@@ -135,7 +133,7 @@ below the surface relief.
         frame=["xa", "yaf", "WSnE"],
         projection="M15c",
         zsize="1.5c",
-        surftype="s",
+        surftype="surface",
         cmap="gmt/geo",
         plane=1000,  # Set the plane elevation to 1,000 meters
         facade_fill="gray",  # Color the facade in "gray"
@@ -154,7 +152,7 @@ below the surface relief.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-82
+.. GENERATED FROM PYTHON SOURCE LINES 74-80
 
 The ``perspective`` azimuth can be changed to set the direction that is "up"
 in the figure. The ``contour_pen`` parameter sets the pen used to draw contour
@@ -163,7 +161,7 @@ colorbar to the figure. The ``cmap`` parameter does not need to be passed
 again. To keep the colorbar's alignment similar to the figure, use ``True``
 as argument for the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-101
+.. GENERATED FROM PYTHON SOURCE LINES 80-99
 
 .. code-block:: Python
 
@@ -176,7 +174,7 @@ as argument for the ``perspective`` parameter.
         frame=["xaf", "yaf", "WSnE"],
         projection="M15c",
         zsize="1.5c",
-        surftype="s",
+        surftype="surface",
         cmap="gmt/geo",
         plane=1000,
         facade_fill="gray",
@@ -201,7 +199,7 @@ as argument for the ``perspective`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.960 seconds)
+   **Total running time of the script:** (0 minutes 0.922 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_3d_perspective_image.py:

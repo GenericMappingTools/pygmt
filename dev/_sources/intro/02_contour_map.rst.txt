@@ -247,7 +247,7 @@ concepts that were discussed:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.989 seconds)
+   **Total running time of the script:** (0 minutes 0.957 seconds)
 
 
 .. _sphx_glr_download_intro_02_contour_map.py:

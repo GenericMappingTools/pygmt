@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**01:21.481** total execution time for 119 files **from all galleries**:
+**01:19.733** total execution time for 120 files **from all galleries**:
 
 .. container::
 
@@ -33,359 +33,362 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_maps_country_polygons.py` (``../examples/gallery/maps/country_polygons.py``)
-     - 00:07.420
+     - 00:07.222
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_draping_on_3d_surface.py` (``../examples/tutorials/advanced/draping_on_3d_surface.py``)
-     - 00:06.160
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_grdgradient_shading.py` (``../examples/gallery/images/grdgradient_shading.py``)
-     - 00:04.245
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_regions.py` (``../examples/tutorials/basics/regions.py``)
-     - 00:03.540
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_grdclip.py` (``../examples/gallery/images/grdclip.py``)
-     - 00:03.293
-     - 0.0
-   * - :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``../examples/gallery/3d_plots/grdview_surface.py``)
-     - 00:02.955
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``../examples/tutorials/advanced/vectors.py``)
-     - 00:02.415
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``../examples/tutorials/basics/frames.py``)
-     - 00:01.814
-     - 0.0
-   * - :ref:`sphx_glr_gallery_maps_tilemaps.py` (``../examples/gallery/maps/tilemaps.py``)
-     - 00:01.653
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``../examples/tutorials/advanced/working_with_panel.py``)
-     - 00:01.634
-     - 0.0
-   * - :ref:`sphx_glr_projections_azim_azim_general_perspective.py` (``../examples/projections/azim/azim_general_perspective.py``)
-     - 00:01.532
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_plot.py` (``../examples/tutorials/basics/plot.py``)
-     - 00:01.523
+     - 00:05.086
      - 0.0
    * - :ref:`sphx_glr_gallery_images_rgb_image.py` (``../examples/gallery/images/rgb_image.py``)
-     - 00:01.504
+     - 00:04.203
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdgradient_shading.py` (``../examples/gallery/images/grdgradient_shading.py``)
+     - 00:03.532
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_regions.py` (``../examples/tutorials/basics/regions.py``)
+     - 00:03.430
+     - 0.0
+   * - :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``../examples/gallery/3d_plots/grdview_surface.py``)
+     - 00:02.957
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``../examples/tutorials/advanced/vectors.py``)
+     - 00:02.316
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdclip.py` (``../examples/gallery/images/grdclip.py``)
+     - 00:02.310
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_tilemaps.py` (``../examples/gallery/maps/tilemaps.py``)
+     - 00:01.806
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``../examples/tutorials/basics/frames.py``)
+     - 00:01.746
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``../examples/tutorials/advanced/working_with_panel.py``)
+     - 00:01.602
+     - 0.0
+   * - :ref:`sphx_glr_projections_azim_azim_general_perspective.py` (``../examples/projections/azim/azim_general_perspective.py``)
+     - 00:01.516
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``../examples/tutorials/advanced/contour_map.py``)
-     - 00:01.416
+     - 00:01.381
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``../examples/tutorials/advanced/grid_equalization.py``)
-     - 00:01.341
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_lines.py` (``../examples/tutorials/basics/lines.py``)
-     - 00:01.251
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``../examples/tutorials/advanced/earth_relief.py``)
-     - 00:01.202
+     - 00:01.288
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_focal_mechanisms.py` (``../examples/tutorials/advanced/focal_mechanisms.py``)
-     - 00:01.197
+     - 00:01.168
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``../examples/tutorials/advanced/earth_relief.py``)
+     - 00:01.159
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py` (``../examples/tutorials/advanced/cartesian_histograms.py``)
-     - 00:01.195
+     - 00:01.151
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_date_time_charts.py` (``../examples/tutorials/advanced/date_time_charts.py``)
-     - 00:01.190
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_image.py` (``../examples/gallery/images/image.py``)
-     - 00:01.109
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_coastlines.py` (``../examples/tutorials/basics/coastlines.py``)
-     - 00:01.107
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``../examples/tutorials/advanced/insets.py``)
-     - 00:01.041
+     - 00:01.133
      - 0.0
    * - :ref:`sphx_glr_intro_01_first_figure.py` (``../examples/intro/01_first_figure.py``)
-     - 00:01.023
+     - 00:01.087
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_coastlines.py` (``../examples/tutorials/basics/coastlines.py``)
+     - 00:01.075
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``../examples/tutorials/advanced/insets.py``)
+     - 00:00.980
      - 0.0
    * - :ref:`sphx_glr_intro_02_contour_map.py` (``../examples/intro/02_contour_map.py``)
-     - 00:00.989
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``../examples/tutorials/advanced/3d_perspective_image.py``)
-     - 00:00.960
+     - 00:00.957
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_quoted_lines.py` (``../examples/gallery/lines/quoted_lines.py``)
-     - 00:00.948
+     - 00:00.925
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_hlines_vlines.py` (``../examples/gallery/lines/hlines_vlines.py``)
-     - 00:00.849
+   * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``../examples/tutorials/advanced/3d_perspective_image.py``)
+     - 00:00.922
      - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_text.py` (``../examples/tutorials/basics/text.py``)
-     - 00:00.765
-     - 0.0
-   * - :ref:`sphx_glr_gallery_maps_choropleth_map.py` (``../examples/gallery/maps/choropleth_map.py``)
-     - 00:00.762
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_legends.py` (``../examples/tutorials/advanced/legends.py``)
-     - 00:00.666
+   * - :ref:`sphx_glr_gallery_3d_plots_3d_bar.py` (``../examples/gallery/3d_plots/3d_bar.py``)
+     - 00:00.909
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_points_cities.py` (``../examples/gallery/symbols/points_cities.py``)
-     - 00:00.666
+     - 00:00.891
      - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``../examples/tutorials/advanced/subplots.py``)
-     - 00:00.572
+   * - :ref:`sphx_glr_tutorials_basics_lines.py` (``../examples/tutorials/basics/lines.py``)
+     - 00:00.860
      - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``../examples/tutorials/advanced/configuration.py``)
-     - 00:00.557
+   * - :ref:`sphx_glr_gallery_lines_hlines_vlines.py` (``../examples/gallery/lines/hlines_vlines.py``)
+     - 00:00.789
      - 0.0
-   * - :ref:`sphx_glr_gallery_histograms_blockm.py` (``../examples/gallery/histograms/blockm.py``)
-     - 00:00.541
+   * - :ref:`sphx_glr_tutorials_basics_text.py` (``../examples/tutorials/basics/text.py``)
+     - 00:00.744
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_linestrings.py` (``../examples/gallery/lines/linestrings.py``)
-     - 00:00.534
+   * - :ref:`sphx_glr_tutorials_basics_plot.py` (``../examples/tutorials/basics/plot.py``)
+     - 00:00.726
      - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``../examples/gallery/embellishments/inset.py``)
-     - 00:00.529
+   * - :ref:`sphx_glr_gallery_images_image.py` (``../examples/gallery/images/image.py``)
+     - 00:00.702
      - 0.0
-   * - :ref:`sphx_glr_tutorials_basics_polygons.py` (``../examples/tutorials/basics/polygons.py``)
-     - 00:00.506
+   * - :ref:`sphx_glr_tutorials_advanced_legends.py` (``../examples/tutorials/advanced/legends.py``)
+     - 00:00.645
      - 0.0
-   * - :ref:`sphx_glr_gallery_images_grdgradient.py` (``../examples/gallery/images/grdgradient.py``)
-     - 00:00.474
-     - 0.0
-   * - :ref:`sphx_glr_intro_04_table_inputs.py` (``../examples/intro/04_table_inputs.py``)
-     - 00:00.427
-     - 0.0
-   * - :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``../examples/gallery/3d_plots/scatter3d.py``)
-     - 00:00.410
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``../examples/gallery/symbols/multi_parameter_symbols.py``)
-     - 00:00.399
-     - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator.py` (``../examples/projections/cyl/cyl_oblique_mercator.py``)
-     - 00:00.398
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_track_sampling.py` (``../examples/gallery/images/track_sampling.py``)
-     - 00:00.378
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``../examples/gallery/embellishments/solar.py``)
-     - 00:00.369
+   * - :ref:`sphx_glr_gallery_maps_choropleth_map.py` (``../examples/gallery/maps/choropleth_map.py``)
+     - 00:00.630
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_points_categorical.py` (``../examples/gallery/symbols/points_categorical.py``)
-     - 00:00.366
+     - 00:00.591
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``../examples/tutorials/advanced/subplots.py``)
+     - 00:00.548
+     - 0.0
+   * - :ref:`sphx_glr_gallery_histograms_blockm.py` (``../examples/gallery/histograms/blockm.py``)
+     - 00:00.533
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``../examples/tutorials/advanced/configuration.py``)
+     - 00:00.529
+     - 0.0
+   * - :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``../examples/gallery/3d_plots/scatter3d.py``)
+     - 00:00.521
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``../examples/gallery/embellishments/inset.py``)
+     - 00:00.506
+     - 0.0
+   * - :ref:`sphx_glr_gallery_lines_linestrings.py` (``../examples/gallery/lines/linestrings.py``)
+     - 00:00.490
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_polygons.py` (``../examples/tutorials/basics/polygons.py``)
+     - 00:00.481
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdgradient.py` (``../examples/gallery/images/grdgradient.py``)
+     - 00:00.463
+     - 0.0
+   * - :ref:`sphx_glr_intro_04_table_inputs.py` (``../examples/intro/04_table_inputs.py``)
+     - 00:00.425
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``../examples/gallery/symbols/multi_parameter_symbols.py``)
+     - 00:00.390
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator.py` (``../examples/projections/cyl/cyl_oblique_mercator.py``)
+     - 00:00.380
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_track_sampling.py` (``../examples/gallery/images/track_sampling.py``)
+     - 00:00.371
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``../examples/gallery/embellishments/solar.py``)
+     - 00:00.363
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_borders.py` (``../examples/gallery/maps/borders.py``)
-     - 00:00.360
-     - 0.0
-   * - :ref:`sphx_glr_projections_azim_azim_equidistant.py` (``../examples/projections/azim/azim_equidistant.py``)
      - 00:00.354
      - 0.0
+   * - :ref:`sphx_glr_projections_azim_azim_equidistant.py` (``../examples/projections/azim/azim_equidistant.py``)
+     - 00:00.350
+     - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``../examples/gallery/embellishments/inset_rectangle_region.py``)
-     - 00:00.346
+     - 00:00.335
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``../examples/gallery/embellishments/colorbars_multiple.py``)
-     - 00:00.337
+     - 00:00.328
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``../examples/gallery/embellishments/timestamp.py``)
-     - 00:00.331
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_cross_section.py` (``../examples/gallery/images/cross_section.py``)
-     - 00:00.326
+     - 00:00.327
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``../examples/gallery/embellishments/scalebar.py``)
-     - 00:00.323
+     - 00:00.317
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_cross_section.py` (``../examples/gallery/images/cross_section.py``)
+     - 00:00.311
      - 0.0
    * - :ref:`sphx_glr_intro_03_figure_element.py` (``../examples/intro/03_figure_element.py``)
-     - 00:00.314
+     - 00:00.306
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_envelope.py` (``../examples/gallery/lines/envelope.py``)
-     - 00:00.305
-     - 0.0
-   * - :ref:`sphx_glr_projections_conic_conic_albers.py` (``../examples/projections/conic/conic_albers.py``)
-     - 00:00.303
+     - 00:00.298
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_decorated_lines.py` (``../examples/gallery/lines/decorated_lines.py``)
-     - 00:00.302
-     - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``../examples/projections/cyl/cyl_cassini.py``)
-     - 00:00.297
-     - 0.0
-   * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``../examples/gallery/lines/vector_styles.py``)
      - 00:00.296
      - 0.0
+   * - :ref:`sphx_glr_projections_conic_conic_albers.py` (``../examples/projections/conic/conic_albers.py``)
+     - 00:00.293
+     - 0.0
+   * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``../examples/gallery/lines/vector_styles.py``)
+     - 00:00.287
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``../examples/projections/cyl/cyl_cassini.py``)
+     - 00:00.286
+     - 0.0
    * - :ref:`sphx_glr_projections_nongeo_polar.py` (``../examples/projections/nongeo/polar.py``)
-     - 00:00.263
+     - 00:00.259
      - 0.0
    * - :ref:`sphx_glr_gallery_histograms_scatter_and_histograms.py` (``../examples/gallery/histograms/scatter_and_histograms.py``)
-     - 00:00.255
+     - 00:00.250
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``../examples/gallery/lines/vector_heads_tails.py``)
-     - 00:00.255
+     - 00:00.250
      - 0.0
    * - :ref:`sphx_glr_projections_azim_azim_orthographic.py` (``../examples/projections/azim/azim_orthographic.py``)
-     - 00:00.245
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``../examples/projections/misc/misc_van_der_grinten.py``)
-     - 00:00.242
+     - 00:00.239
      - 0.0
    * - :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``../examples/projections/misc/misc_winkel_tripel.py``)
-     - 00:00.240
+     - 00:00.235
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``../examples/projections/misc/misc_van_der_grinten.py``)
+     - 00:00.234
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_land_and_water.py` (``../examples/gallery/maps/land_and_water.py``)
-     - 00:00.231
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``../examples/gallery/symbols/patterns.py``)
-     - 00:00.231
-     - 0.0
-   * - :ref:`sphx_glr_gallery_maps_shorelines.py` (``../examples/gallery/maps/shorelines.py``)
-     - 00:00.229
-     - 0.0
-   * - :ref:`sphx_glr_projections_azim_azim_gnomonic.py` (``../examples/projections/azim/azim_gnomonic.py``)
      - 00:00.227
      - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_scatter.py` (``../examples/gallery/symbols/scatter.py``)
-     - 00:00.224
+   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``../examples/gallery/symbols/patterns.py``)
+     - 00:00.227
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_great_circles.py` (``../examples/gallery/lines/great_circles.py``)
+   * - :ref:`sphx_glr_gallery_maps_shorelines.py` (``../examples/gallery/maps/shorelines.py``)
+     - 00:00.225
+     - 0.0
+   * - :ref:`sphx_glr_projections_azim_azim_gnomonic.py` (``../examples/projections/azim/azim_gnomonic.py``)
      - 00:00.223
      - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``../examples/projections/cyl/cyl_mercator.py``)
-     - 00:00.218
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``../examples/projections/misc/misc_eckertIV.py``)
+   * - :ref:`sphx_glr_gallery_lines_great_circles.py` (``../examples/gallery/lines/great_circles.py``)
      - 00:00.217
      - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_scatter.py` (``../examples/gallery/symbols/scatter.py``)
+     - 00:00.216
+     - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``../examples/gallery/lines/line_custom_cpt.py``)
-     - 00:00.216
+     - 00:00.214
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``../examples/projections/misc/misc_mollweide.py``)
-     - 00:00.216
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_hammer.py` (``../examples/projections/misc/misc_hammer.py``)
-     - 00:00.216
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``../examples/projections/misc/misc_eckertVI.py``)
+   * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``../examples/projections/misc/misc_eckertIV.py``)
      - 00:00.213
      - 0.0
-   * - :ref:`sphx_glr_gallery_maps_epsg_codes.py` (``../examples/gallery/maps/epsg_codes.py``)
-     - 00:00.211
+   * - :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``../examples/projections/cyl/cyl_mercator.py``)
+     - 00:00.213
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``../examples/gallery/lines/line_segment_ends.py``)
-     - 00:00.211
+   * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``../examples/projections/misc/misc_mollweide.py``)
+     - 00:00.213
      - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``../examples/projections/cyl/cyl_stereographic.py``)
-     - 00:00.211
-     - 0.0
-   * - :ref:`sphx_glr_projections_azim_azim_lambert.py` (``../examples/projections/azim/azim_lambert.py``)
-     - 00:00.210
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_contours.py` (``../examples/gallery/images/contours.py``)
-     - 00:00.209
-     - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``../examples/projections/cyl/cyl_miller.py``)
+   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``../examples/projections/misc/misc_eckertVI.py``)
      - 00:00.208
      - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_bars.py` (``../examples/gallery/symbols/bars.py``)
+   * - :ref:`sphx_glr_projections_azim_azim_lambert.py` (``../examples/projections/azim/azim_lambert.py``)
      - 00:00.207
      - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``../examples/projections/misc/misc_robinson.py``)
+   * - :ref:`sphx_glr_gallery_maps_epsg_codes.py` (``../examples/gallery/maps/epsg_codes.py``)
      - 00:00.206
      - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_gmt_logo.py` (``../examples/gallery/embellishments/gmt_logo.py``)
-     - 00:00.205
-     - 0.0
-   * - :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``../examples/projections/misc/misc_sinusoidal.py``)
+   * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``../examples/gallery/lines/line_segment_ends.py``)
      - 00:00.204
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_linefronts.py` (``../examples/gallery/lines/linefronts.py``)
+   * - :ref:`sphx_glr_gallery_images_contours.py` (``../examples/gallery/images/contours.py``)
+     - 00:00.204
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_bars.py` (``../examples/gallery/symbols/bars.py``)
      - 00:00.203
      - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``../examples/projections/cyl/cyl_equidistant.py``)
-     - 00:00.200
+   * - :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``../examples/projections/cyl/cyl_stereographic.py``)
+     - 00:00.203
      - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``../examples/projections/cyl/cyl_universal_transverse_mercator.py``)
+   * - :ref:`sphx_glr_projections_misc_misc_hammer.py` (``../examples/projections/misc/misc_hammer.py``)
+     - 00:00.202
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``../examples/projections/misc/misc_robinson.py``)
+     - 00:00.202
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``../examples/projections/cyl/cyl_miller.py``)
+     - 00:00.201
+     - 0.0
+   * - :ref:`sphx_glr_gallery_lines_linefronts.py` (``../examples/gallery/lines/linefronts.py``)
+     - 00:00.201
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``../examples/projections/misc/misc_sinusoidal.py``)
      - 00:00.198
      - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``../examples/projections/cyl/cyl_equal_area.py``)
-     - 00:00.197
+   * - :ref:`sphx_glr_gallery_embellishments_gmt_logo.py` (``../examples/gallery/embellishments/gmt_logo.py``)
+     - 00:00.198
      - 0.0
-   * - :ref:`sphx_glr_gallery_histograms_histogram.py` (``../examples/gallery/histograms/histogram.py``)
+   * - :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``../examples/projections/cyl/cyl_equidistant.py``)
      - 00:00.195
      - 0.0
-   * - :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``../examples/gallery/seismology/velo_arrow_ellipse.py``)
-     - 00:00.194
+   * - :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``../examples/projections/cyl/cyl_universal_transverse_mercator.py``)
+     - 00:00.192
      - 0.0
-   * - :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``../examples/gallery/basemaps/double_y_axes.py``)
+   * - :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``../examples/projections/cyl/cyl_equal_area.py``)
+     - 00:00.191
+     - 0.0
+   * - :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``../examples/gallery/seismology/velo_arrow_ellipse.py``)
+     - 00:00.191
+     - 0.0
+   * - :ref:`sphx_glr_gallery_histograms_histogram.py` (``../examples/gallery/histograms/histogram.py``)
      - 00:00.190
      - 0.0
-   * - :ref:`sphx_glr_projections_conic_conic_lambert.py` (``../examples/projections/conic/conic_lambert.py``)
-     - 00:00.189
+   * - :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``../examples/gallery/basemaps/double_y_axes.py``)
+     - 00:00.187
      - 0.0
    * - :ref:`sphx_glr_projections_azim_azim_general_stereographic.py` (``../examples/projections/azim/azim_general_stereographic.py``)
-     - 00:00.189
+     - 00:00.186
      - 0.0
    * - :ref:`sphx_glr_gallery_basemaps_ternary.py` (``../examples/gallery/basemaps/ternary.py``)
-     - 00:00.188
+     - 00:00.185
+     - 0.0
+   * - :ref:`sphx_glr_projections_conic_conic_lambert.py` (``../examples/projections/conic/conic_lambert.py``)
+     - 00:00.183
      - 0.0
    * - :ref:`sphx_glr_gallery_symbols_basic_symbols.py` (``../examples/gallery/symbols/basic_symbols.py``)
-     - 00:00.181
-     - 0.0
-   * - :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``../examples/projections/cyl/cyl_transverse_mercator.py``)
-     - 00:00.178
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_grdlandmask.py` (``../examples/gallery/images/grdlandmask.py``)
-     - 00:00.177
+     - 00:00.179
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linestyles.py` (``../examples/gallery/lines/linestyles.py``)
-     - 00:00.172
+     - 00:00.174
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdlandmask.py` (``../examples/gallery/images/grdlandmask.py``)
+     - 00:00.171
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``../examples/projections/cyl/cyl_transverse_mercator.py``)
+     - 00:00.171
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_non_ascii_text.py` (``../examples/tutorials/advanced/non_ascii_text.py``)
-     - 00:00.170
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``../examples/gallery/symbols/points_transparency.py``)
-     - 00:00.167
+     - 00:00.168
      - 0.0
    * - :ref:`sphx_glr_projections_conic_polyconic.py` (``../examples/projections/conic/polyconic.py``)
-     - 00:00.166
+     - 00:00.162
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``../examples/gallery/symbols/points_transparency.py``)
+     - 00:00.161
      - 0.0
    * - :ref:`sphx_glr_projections_conic_conic_equidistant.py` (``../examples/projections/conic/conic_equidistant.py``)
-     - 00:00.157
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``../examples/gallery/embellishments/colorbar.py``)
-     - 00:00.153
+     - 00:00.154
      - 0.0
    * - :ref:`sphx_glr_gallery_seismology_meca.py` (``../examples/gallery/seismology/meca.py``)
-     - 00:00.152
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_points.py` (``../examples/gallery/symbols/points.py``)
      - 00:00.150
      - 0.0
-   * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``../examples/gallery/lines/connection_lines.py``)
+   * - :ref:`sphx_glr_gallery_symbols_points.py` (``../examples/gallery/symbols/points.py``)
      - 00:00.149
      - 0.0
-   * - :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``../examples/projections/nongeo/cartesian_logarithmic.py``)
-     - 00:00.145
+   * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``../examples/gallery/embellishments/colorbar.py``)
+     - 00:00.148
      - 0.0
-   * - :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``../examples/projections/nongeo/cartesian_power.py``)
+   * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``../examples/gallery/lines/connection_lines.py``)
+     - 00:00.146
+     - 0.0
+   * - :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``../examples/projections/nongeo/cartesian_logarithmic.py``)
      - 00:00.141
      - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``../examples/gallery/embellishments/legend.py``)
-     - 00:00.139
+   * - :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``../examples/projections/nongeo/cartesian_power.py``)
+     - 00:00.138
      - 0.0
    * - :ref:`sphx_glr_projections_nongeo_cartesian_linear.py` (``../examples/projections/nongeo/cartesian_linear.py``)
-     - 00:00.137
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``../examples/gallery/symbols/custom_symbols.py``)
      - 00:00.136
      - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``../examples/gallery/symbols/custom_symbols.py``)
+     - 00:00.135
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``../examples/gallery/embellishments/legend.py``)
+     - 00:00.134
+     - 0.0
    * - :ref:`sphx_glr_gallery_symbols_text_symbols.py` (``../examples/gallery/symbols/text_symbols.py``)
-     - 00:00.127
+     - 00:00.124
      - 0.0
    * - :ref:`sphx_glr_gallery_histograms_rose.py` (``../examples/gallery/histograms/rose.py``)
      - 00:00.120
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_text_formatting.py` (``../examples/gallery/embellishments/text_formatting.py``)
-     - 00:00.120
-     - 0.0
-   * - :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``../examples/gallery/symbols/datetime_inputs.py``)
      - 00:00.119
      - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``../examples/gallery/symbols/datetime_inputs.py``)
+     - 00:00.118
+     - 0.0
    * - :ref:`sphx_glr_gallery_lines_wiggle.py` (``../examples/gallery/lines/wiggle.py``)
-     - 00:00.117
+     - 00:00.114
      - 0.0

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.779** total execution time for 14 files **from gallery/lines**:
+**00:04.605** total execution time for 14 files **from gallery/lines**:
 
 .. container::
 
@@ -33,44 +33,44 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_lines_quoted_lines.py` (``quoted_lines.py``)
-     - 00:00.948
+     - 00:00.925
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_hlines_vlines.py` (``hlines_vlines.py``)
-     - 00:00.849
+     - 00:00.789
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linestrings.py` (``linestrings.py``)
-     - 00:00.534
+     - 00:00.490
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_envelope.py` (``envelope.py``)
-     - 00:00.305
+     - 00:00.298
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_decorated_lines.py` (``decorated_lines.py``)
-     - 00:00.302
-     - 0.0
-   * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)
      - 00:00.296
      - 0.0
+   * - :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)
+     - 00:00.287
+     - 0.0
    * - :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``)
-     - 00:00.255
+     - 00:00.250
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_great_circles.py` (``great_circles.py``)
-     - 00:00.223
+     - 00:00.217
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)
-     - 00:00.216
+     - 00:00.214
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_line_segment_ends.py` (``line_segment_ends.py``)
-     - 00:00.211
+     - 00:00.204
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)
-     - 00:00.203
+     - 00:00.201
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)
-     - 00:00.172
+     - 00:00.174
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_connection_lines.py` (``connection_lines.py``)
-     - 00:00.149
+     - 00:00.146
      - 0.0
    * - :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)
-     - 00:00.117
+     - 00:00.114
      - 0.0

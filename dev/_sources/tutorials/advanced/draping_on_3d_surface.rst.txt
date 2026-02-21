@@ -105,7 +105,7 @@ the ``perspective`` parameter.
         grid=grd_relief,  # Use elevation grid for z values
         drape_grid=grd_age,  # Use crustal age grid for color-coding
         cmap=True,  # Use colormap created for the crustal age
-        surftype="i",  # Create an image plot
+        surftype="image",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270°
         # (west) with a normalization via a cumulative Laplace distribution for
         # the shading
@@ -210,7 +210,7 @@ parameter.
         grid=grd_relief,  # Use elevation grid for z values
         drape_grid=drape_grid,  # Drape image grid for the EU flag on top
         cmap=True,  # Use colormap defined for the EU flag
-        surftype="i",  # Create an image plot
+        surftype="image",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270° (west) with
         # a normalization via a cumulative Laplace distribution for the shading
         shading="+a0/270+ne0.6",
@@ -244,7 +244,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.160 seconds)
+   **Total running time of the script:** (0 minutes 5.086 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_draping_on_3d_surface.py:

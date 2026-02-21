@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/basemap.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -165,37 +165,46 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">,</span>
-    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
-    <span class="n">Td</span><span class="o">=</span><span class="s2">&quot;rose&quot;</span><span class="p">,</span>
-    <span class="n">Tm</span><span class="o">=</span><span class="s2">&quot;compass&quot;</span><span class="p">,</span>
-    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">basemap</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">basemap</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">zsize</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">zscale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">zsize</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">map_scale</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">compass</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rose</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">box</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot base maps and frames.</span>
 
-<span class="sd">    Creates a basic or fancy basemap with axes, fill, and titles. Several</span>
-<span class="sd">    map projections are available, and the user may specify separate</span>
-<span class="sd">    tick-mark intervals for boundary annotation, ticking, and [optionally]</span>
-<span class="sd">    gridlines. A simple map scale or directional rose may also be plotted.</span>
+<span class="sd">    Creates a basic or fancy basemap with axes, fill, and titles. Several map</span>
+<span class="sd">    projections are available, and separate tick-mark intervals for axis annotation,</span>
+<span class="sd">    ticking, and gridlines can be specified.</span>
 
-<span class="sd">    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or</span>
-<span class="sd">    ``compass`` must be specified if not in subplot mode.</span>
+<span class="sd">    If not in subplot mode (see :meth:`pygmt.Figure.subplot`), at least one of the</span>
+<span class="sd">    parameters ``frame``, ``map_scale``, ``rose``, or ``compass`` must be specified.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Parameters ``map_scale``, ``rose``, ``compass``, and ``box`` are deprecated in</span>
+<span class="sd">        favor of the dedicated higher-level methods:</span>
+
+<span class="sd">        - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.</span>
+<span class="sd">        - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.</span>
+<span class="sd">        - :meth:`pygmt.Figure.magnetic_rose`: Add a magnetic rose on the plot.</span>
+
+<span class="sd">        These methods provide more comprehensive and flexible APIs for their respective</span>
+<span class="sd">        plot elements.</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`basemap.html`.</span>
 
@@ -204,7 +213,9 @@
 <span class="sd">       - J = projection</span>
 <span class="sd">       - Jz = zscale</span>
 <span class="sd">       - JZ = zsize</span>
+<span class="sd">       - L = map_scale</span>
 <span class="sd">       - R = region</span>
+<span class="sd">       - Td = rose</span>
 <span class="sd">       - V = verbose</span>
 <span class="sd">       - c = panel</span>
 <span class="sd">       - p = perspective</span>
@@ -213,39 +224,45 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    $projection</span>
-<span class="sd">    zscale/zsize</span>
-<span class="sd">        Set z-axis scaling or z-axis size.</span>
 <span class="sd">    $region</span>
 <span class="sd">        *Required if this is the first plot command.*</span>
 <span class="sd">    $frame</span>
-<span class="sd">    map_scale : str</span>
-<span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
-<span class="sd">        **+w**\ *length*.</span>
-<span class="sd">        Draw a simple map scale centered on the reference point specified.</span>
-<span class="sd">    box : bool or str</span>
-<span class="sd">        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\</span>
-<span class="sd">        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].</span>
-<span class="sd">        If set to ``True``, draw a rectangular border around the</span>
-<span class="sd">        map scale or rose. Alternatively, specify a different pen with</span>
-<span class="sd">        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is</span>
-<span class="sd">        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,</span>
-<span class="sd">        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,</span>
-<span class="sd">        separate x and y, or individual side spacings between scale and</span>
-<span class="sd">        border. Append **+i** to draw a secondary, inner border as well.</span>
-<span class="sd">        We use a uniform gap between borders of 2 points and the</span>
-<span class="sd">        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append</span>
-<span class="sd">        **+r** to draw rounded rectangular borders instead, with a 6-points</span>
-<span class="sd">        corner radius. You can override this radius by appending another value.</span>
-<span class="sd">        Finally, append **+s** to draw an offset background shaded region.</span>
-<span class="sd">        Here, *dx/dy* indicates the shift relative to the foreground frame</span>
-<span class="sd">        [Default is ``&quot;4p/-4p&quot;``] and shade sets the fill style to use for</span>
-<span class="sd">        shading [Default is ``&quot;gray50&quot;``].</span>
-<span class="sd">    rose : str</span>
-<span class="sd">        Draw a map directional rose on the map at the location defined by</span>
-<span class="sd">        the reference and anchor points.</span>
-<span class="sd">    compass : str</span>
-<span class="sd">        Draw a map magnetic rose on the map at the location defined by the</span>
-<span class="sd">        reference and anchor points.</span>
+<span class="sd">    zscale</span>
+<span class="sd">    zsize</span>
+<span class="sd">        Set z-axis scaling or z-axis size.</span>
+<span class="sd">    map_scale</span>
+<span class="sd">        Draw a map scale bar on the plot.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained</span>
+<span class="sd">            for backward compatibility and accepts raw GMT CLI strings for the ``-L``</span>
+<span class="sd">            option.</span>
+<span class="sd">    compass</span>
+<span class="sd">        Draw a map magnetic rose on the map.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">            Use :meth:`pygmt.Figure.magnetic_rose` instead. This parameter is maintained</span>
+<span class="sd">            for backward compatibility and accepts raw GMT CLI strings for the ``-Tm``</span>
+<span class="sd">            option.</span>
+<span class="sd">    rose</span>
+<span class="sd">        Draw a map directional rose on the map.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">            Use :meth:`pygmt.Figure.directional_rose` instead. This parameter is</span>
+<span class="sd">            maintained for backward compatibility and accepts raw GMT CLI strings for</span>
+<span class="sd">            the ``-Td`` option.</span>
+<span class="sd">    box</span>
+<span class="sd">        Draw a background box behind the scalebar, directional rose, or magnetic rose.</span>
+
+<span class="sd">        .. deprecated:: v0.19.0</span>
+
+<span class="sd">            Use the ``box`` parameter in :meth:`pygmt.Figure.scalebar`,</span>
+<span class="sd">            :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`</span>
+<span class="sd">            instead. This parameter is maintained for backward compatibility and accepts</span>
+<span class="sd">            raw GMT CLI strings for the ``-F`` option.</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    $panel</span>
 <span class="sd">    $coltypes</span>
@@ -255,8 +272,12 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>  <span class="c1"># Deprecated.</span>
         <span class="n">Jz</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zscale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">),</span>
         <span class="n">JZ</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zsize</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">),</span>
+        <span class="n">L</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">map_scale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">),</span>  <span class="c1"># Deprecated.</span>
+        <span class="n">Td</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">rose</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rose&quot;</span><span class="p">),</span>  <span class="c1"># Deprecated.</span>
+        <span class="n">Tm</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">compass</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;compass&quot;</span><span class="p">),</span>  <span class="c1"># Deprecated.</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
@@ -281,9 +302,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

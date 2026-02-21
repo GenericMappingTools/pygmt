@@ -117,7 +117,7 @@ or weather fronts; for details see the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.302 seconds)
+   **Total running time of the script:** (0 minutes 0.296 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_decorated_lines.py:

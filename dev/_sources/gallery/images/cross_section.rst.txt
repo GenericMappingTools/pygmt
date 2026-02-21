@@ -107,7 +107,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
     fig.shift_origin(yshift="h+1.5c")
 
     fig.basemap(
-        region=[0, 15, -8000, 6000],  # x_min, x_max, y_min, y_max
+        region=[0, 15, -8000, 6000],  # xmin, xmax, ymin, ymax
         # Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
         projection="X12c/3c",
         frame=0,
@@ -162,7 +162,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.326 seconds)
+   **Total running time of the script:** (0 minutes 0.311 seconds)
 
 
 .. _sphx_glr_download_gallery_images_cross_section.py:

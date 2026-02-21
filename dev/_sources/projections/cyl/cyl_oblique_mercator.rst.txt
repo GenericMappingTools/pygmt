@@ -151,7 +151,7 @@ The central meridian is set by *lon0/lat0*. The projection pole is set by *lonp/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.398 seconds)
+   **Total running time of the script:** (0 minutes 0.380 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_oblique_mercator.py:

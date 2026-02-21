@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdgradient.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,28 +163,83 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdgradient&quot;</span><span class="p">]</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_N</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+    <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">norm_amp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_ambient</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_sigma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create the alias list for the -N option.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
+<span class="sd">    ...     return AliasSystem(N=_alias_option_N(**kwargs)).get(&quot;N&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; parse(normalize=True)</span>
+<span class="sd">    &#39;&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(normalize=&quot;laplace&quot;)</span>
+<span class="sd">    &#39;e&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(normalize=&quot;cauchy&quot;)</span>
+<span class="sd">    &#39;t&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(</span>
+<span class="sd">    ...     normalize=&quot;laplace&quot;,</span>
+<span class="sd">    ...     norm_amp=2,</span>
+<span class="sd">    ...     norm_offset=10,</span>
+<span class="sd">    ...     norm_sigma=0.5,</span>
+<span class="sd">    ...     norm_ambient=0.1,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &#39;e2+a0.1+s0.5+o10&#39;</span>
+<span class="sd">    &gt;&gt;&gt; # Check for backward compatibility with old syntax</span>
+<span class="sd">    &gt;&gt;&gt; parse(normalize=&quot;e2+a0.2+s0.5+o10&quot;)</span>
+<span class="sd">    &#39;e2+a0.2+s0.5+o10&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_normalize_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;laplace&quot;</span><span class="p">:</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;cauchy&quot;</span><span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span>
+    <span class="c1"># Check for old syntax for normalize</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">normalize</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">normalize</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_normalize_mapping</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="n">norm_amp</span><span class="p">,</span> <span class="n">norm_ambient</span><span class="p">,</span> <span class="n">norm_sigma</span><span class="p">,</span> <span class="n">norm_offset</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+                <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
+                    <span class="p">[</span><span class="s2">&quot;norm_amp&quot;</span><span class="p">,</span> <span class="s2">&quot;norm_ambient&quot;</span><span class="p">,</span> <span class="s2">&quot;norm_sigma&quot;</span><span class="p">,</span> <span class="s2">&quot;norm_offset&quot;</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;normalize&#39; is specified using the unrecommended GMT command string syntax.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">_normalize_mapping</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">normalize</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="n">_normalize_mapping</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">norm_amp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;norm_amp&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">norm_ambient</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;norm_ambient&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+a&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">norm_sigma</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;norm_sigma&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+s&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">norm_offset</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;norm_offset&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+o&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+
 <div class="viewcode-block" id="grdgradient">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span>
-    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
-    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span>
-    <span class="n">S</span><span class="o">=</span><span class="s2">&quot;slope_file&quot;</span><span class="p">,</span>
-    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
-    <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdgradient</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="s2">&quot;slope_file&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdgradient</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">azimuth</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">radiance</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;laplace&quot;</span><span class="p">,</span> <span class="s2">&quot;cauchy&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">norm_amp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_ambient</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">norm_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -201,8 +256,15 @@
 <span class="sd">    $aliases</span>
 <span class="sd">       - A = azimuth</span>
 <span class="sd">       - E = radiance</span>
+<span class="sd">       - G = outgrid</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+
+<span class="sd">    .. hlist::</span>
+<span class="sd">       :columns: 1</span>
+
+<span class="sd">       - N = normalize, norm_amp, **+a**: norm_ambient, **+s**: norm_sigma,</span>
+<span class="sd">         **+o**: norm_offset</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -256,31 +318,37 @@
 <span class="sd">        algorithm; in this case *azim* and *elev* are hardwired to 315</span>
 <span class="sd">        and 45 degrees. This means that even if you provide other values</span>
 <span class="sd">        they will be ignored.).</span>
-<span class="sd">    normalize : str or bool</span>
-<span class="sd">        [**e**\|\ **t**][*amp*][**+a**\ *ambient*][**+s**\ *sigma*]\</span>
-<span class="sd">        [**+o**\ *offset*].</span>
-<span class="sd">        The actual gradients :math:`g` are offset and scaled to produce</span>
-<span class="sd">        normalized gradients :math:`g_n` with a maximum output magnitude of</span>
-<span class="sd">        *amp*. If *amp* is not given, default *amp* = 1. If *offset* is not</span>
-<span class="sd">        given, it is set to the average of :math:`g`. The following forms are</span>
-<span class="sd">        supported:</span>
+<span class="sd">    normalize</span>
+<span class="sd">        Normalize the output gradients. Valid values are:</span>
 
-<span class="sd">        - **True**: Normalize using math:`g_n = \mbox{amp}\</span>
-<span class="sd">          (\frac{g - \mbox{offset}}{max(|g - \mbox{offset}|)})`</span>
-<span class="sd">        - **e**: Normalize using a cumulative Laplace distribution yielding:</span>
-<span class="sd">          :math:`g_n = \mbox{amp}(1 - \</span>
-<span class="sd">          \exp{(\sqrt{2}\frac{g - \mbox{offset}}{\sigma}))}`, where</span>
-<span class="sd">          :math:`\sigma` is estimated using the L1 norm of</span>
-<span class="sd">          :math:`(g - \mbox{offset})` if it is not given.</span>
-<span class="sd">        - **t**: Normalize using a cumulative Cauchy distribution yielding:</span>
-<span class="sd">          :math:`g_n = \</span>
-<span class="sd">          \frac{2(\mbox{amp})}{\pi}(\tan^{-1}(\frac{g - \</span>
-<span class="sd">          \mbox{offset}}{\sigma}))` where :math:`\sigma` is estimated</span>
-<span class="sd">          using the L2 norm of :math:`(g - \mbox{offset})` if it is not</span>
-<span class="sd">          given.</span>
+<span class="sd">        - ``False``: No normalization is done [Default].</span>
+<span class="sd">        - ``True``: Normalize using max absolute value.</span>
+<span class="sd">        - ``&quot;laplace&quot;``: Normalize using cumulative Laplace distribution.</span>
+<span class="sd">        - ``&quot;cauchy&quot;``: Normalize using cumulative Cauchy distribution.</span>
 
-<span class="sd">        As a final option, you may add **+a**\ *ambient* to add *ambient* to</span>
-<span class="sd">        all nodes after gradient calculations are completed.</span>
+<span class="sd">        The normalization process is controlled via the additional parameters</span>
+<span class="sd">        ``norm_amp``, ``norm_ambient``, ``norm_sigma``, and ``norm_offset``.</span>
+
+<span class="sd">        Let :math:`g` denote the actual gradients, :math:`g_n` the normalized gradients,</span>
+<span class="sd">        :math:`a` the maximum output magnitude (``norm_amp``), :math:`o` the offset</span>
+<span class="sd">        value (``norm_offset``), and :math:`\sigma` the sigma value (``norm_sigma``).</span>
+<span class="sd">        The normalization is computed as follows:</span>
+
+<span class="sd">        - ``True``: :math:`g_n = a (\frac{g - o}{\max(|g - o|)})`</span>
+<span class="sd">        - ``&quot;laplace&quot;``: :math:`g_n = a(1 - \exp(\sqrt{2}\frac{g - o}{\sigma}))`</span>
+<span class="sd">        - ``&quot;cauchy&quot;``: :math:`g_n = \frac{2a}{\pi}\arctan(\frac{g - o}{\sigma})`</span>
+<span class="sd">    norm_amp</span>
+<span class="sd">        Set the maximum output magnitude [Default is 1].</span>
+<span class="sd">    norm_ambient</span>
+<span class="sd">        The ambient value to add to all nodes after gradient calculations are completed</span>
+<span class="sd">        [Default is 0].</span>
+<span class="sd">    norm_offset</span>
+<span class="sd">        The offset value used in the normalization. If not given, it is set to the</span>
+<span class="sd">        average of :math:`g`.</span>
+<span class="sd">    norm_sigma</span>
+<span class="sd">        The *sigma* value used in the Laplace or Cauchy normalization. If not given,</span>
+<span class="sd">        it is estimated from the L1 norm of :math:`g-o` for Laplace or the L2 norm of</span>
+<span class="sd">        :math:`g-o` for Cauchy.</span>
 <span class="sd">    tiles : str</span>
 <span class="sd">        **c**\|\ **r**\|\ **R**.</span>
 <span class="sd">        Control how normalization via ``normalize`` is carried out. When</span>
@@ -292,10 +360,10 @@
 <span class="sd">        grid output is not needed for this run then do not specify</span>
 <span class="sd">        ``outgrid``. For subsequent runs, just use **r** to read these</span>
 <span class="sd">        values. Using **R** will read then delete the statistics file.</span>
-<span class="sd">    $region</span>
 <span class="sd">    slope_file : str</span>
 <span class="sd">        Name of output grid file with scalar magnitudes of gradient vectors.</span>
 <span class="sd">        Requires ``direction`` but makes ``outgrid`` optional.</span>
+<span class="sd">    $region</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    $coltypes</span>
 <span class="sd">    $interpolation</span>
@@ -321,22 +389,26 @@
 <span class="sd">    &gt;&gt;&gt; new_grid = pygmt.grdgradient(grid=grid, azimuth=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Must specify normalize if tiles is specified.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+            <span class="n">required</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Required when &#39;tiles&#39; is set.&quot;</span>
+        <span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="n">radiance</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
     <span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;At least one of the following parameters must be specified: &quot;</span>
-            <span class="s2">&quot;azimuth, direction, or radiance.&quot;</span>
-        <span class="p">)</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">at_least_one</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="s2">&quot;radiance&quot;</span><span class="p">])</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">azimuth</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
         <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">radiance</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;radiance&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">_alias_option_N</span><span class="p">(</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+            <span class="n">norm_amp</span><span class="o">=</span><span class="n">norm_amp</span><span class="p">,</span>
+            <span class="n">norm_ambient</span><span class="o">=</span><span class="n">norm_ambient</span><span class="p">,</span>
+            <span class="n">norm_sigma</span><span class="o">=</span><span class="n">norm_sigma</span><span class="p">,</span>
+            <span class="n">norm_offset</span><span class="o">=</span><span class="n">norm_offset</span><span class="p">,</span>
+        <span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
@@ -365,9 +437,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

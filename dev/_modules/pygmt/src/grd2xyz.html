@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grd2xyz.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -224,10 +224,6 @@
 <span class="sd">        **f** to start at 1 (Fortran-style counting). Alternatively, append</span>
 <span class="sd">        **i** to write just the two columns *index* and *z*, where *index*</span>
 <span class="sd">        is the 1-D indexing that GMT uses when referring to grid nodes.</span>
-<span class="sd">    $region</span>
-<span class="sd">        Adding ``region`` will select a subsection of the grid. If this</span>
-<span class="sd">        subsection exceeds the boundaries of the grid, only the common region</span>
-<span class="sd">        will be output.</span>
 <span class="sd">    weight : str</span>
 <span class="sd">        [**a**\ [**+u**\ *unit*]\|\ *weight*].</span>
 <span class="sd">        Write out *x,y,z,w*\ , where *w* is the supplied *weight* (or 1 if not</span>
@@ -239,7 +235,6 @@
 <span class="sd">        this by appending **+u**\ *unit*. For such grids, the area</span>
 <span class="sd">        varies with latitude and also sees special cases for</span>
 <span class="sd">        gridline-registered layouts at sides, corners, and poles.</span>
-<span class="sd">    $verbose</span>
 <span class="sd">    convention : str</span>
 <span class="sd">        [*flags*].</span>
 <span class="sd">        Write a 1-column ASCII [or binary] table. Output will be organized</span>
@@ -270,6 +265,11 @@
 <span class="sd">        - **d**: 8-byte floating point double precision</span>
 
 <span class="sd">        Default format is scanline orientation of ASCII numbers: **TLa**.</span>
+<span class="sd">    $region</span>
+<span class="sd">        Adding ``region`` will select a subsection of the grid. If this</span>
+<span class="sd">        subsection exceeds the boundaries of the grid, only the common region</span>
+<span class="sd">        will be output.</span>
+<span class="sd">    $verbose</span>
 <span class="sd">    $binary</span>
 <span class="sd">    $nodata</span>
 <span class="sd">    $coltypes</span>
@@ -348,9 +348,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

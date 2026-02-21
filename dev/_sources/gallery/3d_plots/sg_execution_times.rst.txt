@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:03.365** total execution time for 2 files **from gallery/3d_plots**:
+**00:04.387** total execution time for 3 files **from gallery/3d_plots**:
 
 .. container::
 
@@ -33,8 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``grdview_surface.py``)
-     - 00:02.955
+     - 00:02.957
+     - 0.0
+   * - :ref:`sphx_glr_gallery_3d_plots_3d_bar.py` (``3d_bar.py``)
+     - 00:00.909
      - 0.0
    * - :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``scatter3d.py``)
-     - 00:00.410
+     - 00:00.521
      - 0.0

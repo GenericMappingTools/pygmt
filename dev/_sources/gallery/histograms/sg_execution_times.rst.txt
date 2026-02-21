@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.111** total execution time for 4 files **from gallery/histograms**:
+**00:01.094** total execution time for 4 files **from gallery/histograms**:
 
 .. container::
 
@@ -33,13 +33,13 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_histograms_blockm.py` (``blockm.py``)
-     - 00:00.541
+     - 00:00.533
      - 0.0
    * - :ref:`sphx_glr_gallery_histograms_scatter_and_histograms.py` (``scatter_and_histograms.py``)
-     - 00:00.255
+     - 00:00.250
      - 0.0
    * - :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``)
-     - 00:00.195
+     - 00:00.190
      - 0.0
    * - :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)
      - 00:00.120

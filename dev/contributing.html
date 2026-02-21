@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/contributing.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="_static/documentation_options.js?v=84d2b63f"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -147,6 +147,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#contributing-code">Contributing Code</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pygmt-code-overview">PyGMT Code Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#code-style">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping-a-gmt-module">Wrapping a GMT Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#initial-feature-implementation">Initial Feature Implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-missing-aliases">Add Missing Aliases</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-your-code">Testing your Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-plots">Testing Plots</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-mpl-image-compare">Using mpl_image_compare</a></li>
@@ -398,9 +403,11 @@ explaining the <em>reason</em> behind non-obvious things.</p></li>
 <li><p>Write tests for the code you wrote/modified if needed.
 Please refer to <a class="reference internal" href="#testing-your-code"><span class="std std-ref">Testing your code</span></a> or
 <a class="reference internal" href="#testing-plots"><span class="std std-ref">Testing plots</span></a>.</p></li>
-<li><p>Include an example of new features in the gallery or tutorials.
-Please refer to <a class="reference internal" href="#contributing-gallery-plots"><span class="std std-ref">Gallery plots</span></a>
-or <a class="reference internal" href="#contributing-tutorials"><span class="std std-ref">Tutorials</span></a>.</p></li>
+<li><p>Include an example of new features in the gallery or tutorials. Please refer to
+<a class="reference internal" href="#contributing-gallery-plots"><span class="std std-ref">Gallery plots</span></a> or
+<a class="reference internal" href="#contributing-tutorials"><span class="std std-ref">Tutorials</span></a>. If adding a new
+method/function/class, the gallery example or tutorial should be submitted in a
+separate pull request.</p></li>
 </ul>
 </li>
 <li><p>Have a good coding style</p>
@@ -688,14 +695,15 @@ function/class/module/method.</p>
 <h2>Contributing Code<a class="headerlink" href="#contributing-code" title="Link to this heading"></a></h2>
 <section id="pygmt-code-overview">
 <h3>PyGMT Code Overview<a class="headerlink" href="#pygmt-code-overview" title="Link to this heading"></a></h3>
-<p>The source code for PyGMT is located in the <code class="docutils literal notranslate"><span class="pre">pygmt/</span></code> directory. When contributing
-code, be sure to follow the general guidelines in the
-<a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a> section.</p>
+<p>The source code for PyGMT is located in the <code class="docutils literal notranslate"><span class="pre">pygmt/</span></code> directory. When contributing code,
+please open an issue first to discuss the feature and its implementation and be sure to
+follow the general guidelines in the <a class="reference internal" href="#pull-request-workflow">pull request workflow</a>
+section.</p>
 </section>
 <section id="code-style">
 <h3>Code Style<a class="headerlink" href="#code-style" title="Link to this heading"></a></h3>
 <p>We use the <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> tool to format the code, so we
-don’t have to think about it. It loosely follow the <a class="reference external" href="https://pep8.org">PEP8</a> guide
+don’t have to think about it. It loosely follows the <a class="reference external" href="https://pep8.org">PEP8</a> guide
 but with a few differences. Regardless, you won’t have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>format
@@ -726,6 +734,86 @@ contains rules for running the linter checks:</p>
 </pre></div>
 </div>
 </section>
+<section id="wrapping-a-gmt-module">
+<h3>Wrapping a GMT Module<a class="headerlink" href="#wrapping-a-gmt-module" title="Link to this heading"></a></h3>
+<p>Wrapping a GMT module in PyGMT is usually a big task, but it can progress more smoothly
+and efficiently when divided into <strong>small, manageable chunks</strong>. This section gives an
+overview of the main tasks involved.</p>
+<ol class="arabic">
+<li><p>Open “wrapper request” issue - create a feature request for wrapping a module and
+discuss what features should be available in the wrapper [optional, usually done by
+users].</p></li>
+<li><p>Open a “wrapper tracking” issue - use the “Wrapper for a GMT module” issue template,
+to track the progress of wrapping the module. Link it to the
+<a class="reference external" href="https://github.com/orgs/GenericMappingTools/projects/3">Project board</a>, and close
+the “wrapper request issue” with a comment such as [usually done by maintainers]:</p>
+<blockquote>
+<div><p>Thank you for opening the feature request. The progress of wrapping the module will
+be tracked in issue #XXX and
+the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/projects/3">Project board</a>.</p>
+</div></blockquote>
+</li>
+<li><p>Open one PR for the initial implementation, focusing on required and essential
+parameters [done by maintainers or contributors].</p></li>
+<li><p>Close the “wrapper tracking issue” once the initial implementation is merged. Leave a
+comment such as [done by maintainers]:</p>
+<blockquote>
+<div><p>The initial implementation of wrapping the XXX module was completed in PR #XXX.
+Not all functionalities are implemented yet. Further progress will be tracked in
+the Project board.
+This is necessary to avoid having too many long-term open issues.</p>
+</div></blockquote>
+</li>
+<li><p>Open one or more PRs to implement the remaining features and missing aliases.</p></li>
+<li><p>Open one PR to add a gallery example or a tutorial.</p></li>
+</ol>
+<p>These PRs can be split among multiple contributors. There is no obligation for a single
+contributor to complete all steps. Please comment on the “wrapper tracking issue” if you
+would like to open a PR for any of these tasks to avoid redundant efforts.</p>
+<section id="initial-feature-implementation">
+<h4>Initial Feature Implementation<a class="headerlink" href="#initial-feature-implementation" title="Link to this heading"></a></h4>
+<p>First, comment on the “Wrapper tracking issue” that you will be working on the initial
+implementation. This first pull request should be as minimal as possible - only adding
+the required functionality (i.e., wrapping the required GMT parameters and supporting
+the primary input/output types).</p>
+<p>The following steps are common to all initial implementation pull requests that wrap a
+GMT module:</p>
+<ul class="simple">
+<li><p>Create a new module <code class="docutils literal notranslate"><span class="pre">&lt;module-name&gt;.py</span></code> in <code class="docutils literal notranslate"><span class="pre">pygmt/src</span></code>. The module docstring should
+include the module name and a short description of the functionality (e.g.,
+<code class="docutils literal notranslate"><span class="pre">grdfill</span> <span class="pre">-</span> <span class="pre">Fill</span> <span class="pre">blank</span> <span class="pre">areas</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">grid.</span></code>).</p></li>
+<li><p>Add a function <code class="docutils literal notranslate"><span class="pre">&lt;module-name&gt;</span></code> to the module. When writing the new function, it is
+generally easiest to reference the source code for other functions that input/output
+similar object types.</p></li>
+<li><p>Write a detailed docstring following the
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpy style guide</a>.</p></li>
+<li><p>Add the function to the import statements in <code class="docutils literal notranslate"><span class="pre">pygmt/src/__init__.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pygmt/__init__.py</span></code>.</p></li>
+<li><p>Add the function to appropriate section of the API documentation in <code class="docutils literal notranslate"><span class="pre">doc/api/index.rst</span></code>.</p></li>
+<li><p>Add a testing module <code class="docutils literal notranslate"><span class="pre">test_&lt;module-name&gt;.py</span></code> in <code class="docutils literal notranslate"><span class="pre">pygmt/tests</span></code>, following
+the guidelines in the <a class="reference internal" href="#testing-your-code">testing your code</a> section.</p></li>
+</ul>
+</section>
+<section id="add-missing-aliases">
+<h4>Add Missing Aliases<a class="headerlink" href="#add-missing-aliases" title="Link to this heading"></a></h4>
+<p>After the initial implementation, missing aliases can be added in separate PRs:</p>
+<ul class="simple">
+<li><p>Select a suitable alias for each GMT option, following the guidelines in the
+<a class="reference internal" href="#code-style">code style</a> section. Before creating a new alias, check:</p>
+<ul>
+<li><p>whether the parameter is listed in the <code class="docutils literal notranslate"><span class="pre">COMMON_DOCSTRINGS</span></code> dictionary in
+<code class="docutils literal notranslate"><span class="pre">pygmt/helpers/decorators.py</span></code></p></li>
+<li><p>whether other wrapped GMT modules have a similar parameter</p></li>
+<li><p>whether <a class="reference external" href="https://www.generic-mapping-tools.org/GMT.jl/dev/">GMT.jl</a> has defined an alias</p></li>
+</ul>
+</li>
+<li><p>Add the alias to the <code class="docutils literal notranslate"><span class="pre">AliasSystem</span></code> class and the function signature.</p></li>
+<li><p>Add the alias and description to the parameters section of the docstring, using the
+<code class="docutils literal notranslate"><span class="pre">fmt_docstring</span></code> decorator to add descriptions for parameters included in the
+<code class="docutils literal notranslate"><span class="pre">COMMON_DOCSTRINGS</span></code> dictionary.</p></li>
+</ul>
+</section>
+</section>
 <section id="testing-your-code">
 <h3>Testing your Code<a class="headerlink" href="#testing-your-code" title="Link to this heading"></a></h3>
 <p>Automated testing helps ensure that our code is as free of bugs as it can be.
@@ -736,10 +824,10 @@ We use the <a class="reference external" href="https://pytest.org/">pytest</a> f
 existing functionality.
 Tests also help us be confident that we won’t break your code in the future.</p>
 <p>When writing tests, don’t test everything that the GMT function already tests, such as
-the every unique combination arguments. An exception to this would be the most popular
+every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.</p>
+pandas, and Xarray objects and the virtualfile mechanism.</p>
 <p>If you’re <strong>new to testing</strong>, see existing test files for examples of things to do.
 <strong>Don’t let the tests keep you from submitting your contribution!</strong>
 If you’re not sure how to do this or are having trouble, submit your pull request
@@ -913,9 +1001,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

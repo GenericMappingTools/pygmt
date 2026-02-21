@@ -11,7 +11,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/xarray/backends/common.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1003,40 +1003,6 @@
 
 <span class="c1"># mapping of engine name to (module name, BackendEntrypoint Class)</span>
 <span class="n">BACKEND_ENTRYPOINTS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="p">[</span><span class="n">BackendEntrypoint</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_is_likely_dap_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Determines if a URL is likely an OPeNDAP (DAP) endpoint based on</span>
-<span class="sd">    known protocols, server software path patterns, and file extensions.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    url : str</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        True if the URL matches common DAP patterns, False otherwise.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">url</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-    <span class="n">url_lower</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-    <span class="c1"># For remote URIs, check for DAP server software path patterns</span>
-    <span class="k">if</span> <span class="n">is_remote_uri</span><span class="p">(</span><span class="n">url_lower</span><span class="p">):</span>
-        <span class="n">dap_path_patterns</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s2">&quot;/dodsc/&quot;</span><span class="p">,</span>  <span class="c1"># THREDDS Data Server (TDS) DAP endpoint (case-insensitive)</span>
-            <span class="s2">&quot;/dods/&quot;</span><span class="p">,</span>  <span class="c1"># GrADS Data Server (GDS) DAP endpoint</span>
-            <span class="s2">&quot;/opendap/&quot;</span><span class="p">,</span>  <span class="c1"># Generic OPeNDAP/Hyrax server</span>
-            <span class="s2">&quot;/erddap/&quot;</span><span class="p">,</span>  <span class="c1"># ERDDAP data server</span>
-            <span class="s2">&quot;/dap2/&quot;</span><span class="p">,</span>  <span class="c1"># Explicit DAP2 version in path</span>
-            <span class="s2">&quot;/dap4/&quot;</span><span class="p">,</span>  <span class="c1"># Explicit DAP4 version in path</span>
-            <span class="s2">&quot;/dap/&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">pattern</span> <span class="ow">in</span> <span class="n">url_lower</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">dap_path_patterns</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="kc">False</span>
 </pre></div>
 
            </div>
@@ -1048,9 +1014,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

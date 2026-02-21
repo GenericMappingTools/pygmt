@@ -12,7 +12,7 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/maps/choropleth_map.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=84d2b63f"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -193,15 +193,15 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="choropleth-map">
 <span id="sphx-glr-gallery-maps-choropleth-map-py"></span><h1>Choropleth map<a class="headerlink" href="#choropleth-map" title="Link to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method allows us to plot geographical data such as
-polygons which are stored in a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object. Use
-<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html#geopandas.read_file" title="(in GeoPandas v1.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">geopandas.read_file</span></code></a> to load data from any supported OGR format such as a
-shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full
-URL pointing to your desired data source. Then, pass the <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>
-as an argument to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>, and style the
-geometry using the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter. To fill the polygons based on a corresponding
-column you need to set <code class="docutils literal notranslate"><span class="pre">fill=&quot;+z&quot;</span></code> as well as select the appropriate column using the
-<code class="docutils literal notranslate"><span class="pre">aspatial</span></code> parameter as shown in the example below.</p>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.choropleth.html#pygmt.Figure.choropleth" title="pygmt.Figure.choropleth"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.choropleth</span></code></a> method allows us to plot geographical data such as
+polygons which are stored in a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object or an OGR_GMT
+file. Use <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html#geopandas.read_file" title="(in GeoPandas v1.1.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">geopandas.read_file</span></code></a> to load data from any supported OGR formats such
+as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a
+full URL pointing to your desired data source. Then, pass the
+<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> as an argument to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter of
+<a class="reference internal" href="../../api/generated/pygmt.Figure.choropleth.html#pygmt.Figure.choropleth" title="pygmt.Figure.choropleth"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.choropleth</span></code></a>, and style the geometry using the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter. To
+fill the polygons based on a corresponding column you need to specify the column name to
+the <code class="docutils literal notranslate"><span class="pre">column</span></code> parameter.</p>
 <img src="../../_images/sphx_glr_choropleth_map_001.png" srcset="../../_images/sphx_glr_choropleth_map_001.png" alt="choropleth map" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params.position</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
@@ -222,7 +222,7 @@ column you need to set <code class="docutils literal notranslate"><span class="p
 
 <span class="c1"># Next, we plot the polygons and fill them using the defined colormap. The target column</span>
 <span class="c1"># is defined by the aspatial parameter.</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="geopandas.GeoDataFrame" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">africa</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.8p,gray50&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;+z&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">aspatial</span><span class="o">=</span><span class="s2">&quot;Z=POP_EST&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.choropleth.html#pygmt.Figure.choropleth" title="pygmt.Figure.choropleth" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">choropleth</span></a><span class="p">(</span><span class="n">data</span><span class="o">=</span><a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="geopandas.GeoDataFrame" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">africa</span></a><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;POP_EST&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;0.8p,gray50&quot;</span><span class="p">)</span>
 
 <span class="c1"># Add colorbar legend.</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
@@ -233,11 +233,10 @@ column you need to set <code class="docutils literal notranslate"><span class="p
     <span class="n">triangle_height</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
     <span class="n">move_text</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.762 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.630 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-choropleth-map-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1c846ae94d831565031459decd77e961/choropleth_map.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">choropleth_map.ipynb</span></code></a></p>
@@ -265,9 +264,9 @@ column you need to set <code class="docutils literal notranslate"><span class="p
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/81de8f0e2">81de8f0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Feb 20, 2026.
       </span></p>
   </div>
 

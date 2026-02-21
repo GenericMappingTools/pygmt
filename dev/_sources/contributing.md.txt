@@ -163,9 +163,11 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](contributing.md#testing-your-code) or
     [Testing plots](contributing.md#testing-plots).
-  - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](contributing.md#contributing-gallery-plots)
-    or [Tutorials](contributing.md#contributing-tutorials).
+  - Include an example of new features in the gallery or tutorials. Please refer to
+    [Gallery plots](contributing.md#contributing-gallery-plots) or
+    [Tutorials](contributing.md#contributing-tutorials). If adding a new
+    method/function/class, the gallery example or tutorial should be submitted in a
+    separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](https://pep8.org) style guide for code and the
@@ -466,14 +468,15 @@ function/class/module/method.
 
 ### PyGMT Code Overview
 
-The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, be sure to follow the general guidelines in the
-[pull request workflow](contributing.md#pull-request-workflow) section.
+The source code for PyGMT is located in the `pygmt/` directory. When contributing code,
+please open an issue first to discuss the feature and its implementation and be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+section.
 
 ### Code Style
 
 We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
-don't have to think about it. It loosely follow the [PEP8](https://pep8.org) guide
+don't have to think about it. It loosely follows the [PEP8](https://pep8.org) guide
 but with a few differences. Regardless, you won't have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:
 
@@ -511,6 +514,77 @@ contains rules for running the linter checks:
 make check   # Runs ruff in check mode
 ```
 
+### Wrapping a GMT Module
+
+Wrapping a GMT module in PyGMT is usually a big task, but it can progress more smoothly
+and efficiently when divided into **small, manageable chunks**. This section gives an
+overview of the main tasks involved.
+
+1. Open "wrapper request" issue - create a feature request for wrapping a module and
+   discuss what features should be available in the wrapper [optional, usually done by
+   users].
+2. Open a "wrapper tracking" issue - use the "Wrapper for a GMT module" issue template,
+   to track the progress of wrapping the module. Link it to the
+   [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close
+   the "wrapper request issue" with a comment such as [usually done by maintainers]:
+   > Thank you for opening the feature request. The progress of wrapping the module will
+   > be tracked in issue #XXX and
+   > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3).
+3. Open one PR for the initial implementation, focusing on required and essential
+   parameters [done by maintainers or contributors].
+4. Close the "wrapper tracking issue" once the initial implementation is merged. Leave a
+   comment such as [done by maintainers]:
+   > The initial implementation of wrapping the XXX module was completed in PR #XXX.
+   > Not all functionalities are implemented yet. Further progress will be tracked in
+   > the Project board.
+   This is necessary to avoid having too many long-term open issues.
+5. Open one or more PRs to implement the remaining features and missing aliases.
+6. Open one PR to add a gallery example or a tutorial.
+
+These PRs can be split among multiple contributors. There is no obligation for a single
+contributor to complete all steps. Please comment on the "wrapper tracking issue" if you
+would like to open a PR for any of these tasks to avoid redundant efforts.
+
+#### Initial Feature Implementation
+
+First, comment on the "Wrapper tracking issue" that you will be working on the initial
+implementation. This first pull request should be as minimal as possible - only adding
+the required functionality (i.e., wrapping the required GMT parameters and supporting
+the primary input/output types).
+
+The following steps are common to all initial implementation pull requests that wrap a
+GMT module:
+
+* Create a new module `<module-name>.py` in `pygmt/src`. The module docstring should
+  include the module name and a short description of the functionality (e.g.,
+  `grdfill - Fill blank areas from a grid.`).
+* Add a function `<module-name>` to the module. When writing the new function, it is
+  generally easiest to reference the source code for other functions that input/output
+  similar object types.
+* Write a detailed docstring following the
+  [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py` and
+  `pygmt/__init__.py`.
+* Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
+* Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
+  the guidelines in the [testing your code](#testing-your-code) section.
+
+#### Add Missing Aliases
+
+After the initial implementation, missing aliases can be added in separate PRs:
+
+* Select a suitable alias for each GMT option, following the guidelines in the
+  [code style](#code-style) section. Before creating a new alias, check:
+
+  - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
+    `pygmt/helpers/decorators.py`
+  - whether other wrapped GMT modules have a similar parameter
+  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/) has defined an alias
+* Add the alias to the `AliasSystem` class and the function signature.
+* Add the alias and description to the parameters section of the docstring, using the
+  `fmt_docstring` decorator to add descriptions for parameters included in the
+  `COMMON_DOCSTRINGS` dictionary.
+
 ### Testing your Code
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
@@ -524,10 +598,10 @@ existing functionality.
 Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
-the every unique combination arguments. An exception to this would be the most popular
+every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+pandas, and Xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**

@@ -159,7 +159,7 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.399 seconds)
+   **Total running time of the script:** (0 minutes 0.390 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_multi_parameter_symbols.py:
