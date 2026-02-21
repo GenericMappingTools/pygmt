@@ -35,7 +35,7 @@ def fixture_grid_bottom(grid):
     return grdcut(grid, region=[-53, -49, -22, -19])
 
 
-def test_grdpaste_file_in_file_out(grid, grid_top, grid_bottom):
+def test_grdpaste_file_in_file_out(grid):
     """
     Test grdpaste with file input and file output.
     """
@@ -74,6 +74,9 @@ def test_grdpaste_file_in_xarray_out(grid):
         result = grdpaste(grid1=tmp1.name, grid2=tmp2.name)
         assert isinstance(result, xr.DataArray)
         assert result.shape == (6, 4)
+        # Check that the result has the expected min and max values
+        assert result.min().values == 345.5
+        assert result.max().values == 886.0
 
 
 # TODO(GMT>6.6.0): Remove the xfail marker.
@@ -113,3 +116,6 @@ def test_grdpaste_outgrid(grid_top, grid_bottom):
         temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert isinstance(temp_grid, xr.DataArray)
         assert temp_grid.shape == (6, 4)
+        # Check that the result has the expected min and max values
+        assert temp_grid.min().values == 345.5
+        assert temp_grid.max().values == 886.0
