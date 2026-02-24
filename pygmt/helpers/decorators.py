@@ -90,9 +90,12 @@ COMMON_DOCSTRINGS = {
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
-        frame : bool, str, or list
-            Set map boundary
-            :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
+        frame
+            Set frame and axes attributes for the plot. It can be a bool, a string, or
+            a list of strings. If ``frame=True``, frame will be drawn with the default
+            attributes. If ``frame="none"``, no frame will be drawn. A tutorial is
+            available at :doc:`frame and axes attributes </tutorials/basics/frames>`.
+            Full documentation is at :gmt-docs:`gmt.html#b-full`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
