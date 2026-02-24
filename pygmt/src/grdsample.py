@@ -30,27 +30,32 @@ def grdsample(
     toggle: bool = False,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    registration: Literal["gridline", "pixel"] | bool = False,
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
-    r"""
+    """
     Resample a grid onto a new lattice.
 
-    This reads a grid file and interpolates it to create a new grid
-    file. It can change the registration with ``toggle`` or
-    ``registration``, change the grid-spacing or number of nodes with
-    ``spacing``, and set a new sub-region using ``region``. A bicubic
-    [Default], bilinear, B-spline or nearest-neighbor interpolation is set
-    with ``interpolation``.
+    This function reads a grid and interpolates it to create a new grid. It can
 
-    When ``region`` is omitted, the output grid will cover the same region as
-    the input grid. When ``spacing`` is omitted, the grid spacing of the
-    output grid will be the same as the input grid. Either ``registration`` or
-    ``toggle`` can be used to change the grid registration. When omitted,
-    the output grid will have the same registration as the input grid.
+    - change the registration (via ``toggle`` or ``registration``)
+    - change the grid-spacing or number of nodes (via ``spacing``)
+    - set a new sub-region (via ``region``)
+
+    When ``region`` is omitted, the output grid will cover the same region as the input
+    grid. When ``spacing`` is omitted, the grid spacing of the output grid will be the
+    same as the input grid. Either ``registration`` or ``toggle`` can be used to change
+    the grid registration. When omitted, the output grid will have the same registration
+    as the input grid.
+
+    A bicubic [Default], bilinear, B-spline, or nearest-neighbor interpolation is set
+    with ``interpolation``. Note that using ``region`` only is equivalent to
+    :func:`pygmt.grdcut` or ``grdedit -S``. ``grdsample`` safely creates a fine mesh
+    from a coarse one; the converse may suffer aliasing unless the data are filtered
+    using :func:`pygmt.grdfilter` or ``grdfft``.
 
     Full GMT docs at :gmt-docs:`grdsample.html`.
 
@@ -58,6 +63,7 @@ def grdsample(
        - G = outgrid
        - I = spacing
        - R = region
+       - T = toggle
        - V = verbose
        - r = registration
        - x = cores
@@ -67,12 +73,12 @@ def grdsample(
     $grid
     $outgrid
     $spacing
-    $region
     toggle
         Toggle between grid and pixel registration; if the input is grid-registered, the
         output will be pixel-registered and vice-versa. This is a *destructive* grid
         change; see :gmt-docs:`reference/options.html#switch-registrations`.
         *Note**: ``toggle`` and ``registration`` are mutually exclusive.
+    $region
     $verbose
     $coltypes
     $interpolation

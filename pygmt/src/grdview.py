@@ -135,7 +135,7 @@ def grdview(  # noqa: PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -226,7 +226,8 @@ def grdview(  # noqa: PLR0913
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
     $projection
-    zscale/zsize
+    zscale
+    zsize
         Set z-axis scaling or z-axis size.
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
