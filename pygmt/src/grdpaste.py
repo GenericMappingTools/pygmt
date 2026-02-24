@@ -67,9 +67,7 @@ def grdpaste(
           ``outgrid``)
     """
     # Check if grid1 and grid2 are of the same kind
-    kind1 = data_kind(grid1)
-    kind2 = data_kind(grid2)
-    if kind1 != kind2:
+    if data_kind(grid1) != data_kind(grid2):
         raise GMTTypeError(
             (type(grid1), type(grid2)),
             reason="Both grids must be of the same type (file or xarray.DataArray).",
