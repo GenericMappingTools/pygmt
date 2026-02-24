@@ -8,7 +8,8 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.exceptions import GMTTypeError
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, use_alias
 
 
 @fmt_docstring
@@ -67,6 +68,15 @@ def grdpaste(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
+    # Check if grid1 and grid2 are of the same kind
+    kind1 = data_kind(grid1)
+    kind2 = data_kind(grid2)
+    if kind1 != kind2:
+        raise GMTTypeError(
+            (type(grid1), type(grid2)),
+            reason="Both grids must be of the same type (file or xarray.DataArray).",
+        )
+
     aliasdict = AliasSystem().add_common(V=verbose)
     aliasdict.merge(kwargs)
 

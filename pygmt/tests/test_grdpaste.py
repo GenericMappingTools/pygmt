@@ -7,6 +7,7 @@ import xarray as xr
 from packaging.version import Version
 from pygmt import grdcut, grdpaste
 from pygmt.clib import __gmt_version__
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -116,23 +117,12 @@ def test_grdpaste_outgrid(grid_top, grid_bottom):
         assert temp_grid.max().values == 886.0
 
 
-@pytest.mark.xfail(
-    reason="Mixing file and xarray inputs is not supported and may fail",
-)
 def test_grdpaste_mixed_inputs_file_xarray(grid, grid_bottom):
     """
-    Test that mixing file and xarray inputs is not supported.
-
-    This test documents the limitation that both grid1 and grid2 must be of the
-    same type (both files or both xarray.DataArray). Mixing a file name with an
-    xarray.DataArray is not allowed and may result in GMT errors.
+    Test that mixing file and xarray inputs raises GMTTypeError.
     """
     with GMTTempFile(suffix=".nc") as tmp1:
         grdcut(grid, region=[-53, -49, -19, -16], outgrid=tmp1.name)
-        # This should fail because we're mixing file and xarray inputs
-        result = grdpaste(grid1=tmp1.name, grid2=grid_bottom)
-        assert isinstance(result, xr.DataArray)
-        assert result.shape == (6, 4)
-        # Check that the result has the expected min and max values
-        assert result.min().values == 345.5
-        assert result.max().values == 886.0
+        # This should raise GMTTypeError because we're mixing file and xarray inputs
+        with pytest.raises(GMTTypeError):
+            grdpaste(grid1=tmp1.name, grid2=grid_bottom)
