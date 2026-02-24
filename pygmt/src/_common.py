@@ -16,7 +16,7 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     """
     Check if the geometry of the input data is Point or MultiPoint.
 
-    The inptu data can be a GeoJSON object or a OGR_GMT file.
+    The input data can be a GeoJSON object or a OGR_GMT file.
 
     This function is used in ``Figure.plot`` and ``Figure.plot3d``.
 

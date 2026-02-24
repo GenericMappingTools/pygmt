@@ -155,3 +155,17 @@ def test_basemap_frame_sequence_true():
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=[True, "WSen"])
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_frame_none():
+    """
+    Test that passing frame="none" works.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame=True)
+    fig.colorbar(cmap="google/turbo", frame=True)
+    fig.shift_origin(xshift=5.5)
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame="none")
+    fig.colorbar(cmap="google/turbo", frame="none")
+    return fig
