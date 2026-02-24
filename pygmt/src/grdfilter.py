@@ -252,10 +252,10 @@ def grdfilter(  # noqa: PLR0913
     ...     grid=grid, filter="gaussian", width=600, distance="geo_spherical"
     ... )
     """
-    if kwargs.get("D", distance) is None:
-        raise GMTParameterError(required="distance")
     if kwargs.get("F", filter) is None:
         raise GMTParameterError(required="filter")
+    if kwargs.get("D", distance) is None:
+        raise GMTParameterError(required="distance")
 
     aliasdict = AliasSystem(
         D=Alias(
