@@ -153,7 +153,7 @@ def grdfilter(  # noqa: PLR0913
     width
         The full diameter width of the filter. It can be a single value for an isotropic
         filter, or a pair of values for a rectangular filter (width in x- and
-        y-directions, requiring ``distance`` be either ``"p"`` or ``0``).
+        y-directions, requiring ``distance`` be either ``"pixel"`` or ``cartesian``).
     highpass
         By default, the filter is a low-pass filter. If True, then the filter is a
         high-pass filter. [Default is ``False``].
