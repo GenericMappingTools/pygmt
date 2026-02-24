@@ -129,31 +129,31 @@ def grdfilter(  # noqa: PLR0913
     $grid
     $outgrid
     filter
-      The filter type. Choose among convolution and non-convolution filters.
+        The filter type. Choose among convolution and non-convolution filters.
 
-      Convolution filters include:
+        Convolution filters include:
 
-      - ``"boxcar"``: All weights are equal.
-      - ``"cosarch"``: Weights follow a cosine arch curve.
-      - ``"gaussian"``: Weights are given by the Gaussian function, where filter width
-        is 6 times the conventional Gaussian sigma.
+        - ``"boxcar"``: All weights are equal.
+        - ``"cosarch"``: Weights follow a cosine arch curve.
+        - ``"gaussian"``: Weights are given by the Gaussian function, where filter width
+          is 6 times the conventional Gaussian sigma.
 
-      Non-convolution filters include:
+        Non-convolution filters include:
 
-      - ``"minall"``: Return minimum of all values.
-      - ``"minpos"``: Return minimum of all positive values only.
-      - ``"maxall"``: Return maximum of all values.
-      - ``"maxneg"``: Return maximum of all negative values only.
+        - ``"minall"``: Return minimum of all values.
+        - ``"minpos"``: Return minimum of all positive values only.
+        - ``"maxall"``: Return maximum of all values.
+        - ``"maxneg"``: Return maximum of all negative values only.
 
-      **Note**: There are still a few other filter types available in GMT (e.g.,
-      histogram and mode filters), but they are not implemented in PyGMT yet. As a
-      workaround, pass the raw GMT command string to this parameter to use these other
-      filter types. Refer to :gmt-docs:`grdfilter.html#f` for the full syntax of this
-      parameter.
+        **Note**: There are still a few other filter types available in GMT (e.g.,
+        histogram and mode filters), but they are not implemented in PyGMT yet. As a
+        workaround, pass the raw GMT command string to this parameter to use these other
+        filter types. Refer to :gmt-docs:`grdfilter.html#f` for the full syntax of this
+        parameter.
     width
         The full diameter width of the filter. It can be a single value for an isotropic
         filter, or a pair of values for a rectangular filter (width in x- and
-        y-directions, requiring ``distance`` be either ``"pixel"`` or ``cartesian``).
+        y-directions, requiring ``distance`` be either ``"pixel"`` or ``"cartesian"``).
     highpass
         By default, the filter is a low-pass filter. If True, then the filter is a
         high-pass filter. [Default is ``False``].
@@ -233,7 +233,7 @@ def grdfilter(  # noqa: PLR0913
     --------
     >>> from pathlib import Path
     >>> import pygmt
-    >>> # Apply a median filter of 600 km (full width) to the @earth_relief_30m_g grid
+    >>> # Apply a gaussian filter of 600 km (full width) to the @earth_relief_30m_g grid
     >>> # and return a filtered grid (saved as netCDF file).
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
