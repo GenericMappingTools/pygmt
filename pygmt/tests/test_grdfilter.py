@@ -98,11 +98,11 @@ def test_grdfilter_required(grid):
     """
     Test that grdfilter raises an exception when required parameters are missing.
     """
-    with pytest.raises(GMTParameterError, match="filter"):
+    with pytest.raises(GMTParameterError, match="distance"):
         grdfilter(grid=grid)
     with pytest.raises(GMTParameterError, match="distance"):
         grdfilter(grid=grid, filter="gaussian")
-    with pytest.raises(GMTParameterError, match="filter"):
+    with pytest.raises(GMTParameterError, match="width"):
         grdfilter(grid=grid, filter="gaussian", distance="geo_spherical")
     with pytest.raises(GMTParameterError, match="filter"):
         grdfilter(grid=grid, width=600, distance="geo_spherical")
