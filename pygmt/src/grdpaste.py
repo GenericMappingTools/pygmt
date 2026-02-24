@@ -70,7 +70,7 @@ def grdpaste(
     if data_kind(grid1) != data_kind(grid2):
         raise GMTTypeError(
             (type(grid1), type(grid2)),
-            reason="Both grids must be of the same type (file or xarray.DataArray).",
+            reason="Both input grids must be of the same type (file or xarray.DataArray).",
         )
 
     aliasdict = AliasSystem().add_common(V=verbose)
