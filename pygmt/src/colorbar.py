@@ -326,7 +326,8 @@ def colorbar(  # noqa: PLR0913
         Parameters ``annot_prefix``, ``annot_unit``, and ``annot_angle`` can be used to
         further customize the annotations.
     frame
-        Set colorbar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
+        then no frame will be drawn.
 
         .. deprecated:: v0.19.0
 
@@ -411,12 +412,6 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     $projection
     $region
-    <<<<<<< HEAD
-    =======
-    frame
-        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
-        then no frame will be drawn.
-    >>>>>>> class/frame-part1
     $verbose
     $panel
     $perspective
