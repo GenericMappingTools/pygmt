@@ -48,13 +48,16 @@ def _build_frame(
     >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"]))
     ['xaf0.5+lDistance', 'y+lkm']
 
+    >>> _build_frame(frame="none")
+    'none'
+    >>> _build_frame()  # Passing no parameters returns None
     """
     # Using the old 'frame' parameter.
     if frame is not None and frame is not False:
         return frame
 
     _xaxis_is_set = any(
-        v is not None
+        v is not None and v is not False
         for v in {annot, tick, grid, annot_angle, annot_prefix, annot_unit, label}
     )
     _yaxis_is_set = unit is not None
