@@ -52,7 +52,7 @@ class Axis(BaseParam):
     #: related to money) [For Cartesian plots only].
     prefix: str | None = None
 
-    #: Unix to append to the axis annotations [For Cartesian plots only].
+    #: Unit to append to the axis annotations [For Cartesian plots only].
     unit: str | None = None
 
     #: Angle of the axis annotations.
