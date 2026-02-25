@@ -66,7 +66,7 @@ def plot(  # noqa: PLR0912, PLR0913
     Plot lines, polygons, and symbols in 2-D.
 
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    polygons, or symbols at those locations on a plot.
 
     Must provide either ``data`` or ``x``/``y``.
 
