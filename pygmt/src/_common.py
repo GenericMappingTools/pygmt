@@ -16,7 +16,7 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     """
     Check if the geometry of the input data is Point or MultiPoint.
 
-    The inptu data can be a GeoJSON object or a OGR_GMT file.
+    The input data can be a GeoJSON object or a OGR_GMT file.
 
     This function is used in ``Figure.plot`` and ``Figure.plot3d``.
 
@@ -198,7 +198,7 @@ class _FocalMechanismConvention:
         else:  # Convention is specified via "convention" and "component".
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
             if name not in _FocalMechanismConventionCode.__members__:
-                _value = f"convention='{convention}', component='{component}'"
+                _value = f"convention={convention!r}, component={component!r}"
                 raise GMTValueError(_value, description="focal mechanism convention")
             self.code = _FocalMechanismConventionCode[name]
             self._convention = convention

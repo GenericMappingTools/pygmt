@@ -182,6 +182,7 @@ def grd2cpt(
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
+    $region
     $verbose
 
     Example

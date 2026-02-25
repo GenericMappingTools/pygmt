@@ -223,7 +223,6 @@ def colorbar(  # noqa: PLR0913
     annot_angle: float | None = None,
     annot_prefix: str | None = None,
     annot_unit: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     reverse: bool = False,
     nan: bool = False,
     nan_position: Literal["start", "end"] | None = None,
@@ -239,6 +238,7 @@ def colorbar(  # noqa: PLR0913
     scale: float | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -411,6 +411,12 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     $projection
     $region
+    <<<<<<< HEAD
+    =======
+    frame
+        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
+        then no frame will be drawn.
+    >>>>>>> class/frame-part1
     $verbose
     $panel
     $perspective

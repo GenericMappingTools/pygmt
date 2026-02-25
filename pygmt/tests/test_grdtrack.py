@@ -155,7 +155,12 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     Run grdtrack by not passing in outfile parameter setting.
     """
     with pytest.raises(GMTParameterError):
-        grdtrack(points=dataframe, grid=dataarray)
+        grdtrack(
+            points=dataframe,
+            grid=dataarray,
+            newcolname="bathymetry",
+            output_type="file",
+        )
 
 
 def test_grdtrack_no_points_and_profile(dataarray):
