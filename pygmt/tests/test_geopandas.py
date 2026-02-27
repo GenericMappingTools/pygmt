@@ -10,7 +10,7 @@ from pygmt import Figure, info, makecpt, which
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import skip_if_no
 
-gpd = pytest.importorskip("geopandas")
+geopandas = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
 
 
@@ -36,7 +36,7 @@ def fixture_gdf():
         }
     )
     # Multipolygon first so the OGR_GMT file has @GMULTIPOLYGON in the header
-    gdf = gpd.GeoDataFrame(
+    gdf = geopandas.GeoDataFrame(
         index=["multipolygon", "polygon", "linestring"],
         geometry=[multipolygon, polygon, linestring],
     )
@@ -54,7 +54,7 @@ def fixture_gdf_ridge():
         fname=["@RidgeTest.shp", "@RidgeTest.shx", "@RidgeTest.dbf", "@RidgeTest.prj"],
         download="c",
     )
-    gdf = gpd.read_file(shapefile[0])
+    gdf = geopandas.read_file(shapefile[0])
     # Reproject the geometry
     gdf["geometry"] = (
         gdf.to_crs(crs="EPSG:3857")
@@ -98,7 +98,7 @@ def test_geopandas_plot_default_square():
     2d.
     """
     point = shapely.geometry.Point(1, 2)
-    gdf = gpd.GeoDataFrame(geometry=[point])
+    gdf = geopandas.GeoDataFrame(geometry=[point])
     fig = Figure()
     fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True)
     return fig
@@ -111,7 +111,7 @@ def test_geopandas_plot3d_default_cube():
     geometry in 3d.
     """
     multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
-    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    gdf = geopandas.GeoDataFrame(geometry=[multipoint])
     fig = Figure()
     fig.plot3d(
         data=gdf,
@@ -131,7 +131,7 @@ def test_geopandas_plot_non_default_circle():
     2d.
     """
     point = shapely.geometry.Point(1, 2)
-    gdf = gpd.GeoDataFrame(geometry=[point])
+    gdf = geopandas.GeoDataFrame(geometry=[point])
     fig = Figure()
     fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True, style="c0.2c")
     return fig
@@ -144,7 +144,7 @@ def test_geopandas_plot3d_non_default_circle():
     in 3d.
     """
     multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
-    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    gdf = geopandas.GeoDataFrame(geometry=[multipoint])
     fig = Figure()
     fig.plot3d(
         data=gdf,
@@ -280,7 +280,7 @@ def test_geopandas_nonascii():
             (1, 3),
         ]
     )
-    gdf = gpd.GeoDataFrame(
+    gdf = geopandas.GeoDataFrame(
         {
             "name_ascii": ["Fiji"],
             "name_utf8": ["فيجي"],  # Arabic
