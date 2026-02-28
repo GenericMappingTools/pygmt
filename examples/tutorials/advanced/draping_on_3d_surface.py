@@ -96,9 +96,11 @@ grd_relief = pygmt.datasets.load_earth_relief(resolution="30s", region=region_2d
 # Determine the 3-D region from the minimum and maximum values of the relief grid
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
-# Download an PNG image of the flag of the EU using rasterio and load it into a
-# xarray.DataArray
-url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png"
+# Load a PNG image of the EU flag using rasterio into an xarray.DataArray.
+# The original image is available on Wikimedia Commons at
+# https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png
+# but we use a cached version on the GMT data server.
+url_to_image = "https://oceania.generic-mapping-tools.org/cache/euflag.png"
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
