@@ -8,7 +8,6 @@ be accomplished using the ``drape_grid`` parameter of :meth:`pygmt.Figure.grdvie
 This tutorial consists of two examples:
 
 1. Draping a grid
-
 2. Draping an image
 """
 
@@ -53,7 +52,7 @@ pygmt.config(COLOR_NAN="lightgray")
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
 fig.grdview(
-    projection="M12c",  # Mercator projection with a width of 12 centimeters
+    projection="M12c",  # Mercator projection with a width of 12 cm
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
     drape_grid=grd_age,  # Use crustal age grid for color-coding
@@ -119,7 +118,7 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])
 
 fig.grdview(
-    projection="M12c",  # Mercator projection with a width of 12 centimeters
+    projection="M12c",  # Mercator projection with a width of 12 cm
     region=region_3d,
     grid=grd_relief,  # Use elevation grid for z values
     drape_grid=drape_grid,  # Drape image grid for the EU flag on top
@@ -128,7 +127,7 @@ fig.grdview(
     # Use an illumination from the azimuthal directions 0° (north) and 270° (west) with
     # a normalization via a cumulative Laplace distribution for the shading
     shading="+a0/270+ne0.6",
-    perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
+    perspective=(157.5, 30),  # Define azimuth, elevation for the 3-D plot
     zsize="1c",
     facade_fill="darkgray",
     frame=True,
