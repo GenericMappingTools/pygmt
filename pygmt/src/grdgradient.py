@@ -116,23 +116,21 @@ def grdgradient(  # noqa: PLR0913
     $outgrid
     azimuth
         *azim* or (*azim*, *azim2*).
-        Azimuthal direction for a directional derivative; *azim* is the
-        angle in the x,y plane measured in degrees positive clockwise from
-        north (the positive y-direction) toward east (the positive x-direction). The
-        negative of the directional derivative,
-        :math:`-(\frac{dz}{dx}\sin(\mbox{azim}) + \
-        \frac{dz}{dy}\cos(\mbox{azim}))`, is found; negation yields
-        positive values when the slope of :math:`z(x,y)` is downhill in the
-        *azim* direction, the correct sense for shading the illumination of an
-        image by a light source above the x,y plane shining from the *azim*
-        direction. Optionally, supply two azimuths, *azim*/*azim2*, in which
-        case the gradients in each of these directions are calculated and the
-        one larger in magnitude is retained; this is useful for illuminating
-        data with two directions of lineated structures, e.g., *0*/*270*
-        illuminates from the north (top) and west (left).  Finally, if *azim*
-        is a file it must be a grid of the same domain, spacing and
-        registration as *grid* that will update the azimuth at each output
-        node when computing the directional derivatives.
+        Azimuthal direction for a directional derivative; *azim* is the angle in the x-y
+        plane measured in degrees positive clockwise from north (the +y direction)
+        toward east (the +x direction). The negative of the directional derivative,
+        :math:`-(\frac{dz}{dx}\sin(\mbox{azim}) + \frac{dz}{dy}\cos(\mbox{azim}))`, is
+        found; negation yields positive values when the slope of :math:`z(x,y)` is
+        downhill in the *azim* direction, the correct sense for shading the illumination
+        of an image by (see :meth:`pygmt.Figure.grdimage` and
+        :meth:`pygmt.Figure.grdview`) a light source above the x-y plane shining from
+        the *azim* direction. Optionally, supply two azimuths, (*azim*, *azim2*), in
+        which case the gradients in each of these directions are calculated and the one
+        larger in magnitude is retained; this is useful for illuminating data with two
+        directions of lineated structures, e.g., ``(0, 270)`` illuminates from the north
+        (top) and west (left). Finally, if *azim* is a file it must be a grid of the
+        same domain, spacing and registration as *grid* that will update the azimuth at
+        each output node when computing the directional derivatives.
     direction : str
         [**a**][**c**][**o**][**n**].
         Find the direction of the positive (up-slope) gradient of the data.
