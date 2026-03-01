@@ -36,7 +36,7 @@ def which(
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
-    {aliases}
+    $aliases
        - V = verbose
 
     Parameters
@@ -56,7 +56,7 @@ def which(
         where GMT normally places downloaded files), **c** to place it in
         the user cache directory, or **u** for the user data directory
         instead (i.e., ignoring any subdirectory structure).
-    {verbose}
+    $verbose
 
     Returns
     -------
@@ -83,8 +83,12 @@ def which(
 
     match paths.size:
         case 0:
-            _fname = "', '".join(fname) if is_nonstr_iter(fname) else fname  # type: ignore[arg-type]
-            msg = f"File(s) '{_fname}' not found."
+            if is_nonstr_iter(fname):
+                # Format list as 'a.txt', 'b.txt'
+                _fname = "', '".join(fname)  # type: ignore[arg-type]
+                msg = f"File(s) '{_fname}' not found."
+            else:
+                msg = f"File(s) {fname!r} not found."
             raise FileNotFoundError(msg)
         case 1:
             return paths[0]

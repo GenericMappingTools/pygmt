@@ -34,7 +34,7 @@ The following customizing modifiers are available:
 
   - Append **e** to indicate that the r-axis is an elevation angle, and the range of the
     r-axis should be between 0° and 90°.
-  - Appending **p** sets the current Earth radius (determined by
+  - Appending **p** sets the current Earth's radius (determined by
     :gmt-term:`PROJ_ELLIPSOID`) to the maximum value of the r-axis when the r-axis is
     reversed.
   - Append *radius* to set the maximum value of the r-axis.
@@ -42,7 +42,7 @@ The following customizing modifiers are available:
 - **+z**: indicates that the r-axis is marked as depth instead of radius (e.g.,
   *r = radius - z*).
 
-  - Append **p** to set radius to the current Earth radius.
+  - Append **p** to set radius to the current Earth's radius.
   - Append *radius* to set the value of the radius.
 """
 

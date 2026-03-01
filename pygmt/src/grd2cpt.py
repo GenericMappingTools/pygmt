@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2cpt"]
@@ -32,7 +32,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
-    truncate: tuple[float, float] | None = None,
+    truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
     log: bool = False,
@@ -66,7 +66,7 @@ def grd2cpt(
     *z*-value, the foreground color (F) assigned to values higher than the
     highest *z*-value, and the NaN color (N) painted wherever values are
     undefined. For color tables beyond the standard GMT offerings, visit
-    `cpt-city <http://www.seaviewsensing.com/pub/cpt-city/>`_ and
+    `cpt-city <https://phillips.shef.ac.uk/pub/cpt-city/>`_ and
     `Scientific Colour-Maps <https://www.fabiocrameri.ch/colourmaps.php>`_.
 
     If the master CPT includes B, F, and N entries, these will be copied into
@@ -85,7 +85,7 @@ def grd2cpt(
 
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
-    {aliases}
+    $aliases
        - G = truncate
        - M = overrule_bg
        - N = no_bg
@@ -96,7 +96,7 @@ def grd2cpt(
 
     Parameters
     ----------
-    {grid}
+    $grid
     transparency : float or str
         Set a constant level of transparency (0-100) for all color slices. Append **+a**
         to also affect the foreground, background, and NaN colors [Default is no
@@ -177,12 +177,13 @@ def grd2cpt(
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like ``cmap="categorical"``.
+        a categorical color table, like ``cmap="gmt/categorical"``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
-    {verbose}
+    $region
+    $verbose
 
     Example
     -------
@@ -199,8 +200,7 @@ def grd2cpt(
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        msg = "Set only 'categorical' or 'cyclic' to True, not both."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["categorical", "cyclic"])
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

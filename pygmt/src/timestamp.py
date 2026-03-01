@@ -22,7 +22,7 @@ def timestamp(
     font: str = "Helvetica,black",
     timefmt: str = "%Y %b %d %H:%M:%S",
 ):
-    r"""
+    """
     Plot the GMT timestamp logo.
 
     Add the GMT timestamp logo with an optional label at the bottom-left corner relative
@@ -37,7 +37,8 @@ def timestamp(
     text
         If ``None``, the current UNIX timestamp is shown in the GMT timestamp logo. Set
         this parameter to replace the UNIX timestamp with a custom text string instead.
-        The text must be no longer than 64 characters.
+        The text must be no longer than 64 characters; longer strings are truncated and
+        raise a :class:`RuntimeWarning`.
     label
         The text string shown after the GMT timestamp logo.
     justify

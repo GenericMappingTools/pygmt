@@ -1,0 +1,5 @@
+outs:
+- md5: 7a7eabd0036dc9b744e54dfbc398fc6e
+  size: 9772
+  hash: md5
+  path: test_directional_rose_complex.png

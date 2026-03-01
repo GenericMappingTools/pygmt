@@ -6,7 +6,7 @@ import datetime
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -84,7 +84,7 @@ def test_invalid_parameter():
     arguments for 'terminator' and 'terminator_datetime'.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # Use single-letter parameter 'T' for testing
         fig.solar(
             region="d", projection="W0/15c", frame="a", T="d+d1990-02-17T04:25:00"

@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -58,12 +58,12 @@ jobs:
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=${{ matrix.gmt_version }}
             ghostscript
-            numpy=1.26
+            numpy=2.0
             pandas=2.2
-            xarray=2023.10
+            xarray=2024.5
             packaging=24.2
             contextily=1.5
             geopandas=1.0

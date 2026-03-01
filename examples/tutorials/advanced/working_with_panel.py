@@ -50,7 +50,7 @@ fig.coast(
     frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
     land="gray",  # Color land masses in "gray"
     water="lightblue",  # Color water masses in "lightblue"
-    # Add coastlines with a 0.25 points thick pen in "gray50"
+    # Add coastlines with a 0.25-point thick pen in "gray50"
     shorelines="1/0.25p,gray50",
 )
 fig.show()
@@ -123,7 +123,7 @@ def view(central_lon):
     fig = pygmt.Figure()
     # Set up a colormap for the elevation in meters
     pygmt.makecpt(
-        cmap="oleron",
+        cmap="SCM/oleron",
         # minimum, maximum, step
         series=[int(grd_relief.data.min()) - 1, int(grd_relief.data.max()) + 1, 100],
     )
