@@ -186,7 +186,11 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P --reruns 2"
+        # run: make test PYTEST_EXTRA="-r P --reruns 2"
+        run: |
+          mkdir -p tmp-test-dir-with-unique-name
+          cd tmp-test-dir-with-unique-name; PYGMT_USE_EXTERNAL_DISPLAY="false" pytest --doctest-plus --cov=pygmt --cov-config=../pyproject.toml --cov-report=term-missing --cov-report=xml --cov-report=html -r P --reruns 2 --pyargs pygmt
+          echo $?
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
