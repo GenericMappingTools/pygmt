@@ -16,9 +16,9 @@ __doctest_skip__ = ["grdmask"]
 
 
 def _alias_option_N(  # noqa: N802
-    outside: float | Literal["z", "id"] = 0,
-    edge: float | Literal["z", "id"] = 0,
-    inside: float | Literal["z", "id"] = 1,
+    outside: float | Literal["z", "id"] | None = None,
+    edge: float | Literal["z", "id"] | None = None,
+    inside: float | Literal["z", "id"] | None = None,
 ) -> Alias:
     """
     Return an Alias object for the -N option.
