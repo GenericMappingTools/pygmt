@@ -22,7 +22,7 @@ and work more efficiently with PyGMT.
 # %%
 from pathlib import Path
 
-import geopandas as gpd
+import geopandas
 import numpy as np
 import pandas as pd
 import pygmt
@@ -98,9 +98,9 @@ fig.show()
 # GMT and PyGMT do not support natively.
 
 # Example GeoDataFrame
-gdf = gpd.GeoDataFrame(
+gdf = geopandas.GeoDataFrame(
     {
-        "geometry": gpd.points_from_xy([2, 5, 9], [2, 3, 4]),
+        "geometry": geopandas.points_from_xy([2, 5, 9], [2, 3, 4]),
         "value": [10, 20, 30],
     }
 )
