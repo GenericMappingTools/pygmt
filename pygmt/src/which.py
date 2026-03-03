@@ -27,9 +27,10 @@ def which(
     (if defined), or (4) in $GMT_CACHEDIR (if defined).
 
     ``fname`` can also be a downloadable file (either a complete URL, an @file for
-    downloading from the GMT data server, or any of the remote datasets at
-    :ref:`datasets`. In these cases, use the ``download`` parameter to set the desired
-    behavior. If ``download`` is not used (or ``False``), the file will not be found.
+    downloading from the GMT data server, or any of the
+    `GMT remote datasets <https://www.generic-mapping-tools.org/remote-datasets/>`__.
+    In these cases, use the ``download`` parameter to set the desired behavior. If
+    ``download`` is not used (or ``False``), the file will not be found.
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
@@ -51,7 +52,7 @@ def which(
 
         - a file specified by a complete URL
         - a GMT remote file on the GMT data server, specified with a leading ``@``.
-        - any of the GMT remote datasets at :ref:`datasets`
+        - any of the `GMT remote datasets <https://www.generic-mapping-tools.org/remote-datasets/>`__
 
         Valid values are:
 
