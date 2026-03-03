@@ -29,39 +29,35 @@ def _alias_option_N(  # noqa: N802
 
     Examples
     --------
-    >>> _alias_option_N()._value
+    >>> _alias_option_N(outside=0, edge=0, inside=1)._value
     '0/0/1'
     >>> _alias_option_N(outside=1, edge=2, inside=3)._value
     '1/2/3'
-    >>> _alias_option_N(inside="z")._value
+    >>> _alias_option_N(outside=0, edge=0, inside="z")._value
     'z'
-    >>> _alias_option_N(inside="z", outside=1)._value
+    >>> _alias_option_N(outside=1, edge=0, inside="z")._value
     'z/1'
-    >>> _alias_option_N(inside="z", edge="z")._value
+    >>> _alias_option_N(outside=0, edge="z", inside="z")._value
     'Z'
-    >>> _alias_option_N(inside="id")._value
+    >>> _alias_option_N(outside=0, edge=0, inside="id")._value
     'p'
-    >>> _alias_option_N(inside="id", edge="id")._value
+    >>> _alias_option_N(outside=0, edge="id", inside="id")._value
     'P'
     """
-    special_modes = {"z": "z", "id": "p"}
-    inside_is_special = inside in special_modes
-    edge_is_special = edge in special_modes
-
     # Validate combinations
-    if inside_is_special and edge_is_special and inside != edge:
+    if inside in {"z", "id"} and edge in {"z", "id"} and inside != edge:
         msg = f"Invalid combination: inside={inside!r} and edge={edge!r}. "
         raise GMTParameterError(
             reason=msg + "When both are special modes, they must be the same."
         )
 
     # Build -N argument
-    if inside_is_special:
+    if inside in {"z", "id"}:
         # Mode: -Nz, -NZ, -Np, or -NP
-        mode_char = special_modes[inside]  # type: ignore[index]
+        mode_char = "z" if inside == "z" else "p"
         if edge == inside:
             mode_char = mode_char.upper()
-        n_value = f"{mode_char}/{outside}" if outside != 0 else mode_char
+        n_value = mode_char if outside == 0 else f"{mode_char}/{outside}"
         return Alias(n_value, name="mask_values")
     # Standard mode: outside/edge/inside
     return Alias([outside, edge, inside], name="mask_values", sep="/", size=3)
