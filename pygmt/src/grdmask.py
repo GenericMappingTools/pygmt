@@ -57,7 +57,7 @@ def _alias_option_N(  # noqa: N802
         mode_char = "z" if inside == "z" else "p"
         if edge == inside:
             mode_char = mode_char.upper()
-        n_value = mode_char if outside == 0 else f"{mode_char}/{outside}"
+        mask_values = mode_char if outside is None else [mode_char, outside]
         return Alias(n_value, name="mask_values")
     # Standard mode: outside/edge/inside
     return Alias([outside, edge, inside], name="mask_values", sep="/", size=3)
