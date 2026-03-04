@@ -44,8 +44,9 @@ def _alias_option_N(  # noqa: N802
     >>> _alias_option_N(outside=0, edge="id", inside="id")._value
     'P'
     """
+    _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
-    if inside in {"z", "id"} and edge in {"z", "id"} and inside != edge:
+    if inside in _inside_modes and edge in _inside_modes and inside != edge:
         msg = f"Invalid combination: inside={inside!r} and edge={edge!r}. "
         raise GMTParameterError(
             reason=msg + "When both are special modes, they must be the same."
