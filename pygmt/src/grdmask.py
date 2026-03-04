@@ -112,28 +112,18 @@ def grdmask(
     $outgrid
     $spacing
     outside
-        Set the value assigned to nodes outside the polygons. Default is 0.
-        Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
-
-        When using ``inside="z"`` or ``inside="id"``, this sets the outside value
-        appended after the mode (e.g., ``outside=1, inside="z"`` gives ``-Nz/1``).
     edge
-        Set the value assigned to nodes on the polygon edges. Default is 0.
-        Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
-
-        When using ``inside="z"``, setting ``edge="z"`` treats edges as inside
-        (corresponds to ``-NZ``). Similarly, ``inside="id", edge="id"`` gives ``-NP``.
-        The combination ``inside="z", edge="id"`` or ``inside="id", edge="z"`` is
-        invalid and will raise an error.
     inside
-        Set the value assigned to nodes inside the polygons. Default is 1.
+        Set the value assigned to nodes outside, on the edge, or inside the polygons.
         Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
-
-        Special values:
+        
+        ``inside`` can also be set to one of the following values: 
 
         - ``"z"``: Use the z-value from polygon data (segment header ``-Zzval``,
-          ``-Lheader``, or via ``-aZ=name``). Corresponds to GMT ``-Nz``.
-        - ``"id"``: Use a running polygon ID number. Corresponds to GMT ``-Np``.
+          ``-Lheader``, or via ``-aZ=name``).
+        - ``"id"``: Use a running polygon ID number.
+        
+        To treats edges as inside, using the same value as ``inside``. 
     $region
     $verbose
 
