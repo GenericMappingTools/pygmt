@@ -53,7 +53,7 @@ def _alias_option_N(  # noqa: N802
         )
 
     # Build -N argument
-    if inside in {"z", "id"}:
+    if inside in _inside_modes:
         # Mode: -Nz, -NZ, -Np, or -NP
         mode_char = "z" if inside == "z" else "p"
         if edge == inside:
