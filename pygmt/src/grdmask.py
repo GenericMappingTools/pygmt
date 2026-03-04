@@ -168,9 +168,7 @@ def grdmask(
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),
         N=_alias_option_N(outside=outside, edge=edge, inside=inside),
-    )
-
-    aliasdict = aliasdict.add_common(
+    ).add_common(
         R=region,
         V=verbose,
     )
