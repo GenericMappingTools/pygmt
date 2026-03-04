@@ -60,7 +60,7 @@ def _alias_option_N(  # noqa: N802
         mask_values = mode_char if outside in {None, 0} else [mode_char, outside]
     else:
         mask_values = [outside, edge, inside]
-    return Alias([outside, edge, inside], name="mask_values", sep="/", size={2, 3})
+    return Alias(mask_values, name="mask_values", sep="/", size={2, 3})
 
 
 @fmt_docstring
@@ -116,14 +116,14 @@ def grdmask(
     inside
         Set the value assigned to nodes outside, on the edge, or inside the polygons.
         Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
-        
-        ``inside`` can also be set to one of the following values: 
+
+        ``inside`` can also be set to one of the following values:
 
         - ``"z"``: Use the z-value from polygon data (segment header ``-Zzval``,
           ``-Lheader``, or via ``-aZ=name``).
         - ``"id"``: Use a running polygon ID number.
-        
-        To treats edges as inside, using the same value as ``inside``. 
+
+        To treats edges as inside, using the same value as ``inside``.
     $region
     $verbose
 
