@@ -58,9 +58,9 @@ def _alias_option_N(  # noqa: N802
         if edge == inside:
             mode_char = mode_char.upper()
         mask_values = mode_char if outside in {None, 0} else [mode_char, outside]
-        return Alias(mask_values, name="mask_values", sep="/", size=2)
-    # Standard mode: outside/edge/inside
-    return Alias([outside, edge, inside], name="mask_values", sep="/", size=3)
+    else:
+        mask_values = [outside, edge, inside]
+    return Alias([outside, edge, inside], name="mask_values", sep="/", size={2, 3})
 
 
 @fmt_docstring
