@@ -55,7 +55,7 @@ def _alias_option_N(  # noqa: N802
     # Build -N argument
     if inside in _inside_modes:
         # Mode: -Nz, -NZ, -Np, or -NP
-        mode_char = "z" if inside == "z" else "p"
+        mode_char = _inside_modes[inside]
         if edge == inside:
             mode_char = mode_char.upper()
         mask_values = mode_char if outside is None else [mode_char, outside]
