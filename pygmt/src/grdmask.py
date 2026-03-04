@@ -60,7 +60,7 @@ def _alias_option_N(  # noqa: N802
         mask_values = mode_char if outside in {None, 0} else [mode_char, outside]
     else:
         mask_values = [outside, edge, inside]
-    return Alias(mask_values, name="mask_values", sep="/", size={2, 3})
+    return Alias(mask_values, name="mask_values", sep="/", size=(2, 3))
 
 
 @fmt_docstring
