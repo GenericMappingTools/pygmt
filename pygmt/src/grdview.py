@@ -233,7 +233,7 @@ def grdview(  # noqa: PLR0913
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
     $projection
-    smooth : int or None
+    smooth
         Sets the smooth factor used for smoothing the contours before plotting
         [Default is no smoothing].
     zscale
