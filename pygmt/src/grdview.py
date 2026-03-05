@@ -317,10 +317,10 @@ def grdview(  # noqa: PLR0913
             Alias(plane, name="plane"),
             Alias(facade_fill, name="facade_fill", prefix="+g"),
         ],
+        S=Alias(smooth, name="smooth"),
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),
         Wm=Alias(mesh_pen, name="mesh_pen"),
-        S=Alias(smooth, name="smooth"),
     ).add_common(
         B=frame,
         J=projection,
