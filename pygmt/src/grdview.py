@@ -114,10 +114,11 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(C="cmap", I="shading", f="coltypes", n="interpolation")
+@use_alias(I="shading", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    cmap: str | None = None,
     drape_grid: PathLike | xr.DataArray | None = None,
     surftype: Literal[
         "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
@@ -157,6 +158,7 @@ def grdview(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - G = drape_grid
        - J = projection
        - Jz = zscale
@@ -296,6 +298,7 @@ def grdview(  # noqa: PLR0913
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         Q=_alias_option_Q(
