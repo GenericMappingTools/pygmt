@@ -244,6 +244,22 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
 
 
 @pytest.mark.mpl_image_compare
+def test_grdview_surface_plot_with_smooth_contour(xrgrid):
+    """
+    Run grdview by passing in a grid with contour lines that are smoothed.
+    """
+    fig = Figure()
+    fig.grdview(
+        grid=xrgrid,
+        cmap="gmt/relief",
+        surftype="surface",
+        contour_pen="0.5p,black",
+        smooth_contour=5,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     """
     Run grdview by passing in a grid with styled mesh lines plotted on top of a surface

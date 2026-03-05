@@ -114,7 +114,7 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(I="shading", f="coltypes", n="interpolation")
+@use_alias(I="shading", S="smooth_contour", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
@@ -134,6 +134,7 @@ def grdview(  # noqa: PLR0913
     facade_fill: str | None = None,
     facade_pen: str | None = None,
     projection: str | None = None,
+    smooth_contour: int | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -166,6 +167,7 @@ def grdview(  # noqa: PLR0913
        - N = plane, facade_fill
        - R = region
        - Q = surftype, dpi, mesh_fill, nan_transparent, **+m**: monochrome
+       - S = smooth_contour
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
@@ -231,6 +233,10 @@ def grdview(  # noqa: PLR0913
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
     $projection
+    smooth_contour : int or None
+        Used in conjunction with ``contour_pen`` (``-Wc``). Smooth the contour lines
+        by means of splines. The value specifies the number of equidistant points along
+        the contour used for smoothing [Default is 0, no smoothing].
     zscale
     zsize
         Set z-axis scaling or z-axis size.
