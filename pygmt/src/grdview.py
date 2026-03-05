@@ -234,9 +234,8 @@ def grdview(  # noqa: PLR0913
         ``"+a-45+nt1+m0"``].
     $projection
     smooth : int or None
-        Used in conjunction with ``contour_pen`` (``-Wc``). Smooth the contour lines
-        by means of splines. The value specifies the number of equidistant points along
-        the contour used for smoothing [Default is 0, no smoothing].
+        Sets the smooth factor used for smoothing the contours before plotting
+        [Default is no smoothing].
     zscale
     zsize
         Set z-axis scaling or z-axis size.
