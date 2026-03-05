@@ -132,7 +132,7 @@ def tempfile_from_geojson(geojson):
         E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
-        import geopandas as gpd  # noqa: PLC0415
+        import geopandas  # noqa: PLC0415
 
         Path(tmpfile.name).unlink()  # Ensure file is deleted first
         ogrgmt_kwargs = {
@@ -165,7 +165,7 @@ def tempfile_from_geojson(geojson):
             import json  # noqa: PLC0415
 
             jsontext = json.dumps(geojson.__geo_interface__)
-            gpd.read_file(filename=io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
+            geopandas.read_file(filename=io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
 
