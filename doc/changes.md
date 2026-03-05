@@ -1,11 +1,5 @@
 # Changelog
 
-## Release v0.19.0 (unreleased)
-
-### Enhancements
-
-* Figure.grdview: Add alias for option ``-S`` (smooth_contour) ([#4444](https://github.com/GenericMappingTools/pygmt/pull/4444))
-
 ## Release v0.18.0 (2026/01/12)
 
 [![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.18080259.svg)](https://doi.org/10.5281/zenodo.18080259)
