@@ -177,7 +177,7 @@ def grdview(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    cmap : str
+    cmap
         The name of the color palette table to use.
     drapegrid
         The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on
