@@ -296,7 +296,6 @@ def grdview(  # noqa: PLR0913
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
-        G=Alias(drape_grid, name="drapegrid"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         Q=_alias_option_Q(
@@ -328,7 +327,7 @@ def grdview(  # noqa: PLR0913
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=aliasdict.get("G"), required=False
+                check_kind="raster", data=aliasdict.get("G", drape_grid), required=False
             ) as vdrapegrid,
         ):
             aliasdict["G"] = vdrapegrid
