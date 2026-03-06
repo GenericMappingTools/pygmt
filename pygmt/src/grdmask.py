@@ -54,12 +54,17 @@ def _alias_option_N(  # noqa: N802
     # Build -N argument
     if inside in _inside_modes:
         # Mode: -Nz, -NZ, -Np, or -NP
-        mode = _inside_modes[inside]
+        mode = _inside_modes[inside]  # type: ignore[index]
         if edge == inside:
             mode = mode.upper()
-        mask_values = mode if outside is None else [mode, outside]
+        mask_values: str | list[str | float] | None = (
+            mode if outside is None else [mode, outside]
+        )
+    elif outside is None and edge is None:
+        # All values are None, return None
+        mask_values = None
     else:
-        mask_values = [outside, edge, inside]
+        mask_values = [outside, edge, inside]  # type: ignore[list-item]
     return Alias(mask_values, name="mask_values", sep="/", size=(2, 3))
 
 
@@ -104,7 +109,7 @@ def grdmask(
     Parameters
     ----------
     data
-        Pass in either a file name to an ASCII data table, a 2-D $table_classes 
+        Pass in either a file name to an ASCII data table, a 2-D $table_classes
         containg the polygon(s) or data points. Input can be:
 
         - **Polygon mode**: One or more files containing closed polygon coordinates
