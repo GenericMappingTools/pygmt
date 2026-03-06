@@ -32,15 +32,15 @@ def _alias_option_N(  # noqa: N802
     >>> _alias_option_N()._value
     >>> _alias_option_N(outside=1, edge=2, inside=3)._value
     '1/2/3'
-    >>> _alias_option_N(outside=0, edge=0, inside="z")._value
+    >>> _alias_option_N(inside="z")._value
     'z'
-    >>> _alias_option_N(outside=1, edge=0, inside="z")._value
+    >>> _alias_option_N(outside=1, inside="z")._value
     'z/1'
-    >>> _alias_option_N(outside=0, edge="z", inside="z")._value
+    >>> _alias_option_N(edge="z", inside="z")._value
     'Z'
-    >>> _alias_option_N(outside=0, edge=0, inside="id")._value
+    >>> _alias_option_N(inside="id")._value
     'p'
-    >>> _alias_option_N(outside=0, edge="id", inside="id")._value
+    >>> _alias_option_N(edge="id", inside="id")._value
     'P'
     """
     _inside_modes = {"z": "z", "id": "p"}
