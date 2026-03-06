@@ -58,7 +58,7 @@ def _alias_option_N(  # noqa: N802
         if edge == inside:
             mode = mode.upper()
         mask_values: str | list[str | float] | None = (
-            mode if outside is None else [mode, outside]
+            mode if outside is None else [mode, outside]  # type: ignore[assignment]
         )
     elif outside is None and edge is None:
         # All values are None, return None
