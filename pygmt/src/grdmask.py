@@ -29,8 +29,7 @@ def _alias_option_N(  # noqa: N802
 
     Examples
     --------
-    >>> _alias_option_N(outside=0, edge=0, inside=1)._value
-    '0/0/1'
+    >>> _alias_option_N()._value
     >>> _alias_option_N(outside=1, edge=2, inside=3)._value
     '1/2/3'
     >>> _alias_option_N(outside=0, edge=0, inside="z")._value
