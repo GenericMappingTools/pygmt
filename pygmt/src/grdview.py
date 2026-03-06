@@ -134,6 +134,7 @@ def grdview(  # noqa: PLR0913
     facade_fill: str | None = None,
     facade_pen: str | None = None,
     projection: str | None = None,
+    smooth: int | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -164,8 +165,9 @@ def grdview(  # noqa: PLR0913
        - Jz = zscale
        - JZ = zsize
        - N = plane, facade_fill
-       - R = region
        - Q = surftype, dpi, mesh_fill, nan_transparent, **+m**: monochrome
+       - R = region
+       - S = smooth
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
@@ -231,6 +233,9 @@ def grdview(  # noqa: PLR0913
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
     $projection
+    smooth
+        Sets the smooth factor used for smoothing the contours before plotting
+        [Default is no smoothing].
     zscale
     zsize
         Set z-axis scaling or z-axis size.
@@ -312,6 +317,7 @@ def grdview(  # noqa: PLR0913
             Alias(plane, name="plane"),
             Alias(facade_fill, name="facade_fill", prefix="+g"),
         ],
+        S=Alias(smooth, name="smooth"),
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),
         Wm=Alias(mesh_pen, name="mesh_pen"),
