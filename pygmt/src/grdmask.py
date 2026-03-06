@@ -16,7 +16,7 @@ __doctest_skip__ = ["grdmask"]
 
 
 def _alias_option_N(  # noqa: N802
-    outside: float | Literal["z", "id"] | None = None,
+    outside: float None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
 ) -> Alias:
