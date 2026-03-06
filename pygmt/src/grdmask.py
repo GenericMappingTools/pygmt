@@ -16,7 +16,7 @@ __doctest_skip__ = ["grdmask"]
 
 
 def _alias_option_N(  # noqa: N802
-    outside: float None = None,
+    outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
 ) -> Alias:
@@ -74,7 +74,7 @@ def grdmask(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    outside: float | None = None, 
+    outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
