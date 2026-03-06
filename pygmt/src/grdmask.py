@@ -74,9 +74,9 @@ def grdmask(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    outside: float | Literal["z", "id"] = 0,
-    edge: float | Literal["z", "id"] = 0,
-    inside: float | Literal["z", "id"] = 1,
+    outside: float | None = None, 
+    edge: float | Literal["z", "id"] | None = None,
+    inside: float | Literal["z", "id"] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
