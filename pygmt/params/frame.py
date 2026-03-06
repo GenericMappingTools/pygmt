@@ -1,5 +1,5 @@
 """
-The Axes, Axis, and Frame classes for specifying the frame.
+The Axis and Frame classes for specifying the frame.
 """
 
 import dataclasses
