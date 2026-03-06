@@ -80,7 +80,7 @@ def grdmask(
     Create mask grid from polygons or point coverage.
 
     Reads one or more files containing polygon or data point
-    coordinates, and creates a binary grid file where nodes that fall inside, on the
+    coordinates, and creates a grid where nodes that fall inside, on the
     edge, or outside the polygons (or within the search radius from data points) are
     assigned values based on ``outside``, ``edge``, and ``inside`` parameters.
 
