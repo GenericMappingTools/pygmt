@@ -60,11 +60,12 @@ def _alias_option_N(  # noqa: N802
         mask_values: str | list[str | float] | None = (
             mode if outside is None else [mode, outside]  # type: ignore[assignment]
         )
-    elif outside is None and edge is None:
-        # All values are None, return None
+    elif inside is None:
+        # inside is None, return None (GMT uses default 0/0/1)
         mask_values = None
     else:
-        mask_values = [outside, edge, inside]  # type: ignore[list-item]
+        # inside is a number, build the full mask with defaults for outside/edge
+        mask_values = [outside or 0, edge or 0, inside]  # type: ignore[list-item]
     return Alias(mask_values, name="mask_values", sep="/", size=(2, 3))
 
 
