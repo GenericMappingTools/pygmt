@@ -31,19 +31,19 @@ class Axis(BaseParam):
     >>> fig.show()
     """
 
-    #: Specify the interval for annoations. It can be ``True`` to let GMT decide the
+    #: Specify the interval for annotations. It can be ``True`` to let GMT decide the
     #: interval automatically; or a value to set a specific interval in the format of
     #: *stride*\ [±\ *phase*][*unit*], where, *stride* is the interval, *phase* is the
     #: offset to shift the annotations by that amount, and *unit* is one of the
     #: :gmt-docs:`18 supported unit codes <reference/options.html#tbl-units>` related to
     #: time intervals.
-    annot: float | bool = False
+    annot: float | str | bool = False
 
     #: Specify the interval for ticks. Same format as ``annot``.
-    tick: float | bool = False
+    tick: float | str | bool = False
 
     #: Specify the interval for gridlines. Same format as ``annot``.
-    grid: float | bool = False
+    grid: float | str | bool = False
 
     #: Label for the axis [Default is no label].
     label: str | None = None
