@@ -95,8 +95,8 @@ class Frame(BaseParam):
 
     Examples
     --------
-    To specify the west and south axes with both tick marks and annotations, draw the
-    east and north axes with tick marks but without annotations:
+    To specify the west and south axes with both ticks and annotations, draw the east
+    and north axes with ticks but without annotations:
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -139,23 +139,23 @@ class Frame(BaseParam):
     #: They can be denoted by the following codes:
     #:
     #: - **W** (west), **E** (east), **S** (south), **N** (north), **Z**: Draw axes with
-    #:   both tick marks and annotations.
+    #:   both ticks and annotations.
     #: - **w** (west), **e** (east), **s** (south), **n** (north), **z**: Draw axes with
-    #:   tick marks but without annotations.
+    #:   ticks but without annotations.
     #: - **l** (left), **r** (right), **b** (bottom), **t** (top), **u** (up): Draw axes
-    #:   without tick marks or annotations.
+    #:   without ticks or annotations.
     #:
     #: For examples:
     #:
-    #: - ``"WS"``: Draw the west and south axes with both tick marks and annotations,
-    #:   but do not draw the east and north axes.
-    #: - ``"WSen"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes with tick marks but without annotations.
-    #: - ``"WSrt"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes without tick marks or annotations.
-    #: - ``"WSrtZ"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes without tick marks or annotations, and draw the
-    #:   z-axis with both tick marks and annotations.
+    #: - ``"WS"``: Draw the west and south axes with both ticks and annotations, but do
+    #:   not draw the east and north axes.
+    #: - ``"WSen"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes with ticks but without annotations.
+    #: - ``"WSrt"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes without ticks or annotations.
+    #: - ``"WSrtZ"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes without ticks or annotations, and draw the z-axis with
+    #:   both ticks and annotations.
     #:
     #: For a 3-D plot, if the z-axis code is specified, a single vertical axis will be
     #: drawn at the most suitable corner by default. Append any combination of the
