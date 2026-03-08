@@ -32,6 +32,8 @@ def _alias_option_N(  # noqa: N802
     >>> _alias_option_N()._value
     >>> _alias_option_N(outside=1, edge=2, inside=3)._value
     '1/2/3'
+    >>> _alias_option_N(outside=3)._value
+    '3/0/1'
     >>> _alias_option_N(inside="z")._value
     'z'
     >>> _alias_option_N(outside=1, inside="z")._value
@@ -45,6 +47,10 @@ def _alias_option_N(  # noqa: N802
     """
     _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
+    if edge in _inside_modes and inside != edge:
+        msg = f"Invalid combination: edge={edge!r} requires inside={edge!r}."
+        raise GMTParameterError(reason=msg)
+
     if inside in _inside_modes and edge in _inside_modes and inside != edge:
         msg = f"Invalid combination: inside={inside!r} and edge={edge!r}. "
         raise GMTParameterError(
@@ -60,12 +66,16 @@ def _alias_option_N(  # noqa: N802
         mask_values: str | list[str | float] | None = (
             mode if outside is None else [mode, outside]  # type: ignore[assignment]
         )
-    elif inside is None:
-        # inside is None, return None (GMT uses default 0/0/1)
+    elif inside is None and outside is None and edge is None:
+        # All three are None, return None (GMT uses default 0/0/1)
         mask_values = None
     else:
-        # inside is a number, build the full mask with defaults for outside/edge
-        mask_values = [outside or 0, edge or 0, inside]  # type: ignore[list-item]
+        # Build the full mask with defaults for any missing values
+        mask_values = [
+            0 if outside is None else outside,
+            0 if edge is None else edge,
+            1 if inside is None else inside,
+        ]  # type: ignore[list-item]
     return Alias(mask_values, name="mask_values", sep="/", size=(2, 3))
 
 
@@ -129,7 +139,7 @@ def grdmask(
           ``-Lheader``, or via ``-aZ=name``).
         - ``"id"``: Use a running polygon ID number.
 
-        To treats edges as inside, using the same value as ``inside``.
+        To treat edges as inside, use the same value as ``inside``.
     $region
     $verbose
 
@@ -152,10 +162,10 @@ def grdmask(
     >>> mask = pygmt.grdmask(data=polygon, spacing=1, region=[125, 130, 30, 35])
     >>> mask.values
     array([[0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 1., 0.],
-           [0., 0., 1., 1., 1., 0.],
-           [0., 0., 1., 1., 1., 0.],
-           [0., 0., 1., 1., 1., 0.],
+            [0., 0., 1., 1., 1., 0.],
+            [0., 0., 0., 1., 1., 0.],
+            [0., 0., 0., 0., 1., 0.],
+            [0., 0., 0., 0., 0., 0.],
            [0., 0., 0., 0., 0., 0.]])
     """
     if spacing is None or region is None:

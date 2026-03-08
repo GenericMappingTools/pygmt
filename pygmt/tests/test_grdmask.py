@@ -44,6 +44,28 @@ def fixture_expected_grid():
     )
 
 
+@pytest.fixture(scope="module", name="expected_grid_outside_only")
+def fixture_expected_grid_outside_only():
+    """
+    Load the expected grdmask grid result when only outside is set.
+    """
+    return xr.DataArray(
+        data=[
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [3.0, 0.0, 1.0, 1.0, 1.0, 0.0],
+            [3.0, 3.0, 0.0, 1.0, 1.0, 0.0],
+            [3.0, 3.0, 3.0, 0.0, 1.0, 0.0],
+            [3.0, 3.0, 3.0, 3.0, 0.0, 0.0],
+            [3.0, 3.0, 3.0, 3.0, 3.0, 0.0],
+        ],
+        coords={
+            "x": [125.0, 126.0, 127.0, 128.0, 129.0, 130.0],
+            "y": [30.0, 31.0, 32.0, 33.0, 34.0, 35.0],
+        },
+        dims=["y", "x"],
+    )
+
+
 def test_grdmask_outgrid(polygon_data, expected_grid):
     """
     Creates a mask grid with an outgrid argument.
@@ -101,6 +123,24 @@ def test_grdmask_custom_mask_values(polygon_data):
     assert result.values.min() >= 0.0
 
 
+def test_grdmask_outside_only(polygon_data, expected_grid_outside_only):
+    """
+    Test grdmask when only outside is set.
+    """
+    result = grdmask(
+        data=polygon_data,
+        spacing=1,
+        region=[125, 130, 30, 35],
+        outside=3,
+    )
+
+    assert isinstance(result, xr.DataArray)
+    assert result.dims == ("y", "x")
+    assert result.gmt.gtype is GridType.CARTESIAN
+    assert result.gmt.registration is GridRegistration.GRIDLINE
+    xr.testing.assert_allclose(a=result, b=expected_grid_outside_only)
+
+
 def test_grdmask_fails():
     """
     Check that grdmask fails correctly when region and spacing are not given.
@@ -120,4 +160,22 @@ def test_grdmask_invalid_combination(polygon_data):
             region=[125, 130, 30, 35],
             inside="z",
             edge="id",
+        )
+
+
+@pytest.mark.parametrize(
+    ("edge", "inside"),
+    [("z", None), ("id", None), ("z", 5), ("id", 5)],
+)
+def test_grdmask_invalid_edge_special_mode(polygon_data, edge, inside):
+    """
+    Check that special edge modes require the same special inside mode.
+    """
+    with pytest.raises(GMTParameterError):
+        grdmask(
+            data=polygon_data,
+            spacing=1,
+            region=[125, 130, 30, 35],
+            edge=edge,
+            inside=inside,
         )
