@@ -18,7 +18,7 @@ def basemap(  # noqa: PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     map_scale: str | None = None,
@@ -56,12 +56,14 @@ def basemap(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - F = box
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - L = map_scale
        - R = region
        - Td = rose
+       - Tm = compass
        - V = verbose
        - c = panel
        - p = perspective

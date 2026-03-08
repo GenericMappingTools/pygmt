@@ -168,7 +168,7 @@ def colorbar(  # noqa: PLR0913
     scale: float | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -322,7 +322,8 @@ def colorbar(  # noqa: PLR0913
     $projection
     $region
     frame
-        Set colorbar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
+        then no frame will be drawn.
     $verbose
     $panel
     $perspective

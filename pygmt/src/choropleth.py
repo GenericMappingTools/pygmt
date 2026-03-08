@@ -40,9 +40,9 @@ def choropleth(
 
     Examples
     --------
-    >>> import geopandas as gpd
+    >>> import geopandas
     >>> import pygmt
-    >>> world = gpd.read_file(
+    >>> world = geopandas.read_file(
     ...     "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
     ... )
     >>> world["POP_EST"] *= 1e-6  # Population in millions
