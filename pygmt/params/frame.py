@@ -105,8 +105,8 @@ class Frame(BaseParam):
     ... )
     >>> fig.show()
 
-    To specify the same attributes for all axes, with intervals of 4 for annotations,
-    2 for ticks, and 1 for gridlines:
+    To specify the same attributes for the west and south axes, with intervals of
+    4 for annotations, 2 for ticks, and 1 for gridlines:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
