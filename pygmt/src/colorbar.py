@@ -322,22 +322,19 @@ def colorbar(  # noqa: PLR0913
         Set the label and unit for the colorbar. The label is placed along the colorbar
         and the unit is placed at the end of the colorbar.
     annot
-    grid
     tick
-        Intervals for annotations, grid lines, and ticks. Refer to
+    grid
+        Intervals for annotations, ticks, and gridlines. Refer to
         :class:`pygmt.params.Axis` for more details on how these parameters work.
-        Parameters ``annot_prefix``, ``annot_unit``, and ``annot_angle`` can be used to
-        further customize the annotations.
+    annot_prefix
+    annot_unit
+    annot_angle
+        The prefix, unit and angle for the annotations. The prefix is placed before the
+        annotation text; the unit is placed after the annotation text; and the angle is
+        the angle of the annotation text.
     frame
         Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
         then no frame will be drawn.
-
-        .. deprecated:: v0.19.0
-
-            Use ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
-            ``annot_unit``, ``label``, and ``unit`` parameters to customize the colorbar
-            annotations and labels.
-
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center
