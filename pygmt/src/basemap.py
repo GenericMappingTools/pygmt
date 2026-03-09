@@ -56,12 +56,14 @@ def basemap(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - F = box
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - L = map_scale
        - R = region
        - Td = rose
+       - Tm = compass
        - V = verbose
        - c = panel
        - p = perspective

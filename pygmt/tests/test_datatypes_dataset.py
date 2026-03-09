@@ -160,7 +160,7 @@ def test_dataset_to_strings_with_none_values():
     # Catch the FileNotFoundError exception so that we can focus on the bug.
     tiles = ["@N30E060.earth_age_01m_g.nc", "@N30E090.earth_age_01m_g.nc"]
     try:
-        paths = which(fname=tiles, download="a")
+        paths = which(fname=tiles, download="auto")
         assert len(paths) == 2
 
         # 'paths' may contain an empty string or not, depending on if tiles are cached.
@@ -170,7 +170,7 @@ def test_dataset_to_strings_with_none_values():
                 Path(path).unlink()
             with pytest.warns(expected_warning=RuntimeWarning) as record:  # noqa: PT031
                 try:
-                    paths = which(fname=tiles, download="a")
+                    paths = which(fname=tiles, download="auto")
                     assert len(record) == 1
                     assert len(paths) == 2
                     assert "" in paths

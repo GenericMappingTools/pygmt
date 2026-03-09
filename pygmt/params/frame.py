@@ -1,5 +1,5 @@
 """
-The Axes, Axis, and Frame classes for specifying the frame.
+The Axis and Frame classes for specifying the frame.
 """
 
 import dataclasses
@@ -18,8 +18,8 @@ class Axis(BaseParam):
 
     Examples
     --------
-    To specify the same attributes for all axes, with intervals of 4 for annotations,
-    2 for ticks, and 1 for gridlines:
+    To specify the same attributes for x- and y-axes, with intervals of 4 for
+    annotations, 2 for ticks, and 1 for gridlines:
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -31,19 +31,19 @@ class Axis(BaseParam):
     >>> fig.show()
     """
 
-    #: Specify the interval for annoations. It can be ``True`` to let GMT decide the
+    #: Specify the interval for annotations. It can be ``True`` to let GMT decide the
     #: interval automatically; or a value to set a specific interval in the format of
     #: *stride*\ [±\ *phase*][*unit*], where, *stride* is the interval, *phase* is the
     #: offset to shift the annotations by that amount, and *unit* is one of the
     #: :gmt-docs:`18 supported unit codes <reference/options.html#tbl-units>` related to
     #: time intervals.
-    annot: float | bool = False
+    annot: float | str | bool = False
 
     #: Specify the interval for ticks. Same format as ``annot``.
-    tick: float | bool = False
+    tick: float | str | bool = False
 
     #: Specify the interval for gridlines. Same format as ``annot``.
-    grid: float | bool = False
+    grid: float | str | bool = False
 
     #: Label for the axis [Default is no label].
     label: str | None = None
@@ -95,8 +95,8 @@ class Frame(BaseParam):
 
     Examples
     --------
-    To specify the west and south axes with both tick marks and annotations, draw the
-    east and north axes with tick marks but without annotations:
+    To draw the west and south axes with both ticks and annotations, and draw the east
+    and north axes with ticks but without annotations:
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -105,8 +105,10 @@ class Frame(BaseParam):
     ... )
     >>> fig.show()
 
-    To specify the same attributes for all axes, with intervals of 4 for annotations,
-    2 for ticks, and 1 for gridlines:
+    To draw the west and south axes with both ticks and annotations, and draw the east
+    and north axes without ticks and annotations. For west and south axes, specify
+    the same attributes for both axes using the ``axis`` parameter, with intervals of 4
+    for annotations, 2 for ticks, and 1 for gridlines.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
@@ -116,7 +118,7 @@ class Frame(BaseParam):
     ... )
     >>> fig.show()
 
-    To specify the attributes for each axis separately:
+    To specify the attributes for x- and y-axes separately:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
@@ -139,23 +141,23 @@ class Frame(BaseParam):
     #: They can be denoted by the following codes:
     #:
     #: - **W** (west), **E** (east), **S** (south), **N** (north), **Z**: Draw axes with
-    #:   both tick marks and annotations.
+    #:   both ticks and annotations.
     #: - **w** (west), **e** (east), **s** (south), **n** (north), **z**: Draw axes with
-    #:   tick marks but without annotations.
+    #:   ticks but without annotations.
     #: - **l** (left), **r** (right), **b** (bottom), **t** (top), **u** (up): Draw axes
-    #:   without tick marks or annotations.
+    #:   without ticks or annotations.
     #:
     #: For examples:
     #:
-    #: - ``"WS"``: Draw the west and south axes with both tick marks and annotations,
-    #:   but do not draw the east and north axes.
-    #: - ``"WSen"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes with tick marks but without annotations.
-    #: - ``"WSrt"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes without tick marks or annotations.
-    #: - ``"WSrtZ"``: Draw the west and south axes with both tick marks and annotations,
-    #:   draw the east and north axes without tick marks or annotations, and draw the
-    #:   z-axis with both tick marks and annotations.
+    #: - ``"WS"``: Draw the west and south axes with both ticks and annotations, but do
+    #:   not draw the east and north axes.
+    #: - ``"WSen"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes with ticks but without annotations.
+    #: - ``"WSrt"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes without ticks or annotations.
+    #: - ``"WSrtZ"``: Draw the west and south axes with both ticks and annotations, draw
+    #:   the east and north axes without ticks or annotations, and draw the z-axis with
+    #:   both ticks and annotations.
     #:
     #: For a 3-D plot, if the z-axis code is specified, a single vertical axis will be
     #: drawn at the most suitable corner by default. Append any combination of the
