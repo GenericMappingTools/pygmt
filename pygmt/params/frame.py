@@ -18,8 +18,8 @@ class Axis(BaseParam):
 
     Examples
     --------
-    To specify the same attributes for all axes, with intervals of 4 for annotations,
-    2 for ticks, and 1 for gridlines:
+    To specify the same attributes for x- and y-axes, with intervals of 4 for
+    annotations, 2 for ticks, and 1 for gridlines:
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -95,7 +95,7 @@ class Frame(BaseParam):
 
     Examples
     --------
-    To specify the west and south axes with both ticks and annotations, draw the east
+    To draw the west and south axes with both ticks and annotations, and draw the east
     and north axes with ticks but without annotations:
 
     >>> import pygmt
@@ -105,8 +105,10 @@ class Frame(BaseParam):
     ... )
     >>> fig.show()
 
-    To specify the same attributes for the west and south axes, with intervals of
-    4 for annotations, 2 for ticks, and 1 for gridlines:
+    To draw the west and south axes with both ticks and annotations, and draw the east
+    and north axes without ticks and annotations. For west and south axes, specify
+    the same attributes for both axes using the ``axis`` parameter, with intervals of 4
+    for annotations, 2 for ticks, and 1 for gridlines.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
@@ -116,7 +118,7 @@ class Frame(BaseParam):
     ... )
     >>> fig.show()
 
-    To specify the attributes for each axis separately:
+    To specify the attributes for x- and y-axes separately:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
