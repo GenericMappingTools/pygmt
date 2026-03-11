@@ -10,7 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 
 __doctest_skip__ = ["grdgradient"]
 
@@ -50,10 +50,7 @@ def _alias_option_N(  # noqa: N802
     _normalize_mapping = {"laplace": "e", "cauchy": "t"}
     # Check for old syntax for normalize
     if isinstance(normalize, str) and normalize not in _normalize_mapping:
-        if any(
-            v is not None and v is not False
-            for v in [norm_amp, norm_ambient, norm_sigma, norm_offset]
-        ):
+        if any(is_given(v) for v in [norm_amp, norm_ambient, norm_sigma, norm_offset]):
             raise GMTParameterError(
                 conflicts_with=(
                     "normalize",

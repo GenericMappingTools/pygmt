@@ -603,6 +603,44 @@ def build_arg_list(  # noqa: PLR0912
     return gmt_args
 
 
+def is_given(value: Any) -> bool:
+    """
+    Check if a parameter is given (not None and not False).
+
+    In PyGMT, most parameters default to ``False`` (for boolean-only parameters) or
+    ``None`` (for non-boolean parameters), which means the parameters are not given and
+    should not be used in building the CLI option string.
+
+    Parameters
+    ----------
+    value
+        The value to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if the value is not ``None`` and not ``False``, otherwise ``False``.
+
+    Examples
+    --------
+    >>> is_given(None)
+    False
+    >>> is_given(False)
+    False
+    >>> is_given(True)
+    True
+    >>> is_given(0)
+    True
+    >>> is_given("")
+    True
+    >>> is_given([])
+    True
+    >>> is_given("value")
+    True
+    """
+    return value is not None and value is not False
+
+
 def is_nonstr_iter(value: Any) -> bool:
     """
     Check if the value is iterable (e.g., list, tuple, array) but not a string or a 0-D
@@ -720,9 +758,7 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
     True
     """
-    return any(
-        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
-    )
+    return any(is_given(kwargs.get(arg)) for arg in args)
 
 
 def sequence_join(
