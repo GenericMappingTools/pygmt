@@ -34,7 +34,7 @@ with pygmt.config(
         # instead of the simple North arrow
         declination=14.3,
         # Adjust the label added to the declination arrow
-        # declination_label="14.3 N°E",  # white spaces are not supported
+        declination_label="14.3 N°E",
         # Add labels for the geographic directions. Use a * to get a North star and
         # "" to skip a label
         labels=["W", "E", "South", "*"],
