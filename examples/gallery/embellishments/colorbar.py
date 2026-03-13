@@ -47,13 +47,11 @@ fig.colorbar(
     # Colorbar placed at Middle Right (MR) outside the plot bounding box, offset by 1 cm
     # horizontally and 0 cm vertically from anchor point, with a length of 7 cm and
     # width of 0.5 cm, and a rectangle for NaN values.
-    # Note that the label 'Elevation' is moved to the opposite side and plotted
-    # vertically as a column of characters.
+    # Note that the label 'Elevation' is plotted vertically as a column of characters.
     position=Position("MR", cstype="outside", offset=(1, 0)),
     length=7,
     width=0.5,
     nan=True,
-    move_text="label",
     label_as_column=True,
     frame=["x+lElevation", "y+lm"],
     scale=10,
