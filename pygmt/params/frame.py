@@ -134,7 +134,7 @@ class Frame(BaseParam):
     """
 
     #: Controls which axes are drawn and whether they are annotated, using a combination
-    #: of the codes below. Axis ommitted from the set will not be drawn.
+    #: of the codes below. Axis omitted from the set will not be drawn.
     #:
     #: For a 2-D plot, there are four axes: west, east, south, and north (or left,
     #: right, bottom, top if you prefer); For a 3-D plot, there is an extra Z-axis.
