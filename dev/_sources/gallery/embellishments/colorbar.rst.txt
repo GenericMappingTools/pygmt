@@ -29,7 +29,7 @@ To add and adjust the annotations (**a**) and ticks (**f**) append the letter fo
 by the desired interval. The placement of the colorbar is set by passing a
 :class:`pygmt.params.Position` object to the ``position`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-85
+.. GENERATED FROM PYTHON SOURCE LINES 15-83
 
 
 
@@ -79,13 +79,11 @@ by the desired interval. The placement of the colorbar is set by passing a
         # Colorbar placed at Middle Right (MR) outside the plot bounding box, offset by 1 cm
         # horizontally and 0 cm vertically from anchor point, with a length of 7 cm and
         # width of 0.5 cm, and a rectangle for NaN values.
-        # Note that the label 'Elevation' is moved to the opposite side and plotted
-        # vertically as a column of characters.
+        # Note that the label 'Elevation' is plotted vertically as a column of characters.
         position=Position("MR", cstype="outside", offset=(1, 0)),
         length=7,
         width=0.5,
         nan=True,
-        move_text=["annotations", "label"],
         label_as_column=True,
         frame=["x+lElevation", "y+lm"],
         scale=10,
@@ -118,7 +116,7 @@ by the desired interval. The placement of the colorbar is set by passing a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.153 seconds)
+   **Total running time of the script:** (0 minutes 0.165 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbar.py:

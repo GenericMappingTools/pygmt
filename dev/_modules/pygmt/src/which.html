@@ -11,8 +11,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/which.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=d1ce8317"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,58 +160,65 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">AliasSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">is_nonstr_iter</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">is_nonstr_iter</span>
 
 
 <div class="viewcode-block" id="which">
 <a class="viewcode-back" href="../../../api/generated/pygmt.which.html#pygmt.which">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">which</span><span class="p">(</span>
     <span class="n">fname</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PathLike</span><span class="p">],</span>
+    <span class="n">download</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;cache&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find full path to specified files.</span>
 
-<span class="sd">    Reports the full paths to the files given through ``fname``. We look</span>
-<span class="sd">    for the file in (1) the current directory, (2) in $GMT_USERDIR (if</span>
-<span class="sd">    defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR</span>
-<span class="sd">    (if defined).</span>
+<span class="sd">    Reports the full paths to the files given through ``fname``. It looks for the file</span>
+<span class="sd">    in (1) the current directory, (2) in $GMT_USERDIR (if defined), (3) in $GMT_DATADIR</span>
+<span class="sd">    (if defined), or (4) in $GMT_CACHEDIR (if defined).</span>
 
-<span class="sd">    ``fname`` can also be a downloadable file (either a complete URL, an</span>
-<span class="sd">    @file for downloading from the GMT data server, or any of the remote</span>
-<span class="sd">    datasets at https://www.pygmt.org/latest/api/index.html#datasets).</span>
-<span class="sd">    In these cases, use the ``download`` parameter to set the desired</span>
-<span class="sd">    behavior. If ``download`` is not used (or ``False``), the file will</span>
-<span class="sd">    not be found.</span>
+<span class="sd">    ``fname`` can also be a downloadable file (either a complete URL, an @file for</span>
+<span class="sd">    downloading from the GMT data server, or any of the</span>
+<span class="sd">    `GMT remote datasets &lt;https://www.generic-mapping-tools.org/remote-datasets/&gt;`__.</span>
+<span class="sd">    In these cases, use the ``download`` parameter to set the desired behavior. If</span>
+<span class="sd">    ``download`` is not used (or ``False``), the file will not be found.</span>
 
 <span class="sd">    Full GMT docs at :gmt-docs:`gmtwhich.html`.</span>
 
-<span class="sd">    $aliases</span>
+<span class="sd">    **Aliases:**</span>
+
+<span class="sd">    .. hlist::</span>
+<span class="sd">       :columns: 3</span>
+
+<span class="sd">       - G = download</span>
 <span class="sd">       - V = verbose</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    fname : str or list</span>
-<span class="sd">        One or more file names of any data type (grids, tables, etc.).</span>
-<span class="sd">    download : bool or str</span>
-<span class="sd">        [**a**\|\ **c**\|\ **l**\|\ **u**].</span>
-<span class="sd">        If the ``fname`` argument is a downloadable file (either a complete</span>
-<span class="sd">        URL, an @file for downloading from the GMT data server, or any of</span>
-<span class="sd">        the remote datasets at</span>
-<span class="sd">        https://www.pygmt.org/latest/api/index.html#datasets)</span>
-<span class="sd">        we will try to download the file if it is not found in your local</span>
-<span class="sd">        data or cache directories. If set to ``True`` or **l** is passed</span>
-<span class="sd">        the file is downloaded to the current directory. Use **a** to place</span>
-<span class="sd">        files in the appropriate folder under the user directory (this is</span>
-<span class="sd">        where GMT normally places downloaded files), **c** to place it in</span>
-<span class="sd">        the user cache directory, or **u** for the user data directory</span>
-<span class="sd">        instead (i.e., ignoring any subdirectory structure).</span>
+<span class="sd">    fname</span>
+<span class="sd">        One or more file names to find the full path.</span>
+<span class="sd">    download</span>
+<span class="sd">        Try to download the file if it is not found in your local data or cache</span>
+<span class="sd">        directories and the file is downloadable. Here, downloadable files include:</span>
+
+<span class="sd">        - a file specified by a complete URL</span>
+<span class="sd">        - a GMT remote file on the GMT data server, specified with a leading ``@``.</span>
+<span class="sd">        - any of the `GMT remote datasets &lt;https://www.generic-mapping-tools.org/remote-datasets/&gt;`__</span>
+
+<span class="sd">        Valid values are:</span>
+
+<span class="sd">        - ``False``: Do not download the file.</span>
+<span class="sd">        - ``True`` or ``&quot;local&quot;``: Download the file to the current directory.</span>
+<span class="sd">        - ``&quot;cache&quot;``: Download the file to the user cache directory.</span>
+<span class="sd">        - ``&quot;user&quot;``: Download the file to the user data directory but ignore any</span>
+<span class="sd">          subdirectory structure.</span>
+<span class="sd">        - ``&quot;auto&quot;``: Download the file to appropriate folder under the user directory</span>
+<span class="sd">          (this is where GMT normally places downloaded files).</span>
 <span class="sd">    $verbose</span>
 
 <span class="sd">    Returns</span>
@@ -224,7 +231,13 @@
 <span class="sd">    FileNotFoundError</span>
 <span class="sd">        If the file is not found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">()</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
+    <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
+            <span class="n">download</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;download&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;auto&quot;</span><span class="p">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;cache&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;u&quot;</span><span class="p">},</span>
+        <span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -239,8 +252,12 @@
 
     <span class="k">match</span> <span class="n">paths</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
         <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">_fname</span> <span class="o">=</span> <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">else</span> <span class="n">fname</span>  <span class="c1"># type: ignore[arg-type]</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;File(s) &#39;</span><span class="si">{</span><span class="n">_fname</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span>
+            <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+                <span class="c1"># Format list as &#39;a.txt&#39;, &#39;b.txt&#39;</span>
+                <span class="n">_fname</span> <span class="o">=</span> <span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;File(s) &#39;</span><span class="si">{</span><span class="n">_fname</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;File(s) </span><span class="si">{</span><span class="n">fname</span><span class="si">!r}</span><span class="s2"> not found.&quot;</span>
             <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -258,9 +275,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b0fbf385a">b0fbf385</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 13, 2026.
       </span></p>
   </div>
 

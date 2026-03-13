@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.which.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=d1ce8317"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -186,18 +186,16 @@
 <h1>pygmt.which<a class="headerlink" href="#pygmt-which" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.which">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">which</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/which.html#which"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.which" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">which</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/which.html#which"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.which" title="Link to this definition"></a></dt>
 <dd><p>Find full path to specified files.</p>
-<p>Reports the full paths to the files given through <code class="docutils literal notranslate"><span class="pre">fname</span></code>. We look
-for the file in (1) the current directory, (2) in $GMT_USERDIR (if
-defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
-(if defined).</p>
-<p><code class="docutils literal notranslate"><span class="pre">fname</span></code> can also be a downloadable file (either a complete URL, an
-&#64;file for downloading from the GMT data server, or any of the remote
-datasets at <a class="reference external" href="https://www.pygmt.org/latest/api/index.html#datasets">https://www.pygmt.org/latest/api/index.html#datasets</a>).
-In these cases, use the <code class="docutils literal notranslate"><span class="pre">download</span></code> parameter to set the desired
-behavior. If <code class="docutils literal notranslate"><span class="pre">download</span></code> is not used (or <code class="docutils literal notranslate"><span class="pre">False</span></code>), the file will
-not be found.</p>
+<p>Reports the full paths to the files given through <code class="docutils literal notranslate"><span class="pre">fname</span></code>. It looks for the file
+in (1) the current directory, (2) in $GMT_USERDIR (if defined), (3) in $GMT_DATADIR
+(if defined), or (4) in $GMT_CACHEDIR (if defined).</p>
+<p><code class="docutils literal notranslate"><span class="pre">fname</span></code> can also be a downloadable file (either a complete URL, an &#64;file for
+downloading from the GMT data server, or any of the
+<a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/">GMT remote datasets</a>.
+In these cases, use the <code class="docutils literal notranslate"><span class="pre">download</span></code> parameter to set the desired behavior. If
+<code class="docutils literal notranslate"><span class="pre">download</span></code> is not used (or <code class="docutils literal notranslate"><span class="pre">False</span></code>), the file will not be found.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmtwhich.html">https://docs.generic-mapping-tools.org/6.6/gmtwhich.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
@@ -212,19 +210,25 @@ not be found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – One or more file names of any data type (grids, tables, etc.).</p></li>
-<li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>l</strong>|<strong>u</strong>].
-If the <code class="docutils literal notranslate"><span class="pre">fname</span></code> argument is a downloadable file (either a complete
-URL, an &#64;file for downloading from the GMT data server, or any of
-the remote datasets at
-<a class="reference external" href="https://www.pygmt.org/latest/api/index.html#datasets">https://www.pygmt.org/latest/api/index.html#datasets</a>)
-we will try to download the file if it is not found in your local
-data or cache directories. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <strong>l</strong> is passed
-the file is downloaded to the current directory. Use <strong>a</strong> to place
-files in the appropriate folder under the user directory (this is
-where GMT normally places downloaded files), <strong>c</strong> to place it in
-the user cache directory, or <strong>u</strong> for the user data directory
-instead (i.e., ignoring any subdirectory structure).</p></li>
+<li><p><strong>fname</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a>]</span>) – One or more file names to find the full path.</p></li>
+<li><p><strong>download</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cache'</span></code>, <code class="docutils literal notranslate"><span class="pre">'local'</span></code>, <code class="docutils literal notranslate"><span class="pre">'user'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – <p>Try to download the file if it is not found in your local data or cache
+directories and the file is downloadable. Here, downloadable files include:</p>
+<ul>
+<li><p>a file specified by a complete URL</p></li>
+<li><p>a GMT remote file on the GMT data server, specified with a leading <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p></li>
+<li><p>any of the <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/">GMT remote datasets</a></p></li>
+</ul>
+<p>Valid values are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Do not download the file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;local&quot;</span></code>: Download the file to the current directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;cache&quot;</span></code>: Download the file to the user cache directory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;user&quot;</span></code>: Download the file to the user data directory but ignore any
+subdirectory structure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code>: Download the file to appropriate folder under the user directory
+(this is where GMT normally places downloaded files).</p></li>
+</ul>
+</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 </ul>
 </dd>
@@ -255,9 +259,9 @@ instead (i.e., ignoring any subdirectory structure).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b0fbf385a">b0fbf385</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 13, 2026.
       </span></p>
   </div>
 

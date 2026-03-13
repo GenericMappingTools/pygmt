@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.687** total execution time for 4 files **from projections/nongeo**:
+**00:00.742** total execution time for 4 files **from projections/nongeo**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_projections_nongeo_polar.py` (``polar.py``)
-     - 00:00.263
+     - 00:00.281
      - 0.0
    * - :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``cartesian_logarithmic.py``)
-     - 00:00.145
+     - 00:00.161
      - 0.0
    * - :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``cartesian_power.py``)
-     - 00:00.141
+     - 00:00.150
      - 0.0
    * - :ref:`sphx_glr_projections_nongeo_cartesian_linear.py` (``cartesian_linear.py``)
-     - 00:00.137
+     - 00:00.149
      - 0.0

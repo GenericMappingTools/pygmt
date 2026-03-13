@@ -75,7 +75,7 @@ fig.text(
 fig.shift_origin(yshift="h+1.5c")
 
 fig.basemap(
-    region=[0, 15, -8000, 6000],  # x_min, x_max, y_min, y_max
+    region=[0, 15, -8000, 6000],  # xmin, xmax, ymin, ymax
     # Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
     projection="X12c/3c",
     frame=0,

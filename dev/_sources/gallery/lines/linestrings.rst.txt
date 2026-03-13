@@ -29,7 +29,7 @@ from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), ge
 the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the lines using the
 ``pen`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-32
+.. GENERATED FROM PYTHON SOURCE LINES 15-34
 
 
 
@@ -44,13 +44,15 @@ the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the lines using t
 
 .. code-block:: Python
 
-    import geopandas as gpd
+    import geopandas
     import pygmt
 
     # Read a sample dataset provided by Natural Earth. The dataset contains rivers stored
     # as LineString/MultiLineString geometry types. Here will focus on Asia.
     provider = "https://naciscdn.org/naturalearth"
-    rivers = gpd.read_file(f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip")
+    rivers = geopandas.read_file(
+        f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip"
+    )
     rivers_asia = rivers.cx[57:125, 7:47].copy()
 
     fig = pygmt.Figure()
@@ -65,7 +67,7 @@ the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the lines using t
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.534 seconds)
+   **Total running time of the script:** (0 minutes 0.886 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linestrings.py:
