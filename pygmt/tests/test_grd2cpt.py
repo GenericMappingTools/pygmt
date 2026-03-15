@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -70,5 +70,5 @@ def test_grd2cpt_categorical_and_cyclic(grid):
     """
     Use incorrect setting by setting both categorical and cyclic to True.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grd2cpt(grid=grid, cmap="SCM/batlow", categorical=True, cyclic=True)

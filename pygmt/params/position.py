@@ -92,8 +92,8 @@ class Position(BaseParam):
 
     - ``cstype="inside"``: Same as the *reference point* justification code
     - ``cstype="outside"``: Mirror opposite of the *reference point* justification code
-    - Other cstypes: ``"MC"`` (middle center) for map rose and scale, ``"BL"``
-      (bottom-left) for other embellishments
+    - Other cstypes: ``"MC"`` (Middle Center) for map rose and scale, ``"BL"``
+      (Bottom Left) for other embellishments
 
     **Offset**
 
@@ -119,7 +119,7 @@ class Position(BaseParam):
     ... )
     >>> fig.show()
 
-    Position the GMT logo at the top-left corner inside the plot:
+    Position the GMT logo in the top-left corner inside the plot:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
@@ -155,7 +155,7 @@ class Position(BaseParam):
     anchor: AnchorCode | None = None
 
     #: Offset for the anchor point as a single value or (*offset_x*, *offset_y*).
-    #: If a single value is given, the offset is applied to both x and y directions.
+    #: If a single value is given, the offset is applied to both x- and y-directions.
     offset: float | str | Sequence[float | str] | None = None
 
     def _validate(self):

@@ -1,0 +1,5 @@
+outs:
+- md5: fda939936894cb72a785ecf7e1f42488
+  size: 7252
+  hash: md5
+  path: test_basemap_frame_none.png

@@ -9,7 +9,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -100,6 +100,7 @@ def filter1d(
         Indicate which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
         [Default is ``0``].
+    $verbose
 
     Returns
     -------
@@ -112,8 +113,7 @@ def filter1d(
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        msg = "Pass a required argument to 'filter_type'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="filter_type")
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

@@ -4,8 +4,8 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
-from pygmt.params import Position
+from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.params import Box, Position
 
 
 @pytest.mark.benchmark
@@ -39,9 +39,9 @@ def test_subplot_direct():
 
 
 @pytest.mark.mpl_image_compare
-def test_subplot_autolabel_margins_title():
+def test_subplot_tag_margins_title():
     """
-    Make subplot figure with autolabels, setting some margins and a title.
+    Make subplot figure with tags, setting some margins and a title.
     """
     fig = Figure()
 
@@ -49,7 +49,7 @@ def test_subplot_autolabel_margins_title():
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
-        autolabel=True,
+        tag=True,
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
@@ -90,7 +90,7 @@ def test_subplot_figsize_and_subsize_error():
     into subplot.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         with fig.subplot(figsize=("2c", "1c"), subsize=("2c", "1c")):
             pass
 
@@ -125,3 +125,70 @@ def test_subplot_outside_plotting_positioning():
         frame=True,
     )
     return fig
+
+
+def test_subplot_deprecated_autolabel():
+    """
+    Test that using the deprecated autolabel parameter raises a warning when conflicted
+    with tag parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag="a)"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_orientation="vertical"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_number_style="roman"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
+
+
+def test_subplot_invalid_tag_box():
+    """
+    Test that using an invalid tag_box raises an error.
+    """
+    fig = Figure()
+    # Box properties "inner_pen", "inner_gap", and "radius" are not supported.
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_pen="1p")):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_gap=1, inner_pen="1p")):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(radius=1)):
+            pass
+    # Box clearance must be a single value or a tuple of two values.
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(clearance=(1, 2, 3, 4))):
+            pass
+
+
+def test_subplot_invalid_tag_position():
+    """
+    Test that using an invalid tag_position raises an error.
+    """
+    fig = Figure()
+    # Position's cstype must be "inside" or "outside".
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="mapcoords")
+        ):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="boxcoords")
+        ):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="plotcoords")
+        ):
+            pass

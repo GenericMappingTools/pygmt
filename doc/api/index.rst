@@ -25,13 +25,17 @@ Plotting map elements
     :toctree: generated
 
     Figure.basemap
+    Figure.choropleth
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
     Figure.paragraph
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
@@ -152,6 +156,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdpaste
     grdproject
     grdsample
     grdtrack
@@ -213,7 +218,9 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
     Position
 
@@ -291,14 +298,15 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     :toctree: generated
 
     exceptions.GMTError
-    exceptions.GMTInvalidInput
-    exceptions.GMTVersionError
-    exceptions.GMTOSError
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTInvalidInput
+    exceptions.GMTOSError
+    exceptions.GMTParameterError
     exceptions.GMTTypeError
     exceptions.GMTValueError
+    exceptions.GMTVersionError
 
 
 .. currentmodule:: pygmt

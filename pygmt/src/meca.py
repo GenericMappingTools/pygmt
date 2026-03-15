@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
@@ -31,8 +31,7 @@ def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvent
 
     # Determine the convention from the 'convention' parameter.
     if convention is None:
-        msg = "Parameter 'convention' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="convention")
     return _FocalMechanismConvention(convention=convention, component=component)
 
 
@@ -116,6 +115,8 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'labelbox' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
 @deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter(
     "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
@@ -147,7 +148,7 @@ def meca(  # noqa: PLR0913
     event_name: str | Sequence[str] | None = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,

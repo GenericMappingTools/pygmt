@@ -136,6 +136,7 @@ extend-select = [
     "D410",     # A blank line after section headings.
     "PLR6201",  # Use a set literal when testing for membership
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
+    "RUF027",   # Possible f-string without an f prefix
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas
