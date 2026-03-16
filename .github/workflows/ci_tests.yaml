@@ -137,6 +137,7 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
+            pytest-randomly
             pytest-rerunfailures
 
       # Download cached remote files (artifacts) from GitHub
