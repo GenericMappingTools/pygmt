@@ -50,18 +50,11 @@ def _build_frame(
 
     >>> _build_frame(frame="none")
     'none'
-    >>> list(_build_frame(frame=True))  # frame=True is equivalent to annot=True, tick=True
-    ['xaf']
     >>> _build_frame()  # Passing no parameters returns None
     """
     # Using the old 'frame' parameter.
     if frame is not None and frame is not False:
-        if frame is True:
-            # frame=True is equivalent to annot=True, tick=True
-            annot = True
-            tick = True
-        else:
-            return frame
+        return frame
 
     _xaxis_is_set = any(
         v is not None and v is not False
