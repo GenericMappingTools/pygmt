@@ -52,8 +52,9 @@ fig.colorbar(
     # Add a box around the colobar, filled in white and a 30 % transparency, with a
     # 0.8-point thick, black, outline.
     box=Box(pen="0.8p,black", fill="white@30"),
-    # Add x- and y-labels ("+l")
-    frame=["x+lElevation", "y+lm"],
+    # Add label and unit for the colorbar
+    label="Elevation",
+    unit="m",
 )
 
 # Plot the survey line

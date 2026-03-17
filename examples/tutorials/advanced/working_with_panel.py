@@ -136,9 +136,9 @@ def view(central_lon):
         frame="g30",
     )
     # Add a horizontal colorbar for the elevation
-    # with annotations (a) in steps of 2000 and ticks (f) in steps of 1000
-    # and labels (+l) at the x-axis "Elevation" and y-axis "m" (meters)
-    fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
+    # with annotations in steps of 2000 and ticks in steps of 1000
+    # and labels for the x-axis "Elevation" and y-axis "m" (meters)
+    fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
     return fig
 
 

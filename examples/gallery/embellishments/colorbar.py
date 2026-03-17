@@ -4,11 +4,11 @@ Colorbar
 
 The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. The colormap is set
 via the ``cmap`` parameter. A full list of available color palette tables can be found
-at :gmt-docs:`reference/cpts.html`. Use the ``frame`` parameter to add labels to the
-**x** and **y** axes of the colorbar by appending **+l** followed by the desired text.
-To add and adjust the annotations (**a**) and ticks (**f**) append the letter followed
-by the desired interval. The placement of the colorbar is set by passing a
-:class:`pygmt.params.Position` object to the ``position`` parameter.
+at :gmt-docs:`reference/cpts.html`. Use the ``label`` and ``unit`` parameters to add
+labels to the **x** and **y** axes of the colorbar, respectively. To set the annotation
+and tick intervals, use the ``annot`` and ``tick`` parameters. The placement of the
+colorbar is set by passing a :class:`pygmt.params.Position` object to the ``position``
+parameter.
 """
 
 # %%
@@ -21,9 +21,9 @@ fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars
 # ============
 # Create a colorbar designed for seismic tomography - roma
 # Colorbar is placed at Bottom Center (BC) by default if no position is given
-# Add quantity and unit as labels ("+l") to the x and y axes
-# Add annotations ("+a") in steps of 0.5 and ticks ("+f") in steps of 0.1
-fig.colorbar(cmap="SCM/roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
+# Add quantity and unit as labels to the x and y axes
+# Add annotations in steps of 0.5 and ticks in steps of 0.1
+fig.colorbar(cmap="SCM/roma", annot=0.5, tick=0.1, label="Velocity", unit="m/s")
 
 # ============
 # Create a colorbar showing the scientific rainbow - batlow
@@ -36,7 +36,8 @@ fig.colorbar(
     width=0.5,
     orientation="horizontal",
     box=True,
-    frame=["x+lTemperature", "y+l°C"],
+    label="Temperature",
+    unit="°C",
     scale=100,
 )
 
@@ -53,7 +54,8 @@ fig.colorbar(
     width=0.5,
     nan=True,
     label_as_column=True,
-    frame=["x+lElevation", "y+lm"],
+    label="Elevation",
+    unit="m",
     scale=10,
 )
 
