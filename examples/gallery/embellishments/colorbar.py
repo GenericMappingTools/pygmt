@@ -5,7 +5,7 @@ Colorbar
 The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. The colormap is set
 via the ``cmap`` parameter. A full list of available color palette tables can be found
 at :gmt-docs:`reference/cpts.html`. Use the ``label`` and ``unit`` parameters to set the
-labels for the long- and short-dimensions of the colorbar, respectively. To set the
+labels along the long and short dimensions of the colorbar, respectively. To set the
 annotation and tick intervals, use the ``annot`` and ``tick`` parameters. The placement
 of the colorbar is set by passing a :class:`pygmt.params.Position` object to the
 ``position`` parameter.
