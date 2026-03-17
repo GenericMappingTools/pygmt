@@ -135,9 +135,7 @@ def view(central_lon):
         cmap=True,  # Use colormap defined above
         frame="g30",
     )
-    # Add a horizontal colorbar for the elevation
-    # with annotations in steps of 2000 and ticks in steps of 1000
-    # and labels for the x-axis "Elevation" and y-axis "m" (meters)
+    # Add a horizontal colorbar for the elevation.
     fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
     return fig
 

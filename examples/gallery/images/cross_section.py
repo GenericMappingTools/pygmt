@@ -43,16 +43,12 @@ fig.grdimage(grid=grid_map, cmap="SCM/oleron")
 fig.colorbar(
     # Place the colorbar inside the plot in the Bottom Right (BR) corner with an offset
     # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively;
-    # move the x-label above the horizontal colorbar.
     position=Position("BR", offset=(0.7, 0.8)),
     length=5,
     width=0.3,
     orientation="horizontal",
-    move_text="label",
-    # Add a box around the colobar, filled in white and a 30 % transparency, with a
-    # 0.8-point thick, black, outline.
+    move_text="label",  # move the x-label above the horizontal colorbar.
     box=Box(pen="0.8p,black", fill="white@30"),
-    # Add label and unit for the colorbar
     label="Elevation",
     unit="m",
 )

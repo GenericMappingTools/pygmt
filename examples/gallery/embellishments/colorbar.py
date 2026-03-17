@@ -4,11 +4,11 @@ Colorbar
 
 The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. The colormap is set
 via the ``cmap`` parameter. A full list of available color palette tables can be found
-at :gmt-docs:`reference/cpts.html`. Use the ``label`` and ``unit`` parameters to add
-labels to the **x** and **y** axes of the colorbar, respectively. To set the annotation
-and tick intervals, use the ``annot`` and ``tick`` parameters. The placement of the
-colorbar is set by passing a :class:`pygmt.params.Position` object to the ``position``
-parameter.
+at :gmt-docs:`reference/cpts.html`. Use the ``label`` and ``unit`` parameters to set the
+labels for the long- and short-dimensions of the colorbar, respectively. To set the
+annotation and tick intervals, use the ``annot`` and ``tick`` parameters. The placement
+of the colorbar is set by passing a :class:`pygmt.params.Position` object to the
+``position`` parameter.
 """
 
 # %%
@@ -21,16 +21,13 @@ fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars
 # ============
 # Create a colorbar designed for seismic tomography - roma
 # Colorbar is placed at Bottom Center (BC) by default if no position is given
-# Add quantity and unit as labels to the x and y axes
-# Add annotations in steps of 0.5 and ticks in steps of 0.1
 fig.colorbar(cmap="SCM/roma", annot=0.5, tick=0.1, label="Velocity", unit="m/s")
 
 # ============
 # Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
     cmap="SCM/batlow",
-    # A horizontal colorbar positioned at map coordinates (0.3, 8.7), with a
-    # length of 4 cm and a width of 0.5 cm.
+    # A horizontal colorbar positioned at map coordinates (0.3, 8.7).
     position=Position((0.3, 8.7), cstype="mapcoords"),
     length=4,
     width=0.5,
@@ -46,9 +43,9 @@ fig.colorbar(
 fig.colorbar(
     cmap="SCM/oleron",
     # Colorbar placed at Middle Right (MR) outside the plot bounding box, offset by 1 cm
-    # horizontally and 0 cm vertically from anchor point, with a length of 7 cm and
-    # width of 0.5 cm, and a rectangle for NaN values.
-    # Note that the label 'Elevation' is plotted vertically as a column of characters.
+    # horizontally and 0 cm vertically from anchor point, with a rectangle for NaN
+    # values. Note that the label 'Elevation' is plotted vertically as a column of
+    # characters.
     position=Position("MR", cstype="outside", offset=(1, 0)),
     length=7,
     width=0.5,
