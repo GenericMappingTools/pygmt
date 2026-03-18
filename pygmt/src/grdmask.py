@@ -45,6 +45,10 @@ def _alias_option_N(  # noqa: N802
     >>> _alias_option_N(edge="id", inside="id")._value
     'P'
     """
+    # All three are None, return None (GMT uses default 0/0/1)
+    if all(v is None for v in (outside, inside, edge)):
+        return Alias(None, name="mask_values")
+
     _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
     if edge in _inside_modes and inside != edge:
@@ -66,9 +70,6 @@ def _alias_option_N(  # noqa: N802
         mask_values: str | list[str | float] | None = (
             mode if outside is None else [mode, outside]  # type: ignore[assignment]
         )
-    elif inside is None and outside is None and edge is None:
-        # All three are None, return None (GMT uses default 0/0/1)
-        mask_values = None
     else:
         # Build the full mask with defaults for any missing values
         mask_values = [
@@ -95,10 +96,10 @@ def grdmask(
     """
     Create mask grid from polygons or point coverage.
 
-    Reads one or more files containing polygon or data point
-    coordinates, and creates a grid where nodes that fall inside, on the
-    edge, or outside the polygons (or within the search radius from data points) are
-    assigned values based on ``outside``, ``edge``, and ``inside`` parameters.
+    Reads one or more files containing polygon or data point coordinates, and creates a
+    grid where nodes that fall inside, on the edge, or outside the polygons (or within
+    the search radius from data points) are assigned values based on ``outside``,
+    ``edge``, and ``inside`` parameters.
 
     The mask grid can be used to mask out specific regions in other grids using
     :func:`pygmt.grdmath` or similar tools. For masking based on coastline features,
