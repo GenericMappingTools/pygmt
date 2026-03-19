@@ -71,7 +71,9 @@ fig.colorbar(
     length=14,
     width=0.4,
     orientation="horizontal",
-    frame="xa2000f500+lElevation (m)",
+    annot=2000,
+    tick=500,
+    label="Elevation (m)",
 )
 
 fig.show()
