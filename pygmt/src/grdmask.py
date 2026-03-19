@@ -167,7 +167,7 @@ def grdmask(
             [0., 0., 0., 0., 0., 0.],
            [0., 0., 0., 0., 0., 0.]])
     """
-    if spacing is None or region is None:
+    if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
