@@ -9,7 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import grdmask
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -153,7 +153,7 @@ def test_grdmask_invalid_combination(polygon_data):
     """
     Check that grdmask fails when inside and edge have different special modes.
     """
-    with pytest.raises(GMTParameterError):
+    with pytest.raises(GMTValueError):
         grdmask(
             data=polygon_data,
             spacing=1,
@@ -171,7 +171,7 @@ def test_grdmask_invalid_edge_special_mode(polygon_data, edge, inside):
     """
     Check that special edge modes require the same special inside mode.
     """
-    with pytest.raises(GMTParameterError):
+    with pytest.raises(GMTValueError):
         grdmask(
             data=polygon_data,
             spacing=1,
