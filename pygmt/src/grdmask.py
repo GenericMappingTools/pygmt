@@ -67,9 +67,7 @@ def _alias_option_N(  # noqa: N802
         mode = _inside_modes[inside]  # type: ignore[index]
         if edge == inside:
             mode = mode.upper()
-        mask_values: str | list[str | float] | None = (
-            mode if outside is None else [mode, outside]  # type: ignore[assignment]
-        )
+        mask_values = mode if outside is None else [mode, outside]
     else:
         # Build the full mask with defaults for any missing values
         mask_values = [
