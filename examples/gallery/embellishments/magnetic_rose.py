@@ -18,7 +18,7 @@ fig.magnetic_rose()
 
 # Add a magnetic rose with several adjustments
 with pygmt.config(
-    # Pen used for the ticks related the outer circle and the outline of the North star
+    # Pen used for the ticks on the outer circle and the outline of the North star
     MAP_TICK_PEN_SECONDARY="orange",
     # Pen used for the ticks related to the inner circle
     MAP_TICK_PEN_PRIMARY="cyan",
@@ -30,7 +30,7 @@ with pygmt.config(
     fig.magnetic_rose(
         position="MC",  # placed at MiddleCenter
         width=4.5,  # width of the rose
-        # If a declination value is given, a arrow showing the declination is plotted
+        # If a declination value is given, an arrow showing the declination is plotted
         # instead of the simple North arrow
         declination=14.3,
         # Adjust the label added to the declination arrow
