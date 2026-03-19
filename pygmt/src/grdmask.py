@@ -9,7 +9,7 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["grdmask"]
@@ -52,14 +52,12 @@ def _alias_option_N(  # noqa: N802
     _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
     if edge in _inside_modes and inside != edge:
-        msg = f"Invalid combination: edge={edge!r} requires inside={edge!r}."
-        raise GMTParameterError(reason=msg)
+        msg = f"edge={edge!r} requires inside={edge!r}."
+        raise GMTValueError(edge, description="edge", reason=msg)
 
     if inside in _inside_modes and edge in _inside_modes and inside != edge:
-        msg = f"Invalid combination: inside={inside!r} and edge={edge!r}. "
-        raise GMTParameterError(
-            reason=msg + "When both are special modes, they must be the same."
-        )
+        msg = f"inside={inside!r} and edge={edge!r} must be the same."
+        raise GMTValueError(edge, description="edge", reason=msg)
 
     # Build -N argument
     if inside in _inside_modes:
