@@ -177,27 +177,25 @@ Using the *relief* CPT:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-77
+.. GENERATED FROM PYTHON SOURCE LINES 67-75
 
 Add a colorbar
 --------------
 
 The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
-:meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
-:meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A list
-is used to pass multiple arguments to ``frame``. In the example below, ``"a2500"``
-sets the axis interval to 2,500, ``"x+lElevation"`` sets the x-axis label, and
-``"y+lm"`` sets the y-axis label.
+:meth:`pygmt.Figure.grdimage`. The ``annot`` parameter sets the annotation interval,
+the ``label`` parameter sets the x-axis label, and the ``unit`` parameter sets the
+y-axis label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-84
+.. GENERATED FROM PYTHON SOURCE LINES 75-82
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
-    fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
+    fig.colorbar(annot=2500, label="Elevation", unit="m")
     fig.show()
 
 
@@ -213,7 +211,7 @@ sets the axis interval to 2,500, ``"x+lElevation"`` sets the x-axis label, and
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-96
+.. GENERATED FROM PYTHON SOURCE LINES 83-94
 
 Create a region map
 -------------------
@@ -227,7 +225,7 @@ The example below uses data with a 10 arc-minutes resolution, and plots it on a
 15-centimeters-wide figure with a Mercator projection and a CPT set to *geo*.
 ``frame="a"`` is used to add a frame with annotations to the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-103
+.. GENERATED FROM PYTHON SOURCE LINES 94-101
 
 .. code-block:: Python
 
@@ -235,7 +233,7 @@ The example below uses data with a 10 arc-minutes resolution, and plots it on a
     grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
     fig = pygmt.Figure()
     fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="gmt/geo")
-    fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
+    fig.colorbar(annot=1000, label="Elevation", unit="m")
     fig.show()
 
 
@@ -253,7 +251,7 @@ The example below uses data with a 10 arc-minutes resolution, and plots it on a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.202 seconds)
+   **Total running time of the script:** (0 minutes 1.230 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_earth_relief.py:

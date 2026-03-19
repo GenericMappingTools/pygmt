@@ -75,14 +75,14 @@ sample dataset via ``cmap=True``.
 
     # Add a colorbar indicating the values given in the fourth column of the input dataset
     fig.colorbar(
-        position=Position("BC", cstype="outside", offset=(0, 1.5)), frame="x+lPermittivity"
+        position=Position("BC", cstype="outside", offset=(0, 1.5)), label="Permittivity"
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.188 seconds)
+   **Total running time of the script:** (0 minutes 0.201 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_ternary.py:

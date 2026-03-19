@@ -42,7 +42,10 @@ fig.colorbar(
     position=Position("ML", cstype="outside", offset=(1.4, 0)),
     length=7,
     width=0.5,
-    frame=["xa1000f500+lElevation", "y+lm"],
+    annot=1000,
+    tick=500,
+    label="Elevation",
+    unit="m",
 )
 
 # --------------- plotting the hillshade map -----------

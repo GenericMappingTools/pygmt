@@ -26,7 +26,7 @@ example shown below we set all elevation values (grid points) smaller than 0 m (
 general the bathymetric part of the grid) to a common value of -2000 m via the ``below``
 parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-52
+.. GENERATED FROM PYTHON SOURCE LINES 12-53
 
 
 
@@ -87,7 +87,8 @@ parameter.
     )
     fig.grdimage(grid=grid)
     fig.colorbar(
-        frame=["x+lElevation", "y+lm"],
+        label="Elevation",
+        unit="m",
         position=Position("MR", cstype="outside", offset=(0.5, 0)),
         length=8,
     )
@@ -97,7 +98,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.293 seconds)
+   **Total running time of the script:** (0 minutes 3.134 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:

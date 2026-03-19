@@ -1,0 +1,13 @@
+pygmt.Figure.choropleth
+=======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.choropleth
+
+.. minigallery:: pygmt.Figure.choropleth
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

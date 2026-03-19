@@ -27,10 +27,9 @@ be accomplished using the ``drape_grid`` parameter of :meth:`pygmt.Figure.grdvie
 This tutorial consists of two examples:
 
 1. Draping a grid
-
 2. Draping an image
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-22
+.. GENERATED FROM PYTHON SOURCE LINES 15-21
 
 .. code-block:: Python
 
@@ -47,7 +46,7 @@ This tutorial consists of two examples:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-28
+.. GENERATED FROM PYTHON SOURCE LINES 22-27
 
 1. Drapping a grid
 ------------------
@@ -55,7 +54,7 @@ This tutorial consists of two examples:
 In the first example, the seafloor crustal age is plotted with color-coding on top of
 the topographic map of an area of the Mid-Atlantic Ridge.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-40
+.. GENERATED FROM PYTHON SOURCE LINES 27-39
 
 .. code-block:: Python
 
@@ -78,7 +77,7 @@ the topographic map of an area of the Mid-Atlantic Ridge.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-48
+.. GENERATED FROM PYTHON SOURCE LINES 40-47
 
 The topographic surface is created based on the grid passed to the ``grid`` parameter
 of :meth:`pygmt.Figure.grdview`; here we use a grid of the Earth relief. To add a
@@ -88,7 +87,7 @@ colormap specified via the ``cmap`` parameter applies to the grid passed to
 ``drape_grid``, not to ``grid``. The azimuth and elevation of the 3-D plot are set via
 the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-78
+.. GENERATED FROM PYTHON SOURCE LINES 47-77
 
 .. code-block:: Python
 
@@ -100,12 +99,12 @@ the ``perspective`` parameter.
     pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 1], reverse=True, overrule_bg=True)
 
     fig.grdview(
-        projection="M12c",  # Mercator projection with a width of 12 centimeters
+        projection="M12c",  # Mercator projection with a width of 12 cm
         region=region_3d,
         grid=grd_relief,  # Use elevation grid for z values
         drape_grid=grd_age,  # Use crustal age grid for color-coding
         cmap=True,  # Use colormap created for the crustal age
-        surftype="i",  # Create an image plot
+        surftype="image",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270°
         # (west) with a normalization via a cumulative Laplace distribution for
         # the shading
@@ -117,7 +116,7 @@ the ``perspective`` parameter.
     )
 
     # Add colorbar for the crustal age
-    fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], nan=True)
+    fig.colorbar(label="Seafloor crustal age", unit="Myr", nan=True)
 
     fig.show()
 
@@ -134,7 +133,7 @@ the ``perspective`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-87
+.. GENERATED FROM PYTHON SOURCE LINES 78-86
 
 2. Draping an image
 -------------------
@@ -145,7 +144,7 @@ topographic map of northwest Europe. This example is modified from
 We have to consider the dimension of the image we want to drap. The image we will
 download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-106
+.. GENERATED FROM PYTHON SOURCE LINES 86-107
 
 .. code-block:: Python
 
@@ -161,9 +160,11 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
     # Determine the 3-D region from the minimum and maximum values of the relief grid
     region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
-    # Download an PNG image of the flag of the EU using rasterio and load it into a
-    # xarray.DataArray
-    url_to_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png"
+    # Load a PNG image of the EU flag using rasterio into an xarray.DataArray.
+    # The original image is available on Wikimedia Commons at
+    # https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png
+    # but we use a cached version on the GMT data server.
+    url_to_image = "https://oceania.generic-mapping-tools.org/cache/euflag.png"
     with rasterio.open(url_to_image) as dataset:
         data = dataset.read()
         drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
@@ -185,14 +186,14 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-111
+.. GENERATED FROM PYTHON SOURCE LINES 108-112
 
 Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass an Earth relief
 grid to the ``grid`` parameter to create the topographic surface. But now we pass the
 PNG image which was loaded into an :class:`xarray.DataArray` to the ``drape_grid``
 parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-137
+.. GENERATED FROM PYTHON SOURCE LINES 112-138
 
 .. code-block:: Python
 
@@ -205,16 +206,16 @@ parameter.
     pygmt.makecpt(cmap="0/51/153,255/204/0", series=[0, 256, 128])
 
     fig.grdview(
-        projection="M12c",  # Mercator projection with a width of 12 centimeters
+        projection="M12c",  # Mercator projection with a width of 12 cm
         region=region_3d,
         grid=grd_relief,  # Use elevation grid for z values
         drape_grid=drape_grid,  # Drape image grid for the EU flag on top
         cmap=True,  # Use colormap defined for the EU flag
-        surftype="i",  # Create an image plot
+        surftype="image",  # Create an image plot
         # Use an illumination from the azimuthal directions 0° (north) and 270° (west) with
         # a normalization via a cumulative Laplace distribution for the shading
         shading="+a0/270+ne0.6",
-        perspective=[157.5, 30],  # Define azimuth, elevation for the 3-D plot
+        perspective=(157.5, 30),  # Define azimuth, elevation for the 3-D plot
         zsize="1c",
         facade_fill="darkgray",
         frame=True,
@@ -244,7 +245,7 @@ parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.160 seconds)
+   **Total running time of the script:** (0 minutes 6.054 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_draping_on_3d_surface.py:

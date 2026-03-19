@@ -27,6 +27,10 @@ pygmt.Figure
     
     
     
+    Figure.choropleth
+    
+    
+    
     Figure.coast
     
     
@@ -36,6 +40,10 @@ pygmt.Figure
     
     
     Figure.contour
+    
+    
+    
+    Figure.directional_rose
     
     
     
@@ -75,6 +83,10 @@ pygmt.Figure
     
     
     
+    Figure.magnetic_rose
+    
+    
+    
     Figure.meca
     
     
@@ -96,6 +108,10 @@ pygmt.Figure
     
     
     Figure.savefig
+    
+    
+    
+    Figure.scalebar
     
     
     

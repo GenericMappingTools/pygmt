@@ -11,8 +11,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/colorbar.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=b7a83a94"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -165,10 +165,75 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTValueError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_nonstr_iter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Position</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axis</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Position</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src._common</span><span class="w"> </span><span class="kn">import</span> <span class="n">_parse_position</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_frame</span><span class="p">(</span>
+    <span class="n">annot</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tick</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">annot_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">annot_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">annot_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create the list of Alias objects for the -B option.</span>
+
+<span class="sd">    &gt;&gt;&gt; list(_build_frame(annot=1, tick=0.5, label=&quot;Distance&quot;, unit=&quot;km&quot;))</span>
+<span class="sd">    [&#39;xa1f0.5+lDistance&#39;, &#39;y+lkm&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; list(</span>
+<span class="sd">    ...     _build_frame(</span>
+<span class="sd">    ...         annot=1,</span>
+<span class="sd">    ...         tick=0.5,</span>
+<span class="sd">    ...         grid=0.2,</span>
+<span class="sd">    ...         annot_angle=30,</span>
+<span class="sd">    ...         label=&quot;Distance&quot;,</span>
+<span class="sd">    ...         unit=&quot;km&quot;,</span>
+<span class="sd">    ...     )</span>
+<span class="sd">    ... )</span>
+<span class="sd">    [&#39;xa1f0.5g0.2+lDistance+a30&#39;, &#39;y+lkm&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; list(_build_frame(frame=[&quot;xaf0.5+lDistance&quot;, &quot;y+lkm&quot;]))</span>
+<span class="sd">    [&#39;xaf0.5+lDistance&#39;, &#39;y+lkm&#39;]</span>
+
+<span class="sd">    &gt;&gt;&gt; _build_frame(frame=&quot;none&quot;)</span>
+<span class="sd">    &#39;none&#39;</span>
+<span class="sd">    &gt;&gt;&gt; _build_frame()  # Passing no parameters returns None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Using the old &#39;frame&#39; parameter.</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">frame</span>
+
+    <span class="n">_xaxis_is_set</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">{</span><span class="n">annot</span><span class="p">,</span> <span class="n">tick</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">annot_angle</span><span class="p">,</span> <span class="n">annot_prefix</span><span class="p">,</span> <span class="n">annot_unit</span><span class="p">,</span> <span class="n">label</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">_yaxis_is_set</span> <span class="o">=</span> <span class="n">unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="c1"># Need to return None if no parameters are give. Otherwise, it may return &quot;&quot;.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">_xaxis_is_set</span> <span class="ow">or</span> <span class="n">_yaxis_is_set</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">_xaxis_is_set</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">Axis</span><span class="p">(</span>
+            <span class="n">annot</span><span class="o">=</span><span class="n">annot</span><span class="p">,</span>
+            <span class="n">tick</span><span class="o">=</span><span class="n">tick</span><span class="p">,</span>
+            <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
+            <span class="n">angle</span><span class="o">=</span><span class="n">annot_angle</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="n">annot_prefix</span><span class="p">,</span>
+            <span class="n">unit</span><span class="o">=</span><span class="n">annot_unit</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">_yaxis_is_set</span><span class="p">:</span>
+        <span class="n">yaxis</span> <span class="o">=</span> <span class="n">Axis</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">unit</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Frame</span><span class="p">(</span><span class="n">xaxis</span><span class="o">=</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">yaxis</span><span class="o">=</span><span class="n">yaxis</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_D</span><span class="p">(</span>  <span class="c1"># noqa: N802, PLR0913</span>
@@ -187,6 +252,59 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of Alias objects for the -D option.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
+<span class="sd">    ...     return AliasSystem(D=_alias_option_D(**kwargs)).get(&quot;D&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; parse(position=Position(&quot;TL&quot;, offset=0.2), length=4, width=0.5)</span>
+<span class="sd">    &#39;jTL+o0.2+w4/0.5&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(orientation=&quot;horizontal&quot;)</span>
+<span class="sd">    &#39;+h&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(orientation=&quot;vertical&quot;)</span>
+<span class="sd">    &#39;+v&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(reverse=True)</span>
+<span class="sd">    &#39;+r&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(nan=True)</span>
+<span class="sd">    &#39;+n&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(nan=True, nan_position=&quot;end&quot;)</span>
+<span class="sd">    &#39;+N&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(fg_triangle=True, bg_triangle=True)</span>
+<span class="sd">    &#39;+e&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(fg_triangle=True)</span>
+<span class="sd">    &#39;+ef&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(bg_triangle=True)</span>
+<span class="sd">    &#39;+eb&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(fg_triangle=True, triangle_height=0.4)</span>
+<span class="sd">    &#39;+ef0.4&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(fg_triangle=True, bg_triangle=True, triangle_height=0.3)</span>
+<span class="sd">    &#39;+e0.3&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(move_text=&quot;annotations&quot;)</span>
+<span class="sd">    &#39;+ma&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(move_text=&quot;label&quot;)</span>
+<span class="sd">    &#39;+ml&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(move_text=&quot;unit&quot;)</span>
+<span class="sd">    &#39;+mu&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(move_text=[&quot;annotations&quot;, &quot;label&quot;, &quot;unit&quot;])</span>
+<span class="sd">    &#39;+malu&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(label_as_column=True)</span>
+<span class="sd">    &#39;+mc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(move_text=[&quot;annotations&quot;, &quot;label&quot;], label_as_column=True)</span>
+<span class="sd">    &#39;+malc&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(</span>
+<span class="sd">    ...     position=Position(&quot;BR&quot;, offset=(0.1, 0.2)),</span>
+<span class="sd">    ...     length=5,</span>
+<span class="sd">    ...     width=0.4,</span>
+<span class="sd">    ...     orientation=&quot;vertical&quot;,</span>
+<span class="sd">    ...     reverse=True,</span>
+<span class="sd">    ...     nan=True,</span>
+<span class="sd">    ...     nan_position=&quot;start&quot;,</span>
+<span class="sd">    ...     bg_triangle=True,</span>
+<span class="sd">    ...     triangle_height=0.2,</span>
+<span class="sd">    ...     move_text=[&quot;annotations&quot;, &quot;unit&quot;],</span>
+<span class="sd">    ...     label_as_column=True,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &#39;jBR+o0.1/0.2+w5/0.4+v+r+n+eb0.2+mauc&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Build the +e modifier from fg_triangle/bg_triangle/triangle_height</span>
     <span class="k">if</span> <span class="n">fg_triangle</span> <span class="ow">and</span> <span class="n">bg_triangle</span><span class="p">:</span>
@@ -254,6 +372,14 @@
     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">orientation</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">annot</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">tick</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">annot_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">annot_prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">annot_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">reverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">nan</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">nan_position</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -269,7 +395,7 @@
     <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -302,7 +428,6 @@
 <span class="sd">    Full GMT docs at :gmt-docs:`colorbar.html`.</span>
 
 <span class="sd">    $aliases</span>
-<span class="sd">       - B = frame</span>
 <span class="sd">       - F = box</span>
 <span class="sd">       - G = truncate</span>
 <span class="sd">       - I = shading</span>
@@ -318,6 +443,7 @@
 <span class="sd">    .. hlist::</span>
 <span class="sd">       :columns: 1</span>
 
+<span class="sd">       - B = label, unit, annot, tick, grid, annot_angle, annot_prefix, annot_unit</span>
 <span class="sd">       - D = position, **+w**: length/width, **+h**/**+v**: orientation,</span>
 <span class="sd">         **+r**: reverse, **+n**: nan/nan_position,</span>
 <span class="sd">         **+e**: fg_triangle/bg_triangle/triangle_height,</span>
@@ -345,6 +471,24 @@
 <span class="sd">        given with unit ``%`` then it is in percentage of the bar length. [Length</span>
 <span class="sd">        defaults to 80% of the corresponding plot side dimension, and width defaults</span>
 <span class="sd">        to 4% of the bar length].</span>
+<span class="sd">    label</span>
+<span class="sd">    unit</span>
+<span class="sd">        Set the label and unit for the colorbar. The label is placed along the colorbar</span>
+<span class="sd">        and the unit is placed at the end of the colorbar.</span>
+<span class="sd">    annot</span>
+<span class="sd">    tick</span>
+<span class="sd">    grid</span>
+<span class="sd">        Intervals for annotations, ticks, and gridlines. Refer to</span>
+<span class="sd">        :class:`pygmt.params.Axis` for more details on how these parameters work.</span>
+<span class="sd">    annot_prefix</span>
+<span class="sd">    annot_unit</span>
+<span class="sd">    annot_angle</span>
+<span class="sd">        The prefix, unit and angle for the annotations. The prefix is placed before the</span>
+<span class="sd">        annotation text; the unit is placed after the annotation text; and the angle is</span>
+<span class="sd">        the angle of the annotation text.</span>
+<span class="sd">    frame</span>
+<span class="sd">        Set colorbar boundary frame, labels, and axes attributes. If set to ``&quot;none&quot;``,</span>
+<span class="sd">        then no frame will be drawn.</span>
 <span class="sd">    orientation</span>
 <span class="sd">        Set the colorbar orientation to either ``&quot;horizontal&quot;`` or ``&quot;vertical&quot;``.</span>
 <span class="sd">        [Default is vertical, unless ``position`` is set to bottom-center or top-center</span>
@@ -368,9 +512,9 @@
 <span class="sd">        and **F** entries in the CPT. If no such entries exist, then the system default</span>
 <span class="sd">        colors for **B** and **F** are used instead (:gmt-term:`COLOR_BACKGROUND` and</span>
 <span class="sd">        :gmt-term:`COLOR_FOREGROUND`).</span>
-<span class="sd">    triangles_height</span>
-<span class="sd">        Height of the triangles for back- and foreground colors [Default is half</span>
-<span class="sd">        of the bar width].</span>
+<span class="sd">    triangle_height</span>
+<span class="sd">        Height of the triangles for back- and foreground colors [Default is half of the</span>
+<span class="sd">        bar width].</span>
 <span class="sd">    move_text</span>
 <span class="sd">        Move text (annotations, label, and unit) to opposite side. Accept a sequence of</span>
 <span class="sd">        strings containing one or more of ``&quot;annotations&quot;``, ``&quot;label&quot;``, and</span>
@@ -422,8 +566,6 @@
 <span class="sd">        requested colorbar length.</span>
 <span class="sd">    $projection</span>
 <span class="sd">    $region</span>
-<span class="sd">    frame</span>
-<span class="sd">        Set colorbar boundary frame, labels, and axes attributes.</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    $panel</span>
 <span class="sd">    $perspective</span>
@@ -437,12 +579,7 @@
 <span class="sd">    &gt;&gt;&gt; # Create a basemap</span>
 <span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 10, 0, 3], projection=&quot;X10c/3c&quot;, frame=True)</span>
 <span class="sd">    &gt;&gt;&gt; # Call the colorbar method for the plot</span>
-<span class="sd">    &gt;&gt;&gt; fig.colorbar(</span>
-<span class="sd">    ...     # Set cmap to the &quot;roma&quot; CPT</span>
-<span class="sd">    ...     cmap=&quot;SCM/roma&quot;,</span>
-<span class="sd">    ...     # Label the x-axis &quot;Velocity&quot; and the y-axis &quot;m/s&quot;</span>
-<span class="sd">    ...     frame=[&quot;x+lVelocity&quot;, &quot;y+lm/s&quot;],</span>
-<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; fig.colorbar(cmap=&quot;SCM/roma&quot;, label=&quot;Velocity&quot;, unit=&quot;m/s&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -450,6 +587,7 @@
 
     <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
         <span class="n">position</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Use GMT&#39;s default behavior if position is not provided.</span>
         <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span>
             <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">,</span>
             <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
@@ -463,7 +601,6 @@
             <span class="s2">&quot;move_text&quot;</span><span class="p">:</span> <span class="n">move_text</span><span class="p">,</span>
             <span class="s2">&quot;label_as_column&quot;</span><span class="p">:</span> <span class="n">label_as_column</span><span class="p">,</span>
         <span class="p">},</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Use GMT&#39;s default behavior if position is not provided.</span>
     <span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
@@ -487,7 +624,17 @@
         <span class="n">Q</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">),</span>
         <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
-        <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+        <span class="n">B</span><span class="o">=</span><span class="n">_build_frame</span><span class="p">(</span>
+            <span class="n">annot</span><span class="o">=</span><span class="n">annot</span><span class="p">,</span>
+            <span class="n">tick</span><span class="o">=</span><span class="n">tick</span><span class="p">,</span>
+            <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
+            <span class="n">annot_angle</span><span class="o">=</span><span class="n">annot_angle</span><span class="p">,</span>
+            <span class="n">annot_prefix</span><span class="o">=</span><span class="n">annot_prefix</span><span class="p">,</span>
+            <span class="n">annot_unit</span><span class="o">=</span><span class="n">annot_unit</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+            <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+        <span class="p">),</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
@@ -510,9 +657,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9f64cd269">9f64cd26</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 19, 2026.
       </span></p>
   </div>
 

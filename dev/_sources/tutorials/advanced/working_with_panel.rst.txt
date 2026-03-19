@@ -174,7 +174,7 @@ Add a grid for Earth relief
 Instead of using colors as fill for the land and water masses a grid can be
 displayed. Here, the Earth relief is shown by color-coding the elevation.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-148
+.. GENERATED FROM PYTHON SOURCE LINES 105-146
 
 .. code-block:: Python
 
@@ -211,10 +211,8 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
             cmap=True,  # Use colormap defined above
             frame="g30",
         )
-        # Add a horizontal colorbar for the elevation
-        # with annotations (a) in steps of 2000 and ticks (f) in steps of 1000
-        # and labels (+l) at the x-axis "Elevation" and y-axis "m" (meters)
-        fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
+        # Add a horizontal colorbar for the elevation.
+        fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
         return fig
 
 
@@ -239,7 +237,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.634 seconds)
+   **Total running time of the script:** (0 minutes 1.778 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_working_with_panel.py:
