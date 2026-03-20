@@ -100,12 +100,12 @@ def logo(  # noqa: PLR0913
     >>> import pygmt
     >>> from pygmt.params import Position
     >>> fig = pygmt.Figure()
-    >>> fig.basemap(region=[0, 10, 0, 2], projection="X6c", frame=True)
-    >>> # Add the GMT logo in the Top Right (TR) corner of the current plot,
-    >>> # scaled up to be 3 cm wide and offset by 0.3 cm in x and 0.6 cm in y.
-    >>> fig.logo(position=Position("TR", offset=(0.3, 0.6)), width="3c")
+    >>> # Create a basemap to give the plot a coordinate system
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> # Add the GMT logo in the Top Right (TR) corner of the plot,
+    >>> # scaled to be 2 cm wide and offset by 0.5 cm in x and y.
+    >>> fig.logo(position=Position("TR", offset="0.5c/0.5c"), width="2c")
     >>> fig.show()
-
     """
     self._activate_figure()
 
