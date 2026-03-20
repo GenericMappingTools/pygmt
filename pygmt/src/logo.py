@@ -94,6 +94,18 @@ def logo(  # noqa: PLR0913
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> from pygmt.params import Position
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 2], projection="X6c", frame=True)
+    >>> # Add the GMT logo in the Top Right (TR) corner of the current plot,
+    >>> # scaled up to be 3 cm wide and offset by 0.3 cm in x and 0.6 cm in y.
+    >>> fig.logo(position=Position("TR", offset=(0.3, 0.6)), width="3c")
+    >>> fig.show()
+
     """
     self._activate_figure()
 
