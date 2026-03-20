@@ -601,7 +601,7 @@ When writing tests, don't test everything that the GMT function already tests, s
 every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and Xarray objects and the virtualfile mechanism.
+pandas, and xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**

@@ -94,7 +94,7 @@ PyGMT requires the following packages to be installed:
 
 - [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
-- [Xarray](https://xarray.dev/)
+- [xarray](https://xarray.dev/)
 - [packaging](https://packaging.pypa.io)
 
 :::{note}
