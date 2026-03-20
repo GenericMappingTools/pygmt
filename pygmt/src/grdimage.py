@@ -69,7 +69,7 @@ def grdimage(  # noqa: PLR0913
     value. Interpolation and aliasing is controlled with the
     ``interpolation`` parameter.
 
-    The ``region`` parameter can be used to select a map region larger or
+    The ``region`` parameter can be used to select a plot region larger or
     smaller than that implied by the extent of the grid.
 
     Full GMT docs at :gmt-docs:`grdimage.html`.

@@ -54,7 +54,7 @@ def velo(  # noqa : PLR0913
     Plot velocity vectors, strain crosses, anisotropy bars, and wedges.
 
     Reads data values from files, :class:`numpy.ndarray` or
-    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a map.
+    :class:`pandas.DataFrame` and plots the selected geodesy symbol on a plot.
     You may choose from velocity vectors and their uncertainties, rotational
     wedges and their uncertainties, anisotropy bars, or strain crosses. Symbol
     fills or their outlines may be colored based on constant parameters or via
