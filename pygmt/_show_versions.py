@@ -18,7 +18,9 @@ from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
 # Get semantic version through setuptools-scm
 __version__ = f"v{version('pygmt')}"  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
+__commit__ = (  # 0ab3cd78
+    __version__.rsplit(sep="+g", maxsplit=1)[-1] if "+g" in __version__ else ""
+)
 
 
 def _get_clib_info() -> dict[str, str]:
@@ -143,7 +145,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (NumPy, pandas, Xarray, etc)
+    - Core dependency versions (NumPy, pandas, xarray, etc)
     - GDAL and Ghostscript versions
     - GMT library information
 

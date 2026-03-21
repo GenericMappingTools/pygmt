@@ -68,12 +68,12 @@ class triangulate:  # noqa: N801
         spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
-        registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
+        registration: Literal["gridline", "pixel"] | bool = False,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -100,6 +100,7 @@ class triangulate:  # noqa: N801
         Full GMT docs at :gmt-docs:`triangulate.html`.
 
         $aliases
+           - G = outgrid
            - I = spacing
            - J = projection
            - R = region
@@ -115,8 +116,6 @@ class triangulate:  # noqa: N801
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
             $table_classes.
-        $projection
-        $region
         $spacing
         $outgrid
             The interpolation is performed in the original coordinates, so if
@@ -124,6 +123,8 @@ class triangulate:  # noqa: N801
             all data to a local coordinate system before using ``triangulate``
             (this is true of all gridding routines) or instead select
             :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        $projection
+        $region
         $verbose
         $binary
         $nodata
@@ -196,12 +197,12 @@ class triangulate:  # noqa: N801
         spacing: Sequence[float | str] | None = None,
         projection: str | None = None,
         region: Sequence[float | str] | str | None = None,
-        registration: Literal["gridline", "pixel"] | bool = False,
         verbose: Literal[
             "quiet", "error", "warning", "timing", "info", "compat", "debug"
         ]
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
+        registration: Literal["gridline", "pixel"] | bool = False,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -236,10 +237,10 @@ class triangulate:  # noqa: N801
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
             $table_classes.
-        $projection
-        $region
         $output_type
         $outfile
+        $projection
+        $region
         $verbose
         $binary
         $nodata

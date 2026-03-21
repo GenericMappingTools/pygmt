@@ -33,7 +33,7 @@ jobs:
 
       # Setup Python environment
       - name: Set up Python and install dependencies
-        uses: actions/setup-python@v6.1.0
+        uses: actions/setup-python@v6.2.0
         with:
           python-version: '3.14'
           pip-install: ruff prek

@@ -9,7 +9,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
@@ -129,8 +129,8 @@ def inset(
 
     position = _parse_position(
         position,
-        kwdict={"width": width, "height": height},
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        kwdict={"width": width, "height": height},
     )
 
     # width is mandatory unless both projection and region are given.
@@ -139,8 +139,10 @@ def inset(
         and width is None
         and (projection is None or region is None)
     ):
-        msg = "Parameter 'width' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="width",
+            reason="Required unless 'projection' and 'region' are set.",
+        )
 
     aliasdict = AliasSystem(
         D=[

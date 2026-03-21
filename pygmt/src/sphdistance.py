@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["sphdistance"]
@@ -47,6 +47,7 @@ def sphdistance(
     Full GMT docs at :gmt-docs:`sphdistance.html`.
 
     $aliases
+       - G = outgrid
        - I = spacing
        - R = region
        - V = verbose
@@ -61,8 +62,6 @@ def sphdistance(
         Arrays of x and y coordinates.
     $outgrid
     $spacing
-    $region
-    $verbose
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates
@@ -98,6 +97,8 @@ def sphdistance(
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
         [Default performs the Voronoi construction on input data].
+    $region
+    $verbose
 
     Returns
     -------
@@ -122,8 +123,7 @@ def sphdistance(
     ... )
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
-        msg = "Both 'region' and 'spacing' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),

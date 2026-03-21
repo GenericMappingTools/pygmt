@@ -5,7 +5,7 @@ Test Figure.wiggle.
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Position
 
 
@@ -136,11 +136,11 @@ def test_wiggle_mixed_syntax(data):
         "pen": "1.0p",
         "track": "0.5p",
     }
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.wiggle(position="jMR+w2+lnT", length=2, **kwargs)
 
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.wiggle(position="jMR+w2+lnT", label="nT", **kwargs)
 
-    with pytest.raises(GMTInvalidInput):
-        fig.wiggle(position="jMR+w2+lnT", length_alignment="left", **kwargs)
+    with pytest.raises(GMTParameterError):
+        fig.wiggle(position="jMR+w2+lnT", label_alignment="left", **kwargs)

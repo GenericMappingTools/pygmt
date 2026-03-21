@@ -22,7 +22,7 @@ __doctest_skip__ = (
 
 class GMTBackendEntrypoint(BackendEntrypoint):
     """
-    Xarray backend to read raster grid/image files using 'gmt' engine.
+    xarray backend to read raster grid/image files using 'gmt' engine.
 
     Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF
     and other raster formats. See :gmt-docs:`reference/features.html#grid-file-format`
@@ -105,7 +105,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         units:         m
     """
 
-    description = "Open raster (.grd, .nc or .tif) files in Xarray via GMT."
+    description = "Open raster (.grd, .nc or .tif) files in xarray via GMT."
     open_dataset_parameters = ("filename_or_obj", "raster_kind", "region")
     url = "https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html"
 
@@ -121,7 +121,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
     ) -> xr.Dataset:
         """
-        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.
+        Backend open_dataset method used by xarray in :py:func:`~xarray.open_dataset`.
 
         Parameters
         ----------

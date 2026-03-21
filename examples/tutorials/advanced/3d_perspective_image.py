@@ -47,10 +47,8 @@ fig.grdview(
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
-    # Set the surftype to "surface"
-    surftype="s",
-    # Set the CPT to "geo"
-    cmap="gmt/geo",
+    surftype="surface",
+    cmap="gmt/geo",  # Set the CPT to "geo"
 )
 fig.show()
 
@@ -65,7 +63,7 @@ fig.grdview(
     frame=["xa", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
-    surftype="s",
+    surftype="surface",
     cmap="gmt/geo",
     plane=1000,  # Set the plane elevation to 1,000 meters
     facade_fill="gray",  # Color the facade in "gray"
@@ -88,14 +86,14 @@ fig.grdview(
     frame=["xaf", "yaf", "WSnE"],
     projection="M15c",
     zsize="1.5c",
-    surftype="s",
+    surftype="surface",
     cmap="gmt/geo",
     plane=1000,
     facade_fill="gray",
     # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
-fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
+fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 4

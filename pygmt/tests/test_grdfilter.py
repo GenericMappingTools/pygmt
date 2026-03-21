@@ -9,7 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import grdfilter
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -47,7 +47,12 @@ def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     Test grdfilter with an input DataArray, and output as DataArray.
     """
     result = grdfilter(
-        grid=grid, filter="g600", distance="4", region=[-53, -49, -20, -17], cores=2
+        grid=grid,
+        filter="gaussian",
+        width=600,
+        distance="geo_spherical",
+        region=[-53, -49, -20, -17],
+        cores=2,
     )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
@@ -65,8 +70,9 @@ def test_grdfilter_dataarray_in_file_out(grid, expected_grid):
         result = grdfilter(
             grid,
             outgrid=tmpfile.name,
-            filter="g600",
-            distance="4",
+            filter="gaussian",
+            width=600,
+            distance="geo_spherical",
             region=[-53, -49, -20, -17],
         )
         assert result is None  # return value is None
@@ -80,4 +86,36 @@ def test_grdfilter_fails():
     Check that grdfilter fails correctly.
     """
     with pytest.raises(GMTTypeError):
-        grdfilter(np.arange(10).reshape((5, 2)))
+        grdfilter(
+            np.arange(10).reshape((5, 2)),
+            filter="gaussian",
+            width=600,
+            distance="geo_spherical",
+        )
+
+
+def test_grdfilter_required(grid):
+    """
+    Test that grdfilter raises an exception when required parameters are missing.
+    """
+    with pytest.raises(GMTParameterError, match="distance"):
+        grdfilter(grid=grid)
+    with pytest.raises(GMTParameterError, match="distance"):
+        grdfilter(grid=grid, filter="gaussian")
+    with pytest.raises(GMTParameterError, match="width"):
+        grdfilter(grid=grid, filter="gaussian", distance="geo_spherical")
+    with pytest.raises(GMTParameterError, match="filter"):
+        grdfilter(grid=grid, width=600, distance="geo_spherical")
+    with pytest.raises(GMTParameterError, match="distance"):
+        grdfilter(grid=grid, filter="g600")
+
+
+def test_grdfilter_mixed_syntax(grid):
+    """
+    Test grdfilter's filter parameter with mixed syntax.
+    """
+    kwargs = {"grid": grid, "filter": "g600", "distance": 4}
+    with pytest.raises(GMTParameterError):
+        grdfilter(width=600, **kwargs)
+    with pytest.raises(GMTParameterError):
+        grdfilter(highpass=True, **kwargs)
