@@ -69,7 +69,7 @@ fig.grdview(
 )
 
 # Add colorbar for the crustal age
-fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], nan=True)
+fig.colorbar(label="Seafloor crustal age", unit="Myr", nan=True)
 
 fig.show()
 

@@ -119,10 +119,12 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(C="cmap", G="drape_grid", I="shading", f="coltypes", n="interpolation")
+@use_alias(I="shading", f="coltypes", n="interpolation")
 def grdview(  # noqa: PLR0913
     self,
     grid: PathLike | xr.DataArray,
+    cmap: str | None = None,
+    drape_grid: PathLike | xr.DataArray | None = None,
     surftype: Literal[
         "mesh", "surface", "surface+mesh", "image", "waterfall_x", "waterfall_y"
     ]
@@ -137,6 +139,7 @@ def grdview(  # noqa: PLR0913
     facade_fill: str | None = None,
     facade_pen: str | None = None,
     projection: str | None = None,
+    smooth: int | None = None,
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -161,12 +164,15 @@ def grdview(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
+       - G = drape_grid
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - N = plane, facade_fill
-       - R = region
        - Q = surftype, dpi, mesh_fill, nan_transparent, **+m**: monochrome
+       - R = region
+       - S = smooth
        - V = verbose
        - Wc = contour_pen
        - Wf = facade_pen
@@ -178,14 +184,15 @@ def grdview(  # noqa: PLR0913
     Parameters
     ----------
     $grid
-    cmap : str
+    cmap
         The name of the color palette table to use.
-    drape_grid : str or :class:`xarray.DataArray`
-        The file name or a :class:`xarray.DataArray` of the image grid to be draped on
-        top of the relief provided by ``grid`` [Default determines colors from ``grid``]
-        Note that ``zscale`` and ``plane`` always refer to ``grid``. ``drape_grid`` only
-        provides the information pertaining to colors, which (if ``drape_grid`` is a
-        grid) will be looked-up via the CPT (see ``cmap``).
+    drapegrid
+        The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on
+        top of the grid surface provided by ``grid`` [Default determines colors from
+        ``grid``]. Note that ``zscale`` and ``plane`` always refer to ``grid``.
+        ``drape_grid`` only provides the information pertaining to colors. If it's a
+        grid, the colors will be looked-up via the CPT (see ``cmap``); if it's an image,
+        ``cmap`` is not expected.
     surftype
         Specify surface type for the grid. Valid values are:
 
@@ -231,6 +238,9 @@ def grdview(  # noqa: PLR0913
         function, or just give **+d** to select the default arguments [Default is
         ``"+a-45+nt1+m0"``].
     $projection
+    smooth
+        Sets the smooth factor used for smoothing the contours before plotting
+        [Default is no smoothing].
     zscale
     zsize
         Set z-axis scaling or z-axis size.
@@ -298,6 +308,7 @@ def grdview(  # noqa: PLR0913
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
         Q=_alias_option_Q(
@@ -311,6 +322,7 @@ def grdview(  # noqa: PLR0913
             Alias(plane, name="plane"),
             Alias(facade_fill, name="facade_fill", prefix="+g"),
         ],
+        S=Alias(smooth, name="smooth"),
         Wc=Alias(contour_pen, name="contour_pen"),
         Wf=Alias(facade_pen, name="facade_pen"),
         Wm=Alias(mesh_pen, name="mesh_pen"),
@@ -329,7 +341,7 @@ def grdview(  # noqa: PLR0913
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
-                check_kind="raster", data=kwargs.get("G"), required=False
+                check_kind="raster", data=aliasdict.get("G", drape_grid), required=False
             ) as vdrapegrid,
         ):
             aliasdict["G"] = vdrapegrid

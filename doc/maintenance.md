@@ -261,7 +261,7 @@ publishing the actual release notes at [](changes.md).
    `git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-   and core package dependencies (NumPy, pandas, Xarray). Follow
+   and core package dependencies (NumPy, pandas, xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the

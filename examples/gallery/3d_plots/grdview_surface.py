@@ -57,6 +57,6 @@ fig.grdview(
 )
 
 # Add colorbar for gridded data in the Middle Right corner.
-fig.colorbar(frame="a2f1", position=Position("MR", cstype="outside"))
+fig.colorbar(annot=2, tick=1, position=Position("MR", cstype="outside"))
 
 fig.show()

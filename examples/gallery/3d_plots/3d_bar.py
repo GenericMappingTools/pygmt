@@ -58,7 +58,10 @@ fig.plot3d(
     perspective=True,
 )
 fig.colorbar(
-    frame=["xa1000f500+lElevation", "y+lm"],
+    annot=1000,
+    tick=500,
+    label="Elevation",
+    unit="m",
     position=Position("TR", cstype="inside", offset=1.4),
     orientation="vertical",
     length=7,

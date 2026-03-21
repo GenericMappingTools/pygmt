@@ -199,7 +199,7 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
-Xarray Integration
+xarray Integration
 ------------------
 
 .. autosummary::
@@ -217,7 +217,9 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
     Position
 
