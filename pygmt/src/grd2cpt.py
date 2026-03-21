@@ -182,6 +182,7 @@ def grd2cpt(
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
+    $region
     $verbose
 
     Example
@@ -199,7 +200,7 @@ def grd2cpt(
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
-        raise GMTParameterError(at_most_one={"categorical", "cyclic"})
+        raise GMTParameterError(at_most_one=["categorical", "cyclic"])
 
     if (output := kwargs.pop("H", None)) is not None:
         kwargs["H"] = True

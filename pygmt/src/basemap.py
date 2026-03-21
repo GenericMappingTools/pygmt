@@ -15,19 +15,19 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 def basemap(  # noqa: PLR0913
     self,
     projection: str | None = None,
-    zsize: float | str | None = None,
     zscale: float | str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
     box: str | bool = False,
-    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
-    | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     """
@@ -56,12 +56,14 @@ def basemap(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - F = box
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - L = map_scale
        - R = region
        - Td = rose
+       - Tm = compass
        - V = verbose
        - c = panel
        - p = perspective
@@ -70,12 +72,12 @@ def basemap(  # noqa: PLR0913
     Parameters
     ----------
     $projection
-    zscale
-    zsize
-        Set z-axis scaling or z-axis size.
     $region
         *Required if this is the first plot command.*
     $frame
+    zscale
+    zsize
+        Set z-axis scaling or z-axis size.
     map_scale
         Draw a map scale bar on the plot.
 

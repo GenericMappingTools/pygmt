@@ -104,7 +104,7 @@ def logo(  # noqa: PLR0913
     )
 
     if width is not None and height is not None:
-        raise GMTParameterError(at_most_one={"width", "height"})
+        raise GMTParameterError(at_most_one=["width", "height"])
 
     aliasdict = AliasSystem(
         D=[

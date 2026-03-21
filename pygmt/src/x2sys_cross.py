@@ -162,8 +162,6 @@ def x2sys_cross(
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    $region
-
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
         Defines window of track speeds. If speeds are outside this window we do
@@ -179,8 +177,6 @@ def x2sys_cross(
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    $verbose
-
     numpoints : int
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
@@ -188,6 +184,8 @@ def x2sys_cross(
     track_values : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
+    $region
+    $verbose
 
     Returns
     -------

@@ -20,7 +20,7 @@ assignees: ''
 
 **Before release**:
 
-- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy, pandas, Xarray)
+- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy, pandas, xarray)
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] README looks good on TestPyPI. Visit [TestPyPI](https://test.pypi.org/project/pygmt/#history), click the latest pre-release, and check the homepage.
 - [ ] Review new parameter names added/changed for clarity and consistency across the API

@@ -1,5 +1,5 @@
 """
-PyGMT integration with Xarray accessors and backends.
+PyGMT integration with xarray accessors and backends.
 """
 
 from pygmt.xarray.accessor import GMTDataArrayAccessor

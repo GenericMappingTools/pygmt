@@ -7,7 +7,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any, ClassVar, Literal
 
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -16,7 +16,7 @@ def _data_geometry_is_point(data: Any, kind: str) -> bool:
     """
     Check if the geometry of the input data is Point or MultiPoint.
 
-    The inptu data can be a GeoJSON object or a OGR_GMT file.
+    The input data can be a GeoJSON object or a OGR_GMT file.
 
     This function is used in ``Figure.plot`` and ``Figure.plot3d``.
 
@@ -198,7 +198,7 @@ class _FocalMechanismConvention:
         else:  # Convention is specified via "convention" and "component".
             name = f"{convention.upper()}_{component.upper()}"  # e.g., "AKI_DC"
             if name not in _FocalMechanismConventionCode.__members__:
-                _value = f"convention='{convention}', component='{component}'"
+                _value = f"convention={convention!r}, component={component!r}"
                 raise GMTValueError(_value, description="focal mechanism convention")
             self.code = _FocalMechanismConventionCode[name]
             self._convention = convention
@@ -328,7 +328,7 @@ def _parse_position(
     ... )
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Parameter 'position' is given with a raw GMT...
+    pygmt.exceptions.GMTParameterError: ...
 
     >>> _parse_position(
     ...     123,
@@ -364,12 +364,10 @@ def _parse_position(
                 position = Position(position, cstype="inside")
             elif kwdict is not None:  # Raw GMT command string with potential conflicts.
                 if any(v is not None and v is not False for v in kwdict.values()):
-                    msg = (
-                        "Parameter 'position' is given with a raw GMT command string, "
-                        "and conflicts with parameters "
-                        f"{', '.join(repr(c) for c in kwdict)}."
+                    raise GMTParameterError(
+                        conflicts_with=("position", kwdict.keys()),
+                        reason="'position' is specified using the unrecommended GMT command string syntax.",
                     )
-                    raise GMTInvalidInput(msg)
             else:
                 # No conflicting parameters to check, indicating it's a new function.
                 # The string must be an anchor code.
