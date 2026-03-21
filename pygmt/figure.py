@@ -22,6 +22,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import launch_external_viewer, unique_name
 
+# Trigger a PR.
 
 def _get_default_display_method() -> Literal["external", "notebook", "none"]:
     """
