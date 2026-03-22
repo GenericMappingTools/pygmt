@@ -8,11 +8,12 @@ annotations. This tutorial shows how to use :meth:`pygmt.Figure.coast`,
 :meth:`pygmt.Figure.plot3d`, and :meth:`pygmt.Figure.text` to add these features
 on a 3-D surface created by :meth:`pygmt.Figure.grdview`.
 
-This tutorial consists of three examples:
+This tutorial builds a 3-D map in four steps:
 
-1. Adding coastlines on a 3-D surface
-2. Adding symbols on a 3-D surface
-3. Adding text annotations on a 3-D surface
+1. Creating a 3-D surface
+2. Adding coastlines on a 3-D surface
+3. Adding symbols on a 3-D surface
+4. Adding text annotations on a 3-D surface
 """
 
 # %%
@@ -22,10 +23,10 @@ import pandas as pd
 import pygmt
 
 # %%
-# 1. Adding coastlines on a 3-D surface
-# -------------------------------------
+# 1. Creating a 3-D surface
+# -------------------------
 #
-# In the first example, we plot coastlines on top of a 3-D topographic surface.
+# In the first step, we create a 3-D topographic map using :meth:`pygmt.Figure.grdview`.
 
 # Load sample earth relief data for the region of Taiwan
 # ------------------------------------------------------
@@ -46,12 +47,8 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 pygmt.makecpt(cmap="gmt/globe", series=[-6000, 3000])
 
 # %%
-# Create a 3-D surface and add coastlines
-# ---------------------------------------
-#
-# First, we create a 3-D surface using :meth:`pygmt.Figure.grdview`. Then we add
-# coastlines using :meth:`pygmt.Figure.coast` with a matching ``perspective`` setting.
-# Here we set the z-level to 0 so coastlines are drawn at sea level.
+# Create a 3-D surface
+# --------------------
 
 fig = pygmt.Figure()
 
@@ -69,6 +66,18 @@ fig.grdview(
     frame=["xaf", "yaf", "WSnE"],
 )
 
+# Add a colorbar
+fig.colorbar(perspective=True, annot=1000, tick=500, label="Elevation", unit="m")
+
+fig.show()
+
+# %%
+# 2. Adding coastlines on a 3-D surface
+# -------------------------------------
+#
+# Next, we add coastlines using :meth:`pygmt.Figure.coast` with a matching ``perspective`` setting.
+# Here we set the z-level to 0 so coastlines are drawn at sea level.
+
 # Add coastlines on top of the 3-D surface
 # Use an explicit perspective to match grdview (azimuth=157.5, elevation=30)
 # and set the z-level to 0 so the coastlines are drawn at sea level.
@@ -78,16 +87,13 @@ fig.coast(
     shorelines="1/2p,black",
 )
 
-# Add a colorbar
-fig.colorbar(perspective=True, annot=1000, tick=500, label="Elevation", unit="m")
-
 fig.show()
 
 # %%
-# 2. Adding symbols on a 3-D surface
+# 3. Adding symbols on a 3-D surface
 # ----------------------------------
 #
-# In the second example, we add star symbols on top of the same 3-D surface. To plot
+# In the third step, we add star symbols on top of the same 3-D map. To plot
 # symbols on a 3-D surface, use :meth:`pygmt.Figure.plot3d`. The z-coordinate should be
 # set to a value at or above the maximum elevation to ensure the symbols are visible.
 
@@ -126,10 +132,10 @@ fig.plot3d(
 fig.show()
 
 # %%
-# 3. Adding text annotations on a 3-D surface
+# 4. Adding text annotations on a 3-D surface
 # -------------------------------------------
 #
-# In the third example, we add text labels to the same 3-D figure. To add text
+# In the final step, we add text labels to the same 3-D map. To add text
 # annotations on a 3-D surface, use :meth:`pygmt.Figure.text` with
 # ``perspective=True``. Note that the current implementation of ``text`` does not
 # support a ``z`` parameter for controlling the vertical position of text labels.
