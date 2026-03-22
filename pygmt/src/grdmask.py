@@ -66,10 +66,8 @@ def _alias_option_N(  # noqa: N802
         )
 
     # Build -N argument
-    if (
-        isinstance(inside, str) and inside in _inside_modes
-    ):  # Mode: -Nz, -NZ, -Np, or -NP
-        mode = _inside_modes[inside]
+    if inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
+        mode = _inside_modes[inside]  # type: ignore[index]
         if edge == inside:
             mode = mode.upper()
         mask_values = mode if outside is None else [mode, outside]
