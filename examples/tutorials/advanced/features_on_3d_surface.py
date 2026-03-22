@@ -108,7 +108,8 @@ cities = pd.DataFrame(
 )
 
 # Use one common z-level so all stars share the same shape and size.
-z_stars = [grd_relief.max().to_numpy() + 1500] * len(cities.index)
+max_elevation = float(grd_relief.max().to_numpy())
+z_stars = [max_elevation + 1500] * len(cities.index)
 
 fig = pygmt.Figure()
 
