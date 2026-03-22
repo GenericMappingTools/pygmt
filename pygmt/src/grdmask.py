@@ -58,7 +58,7 @@ def _alias_option_N(  # noqa: N802
             edge, description="edge", reason=f"edge={edge!r} requires inside={edge!r}."
         )
 
-    if inside in _inside_modes and edge in _inside_modes and inside != edge:
+    if inside in _inside_modes and edge is not None and edge != inside:
         raise GMTValueError(
             edge,
             description="edge",
