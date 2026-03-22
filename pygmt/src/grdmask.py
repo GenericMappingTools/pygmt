@@ -62,7 +62,7 @@ def _alias_option_N(  # noqa: N802
         raise GMTValueError(edge, description="edge", reason=msg)
 
     # Build -N argument
-    if inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
+    if isinstance(inside, str) and inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
         mode = _inside_modes[inside]
         if edge == inside:
             mode = mode.upper()
