@@ -72,7 +72,7 @@ def _alias_option_N(  # noqa: N802
             0 if outside is None else outside,
             0 if edge is None else edge,
             1 if inside is None else inside,
-        ]  # type: ignore[list-item]
+        ]
     return Alias(mask_values, name="mask_values", sep="/", size=(2, 3))
 
 
