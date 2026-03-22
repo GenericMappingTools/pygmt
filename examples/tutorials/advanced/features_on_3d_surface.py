@@ -140,7 +140,7 @@ fig.text(
     y=cities.latitude,
     text=cities.name,
     perspective=True,
-    font="11p,Helvetica-Bold,red",
+    font="11p,Times-Bold,red",
     no_clip=True,  # Prevent text from being clipped at the frame boundaries
 )
 
