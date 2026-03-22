@@ -43,9 +43,7 @@ grd_relief = pygmt.datasets.load_earth_relief(resolution="05m", region=region_2d
 region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
 
 # Set up a colormap for topography and bathymetry
-pygmt.makecpt(
-    cmap="geo", series=[grd_relief.min().to_numpy(), grd_relief.max().to_numpy()]
-)
+pygmt.makecpt(cmap="geo", series=[-8000, 8000])
 
 # %%
 # Create a 3-D surface and add coastlines
