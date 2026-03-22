@@ -29,20 +29,22 @@ def _alias_option_N(  # noqa: N802
 
     Examples
     --------
-    >>> _alias_option_N()._value
-    >>> _alias_option_N(outside=1, edge=2, inside=3)._value
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(N=_alias_option_N(**kwargs)).get("N")
+    >>> parse()
+    >>> parse(outside=1, edge=2, inside=3)
     '1/2/3'
-    >>> _alias_option_N(outside=3)._value
+    >>> parse(outside=3)
     '3/0/1'
-    >>> _alias_option_N(inside="z")._value
+    >>> parse(inside="z")
     'z'
-    >>> _alias_option_N(outside=1, inside="z")._value
+    >>> parse(outside=1, inside="z")
     'z/1'
-    >>> _alias_option_N(edge="z", inside="z")._value
+    >>> parse(edge="z", inside="z")
     'Z'
-    >>> _alias_option_N(inside="id")._value
+    >>> parse(inside="id")
     'p'
-    >>> _alias_option_N(edge="id", inside="id")._value
+    >>> parse(edge="id", inside="id")
     'P'
     """
     # All three are None, return None (GMT uses default 0/0/1)
