@@ -75,7 +75,7 @@ fig.grdview(
 fig.coast(
     perspective=[157.5, 30, 0],
     resolution="full",
-    shorelines="1/1.5p,black",
+    shorelines="1/2p,black",
 )
 
 # Add a colorbar
@@ -110,29 +110,6 @@ cities = pd.DataFrame(
 max_elevation = float(grd_relief.max().to_numpy())
 z_stars = [max_elevation + 1500] * len(cities.index)
 
-fig = pygmt.Figure()
-
-# Create a 3-D surface
-fig.grdview(
-    projection="M12c",
-    region=region_3d,
-    grid=grd_relief,
-    cmap=True,
-    surftype="surface",
-    shading="+a0/270+ne0.6",
-    perspective=[157.5, 30],
-    zsize="1.5c",
-    facade_fill="darkgray",
-    frame=["xaf", "yaf", "WSnE"],
-)
-
-# Add coastlines
-fig.coast(
-    perspective=[157.5, 30, 0],
-    resolution="f",
-    shorelines="1/1.5p,black",
-)
-
 # Add five identical star symbols on top of the 3-D surface
 fig.plot3d(
     x=cities.longitude,
@@ -146,9 +123,6 @@ fig.plot3d(
     no_clip=True,
 )
 
-# Add a colorbar
-fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
-
 fig.show()
 
 # %%
@@ -161,42 +135,6 @@ fig.show()
 # support a ``z`` parameter for controlling the vertical position of text labels.
 # The text will be placed at the base of the 3-D plot (z=0).
 
-fig = pygmt.Figure()
-
-# Create a 3-D surface
-fig.grdview(
-    projection="M12c",
-    region=region_3d,
-    grid=grd_relief,
-    cmap=True,
-    surftype="surface",
-    shading="+a0/270+ne0.6",
-    perspective=[157.5, 30],
-    zsize="1.5c",
-    facade_fill="darkgray",
-    frame=["xaf", "yaf", "WSnE"],
-)
-
-# Add coastlines
-fig.coast(
-    perspective=[157.5, 30, 0],
-    resolution="full",
-    shorelines="1/1.5p,black",
-)
-
-# Add symbols for cities
-fig.plot3d(
-    x=cities.longitude,
-    y=cities.latitude,
-    z=z_stars,
-    style="a0.55c",
-    fill="gold",
-    pen="0.8p,black",
-    perspective=True,
-    zsize="1.5c",
-    no_clip=True,
-)
-
 # Add text labels for cities
 # Note: text is placed at z=0 (base level) since z parameter is not yet supported
 fig.text(
@@ -207,9 +145,6 @@ fig.text(
     font="11p,Helvetica-Bold,red",
     no_clip=True,  # Prevent text from being clipped at the frame boundaries
 )
-
-# Add a colorbar
-fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
 
 fig.show()
 
