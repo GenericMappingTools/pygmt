@@ -17,7 +17,6 @@ This tutorial consists of three examples:
 
 # %%
 
-# Load the required packages
 import pandas as pd
 import pygmt
 
