@@ -66,8 +66,7 @@ def _alias_option_N(  # noqa: N802
         if edge == inside:
             mode = mode.upper()
         mask_values = mode if outside is None else [mode, outside]
-    else:
-        # Build the full mask with defaults for any missing values
+    else:  # Build the full mask with defaults for any missing values.
         mask_values = [
             0 if outside is None else outside,
             0 if edge is None else edge,
