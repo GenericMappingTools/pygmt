@@ -26,10 +26,6 @@ import pygmt
 # -------------------------
 #
 # In the first step, we create a 3-D topographic map using :meth:`pygmt.Figure.grdview`.
-
-# Load sample earth relief data for the region of Taiwan
-# ------------------------------------------------------
-#
 # We use a region around Taiwan to demonstrate adding features on a 3-D surface.
 
 # Define the study area in degrees East or North
