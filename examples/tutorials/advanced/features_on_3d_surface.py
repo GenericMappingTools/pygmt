@@ -72,7 +72,8 @@ fig.grdview(
 )
 
 # Add coastlines on top of the 3-D surface
-# Using perspective=True to inherit the viewing angle from grdview
+# Use an explicit perspective to match grdview (azimuth=157.5, elevation=30)
+# and set the z-level to 0 so the coastlines are drawn at sea level.
 fig.coast(
     perspective=[157.5, 30, 0],
     resolution="full",
