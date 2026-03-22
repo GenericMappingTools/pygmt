@@ -180,7 +180,7 @@ fig.grdview(
 # Add coastlines
 fig.coast(
     perspective=[157.5, 30, 0],
-    resolution="f",
+    resolution="full",
     shorelines="1/1.5p,black",
 )
 
