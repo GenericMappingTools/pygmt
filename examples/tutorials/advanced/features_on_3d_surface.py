@@ -18,7 +18,6 @@ This tutorial builds a 3-D map in four steps:
 
 # %%
 
-# Load the required packages
 import pandas as pd
 import pygmt
 
