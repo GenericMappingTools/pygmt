@@ -54,8 +54,11 @@ def _alias_option_N(  # noqa: N802
     _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
     if edge in _inside_modes and inside != edge:
-        msg = f"edge={edge!r} requires inside={edge!r}."
-        raise GMTValueError(edge, description="edge", reason=msg)
+        raise GMTValueError(
+            edge, 
+            description="edge", 
+            reason=f"edge={edge!r} requires inside={edge!r}."
+        )
 
     if inside in _inside_modes and edge in _inside_modes and inside != edge:
         msg = f"inside={inside!r} and edge={edge!r} must be the same."
