@@ -74,8 +74,9 @@ fig.show()
 # 2. Adding coastlines on a 3-D surface
 # -------------------------------------
 #
-# Next, we add coastlines using :meth:`pygmt.Figure.coast` with a matching ``perspective`` setting.
-# Here we set the z-level to 0 so coastlines are drawn at sea level.
+# Next, we add coastlines using :meth:`pygmt.Figure.coast` with a matching
+# ``perspective`` setting. Here we set the z-level to 0 so coastlines are drawn
+# at sea level.
 
 # Add coastlines on top of the 3-D surface
 # Use an explicit perspective to match grdview (azimuth=157.5, elevation=30)
