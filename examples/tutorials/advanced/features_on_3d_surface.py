@@ -8,7 +8,7 @@ annotations. This tutorial shows how to use :meth:`pygmt.Figure.coast`,
 :meth:`pygmt.Figure.plot3d`, and :meth:`pygmt.Figure.text` to add these features
 on a 3-D surface created by :meth:`pygmt.Figure.grdview`.
 
-This tutorial builds a 3-D map in four steps:
+This tutorial builds a 3-D map with additional features in four steps:
 
 1. Creating a 3-D surface
 2. Adding coastlines on a 3-D surface
@@ -88,6 +88,9 @@ fig.show()
 # In the third step, we add star symbols on top of the same 3-D map. To plot
 # symbols on a 3-D surface, use :meth:`pygmt.Figure.plot3d`. The z-coordinate should be
 # set to a value at or above the maximum elevation to ensure the symbols are visible.
+# Note that 3-D rendering in GMT/PyGMT uses a painter's algorithm (depth sorting)
+# rather than true 3-D occlusion. From some viewpoints, symbols that should be
+# hidden behind terrain may still appear visible.
 
 # Sample point data: five coastal cities around Taiwan
 cities = pd.DataFrame(
