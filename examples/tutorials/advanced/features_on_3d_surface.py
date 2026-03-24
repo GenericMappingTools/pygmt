@@ -32,7 +32,6 @@ import pygmt
 region_2d = [119, 123, 21, 26]  # [lon_min, lon_max, lat_min, lat_max]
 
 # Download elevation grid for the study region with a resolution of 5 arc-minutes.
-# 5m provides clearer terrain than 10m while still being reasonably fast.
 grd_relief = pygmt.datasets.load_earth_relief(resolution="05m", region=region_2d)
 
 # Determine the 3-D region from the minimum and maximum values of the relief grid
