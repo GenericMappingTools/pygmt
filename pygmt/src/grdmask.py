@@ -46,6 +46,14 @@ def _alias_option_N(  # noqa: N802
     'p'
     >>> parse(edge="id", inside="id")
     'P'
+    >>> parse(edge="z")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid edge: 'z'. edge='z' requires inside='z'.
+    >>> parse(inside="z", edge="id")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid edge: 'id'. edge='id' requires inside='id'.
     """
     # All three are None, return None (GMT uses default 0/0/1)
     if all(v is None for v in (outside, inside, edge)):
