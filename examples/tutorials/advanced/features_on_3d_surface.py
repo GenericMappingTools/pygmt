@@ -20,6 +20,7 @@ This tutorial builds a 3-D map with additional features in four steps:
 
 import pandas as pd
 import pygmt
+from pygmt.params import Axis, Frame
 
 # %%
 # 1. Creating a 3-D surface
@@ -53,7 +54,7 @@ fig.grdview(
     perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
     zsize="1.5c",
     facade_fill="darkgray",
-    frame=["xaf", "yaf", "WSnE"],
+    frame=Frame(axes="WSnE", axis=Axis(annot=True, tick=True)),
 )
 
 # Add a colorbar
