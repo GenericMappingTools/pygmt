@@ -19,6 +19,7 @@ def _alias_option_N(  # noqa: N802
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
+    id_start: int | None = None,
 ) -> Alias:
     """
     Return an Alias object for the -N option.
@@ -46,27 +47,50 @@ def _alias_option_N(  # noqa: N802
     'p'
     >>> parse(edge="id", inside="id")
     'P'
-    >>> parse(edge="z")
+    >>> parse(inside="id", id_start=5)
+    'p5'
+    >>> parse(edge="id", inside="id", id_start=10)
+    'P10'
+    >>> parse(edge="z")  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTValueError: Invalid edge: 'z'. edge='z' requires inside='z'.
-    >>> parse(inside="z", edge="id")
+    pygmt.exceptions.GMTValueError: ...
+    >>> parse(inside="z", edge="id")  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTValueError: Invalid edge: 'id'. edge='id' requires inside='id'.
+    pygmt.exceptions.GMTValueError: ...
+    >>> parse(inside="z", id_start=5)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTParameterError: ...
+    >>> parse(inside="id", id_start=-1)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid id_start: -1. ...
     """
-    # All three are None, return None (GMT uses default 0/0/1)
+    _inside_modes = {"z": "z", "id": "p"}
+
+    if id_start is not None:
+        if inside != "id":
+            raise GMTParameterError(
+                reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
+            )
+        if not isinstance(id_start, int) or isinstance(id_start, bool) or id_start < 0:
+            raise GMTValueError(
+                id_start,
+                description="id_start",
+                reason="Must be a non-negative integer.",
+            )
+
+    # outside/edge/inside are all omitted: keep GMT default 0/0/1
     if all(v is None for v in (outside, inside, edge)):
         return Alias(None, name="mask_values")
 
-    _inside_modes = {"z": "z", "id": "p"}
     # Validate combinations
-    if edge in _inside_modes and inside != edge:
-        raise GMTValueError(
-            edge, description="edge", reason=f"edge={edge!r} requires inside={edge!r}."
-        )
-
-    if inside in _inside_modes and edge is not None and edge != inside:
+    if (edge in _inside_modes or inside in _inside_modes) and edge not in {
+        None,
+        inside,
+    }:
         raise GMTValueError(
             edge,
             description="edge",
@@ -75,9 +99,12 @@ def _alias_option_N(  # noqa: N802
 
     # Build -N argument
     if inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
-        mode = _inside_modes[inside]  # type: ignore[index]
+        mode = "z" if inside == "z" else "p"
         if edge == inside:
             mode = mode.upper()
+        # Append id_start if specified (only valid for "id" mode)
+        if id_start is not None:
+            mode = f"{mode}{id_start}"
         mask_values = mode if outside is None else [mode, outside]
     else:  # Build the full mask with defaults for any missing values.
         mask_values = [
@@ -97,6 +124,7 @@ def grdmask(
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
+    id_start: int | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -149,6 +177,9 @@ def grdmask(
         - ``"id"``: Use a running polygon ID number.
 
         To treat edges as inside, use the same value as ``inside``.
+    id_start
+        The starting number for polygon IDs when ``inside="id"``.
+        Default is 0. Only valid when ``inside="id"``.
     $region
     $verbose
 
@@ -171,18 +202,18 @@ def grdmask(
     >>> mask = pygmt.grdmask(data=polygon, spacing=1, region=[125, 130, 30, 35])
     >>> mask.values
     array([[0., 0., 0., 0., 0., 0.],
-            [0., 0., 1., 1., 1., 0.],
-            [0., 0., 0., 1., 1., 0.],
-            [0., 0., 0., 0., 1., 0.],
-            [0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0.]])
+           [0., 0., 1., 1., 1., 0.],
+           [0., 0., 0., 1., 1., 0.],
+           [0., 0., 0., 0., 1., 0.],
+           [0., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 0., 0.]], dtype=float32)
     """
     if kwargs.get("I", spacing) is None or kwargs.get("R", region) is None:
         raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
         I=Alias(spacing, name="spacing", sep="/", size=2),
-        N=_alias_option_N(outside=outside, edge=edge, inside=inside),
+        N=_alias_option_N(outside=outside, edge=edge, inside=inside, id_start=id_start),
     ).add_common(
         R=region,
         V=verbose,
