@@ -104,8 +104,7 @@ cities = pd.DataFrame(
 )
 
 # Use one common z-level so all stars share the same shape and size.
-max_elevation = float(grd_relief.max().to_numpy())
-z_stars = [max_elevation + 1500] * len(cities.index)
+cities["z"] = grd_relief.max().to_numpy()
 
 # Add five identical star symbols on top of the 3-D surface
 fig.plot3d(
