@@ -104,7 +104,7 @@ cities["z"] = grd_relief.max().to_numpy()
 fig.plot3d(
     x=cities.longitude,
     y=cities.latitude,
-    z=z_stars,
+    z=cities.z,
     style="a0.65c",
     fill="gold",
     pen="0.8p,black",
