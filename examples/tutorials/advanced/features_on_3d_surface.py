@@ -41,7 +41,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 fig = pygmt.Figure()
 
 # Set up a colormap for topography and bathymetry
-pygmt.makecpt(cmap="geo", series=[-6000, 3000])
+pygmt.makecpt(cmap="SCM/vik", series=[-6000, 3000])
 
 # Create a 3-D surface
 fig.grdview(
