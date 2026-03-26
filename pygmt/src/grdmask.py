@@ -75,12 +75,6 @@ def _alias_option_N(  # noqa: N802
             raise GMTParameterError(
                 reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
             )
-        if not isinstance(id_start, int) or isinstance(id_start, bool) or id_start < 0:
-            raise GMTValueError(
-                id_start,
-                description="id_start",
-                reason="Must be a non-negative integer.",
-            )
 
     # outside/edge/inside are all omitted: keep GMT default 0/0/1
     if all(v is None for v in (outside, inside, edge)):
