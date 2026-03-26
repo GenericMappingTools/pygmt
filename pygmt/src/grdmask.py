@@ -19,7 +19,7 @@ def _alias_option_N(  # noqa: N802
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
-    id_start: int | None = None,
+    id_start: float | None = None,
 ) -> Alias:
     """
     Return an Alias object for the -N option.
@@ -51,6 +51,12 @@ def _alias_option_N(  # noqa: N802
     'p5'
     >>> parse(edge="id", inside="id", id_start=10)
     'P10'
+    >>> parse(edge="id", inside="id", id_start=5, outside=3)
+    'P5/3'
+    >>> parse(edge="id", id_start=5, outside=3)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTParameterError: ...
     >>> parse(edge="z")  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
@@ -63,10 +69,14 @@ def _alias_option_N(  # noqa: N802
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTParameterError: ...
-    >>> parse(inside="id", id_start=-1)  # doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> parse(inside="id", id_start=True)  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTValueError: Invalid id_start: -1. ...
+    pygmt.exceptions.GMTValueError: ...
+    >>> parse(inside="id", id_start=-1)
+    'p-1'
+    >>> parse(inside="id", id_start=1.5)
+    'p1.5'
     """
     _inside_modes = {"z": "z", "id": "p"}
 
@@ -74,6 +84,12 @@ def _alias_option_N(  # noqa: N802
         if inside != "id":
             raise GMTParameterError(
                 reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
+            )
+        if isinstance(id_start, bool):
+            raise GMTValueError(
+                id_start,
+                description="id_start",
+                reason="Must be a number, not bool.",
             )
 
     # outside/edge/inside are all omitted: keep GMT default 0/0/1
@@ -118,7 +134,7 @@ def grdmask(
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
-    id_start: int | None = None,
+    id_start: float | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,

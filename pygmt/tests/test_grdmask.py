@@ -183,7 +183,7 @@ def test_grdmask_invalid_edge_special_mode(polygon_data, edge, inside):
 
 @pytest.mark.parametrize(
     ("edge", "inside", "id_start"),
-    [(None, "id", 5), ("id", "id", 10)],
+    [(None, "id", 5), ("id", "id", 10), (None, "id", -1), (None, "id", 1.5)],
 )
 def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
     """
@@ -203,10 +203,9 @@ def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
     assert 0 in unique_values
 
 
-@pytest.mark.parametrize("id_start", [-1, True, 1.5])
-def test_grdmask_id_start_invalid_value(polygon_data, id_start):
+def test_grdmask_id_start_bool_invalid_value(polygon_data):
     """
-    Check that id_start must be a non-negative integer.
+    Check that bool id_start is rejected.
     """
     with pytest.raises(GMTValueError):
         grdmask(
@@ -214,7 +213,7 @@ def test_grdmask_id_start_invalid_value(polygon_data, id_start):
             spacing=1,
             region=[125, 130, 30, 35],
             inside="id",
-            id_start=id_start,
+            id_start=True,
         )
 
 
@@ -241,5 +240,20 @@ def test_grdmask_id_start_requires_inside_id_when_inside_omitted(polygon_data):
             data=polygon_data,
             spacing=1,
             region=[125, 130, 30, 35],
+            id_start=5,
+        )
+
+
+def test_grdmask_id_start_requires_inside_id_with_edge_and_outside(polygon_data):
+    """
+    Check that id_start still requires inside='id' even if edge and outside are set.
+    """
+    with pytest.raises(GMTParameterError):
+        grdmask(
+            data=polygon_data,
+            spacing=1,
+            region=[125, 130, 30, 35],
+            outside=3,
+            edge="id",
             id_start=5,
         )
