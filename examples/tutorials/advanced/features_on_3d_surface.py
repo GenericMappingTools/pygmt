@@ -54,7 +54,7 @@ fig.grdview(
     perspective=[157.5, 30],  # Azimuth and elevation for the 3-D plot
     zsize="1.5c",
     facade_fill="darkgray",
-    frame=Frame(axes="WSnE", axis=Axis(annot=True, tick=True)),
+    frame=Frame(axes="wSnE", axis=Axis(annot=True, tick=True)),
 )
 
 # Add a colorbar
