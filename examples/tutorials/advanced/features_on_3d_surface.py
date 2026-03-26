@@ -91,13 +91,7 @@ fig.show()
 # Sample point data: five coastal cities around Taiwan
 cities = pd.DataFrame(
     {
-        "longitude": [
-            121.74,
-            121.61,
-            121.14,
-            120.30,
-            120.53,
-        ],  # Keelung, Hualien, Taitung, Kaohsiung, Taichung Port
+        "longitude": [121.74, 121.61, 121.14, 120.30, 120.53],
         "latitude": [25.13, 23.99, 22.76, 22.63, 24.27],
         "name": ["Keelung", "Hualien", "Taitung", "Kaohsiung", "Taichung Port"],
     }
