@@ -41,7 +41,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 fig = pygmt.Figure()
 
 # Set up a colormap for topography and bathymetry
-pygmt.makecpt(cmap="gmt/globe", series=[-6000, 3000])
+pygmt.makecpt(cmap="geo", series=[-6000, 3000])
 
 # Create a 3-D surface
 fig.grdview(
@@ -73,7 +73,7 @@ fig.show()
 # Add coastlines on top of the 3-D surface
 # Use an explicit perspective to match grdview (azimuth=157.5, elevation=30)
 # and set the z-level to 0 so the coastlines are drawn at sea level.
-fig.coast(perspective=[157.5, 30, 0], resolution="full", shorelines="1/1p,black")
+fig.coast(perspective=[157.5, 30, 0], resolution="high", shorelines="1/1p,black")
 
 fig.show()
 
