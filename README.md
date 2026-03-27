@@ -154,6 +154,7 @@ Feel free to cite our work in your research using the following BibTeX:
                   Anant, Abhishek and
                   Ziebarth, Malte and
                   Quinn, Jamie and
+                  He, Xingchen and
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
