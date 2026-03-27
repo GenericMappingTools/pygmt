@@ -203,20 +203,6 @@ def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
     assert 0 in unique_values
 
 
-def test_grdmask_id_start_bool_invalid_value(polygon_data):
-    """
-    Check that bool id_start is rejected.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            inside="id",
-            id_start=True,
-        )
-
-
 def test_grdmask_id_start_requires_inside_id(polygon_data):
     """
     Check that id_start requires inside='id'.

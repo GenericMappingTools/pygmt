@@ -80,17 +80,10 @@ def _alias_option_N(  # noqa: N802
     """
     _inside_modes = {"z": "z", "id": "p"}
 
-    if id_start is not None:
-        if inside != "id":
-            raise GMTParameterError(
-                reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
-            )
-        if isinstance(id_start, bool):
-            raise GMTValueError(
-                id_start,
-                description="id_start",
-                reason="Must be a number, not bool.",
-            )
+    if id_start is not None and inside != "id":
+        raise GMTParameterError(
+            reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
+        )
 
     # outside/edge/inside are all omitted: keep GMT default 0/0/1
     if all(v is None for v in (outside, inside, edge)):
