@@ -2,12 +2,14 @@
 basemap - Plot base maps and frames.
 """
 
+import warnings
 from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
@@ -24,7 +26,7 @@ def basemap(  # noqa: PLR0913
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
-    box: str | bool = False,
+    box: Box | str | bool = False,
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
@@ -42,8 +44,8 @@ def basemap(  # noqa: PLR0913
 
     .. note::
 
-        Parameters ``map_scale``, ``rose``, ``compass``, and ``box`` are deprecated in
-        favor of the dedicated higher-level methods:
+        Parameters ``map_scale``, ``rose``, ``compass``, and ``box`` are deprecated
+        since v0.19.0 in favor of the dedicated higher-level methods:
 
         - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
         - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.
@@ -118,6 +120,18 @@ def basemap(  # noqa: PLR0913
     $transparency
     """
     self._activate_figure()
+
+    for name, value, recommendation in (
+        ("map_scale", map_scale, "Figure.scalebar"),
+        ("compass", compass, "Figure.magnetic_rose"),
+        ("rose", rose, "Figure.directional_rose"),
+    ):
+        if value is not None and value is not False:
+            warnings.warn(
+                f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
+                category=FutureWarning,
+                stacklevel=2,
+            )
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),  # Deprecated.
