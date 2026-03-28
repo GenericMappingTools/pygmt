@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTBackendEntrypoint.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=3b11e8da"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.GMTBackendEntrypoint</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.GMTBackendEntrypoint.description"><code class="docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.description</span></code></a></li>
@@ -195,14 +195,14 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">GMTBackendEntrypoint</span></span><a class="reference internal" href="../../_modules/pygmt/xarray/backend.html#GMTBackendEntrypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.GMTBackendEntrypoint" title="Link to this definition"></a></dt>
-<dd><p>Xarray backend to read raster grid/image files using ‘gmt’ engine.</p>
+<dd><p>xarray backend to read raster grid/image files using ‘gmt’ engine.</p>
 <p>Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF
 and other raster formats. See <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/features.html#grid-file-format">https://docs.generic-mapping-tools.org/6.6/reference/features.html#grid-file-format</a>
 for more details about supported formats. This GMT engine can also read
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/datasets/remote-data.html">GMT remote datasets</a> (file names starting
 with an <cite>&#64;</cite>) directly, and pre-loads <a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> properties
 (in the ‘.gmt’ accessor) for easy access to GMT-specific metadata and features.</p>
-<p>When using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a> with
+<p>When using <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2026.2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.load_dataarray.html#xarray.load_dataarray" title="(in xarray v2026.2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.load_dataarray</span></code></a> with
 <code class="docutils literal notranslate"><span class="pre">engine=&quot;gmt&quot;</span></code>, the <code class="docutils literal notranslate"><span class="pre">raster_kind</span></code> parameter is required and can be either:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;grid&quot;</span></code>: for reading single-band raster grids</p></li>
@@ -275,7 +275,7 @@ region.</p>
 <p class="rubric">Attributes</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pygmt.GMTBackendEntrypoint.description">
-<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Open</span> <span class="pre">raster</span> <span class="pre">(.grd,</span> <span class="pre">.nc</span> <span class="pre">or</span> <span class="pre">.tif)</span> <span class="pre">files</span> <span class="pre">in</span> <span class="pre">Xarray</span> <span class="pre">via</span> <span class="pre">GMT.'</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.description" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">GMTBackendEntrypoint.</span></span><span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Open</span> <span class="pre">raster</span> <span class="pre">(.grd,</span> <span class="pre">.nc</span> <span class="pre">or</span> <span class="pre">.tif)</span> <span class="pre">files</span> <span class="pre">in</span> <span class="pre">xarray</span> <span class="pre">via</span> <span class="pre">GMT.'</span></em><a class="headerlink" href="#pygmt.GMTBackendEntrypoint.description" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -297,13 +297,13 @@ region.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.guess_can_open.html#pygmt.GMTBackendEntrypoint.guess_can_open" title="pygmt.GMTBackendEntrypoint.guess_can_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.guess_can_open</span></code></a>(...)</p></td>
-<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2026.2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_dataset.html#pygmt.GMTBackendEntrypoint.open_dataset" title="pygmt.GMTBackendEntrypoint.open_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_dataset</span></code></a>(...[, ...])</p></td>
-<td><p>Backend open_dataset method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
+<td><p>Backend open_dataset method used by xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataset.html#xarray.open_dataset" title="(in xarray v2026.2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_dataset</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_datatree.html#pygmt.GMTBackendEntrypoint.open_datatree" title="pygmt.GMTBackendEntrypoint.open_datatree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_datatree</span></code></a>(...[, ...])</p></td>
-<td><p>Backend open_datatree method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_datatree.html#xarray.open_datatree" title="(in xarray v2025.12.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_datatree</span></code></a>.</p></td>
+<td><p>Backend open_datatree method used by Xarray in <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_datatree.html#xarray.open_datatree" title="(in xarray v2026.2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">open_datatree</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.GMTBackendEntrypoint.open_groups_as_dict.html#pygmt.GMTBackendEntrypoint.open_groups_as_dict" title="pygmt.GMTBackendEntrypoint.open_groups_as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTBackendEntrypoint.open_groups_as_dict</span></code></a>(...)</p></td>
 <td><p>Opens a dictionary mapping from group names to Datasets.</p></td>
@@ -325,9 +325,9 @@ region.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 28, 2026.
       </span></p>
   </div>
 

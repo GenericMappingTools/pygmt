@@ -11,8 +11,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfilter.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=3b11e8da"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,18 +163,86 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">use_alias</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdfilter&quot;</span><span class="p">]</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_F</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: A002</span>
+    <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">highpass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create the alias list for the -F option.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
+<span class="sd">    ...     return AliasSystem(F=_alias_option_F(**kwargs)).get(&quot;F&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;boxcar&quot;, width=2.0)</span>
+<span class="sd">    &#39;b2.0&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;cosarch&quot;, width=(5, 10))</span>
+<span class="sd">    &#39;c5/10&#39;</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;gaussian&quot;, width=100, highpass=True)</span>
+<span class="sd">    &#39;g100+h&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_filter_mapping</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;boxcar&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cosarch&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gaussian&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;minall&quot;</span><span class="p">:</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;minpos&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxall&quot;</span><span class="p">:</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxneg&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="c1"># Check if the &#39;filter&#39; parameter is using the old GMT command string syntax.</span>
+    <span class="n">_old_filter_syntax</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">filter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_filter_mapping</span>
+
+    <span class="k">if</span> <span class="n">_old_filter_syntax</span><span class="p">:</span>
+        <span class="n">kwdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;highpass&quot;</span><span class="p">:</span> <span class="n">highpass</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwdict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+                <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">kwdict</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;filter&#39; is specified using the unrecommended GMT command string syntax.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">)</span>  <span class="c1"># Deprecated raw GMT command string.</span>
+
+    <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="n">_filter_mapping</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">highpass</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;highpass&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+h&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+
 <div class="viewcode-block" id="grdfilter">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdfilter.html#pygmt.grdfilter">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdfilter</span><span class="p">(</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdfilter</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="nb">filter</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>  <span class="c1"># noqa: A002</span>
+        <span class="s2">&quot;boxcar&quot;</span><span class="p">,</span> <span class="s2">&quot;cosarch&quot;</span><span class="p">,</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="s2">&quot;minall&quot;</span><span class="p">,</span> <span class="s2">&quot;minpos&quot;</span><span class="p">,</span> <span class="s2">&quot;maxall&quot;</span><span class="p">,</span> <span class="s2">&quot;maxneg&quot;</span>
+    <span class="p">]</span>
+    <span class="o">|</span> <span class="nb">str</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">highpass</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">distance</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">&quot;pixel&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cartesian&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geo_cartesian&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geo_flatearth1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geo_flatearth2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geo_spherical&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geo_mercator&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">nans</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">toggle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -185,7 +253,7 @@
     <span class="n">cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Filter a grid in the space (or time) domain.</span>
 
 <span class="sd">    Filter a grid file in the space (or time) domain using one of the selected</span>
@@ -201,6 +269,9 @@
 <span class="sd">    Full GMT docs at :gmt-docs:`grdfilter.html`.</span>
 
 <span class="sd">    $aliases</span>
+<span class="sd">       - D = distance</span>
+<span class="sd">       - F = filter, width, **+h**: highpass</span>
+<span class="sd">       - G = outgrid</span>
 <span class="sd">       - I = spacing</span>
 <span class="sd">       - N = nans</span>
 <span class="sd">       - R = region</span>
@@ -213,40 +284,77 @@
 <span class="sd">    ----------</span>
 <span class="sd">    $grid</span>
 <span class="sd">    $outgrid</span>
-<span class="sd">    filter : str</span>
-<span class="sd">        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\</span>
-<span class="sd">        [/*width2*\][*modifiers*].</span>
-<span class="sd">        Name of the filter type you wish to apply, followed by the *width*:</span>
+<span class="sd">    filter</span>
+<span class="sd">        The filter type. Choose among convolution and non-convolution filters.</span>
 
-<span class="sd">        - **b**: Box Car</span>
-<span class="sd">        - **c**: Cosine Arch</span>
-<span class="sd">        - **g**: Gaussian</span>
-<span class="sd">        - **o**: Operator</span>
-<span class="sd">        - **m**: Median</span>
-<span class="sd">        - **p**: Maximum Likelihood probability</span>
-<span class="sd">        - **h**: Histogram</span>
+<span class="sd">        Convolution filters include:</span>
 
-<span class="sd">    distance : str</span>
-<span class="sd">        State how the grid (x,y) relates to the filter *width*:</span>
+<span class="sd">        - ``&quot;boxcar&quot;``: All weights are equal.</span>
+<span class="sd">        - ``&quot;cosarch&quot;``: Weights follow a cosine arch curve.</span>
+<span class="sd">        - ``&quot;gaussian&quot;``: Weights are given by the Gaussian function, where filter width</span>
+<span class="sd">          is 6 times the conventional Gaussian sigma.</span>
 
-<span class="sd">        - ``&quot;p&quot;``: grid (px,py) with *width* an odd number of pixels,</span>
-<span class="sd">          Cartesian distances.</span>
-<span class="sd">        - ``&quot;0&quot;``: grid (x,y) same units as *width*, Cartesian distances.</span>
-<span class="sd">        - ``&quot;1&quot;``: grid (x,y) in degrees, *width* in kilometers, Cartesian</span>
-<span class="sd">          distances.</span>
-<span class="sd">        - ``&quot;2&quot;``: grid (x,y) in degrees, *width* in km, dx scaled by</span>
-<span class="sd">          cos(middle y), Cartesian distances.</span>
+<span class="sd">        Non-convolution filters include:</span>
 
-<span class="sd">        The above options are fastest because they allow weight matrix to be</span>
-<span class="sd">        computed only once. The next three options are slower because they</span>
-<span class="sd">        recompute weights for each latitude.</span>
+<span class="sd">        - ``&quot;minall&quot;``: Return minimum of all values.</span>
+<span class="sd">        - ``&quot;minpos&quot;``: Return minimum of all positive values only.</span>
+<span class="sd">        - ``&quot;maxall&quot;``: Return maximum of all values.</span>
+<span class="sd">        - ``&quot;maxneg&quot;``: Return maximum of all negative values only.</span>
 
-<span class="sd">        - ``&quot;3&quot;``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),</span>
-<span class="sd">          Cartesian distance calculation.</span>
-<span class="sd">        - ``&quot;4&quot;``: grid (x,y) in degrees, *width* in km, Spherical distance</span>
-<span class="sd">          calculation.</span>
-<span class="sd">        - ``&quot;5&quot;``: grid (x,y) in Mercator ``projection=&quot;m1&quot;`` img units,</span>
-<span class="sd">          *width* in km, Spherical distance calculation.</span>
+<span class="sd">        **Note**: There are still a few other filter types available in GMT (e.g.,</span>
+<span class="sd">        histogram and mode filters), but they are not implemented in PyGMT yet. As a</span>
+<span class="sd">        workaround, pass the raw GMT command string to this parameter to use these other</span>
+<span class="sd">        filter types. Refer to :gmt-docs:`grdfilter.html#f` for the full syntax of this</span>
+<span class="sd">        parameter.</span>
+<span class="sd">    width</span>
+<span class="sd">        The full diameter width of the filter. It can be a single value for an isotropic</span>
+<span class="sd">        filter, or a pair of values for a rectangular filter (width in x- and</span>
+<span class="sd">        y-directions, requiring ``distance`` be either ``&quot;pixel&quot;`` or ``&quot;cartesian&quot;``).</span>
+<span class="sd">    highpass</span>
+<span class="sd">        By default, the filter is a low-pass filter. If True, then the filter is a</span>
+<span class="sd">        high-pass filter. [Default is ``False``].</span>
+<span class="sd">    distance</span>
+<span class="sd">        Determine how grid (*x, y*) relates to filter *width* and how distances are</span>
+<span class="sd">        calculated. Valid values are list below. The first four options are fastest</span>
+<span class="sd">        because they allow weight matrix to be computed only once. The last three</span>
+<span class="sd">        options are slower because they recompute weights for each latitude.</span>
+
+<span class="sd">        .. list-table::</span>
+<span class="sd">            :header-rows: 1</span>
+<span class="sd">            :widths: 16 32 20 32</span>
+
+<span class="sd">            * - Value</span>
+<span class="sd">              - Grid (x,y)</span>
+<span class="sd">              - Width</span>
+<span class="sd">              - Distance Calculation</span>
+<span class="sd">            * - ``&quot;pixel&quot;``</span>
+<span class="sd">              - Pixels (px, py)</span>
+<span class="sd">              - Odd number of pixels</span>
+<span class="sd">              - Cartesian</span>
+<span class="sd">            * - ``&quot;cartesian&quot;``</span>
+<span class="sd">              - Same units as *width*</span>
+<span class="sd">              - Any</span>
+<span class="sd">              - Cartesian</span>
+<span class="sd">            * - ``&quot;geo_cartesian&quot;``</span>
+<span class="sd">              - Degrees</span>
+<span class="sd">              - km</span>
+<span class="sd">              - Cartesian</span>
+<span class="sd">            * - ``&quot;geo_flatearth1&quot;``</span>
+<span class="sd">              - Degrees</span>
+<span class="sd">              - km</span>
+<span class="sd">              - Cartesian, dx scaled by cos(middle y)</span>
+<span class="sd">            * - ``&quot;geo_flatearth2&quot;``</span>
+<span class="sd">              - Degrees</span>
+<span class="sd">              - km</span>
+<span class="sd">              - Cartesian, dx scaled by cos(y) per row</span>
+<span class="sd">            * - ``&quot;geo_spherical&quot;``</span>
+<span class="sd">              - Degrees</span>
+<span class="sd">              - km</span>
+<span class="sd">              - Spherical (great circle)</span>
+<span class="sd">            * - ``&quot;geo_mercator&quot;``</span>
+<span class="sd">              - Mercator **-Jm1** img units</span>
+<span class="sd">              - km</span>
+<span class="sd">              - Spherical</span>
 <span class="sd">    $spacing</span>
 <span class="sd">    nans</span>
 <span class="sd">        Determine how NaN-values in the input grid affect the filtered output grid.</span>
@@ -281,12 +389,13 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; # Apply a median filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
+<span class="sd">    &gt;&gt;&gt; # Apply a gaussian filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
 <span class="sd">    &gt;&gt;&gt; # and return a filtered grid (saved as netCDF file).</span>
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfilter(</span>
 <span class="sd">    ...     grid=&quot;@earth_relief_30m_g&quot;,</span>
-<span class="sd">    ...     filter=&quot;m600&quot;,</span>
-<span class="sd">    ...     distance=&quot;4&quot;,</span>
+<span class="sd">    ...     filter=&quot;gaussian&quot;,</span>
+<span class="sd">    ...     width=600,</span>
+<span class="sd">    ...     distance=&quot;geo_spherical&quot;,</span>
 <span class="sd">    ...     region=[150, 250, 10, 40],</span>
 <span class="sd">    ...     spacing=0.5,</span>
 <span class="sd">    ...     outgrid=&quot;filtered_pacific.nc&quot;,</span>
@@ -295,9 +404,33 @@
 <span class="sd">    &gt;&gt;&gt; # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return</span>
 <span class="sd">    &gt;&gt;&gt; # a filtered DataArray with the smoothed grid.</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief()</span>
-<span class="sd">    &gt;&gt;&gt; smooth_field = pygmt.grdfilter(grid=grid, filter=&quot;g600&quot;, distance=&quot;4&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; smoothed = pygmt.grdfilter(</span>
+<span class="sd">    ...     grid=grid, filter=&quot;gaussian&quot;, width=600, distance=&quot;geo_spherical&quot;</span>
+<span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+    <span class="c1"># filter is also required but will be checked in _alias_option_F.</span>
+
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
+            <span class="n">distance</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;pixel&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cartesian&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;geo_cartesian&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;geo_flatearth1&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;geo_flatearth2&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s2">&quot;geo_spherical&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="s2">&quot;geo_mercator&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+        <span class="n">F</span><span class="o">=</span><span class="n">_alias_option_F</span><span class="p">(</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">highpass</span><span class="o">=</span><span class="n">highpass</span><span class="p">,</span>
+        <span class="p">),</span>
         <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
             <span class="n">nans</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;nans&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ignore&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">}</span>
@@ -333,9 +466,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 28, 2026.
       </span></p>
   </div>
 

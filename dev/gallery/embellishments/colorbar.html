@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/colorbar.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=3b11e8da"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="inset.html">Inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="magnetic_rose.html">Magnetic rose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text_formatting.html">Text formatting</a></li>
@@ -198,11 +199,11 @@ to download the full example code.</p>
 <span id="sphx-glr-gallery-embellishments-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar. The colormap is set
 via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. A full list of available color palette tables can be found
-at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/cpts.html">https://docs.generic-mapping-tools.org/6.6/reference/cpts.html</a>. Use the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter to add labels to the
-<strong>x</strong> and <strong>y</strong> axes of the colorbar by appending <strong>+l</strong> followed by the desired text.
-To add and adjust the annotations (<strong>a</strong>) and ticks (<strong>f</strong>) append the letter followed
-by the desired interval. The placement of the colorbar is set by passing a
-<a class="reference internal" href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Position</span></code></a> object to the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter.</p>
+at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/reference/cpts.html">https://docs.generic-mapping-tools.org/6.6/reference/cpts.html</a>. Use the <code class="docutils literal notranslate"><span class="pre">label</span></code> and <code class="docutils literal notranslate"><span class="pre">unit</span></code> parameters to set the
+labels along the long and short dimensions of the colorbar, respectively. To set the
+annotation and tick intervals, use the <code class="docutils literal notranslate"><span class="pre">annot</span></code> and <code class="docutils literal notranslate"><span class="pre">tick</span></code> parameters. The placement
+of the colorbar is set by passing a <a class="reference internal" href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Position</span></code></a> object to the
+<code class="docutils literal notranslate"><span class="pre">position</span></code> parameter.</p>
 <img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
@@ -212,22 +213,20 @@ by the desired interval. The placement of the colorbar is set by passing a
 <span class="c1"># ============</span>
 <span class="c1"># Create a colorbar designed for seismic tomography - roma</span>
 <span class="c1"># Colorbar is placed at Bottom Center (BC) by default if no position is given</span>
-<span class="c1"># Add quantity and unit as labels (&quot;+l&quot;) to the x and y axes</span>
-<span class="c1"># Add annotations (&quot;+a&quot;) in steps of 0.5 and ticks (&quot;+f&quot;) in steps of 0.1</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa0.5f0.1+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/roma&quot;</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Velocity&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;m/s&quot;</span><span class="p">)</span>
 
 <span class="c1"># ============</span>
 <span class="c1"># Create a colorbar showing the scientific rainbow - batlow</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/batlow&quot;</span><span class="p">,</span>
-    <span class="c1"># A horizontal colorbar positioned at map coordinates (0.3, 8.7), with a</span>
-    <span class="c1"># length of 4 cm and a width of 0.5 cm.</span>
+    <span class="c1"># A horizontal colorbar positioned at map coordinates (0.3, 8.7).</span>
     <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">((</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">8.7</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;mapcoords&quot;</span><span class="p">),</span>
     <span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
     <span class="n">orientation</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
     <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lTemperature&quot;</span><span class="p">,</span> <span class="s2">&quot;y+l°C&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Temperature&quot;</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;°C&quot;</span><span class="p">,</span>
     <span class="n">scale</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -236,17 +235,16 @@ by the desired interval. The placement of the colorbar is set by passing a
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/oleron&quot;</span><span class="p">,</span>
     <span class="c1"># Colorbar placed at Middle Right (MR) outside the plot bounding box, offset by 1 cm</span>
-    <span class="c1"># horizontally and 0 cm vertically from anchor point, with a length of 7 cm and</span>
-    <span class="c1"># width of 0.5 cm, and a rectangle for NaN values.</span>
-    <span class="c1"># Note that the label &#39;Elevation&#39; is moved to the opposite side and plotted</span>
-    <span class="c1"># vertically as a column of characters.</span>
+    <span class="c1"># horizontally and 0 cm vertically from anchor point, with a rectangle for NaN</span>
+    <span class="c1"># values. Note that the label &#39;Elevation&#39; is plotted vertically as a column of</span>
+    <span class="c1"># characters.</span>
     <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;MR&quot;</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;outside&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
     <span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
     <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
     <span class="n">nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">move_text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">],</span>
     <span class="n">label_as_column</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Elevation&quot;</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
     <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -275,7 +273,7 @@ by the desired interval. The placement of the colorbar is set by passing a
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.153 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.161 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbar-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef6bc1f26c32366408d403de81db1e34/colorbar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">colorbar.ipynb</span></code></a></p>
@@ -303,9 +301,9 @@ by the desired interval. The placement of the colorbar is set by passing a
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 28, 2026.
       </span></p>
   </div>
 

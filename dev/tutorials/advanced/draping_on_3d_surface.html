@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/draping_on_3d_surface.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=3b11e8da"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -241,12 +241,12 @@ the <code class="docutils literal notranslate"><span class="pre">perspective</sp
 <a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;SCM/batlow&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">overrule_bg</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span></a><span class="p">(</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>  <span class="c1"># Mercator projection with a width of 12 centimeters</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>  <span class="c1"># Mercator projection with a width of 12 cm</span>
     <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_3d</span></a><span class="p">,</span>
     <span class="n">grid</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grd_relief</span></a><span class="p">,</span>  <span class="c1"># Use elevation grid for z values</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drape_grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grd_age</span></a><span class="p">,</span>  <span class="c1"># Use crustal age grid for color-coding</span>
     <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use colormap created for the crustal age</span>
-    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">,</span>  <span class="c1"># Create an image plot</span>
+    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span>  <span class="c1"># Create an image plot</span>
     <span class="c1"># Use an illumination from the azimuthal directions 0° (north) and 270°</span>
     <span class="c1"># (west) with a normalization via a cumulative Laplace distribution for</span>
     <span class="c1"># the shading</span>
@@ -258,7 +258,7 @@ the <code class="docutils literal notranslate"><span class="pre">perspective</sp
 <span class="p">)</span>
 
 <span class="c1"># Add colorbar for the crustal age</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lseafloor crustal age&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lMyr&quot;</span><span class="p">],</span> <span class="n">nan</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Seafloor crustal age&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Myr&quot;</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -282,9 +282,11 @@ download in this example has 1000 x 667 pixels, i.e. an aspect ratio of 3 x 2.</
 <span class="c1"># Determine the 3-D region from the minimum and maximum values of the relief grid</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_3d</span></a> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_2d</span></a><span class="p">,</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.min.html#xarray.DataArray.min" title="xarray.DataArray.min" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-method"><span class="n">grd_relief</span><span class="o">.</span><span class="n">min</span></a><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.max.html#xarray.DataArray.max" title="xarray.DataArray.max" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-method"><span class="n">grd_relief</span><span class="o">.</span><span class="n">max</span></a><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()]</span>
 
-<span class="c1"># Download an PNG image of the flag of the EU using rasterio and load it into a</span>
-<span class="c1"># xarray.DataArray</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">url_to_image</span></a> <span class="o">=</span> <span class="s2">&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png&quot;</span>
+<span class="c1"># Load a PNG image of the EU flag using rasterio into an xarray.DataArray.</span>
+<span class="c1"># The original image is available on Wikimedia Commons at</span>
+<span class="c1"># https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png</span>
+<span class="c1"># but we use a cached version on the GMT data server.</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">url_to_image</span></a> <span class="o">=</span> <span class="s2">&quot;https://oceania.generic-mapping-tools.org/cache/euflag.png&quot;</span>
 <span class="k">with</span> <a href="https://rasterio.readthedocs.io/en/stable/api/rasterio.html#rasterio.open" title="rasterio.open" class="sphx-glr-backref-module-rasterio sphx-glr-backref-type-py-function"><span class="n">rasterio</span><span class="o">.</span><span class="n">open</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">url_to_image</span></a><span class="p">)</span> <span class="k">as</span> <a href="https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.DatasetReader" title="rasterio.io.DatasetReader" class="sphx-glr-backref-module-rasterio-io sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">:</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.DatasetReader.read" title="rasterio.io.DatasetReader.read" class="sphx-glr-backref-module-rasterio-io sphx-glr-backref-type-py-method"><span class="n">dataset</span><span class="o">.</span><span class="n">read</span></a><span class="p">()</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drape_grid</span></a> <span class="o">=</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class"><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">))</span>
@@ -299,7 +301,7 @@ grdblend [NOTICE]:   -&gt; Download 15x15 degree grid tile (earth_relief_30s_g):
 </div>
 <p>Again we create a 3-D plot with <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a> and pass an Earth relief
 grid to the <code class="docutils literal notranslate"><span class="pre">grid</span></code> parameter to create the topographic surface. But now we pass the
-PNG image which was loaded into an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to the <code class="docutils literal notranslate"><span class="pre">drape_grid</span></code>
+PNG image which was loaded into an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> to the <code class="docutils literal notranslate"><span class="pre">drape_grid</span></code>
 parameter.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
@@ -309,16 +311,16 @@ parameter.</p>
 <a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;0/51/153,255/204/0&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">])</span>
 
 <a href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span></a><span class="p">(</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>  <span class="c1"># Mercator projection with a width of 12 centimeters</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>  <span class="c1"># Mercator projection with a width of 12 cm</span>
     <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region_3d</span></a><span class="p">,</span>
     <span class="n">grid</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grd_relief</span></a><span class="p">,</span>  <span class="c1"># Use elevation grid for z values</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drape_grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">drape_grid</span></a><span class="p">,</span>  <span class="c1"># Drape image grid for the EU flag on top</span>
     <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use colormap defined for the EU flag</span>
-    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">,</span>  <span class="c1"># Create an image plot</span>
+    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span>  <span class="c1"># Create an image plot</span>
     <span class="c1"># Use an illumination from the azimuthal directions 0° (north) and 270° (west) with</span>
     <span class="c1"># a normalization via a cumulative Laplace distribution for the shading</span>
     <span class="n">shading</span><span class="o">=</span><span class="s2">&quot;+a0/270+ne0.6&quot;</span><span class="p">,</span>
-    <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mf">157.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>  <span class="c1"># Define azimuth, elevation for the 3-D plot</span>
+    <span class="n">perspective</span><span class="o">=</span><span class="p">(</span><span class="mf">157.5</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>  <span class="c1"># Define azimuth, elevation for the 3-D plot</span>
     <span class="n">zsize</span><span class="o">=</span><span class="s2">&quot;1c&quot;</span><span class="p">,</span>
     <span class="n">facade_fill</span><span class="o">=</span><span class="s2">&quot;darkgray&quot;</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -331,7 +333,7 @@ parameter.</p>
   dataset = writer(
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.160 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.070 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-draping-on-3d-surface-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d6898c911a108b9ab370974c1c772ce9/draping_on_3d_surface.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">draping_on_3d_surface.ipynb</span></code></a></p>
@@ -360,9 +362,9 @@ parameter.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 28, 2026.
       </span></p>
   </div>
 

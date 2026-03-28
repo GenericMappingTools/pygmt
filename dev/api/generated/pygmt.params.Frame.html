@@ -1,0 +1,341 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.params.Frame &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.params.Frame.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=3b11e8da"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.params.Pattern" href="pygmt.params.Pattern.html" />
+    <link rel="prev" title="pygmt.params.Box" href="pygmt.params.Box.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       dev
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.params.Axis.html">pygmt.params.Axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.params.Box.html">pygmt.params.Box</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.params.Frame</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.params.Frame"><code class="docutils literal notranslate"><span class="pre">Frame</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.params.Pattern.html">pygmt.params.Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.params.Position.html">pygmt.params.Position</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.params.Frame</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.params.Frame&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-params-frame">
+<h1>pygmt.params.Frame<a class="headerlink" href="#pygmt-params-frame" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pygmt.params.Frame">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.params.</span></span><span class="sig-name descname"><span class="pre">Frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zaxis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xaxis2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaxis2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zaxis2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/params/frame.html#Frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.params.Frame" title="Link to this definition"></a></dt>
+<dd><p>Class for setting up the frame and axes of a plot.</p>
+<p class="rubric">Examples</p>
+<p>To draw the west and south axes with both ticks and annotations, and draw the east
+and north axes with ticks but without annotations:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">Frame</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSen&quot;</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To draw the west and south axes with both ticks and annotations, and draw the east
+and north axes without ticks and annotations. For west and south axes, specify
+the same attributes for both axes using the <code class="docutils literal notranslate"><span class="pre">axis</span></code> parameter, with intervals of 4
+for annotations, 2 for ticks, and 1 for gridlines.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame</span><span class="o">=</span><span class="n">Frame</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSrt&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">Axis</span><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To specify the attributes for x- and y-axes separately:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame</span><span class="o">=</span><span class="n">Frame</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSrt&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">xaxis</span><span class="o">=</span><span class="n">Axis</span><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;X Label&quot;</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">yaxis</span><span class="o">=</span><span class="n">Axis</span><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Y Label&quot;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Frame.axes">
+<span class="sig-name descname"><span class="pre">axes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Frame.axes" title="Link to this definition"></a></dt>
+<dd><p>Controls which axes are drawn and whether they are annotated, using a combination
+of the codes below. Axis omitted from the set will not be drawn.</p>
+<p>For a 2-D plot, there are four axes: west, east, south, and north (or left,
+right, bottom, top if you prefer); For a 3-D plot, there is an extra Z-axis.
+They can be denoted by the following codes:</p>
+<ul class="simple">
+<li><p><strong>W</strong> (west), <strong>E</strong> (east), <strong>S</strong> (south), <strong>N</strong> (north), <strong>Z</strong>: Draw axes with
+both ticks and annotations.</p></li>
+<li><p><strong>w</strong> (west), <strong>e</strong> (east), <strong>s</strong> (south), <strong>n</strong> (north), <strong>z</strong>: Draw axes with
+ticks but without annotations.</p></li>
+<li><p><strong>l</strong> (left), <strong>r</strong> (right), <strong>b</strong> (bottom), <strong>t</strong> (top), <strong>u</strong> (up): Draw axes
+without ticks or annotations.</p></li>
+</ul>
+<p>For examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;WS&quot;</span></code>: Draw the west and south axes with both ticks and annotations, but do
+not draw the east and north axes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;WSen&quot;</span></code>: Draw the west and south axes with both ticks and annotations, draw
+the east and north axes with ticks but without annotations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;WSrt&quot;</span></code>: Draw the west and south axes with both ticks and annotations, draw
+the east and north axes without ticks or annotations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;WSrtZ&quot;</span></code>: Draw the west and south axes with both ticks and annotations, draw
+the east and north axes without ticks or annotations, and draw the z-axis with
+both ticks and annotations.</p></li>
+</ul>
+<p>For a 3-D plot, if the z-axis code is specified, a single vertical axis will be
+drawn at the most suitable corner by default. Append any combination of the
+corner IDs from 1 to 4 to draw one or more vertical axes at the corresponding
+corners (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;WSrtZ1234&quot;</span></code>):</p>
+<ul class="simple">
+<li><p><strong>1</strong>: the south-western (lower-left) corner</p></li>
+<li><p><strong>2</strong>: the south-eastern (lower-right) corner</p></li>
+<li><p><strong>3</strong>: the north-eastern (upper-right) corner</p></li>
+<li><p><strong>4</strong>: the north-western (upper-left) corner</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Frame.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Frame.title" title="Link to this definition"></a></dt>
+<dd><p>The title string centered above the plot frame [Default is no title].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygmt.params.Frame.axis">
+<span class="sig-name descname"><span class="pre">axis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.frame.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> <span class="pre">|</span> <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pygmt.params.Frame.axis" title="Link to this definition"></a></dt>
+<dd><p>Specify the attributes for axes by an <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> object.</p>
+<p>The attributes for each axis can be specified in two ways: (1) specifying the
+same attributes for all axes using the <code class="docutils literal notranslate"><span class="pre">axis</span></code> parameter; (2) specifying the
+attributes for each axis separately using the <code class="docutils literal notranslate"><span class="pre">xaxis</span></code>, <code class="docutils literal notranslate"><span class="pre">yaxis</span></code>, <code class="docutils literal notranslate"><span class="pre">zaxis</span></code>
+parameter for the x-, y, and z-axes, respectively.</p>
+<p>GMT uses the notion of primary (the default) and secondary axes, while secondary
+axes are optional and mostly used for time axes annotations. To specify the
+attributes for the secondary axes, use the <code class="docutils literal notranslate"><span class="pre">xaxis2</span></code>, <code class="docutils literal notranslate"><span class="pre">yaxis2</span></code>, and <code class="docutils literal notranslate"><span class="pre">zaxis2</span></code>
+parameters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div style='clear:both'></div></section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.params.Box.html" class="btn btn-neutral float-left" title="pygmt.params.Box" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.params.Pattern.html" class="btn btn-neutral float-right" title="pygmt.params.Pattern" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Mar 28, 2026.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

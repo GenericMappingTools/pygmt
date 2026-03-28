@@ -31,7 +31,7 @@ parameters. Additionally, pass suitable columns of the :class:`geopandas.GeoData
 to the ``x``,  ``y``, and ``text`` parameters of the :meth:`pygmt.Figure.text` method
 to label specific features.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-51
+.. GENERATED FROM PYTHON SOURCE LINES 17-53
 
 
 
@@ -46,13 +46,15 @@ to label specific features.
 
 .. code-block:: Python
 
-    import geopandas as gpd
+    import geopandas
     import pygmt
 
     # Read a sample dataset provided by Natural Earth. The dataset contains cities stored
     # as Point geometry type. In this example we focus on Europe.
     provider = "https://naciscdn.org/naturalearth"
-    cities = gpd.read_file(f"{provider}/50m/cultural/ne_50m_populated_places_simple.zip")
+    cities = geopandas.read_file(
+        f"{provider}/50m/cultural/ne_50m_populated_places_simple.zip"
+    )
     cities = cities[cities["name"] != "Vatican City"].copy()  # No overlap with label Rome
     # Create two subsets for small and large cities
     cities_small = cities[cities["worldcity"] != 1].copy()
@@ -84,7 +86,7 @@ to label specific features.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.666 seconds)
+   **Total running time of the script:** (0 minutes 0.779 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_cities.py:

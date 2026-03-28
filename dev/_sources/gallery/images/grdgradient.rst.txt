@@ -29,7 +29,7 @@ the respective gradient and returns it as an :class:`xarray.DataArray` object.
 We will use the ``radiance`` parameter in order to set the illumination source
 direction and altitude.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-62
+.. GENERATED FROM PYTHON SOURCE LINES 15-65
 
 
 
@@ -74,7 +74,10 @@ direction and altitude.
         position=Position("ML", cstype="outside", offset=(1.4, 0)),
         length=7,
         width=0.5,
-        frame=["xa1000f500+lElevation", "y+lm"],
+        annot=1000,
+        tick=500,
+        label="Elevation",
+        unit="m",
     )
 
     # --------------- plotting the hillshade map -----------
@@ -95,7 +98,7 @@ direction and altitude.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.474 seconds)
+   **Total running time of the script:** (0 minutes 0.454 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient.py:

@@ -43,7 +43,8 @@ fig.basemap(
 )
 fig.grdimage(grid=grid)
 fig.colorbar(
-    frame=["x+lElevation", "y+lm"],
+    label="Elevation",
+    unit="m",
     position=Position("MR", cstype="outside", offset=(0.5, 0)),
     length=8,
 )

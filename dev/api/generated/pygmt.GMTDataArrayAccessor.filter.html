@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.GMTDataArrayAccessor.filter.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=3b11e8da"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -102,7 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.GMTBackendEntrypoint.html">pygmt.GMTBackendEntrypoint</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="pygmt.GMTDataArrayAccessor.html">pygmt.GMTDataArrayAccessor</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor"><code class="docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a></li>
@@ -199,7 +199,7 @@
 <h1>pygmt.GMTDataArrayAccessor.filter<a class="headerlink" href="#pygmt-gmtdataarrayaccessor-filter" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.GMTDataArrayAccessor.filter">
-<span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toggle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.filter" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">GMTDataArrayAccessor.</span></span><span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outgrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highpass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toggle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.GMTDataArrayAccessor.filter" title="Link to this definition"></a></dt>
 <dd><p>Filter a grid in the space (or time) domain.</p>
 <p>Filter a grid file in the space (or time) domain using one of the selected
 convolution or non-convolution isotropic or rectangular filters and compute
@@ -213,12 +213,13 @@ may be less frequently sampled than the input.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/grdfilter.html">https://docs.generic-mapping-tools.org/6.6/grdfilter.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
-<li><p>D = distance</p></li>
-<li><p>F = filter</p></li>
 <li><p>f = coltypes</p></li>
-<li><p>I = spacing</p></li>
+<li><p>D = distance</p></li>
+<li><p>F = filter, width, <strong>+h</strong>: highpass</p></li>
+<li><p>G = outgrid</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>I = spacing</p></li>
 <li><p>N = nans</p></li>
 <li><p>R = region</p></li>
 <li><p>T = toggle</p></li>
@@ -232,48 +233,97 @@ may be less frequently sampled than the input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
 <li><p><strong>outgrid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the output netCDF grid file. If not specified, will return an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object. For writing a specific grid file format or
 applying basic data operations to the output grid, see
 <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full</a> for the available modifiers.</p></li>
-<li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p><strong>b</strong>|<strong>c</strong>|<strong>g</strong>|<strong>o</strong>|<strong>m</strong>|<strong>p</strong>|<strong>h</strong><em>width</em>[/<em>width2</em>][<em>modifiers</em>].
-Name of the filter type you wish to apply, followed by the <em>width</em>:</p>
+<li><p><strong>filter</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'boxcar'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cosarch'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gaussian'</span></code>, <code class="docutils literal notranslate"><span class="pre">'minall'</span></code>, <code class="docutils literal notranslate"><span class="pre">'minpos'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maxall'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maxneg'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The filter type. Choose among convolution and non-convolution filters.</p>
+<p>Convolution filters include:</p>
 <ul>
-<li><p><strong>b</strong>: Box Car</p></li>
-<li><p><strong>c</strong>: Cosine Arch</p></li>
-<li><p><strong>g</strong>: Gaussian</p></li>
-<li><p><strong>o</strong>: Operator</p></li>
-<li><p><strong>m</strong>: Median</p></li>
-<li><p><strong>p</strong>: Maximum Likelihood probability</p></li>
-<li><p><strong>h</strong>: Histogram</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;boxcar&quot;</span></code>: All weights are equal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;cosarch&quot;</span></code>: Weights follow a cosine arch curve.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gaussian&quot;</span></code>: Weights are given by the Gaussian function, where filter width
+is 6 times the conventional Gaussian sigma.</p></li>
 </ul>
+<p>Non-convolution filters include:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;minall&quot;</span></code>: Return minimum of all values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;minpos&quot;</span></code>: Return minimum of all positive values only.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;maxall&quot;</span></code>: Return maximum of all values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;maxneg&quot;</span></code>: Return maximum of all negative values only.</p></li>
+</ul>
+<p><strong>Note</strong>: There are still a few other filter types available in GMT (e.g.,
+histogram and mode filters), but they are not implemented in PyGMT yet. As a
+workaround, pass the raw GMT command string to this parameter to use these other
+filter types. Refer to <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/grdfilter.html#f">https://docs.generic-mapping-tools.org/6.6/grdfilter.html#f</a> for the full syntax of this
+parameter.</p>
 </p></li>
-<li><p><strong>distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>State how the grid (x,y) relates to the filter <em>width</em>:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;p&quot;</span></code>: grid (px,py) with <em>width</em> an odd number of pixels,
-Cartesian distances.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;0&quot;</span></code>: grid (x,y) same units as <em>width</em>, Cartesian distances.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code>: grid (x,y) in degrees, <em>width</em> in kilometers, Cartesian
-distances.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;2&quot;</span></code>: grid (x,y) in degrees, <em>width</em> in km, dx scaled by
-cos(middle y), Cartesian distances.</p></li>
-</ul>
-<p>The above options are fastest because they allow weight matrix to be
-computed only once. The next three options are slower because they
-recompute weights for each latitude.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;3&quot;</span></code>: grid (x,y) in degrees, <em>width</em> in km, dx scaled by cos(y),
-Cartesian distance calculation.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;4&quot;</span></code>: grid (x,y) in degrees, <em>width</em> in km, Spherical distance
-calculation.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;5&quot;</span></code>: grid (x,y) in Mercator <code class="docutils literal notranslate"><span class="pre">projection=&quot;m1&quot;</span></code> img units,
-<em>width</em> in km, Spherical distance calculation.</p></li>
-</ul>
+<li><p><strong>width</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The full diameter width of the filter. It can be a single value for an isotropic
+filter, or a pair of values for a rectangular filter (width in x- and
+y-directions, requiring <code class="docutils literal notranslate"><span class="pre">distance</span></code> be either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;cartesian&quot;</span></code>).</p></li>
+<li><p><strong>highpass</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – By default, the filter is a low-pass filter. If True, then the filter is a
+high-pass filter. [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
+<li><p><strong>distance</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'pixel'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cartesian'</span></code>, <code class="docutils literal notranslate"><span class="pre">'geo_cartesian'</span></code>, <code class="docutils literal notranslate"><span class="pre">'geo_flatearth1'</span></code>, <code class="docutils literal notranslate"><span class="pre">'geo_flatearth2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'geo_spherical'</span></code>, <code class="docutils literal notranslate"><span class="pre">'geo_mercator'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>Determine how grid (<em>x, y</em>) relates to filter <em>width</em> and how distances are
+calculated. Valid values are list below. The first four options are fastest
+because they allow weight matrix to be computed only once. The last three
+options are slower because they recompute weights for each latitude.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16.0%" />
+<col style="width: 32.0%" />
+<col style="width: 20.0%" />
+<col style="width: 32.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Value</p></th>
+<th class="head"><p>Grid (x,y)</p></th>
+<th class="head"><p>Width</p></th>
+<th class="head"><p>Distance Calculation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code></p></td>
+<td><p>Pixels (px, py)</p></td>
+<td><p>Odd number of pixels</p></td>
+<td><p>Cartesian</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;cartesian&quot;</span></code></p></td>
+<td><p>Same units as <em>width</em></p></td>
+<td><p>Any</p></td>
+<td><p>Cartesian</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;geo_cartesian&quot;</span></code></p></td>
+<td><p>Degrees</p></td>
+<td><p>km</p></td>
+<td><p>Cartesian</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;geo_flatearth1&quot;</span></code></p></td>
+<td><p>Degrees</p></td>
+<td><p>km</p></td>
+<td><p>Cartesian, dx scaled by cos(middle y)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;geo_flatearth2&quot;</span></code></p></td>
+<td><p>Degrees</p></td>
+<td><p>km</p></td>
+<td><p>Cartesian, dx scaled by cos(y) per row</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;geo_spherical&quot;</span></code></p></td>
+<td><p>Degrees</p></td>
+<td><p>km</p></td>
+<td><p>Spherical (great circle)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&quot;geo_mercator&quot;</span></code></p></td>
+<td><p>Mercator <strong>-Jm1</strong> img units</p></td>
+<td><p>km</p></td>
+<td><p>Spherical</p></td>
+</tr>
+</tbody>
+</table>
 </p></li>
 <li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <p><em>x_inc</em>[<strong>+e</strong>|<strong>n</strong>][/<em>y_inc</em>[<strong>+e</strong>|<strong>n</strong>]].
 <em>x_inc</em> [and optionally <em>y_inc</em>] is the grid spacing.</p>
@@ -334,12 +384,12 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><p><em>ret</em> – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in the file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -349,12 +399,13 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply a median filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply a gaussian filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># and return a filtered grid (saved as netCDF file).</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pygmt</span><span class="o">.</span><span class="n">grdfilter</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">grid</span><span class="o">=</span><span class="s2">&quot;@earth_relief_30m_g&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;m600&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">distance</span><span class="o">=</span><span class="s2">&quot;4&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">distance</span><span class="o">=</span><span class="s2">&quot;geo_spherical&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
 <span class="gp">... </span>    <span class="n">spacing</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">outgrid</span><span class="o">=</span><span class="s2">&quot;filtered_pacific.nc&quot;</span><span class="p">,</span>
@@ -363,7 +414,9 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply a Gaussian smoothing filter of 600 km to the input DataArray and return</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># a filtered DataArray with the smoothed grid.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">smooth_field</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdfilter</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;g600&quot;</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s2">&quot;4&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smoothed</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdfilter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s2">&quot;geo_spherical&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -383,9 +436,9 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/118897950">11889795</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Mar 28, 2026.
       </span></p>
   </div>
 
