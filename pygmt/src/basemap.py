@@ -44,15 +44,17 @@ def basemap(  # noqa: PLR0913
 
     .. note::
 
-        Parameters ``map_scale``, ``rose``, ``compass``, and ``box`` are deprecated
-        since v0.19.0 in favor of the dedicated higher-level methods:
+        Parameters ``map_scale``, ``rose``, and ``compass`` are deprecated since
+        v0.19.0 in favor of the dedicated higher-level methods:
 
         - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
         - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.
         - :meth:`pygmt.Figure.magnetic_rose`: Add a magnetic rose on the plot.
 
         These methods provide more comprehensive and flexible APIs for their respective
-        plot elements.
+        plot elements. The ``box`` parameter in :meth:`pygmt.Figure.basemap` is retained
+        only as a compatibility parameter for these legacy parameters. For new code,
+        prefer the ``box`` parameter on the dedicated methods instead.
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
@@ -112,7 +114,10 @@ def basemap(  # noqa: PLR0913
             Use the ``box`` parameter in :meth:`pygmt.Figure.scalebar`,
             :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`
             instead. This parameter is maintained for backward compatibility and accepts
-            raw GMT CLI strings for the ``-F`` option.
+            either a :class:`pygmt.params.Box` object, a raw GMT CLI string, or ``True``
+            for the ``-F`` option. On :meth:`pygmt.Figure.basemap`, it only applies when
+            used together with the legacy ``map_scale``, ``rose``, or ``compass``
+            parameters.
     $verbose
     $panel
     $coltypes
