@@ -4,6 +4,8 @@ Base class for common parameters shared in PyGMT.
 
 from abc import ABC, abstractmethod
 
+from pygmt.helpers import is_given
+
 
 class BaseParam(ABC):
     """
@@ -89,9 +91,5 @@ class BaseParam(ABC):
         """
         String representation of the object.
         """
-        params = ", ".join(
-            f"{k}={v!r}"
-            for k, v in vars(self).items()
-            if v is not None and v is not False
-        )
+        params = ", ".join(f"{k}={v!r}" for k, v in vars(self).items() if is_given(v))
         return f"{self.__class__.__name__}({params})"
