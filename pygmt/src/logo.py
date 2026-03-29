@@ -101,7 +101,7 @@ def logo(  # noqa: PLR0913
     --------
     >>> import pygmt
     >>> fig = pygmt.Figure()
-    >>> fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
     >>> fig.logo(position="TR", width="3c")
     >>> fig.show()
     """
