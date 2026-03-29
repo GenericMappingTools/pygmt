@@ -117,7 +117,7 @@ Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/src/fig/pygmt-coastline.png)
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/src/basics/fig/pygmt-coastline.png)
 +++
 Takuto Maeda
 ::::
