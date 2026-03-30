@@ -109,7 +109,6 @@ fig.plot3d(
     fill="gold",
     pen="0.8p,black",
     perspective=True,
-    zsize="1.5c",  # Use the same zsize as grdview
     no_clip=True,
 )
 
