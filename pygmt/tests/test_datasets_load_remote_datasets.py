@@ -5,7 +5,7 @@ Test the _load_remote_dataset function.
 import pytest
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.enums import GridRegistration
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None):
@@ -61,7 +61,7 @@ def test_load_remote_dataset_tiled_grid_without_region():
     Make sure _load_remote_dataset fails when trying to load a tiled grid without
     specifying a region.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         load_remote_dataset_wrapper(resolution="01m")
 
 

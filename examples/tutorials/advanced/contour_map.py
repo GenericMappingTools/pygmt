@@ -84,9 +84,9 @@ fig.show()
 # :meth:`pygmt.Figure.colorbar` method.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, cmap="haxby", projection="M10c", frame=True)
+fig.grdimage(grid=grid, cmap="gmt/haxby", projection="M10c", frame=True)
 fig.grdcontour(grid=grid, annotation=1000, levels=250, limit=[-4000, -2000])
-fig.colorbar(frame=["x+lelevation", "y+lm"])
+fig.colorbar(label="Elevation", unit="m")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 5

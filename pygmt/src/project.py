@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -21,7 +21,6 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    A="azimuth",
     F="convention",
     G="generate",
     N="flat_earth",
@@ -37,6 +36,7 @@ def project(  # noqa: PLR0913
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    azimuth: float | None = None,
     center: Sequence[float | str] | None = None,
     endpoint: Sequence[float | str] | None = None,
     width: Sequence[float | str] | None = None,
@@ -86,9 +86,9 @@ def project(  # noqa: PLR0913
 
     Data can be selectively windowed by using the ``length`` and ``width``
     parameters. If ``width`` is used, the projection width is set to use only
-    data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
+    data with :math:`w_{min} < q < w_{max}`. If ``length`` is set, then
     the length is set to use only those data with
-    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` parameter
+    :math:`l_{min} < p < l_{max}`. If the ``endpoint`` parameter
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
 
@@ -98,10 +98,10 @@ def project(  # noqa: PLR0913
     x-axis. azimuth = 90 - theta.
 
     No assumptions are made regarding the units for
-    :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
+    :math:`x, y, r, s, p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`.
     If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
     be in degrees and
-    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
@@ -110,7 +110,8 @@ def project(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`project.html`.
 
-    {aliases}
+    $aliases
+       - A = azimuth
        - C = center
        - E = endpoint
        - L = length
@@ -123,22 +124,21 @@ def project(  # noqa: PLR0913
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
-
+        $table_classes.
+    $output_type
+    $outfile
     center
         Set the origin of the projection, in the form of (*cx*, *cy*), in Definitions 1
         or 2. If Definition 3 is used, then (*cx*, *cy*) are the coordinates of a point
         through which the oblique zero meridian (:math:`p = 0`) should pass.
         (*cx*, *cy*) is not required to be 90 degrees from the pole set by ``pole``.
-    azimuth : float or str
-        Define the azimuth of the projection (Definition 1).
-
+    azimuth
+        Set the azimuth of the projection (Definition 1). The azimuth is clockwise from
+        North (the y-axis) regardless of whether spherical or Cartesian coordinate
+        transformation is applied.
     endpoint
         (*bx*, *by*).
         Set the end point of the projection path (Definition 2).
-
     convention : str
         Specify the desired output using any combination of **xyzpqrs**, in
         any order [Default is **xypqrsz**]. Do not space between the letters.
@@ -159,7 +159,7 @@ def project(  # noqa: PLR0913
         through *cx*/*cy*, append **+c** to compute the required colatitude.
         Use ``center`` and ``endpoint`` to generate a circle that goes
         through the center and end point. Note, in this case the center and
-        end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
+        end point cannot be farther apart than :math:`2|\mbox{colat}|`.
         Finally, if you append **+h** then we will report the position of
         the pole as part of the segment header [Default is no header].
         **Note**: No input is read and the value of ``data``, ``x``, ``y``,
@@ -167,7 +167,7 @@ def project(  # noqa: PLR0913
     length
         (*lmin*, *lmax*) or ``"limit"``.
         Project only those data whose *p* coordinate is within
-        :math:`l_{{min}} < p < l_{{max}}`. If ``endpoint`` has been set, then you may
+        :math:`l_{min} < p < l_{max}`. If ``endpoint`` has been set, then you may
         alternatively set it to ``"limit"`` to stay within the distance from ``center``
         to ``endpoint``.
     flat_earth : bool
@@ -176,7 +176,7 @@ def project(  # noqa: PLR0913
 
     unit : bool
         Set units for :math:`x, y, r, s` to degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
+        :math:`p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
@@ -188,7 +188,7 @@ def project(  # noqa: PLR0913
     width
         (*w_min*, *w_max*).
         Specify width controls for the projected points. Project only those points whose
-        q coordinate is within :math:`w_{{min}} < q < w_{{max}}`.
+        q coordinate is within :math:`w_{min} < q < w_{max}`.
 
     ellipse : str
         *major*/*minor*/*azimuth* [**+e**\|\ **n**].
@@ -197,7 +197,7 @@ def project(  # noqa: PLR0913
         with *major* and *minor* axes given in km (unless ``flat_earth`` is
         given for a Cartesian ellipse) and the *azimuth* of the major axis in
         degrees. Append **+e** to adjust the increment set via ``generate`` so
-        that the the ellipse has equal distance increments [Default uses the
+        that the ellipse has equal distance increments [Default uses the
         given increment and closes the ellipse].  Instead, append **+n** to set
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
@@ -207,8 +207,8 @@ def project(  # noqa: PLR0913
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
         *azimuth*.
-    {verbose}
-    {coltypes}
+    $verbose
+    $coltypes
 
     Returns
     -------
@@ -221,14 +221,22 @@ def project(  # noqa: PLR0913
           (depends on ``output_type``)
     """
     if kwargs.get("C", center) is None:
-        msg = "Parameter 'center' must be specified."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="center")
     if kwargs.get("G") is None and data is None:
-        msg = "The 'data' parameter must be specified unless 'generate' is used."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="data", reason="Required unless 'generate' is set."
+        )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
-        msg = "The 'convention' parameter is not allowed with 'generate'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["convention", "generate"])
+
+    # Input validation for only one geometry parameter
+    geometry_params = [
+        kwargs.get("A", azimuth) is not None,
+        kwargs.get("E", endpoint) is not None,
+        kwargs.get("T", pole) is not None,
+    ]
+    if sum(geometry_params) > 1:
+        raise GMTParameterError(at_most_one=["azimuth", "endpoint", "pole"])
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -237,6 +245,7 @@ def project(  # noqa: PLR0913
         column_names = list("rsp")
 
     aliasdict = AliasSystem(
+        A=Alias(azimuth, name="azimuth"),
         C=Alias(center, name="center", sep="/", size=2),
         E=Alias(endpoint, name="endpoint", sep="/", size=2),
         L=Alias(length, name="length", sep="/", size=2, mapping={"limit": "w"}),

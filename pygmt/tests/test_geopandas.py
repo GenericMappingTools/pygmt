@@ -10,7 +10,7 @@ from pygmt import Figure, info, makecpt, which
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import skip_if_no
 
-gpd = pytest.importorskip("geopandas")
+geopandas = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
 
 
@@ -36,7 +36,7 @@ def fixture_gdf():
         }
     )
     # Multipolygon first so the OGR_GMT file has @GMULTIPOLYGON in the header
-    gdf = gpd.GeoDataFrame(
+    gdf = geopandas.GeoDataFrame(
         index=["multipolygon", "polygon", "linestring"],
         geometry=[multipolygon, polygon, linestring],
     )
@@ -52,9 +52,9 @@ def fixture_gdf_ridge():
     # Read shapefile into a geopandas.GeoDataFrame
     shapefile = which(
         fname=["@RidgeTest.shp", "@RidgeTest.shx", "@RidgeTest.dbf", "@RidgeTest.prj"],
-        download="c",
+        download="cache",
     )
-    gdf = gpd.read_file(shapefile[0])
+    gdf = geopandas.read_file(shapefile[0])
     # Reproject the geometry
     gdf["geometry"] = (
         gdf.to_crs(crs="EPSG:3857")
@@ -98,7 +98,7 @@ def test_geopandas_plot_default_square():
     2d.
     """
     point = shapely.geometry.Point(1, 2)
-    gdf = gpd.GeoDataFrame(geometry=[point])
+    gdf = geopandas.GeoDataFrame(geometry=[point])
     fig = Figure()
     fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True)
     return fig
@@ -111,7 +111,7 @@ def test_geopandas_plot3d_default_cube():
     geometry in 3d.
     """
     multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
-    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    gdf = geopandas.GeoDataFrame(geometry=[multipoint])
     fig = Figure()
     fig.plot3d(
         data=gdf,
@@ -131,7 +131,7 @@ def test_geopandas_plot_non_default_circle():
     2d.
     """
     point = shapely.geometry.Point(1, 2)
-    gdf = gpd.GeoDataFrame(geometry=[point])
+    gdf = geopandas.GeoDataFrame(geometry=[point])
     fig = Figure()
     fig.plot(data=gdf, region=[0, 2, 1, 3], projection="X2c", frame=True, style="c0.2c")
     return fig
@@ -144,7 +144,7 @@ def test_geopandas_plot3d_non_default_circle():
     in 3d.
     """
     multipoint = shapely.geometry.MultiPoint([(0.5, 0.5, 0.5), (1.5, 1.5, 1.5)])
-    gdf = gpd.GeoDataFrame(geometry=[multipoint])
+    gdf = geopandas.GeoDataFrame(geometry=[multipoint])
     fig = Figure()
     fig.plot3d(
         data=gdf,
@@ -200,7 +200,7 @@ def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
-    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
+    makecpt(cmap="SCM/lisbon", series=[10, 60, 10], continuous=True)
     fig.plot(
         data=gdf,
         frame=True,
@@ -231,7 +231,9 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
     makecpt(
-        cmap="lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
+        cmap="SCM/lisbon",
+        series=[10 * factor, 60 * factor, 10 * factor],
+        continuous=True,
     )
     fig.plot(
         data=gdf,
@@ -242,7 +244,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
         aspatial="Z=NPOINTS",
     )
     # Generate a CPT for 10-60 range and plot to reuse the baseline image
-    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
+    makecpt(cmap="SCM/lisbon", series=[10, 60, 10], continuous=True)
     fig.colorbar()
     return fig
 
@@ -260,3 +262,31 @@ def test_geopandas_data_kind_shapely():
     """
     polygon = shapely.geometry.Polygon([(20, 10), (23, 10), (23, 14), (20, 14)])
     assert data_kind(data=polygon) == "geojson"
+
+
+def test_geopandas_nonascii():
+    """
+    Test geopandas.GeoDataFrame with non-ASCII characters.
+
+    The tempfile_from_geojson function writes the GeoDataFrame to a temporary OGR_GMT
+    file, which doesn't work properly if UTF-8 is not the default encoding (e.g.,
+    Windows).
+    """
+    geom = shapely.geometry.Polygon(
+        [
+            (0, 1),
+            (0, 2),
+            (1, 1),
+            (1, 3),
+        ]
+    )
+    gdf = geopandas.GeoDataFrame(
+        {
+            "name_ascii": ["Fiji"],
+            "name_utf8": ["فيجي"],  # Arabic
+        },
+        geometry=[geom],
+        crs="EPSG:4326",
+    )
+    output = info(gdf, per_column=True)
+    npt.assert_allclose(actual=output, desired=[0.0, 1.0, 1.0, 3.0])

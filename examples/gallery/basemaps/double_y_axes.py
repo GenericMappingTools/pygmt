@@ -20,6 +20,7 @@ x-axis limits, but different y-axis limits.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Position
 
 # Generate two sample Y-data from one common X-data
 x = np.linspace(1.0, 9.0, num=9)
@@ -63,8 +64,7 @@ fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2-data
 fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
-# Create a legend in the Top Left (TL) corner of the plot with an
-# offset of 0.1 centimeters
-fig.legend(position="jTL+o0.1c", box=True)
+# Create a legend in the Top Left (TL) corner of the plot with a 0.1-cm offset.
+fig.legend(position=Position("TL", offset=0.1), box=True)
 
 fig.show()

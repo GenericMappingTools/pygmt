@@ -3,10 +3,10 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
-    - python>=3.11
+    - python>=3.12
     # Required dependencies
     - gmt=6.6.0
-    - ghostscript=10.06.0
+    - ghostscript=10.07.0
     - numpy>=2.0
     - pandas>=2.2
     - xarray>=2024.5
@@ -26,7 +26,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - prek
-    - ruff>=0.12.0
+    - ruff>=0.15.5
     # Dev dependencies (unit testing)
     - matplotlib-base
     - pytest>=6.0
@@ -35,7 +35,6 @@ dependencies:
     - pytest-mpl
     - netCDF4
     # Dev dependencies (building documentation)
-    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2

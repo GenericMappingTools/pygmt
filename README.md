@@ -137,7 +137,7 @@ Feel free to cite our work in your research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2025_17156962,
+  pygmt_2026_18080259,
   author       = {Tian, Dongdong and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
@@ -154,15 +154,16 @@ Feel free to cite our work in your research using the following BibTeX:
                   Anant, Abhishek and
                   Ziebarth, Malte and
                   Quinn, Jamie and
+                  He, Xingchen and
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = oct,
-  year         = 2025,
+  month        = jan,
+  year         = 2026,
   publisher    = {Zenodo},
-  version      = {0.17.0},
-  doi          = {10.5281/zenodo.17156962},
-  url          = {https://doi.org/10.5281/zenodo.17156962}
+  version      = {0.18.0},
+  doi          = {10.5281/zenodo.18080259},
+  url          = {https://doi.org/10.5281/zenodo.18080259}
 }
 ```
 
@@ -182,7 +183,7 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 
 The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403) and
-[EAR-1948603](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+[EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
 
 ## Related projects
 

@@ -31,6 +31,7 @@ mamba install -c conda-forge gmt=X.Y.Z
 - [ ] Run `grep -r "# TODO(GMT.*)" --include="*.py" .` to find TODO items related to GMT
   - [ ] Remove related workarounds/patches
   - [ ] Fix tests with pytest `xfail`/`skipif` markers that now pass
+- [ ] Update URLs to manually inserted images of the GMT documentation
 - [ ] Update this checklist if necessary
 
 **To-Do for bumping the minimum required GMT version**:

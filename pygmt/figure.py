@@ -232,7 +232,7 @@ class Figure:
             raise GMTValueError(
                 transparent,
                 description="value for parameter 'transparent'",
-                reason=f"Transparency unavailable for '{ext}', only for png and kml.",
+                reason=f"Transparency unavailable for {ext!r}, only for png and kml.",
             )
         if anti_alias:
             kwargs["Qt"] = 2
@@ -410,9 +410,11 @@ class Figure:
 
     from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
         basemap,
+        choropleth,
         coast,
         colorbar,
         contour,
+        directional_rose,
         grdcontour,
         grdimage,
         grdview,
@@ -422,11 +424,13 @@ class Figure:
         inset,
         legend,
         logo,
+        magnetic_rose,
         meca,
         plot,
         plot3d,
         psconvert,
         rose,
+        scalebar,
         set_panel,
         shift_origin,
         solar,

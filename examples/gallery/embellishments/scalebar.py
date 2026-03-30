@@ -1,48 +1,14 @@
-r"""
+"""
 Scale bar
 =========
 
-The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
-:meth:`pygmt.Figure.coast` methods is used to add a scale bar to a map.
-This example shows how such a scale bar can be customized:
-
- - position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the position
-   of the reference point. Choose from
-
-   - **g**: Give map coordinates as *longitude*\/\ *latitude*.
-   - **j**\|\ **J**: Specify a
-     :doc:`2-character justification code </techref/justification_codes>`.
-     Lower / uppercase **j** / **J** mean inside / outside of the map
-     bounding box.
-   - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
-   - **x**: Give plot coordinates as *x*\/\ *y*.
-
- - length: **+w**. Give a distance value, and, optionally a distance unit.
-   Choose from **e** (meters), **f** (feet), **k** (kilometers) [Default],
-   **M** (statute miles), **n** (nautical miles), or **u** (US survey feet).
- - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
-   applies. If **+c** is not given the reference point is used. If only
-   **+c** is appended the middle of the map is used. Note that *slon* is only
-   optional for projections with constant scale along parallels, e.g.,
-   Mercator projection.
- - justify: **+j**. Set the anchor point. Specify a
-   :doc:`2-character justification code </techref/justification_codes>`.
- - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
-   common shift or individual shifts in x- (longitude) and y- (latitude)
-   directions.
- - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
- - fancy style: **+f**. Get a scale bar that looks like train tracks.
- - unit: **+u**. Add the distance unit given via **+w** to the single
-   distance values.
- - label: **+l**. Add the distance unit given via **+w** as label. Append
-   text to get a customized label instead.
- - alignment: **+a**. Set the label alignment. Choose from **t**\(op)
-   [Default], **b**\(ottom), **l**\(eft), or **r**\(ight).
+The :meth:`pygmt.Figure.scalebar` method can be used to add a scale bar to a map. This
+example shows how such a scale bar can be customized.
 """
 
 # %%
 import pygmt
-from pygmt.params import Box
+from pygmt.params import Box, Position
 
 # Create a new Figure instance
 fig = pygmt.Figure()
@@ -50,60 +16,69 @@ fig = pygmt.Figure()
 # Mercator projection with 10 centimeters width
 fig.basemap(region=[-45, -25, -15, 0], projection="M0/0/10c", frame=["WSne", "af"])
 
-# -----------------------------------------------------------------------------
-# Top Left: Add a plain scale bar
-# It is placed based on geographic coordinates (g) 42° West and 1° South,
-# applies at the reference point (+c is not given), and represents a
-# length (+w) of 500 kilometers
-fig.basemap(map_scale="g-42/-1+w500k")
+# --- Top Left: Add a plain scale bar ---
+# It is placed based on geographic coordinates 42° West and 1° South, applies at the
+# reference point by default, and represents a length of 500 kilometers.
+fig.scalebar(length="500k", position=Position((-42, -1), cstype="mapcoords"))
 
-# -----------------------------------------------------------------------------
-# Top Right: Add a fancy scale bar
-# It is placed based on normalized bounding box coordinates (n)
-# Use a fancy style (+f) to get a scale bar that looks like train tracks
-# Add the distance unit (+u) to the single distance values
-fig.basemap(map_scale="n0.8/0.95+w500k+f+u")
+# --- Top Right: Add a fancy scale bar ---
+# It is placed based on normalized bounding box coordinates. Use a fancy style to get a
+# scale bar that looks like train tracks. Add the distance unit to the single distance
+# values.
+fig.scalebar(
+    position=Position((0.8, 0.95), cstype="boxcoords"),
+    length="500k",
+    fancy=True,
+    unit=True,
+)
 
-# -----------------------------------------------------------------------------
-# Bottom Left: Add a thick scale bar
-# Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
-# only to the code within the "with" statement)
-# It applies (+c) at the middle of the map (no location is appended to +c)
-# Without appending text, +l adds the distance unit as label
-with pygmt.config(MAP_SCALE_HEIGHT="10p"):
-    fig.basemap(map_scale="n0.2/0.15+c+w500k+f+l")
+# --- Bottom Left: Add a thick scale bar ---
+# It applies at the middle of the map (scale_loc is set to True). Use the height
+# parameter to adjust the thickness of the scale bar Without providing text, the label
+# parameter adds the distance unit as label.
+fig.scalebar(
+    position=Position((0.2, 0.15), cstype="boxcoords"),
+    scale_loc=True,
+    length="500k",
+    height="10p",
+    fancy=True,
+    label=True,
+)
 
-# -----------------------------------------------------------------------------
-# Bottom Right: Add a scale bar valid for a specific location
-# It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with
-# an offset (+o) of 1 centimeter in both x- and y-directions
-# It applies (+c) at -7° South, add a customized label by appending text to +l
-fig.basemap(map_scale="jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S")
+# --- Bottom Right: Add a scale bar valid for a specific location ---
+# It is placed at BottomRight using MiddleRight as anchor point with an offset of 1
+# centimeter in both x- and y-directions. It applies at -7° South. A customized label
+# is added via the label parameter.
+fig.scalebar(
+    position=Position("BR", anchor="MR", offset=1),
+    scale_loc=-7,
+    length="500k",
+    fancy=True,
+    unit=True,
+    label="valid at 7° S",
+)
 
 fig.show()
 
 
 # %%
-# The ``box`` parameter allows surrounding the scale bar. This can be useful
-# when adding a scale bar to a colorful map. To fill the box, append **+g**
-# with the desired color (or pattern). The outline of the box can be adjusted
-# by appending **+p** with the desired thickness, color, and style. To force
-# rounded edges append **+r** with the desired radius.
+# The ``box`` parameter allows surrounding the scale bar. This can be useful when adding
+# a scale bar to a colorful map to improve contrast and readability.
 
-# Create a new Figure instance
 fig = pygmt.Figure()
 
-fig.coast(
-    region=[-45, -25, -15, 0],
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["WSne", "af"],
-    # Set the label alignment (+a) to right (r)
-    map_scale="jBL+o1c/1c+c-7+w500k+f+lkm+ar",
-    # Fill the box in white with a transparency of 30 percent, add a solid
-    # outline in darkgray (gray30) with a thickness of 0.5 points, and use
-    # rounded edges with a radius of 3 points
+fig.basemap(region=[-45, -25, -15, 0], projection="M10c", frame=["WSne", "af"])
+fig.coast(land="tan", water="steelblue")
+fig.scalebar(
+    position=Position("BL", cstype="inside", offset=1),
+    scale_loc=-7,
+    length="500k",
+    fancy=True,
+    label="km",
+    label_alignment="right",
+    # Fill the box in white with a transparency of 30 percent, add a solid outline in
+    # darkgray (gray30) with a thickness of 0.5 points, and use rounded edges with a
+    # radius of 3 points
     box=Box(fill="white@30", pen="0.5p,gray30,solid", radius="3p"),
 )
 
