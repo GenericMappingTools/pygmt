@@ -131,7 +131,6 @@ fig.text(
     text=cities.name,
     perspective=True,
     font="11p,Times-Bold,red",
-    no_clip=True,  # Prevent text from being clipped at the frame boundaries
 )
 
 fig.show()
