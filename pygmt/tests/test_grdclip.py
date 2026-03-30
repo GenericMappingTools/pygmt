@@ -85,6 +85,16 @@ def test_grdclip_replace():
     npt.assert_array_equal(np.unique(grid), [1, 2])
 
 
+def test_grdclip_replace_repeated():
+    """
+    Test passing a 2-D sequence to the replace parameter for grdclip.
+    """
+    grid = load_earth_mask(region=[0, 10, 0, 10])
+    npt.assert_array_equal(np.unique(grid), [0, 1])  # Only have 0 and 1
+    result = grdclip(grid=grid, replace=[[0, 2], [1, 3]])
+    npt.assert_array_equal(np.unique(result), [2, 3])
+
+
 def test_grdclip_between_repeated():
     """
     Test passing a 2-D sequence to the between parameter for grdclip.
