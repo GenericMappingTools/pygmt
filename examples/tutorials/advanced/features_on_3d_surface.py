@@ -100,7 +100,7 @@ cities = pd.DataFrame(
     }
 )
 
-# Use one common z-level so all stars share the same shape and size.
+# Use one common z-level so all stars are drawn at the same height above the surface.
 cities["z"] = grd_relief.max().to_numpy()
 
 # Add five identical star symbols on top of the 3-D surface
