@@ -109,7 +109,6 @@ fig.plot3d(
     fill="gold",
     pen="0.8p,black",
     perspective=True,
-    no_clip=True,
 )
 
 fig.show()
