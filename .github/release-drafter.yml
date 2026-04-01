@@ -27,6 +27,7 @@ exclude-contributors:
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
+sort-direction: 'ascending'
 replacers:
   - search: '/@(\w+)?/g'
     replace: '[@$1](https://github.com/$1)'
