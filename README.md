@@ -154,6 +154,7 @@ Feel free to cite our work in your research using the following BibTeX:
                   Anant, Abhishek and
                   Ziebarth, Malte and
                   Quinn, Jamie and
+                  He, Xingchen and
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
@@ -182,7 +183,7 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 
 The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403) and
-[EAR-1948603](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+[EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
 
 ## Related projects
 

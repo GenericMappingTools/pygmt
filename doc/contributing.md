@@ -579,7 +579,7 @@ After the initial implementation, missing aliases can be added in separate PRs:
   - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
     `pygmt/helpers/decorators.py`
   - whether other wrapped GMT modules have a similar parameter
-  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/) has defined an alias
+  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
 * Add the alias to the `AliasSystem` class and the function signature.
 * Add the alias and description to the parameters section of the docstring, using the
   `fmt_docstring` decorator to add descriptions for parameters included in the
@@ -600,8 +600,8 @@ Tests also help us be confident that we won't break your code in the future.
 When writing tests, don't test everything that the GMT function already tests, such as
 every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
-The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+The highest priority for tests should be the Python-specific code, such as NumPy,
+pandas, and xarray objects and the virtual file mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
