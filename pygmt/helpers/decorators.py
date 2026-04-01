@@ -119,7 +119,7 @@ COMMON_DOCSTRINGS = {
 
             - For geographic data (**x**\|\ **y**\|\ **d**), see
               :doc:`/techref/units#distance-units` for supported distance units
-              [Default is meters].
+              [Default unit is **e** (meters)].
             - For projected data (**X**\|\ **Y**\|\ **D**), see
               :doc:`/techref/units#plot-units` for supported plot units.
 
