@@ -41,8 +41,7 @@ def scalebar(  # noqa: PLR0913
     ----------
     length
         Length of the scale bar in kilometers. Append a suffix to specify another unit.
-        Valid units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute
-        miles; **n**: nautical miles; **u**: US survey feet.
+        See :doc:`/techref/units#distance-units` for supported distance units.
     height
         Height of the scale bar [Default is ``"5p"``]. Only works when ``fancy=True``.
     position
