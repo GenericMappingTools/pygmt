@@ -10,22 +10,16 @@ on:
     branches:
       - main
 
+# Permissions for default token (secrets.GITHUB_TOKEN)
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   update_release_draft:
-    permissions:
-      # write permission is required to create a github release
-      contents: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
-      # Drafts your next Release notes as Pull Requests are merged into "main"
-      - uses: release-drafter/release-drafter@6db134d15f3909ccc9eefd369f02bd1e9cffdf97 # v6.2.0
+      - uses: release-drafter/release-drafter@139054aeaa9adc52ab36ddf67437541f039b88e2 # v7.1.1
         with:
-          # (Optional) specify config name to use, relative to .github/. Default: release-drafter.yml
           config-name: release-drafter.yml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
