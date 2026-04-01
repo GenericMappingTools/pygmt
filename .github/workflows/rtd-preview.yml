@@ -1,0 +1,52 @@
+# Add ReadTheDocs preview links to pull request descriptions.
+#
+# This workflow runs when a pull request is opened and automatically adds the
+# ReadTheDocs preview link to the PR description.
+#
+name: RTD Preview
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  rtd-preview:
+    name: Add ReadTheDocs preview link
+    runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
+
+    steps:
+      - name: Add ReadTheDocs preview link to PR description
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const rtdUrl = `https://pygmt-dev--${prNumber}.org.readthedocs.build/en/${prNumber}/`;
+
+            // Get the current PR body
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
+
+            let body = pr.body || '';
+
+            // Add RTD link if Preview section exists but has no link yet
+            const lines = body.split('\n');
+            const previewIndex = lines.findIndex(line => /^\s*\*\*Preview\*\*:\s*$/.test(line));
+            if (previewIndex !== -1) {
+              lines[previewIndex] = lines[previewIndex].replace(/(\*\*Preview\*\*:)\s*$/, `$1 ${rtdUrl}`);
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                body: lines.join('\n'),
+              });
+              core.notice(`Added ReadTheDocs preview link: ${rtdUrl}`);
+            } else {
+              core.notice('Preview section not found or already has a link. No changes made.');
+            }

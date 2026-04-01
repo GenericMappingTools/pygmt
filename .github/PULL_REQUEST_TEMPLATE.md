@@ -8,7 +8,7 @@
 Fixes #
 
 
-<!-- If significant changes to the documentation are made, please insert the link to the documentation page after it has been built. -->
+<!-- A ReadTheDocs preview link will be added automatically when this PR is opened. -->
 **Preview**:
 
 **Guidelines**
