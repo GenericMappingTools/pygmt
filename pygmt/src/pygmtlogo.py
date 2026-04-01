@@ -34,8 +34,8 @@ def create_logo(  # noqa: PLR0915
     wordmark
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual. Set
         to ``True`` or ``"horizontal"``, to add the wordmark at the right side of the
-        visual [Default]. Use ``"vertical"`` to place the wordmark below the visual
-        and ``False`` to add no wordmark.
+        visual [Default]. Use ``"vertical"`` to place the wordmark below the visual and
+        ``False`` to add no wordmark.
     color
         Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
         (red) [Default]. For ``False``, the logo is drawn in black and white.
