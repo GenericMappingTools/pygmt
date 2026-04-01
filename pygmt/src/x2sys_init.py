@@ -94,7 +94,7 @@ def x2sys_init(
         Set the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
         desired *unit*. For supported distance units, see
-        :doc:`/techref/units#distance-units`. Use **c** for Cartesian
+        :ref:`distance-units`. Use **c** for Cartesian
         userdist or userdist/usertime.
 
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is

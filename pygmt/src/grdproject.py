@@ -89,7 +89,7 @@ def grdproject(  # noqa: PLR0913
         Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual
         projected meters. To specify other units, set it to one of the supported
         plot-unit codes (e.g., ``c``, ``i``, ``p``, ``e``, ``f``, ``k``, ``M``, ``n``,
-        ``u``; see :doc:`/techref/units#plot-units`). Without ``scaling``, the output
+        ``u``; see :ref:`plot-units`). Without ``scaling``, the output
         (or input, see ``inverse``) is in the units specified by
         :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
     $projection

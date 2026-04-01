@@ -86,7 +86,7 @@ def sphdistance(
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. See
-        :doc:`/techref/units#distance-units` for supported distance units.
+        :ref:`distance-units` for supported distance units.
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
