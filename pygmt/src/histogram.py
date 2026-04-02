@@ -185,7 +185,7 @@ def histogram(  # noqa: PLR0913
     aliasdict.merge(kwargs)
 
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+        with lib.virtualfile_in(check_kind="vector", data=data, mincols=1) as vintbl:
             lib.call_module(
                 module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )
