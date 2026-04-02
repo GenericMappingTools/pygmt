@@ -25,8 +25,6 @@ from pygmt.helpers import (
 @use_alias(
     C="clearance",
     D="offset",
-    G="fill",
-    W="pen",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -41,8 +39,10 @@ def text_(  # noqa: PLR0912, PLR0913
     y=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
-    angle=None,
-    font=None,
+    angle: float | None = None,
+    font: str | None = None,
+    fill: str | None = None,
+    pen: str | None = None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
@@ -74,10 +74,12 @@ def text_(  # noqa: PLR0912, PLR0913
     $aliases
        - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
+       - G = fill
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -146,8 +148,11 @@ def text_(  # noqa: PLR0912, PLR0913
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
         you can also append lowercase **c** to get a concave rectangle or
         append uppercase **C** to get a convex rectangle.
-    fill : str
+    fill
         Set color for filling text boxes [Default is no fill].
+    pen
+        Set the pen used to draw a rectangle around the text string (see ``clearance``)
+        [Default is ``"0.25p,black,solid"``].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
         Offset the text from the projected (x, y) point by *dx*/\ *dy*
@@ -159,9 +164,6 @@ def text_(  # noqa: PLR0912, PLR0913
         Optionally, append **+v** which will draw a line from the original
         point to the shifted point; append a pen to change the attributes
         for this line.
-    pen : str
-        Set the pen used to draw a rectangle around the text string
-        (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
     $projection
@@ -273,7 +275,9 @@ def text_(  # noqa: PLR0912, PLR0913
                 )
 
     aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
         N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,
