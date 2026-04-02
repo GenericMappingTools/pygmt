@@ -3,20 +3,14 @@ grdcut - Extract subregion from a grid or image or a slice from a cube.
 """
 
 from collections.abc import Sequence
-from contextlib import ExitStack
 from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem, Alias
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
-from pygmt.helpers import (
-    build_arg_list,
-    data_kind,
-    fmt_docstring,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdcut"]
 
@@ -138,13 +132,13 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    if polygon and data_kind(polygon) not in ("file", "geojson"):
+    if polygon and data_kind(polygon) not in {"file", "geojson"}:
         raise GMTTypeError(
             type(polygon),
             reason="Must be a PathLike, GeoDataFrame, or Shapely geometry.",
         )
     aliasdict = AliasSystem(
-        F = [
+        F=[
             Alias(crop, name="crop", prefix="+c"),
             Alias(invert, name="invert", prefix="+i"),
         ]

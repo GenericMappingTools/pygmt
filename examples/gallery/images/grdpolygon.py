@@ -8,7 +8,7 @@ to crop the grid to the polygon's inner or outer region, invert it, or do both.
 """
 
 # %%
-import geopandas as gpd
+import geopandas
 import pygmt
 from shapely.geometry import Polygon
 
@@ -34,7 +34,7 @@ poly = Polygon(
         (-26, 63),
     ]
 )
-gdf = gpd.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
+gdf = geopandas.GeoDataFrame({"geometry": [poly]}, crs="OGC:CRS84")
 
 # Original grid
 fig.basemap(

@@ -2,7 +2,7 @@
 Test pygmt.grdcut.
 """
 
-import geopandas as gpd
+import geopandas
 import numpy as np
 import pytest
 import xarray as xr
@@ -127,7 +127,7 @@ def test_grdcut_with_geodataframe_polygon(grid, polygon):
     Grdcut should accept a geopandas.GeoDataFrame as polygon input
     and produce a grid of expected size with some valid data.
     """
-    gdf = gpd.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
+    gdf = geopandas.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
     outgrid = grdcut(grid=grid, polygon=gdf)
     assert outgrid is not None
 
@@ -159,7 +159,7 @@ def test_grdcut_polygon_with_crop_and_invert(grid, polygon, crop, invert):
     """
     Grdcut should support crop (+c) and invert (+i) modifiers with polygon input.
     """
-    gdf = gpd.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
+    gdf = geopandas.GeoDataFrame({"geometry": [polygon]}, crs="OGC:CRS84")
     outgrid = grdcut(grid=grid, polygon=gdf, crop=crop, invert=invert)
     assert outgrid is not None
     assert outgrid.size > 0
