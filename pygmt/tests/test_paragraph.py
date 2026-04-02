@@ -36,9 +36,9 @@ def test_paragraph_multiple_paragraphs(inputtype):
         ]
     else:
         text = (
-            "This is the first paragraph.\n" * 5
-            + "\n\n"
-            + "This is the second paragraph.\n" * 5
+            "This is the first paragraph. \n" * 5
+            + "\n"  # Separate the paragraphs with a blank line.
+            + "This is the second paragraph. \n" * 5
         )
 
     fig = Figure()
