@@ -32,7 +32,7 @@ def paragraph(
     justify: AnchorCode | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
 ):
-    """
+    r"""
     Typeset one or multiple paragraphs.
 
     This method typesets one or multiple paragraphs of text at a given position on the
@@ -40,7 +40,7 @@ def paragraph(
     spacing. The text can be aligned left, center, right, or justified.
 
     Multiple paragraphs can be provided as a sequence of strings, where each string
-    represents a separate paragraph, or as a single string with newline characters
+    represents a separate paragraph, or as a single string with a blank line (``\n\n``)
     separating the paragraphs.
 
     Full GMT docs at :gmt-docs:`text.html`.
@@ -106,6 +106,14 @@ def paragraph(
     # Prepare the text string that will be passed to an io.StringIO object.
     # Multiple paragraphs are separated by a blank line "\n\n".
     _textstr: str = "\n\n".join(text) if is_nonstr_iter(text) else str(text)
+
+    if _textstr == "":
+        raise GMTValueError(
+            text,
+            description="text",
+            reason="'text' must be a non-empty string or sequence of strings.",
+        )
+
     # Check the encoding of the text string and convert it to octal if necessary.
     if (encoding := _check_encoding(_textstr)) != "ascii":
         _textstr = non_ascii_to_octal(_textstr, encoding=encoding)
