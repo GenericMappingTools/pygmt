@@ -49,11 +49,13 @@ jobs:
         fetch-depth: 0
         persist-credentials: false
 
-    - name: Set up Python and install dependencies
+    - name: Set up Python
       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
       with:
         python-version: '3.14'
-        pip-install: build
+
+    - name: Install dependencies
+      run: pip install build
 
     # This step is only necessary for testing purposes and for TestPyPI
     - name: Fix up version string for TestPyPI

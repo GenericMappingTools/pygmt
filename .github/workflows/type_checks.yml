@@ -44,13 +44,14 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.14'
+
+      - name: Install dependencies
+        run: |
           # Need to install following packages:
           # 1. required packages
           # 2. type checker and stub packages
           # 3. other packages that are used somewhere in PyGMT
-          pip-install: |
-            numpy pandas xarray packaging
-            mypy pandas-stubs pyarrow-stubs
+          pip install numpy pandas xarray packaging mypy pandas-stubs pyarrow-stubs
 
       - name: List install packages
         run: python -m pip list

@@ -46,7 +46,7 @@ jobs:
 
       - name: Pull baseline image data from dvc remote
         env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }} # zizmor: ignore[secrets-outside-env]
         run: |
           dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
           dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
