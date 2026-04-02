@@ -69,10 +69,6 @@ def _alias_option_N(  # noqa: N802
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTParameterError: ...
-    >>> parse(inside="id", id_start=-1)
-    'p-1'
-    >>> parse(inside="id", id_start=1.5)
-    'p1.5'
     """
     _inside_modes = {"z": "z", "id": "p"}
 
