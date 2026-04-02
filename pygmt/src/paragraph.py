@@ -27,7 +27,7 @@ def paragraph(
     text: str | Sequence[str],
     parwidth: float | str,
     linespacing: float | str,
-    font: float | str | None = None,
+    font: str | None = None,
     angle: float | None = None,
     justify: AnchorCode | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
