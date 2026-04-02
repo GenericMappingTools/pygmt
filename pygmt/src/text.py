@@ -267,7 +267,7 @@ def text_(  # noqa: PLR0912, PLR0913
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
 
-        for arg, _, name in [*array_args, (transparency, "", "transparency")]:
+        for arg, _, name in [*array_args, (transparency, "", "transparency")]: # type: ignore[assignment]
             if is_nonstr_iter(arg):
                 raise GMTTypeError(
                     type(arg),
