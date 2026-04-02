@@ -13,6 +13,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["logo"]
+
 
 @fmt_docstring
 def logo(  # noqa: PLR0913
@@ -94,6 +96,14 @@ def logo(  # noqa: PLR0913
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
+    >>> fig.logo(position="TR", width="3c")
+    >>> fig.show()
     """
     self._activate_figure()
 

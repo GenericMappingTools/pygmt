@@ -35,8 +35,9 @@ def timestamp(
     Parameters
     ----------
     text
-        If ``None``, the current UNIX timestamp is shown in the GMT timestamp logo. Set
-        this parameter to replace the UNIX timestamp with a custom text string instead.
+        If ``None``, the current date and time are shown in the GMT timestamp logo. Set
+        this parameter to replace the timestamp string with a custom text string
+        instead.
         The text must be no longer than 64 characters; longer strings are truncated and
         raise a :class:`RuntimeWarning`.
     label
@@ -54,9 +55,9 @@ def timestamp(
         height, the font sizes are fixed to be 8-point for the timestamp and 7-point for
         the label.
     timefmt
-        Format string for the UNIX timestamp. The format string is parsed by the C
-        function ``strftime``, so that virtually any text can be used (even not
-        containing any time information).
+        Format string for the timestamp. The format string is parsed by the C function
+        ``strftime``, so that virtually any text can be used (even not containing any
+        time information).
 
     Examples
     --------
