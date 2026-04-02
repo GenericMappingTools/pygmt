@@ -207,7 +207,7 @@ def test_grdmask_id_start_requires_inside_id(polygon_data):
     """
     Check that id_start requires inside='id'.
     """
-    with pytest.raises(GMTParameterError):
+    with pytest.raises(GMTValueError):
         grdmask(
             data=polygon_data,
             spacing=1,
@@ -221,7 +221,7 @@ def test_grdmask_id_start_requires_inside_id_when_inside_omitted(polygon_data):
     """
     Check that id_start requires inside='id' when inside is omitted.
     """
-    with pytest.raises(GMTParameterError):
+    with pytest.raises(GMTValueError):
         grdmask(
             data=polygon_data,
             spacing=1,
@@ -234,7 +234,7 @@ def test_grdmask_id_start_requires_inside_id_with_edge_and_outside(polygon_data)
     """
     Check that id_start still requires inside='id' even if edge and outside are set.
     """
-    with pytest.raises(GMTParameterError):
+    with pytest.raises(GMTValueError):
         grdmask(
             data=polygon_data,
             spacing=1,

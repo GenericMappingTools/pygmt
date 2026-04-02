@@ -56,7 +56,7 @@ def _alias_option_N(  # noqa: N802
     >>> parse(edge="id", id_start=5, outside=3)
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTParameterError: ...
+    pygmt.exceptions.GMTValueError: ...
     >>> parse(edge="z")
     Traceback (most recent call last):
         ...
@@ -68,13 +68,15 @@ def _alias_option_N(  # noqa: N802
     >>> parse(inside="z", id_start=5)
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTParameterError: ...
+    pygmt.exceptions.GMTValueError: ...
     """
     _inside_modes = {"z": "z", "id": "p"}
 
     if id_start is not None and inside != "id":
-        raise GMTParameterError(
-            reason=f"Parameter 'id_start' requires inside='id', got inside={inside!r}."
+        raise GMTValueError(
+            inside,
+            description="parameter 'inside'",
+            reason="Parameter 'id_start' requires inside='id'."
         )
 
     # outside/edge/inside are all omitted: keep GMT default 0/0/1
