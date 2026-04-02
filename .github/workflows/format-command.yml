@@ -17,14 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@v3.0.0
+      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
         id: generate-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
@@ -33,7 +33,7 @@ jobs:
 
       # Setup Python environment
       - name: Set up Python and install dependencies
-        uses: actions/setup-python@v6.2.0
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.14'
           pip-install: ruff prek
