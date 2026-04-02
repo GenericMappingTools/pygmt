@@ -39,8 +39,8 @@ def text_(  # noqa: PLR0912, PLR0913
     y=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
-    angle: float | bool | Sequence[float] | None = None,
-    font: str | bool | Sequence[str] | StringArrayTypes | None = None,
+    angle: float | Sequence[float] | bool = False,
+    font: str | StringArrayTypes | bool = False,
     fill: str | None = None,
     pen: str | None = None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
@@ -267,7 +267,7 @@ def text_(  # noqa: PLR0912, PLR0913
         if isinstance(position, str):
             kwargs["F"] += f"+c{position}+t{text}"
 
-        for arg, _, name in [*array_args, (transparency, "", "transparency")]: # type: ignore[assignment]
+        for arg, _, name in [*array_args, (transparency, "", "transparency")]:
             if is_nonstr_iter(arg):
                 raise GMTTypeError(
                     type(arg),
