@@ -48,7 +48,7 @@ jobs:
           # 1. required packages
           # 2. type checker and stub packages
           # 3. other packages that are used somewhere in PyGMT
-          pip-install: |
+          pip-install: | # zizmor: ignore[misfeature]
             numpy pandas xarray packaging
             mypy pandas-stubs pyarrow-stubs
 
