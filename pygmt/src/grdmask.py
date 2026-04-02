@@ -98,7 +98,7 @@ def _alias_option_N(  # noqa: N802
         if edge == inside:
             mode = mode.upper()
         # Append id_start if specified (only valid for "id" mode)
-        if id_start is not None:
+        if id_start:
             mode = f"{mode}{id_start}"
         mask_values = mode if outside is None else [mode, outside]
     else:  # Build the full mask with defaults for any missing values.
