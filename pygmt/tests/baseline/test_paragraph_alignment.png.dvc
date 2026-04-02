@@ -1,0 +1,5 @@
+outs:
+- md5: a0ef6e989b11a252ec2a7ef497f3c789
+  size: 36274
+  hash: md5
+  path: test_paragraph_alignment.png

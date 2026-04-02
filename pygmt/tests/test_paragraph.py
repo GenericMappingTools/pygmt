@@ -51,3 +51,47 @@ def test_paragraph_multiple_paragraphs(inputtype):
         linespacing="12p",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_paragraph_alignment():
+    """
+    Test typesetting a single paragraph with different alignments.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 8], projection="X10c/8c", frame=True)
+    for x, y, alignment in [
+        (5, 1, "left"),
+        (5, 3, "right"),
+        (5, 5, "center"),
+        (5, 7, "justified"),
+    ]:
+        fig.paragraph(
+            x=x,
+            y=y,
+            text= alignment.upper() + " : " + "This is a long paragraph. " * 5,
+            parwidth="8c",
+            linespacing="12p",
+            alignment=alignment,
+        )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_paragraph_font_angle_justify():
+    """
+    Test typesetting a single paragraph with font, angle, and justify options.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
+    fig.paragraph(
+        x=1,
+        y=4,
+        text="This is a long paragraph. " * 10,
+        parwidth="8c",
+        linespacing="12p",
+        font="10p,Helvetica-Bold,red",
+        angle=45,
+        justify="TL",
+    )
+    return fig
