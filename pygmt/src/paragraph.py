@@ -85,7 +85,7 @@ def paragraph(
     """
     self._activate_figure()
 
-    _valid_alignments = {"left", "center", "right", "justified"}
+    _valid_alignments = ("left", "center", "right", "justified")
     if alignment not in _valid_alignments:
         raise GMTValueError(
             alignment,
