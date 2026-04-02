@@ -23,7 +23,7 @@ def test_paragraph():
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(filename="test_paragraph_multiple_paragraphs.png")
 @pytest.mark.parametrize("inputtype", ["list", "string"])
 def test_paragraph_multiple_paragraphs(inputtype):
     """
