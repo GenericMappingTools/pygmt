@@ -36,9 +36,9 @@ def test_paragraph_multiple_paragraphs(inputtype):
         ]
     else:
         text = (
-            "This is the first paragraph. \n" * 5
-            + "\n"  # Separate the paragraphs with a blank line.
-            + "This is the second paragraph. \n" * 5
+            "This is the first paragraph. " * 5
+            + "\n\n"  # Separate the paragraphs with a blank line.
+            + "This is the second paragraph. " * 5
         )
 
     fig = Figure()
@@ -69,7 +69,7 @@ def test_paragraph_alignment():
         fig.paragraph(
             x=x,
             y=y,
-            text= alignment.upper() + " : " + "This is a long paragraph. " * 5,
+            text=alignment.upper() + " : " + "This is a long paragraph. " * 5,
             parwidth="8c",
             linespacing="12p",
             alignment=alignment,
