@@ -76,7 +76,7 @@ def _alias_option_N(  # noqa: N802
         raise GMTValueError(
             inside,
             description="parameter 'inside'",
-            reason="Parameter 'id_start' requires inside='id'."
+            reason="Parameter 'id_start' requires inside='id'.",
         )
 
     # outside/edge/inside are all omitted: keep GMT default 0/0/1
