@@ -28,7 +28,7 @@ permissions: {}
 jobs:
   dvc_cache:
     name: Cache DVC baseline images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     defaults:
       run:
         shell: bash -l {0}

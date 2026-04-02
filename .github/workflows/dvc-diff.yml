@@ -21,7 +21,7 @@ permissions:
 jobs:
   dvc-diff:
     name: DVC image diff
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
     - name: Checkout
