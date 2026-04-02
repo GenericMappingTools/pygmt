@@ -15,7 +15,6 @@ from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
-    tempfile_from_geojson,
     use_alias,
 )
 
@@ -139,6 +138,11 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
+    if polygon and data_kind(polygon) not in ("file", "geojson"):
+        raise GMTTypeError(
+            type(polygon),
+            reason="Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+        )
     aliasdict = AliasSystem(
         F = [
             Alias(crop, name="crop", prefix="+c"),
@@ -161,19 +165,8 @@ def grdcut(
         ):
             aliasdict["G"] = voutgrd
 
-            if polygon is not None:
-                if isinstance(polygon, PathLike) or hasattr(
-                    polygon, "__geo_interface__"
-                ):
-                    aliasdict["F"] = str(vinpoly) + aliasdict.get("F", "")
-                else:
-                    polygon_type = type(polygon).__name__
-                    err_msg = "Invalid polygon type"
-                    raise GMTValueError(
-                        err_msg,
-                        polygon_type,
-                        "Must be a PathLike, GeoDataFrame, or Shapely geometry.",
-                    )
+            if polygon:
+                aliasdict["F"] = str(vinpoly) + aliasdict.get("F", "")
 
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
