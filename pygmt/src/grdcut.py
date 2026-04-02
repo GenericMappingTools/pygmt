@@ -123,6 +123,12 @@ def grdcut(
     if kind not in {"grid", "image"}:
         raise GMTValueError(kind, description="raster kind", choices=["grid", "image"])
 
+    if polygon and data_kind(polygon) not in {"file", "geojson"}:
+        raise GMTTypeError(
+            type(polygon),
+            reason="Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+        )
+
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):
         case "grid" | "image":
@@ -132,11 +138,6 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    if polygon and data_kind(polygon) not in {"file", "geojson"}:
-        raise GMTTypeError(
-            type(polygon),
-            reason="Must be a PathLike, GeoDataFrame, or Shapely geometry.",
-        )
     aliasdict = AliasSystem(
         F=[
             Alias(crop, name="crop", prefix="+c"),
