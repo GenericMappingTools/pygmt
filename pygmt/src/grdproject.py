@@ -10,7 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
@@ -120,7 +120,7 @@ def grdproject(  # noqa: PLR0913
     if kwargs.get("J", projection) is None:
         raise GMTParameterError(required="projection")
 
-    if kwargs.get("M", unit) is not None and kwargs.get("F", scaling) is not False:
+    if is_given(kwargs.get("M", unit)) and is_given(kwargs.get("F", scaling)):
         raise GMTParameterError(at_most_one=["unit", "scaling"])
 
     aliasdict = AliasSystem(

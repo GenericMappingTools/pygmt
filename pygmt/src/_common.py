@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, ClassVar, Literal
 
 from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
+from pygmt.helpers import is_given
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -363,7 +364,7 @@ def _parse_position(
             if position in _valid_anchors:  # Anchor code
                 position = Position(position, cstype="inside")
             elif kwdict is not None:  # Raw GMT command string with potential conflicts.
-                if any(v is not None and v is not False for v in kwdict.values()):
+                if any(is_given(v) for v in kwdict.values()):
                     raise GMTParameterError(
                         conflicts_with=("position", kwdict.keys()),
                         reason="'position' is specified using the unrecommended GMT command string syntax.",
