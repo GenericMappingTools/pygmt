@@ -79,10 +79,6 @@ def _alias_option_N(  # noqa: N802
             reason="Parameter 'id_start' requires inside='id'.",
         )
 
-    # outside/edge/inside are all omitted: keep GMT default 0/0/1
-    if all(v is None for v in (outside, inside, edge)):
-        return Alias(None, name="mask_values")
-
     # In the special mdoes, 'edge' must be None or the same as 'inside'
     if (edge in _inside_modes or inside in _inside_modes) and edge not in {
         None,
@@ -94,6 +90,9 @@ def _alias_option_N(  # noqa: N802
             reason=f"inside={inside!r} and edge={edge!r} must be the same.",
         )
 
+    # outside/edge/inside are all omitted: keep GMT default 0/0/1
+    if all(v is None for v in (outside, inside, edge)):
+        return Alias(None, name="mask_values")
     # Build -N argument
     if inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
         mode = "z" if inside == "z" else "p"
