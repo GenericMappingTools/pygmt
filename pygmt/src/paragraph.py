@@ -106,8 +106,8 @@ def paragraph(  # noqa: PLR0913
             Alias(angle, name="angle", prefix="+a"),
             Alias(justify, name="justify", prefix="+j"),
         ],
-        G=fill,
-        W=pen,
+        G=Alias(fill, name="fill"),
+        W=Alias(pen, name="pen"),
     )
     aliasdict.merge({"M": True})
 
