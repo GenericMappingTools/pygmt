@@ -17,7 +17,6 @@ from pygmt.helpers import GMTTempFile
 def fixture_polygon_data():
     """
     Create a simple polygon for testing.
-    A triangle polygon covering the region [125, 130, 30, 35].
     """
     return np.array([[125, 30], [130, 30], [130, 35], [125, 30]])
 
