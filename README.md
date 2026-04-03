@@ -182,8 +182,8 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 ## Support
 
 The development of PyGMT has been supported by NSF grants
-[OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403) and
-[EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
 ## Related projects
 
