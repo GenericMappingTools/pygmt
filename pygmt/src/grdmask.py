@@ -154,7 +154,7 @@ def grdmask(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D $table_classes
-        containg the polygon(s) or data points. Input can be:
+        containing the polygon(s) or data points. Input can be:
 
         - **Polygon mode**: One or more files containing closed polygon coordinates
         - **Point coverage mode**: Data points (used with ``search_radius`` parameter)
