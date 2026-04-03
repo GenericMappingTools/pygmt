@@ -15,6 +15,7 @@ jobs:
   upload-baseline:
     name: Upload baseline images
     runs-on: ubuntu-latest
+    environment: pr-tests
     if: github.repository == 'GenericMappingTools/pygmt'
 
     permissions:
@@ -35,7 +36,7 @@ jobs:
         dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
         dvc pull && ls -lhR pygmt/tests/baseline/
       env:
-        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }} # zizmor: ignore[secrets-outside-env]
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
     - name: Create the baseline image asset in zip format
       run: |

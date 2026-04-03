@@ -12,6 +12,7 @@ permissions: {}
 
 jobs:
   format:
+    environment: pr-tests
     permissions:
       contents: write # for Git to git push
     runs-on: ubuntu-latest
@@ -20,8 +21,8 @@ jobs:
       - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
         id: generate-token
         with:
-          app-id: ${{ secrets.APP_ID }} # zizmor: ignore[secrets-outside-env]
-          private-key: ${{ secrets.APP_PRIVATE_KEY }} # zizmor: ignore[secrets-outside-env]
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1

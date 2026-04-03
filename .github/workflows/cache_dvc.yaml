@@ -29,6 +29,7 @@ jobs:
   dvc_cache:
     name: Cache DVC baseline images
     runs-on: ubuntu-latest
+    environment: pr-tests
     defaults:
       run:
         shell: bash -l {0}
@@ -46,7 +47,7 @@ jobs:
 
       - name: Pull baseline image data from dvc remote
         env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }} # zizmor: ignore[secrets-outside-env]
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
           dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
           dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/

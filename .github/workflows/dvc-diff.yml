@@ -22,6 +22,7 @@ jobs:
   dvc-diff:
     name: DVC image diff
     runs-on: ubuntu-latest
+    environment: pr-tests
 
     steps:
     - name: Checkout
@@ -59,7 +60,7 @@ jobs:
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }} # zizmor: ignore[secrets-outside-env]
+        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md

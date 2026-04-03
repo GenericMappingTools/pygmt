@@ -34,6 +34,7 @@ jobs:
   test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
+    environment: pr-tests
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/test-gmt-dev')
     strategy:
       fail-fast: false
@@ -153,7 +154,7 @@ jobs:
           dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
           dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
         env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }} # zizmor: ignore[secrets-outside-env]
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
 
       - name: Download DVC cache as artifacts from GitHub
         if: steps.dvc-pull.outcome == 'failure'
