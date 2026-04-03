@@ -79,7 +79,7 @@ def _alias_option_N(  # noqa: N802
             reason="Parameter 'id_start' requires inside='id'.",
         )
 
-    # In the special mdoes, 'edge' must be None or the same as 'inside'
+    # In the special modes, 'edge' must be None or the same as 'inside'
     if (edge in _inside_modes or inside in _inside_modes) and edge not in {
         None,
         inside,
