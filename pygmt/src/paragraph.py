@@ -20,7 +20,7 @@ from pygmt.helpers import (
 __doctest_skip__ = ["paragraph"]
 
 
-def paragraph(
+def paragraph(  # noqa: PLR0913
     self,
     x: float | str,
     y: float | str,
@@ -30,6 +30,8 @@ def paragraph(
     font: str | None = None,
     angle: float | None = None,
     justify: AnchorCode | None = None,
+    fill: str | None = None,
+    pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
 ):
     r"""
@@ -63,6 +65,11 @@ def paragraph(
     justify
         Set the alignment of the block of text, relative to the given x, y position.
         Choose a :doc:`2-character justification code </techref/justification_codes>`.
+    fill
+        Set color for filling the paragraph box [Default is no fill].
+    pen
+        Set the pen used to draw a rectangle around the paragraph [Default is
+        ``"0.25p,black,solid"``].
     alignment
         Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.
@@ -98,7 +105,9 @@ def paragraph(
             Alias(font, name="font", prefix="+f"),
             Alias(angle, name="angle", prefix="+a"),
             Alias(justify, name="justify", prefix="+j"),
-        ]
+        ],
+        G=fill,
+        W=pen,
     )
     aliasdict.merge({"M": True})
 
