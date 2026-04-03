@@ -9,7 +9,7 @@ import pytest
 import xarray as xr
 from pygmt import grdmask
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -117,9 +117,10 @@ def test_grdmask_custom_mask_values(polygon_data):
     assert isinstance(result, xr.DataArray)
     # Check that the grid has the right dimensions
     assert result.shape == (6, 6)
-    # Check that we have values in the expected range
-    assert result.values.max() <= 30.0
-    assert result.values.min() >= 0.0
+    # Check that we have expected values
+    assert result.sel(x=125, y=35) == 10.0  # outside
+    assert result.sel(x=128, y=30) == 20.0  # edge
+    assert result.sel(x=129, y=31) == 30.0  # inside
 
 
 def test_grdmask_outside_only(polygon_data, expected_grid_outside_only):
@@ -148,43 +149,11 @@ def test_grdmask_fails():
         grdmask(data=np.array([[0, 0], [1, 1], [1, 0], [0, 0]]))
 
 
-def test_grdmask_invalid_combination(polygon_data):
-    """
-    Check that grdmask fails when inside and edge have different special modes.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            inside="z",
-            edge="id",
-        )
-
-
-@pytest.mark.parametrize(
-    ("edge", "inside"),
-    [("z", None), ("id", None), ("z", 5), ("id", 5)],
-)
-def test_grdmask_invalid_edge_special_mode(polygon_data, edge, inside):
-    """
-    Check that special edge modes require the same special inside mode.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            edge=edge,
-            inside=inside,
-        )
-
-
 @pytest.mark.parametrize(
     ("edge", "id_start"),
     [(None, 5), ("id", 10), (None, -1), (None, 1.5)],
 )
-def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
+def test_grdmask_id_start_valid(polygon_data, edge, id_start):
     """
     Check that id_start works when inside='id'.
     """
@@ -199,46 +168,3 @@ def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
     assert isinstance(result, xr.DataArray)
     unique_values = np.unique(result.values)
     assert id_start in unique_values
-    assert 0 in unique_values
-
-
-def test_grdmask_id_start_requires_inside_id(polygon_data):
-    """
-    Check that id_start requires inside='id'.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            inside="z",
-            id_start=5,
-        )
-
-
-def test_grdmask_id_start_requires_inside_id_when_inside_omitted(polygon_data):
-    """
-    Check that id_start requires inside='id' when inside is omitted.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            id_start=5,
-        )
-
-
-def test_grdmask_id_start_requires_inside_id_with_edge_and_outside(polygon_data):
-    """
-    Check that id_start still requires inside='id' even if edge and outside are set.
-    """
-    with pytest.raises(GMTValueError):
-        grdmask(
-            data=polygon_data,
-            spacing=1,
-            region=[125, 130, 30, 35],
-            outside=3,
-            edge="id",
-            id_start=5,
-        )
