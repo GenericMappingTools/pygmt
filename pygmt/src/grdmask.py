@@ -24,9 +24,9 @@ def _alias_option_N(  # noqa: N802
     """
     Return an Alias object for the -N option.
 
-    Builds the -N parameter string for grdmask based on the inside, edge, and
-    outside values. Handles special modes "z" (use z-value from polygon data)
-    and "id" (use running polygon ID).
+    Builds the -N parameter string for grdmask based on the inside, edge, and outside
+    values. Handles special modes "z" (use z-value from polygon data) and "id" (use
+    running polygon ID).
 
     Examples
     --------
