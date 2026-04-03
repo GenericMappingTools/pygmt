@@ -193,7 +193,7 @@ def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
         spacing=1,
         region=[125, 130, 30, 35],
         edge=edge,
-        inside=inside,
+        inside="id",
         id_start=id_start,
     )
     assert isinstance(result, xr.DataArray)
