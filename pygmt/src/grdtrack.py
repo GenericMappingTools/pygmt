@@ -14,6 +14,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -24,9 +25,12 @@ __doctest_skip__ = ["grdtrack"]
 
 
 @fmt_docstring
+@deprecate_parameter(
+    "crossprofile", "cross_profile", "v0.18.0", remove_version="v0.20.0"
+)
 @use_alias(
     A="resample",
-    C="crossprofile",
+    C="cross_profile",
     D="dfile",
     E="profile",
     F="critical",
@@ -68,7 +72,7 @@ def grdtrack(
     first two columns (more columns may be present). It interpolates the
     grid(s) at the positions in the table and writes out the table with the
     interpolated values added as (one or more) new columns. Alternatively
-    (``crossprofile``), the input is considered to be line-segments and we
+    (``cross_profile``), the input is considered to be line-segments and we
     create orthogonal cross-profiles at each data point or with an equidistant
     separation and sample the grid(s) along these profiles. A bicubic
     [Default], bilinear, B-spline or nearest-neighbor interpolation is used,
@@ -100,7 +104,7 @@ def grdtrack(
         sampled values will be placed.
     resample : str
         **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]
-        For track resampling (if ``crossprofile`` or ``profile`` are set) we
+        For track resampling (if ``cross_profile`` or ``profile`` are set) we
         can select how this is to be performed. Append **f** to keep original
         points, but add intermediate points if needed [Default], **m** as
         **f**, but first follow meridian (along y) then parallel (along x),
@@ -109,9 +113,9 @@ def grdtrack(
         not necessarily included in the output, and **R** as **r**, but adjust
         given spacing to fit the track length exactly. Finally, append
         **+l** if geographic distances should be measured along rhumb lines
-        (loxodromes) instead of great circles. Ignored unless ``crossprofile``
+        (loxodromes) instead of great circles. Ignored unless ``cross_profile``
         is used.
-    crossprofile : str
+    cross_profile : str
         *length*/\ *ds*\ [*/spacing*][**+a**\|\ **+v**][**l**\|\ **r**].
         Use input line segments to create an equidistant and (optionally)
         equally-spaced set of crossing profiles along which we sample the
@@ -135,7 +139,7 @@ def grdtrack(
         *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
         *n* grids).
     dfile : str
-        In concert with ``crossprofile`` we can save the (possibly resampled)
+        In concert with ``cross_profile`` we can save the (possibly resampled)
         original lines to *dfile* [Default only saves the cross-profiles]. The
         columns will be *lon*, *lat*, *dist*, *azimuth*, *z1*, *z2*, ...
         (sampled value for each grid).
@@ -170,13 +174,13 @@ def grdtrack(
         result in an error. If no units are specified we default to great
         circle distances in km (if geographic). If working with geographic data
         you can use ``distcalc`` to control distance calculation mode [Default
-        is Great Circle]. **Note**: If ``crossprofile`` is set and *spacing* is
+        is Great Circle]. **Note**: If ``cross_profile`` is set and *spacing* is
         given then that sampling scheme overrules any modifier set in
         ``profile``.
     critical : str
         [**+b**][**+n**][**+r**][**+z**\ *z0*].
         Find critical points along each cross-profile as a function of
-        along-track distance. Requires ``crossprofile`` and a single input grid
+        along-track distance. Requires ``cross_profile`` and a single input grid
         (*z*). We examine each cross-profile generated and report (*dist*,
         *lonc*, *latc*, *distc*, *azimuthc*, *zc*) at the center peak of
         maximum *z* value, (*lonl*, *latl*, *distl*) and (*lonr*, *latr*,
@@ -202,7 +206,7 @@ def grdtrack(
         [Default only output points within the grid domain].
     stack : str or list
         *method*/*modifiers*.
-        In conjunction with ``crossprofile``, compute a single stacked profile
+        In conjunction with ``cross_profile``, compute a single stacked profile
         from all profiles across each segment. Choose how stacking should be
         computed [Default method is **a**]:
 
