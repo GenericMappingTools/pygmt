@@ -15,7 +15,7 @@ jobs:
     environment: pr-tests
     permissions:
       contents: write # for Git to git push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       # Generate token from GenericMappingTools bot
       - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0

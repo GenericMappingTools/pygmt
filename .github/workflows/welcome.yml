@@ -22,7 +22,7 @@ jobs:
   greeting:
     name: Greet First-Time Contributors
     if: github.event_name == 'issues' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
       - uses: actions/first-interaction@1c4688942c71f71d4f5502a26ea67c331730fa4d # v3.1.0
