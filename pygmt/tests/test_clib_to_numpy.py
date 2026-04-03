@@ -54,7 +54,7 @@ def _check_result(result, expected_dtype):
         pytest.param([1, 2, 3], np.int64, id="int"),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
-            [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
+            [complex(+1), (-2j), complex("-Infinity+NaNj")],
             np.complex128,
             id="complex",
         ),
