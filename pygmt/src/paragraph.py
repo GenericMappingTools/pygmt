@@ -13,6 +13,7 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
+    fmt_docstring,
     is_nonstr_iter,
     non_ascii_to_octal,
 )
@@ -20,6 +21,7 @@ from pygmt.helpers import (
 __doctest_skip__ = ["paragraph"]
 
 
+@fmt_docstring
 def paragraph(  # noqa: PLR0913
     self,
     x: float | str,
@@ -33,6 +35,10 @@ def paragraph(  # noqa: PLR0913
     fill: str | None = None,
     pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
 ):
     r"""
     Typeset one or multiple paragraphs.
@@ -73,6 +79,9 @@ def paragraph(  # noqa: PLR0913
     alignment
         Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.
+    $verbose
+    $panel
+    $transparency
 
     Examples
     --------
@@ -108,6 +117,10 @@ def paragraph(  # noqa: PLR0913
         ],
         G=Alias(fill, name="fill"),
         W=Alias(pen, name="pen"),
+    ).add_common(
+        V=verbose,
+        c=panel,
+        t=transparency,
     )
     aliasdict.merge({"M": True})
 
