@@ -181,8 +181,8 @@ def test_grdmask_invalid_edge_special_mode(polygon_data, edge, inside):
 
 
 @pytest.mark.parametrize(
-    ("edge", "inside", "id_start"),
-    [(None, "id", 5), ("id", "id", 10), (None, "id", -1), (None, "id", 1.5)],
+    ("edge", "id_start"),
+    [(None, 5), ("id", 10), (None, -1), (None, 1.5)],
 )
 def test_grdmask_id_start_valid(polygon_data, edge, inside, id_start):
     """
