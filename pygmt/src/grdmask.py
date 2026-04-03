@@ -75,7 +75,7 @@ def _alias_option_N(  # noqa: N802
     if id_start is not None and inside != "id":
         raise GMTValueError(
             inside,
-            description="parameter 'inside'",
+            description="value for parameter 'inside'",
             reason="Parameter 'id_start' requires inside='id'.",
         )
 
