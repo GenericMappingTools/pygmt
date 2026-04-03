@@ -147,7 +147,7 @@ def grdmask(
 
        - G = outgrid
        - I = spacing
-       - N = outside/edge/inside
+       - N = outside, edge, inside, id_start
        - R = region
        - V = verbose
 
