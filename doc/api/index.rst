@@ -127,6 +127,7 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
+    grdmask
     nearneighbor
     project
     select
