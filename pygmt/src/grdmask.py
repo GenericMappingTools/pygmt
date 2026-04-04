@@ -167,7 +167,7 @@ def grdmask(
         Set the value assigned to nodes outside, on the edge, or inside the polygons.
         Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
 
-        ``inside`` can also be set to one of the following values:
+        ``inside`` and ``edge`` can also be set to one of the following values:
 
         - ``"z"``: Use the z-value from polygon data (segment header ``-Zzval``,
           ``-Lheader``, or via ``-aZ=name``).
