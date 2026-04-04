@@ -79,11 +79,7 @@ def _alias_option_N(  # noqa: N802
             reason="Parameter 'id_start' requires inside='id'.",
         )
 
-    # outside/edge/inside are all omitted: keep GMT default 0/0/1
-    if all(v is None for v in (outside, inside, edge)):
-        return Alias(None, name="mask_values")
-
-    # In the special mdoes, 'edge' must be None or the same as 'inside'
+    # In the special modes, 'edge' must be None or the same as 'inside'
     if (edge in _inside_modes or inside in _inside_modes) and edge not in {
         None,
         inside,
@@ -94,6 +90,9 @@ def _alias_option_N(  # noqa: N802
             reason=f"inside={inside!r} and edge={edge!r} must be the same.",
         )
 
+    # outside/edge/inside are all omitted: keep GMT default 0/0/1
+    if all(v is None for v in (outside, inside, edge)):
+        return Alias(None, name="mask_values")
     # Build -N argument
     if inside in _inside_modes:  # Mode: -Nz, -NZ, -Np, or -NP
         mode = "z" if inside == "z" else "p"
@@ -131,7 +130,7 @@ def grdmask(
 
     Reads one or more files containing polygon or data point coordinates, and creates a
     grid where nodes that fall inside, on the edge, or outside the polygons (or within
-    the search radius from data points) are assigned values based on ``outside``,
+    the search radius from data points) are assigned values based on the ``outside``,
     ``edge``, and ``inside`` parameters.
 
     The mask grid can be used to mask out specific regions in other grids using
@@ -155,7 +154,7 @@ def grdmask(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D $table_classes
-        containg the polygon(s) or data points. Input can be:
+        containing the polygon(s) or data points. Input can be:
 
         - **Polygon mode**: One or more files containing closed polygon coordinates
         - **Point coverage mode**: Data points (used with ``search_radius`` parameter)
@@ -175,8 +174,8 @@ def grdmask(
 
         To treat edges as inside, use the same value as ``inside``.
     id_start
-        The starting number for polygon IDs when ``inside="id"``.
-        Default is 0. Only valid when ``inside="id"``.
+        The starting number for polygon IDs when ``inside="id"`` [Default is ``0``].
+        Only valid when ``inside="id"``.
     $region
     $verbose
 
