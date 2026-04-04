@@ -130,7 +130,7 @@ def grdmask(
 
     Reads one or more files containing polygon or data point coordinates, and creates a
     grid where nodes that fall inside, on the edge, or outside the polygons (or within
-    the search radius from data points) are assigned values based on ``outside``,
+    the search radius from data points) are assigned values based on the ``outside``,
     ``edge``, and ``inside`` parameters.
 
     The mask grid can be used to mask out specific regions in other grids using
@@ -174,8 +174,8 @@ def grdmask(
 
         To treat edges as inside, use the same value as ``inside``.
     id_start
-        The starting number for polygon IDs when ``inside="id"``.
-        Default is 0. Only valid when ``inside="id"``.
+        The starting number for polygon IDs when ``inside="id"`` [Default is ``0``].
+        Only valid when ``inside="id"``.
     $region
     $verbose
 
