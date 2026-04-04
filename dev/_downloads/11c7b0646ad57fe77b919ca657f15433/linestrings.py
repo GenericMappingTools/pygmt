@@ -12,13 +12,15 @@ the ``data`` parameter of :meth:`pygmt.Figure.plot`, and style the lines using t
 """
 
 # %%
-import geopandas as gpd
+import geopandas
 import pygmt
 
 # Read a sample dataset provided by Natural Earth. The dataset contains rivers stored
 # as LineString/MultiLineString geometry types. Here will focus on Asia.
 provider = "https://naciscdn.org/naturalearth"
-rivers = gpd.read_file(f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip")
+rivers = geopandas.read_file(
+    f"{provider}/50m/physical/ne_50m_rivers_lake_centerlines.zip"
+)
 rivers_asia = rivers.cx[57:125, 7:47].copy()
 
 fig = pygmt.Figure()

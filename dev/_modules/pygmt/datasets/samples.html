@@ -11,8 +11,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/datasets/samples.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=64687402"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -177,7 +177,7 @@
 <span class="sd">        The data table. The column names are &quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;latitude&quot;,</span>
 <span class="sd">        &quot;longitude&quot;, &quot;depth_km&quot;, and &quot;magnitude&quot; of the earthquakes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_quakes.ngdc&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_quakes.ngdc&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
         <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -203,7 +203,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;longitude&quot; and &quot;latitude&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ridge.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ridge.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
         <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
@@ -222,7 +222,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;, and &quot;bathymetry&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_ship.xyz&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_ship.xyz&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;bathymetry&quot;</span><span class="p">]</span>
     <span class="p">)</span>
@@ -237,7 +237,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. Use ``print(data.describe())`` to see the available columns.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@usgs_quakes_22.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@usgs_quakes_22.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
 
@@ -251,7 +251,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;length&quot; and &quot;azimuth&quot; of the fractures.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@fractures_06.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@fractures_06.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;azimuth&quot;</span><span class="p">]]</span>
 
@@ -270,7 +270,7 @@
 <span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;, &quot;symbol_size&quot;, and</span>
 <span class="sd">        &quot;place_name&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@hotspots.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@hotspots.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
         <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
@@ -291,7 +291,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;, and &quot;radius_m&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@mars370d.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@mars370d.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;radius_m&quot;</span><span class="p">]</span>
     <span class="p">)</span>
@@ -307,7 +307,7 @@
 <span class="sd">        The data table. The column names are &quot;limestone&quot;, &quot;water&quot;, &quot;air&quot;, and</span>
 <span class="sd">        &quot;permittivity&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ternary.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ternary.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
         <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
@@ -327,7 +327,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;x&quot;, &quot;y&quot;, and &quot;z&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@Table_5_11.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@Table_5_11.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">])</span>
 
 
@@ -340,7 +340,7 @@
 <span class="sd">    data</span>
 <span class="sd">        The data table. The column names are &quot;date&quot; and &quot;co2_ppm&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@MaunaLoa_CO2.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@MaunaLoa_CO2.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;co2_ppm&quot;</span><span class="p">]</span>
     <span class="p">)</span>
@@ -356,7 +356,7 @@
 <span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief</span>
 <span class="sd">        is in meters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_20m_holes.grd&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_20m_holes.grd&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;cache&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">load_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="n">raster_kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">)</span>
 
 
@@ -514,9 +514,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/538d00671">538d0067</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Apr 04, 2026.
       </span></p>
   </div>
 

@@ -12,8 +12,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/index.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../_static/documentation_options.js?v=64687402"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="advanced/grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/features_on_3d_surface.html">Plotting features on a 3-D surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/non_ascii_text.html">Typesetting non-ASCII text</a></li>
@@ -250,7 +251,7 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../_images/sphx_glr_working_with_panel_thumb.png" />
 <p><a class="reference internal" href="advanced/working_with_panel.html"><span class="doc">Interactive data visualization using Panel</span></a></p>
   <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../_images/sphx_glr_subplots_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and tag them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="advanced/subplots.html"><span class="doc">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../_images/sphx_glr_grid_equalization_thumb.png" />
@@ -262,6 +263,9 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the built-in Python datetime module, PyGMT supports inputs containing ISO formatted strings as well as objects generated with numpy, pandas, and xarray. These data types can be used to plot specific points as well as get passed into the region parameter to create a range of the data on an axis."><img alt="" src="../_images/sphx_glr_date_time_charts_thumb.png" />
 <p><a class="reference internal" href="advanced/date_time_charts.html"><span class="doc">Plotting datetime charts</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to draping a dataset (grid or image) on top of a topographic surface, you may want to add additional features like coastlines, symbols, and text annotations. This tutorial shows how to use pygmt.Figure.coast, pygmt.Figure.plot3d, and pygmt.Figure.text to add these features on a 3-D surface created by pygmt.Figure.grdview."><img alt="" src="../_images/sphx_glr_features_on_3d_surface_thumb.png" />
+<p><a class="reference internal" href="advanced/features_on_3d_surface.html"><span class="doc">Plotting features on a 3-D surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting features on a 3-D surface</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Focal mechanisms can be plotted as beachballs with the pygmt.Figure.meca method."><img alt="" src="../_images/sphx_glr_focal_mechanisms_thumb.png" />
 <p><a class="reference internal" href="advanced/focal_mechanisms.html"><span class="doc">Plotting focal mechanisms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting focal mechanisms</div>
@@ -290,9 +294,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/538d00671">538d0067</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Apr 04, 2026.
       </span></p>
   </div>
 

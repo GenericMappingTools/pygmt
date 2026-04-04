@@ -495,7 +495,7 @@ indicating the event locations are given by the colormap.
 
     # Set up colormap and colorbar for hypocentral depth
     pygmt.makecpt(cmap="SCM/lajolla", series=[0, 20])
-    fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
+    fig.colorbar(label="Hypocentral depth", unit="km")
 
     fig.meca(
         spec=aki_multiple,
@@ -523,7 +523,7 @@ indicating the event locations are given by the colormap.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.197 seconds)
+   **Total running time of the script:** (0 minutes 1.240 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_focal_mechanisms.py:

@@ -38,8 +38,38 @@ at :doc:`Supported Fonts </techref/fonts>`. For an complete overview see
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
+    text [WARNING]: Length <unit> e not supported - revert to default unit [point]
+    text [WARNING]: Fals not a valid number and may not be decoded properly.
+    text [WARNING]: Representation of font size not recognized. Using default.
 
 
+
+
+
+
+|
 
 .. code-block:: Python
 
@@ -75,7 +105,7 @@ at :doc:`Supported Fonts </techref/fonts>`. For an complete overview see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.120 seconds)
+   **Total running time of the script:** (0 minutes 0.124 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_text_formatting.py:

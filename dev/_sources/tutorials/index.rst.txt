@@ -316,7 +316,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots.">
+    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and tag them &#x27;abcd&#x27;. These individual plots are called subplots.">
 
 .. only:: html
 
@@ -379,6 +379,23 @@ Advanced
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to draping a dataset (grid or image) on top of a topographic surface, you may want to add additional features like coastlines, symbols, and text annotations. This tutorial shows how to use pygmt.Figure.coast, pygmt.Figure.plot3d, and pygmt.Figure.text to add these features on a 3-D surface created by pygmt.Figure.grdview.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_features_on_3d_surface_thumb.png
+    :alt:
+
+  :doc:`/tutorials/advanced/features_on_3d_surface`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting features on a 3-D surface</div>
     </div>
 
 
@@ -455,6 +472,7 @@ Advanced
    /tutorials/advanced/grid_equalization
    /tutorials/advanced/earth_relief
    /tutorials/advanced/date_time_charts
+   /tutorials/advanced/features_on_3d_surface
    /tutorials/advanced/focal_mechanisms
    /tutorials/advanced/vectors
    /tutorials/advanced/non_ascii_text

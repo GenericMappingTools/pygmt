@@ -63,7 +63,7 @@
 ### Maintenance
 
 * Add support for Python 3.14 ([#4150](https://github.com/GenericMappingTools/pygmt/pull/4150))
-* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and Xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
+* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
 * DOC: Update naming convention in contributors guide: Separate words in parameter names by underscores ([#4284](https://github.com/GenericMappingTools/pygmt/pull/4284))
 * fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
 * Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
@@ -136,7 +136,7 @@
 
 * **BREAKING** Figure.text: Raise GMTTypeError if text is a sequence when position is given ([#4065](https://github.com/GenericMappingTools/pygmt/pull/4065))
 * Switch from pre-commit to prek ([#4082](https://github.com/GenericMappingTools/pygmt/pull/4082))
-* SPEC 0: Bump minimum supported version to pandas 2.2 and Xarray 2023.10 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092), [#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
+* SPEC 0: Bump minimum supported version to pandas 2.2 and xarray 2023.10 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092), [#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
 * Remove the support of non-aliased aliases in use_alias/fmt_docstrings ([#4042](https://github.com/GenericMappingTools/pygmt/pull/4042))
 * CI: Bump to macOS 26 in the GMT Dev Tests workflow ([#4084](https://github.com/GenericMappingTools/pygmt/pull/4084))
 * CI: Bump to macOS 14 in the GMT Legacy Tests workflow ([#3996](https://github.com/GenericMappingTools/pygmt/pull/3996))

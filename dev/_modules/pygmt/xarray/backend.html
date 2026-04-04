@@ -11,8 +11,8 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/xarray/backend.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=64687402"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -178,7 +178,7 @@
 <a class="viewcode-back" href="../../../api/generated/pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GMTBackendEntrypoint</span><span class="p">(</span><span class="n">BackendEntrypoint</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Xarray backend to read raster grid/image files using &#39;gmt&#39; engine.</span>
+<span class="sd">    xarray backend to read raster grid/image files using &#39;gmt&#39; engine.</span>
 
 <span class="sd">    Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF</span>
 <span class="sd">    and other raster formats. See :gmt-docs:`reference/features.html#grid-file-format`</span>
@@ -261,7 +261,7 @@
 <span class="sd">        units:         m</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Open raster (.grd, .nc or .tif) files in Xarray via GMT.&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Open raster (.grd, .nc or .tif) files in xarray via GMT.&quot;</span>
     <span class="n">open_dataset_parameters</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;filename_or_obj&quot;</span><span class="p">,</span> <span class="s2">&quot;raster_kind&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">)</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html&quot;</span>
 
@@ -279,7 +279,7 @@
         <span class="c1"># `chunks` and `cache` DO NOT go here, they are handled by xarray</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.</span>
+<span class="sd">        Backend open_dataset method used by xarray in :py:func:`~xarray.open_dataset`.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -328,9 +328,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/538d00671">538d0067</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Apr 04, 2026.
       </span></p>
   </div>
 
