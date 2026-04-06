@@ -42,18 +42,15 @@ fig.grdimage(grid=grid_map, cmap="SCM/oleron")
 # Add a colorbar for the elevation
 fig.colorbar(
     # Place the colorbar inside the plot in the Bottom Right (BR) corner with an offset
-    # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively;
-    # move the x-label above the horizontal colorbar.
+    # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively.
     position=Position("BR", offset=(0.7, 0.8)),
     length=5,
     width=0.3,
     orientation="horizontal",
-    move_text="label",
-    # Add a box around the colobar, filled in white and a 30 % transparency, with a
-    # 0.8-point thick, black, outline.
+    move_text="label",  # move the x-label above the horizontal colorbar.
     box=Box(pen="0.8p,black", fill="white@30"),
-    # Add x- and y-labels ("+l")
-    frame=["x+lElevation", "y+lm"],
+    label="Elevation",
+    unit="m",
 )
 
 # Plot the survey line

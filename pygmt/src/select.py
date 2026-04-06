@@ -150,7 +150,6 @@ def select(
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    $projection
     mask_values : str or list
         Pass all records whose location is inside specified geographical features.
         Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
@@ -168,8 +167,6 @@ def select(
         the coastlines differ in details, a node in a mask file using one resolution is
         not guaranteed to remain inside [or outside] when a different resolution is
         selected. If ``None``, the low resolution is used by default.
-    $region
-    $verbose
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -189,6 +186,9 @@ def select(
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
+    $projection
+    $region
+    $verbose
     $binary
     $nodata
     $find

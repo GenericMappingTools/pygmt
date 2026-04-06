@@ -62,7 +62,6 @@ def grdclip(
     ----------
     $grid
     $outgrid
-    $region
     above
         Pass a sequence of two values in the form of (*high*, *above*), to set all node
         values greater than *high* to *above*.
@@ -80,6 +79,7 @@ def grdclip(
         (e.g., list of lists or 2-D numpy array) to replace different old values with
         different new values. This is mostly useful when your data are known to be
         integer values.
+    $region
     $verbose
 
     Returns
@@ -110,7 +110,7 @@ def grdclip(
     [np.float32(0.0), np.float32(10000.0)]
     """
     if all(v is None for v in (above, below, between, replace)):
-        raise GMTParameterError(at_least_one={"above", "below", "between", "replace"})
+        raise GMTParameterError(at_least_one=["above", "below", "between", "replace"])
 
     aliasdict = AliasSystem(
         Sa=Alias(above, name="above", sep="/", size=2),

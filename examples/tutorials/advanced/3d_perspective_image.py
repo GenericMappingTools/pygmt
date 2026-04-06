@@ -93,7 +93,7 @@ fig.grdview(
     # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
-fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
+fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 4

@@ -148,7 +148,7 @@ def load_tile_map(
 
     if crs != _source_crs and not _HAS_RIOXARRAY:
         msg = (
-            f"Package `rioxarray` is required if CRS is not '{_source_crs}'. "
+            f"Package `rioxarray` is required if CRS is not {_source_crs!r}. "
             "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` to install the package."
         )

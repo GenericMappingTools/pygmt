@@ -21,8 +21,8 @@ PDF and PNG.
 The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
 [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) (the co-creator and main
 developer of GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT
-has been supported by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403)
-and [EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+has been supported by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403)
+and [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on

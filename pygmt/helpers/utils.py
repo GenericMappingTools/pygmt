@@ -561,7 +561,7 @@ def build_arg_list(  # noqa: PLR0912
     gmt_args = []
     for key, value in kwdict.items():
         if len(key) > 2:  # Raise an exception for unrecognized options
-            msg = f"Unrecognized parameter '{key}'."
+            msg = f"Unrecognized parameter {key!r}."
             raise GMTInvalidInput(msg)
         if value is None or value is False:  # Exclude arguments that are None or False
             pass
@@ -861,7 +861,7 @@ def sequence_join(
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size
     errmsg = {
-        "name": f"Parameter '{name}': " if name else "",
+        "name": f"Parameter {name!r}: " if name else "",
         "sizes": ", ".join(str(s) for s in size) if size is not None else "",
     }
 

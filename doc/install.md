@@ -94,7 +94,7 @@ PyGMT requires the following packages to be installed:
 
 - [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
-- [Xarray](https://xarray.dev/)
+- [xarray](https://xarray.dev/)
 - [packaging](https://packaging.pypa.io)
 
 :::{note}
@@ -324,4 +324,4 @@ please check your GMT and Ghostscript versions (you can run `pygmt.show_versions
 We recommend:
 
 - Ghostscript 9.53-9.56 for GMT 6.4.0 (or below)
-- Ghostscript 10.03-10.06 for GMT 6.5.0-6.6.0
+- Ghostscript 10.03-10.07 for GMT 6.5.0-6.6.0

@@ -16,48 +16,6 @@ from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, us
 __doctest_skip__ = ["grdfill"]
 
 
-def _validate_params(
-    constant_fill=None,
-    grid_fill=None,
-    neighbor_fill=None,
-    spline_fill=None,
-    inquire=False,
-):
-    """
-    Validate the fill/inquire parameters.
-
-    >>> _validate_params(constant_fill=20.0)
-    >>> _validate_params(inquire=True)
-    >>> _validate_params(constant_fill=20.0, grid_fill="bggrid.nc")
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
-    >>> _validate_params(constant_fill=20.0, inquire=True)
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
-    >>> _validate_params()
-    Traceback (most recent call last):
-    ...
-    pygmt.exceptions.GMTParameterError: Missing parameter: requires at least one ...
-    """
-    params = {
-        "constant_fill": constant_fill,
-        "grid_fill": grid_fill,
-        "neighbor_fill": neighbor_fill,
-        "spline_fill": spline_fill,
-        "inquire": inquire,
-    }
-    n_given = sum(param is not None and param is not False for param in params.values())
-    match n_given:
-        case 0:
-            raise GMTParameterError(at_least_one=params)
-        case 1:
-            pass
-        case _:
-            raise GMTParameterError(at_most_one=params)
-
-
 @fmt_docstring
 # TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
 @deprecate_parameter(
@@ -129,10 +87,9 @@ def grdfill(
         Output the bounds of each hole. The bounds are returned as a 2-D numpy array in
         the form of (west, east, south, north). No grid fill takes place and ``outgrid``
         is ignored.
-
     $region
-    $coltypes
     $verbose
+    $coltypes
 
     Returns
     -------
@@ -160,10 +117,20 @@ def grdfill(
     array([[1.83333333, 6.16666667, 3.83333333, 8.16666667],
            [6.16666667, 7.83333333, 0.5       , 2.5       ]])
     """
-    # Validate the fill/inquire parameters.
-    _validate_params(constant_fill, grid_fill, neighbor_fill, spline_fill, inquire)
+    # Validate exclusive parameters.
+    params = {
+        "constant_fill": constant_fill,
+        "grid_fill": grid_fill,
+        "neighbor_fill": neighbor_fill,
+        "spline_fill": spline_fill,
+        "inquire": inquire,
+    }
+    n_given = sum(v is not None and v is not False for v in params.values())
+    if n_given == 0:
+        raise GMTParameterError(at_least_one=params)
+    if n_given > 1:
+        raise GMTParameterError(at_most_one=params)
 
-    # _validate_params has already ensured that only one of the parameters is set.
     aliasdict = AliasSystem(
         Ac=Alias(constant_fill, name="constant_fill"),
         # For grid_fill, append the actual or virtual grid file name later.

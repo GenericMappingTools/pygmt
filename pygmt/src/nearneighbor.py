@@ -36,16 +36,16 @@ def nearneighbor(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
-    registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
-    **nearneighbor** reads arbitrarily located (*x*, *y*, *z*\ [, *w*])
+    :func:`pygmt.nearneighbor` reads arbitrarily located (*x*, *y*, *z*\ [, *w*])
     triplets [quadruplets] and uses a nearest neighbor algorithm to assign a
     weighted average value to each node that has one or more data points within
     a search radius centered on the node with adequate coverage across a subset
@@ -97,8 +97,6 @@ def nearneighbor(
 
     $spacing
 
-    $region
-
     search_radius : str
         Set the search radius that determines which data points are considered
         close to a node.
@@ -120,6 +118,7 @@ def nearneighbor(
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
+    $region
     $verbose
     $aspatial
     $binary

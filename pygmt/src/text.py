@@ -25,8 +25,6 @@ from pygmt.helpers import (
 @use_alias(
     C="clearance",
     D="offset",
-    G="fill",
-    W="pen",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -41,18 +39,20 @@ def text_(  # noqa: PLR0912, PLR0913
     y=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
-    angle=None,
-    font=None,
+    angle: float | Sequence[float] | bool = False,
+    font: str | StringArrayTypes | bool = False,
+    fill: str | None = None,
+    pen: str | None = None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -74,10 +74,12 @@ def text_(  # noqa: PLR0912, PLR0913
     $aliases
        - B = frame
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
+       - G = fill
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -133,9 +135,6 @@ def text_(  # noqa: PLR0912, PLR0913
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    $projection
-    $region
-        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -149,8 +148,11 @@ def text_(  # noqa: PLR0912, PLR0913
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
         you can also append lowercase **c** to get a concave rectangle or
         append uppercase **C** to get a convex rectangle.
-    fill : str
+    fill
         Set color for filling text boxes [Default is no fill].
+    pen
+        Set the pen used to draw a rectangle around the text string (see ``clearance``)
+        [Default is ``"0.25p,black,solid"``].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
         Offset the text from the projected (x, y) point by *dx*/\ *dy*
@@ -162,11 +164,11 @@ def text_(  # noqa: PLR0912, PLR0913
         Optionally, append **+v** which will draw a line from the original
         point to the shifted point; append a pen to change the attributes
         for this line.
-    pen : str
-        Set the pen used to draw a rectangle around the text string
-        (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
+    $projection
+    $region
+        *Required if this is the first plot command.*
     $verbose
     $aspatial
     $panel
@@ -191,7 +193,7 @@ def text_(  # noqa: PLR0912, PLR0913
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        raise GMTParameterError(at_most_one={"textfiles", "position/text", "x/y/text"})
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
@@ -208,7 +210,7 @@ def text_(  # noqa: PLR0912, PLR0913
             )
 
     if textfiles is not None and text is not None:
-        raise GMTParameterError(at_most_one={"text", "textfiles"})
+        raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
         raise GMTParameterError(
             required="text", reason="Required when 'x' and 'y' are set."
@@ -273,7 +275,9 @@ def text_(  # noqa: PLR0912, PLR0913
                 )
 
     aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
         N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,

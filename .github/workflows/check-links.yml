@@ -21,18 +21,18 @@ permissions:
 jobs:
   check_links:
     name: Check Links
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v6.0.1
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       with:
         path: repository
         persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@v6.0.1
+      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       with:
         ref: gh-pages
         path: documentation
@@ -40,7 +40,7 @@ jobs:
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@a8c4c7cb88f0c7386610c35eb25108e448569cb0 # v2.7.0
+      uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
       with:
         fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
@@ -70,7 +70,6 @@ jobs:
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://zenodo.org/badge/DOI/"
           --exclude "^https://stackoverflow.com/a/69170441"
-          --verbose
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"

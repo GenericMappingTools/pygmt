@@ -43,6 +43,6 @@ fig.ternary(
 
 # Add a colorbar indicating the values given in the fourth column of the input dataset
 fig.colorbar(
-    position=Position("BC", cstype="outside", offset=(0, 1.5)), frame="x+lPermittivity"
+    position=Position("BC", cstype="outside", offset=(0, 1.5)), label="Permittivity"
 )
 fig.show()

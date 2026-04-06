@@ -110,11 +110,15 @@ def magnetic_rose(  # noqa: PLR0913
 
     position = _parse_position(position, default=Position("BL", cstype="inside"))
 
-    if declination_label is not None and declination is None:
-        raise GMTParameterError(
-            required="declination",
-            reason="Required when 'declination_label' is set.",
-        )
+    if declination_label is not None:
+        if declination is None:
+            raise GMTParameterError(
+                required="declination",
+                reason="Required when 'declination_label' is set.",
+            )
+        # Upstream issue that declination label with spaces is not properly handled.
+        if " " in declination_label:
+            declination_label = declination_label.replace(" ", "\\040")
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),

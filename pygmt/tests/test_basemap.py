@@ -94,9 +94,10 @@ def test_basemap_rose():
     Create a map with a rose.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
-    )
+    with pytest.warns(FutureWarning, match="'rose' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
+        )
     return fig
 
 
@@ -106,12 +107,13 @@ def test_basemap_compass():
     Create a map with a compass.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        compass="jMC+w5c+d11.5",
-    )
+    with pytest.warns(FutureWarning, match="'compass' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            compass="jMC+w5c+d11.5",
+        )
     return fig
 
 
@@ -121,12 +123,13 @@ def test_basemap_map_scale():
     Create a map with a map scale.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        map_scale="jMC+c26.5+w10k+f+l",
-    )
+    with pytest.warns(FutureWarning, match="'map_scale' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            map_scale="jMC+c26.5+w10k+f+l",
+        )
     return fig
 
 
@@ -154,4 +157,18 @@ def test_basemap_frame_sequence_true():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=[True, "WSen"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_frame_none():
+    """
+    Test that passing frame="none" works.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame=True)
+    fig.colorbar(cmap="google/turbo", frame=True)
+    fig.shift_origin(xshift=5.5)
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame="none")
+    fig.colorbar(cmap="google/turbo", frame="none")
     return fig

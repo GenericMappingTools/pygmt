@@ -16,3 +16,13 @@ updates:
       - "skip-changelog"
     cooldown:
       default-days: 7
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    labels:
+      - "maintenance"
+      - "skip-changelog"
+    cooldown:
+      default-days: 7

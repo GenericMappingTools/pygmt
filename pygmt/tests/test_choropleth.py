@@ -5,7 +5,7 @@ Test Figure.choropleth.
 import pytest
 from pygmt import Figure, makecpt
 
-gpd = pytest.importorskip("geopandas")
+geopandas = pytest.importorskip("geopandas")
 
 
 @pytest.fixture(scope="module", name="world")
@@ -13,7 +13,7 @@ def fixture_world():
     """
     Download and cache the Natural Earth countries dataset for testing.
     """
-    return gpd.read_file(
+    return geopandas.read_file(
         "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
     )
 

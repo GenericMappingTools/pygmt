@@ -54,18 +54,17 @@ fig.show()
 # To show how the plotted colors relate to the Earth relief, a colorbar can be added
 # using the :meth:`pygmt.Figure.colorbar` method.
 #
-# To control the annotation and labels on the colorbar, a list is passed to the
-# ``frame`` parameter. The value beginning with ``"a"`` sets the interval for the
-# annotation on the colorbar, in this case every 1,000 meters. To set the label for an
-# axis on the colorbar, the argument begins with either ``"x+l"`` (x-axis) or ``"y+l"``
-# (y-axis), followed by the intended label.
+# To control the annotation and labels on the colorbar, use the ``annot`` parameter to
+# set the annotation interval (in this case every 1,000 meters), the ``label`` and
+# ``unit``parameters to set the labels along the long and short dimensions of the
+# colorbar, respectively.
 #
 # By default, the CPT for the colorbar is the same as the one set in
 # :meth:`pygmt.Figure.grdimage`.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
-fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
+fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 
 
@@ -87,7 +86,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
 fig.grdcontour(grid=grid, levels=500, annotation=1000)
-fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
+fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 
 
@@ -103,7 +102,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
 fig.grdcontour(grid=grid, levels=500, annotation=1000)
 fig.coast(shorelines="2p", land="lightgray")
-fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
+fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 
 
