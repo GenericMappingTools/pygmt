@@ -17,7 +17,7 @@ illumination; here we choose an azimuth of 45° with ``shading="+a45"``.
 import numpy as np
 import pygmt
 import xarray as xr
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 
 # Define an interesting function of two variables, see:
@@ -47,7 +47,10 @@ SCALE = 0.5  # in centimeters
 fig.grdview(
     data,
     # Set annotations and gridlines in steps of five, and tick marks in steps of one
-    frame=["a5f1g5", "za5f1g5"],
+    frame=Frame(
+        axis=Axis(annot=5, tick=1, grid=5),
+        zaxis=Axis(annot=5, tick=1, grid=5),
+    ),
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
     surftype="surface",
