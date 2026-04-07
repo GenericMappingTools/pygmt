@@ -24,3 +24,5 @@ updates:
     labels:
       - "maintenance"
       - "skip-changelog"
+    cooldown:
+      default-days: 7
