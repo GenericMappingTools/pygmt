@@ -85,8 +85,9 @@ def sphdistance(
         Optionally, append the resampling interval along Voronoi arcs in
         spherical degrees.
     unit : str
-        Specify the unit used for distance calculations. See :ref:`distance-units` for 
-        supported distance units.
+        Specify the unit used for distance calculations. Valid values are **d**, **e**,
+        **f**, **k**, **M**, **n**, and **u**. See :ref:`distance-units` for meanings of
+        the units.
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
