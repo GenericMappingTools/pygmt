@@ -39,7 +39,7 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), tag=True, margins=0.5)
         # "M?" means Mercator projection with map width also automatically determined
         # from the subplot width.
         fig.basemap(
-            projection="M?", region=subset_region, frame=Axis(annot=True))
+            projection="M?", region=subset_region, frame=Axis(annot=True)
         )
         fig.grdimage(grid=grid_subset)
         fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
