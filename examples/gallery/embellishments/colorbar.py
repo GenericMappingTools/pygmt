@@ -19,7 +19,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 3, 6, 9],
     projection="x3c",
-    frame=Frame(axes="WSne", titel="Colorbars", axis=Axis(annot=True, tick=True)),
+    frame=Frame(axes="WSne", title="Colorbars", axis=Axis(annot=True, tick=True)),
 )
 
 # ============
