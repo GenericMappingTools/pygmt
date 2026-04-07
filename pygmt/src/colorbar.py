@@ -239,6 +239,7 @@ def colorbar(  # noqa: PLR0913
     shading: float | Sequence[float] | bool = False,
     log: bool = False,
     scale: float | None = None,
+    monochrome: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | Literal["none"] | bool = False,
@@ -278,6 +279,7 @@ def colorbar(  # noqa: PLR0913
        - G = truncate
        - I = shading
        - J = projection
+       - M = monochrome
        - Q = log
        - R = region
        - V = verbose
@@ -410,6 +412,8 @@ def colorbar(  # noqa: PLR0913
         may be in plot distance units or given as relative fractions and will
         be automatically scaled so that the sum of the widths equals the
         requested colorbar length.
+    monochrome
+        Force a monochrome graybar using the (television) YIQ transformation.
     $projection
     $region
     $verbose
@@ -467,6 +471,7 @@ def colorbar(  # noqa: PLR0913
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),
+        M=Alias(monochrome, name="monochrome"),
         Q=Alias(log, name="log"),
         W=Alias(scale, name="scale"),
     ).add_common(
