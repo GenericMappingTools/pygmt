@@ -8,13 +8,17 @@ example shows how such a scale bar can be customized.
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Create a new Figure instance
 fig = pygmt.Figure()
 
 # Mercator projection with 10 centimeters width
-fig.basemap(region=[-45, -25, -15, 0], projection="M0/0/10c", frame=["WSne", "af"])
+fig.basemap(
+    region=[-45, -25, -15, 0],
+    projection="M0/0/10c",
+    frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+)
 
 # --- Top Left: Add a plain scale bar ---
 # It is placed based on geographic coordinates 42° West and 1° South, applies at the
@@ -67,7 +71,11 @@ fig.show()
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[-45, -25, -15, 0], projection="M10c", frame=["WSne", "af"])
+fig.basemap(
+    region=[-45, -25, -15, 0],
+    projection="M10c",
+    frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+)
 fig.coast(land="tan", water="steelblue")
 fig.scalebar(
     position=Position("BL", cstype="inside", offset=1),

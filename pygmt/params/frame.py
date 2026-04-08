@@ -175,10 +175,11 @@ class Frame(BaseParam):
 
     #: Specify the attributes for axes by an :class:`Axis` object.
     #:
-    #: The attributes for each axis can be specified in two ways: (1) specifying the
-    #: same attributes for all axes using the ``axis`` parameter; (2) specifying the
-    #: attributes for each axis separately using the ``xaxis``, ``yaxis``, ``zaxis``
-    #: parameter for the x-, y, and z-axes, respectively.
+    #: The attributes for x and y axes can be specified in two ways: (1) specifying the
+    #: same attributes for both axes using the ``axis`` parameter; (2) specifying the
+    #: attributes for each axis separately using the ``xaxis`` and ``yaxis`` parameters.
+    #: The attributes for z-axis can only be specified separately using the ``zaxis``
+    #: parameter.
     #:
     #: GMT uses the notion of primary (the default) and secondary axes, while secondary
     #: axes are optional and mostly used for time axes annotations. To specify the
@@ -197,13 +198,10 @@ class Frame(BaseParam):
         Validate the parameters of the Frame class.
         """
         if self.axis is not None and any(
-            [self.xaxis, self.yaxis, self.zaxis, self.xaxis2, self.yaxis2, self.zaxis2]
+            [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
         ):
             raise GMTParameterError(
-                conflicts_with=(
-                    "axis",
-                    ["xaxis", "yaxis", "zaxis", "xaxis2", "yaxis2", "zaxis2"],
-                ),
+                conflicts_with=("axis", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
                 reason="Either 'axis' or the individual axis parameters can be set, but not both.",
             )
 

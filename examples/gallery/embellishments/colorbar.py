@@ -13,10 +13,14 @@ of the colorbar is set by passing a :class:`pygmt.params.Position` object to the
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
+fig.basemap(
+    region=[0, 3, 6, 9],
+    projection="x3c",
+    frame=Frame(axes="WSne", title="Colorbars", axis=Axis(annot=True, tick=True)),
+)
 
 # ============
 # Create a colorbar designed for seismic tomography - roma
