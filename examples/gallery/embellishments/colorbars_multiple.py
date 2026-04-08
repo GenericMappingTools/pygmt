@@ -29,7 +29,7 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), tag=True, margins=0.5)
         # "R?" means Winkel Tripel projection with map width automatically determined
         # from the subplot width.
         fig.grdimage(grid=grid_globe, projection="R?", region="g", frame="a")
-        fig.colorbar(frame=["a4000f2000", "x+lElevation", "y+lm"])
+        fig.colorbar(annot=4000, tick=2000, label="Elevation", unit="m")
     # Activate the second panel so that the colormap created by the makecpt function is
     # a panel-level CPT
     with fig.set_panel(panel=1):
@@ -37,6 +37,6 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), tag=True, margins=0.5)
         # "M?" means Mercator projection with map width also automatically determined
         # from the subplot width.
         fig.grdimage(grid=grid_subset, projection="M?", region=subset_region, frame="a")
-        fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
+        fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
 
 fig.show()

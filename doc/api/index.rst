@@ -126,6 +126,7 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
+    grdmask
     nearneighbor
     project
     select
@@ -199,7 +200,7 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
-Xarray Integration
+xarray Integration
 ------------------
 
 .. autosummary::
@@ -217,7 +218,9 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
     Position
 

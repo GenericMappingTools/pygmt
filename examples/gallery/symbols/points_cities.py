@@ -14,13 +14,15 @@ to label specific features.
 """
 
 # %%
-import geopandas as gpd
+import geopandas
 import pygmt
 
 # Read a sample dataset provided by Natural Earth. The dataset contains cities stored
 # as Point geometry type. In this example we focus on Europe.
 provider = "https://naciscdn.org/naturalearth"
-cities = gpd.read_file(f"{provider}/50m/cultural/ne_50m_populated_places_simple.zip")
+cities = geopandas.read_file(
+    f"{provider}/50m/cultural/ne_50m_populated_places_simple.zip"
+)
 cities = cities[cities["name"] != "Vatican City"].copy()  # No overlap with label Rome
 # Create two subsets for small and large cities
 cities_small = cities[cities["worldcity"] != 1].copy()

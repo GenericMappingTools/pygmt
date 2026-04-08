@@ -18,7 +18,7 @@ quantity for the color-coding.
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 # Define a study area around northern Japan with large elevation changes
 region = [141, 147, 36, 43]
@@ -43,7 +43,12 @@ fig.basemap(
     region=[*region, zmin, zmax],
     projection="M10c",
     zsize="8c",
-    frame=["WSneZ", "xaf", "yag", "za1000f500+lElevation / m"],
+    frame=Frame(
+        axes="WSneZ",
+        xaxis=Axis(annot=True, tick=True),
+        yaxis=Axis(annot=True, grid=True),
+        zaxis=Axis(annot=1000, tick=500, label="Elevation / m"),
+    ),
     perspective=(195, 30),
 )
 
@@ -58,7 +63,10 @@ fig.plot3d(
     perspective=True,
 )
 fig.colorbar(
-    frame=["xa1000f500+lElevation", "y+lm"],
+    annot=1000,
+    tick=500,
+    label="Elevation",
+    unit="m",
     position=Position("TR", cstype="inside", offset=1.4),
     orientation="vertical",
     length=7,
