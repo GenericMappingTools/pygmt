@@ -16,7 +16,7 @@ file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
 # %%
 import numpy as np
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 # Set up some test data
 x = np.arange(-10, 10.2, 0.2)
@@ -31,7 +31,11 @@ fig = pygmt.Figure()
 fig.basemap(
     projection="X10c/7c",
     region=[-10, 10, -3.5, 3.5],
-    frame=["WSne", "xaf+lx", "ya1f0.5+ly"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=True, label="x"),
+        yaxis=Axis(annot=1, tick=0.5, label="y"),
+    ),
 )
 
 # -----------------------------------------------------------------------------
