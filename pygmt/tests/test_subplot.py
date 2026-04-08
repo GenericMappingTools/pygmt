@@ -12,8 +12,8 @@ from pygmt.params import Box, Position
 @pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
-    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure map
-    frame setting is applied to all subplot figures.
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure plot
+    frame setting is applied to all subplot panels.
     """
     fig = Figure()
 
@@ -28,7 +28,7 @@ def test_subplot_basic_frame():
 @pytest.mark.mpl_image_compare
 def test_subplot_direct():
     """
-    Plot map elements to subplot directly using the panel parameter.
+    Plot elements to subplot directly using the panel parameter.
     """
     fig = Figure()
 
