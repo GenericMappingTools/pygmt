@@ -36,7 +36,7 @@ jobs:
       uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@f714cd201b7183852dd6f94192b34e7618717560 # v2.0.0
+      uses: iterative/setup-cml@1b5ab8766e715e8f1aab96bbb1f4f2e3e1e8af45 # v3
 
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
