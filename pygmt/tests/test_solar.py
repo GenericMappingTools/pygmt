@@ -6,7 +6,7 @@ import datetime
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -64,45 +64,22 @@ def test_solar_set_terminator_datetime(terminator_datetime):
     return fig
 
 
-def test_invalid_terminator_type():
+@pytest.mark.parametrize(
+    ("kwargs", "expected_exception"),
+    [
+        ({"terminator": "invalid"}, GMTValueError),
+        ({"T": "d+d1990-02-17T04:25:00"}, GMTParameterError),
+        ({"terminator_datetime": "199A-02-17 04:25:00"}, GMTValueError),
+    ],
+)
+def test_solar_invalid_inputs(kwargs, expected_exception):
     """
-    Test if solar fails when it receives an invalid terminator type.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.solar(
-            region="d",
-            projection="W0/15c",
-            frame="a",
-            terminator="invalid",
-        )
-
-
-def test_invalid_parameter():
-    """
-    Test if solar fails when it receives a GMT argument for 'T' instead of the PyGMT
-    arguments for 'terminator' and 'terminator_datetime'.
+    Test if the appropriate error is raised when an invalid
+    value is passed.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        # Use single-letter parameter 'T' for testing
-        fig.solar(
-            region="d", projection="W0/15c", frame="a", T="d+d1990-02-17T04:25:00"
-        )
-
-
-def test_invalid_datetime():
-    """
-    Test if solar fails when it receives an invalid datetime string.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.solar(
-            region="d",
-            projection="W0/15c",
-            frame="a",
-            terminator_datetime="199A-02-17 04:25:00",
-        )
+    with pytest.raises(expected_exception):
+        fig.solar(region="d", projection="W0/15c", frame="a", **kwargs)
 
 
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
@@ -117,5 +94,31 @@ def test_solar_default_terminator():
         projection="W0/15c",
         frame="a",
         terminator_datetime="1990-02-17 04:25:00",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_solar_terminator_datetime_timezone():
+    """
+    Test passing the terminator_datetime argument with a time string that includes a
+    timezone.
+    """
+    fig = Figure()
+    fig.basemap(region="d", projection="W0/15c", frame=True)
+    fig.solar(terminator_datetime="2020-01-01T01:02:03", pen="1p,black")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03+01:00", pen="1p,red")
+    fig.solar(terminator_datetime="2020-01-01T01:02:03-01:00", pen="1p,blue")
+    fig.solar(
+        terminator_datetime=datetime.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=2))
+        ),
+        pen="1p,lightred",
+    )
+    fig.solar(
+        terminator_datetime=datetime.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=-2))
+        ),
+        pen="1p,lightblue",
     )
     return fig

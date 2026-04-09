@@ -9,8 +9,8 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import grdtrack
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.exceptions import GMTParameterError, GMTTypeError
+from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
 POINTS_DATA = Path(__file__).parent / "data" / "track.txt"
@@ -126,23 +126,19 @@ def test_grdtrack_profile(dataarray):
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
-    Run grdtrack using points input that is not a pandas.DataFrame (matrix) or file.
+    Run grdtrack using points input that is not a pandas.DataFrame or file.
     """
     invalid_points = dataframe.longitude.to_xarray()
-
-    assert data_kind(invalid_points) == "grid"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=invalid_points, grid=dataarray, newcolname="bathymetry")
 
 
 def test_grdtrack_wrong_kind_of_grid_input(dataarray, dataframe):
     """
-    Run grdtrack using grid input that is not as xarray.DataArray (grid) or file.
+    Run grdtrack using grid input that is not an xarray.DataArray or file.
     """
     invalid_grid = dataarray.to_dataset()
-
-    assert data_kind(invalid_grid) == "matrix"
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdtrack(points=dataframe, grid=invalid_grid, newcolname="bathymetry")
 
 
@@ -150,7 +146,7 @@ def test_grdtrack_without_newcolname_setting(dataarray, dataframe):
     """
     Run grdtrack by not passing in newcolname parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(points=dataframe, grid=dataarray)
 
 
@@ -158,15 +154,20 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     """
     Run grdtrack by not passing in outfile parameter setting.
     """
-    with pytest.raises(GMTInvalidInput):
-        grdtrack(points=dataframe, grid=dataarray)
+    with pytest.raises(GMTParameterError):
+        grdtrack(
+            points=dataframe,
+            grid=dataarray,
+            newcolname="bathymetry",
+            output_type="file",
+        )
 
 
 def test_grdtrack_no_points_and_profile(dataarray):
     """
     Run grdtrack but don't set 'points' and 'profile'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(grid=dataarray)
 
 
@@ -174,5 +175,5 @@ def test_grdtrack_set_points_and_profile(dataarray, dataframe):
     """
     Run grdtrack but set both 'points' and 'profile'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdtrack(grid=dataarray, points=dataframe, profile="BL/TR")

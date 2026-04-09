@@ -1,0 +1,5 @@
+outs:
+- md5: 3fb4a271c670e4cbe647838b6fee5a8c
+  size: 67128
+  hash: md5
+  path: test_vlines_geographic_global.png

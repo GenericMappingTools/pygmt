@@ -1,6 +1,6 @@
 r"""
-Universal Transverse Mercator
-=============================
+Universal Transverse Mercator projection
+========================================
 
 A particular subset of the
 :doc:`transverse Merctor </projections/cyl/cyl_transverse_mercator>`
@@ -14,7 +14,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
+.. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -44,9 +44,8 @@ fig = pygmt.Figure()
 fig.coast(
     region=[127.5, 128.5, 26, 27],
     projection="U52R/12c",
-    land="lightgreen",
-    water="lightblue",
-    shorelines="thinnest",
     frame="afg",
+    land="gray80",
+    water="steelblue",
 )
 fig.show()

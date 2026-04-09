@@ -1,0 +1,5 @@
+outs:
+- md5: b04af7fe4c42e405adb600cc3d6d3272
+  size: 11679
+  hash: md5
+  path: test_basemap_frame_sequence_true.png

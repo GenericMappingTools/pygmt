@@ -2,8 +2,12 @@
 x2sys_init - Initialize a new x2sys track database.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
@@ -12,15 +16,18 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     E="suffix",
     F="force",
     G="discontinuity",
-    I="spacing",
     N="units",
-    R="region",
-    V="verbose",
     W="gap",
     j="distcalc",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
-def x2sys_init(tag, **kwargs):
+def x2sys_init(
+    tag,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+):
     r"""
     Initialize a new x2sys track database.
 
@@ -30,13 +37,16 @@ def x2sys_init(tag, **kwargs):
     x2sys TAG. The TAG keeps track of settings such as file format, whether the
     data are geographic or not, and the binning resolution for track indices.
 
-    Before you can run :func:`pygmt.x2sys_init` you must set the environmental
-    parameter X2SYS_HOME to a directory where you have write permission, which
-    is where x2sys can keep track of your settings.
+    Before you can run :func:`pygmt.x2sys_init` you must set the environment variable
+    :term:`X2SYS_HOME` to a directory where you have write permission, which is where
+    x2sys can keep track of your settings.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_init.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
-    {aliases}
+    $aliases
+       - I = spacing
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
@@ -72,7 +82,7 @@ def x2sys_init(tag, **kwargs):
         discontinuity at Greenwich (makes longitude go from 0° E to 360° E
         [Default]). If not given we assume the data are Cartesian.
 
-    spacing : str or list
+    spacing
          *dx*\[/*dy*].
          *dx* and optionally *dy* is the grid spacing. Append **m** to
          indicate minutes or **s** to indicate seconds for geographic data.
@@ -85,19 +95,16 @@ def x2sys_init(tag, **kwargs):
         programs. Append **d** for distance or **s** for speed, then give the
         desired *unit* as:
 
-        - **c** - Cartesian userdist or userdist/usertime
-        - **e** - meters or m/s
-        - **f** - feet or ft/s
-        - **k** - kilometers or km/hr
-        - **m** - miles or mi/hr
-        - **n** - nautical miles or knots
-        - **u** - survey feet or sft/s
+        - **c**: Cartesian userdist or userdist/usertime
+        - **e**: meters or m/s
+        - **f**: feet or ft/s
+        - **k**: kilometers or km/hr
+        - **m**: miles or mi/hr
+        - **n**: nautical miles or knots
+        - **u**: survey feet or sft/s
 
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
-
-    {region}
-    {verbose}
 
     gap : str or list
         **t**\|\ **d**\ *gap*.
@@ -108,7 +115,17 @@ def x2sys_init(tag, **kwargs):
         If these limits are exceeded then a data gap is assumed and no COE will
         be determined.
 
-    {distcalc}
+    $region
+    $verbose
+    $distcalc
     """
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        lib.call_module(module="x2sys_init", args=build_arg_list(kwargs, infile=tag))
+        lib.call_module(module="x2sys_init", args=build_arg_list(aliasdict, infile=tag))

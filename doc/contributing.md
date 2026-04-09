@@ -64,7 +64,7 @@ the problem:
 
       python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
+  where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
   data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
@@ -100,7 +100,7 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](contributing.md#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
+* [Git Workflow Tutorial](https://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
@@ -111,7 +111,7 @@ the project where you can ask questions.
 
 ### Pull Request Workflow
 
-We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
+We follow the [git pull request workflow](https://www.asmeurer.com/git-workflow)
 to make changes to our codebase. Every change made goes through a pull request, even
 our own, so that our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
@@ -130,9 +130,9 @@ our tests. This way, the *main* branch is always stable.
     integrated separately.
   - Bug fixes should be submitted in separate PRs.
 * How to write and submit a PR
-  - Use underscores for all Python (*.py) files as per
-    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
-    names should also use underscores instead of hyphens.
+  - Use underscores for all Python (\*.py) files as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory names
+    should also use underscores instead of hyphens.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.
@@ -163,12 +163,14 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](contributing.md#testing-your-code) or
     [Testing plots](contributing.md#testing-plots).
-  - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](contributing.md#contributing-gallery-plots)
-    or [Tutorials](contributing.md#contributing-tutorials).
+  - Include an example of new features in the gallery or tutorials. Please refer to
+    [Gallery plots](contributing.md#contributing-gallery-plots) or
+    [Tutorials](contributing.md#contributing-tutorials). If adding a new
+    method/function/class, the gallery example or tutorial should be submitted in a
+    separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
-  - Follow the [PEP8](http://pep8.org) style guide for code and the
+  - Follow the [PEP8](https://pep8.org) style guide for code and the
     [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
     for docstrings. Please refer to [Code style](contributing.md#code-style).
 
@@ -251,7 +253,7 @@ There are four main components to PyGMT's documentation:
 
 The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
-[Sphinx](http://www.sphinx-doc.org/). Please refer to
+[Sphinx](https://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](contributing.md#pull-request-workflow)
@@ -466,14 +468,15 @@ function/class/module/method.
 
 ### PyGMT Code Overview
 
-The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, be sure to follow the general guidelines in the
-[pull request workflow](contributing.md#pull-request-workflow) section.
+The source code for PyGMT is located in the `pygmt/` directory. When contributing code,
+please open an issue first to discuss the feature and its implementation and be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+section.
 
 ### Code Style
 
 We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
-don't have to think about it. It loosely follow the [PEP8](http://pep8.org) guide
+don't have to think about it. It loosely follows the [PEP8](https://pep8.org) guide
 but with a few differences. Regardless, you won't have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:
 
@@ -481,17 +484,17 @@ the code yourself. Before committing, run it to automatically format your code:
 make format
 ```
 
-For consistency, we also use UNIX-style line endings (`\n`) and file permission
-644 (`-rw-r--r--`) throughout the whole project.
-Don't worry if you forget to do it. Our continuous integration systems will
-warn us and you can make a new commit with the formatted code.
+For consistency, we also use `pre-commit` hooks (via [`prek`](https://prek.j178.dev/))
+to enforce UNIX-style line endings (`\n`) and file permission 644 (`-rw-r--r--`)
+throughout the whole project. Don't worry if you forget to do it. Our continuous
+integration systems will warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
 pull request to lint the code automatically.
 
-When wrapping a new alias, use an underscore to separate words bridged by vowels
-(aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
-words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
-convention is not applied by the code checking tools, but the PyGMT maintainers
+When introducing a new parameter name, use an underscore to separate words. This improves
+readability and aligns with the [PEP 8 style guide](https://peps.python.org/pep-0008/).
+For common shortcuts no underscore is needed, e.g., `surftype`, `outgrid`, or `timefmt`.
+This convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
 When working on a tutorial or a gallery plot, it is good practice to use code
@@ -511,6 +514,77 @@ contains rules for running the linter checks:
 make check   # Runs ruff in check mode
 ```
 
+### Wrapping a GMT Module
+
+Wrapping a GMT module in PyGMT is usually a big task, but it can progress more smoothly
+and efficiently when divided into **small, manageable chunks**. This section gives an
+overview of the main tasks involved.
+
+1. Open "wrapper request" issue - create a feature request for wrapping a module and
+   discuss what features should be available in the wrapper [optional, usually done by
+   users].
+2. Open a "wrapper tracking" issue - use the "Wrapper for a GMT module" issue template,
+   to track the progress of wrapping the module. Link it to the
+   [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close
+   the "wrapper request issue" with a comment such as [usually done by maintainers]:
+   > Thank you for opening the feature request. The progress of wrapping the module will
+   > be tracked in issue #XXX and
+   > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3).
+3. Open one PR for the initial implementation, focusing on required and essential
+   parameters [done by maintainers or contributors].
+4. Close the "wrapper tracking issue" once the initial implementation is merged. Leave a
+   comment such as [done by maintainers]:
+   > The initial implementation of wrapping the XXX module was completed in PR #XXX.
+   > Not all functionalities are implemented yet. Further progress will be tracked in
+   > the Project board.
+   This is necessary to avoid having too many long-term open issues.
+5. Open one or more PRs to implement the remaining features and missing aliases.
+6. Open one PR to add a gallery example or a tutorial.
+
+These PRs can be split among multiple contributors. There is no obligation for a single
+contributor to complete all steps. Please comment on the "wrapper tracking issue" if you
+would like to open a PR for any of these tasks to avoid redundant efforts.
+
+#### Initial Feature Implementation
+
+First, comment on the "Wrapper tracking issue" that you will be working on the initial
+implementation. This first pull request should be as minimal as possible - only adding
+the required functionality (i.e., wrapping the required GMT parameters and supporting
+the primary input/output types).
+
+The following steps are common to all initial implementation pull requests that wrap a
+GMT module:
+
+* Create a new module `<module-name>.py` in `pygmt/src`. The module docstring should
+  include the module name and a short description of the functionality (e.g.,
+  `grdfill - Fill blank areas from a grid.`).
+* Add a function `<module-name>` to the module. When writing the new function, it is
+  generally easiest to reference the source code for other functions that input/output
+  similar object types.
+* Write a detailed docstring following the
+  [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py` and
+  `pygmt/__init__.py`.
+* Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
+* Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
+  the guidelines in the [testing your code](#testing-your-code) section.
+
+#### Add Missing Aliases
+
+After the initial implementation, missing aliases can be added in separate PRs:
+
+* Select a suitable alias for each GMT option, following the guidelines in the
+  [code style](#code-style) section. Before creating a new alias, check:
+
+  - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
+    `pygmt/helpers/decorators.py`
+  - whether other wrapped GMT modules have a similar parameter
+  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
+* Add the alias to the `AliasSystem` class and the function signature.
+* Add the alias and description to the parameters section of the docstring, using the
+  `fmt_docstring` decorator to add descriptions for parameters included in the
+  `COMMON_DOCSTRINGS` dictionary.
+
 ### Testing your Code
 
 Automated testing helps ensure that our code is as free of bugs as it can be.
@@ -524,10 +598,10 @@ existing functionality.
 Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
-the every unique combination arguments. An exception to this would be the most popular
+every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
-The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+The highest priority for tests should be the Python-specific code, such as NumPy,
+pandas, and xarray objects and the virtual file mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
@@ -664,7 +738,7 @@ summarized as follows:
     mv baseline/*.png pygmt/tests/baseline/
 
     # Generate hash for baseline image and stage the *.dvc file in git
-    dvc status  # check which files need to be added to dvc
+    dvc status  # Check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 
@@ -689,7 +763,7 @@ def test_my_plotting_case():
     Test that my plotting method works.
     """
     fig_ref, fig_test = Figure(), Figure()
-    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="gmt/geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="gmt/geo")
     return fig_ref, fig_test
 ```

@@ -1,6 +1,6 @@
 r"""
-Azimuthal Equidistant
-=====================
+Azimuthal equidistant projection
+================================
 
 The main advantage of this projection is that distances from the projection
 center are displayed in correct proportions. Also directions measured from the
@@ -22,5 +22,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
 import pygmt
 
 fig = pygmt.Figure()
-fig.coast(projection="E-100/40/15c", region="g", frame="g", land="gray")
+fig.coast(
+    region="g", projection="E-100/40/15c", frame="afg", land="khaki", water="white"
+)
 fig.show()

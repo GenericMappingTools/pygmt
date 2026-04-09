@@ -4,18 +4,20 @@ x2sys_cross - Calculate crossovers between track data files.
 
 import contextlib
 import os
+from collections.abc import Sequence
 from pathlib import Path
+from typing import Any, Literal
 
 import pandas as pd
-from packaging.version import Version
+from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_list,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     unique_name,
     use_alias,
 )
@@ -24,13 +26,13 @@ from pygmt.helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with
-    a unique name (to prevent clashes when running x2sys_cross), adding a suffix
-    extension to the end.
+    Saves :class:`pandas.DataFrame` track table to a temporary tab-separated ASCII text
+    file with a unique name (to prevent clashes when running x2sys_cross), adding a
+    suffix extension to the end.
 
     Parameters
     ----------
-    track : pandas.DataFrame
+    track : :class:`pandas.DataFrame`
         A table holding track data with coordinate (x, y) or (lon, lat) values,
         and (optionally) time (t).
     suffix : str
@@ -40,7 +42,7 @@ def tempfile_from_dftrack(track, suffix):
     ------
     tmpfilename : str
         A temporary tab-separated value file with a unique name holding the
-        track data. E.g. 'track-1a2b3c4.tsv'.
+        track data. E.g. "track-1a2b3c4.tsv".
     """
     try:
         tmpfilename = f"track-{unique_name()[:7]}.{suffix}"
@@ -57,21 +59,27 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'trackvalues' parameter.
+@deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
     C="runtimes",
     D="override",
     I="interpolation",
-    R="region",
     S="speed",
     T="tag",
     Q="coe",
-    V="verbose",
     W="numpoints",
-    Z="trackvalues",
+    Z="track_values",
 )
-@kwargs_to_strings(R="sequence")
-def x2sys_cross(tracks=None, outfile=None, **kwargs):
+def x2sys_cross(
+    tracks=None,
+    outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> pd.DataFrame | None:
     r"""
     Calculate crossovers between track data files.
 
@@ -83,30 +91,30 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     internal COEs. As an option, you may choose to project all data using one
     of the map projections prior to calculating the COE.
 
-    Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`
+    Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
-    {aliases}
+    $aliases
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    tracks : pandas.DataFrame or str or list
+    tracks : :class:`pandas.DataFrame`, str, or list
         A table or a list of tables with (x, y) or (lon, lat) values in the
-        first two columns. Track(s) can be provided as pandas DataFrame tables
+        first two columns. Track(s) can be provided as :class:`pandas.DataFrame` tables
         or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
-        If the file names are missing their file extension, we will append the
-        suffix specified for this TAG. Track files will be searched for first
-        in the current directory and second in all directories listed in
-        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
-        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
-        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
-        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        If the file names are missing their file extension, we will append the suffix
+        specified for this TAG. Track files will be searched for first in the current
+        directory and second in all directories listed in $X2SYS_HOME/TAG/TAG_paths.txt
+        (if it exists). [If environment variable :term:`X2SYS_HOME` is not set it will
+        default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files will also be looked for
+        via $MGD77_HOME/mgd77_paths.txt and .gmt files will be searched for via
+        $GMT_SHAREDIR/mgg/gmtfile_paths).
 
-    outfile : str
-        Optional. The file name for the output ASCII txt file to store the
-        table in.
-
+    outfile
+        The file name for the output ASCII txt file to store the table in.
     tag : str
         Specify the x2sys TAG which identifies the attributes of this data
         type.
@@ -146,15 +154,13 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Sets the interpolation mode for estimating values at the crossover.
         Choose among:
 
-        - **l** - Linear interpolation [Default].
-        - **a** - Akima spline interpolation.
-        - **c** - Cubic spline interpolation.
+        - **l**: Linear interpolation [Default].
+        - **a**: Akima spline interpolation.
+        - **c**: Cubic spline interpolation.
 
     coe : str
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
-
-    {region}
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -171,80 +177,95 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {verbose}
-
     numpoints : int
         Give the maximum number of data points on either side of the crossover
         to use in the spline interpolation [Default is 3].
 
-    trackvalues : bool
+    track_values : bool
         Report the values of each track at the crossover [Default reports the
         crossover value and the mean value].
+    $region
+    $verbose
 
     Returns
     -------
-    crossover_errors : :class:`pandas.DataFrame` or None
-        Table containing crossover error information.
-        Return type depends on whether the ``outfile`` parameter is set:
-
-        - :class:`pandas.DataFrame` with (x, y, ..., etc) if ``outfile`` is not
-          set
-        - None if ``outfile`` is set (track output will be stored in the set in
-          ``outfile``)
+    crossover_errors
+        Table containing crossover error information. A :class:`pandas.DataFrame` object
+        is returned if ``outfile`` is not set, otherwise ``None`` is returned and output
+        will be stored in file set by ``outfile``.
     """
-    with Session() as lib:
-        file_contexts = []
-        for track in tracks:
-            kind = data_kind(track)
-            if kind == "file":
+    # Determine output type based on 'outfile' parameter
+    output_type = "pandas" if outfile is None else "file"
+
+    file_contexts: list[contextlib.AbstractContextManager[Any]] = []
+    for track in tracks:
+        match data_kind(track):
+            case "file":
                 file_contexts.append(contextlib.nullcontext(track))
-            elif kind == "matrix":
+            case "vectors":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
-                lastline = (
-                    Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
-                    .read_text(encoding="utf8")
-                    .strip()
-                    .split("\n")[-1]
-                )  # e.g. "-Dxyz -Etsv -I1/1"
+                tagfile = Path(
+                    os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag"
+                )
+                # Last line is like "-Dxyz -Etsv -I1/1"
+                lastline = tagfile.read_text(encoding="utf8").splitlines()[-1]
                 for item in sorted(lastline.split()):  # sort list alphabetically
                     if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
                         suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
 
                 # Save pandas.DataFrame track data to temporary file
                 file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
+            case _:
+                raise GMTTypeError(type(track))
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
+    with Session() as lib:
+        with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
             with contextlib.ExitStack() as stack:
                 fnames = [stack.enter_context(c) for c in file_contexts]
-                if outfile is None:
-                    outfile = tmpfile.name
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(kwargs, infile=fnames, outfile=outfile),
+                    args=build_arg_list(aliasdict, infile=fnames, outfile=vouttbl),
+                )
+                result = lib.virtualfile_to_dataset(
+                    vfname=vouttbl, output_type=output_type, header=2
                 )
 
-            # Read temporary csv output to a pandas table
-            if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
-                # Read the tab-separated ASCII table
-                date_format_kwarg = (
-                    {"date_format": "ISO8601"}
-                    if Version(pd.__version__) >= Version("2.0.0")
-                    else {}
-                )
-                table = pd.read_csv(
-                    tmpfile.name,
-                    sep="\t",
-                    header=2,  # Column names are on 2nd row
-                    comment=">",  # Skip the 3rd row with a ">"
-                    parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
-                    **date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
-                )
-                # Remove the "# " from "# x" in the first column
-                table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
-            elif outfile != tmpfile.name:  # if outfile is set, output in outfile only
-                table = None
+            if output_type == "file":
+                return result
 
-    return table
+            # Convert 3rd and 4th columns to datetime/timedelta for pandas output.
+            # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
+            # "t_" means absolute datetimes and "i_" means dummy times.
+            # Internally, they are all represented as double-precision numbers in GMT,
+            # relative to TIME_EPOCH with the unit defined by TIME_UNIT.
+            # In GMT, TIME_UNIT can be 'y' (year), 'o' (month), 'w' (week), 'd' (day),
+            # 'h' (hour), 'm' (minute), 's' (second). Years are 365.2425 days and months
+            # are of equal length.
+            # pd.to_timedelta() supports unit of 'W'/'D'/'h'/'m'/'s'/'ms'/'us'/'ns'.
+            match time_unit := lib.get_default("TIME_UNIT"):
+                case "y":
+                    unit = "s"
+                    scale = 365.2425 * 86400.0
+                case "o":
+                    unit = "s"
+                    scale = 365.2425 / 12.0 * 86400.0
+                case "w" | "d" | "h" | "m" | "s":
+                    unit = time_unit.upper() if time_unit in "wd" else time_unit
+                    scale = 1.0
+
+            if len(result) > 0:  # if crossovers exist (more than one output row)
+                columns: pd.Index = result.columns[2:4]  # i_1/i_2 or t_1/t_2 columns
+                result[columns] *= scale
+                result[columns] = result[columns].apply(pd.to_timedelta, unit=unit)
+
+                if columns[0][0] == "t":  # "t" or "i":
+                    result[columns] += pd.Timestamp(lib.get_default("TIME_EPOCH"))
+
+            return result
