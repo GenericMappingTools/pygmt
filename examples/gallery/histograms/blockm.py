@@ -10,6 +10,7 @@ inside each bin and how to report the number of points inside each bin.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Load sample data
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
@@ -29,12 +30,15 @@ df = pygmt.blockmean(data=data, region=region, spacing=spacing)
 # Convert to grid
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
-fig.grdimage(
-    grid=grd,
+fig.basemap(
     region=region,
-    frame=["af", "+tMean earthquake depth inside each block"],
-    cmap="SCM/batlow",
+    projection="M11c",
+    frame=Frame(
+        axis=Axis(annot=True, tick=True),
+        title="Mean earthquake depth inside each block",
+    ),
 )
+fig.grdimage(grid=grd, cmap="SCM/batlow")
 # Plot slightly transparent landmasses on top
 fig.coast(land="darkgray", transparency=40)
 # Plot original data points
@@ -48,12 +52,14 @@ fig.shift_origin(xshift="w+5c")
 df = pygmt.blockmean(data=data, region=region, spacing=spacing, summary="n")
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
-fig.grdimage(
-    grid=grd,
+fig.basemap(
     region=region,
-    frame=["af", "+tNumber of points inside each block"],
-    cmap="SCM/batlow",
+    projection="M11c",
+    frame=Frame(
+        axis=Axis(annot=True, tick=True), title="Number of points inside each block"
+    ),
 )
+fig.grdimage(grid=grd, cmap="SCM/batlow")
 fig.coast(land="darkgray", transparency=40)
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
 fig.colorbar(label="Count")
