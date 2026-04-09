@@ -38,7 +38,7 @@ def test_velo_numpy_array_numeric_only(dataframe):
         data=dataframe.iloc[:, :-1].to_numpy(),
         spec="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
-        frame=Frame(axis=Axis(annot=1, grid=1)),
+        frame=Axis(annot=1, grid=1),
     )
     return fig
 
