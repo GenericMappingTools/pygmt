@@ -12,8 +12,8 @@ from pygmt.params import Box, Position
 @pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
-    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure plot
-    frame setting is applied to all subplot panels.
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure
+    plot frame setting is applied to all subplot panels.
     """
     fig = Figure()
 
