@@ -10,6 +10,7 @@ from pygmt import Figure, config
 from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
+from pygmt.params import Axis, Frame
 
 try:
     import pyarrow as pa
@@ -474,7 +475,9 @@ def test_text_quotation_marks():
     quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
     fig = Figure()
     fig.basemap(
-        projection="X4c/2c", region=[0, 4, 0, 2], frame=["S", f"x+l{quotations}"]
+        projection="X4c/2c",
+        region=[0, 4, 0, 2],
+        frame=Frame(axes="S", xaxis=Axis(label=quotations)),
     )
     fig.text(x=2, y=1, text=quotations, font="20p")
     return fig
@@ -486,7 +489,11 @@ def test_text_nonascii_iso8859():
     Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
     """
     fig = Figure()
-    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=["WSEN+tAāáâãäåB"])
+    fig.basemap(
+        region=[0, 10, 0, 10],
+        projection="X10c",
+        frame=Frame(axes="WSEN", title="AāáâãäåB"),
+    )
     fig.text(position="TL", text="position-text:1ÉĘËĖ2")
     fig.text(x=1, y=1, text="xytext:1éęëė2")
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
