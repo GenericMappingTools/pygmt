@@ -29,7 +29,7 @@ from pygmt.src._common import _data_geometry_is_point
     I="intensity",
     L="close",
     N="no_clip",
-    M="fillcurves",
+    M="fill_curves",
     S="style",
     W="pen",
     Z="zvalue",
@@ -179,7 +179,7 @@ def plot(  # noqa: PLR0912, PLR0913
     $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    fillcurves : str
+    fill_curves : str
         [**c**\|\ **s**][**+l**\ *seclabel*][**+g**\ *fill*][**p**\ *pen*]
         [**+r**\ *pen*][**+y**\ [*level*]].
         Fill the middle area between two curves :math:`y_0(x)` and :math:`y_1(x)`.
