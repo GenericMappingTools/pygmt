@@ -442,7 +442,8 @@ def colorbar(  # noqa: PLR0913
         - Use a positive integer to draw the color scale as image and set the effective
           dots-per-inch for rasterization of color scales, which is useful for
           continuous colormaps.
-        - Use ``dpi=0`` to draw color rectangles, which is useful for discrete colormaps.
+        - Use ``dpi=0`` to draw color rectangles, which is useful for discrete 
+          colormaps.
 
         If not specified, GMT uses its default encoding behavior, and the default dpi
         is 600 if the colorbar is drawn as image.
