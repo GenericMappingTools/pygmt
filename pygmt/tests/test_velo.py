@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTTypeError
+from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -37,7 +38,7 @@ def test_velo_numpy_array_numeric_only(dataframe):
         data=dataframe.iloc[:, :-1].to_numpy(),
         spec="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
-        frame="1g1",
+        frame=Axis(annot=1, grid=1),
     )
     return fig
 
@@ -75,7 +76,7 @@ def test_velo_pandas_dataframe(dataframe):
         data=dataframe,
         spec="e0.2/0.39/18",
         vector="0.3c+p1p+e+gred",
-        frame=["WSne", "2g2f"],
+        frame=Frame(axes="WSne", axis=Axis(annot=2, grid=2, tick=True)),
         region=[-10, 8, -10, 6],
         projection="x0.8c",
         pen="0.6p,red",
