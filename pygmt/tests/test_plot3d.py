@@ -88,7 +88,7 @@ def test_plot3d_fail_1d_array_with_data(data, region):
         "data": data,
         "region": region,
         "projection": "X10c",
-        "frame": Frame(axis=Axis(annot=True, tick=True, grid=True)),
+        "frame": Axis(annot=True, tick=True, grid=True),
     }
     with pytest.raises(GMTTypeError):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
