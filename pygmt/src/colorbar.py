@@ -439,7 +439,7 @@ def colorbar(  # noqa: PLR0913
     dpi
         Control how the color scale should be encoded graphically.
 
-        - Use a positive integer to draw color scale as images and set the effective
+        - Use a positive integer to draw the color scale as images and set the effective
           dots-per-inch for rasterization of color scales, which is useful for
           continuous colors.
         - Use ``dpi=0`` to draw color rectangles, which is useful for discrete colors.
