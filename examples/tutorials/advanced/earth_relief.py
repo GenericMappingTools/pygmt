@@ -41,8 +41,8 @@ fig.show()
 
 
 # %%
-# Set a color map
-# ---------------
+# Set a colormap
+# --------------
 #
 # :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of the
 # figure. Examples of common CPTs for Earth relief are shown below. A full list of CPTs
@@ -52,32 +52,30 @@ fig.show()
 # Using the *geo* CPT:
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="geo")
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
 fig.show()
 
 # %%
 # Using the *relief* CPT:
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="relief")
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/relief")
 fig.show()
 
 
 # %%
-# Add a color bar
-# ---------------
+# Add a colorbar
+# --------------
 #
 # The :meth:`pygmt.Figure.colorbar` method displays the CPT and the associated z-values
 # of the figure, and by default uses the same CPT set by the ``cmap`` parameter for
-# :meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
-# :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and labels. A list
-# is used to pass multiple arguments to ``frame``. In the example below, ``"a2500"``
-# sets the axis interval to 2,500, ``"x+lElevation"`` sets the x-axis label, and
-# ``"y+lm"`` sets the y-axis label.
+# :meth:`pygmt.Figure.grdimage`. The ``annot`` parameter sets the annotation interval,
+# the ``label`` parameter sets the x-axis label, and the ``unit`` parameter sets the
+# y-axis label.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="R12c", cmap="geo")
-fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
+fig.grdimage(grid=grid, projection="R12c", cmap="gmt/geo")
+fig.colorbar(annot=2500, label="Elevation", unit="m")
 fig.show()
 
 
@@ -96,8 +94,8 @@ fig.show()
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
-fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
+fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="gmt/geo")
+fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 5

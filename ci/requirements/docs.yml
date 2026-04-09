@@ -4,13 +4,12 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - python=3.13
-    - gmt=6.5.0
-    - ghostscript=10.04.0
+    - python=3.14
+    - gmt=6.6.0
+    - ghostscript=10.07.0
     - numpy
     - pandas
     - xarray
-    - netCDF4
     - packaging
     # Optional dependencies
     - contextily
@@ -23,7 +22,6 @@ dependencies:
     - pip
     - python-build
     # Dev dependencies (building documentation)
-    - geodatasets
     - myst-nb
     - panel
     - sphinx>=6.2
@@ -31,7 +29,7 @@ dependencies:
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
-    - sphinx_rtd_theme<3.0
+    - sphinx_rtd_theme
     # Dev dependencies (building PDF documentation)
     # 'sphinxcontrib-svg2pdfconverter' is required since it's added to `extensions`.
     - sphinxcontrib-svg2pdfconverter

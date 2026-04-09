@@ -1,0 +1,5 @@
+outs:
+- md5: 6a8a38827078400854c972bd24b0d898
+  size: 215417
+  hash: md5
+  path: test_grdview_surftype.png

@@ -4,7 +4,7 @@ PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a
 line program that provides a wide range of tools for manipulating geospatial data and
 making publication-quality maps and figures. PyGMT integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
-fundamental array data structure, [pandas][] for tabular data I/O and [Xarray][] for
+fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
 raster grids/images/cubes I/O.
 
 In addition to these core dependencies, PyGMT also relies on several optional packages to
@@ -32,9 +32,9 @@ designed to make working with "relational" or "labeled" data both easy and intui
 It aims to be the fundamental high-level building block for doing practical, real-world
 data analysis in Python.
 
-### Xarray*
+### xarray*
 
-[Xarray][] is an open source project and Python package that introduces labels in the
+[xarray][] is an open source project and Python package that introduces labels in the
 form of dimensions, coordinates, and attributes on top of raw NumPy-like arrays, which
 allows for more intuitive, more concise, and less error-prone user experience.
 
@@ -67,7 +67,7 @@ In PyGMT, {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` 
 
 ### rioxarray
 
-[rioxarray][] is a geospatial [Xarray][] extension powered by [rasterio][]. Built on top
+[rioxarray][] is a geospatial [xarray][] extension powered by [rasterio][]. Built on top
 of rasterio, it enables seamless reading, writing, and manipulation of multi-dimensional
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial
 extent (bounds).

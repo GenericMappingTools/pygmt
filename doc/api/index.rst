@@ -1,9 +1,7 @@
-.. _api:
-
 API Reference
 =============
 
-.. automodule:: pygmt
+This page gives an overview of all public PyGMT objects, functions and methods.
 
 .. currentmodule:: pygmt
 
@@ -27,12 +25,16 @@ Plotting map elements
     :toctree: generated
 
     Figure.basemap
+    Figure.choropleth
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
@@ -124,6 +126,7 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
+    grdmask
     nearneighbor
     project
     select
@@ -153,6 +156,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdpaste
     grdproject
     grdsample
     grdtrack
@@ -193,9 +197,32 @@ Getting metadata from tabular or grid data:
 .. autosummary::
     :toctree: generated
 
-    GMTDataArrayAccessor
     info
     grdinfo
+
+xarray Integration
+------------------
+
+.. autosummary::
+    :toctree: generated
+
+    GMTBackendEntrypoint
+    GMTDataArrayAccessor
+
+Class-style Parameters
+----------------------
+
+.. currentmodule:: pygmt.params
+
+.. autosummary::
+    :toctree: generated
+    :template: autosummary/params.rst
+
+    Axis
+    Box
+    Frame
+    Pattern
+    Position
 
 Enums
 -----
@@ -271,12 +298,15 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     :toctree: generated
 
     exceptions.GMTError
-    exceptions.GMTInvalidInput
-    exceptions.GMTVersionError
-    exceptions.GMTOSError
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTInvalidInput
+    exceptions.GMTOSError
+    exceptions.GMTParameterError
+    exceptions.GMTTypeError
+    exceptions.GMTValueError
+    exceptions.GMTVersionError
 
 
 .. currentmodule:: pygmt

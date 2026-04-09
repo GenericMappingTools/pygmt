@@ -2,7 +2,6 @@
 
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -15,3 +14,15 @@ updates:
     labels:
       - "maintenance"
       - "skip-changelog"
+    cooldown:
+      default-days: 7
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    labels:
+      - "maintenance"
+      - "skip-changelog"
+    cooldown:
+      default-days: 7

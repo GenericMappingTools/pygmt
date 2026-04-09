@@ -4,7 +4,7 @@ Test Figure.timestamp.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -93,7 +93,7 @@ def test_timestamp_text_truncated():
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         # a string with 70 characters will be truncated to 64 characters
         fig.timestamp(text="0123456789" * 7)
-        assert len(record) == 1  # check that only one warning was raised
+    assert len(record) == 1  # check that only one warning was raised
     return fig
 
 
@@ -104,9 +104,9 @@ def test_timestamp_unsupported_u_timestamp():
     Parameters U and timestamp are no longer supported since v0.12.0.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(
             x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], timestamp=True
         )

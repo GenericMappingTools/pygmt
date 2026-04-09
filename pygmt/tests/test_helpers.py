@@ -10,7 +10,7 @@ from unittest.mock import patch
 import pytest
 import xarray as xr
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import (
     GMTTempFile,
     args_in_kwargs,
@@ -65,7 +65,7 @@ def test_kwargs_to_strings_fails():
     """
     Make sure it fails for invalid conversion types.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         kwargs_to_strings(bla="blablabla")
 
 
@@ -129,7 +129,7 @@ def test_build_arg_list_invalid_output(outfile):
     """
     Test that build_arg_list raises an exception when output file name is invalid.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         build_arg_list({}, outfile=outfile)
 
 

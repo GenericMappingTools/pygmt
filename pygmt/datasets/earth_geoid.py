@@ -40,7 +40,7 @@ def load_earth_geoid(
     **@earth_geoid**\_\ *res*\_\ *reg*. *res* is the grid resolution; *reg* is the grid
     registration type (**p** for pixel registration, **g** for gridline registration).
     If *reg* is omitted (e.g., ``@earth_geoid_01d``), the gridline-registered grid will
-    be loaded for grid proccessing functions and the pixel-registered grid will be
+    be loaded for grid processing functions and the pixel-registered grid will be
     loaded for plotting functions. If *res* is also omitted (i.e., ``@earth_geoid``),
     GMT automatically selects a suitable resolution based on the current region and
     projection settings.
@@ -70,13 +70,8 @@ def load_earth_geoid(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
-    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
-    However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
-    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
-    workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------

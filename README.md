@@ -10,7 +10,7 @@
 [![Compatible Python versions](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FGenericMappingTools%2Fpygmt%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)](https://www.pygmt.org/dev/minversions.html)
 [![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 [![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
-[![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-review/issues/43)
+[![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-submission/issues/43)
 [![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
@@ -30,7 +30,7 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
 
-![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)
+[![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
 
 ## About
 
@@ -137,13 +137,12 @@ Feel free to cite our work in your research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2025_14868324,
+  pygmt_2026_18080259,
   author       = {Tian, Dongdong and
-                  Uieda, Leonardo and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
-                  Schlitzer, William and
                   Grund, Michael and
+                  Schlitzer, William and
                   Jones, Max and
                   Toney, Liam and
                   Yao, Jiayuan and
@@ -155,14 +154,16 @@ Feel free to cite our work in your research using the following BibTeX:
                   Anant, Abhishek and
                   Ziebarth, Malte and
                   Quinn, Jamie and
+                  He, Xingchen and
+                  Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = feb,
-  year         = 2025,
+  month        = jan,
+  year         = 2026,
   publisher    = {Zenodo},
-  version      = {0.14.2},
-  doi          = {10.5281/zenodo.14868324},
-  url          = {https://doi.org/10.5281/zenodo.14868324}
+  version      = {0.18.0},
+  doi          = {10.5281/zenodo.18080259},
+  url          = {https://doi.org/10.5281/zenodo.18080259}
 }
 ```
 
@@ -181,8 +182,8 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 ## Support
 
 The development of PyGMT has been supported by NSF grants
-[OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403) and
-[EAR-1948603](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
 ## Related projects
 

@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -78,14 +78,29 @@ def test_plot3d_fail_1d_array_with_data(data, region):
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", intensity=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", fill="red", transparency=data[:, 2] * 100, **kwargs)
+
+
+def test_plot3d_fail_no_data(data, region):
+    """
+    Should raise an exception if data is not enough or too much.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", x=data[0], y=data[1], region=region, projection="X10c"
+        )
+    with pytest.raises(GMTParameterError):
+        fig.plot3d(
+            style="c0.2c", data=data, x=data[0], region=region, projection="X10c"
+        )
 
 
 @pytest.mark.mpl_image_compare
@@ -125,7 +140,7 @@ def test_plot3d_colors(data, region):
         region=region,
         projection="X6c",
         style="c0.5c",
-        cmap="cubhelix",
+        cmap="cpt-city/cubhelix",
         frame=["afg", "zafg"],
     )
     return fig
@@ -174,7 +189,7 @@ def test_plot3d_colors_sizes(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
+        cmap="matlab/copper",
         frame=["af", "zaf"],
     )
     return fig
@@ -200,7 +215,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -309,7 +324,7 @@ def test_plot3d_sizes_colors_transparencies():
         style="uc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
     )
     return fig
@@ -372,7 +387,7 @@ def test_plot3d_matrix_color(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
+        cmap="gmt/rainbow",
         incols=[0, 1, 2, 2],
         frame=["a", "za"],
     )

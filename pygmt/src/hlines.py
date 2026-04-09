@@ -5,7 +5,7 @@ hlines - Plot horizontal lines.
 from collections.abc import Sequence
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["hlines"]
 
@@ -59,8 +59,8 @@ def hlines(
     label
         Label for the line(s), to be displayed in the legend.
     no_clip
-        If ``True``, do not clip lines outside the plot region. Only makes sense in the
-        Cartesian coordinate system.
+        Do **not** clip lines outside the plot region. Only makes sense in the Cartesian
+        coordinate system. [Default is ``False`` to clip lines at the plot region.]
     perspective
         Select perspective view and set the azimuth and elevation angle of the
         viewpoint. Refer to :meth:`pygmt.Figure.plot` for details.
@@ -80,7 +80,7 @@ def hlines(
     >>> fig.legend()
     >>> fig.show()
     """
-    self._preprocess()
+    self._activate_figure()
 
     # Determine the x limits from the current plot region if not specified.
     if xmin is None or xmax is None:
@@ -99,11 +99,12 @@ def hlines(
 
     # Check if xmin/xmax are scalars or have the expected length.
     if _xmin.size not in {1, nlines} or _xmax.size not in {1, nlines}:
-        msg = (
-            f"'xmin' and 'xmax' are expected to be scalars or have lengths '{nlines}', "
-            f"but lengths '{_xmin.size}' and '{_xmax.size}' are given."
+        _value = f"{_xmin.size}, {_xmax.size}"
+        raise GMTValueError(
+            _value,
+            description="size for 'xmin'/'xmax'",
+            reason=f"'xmin'/'xmax' are expected to be scalars or have lengths {nlines!r}.",
         )
-        raise GMTInvalidInput(msg)
 
     # Repeat xmin/xmax to match the length of y if they are scalars.
     if nlines != 1:

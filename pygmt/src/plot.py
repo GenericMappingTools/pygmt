@@ -1,17 +1,19 @@
 """
-plot - Plot in two dimensions.
+plot - Plot lines, polygons, and symbols in 2-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.src._common import _data_geometry_is_point
@@ -19,46 +21,45 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
-    B="frame",
     C="cmap",
     D="offset",
     E="error_bar",
     F="connection",
     G="fill",
     I="intensity",
-    J="projection",
     L="close",
     N="no_clip",
-    R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(
+def plot(  # noqa: PLR0912, PLR0913
     self,
-    data=None,
+    data: PathLike | TableLike | None = None,
     x=None,
     y=None,
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    straight_line: bool | Literal["x", "y"] = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -82,15 +83,24 @@ def plot(
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determine the fill and outline/no outline, respectively.
 
-    Full option list at :gmt-docs:`plot.html`
+    Full GMT docs at :gmt-docs:`plot.html`.
 
-    {aliases}
+    $aliases
+       - A = straight_line
+       - B = frame
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - i = incols
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
         size, respectively.
     x/y : float or 1-D arrays
@@ -106,8 +116,6 @@ def plot(
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {projection}
-    {region}
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -131,8 +139,7 @@ def plot(
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    {frame}
-    {cmap}
+    $cmap
     offset : str
         *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
@@ -168,7 +175,7 @@ def plot(
         Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
         coordinates of a *refpoint* which will serve as a fixed external reference point
         for all groups.
-    {fill}
+    $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float, bool, or 1-D array
@@ -199,8 +206,7 @@ def plot(
     style : str
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
-    {pen}
-    {verbose}
+    $pen
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -210,30 +216,33 @@ def plot(
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {aspatial}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``.
-    {wrap}
+    $projection
+    $region
+    $frame
+    $verbose
+    $aspatial
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``.
+    $wrap
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
     kind = data_kind(data)
-    extra_arrays = []
-    if kind == "empty":  # Add more columns for vectors input
+    if kind == "empty":  # Data is given via a series of vectors.
+        data = {"x": x, "y": y}
         # Parameters for vector styles
         if (
             isinstance(kwargs.get("S"), str)
@@ -241,43 +250,63 @@ def plot(
             and kwargs["S"][0] in "vV"
             and is_nonstr_iter(direction)
         ):
-            extra_arrays.extend(direction)
+            data.update({"x2": direction[0], "y2": direction[1]})
         # Fill
         if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
-            del kwargs["G"]
+            data["fill"] = kwargs.pop("G")
         # Size
         if is_nonstr_iter(size):
-            extra_arrays.append(size)
-        # Intensity and transparency
-        for flag in ["I", "t"]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
-                kwargs[flag] = ""
+            data["size"] = size
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
                 kwargs["S"] = True
-            extra_arrays.append(symbol)
+            data["symbol"] = symbol
     else:
+        if any(v is not None for v in (x, y)):
+            raise GMTParameterError(at_most_one=["data", "x/y/z"])
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be a 1-D array if 'data' is used."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
+                )
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "s0.2c"
 
+    aliasdict = AliasSystem(
+        A=Alias(straight_line, name="straight_line"),
+    ).add_common(
+        B=frame,
+        R=region,
+        J=projection,
+        V=verbose,
+        c=panel,
+        i=incols,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        ) as vintbl:
-            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            lib.call_module(
+                module="plot", args=build_arg_list(aliasdict, infile=vintbl)
+            )
