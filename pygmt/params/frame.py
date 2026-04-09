@@ -181,9 +181,6 @@ class Frame(BaseParam):
     #: The attributes for z-axis can only be specified separately using the ``zaxis``
     #: parameter.
     #:
-    #: For ternary diagrams, the attributes for a, b, and c axes can be specified using
-    #: the ``aaxis``, ``baxis``, and ``caxis`` parameters.
-    #:
     #: GMT uses the notion of primary (the default) and secondary axes, while secondary
     #: axes are optional and mostly used for time axes annotations. To specify the
     #: attributes for the secondary axes, use the ``xaxis2``, ``yaxis2``, and ``zaxis2``
@@ -195,30 +192,16 @@ class Frame(BaseParam):
     xaxis2: Axis | None = None
     yaxis2: Axis | None = None
     zaxis2: Axis | None = None
-    aaxis: Axis | None = None
-    baxis: Axis | None = None
-    caxis: Axis | None = None
 
     def _validate(self):
         """
         Validate the parameters of the Frame class.
         """
         if self.axis is not None and any(
-            [
-                self.xaxis,
-                self.yaxis,
-                self.xaxis2,
-                self.yaxis2,
-                self.aaxis,
-                self.baxis,
-                self.caxis,
-            ]
+            [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
         ):
             raise GMTParameterError(
-                conflicts_with=(
-                    "axis",
-                    ["xaxis", "yaxis", "xaxis2", "yaxis2", "aaxis", "baxis", "caxis"],
-                ),
+                conflicts_with=("axis", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
                 reason="Either 'axis' or the individual axis parameters can be set, but not both.",
             )
 
@@ -236,9 +219,6 @@ class Frame(BaseParam):
             Alias(self.xaxis2, name="xaxis2", prefix="sx"),
             Alias(self.yaxis2, name="yaxis2", prefix="sy"),
             Alias(self.zaxis2, name="zaxis2", prefix="sz"),
-            Alias(self.aaxis, name="aaxis", prefix="a"),
-            Alias(self.baxis, name="baxis", prefix="b"),
-            Alias(self.caxis, name="caxis", prefix="c"),
         ]
 
     def __iter__(self):
