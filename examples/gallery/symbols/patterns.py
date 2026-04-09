@@ -1,92 +1,65 @@
-r"""
+"""
 Bit and hachure patterns
 ========================
 
-PyGMT allows using bit or hachure patterns via the ``fill`` parameter
-or similar parameters:
+In addition to colors, PyGMT also allows using bit and hachure patterns to fill symbols,
+polygons, and other areas, via the ``fill`` parameter or similar parameters.
 
-- :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and
-  ``water``, respectively
+Example method parameters that support bit and hachure patterns include:
+
+- :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and ``water``
 - :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
-- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compressionfill``
-  and ``extensionfill``
+- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compression_fill`` and
+  ``extension_fill``
 - :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
 - :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
 - :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
 - :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
-- :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error
-  ellipses via ``uncertaintyfill``
-- :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive``
-  and ``fillnegative``
+- :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error ellipses via
+  ``uncertainty_fill``
+- :meth:`pygmt.Figure.wiggle`: Anomalies via ``positive_fill`` and ``negative_fill``
 
-The required argument has the following form:
+GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
+custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
 
-**P**\|\ **p**\ *pattern*\ [**+b**\ *color*][**+f**\ *color*][**+r**\ *dpi*]
-
-*pattern* can either be a number in the range 1-90 or the name of a
-1-, 8-, or 24-bit image raster file. The former will result in one of the 90
-predefined 64 x 64 bit-patterns provided by GMT; an overview can by found at
-:gmt-docs:`reference/predefined-patterns.html`.
-The latter allows the user to create customized, repeating images using image
-raster files.
-By specifying upper case **P** instead of **p** the image will be
-bit-reversed, i.e., white and black areas will be interchanged (only applies
-to 1-bit images or predefined bit-image patterns).
-For these patterns and other 1-bit images one may specify alternative
-**b**\ ackground and **f**\ oreground colors (by appending **+b**\ *color*
-and/or **+f**\ *color*) that will replace the default white and black pixels,
-respectively. Excluding *color* from a fore- or background specification yields
-a transparent image where only the back- or foreground pixels will be painted.
-The **+r**\ *dpi* modifier sets the resolution in dpi.
+These patterns can be specified via the :class:`pygmt.params.Pattern` class. The
+patterns can be customized with different resolution and different foreground and
+background colors. The foreground and background colors can also be inverted.
 """
 
 # %%
 import pygmt
+from pygmt.params import Pattern
 
-y = 11
+# A list of patterns that will be demonstrated.
+# By default, a pattern is plotted in black and white with a resolution of 300 dpi.
+patterns = [
+    # Predefined 1-bit pattern 8.
+    Pattern(8),
+    # Predefined 1-bit pattern 19.
+    Pattern(19),
+    # Pattern 19 with custom background ("red3") and foreground ("lightbrown").
+    Pattern(19, bgcolor="red3", fgcolor="lightbrown"),
+    # Invert the background and foreground.
+    Pattern(19, invert=True, bgcolor="red3", fgcolor="lightbrown"),
+    # Same as above, but with a 100 dpi resolution.
+    Pattern(19, bgcolor="red3", fgcolor="lightbrown", dpi=100),
+    # Same as above, but with a transparent background by setting bgcolor to "".
+    Pattern(19, bgcolor="", fgcolor="lightbrown", dpi=100),
+]
 
 fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, 0, 12],
-    projection="X10c",
+    projection="X18c/10c",
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
-
-# To use a pattern as fill append "p" and the number of the desired
-# pattern. By default, the pattern is plotted in black and white
-# with a resolution of 300 dpi
-for pattern in [
-    # Plot a hachted pattern via pattern number 8
-    "p8",
-    # Plot a dotted pattern via pattern number 19
-    "p19",
-    # Set the background color ("+b") to "red3"
-    # and the foreground color ("+f") to "lightgray"
-    "p19+bred3+flightbrown",
-    # Invert the pattern by using a capitalized "P"
-    "P19+bred3+flightbrown",
-    # Change the resolution ("+r") to 100 dpi
-    "p19+bred3+flightbrown+r100",
-    # Make the background transparent by not giving a color after "+b";
-    # works analogous for the foreground
-    "p19+b+flightbrown+r100",
-]:
-    # Plot a square with the pattern as fill
-    fig.plot(
-        x=2,
-        y=y,
-        style="s2c",  # square with a width of 2 centimeters
-        pen="1p,black",  # 1 point thick, black outline
-        fill=pattern,
-    )
-    # Add a description of the pattern
-    fig.text(
-        x=4,
-        y=y,
-        text=pattern,
-        font="Courier-Bold",
-        justify="ML",  # justification of the text is Middle Left
-    )
+y = 11
+for pattern in patterns:
+    # Plot a square with the pattern as fill.
+    # The square has a size of 2 centimeters with a 1 point thick, black outline.
+    fig.plot(x=1, y=y, style="s2c", pen="1p,black", fill=pattern)
+    # Add a description of the pattern.
+    fig.text(x=2, y=y, text=str(repr(pattern)), font="Courier-Bold", justify="ML")
     y -= 2
-
 fig.show()

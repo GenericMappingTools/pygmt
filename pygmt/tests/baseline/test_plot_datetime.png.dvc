@@ -1,5 +1,5 @@
 outs:
-- md5: 583947facaa873122f0bf18137809cd4
-  size: 12695
+- md5: 0a2eae0da1e3d5b71d7392de1c081346
+  size: 13124
   path: test_plot_datetime.png
   hash: md5

@@ -1,0 +1,5 @@
+outs:
+- md5: ab2e7717cad6ac4132fd3e3af1fefa89
+  size: 29798
+  hash: md5
+  path: test_hlines_geographic_global_g.png

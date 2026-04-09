@@ -2,30 +2,34 @@
 ternary - Plot data on ternary diagrams.
 """
 
-import pandas as pd
-from packaging.version import Version
-from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from collections.abc import Sequence
+from typing import Literal
+
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
+from pygmt.clib import Session
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(
-    B="frame",
-    C="cmap",
-    G="fill",
-    JX="width",
-    R="region",
-    S="style",
-    V="verbose",
-    W="pen",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
+@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
+def ternary(  # noqa: PLR0913
+    self,
+    data: PathLike | TableLike,
+    alabel: str | None = None,
+    blabel: str | None = None,
+    clabel: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
+    **kwargs,
+):
     r"""
-    Plot ternary diagrams.
+    Plot data on ternary diagrams.
 
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -35,15 +39,22 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     last column in the input.  If ``style`` is not specified then we instead
     plot lines or polygons.
 
-    Full option list at :gmt-docs:`ternary.html`
+    Full GMT docs at :gmt-docs:`ternary.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
+       - L = alabel/blabel/clabel
+       - R = region
+       - V = verbose
+       - c = panel
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
-    data : str, list, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
-        {table-classes}.
+        $table_classes.
     width : str
         Set the width of the figure by passing a number, followed by
         a unit (**i** for inches, **c** for centimeters). Use a negative width
@@ -54,41 +65,46 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
-    {cmap}
-    {fill}
-    alabel : str
-        Set the label for the *a* vertex where the component is 100%. The
-        label is placed at a distance of three times the
-        :gmt-term:`MAP_LABEL_OFFSET` setting from the corner.
-    blabel : str
-        Set the label for the *b* vertex where the component is 100%.
-    clabel : str
-        Set the label for the *c* vertex where the component is 100%.
+    $cmap
+    $fill
+    alabel
+        Set the label for the *a* vertex where the component is 100%. The label is
+        placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
+        from the corner.
+    blabel
+        Same as ``alabel`` but for the *b* vertex.
+    clabel
+        Same as ``alabel`` but for the *c* vertex.
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    {pen}
-    {verbose}
-    {panel}
-    {perspective}
-    {transparency}
+    $pen
+    $verbose
+    $panel
+    $perspective
+    $transparency
     """
-    kwargs = self._preprocess(**kwargs)
+    self._activate_figure()
 
-    if alabel or blabel or clabel:
-        alabel = str(alabel) if alabel is not None else "-"
-        blabel = str(blabel) if blabel is not None else "-"
-        clabel = str(clabel) if clabel is not None else "-"
-        kwargs["L"] = f"{alabel}/{blabel}/{clabel}"
+    # -Lalabel/blabel/clabel. '-' means skipping the label.
+    _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
+    labels = _labels if any(v != "-" for v in _labels) else None
 
-    # Patch for GMT < 6.5.0.
-    # See https://github.com/GenericMappingTools/pygmt/pull/2138
-    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
-        data = data.to_numpy()
+    aliasdict = AliasSystem(
+        L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
+    ).add_common(
+        B=frame,
+        R=region,
+        V=verbose,
+        c=panel,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
                 module="ternary",
-                args=build_arg_list(kwargs, infile=vintbl),
+                args=build_arg_list(aliasdict, infile=vintbl),
             )

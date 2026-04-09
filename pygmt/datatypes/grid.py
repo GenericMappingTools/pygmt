@@ -22,7 +22,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>> with Session() as lib:
     ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-    ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
+    ...         lib.call_module("read", ["@static_earth_relief.nc", voutgrd, "-Tg"])
     ...         # Read the grid from the virtual file
     ...         grid = lib.read_virtualfile(voutgrd, kind="grid").contents
     ...         # The grid header
@@ -40,16 +40,15 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     ...         print(header.pad[:])
     ...         print(header.mem_layout, header.nan_value, header.xy_off)
     ...         # The x and y coordinates
-    ...         print(grid.x[: header.n_columns])
-    ...         print(grid.y[: header.n_rows])
+    ...         x = np.ctypeslib.as_array(grid.x, shape=(header.n_columns,)).copy()
+    ...         y = np.ctypeslib.as_array(grid.y, shape=(header.n_rows,)).copy()
     ...         # The data array (with paddings)
-    ...         data = np.reshape(
-    ...             grid.data[: header.mx * header.my], (header.my, header.mx)
-    ...         )
+    ...         data = np.ctypeslib.as_array(
+    ...             grid.data, shape=(header.my, header.mx)
+    ...         ).copy()
     ...         # The data array (without paddings)
     ...         pad = header.pad[:]
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
-    ...         print(data)
     14 8 1
     [-55.0, -47.0, -24.0, -10.0] 190.0 981.0 [1.0, 1.0]
     1.0 0.0
@@ -61,22 +60,26 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     18 1 12 18
     [2, 2, 2, 2]
     b'' nan 0.5
-    [-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5]
-    [-10.5, -11.5, -12.5, -13.5, -14.5, -15.5, ..., -22.5, -23.5]
-    [[347.5 331.5 309.  282.  190.  208.  299.5 348. ]
-    [349.  313.  325.5 247.  191.  225.  260.  452.5]
-    [345.5 320.  335.  292.  207.5 247.  325.  346.5]
-    [450.5 395.5 366.  248.  250.  354.5 550.  797.5]
-    [494.5 488.5 357.  254.5 286.  484.5 653.5 930. ]
-    [601.  526.5 535.  299.  398.5 645.  797.5 964. ]
-    [308.  595.5 555.5 556.  580.  770.  927.  920. ]
-    [521.5 682.5 796.  886.  571.5 638.5 739.5 881.5]
-    [310.  521.5 757.  570.5 538.5 524.  686.5 794. ]
-    [561.5 539.  446.5 481.5 439.5 553.  726.5 981. ]
-    [557.  435.  385.5 345.5 413.5 496.  519.5 833.5]
-    [373.  367.5 349.  352.5 419.5 428.  570.  667.5]
-    [383.  284.5 344.5 394.  491.  556.5 578.5 618.5]
-    [347.5 344.5 386.  640.5 617.  579.  646.5 671. ]]
+    >>> x
+    array([-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5])
+    >>> y
+    array([-10.5, -11.5, -12.5, -13.5, ..., -20.5, -21.5, -22.5, -23.5])
+    >>> data
+    array([[347.5, 331.5, 309. , 282. , 190. , 208. , 299.5, 348. ],
+           [349. , 313. , 325.5, 247. , 191. , 225. , 260. , 452.5],
+           [345.5, 320. , 335. , 292. , 207.5, 247. , 325. , 346.5],
+           [450.5, 395.5, 366. , 248. , 250. , 354.5, 550. , 797.5],
+           [494.5, 488.5, 357. , 254.5, 286. , 484.5, 653.5, 930. ],
+           [601. , 526.5, 535. , 299. , 398.5, 645. , 797.5, 964. ],
+           [308. , 595.5, 555.5, 556. , 580. , 770. , 927. , 920. ],
+           [521.5, 682.5, 796. , 886. , 571.5, 638.5, 739.5, 881.5],
+           [310. , 521.5, 757. , 570.5, 538.5, 524. , 686.5, 794. ],
+           [561.5, 539. , 446.5, 481.5, 439.5, 553. , 726.5, 981. ],
+           [557. , 435. , 385.5, 345.5, 413.5, 496. , 519.5, 833.5],
+           [373. , 367.5, 349. , 352.5, 419.5, 428. , 570. , 667.5],
+           [383. , 284.5, 344.5, 394. , 491. , 556.5, 578.5, 618.5],
+           [347.5, 344.5, 386. , 640.5, 617. , 579. , 646.5, 671. ]],
+          dtype=float32)
     """
 
     _fields_: ClassVar = [
@@ -92,7 +95,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataarray(self) -> xr.DataArray:
+    def to_xarray(self) -> xr.DataArray:
         """
         Convert a _GMT_GRID object to a :class:`xarray.DataArray` object.
 
@@ -106,13 +109,13 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         >>> from pygmt.clib import Session
         >>> with Session() as lib:
         ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
+        ...         lib.call_module("read", ["@static_earth_relief.nc", voutgrd, "-Tg"])
         ...         # Read the grid from the virtual file
         ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
         ...         # Convert to xarray.DataArray and use it later
-        ...         da = grid.contents.to_dataarray()
-        >>> da  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'z' (lat: 14, lon: 8)>...
+        ...         da = grid.contents.to_xarray()
+        >>> da
+        <xarray.DataArray 'z' (lat: 14, lon: 8)> Size: 448B
         array([[347.5, 344.5, 386. , 640.5, 617. , 579. , 646.5, 671. ],
                [383. , 284.5, 344.5, 394. , 491. , 556.5, 578.5, 618.5],
                [373. , 367.5, 349. , 352.5, 419.5, 428. , 570. , 667.5],
@@ -126,34 +129,35 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
                [450.5, 395.5, 366. , 248. , 250. , 354.5, 550. , 797.5],
                [345.5, 320. , 335. , 292. , 207.5, 247. , 325. , 346.5],
                [349. , 313. , 325.5, 247. , 191. , 225. , 260. , 452.5],
-               [347.5, 331.5, 309. , 282. , 190. , 208. , 299.5, 348. ]])
+               [347.5, 331.5, 309. , 282. , 190. , 208. , 299.5, 348. ]],
+              dtype=float32)
         Coordinates:
-          * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
-          * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
+          * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+          * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
         Attributes:
             Conventions:   CF-1.7
             title:         Produced by grdcut
             history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_ea...
             description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwi...
-            long_name:     elevation (m)
             actual_range:  [190. 981.]
-        >>> da.coords["lon"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'lon' (lon: 8)>...
+            long_name:     elevation (m)
+        >>> da.coords["lon"]
+        <xarray.DataArray 'lon' (lon: 8)> Size: 64B
         array([-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5])
         Coordinates:
-          * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
+          * lon      (lon) float64 64B -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5
         Attributes:
             long_name:      longitude
             units:          degrees_east
             standard_name:  longitude
             axis:           X
             actual_range:   [-55. -47.]
-        >>> da.coords["lat"]  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
-        <xarray.DataArray 'lat' (lat: 14)>...
+        >>> da.coords["lat"]
+        <xarray.DataArray 'lat' (lat: 14)> Size: 112B
         array([-23.5, -22.5, -21.5, -20.5, -19.5, -18.5, -17.5, -16.5, -15.5, -14.5,
-            -13.5, -12.5, -11.5, -10.5])
+               -13.5, -12.5, -11.5, -10.5])
         Coordinates:
-          * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
+          * lat      (lat) float64 112B -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5
         Attributes:
             long_name:      latitude
             units:          degrees_north
@@ -161,7 +165,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             axis:           Y
             actual_range:   [-24. -10.]
         >>> da.gmt.registration, da.gmt.gtype
-        (1, 1)
+        (<GridRegistration.PIXEL: 1>, <GridType.GEOGRAPHIC: 1>)
         """
         # The grid header
         header = self.header.contents
@@ -169,16 +173,14 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         # Get dimensions and their attributes from the header.
         dims, dim_attrs = header.dims, header.dim_attrs
         # The coordinates, given as a tuple of the form (dims, data, attrs)
-        coords = [
-            (dims[0], self.y[: header.n_rows], dim_attrs[0]),
-            (dims[1], self.x[: header.n_columns], dim_attrs[1]),
-        ]
+        x = np.ctypeslib.as_array(self.x, shape=(header.n_columns,)).copy()
+        y = np.ctypeslib.as_array(self.y, shape=(header.n_rows,)).copy()
+        coords = [(dims[0], y, dim_attrs[0]), (dims[1], x, dim_attrs[1])]
 
         # The data array without paddings
+        data = np.ctypeslib.as_array(self.data, shape=(header.my, header.mx)).copy()
         pad = header.pad[:]
-        data = np.reshape(self.data[: header.mx * header.my], (header.my, header.mx))[
-            pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]
-        ]
+        data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
 
         # Create the xarray.DataArray object
         grid = xr.DataArray(

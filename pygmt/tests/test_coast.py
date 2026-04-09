@@ -4,7 +4,7 @@ Test Figure.coast.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 
 
 @pytest.mark.benchmark
@@ -29,7 +29,7 @@ def test_coast_world_mercator():
         projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="c",
+        resolution="crude",
         water="white",
     )
     return fig
@@ -40,7 +40,7 @@ def test_coast_required_args():
     Test if fig.coast fails when not given required arguments.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.coast(region="EG")
 
 
@@ -74,3 +74,21 @@ def test_coast_dcw_list():
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig
+
+
+def test_coast_resolution_long_short_form_conflict():
+    """
+    Test that using the short form of the 'resolution' parameter conflicts with
+    using the long form.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError):
+        fig.coast(
+            region=[-180, 180, -80, 80],
+            projection="M15c",
+            frame="af",
+            land="#aaaaaa",
+            resolution="high",
+            D="crude",
+            water="white",
+        )

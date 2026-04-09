@@ -1,0 +1,5 @@
+outs:
+- md5: 70c8decbffd37fc48b2eb9ff84442ec0
+  size: 14139
+  hash: md5
+  path: test_hlines_multiple_lines.png

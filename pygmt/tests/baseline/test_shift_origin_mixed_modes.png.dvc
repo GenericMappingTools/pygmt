@@ -1,0 +1,5 @@
+outs:
+- md5: 3a31df374874ae00920ada0b311b4266
+  size: 5678
+  hash: md5
+  path: test_shift_origin_mixed_modes.png

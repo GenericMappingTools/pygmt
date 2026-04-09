@@ -6,8 +6,8 @@ The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the
 `Palmer Penguins dataset <https://github.com/allisonhorst/palmerpenguins>`__
 can be visualized. Here, we can pass the individual categories included in
-the "species" column directly to the ``color`` parameter via
-``color=df.species.cat.codes.astype(int)``. Additionally, we have to set
+the "species" column directly to the ``fill`` parameter via
+``fill=df.species.cat.codes.astype(int)``. Additionally, we have to set
 ``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
 function.
 """
@@ -64,7 +64,7 @@ fig.basemap(
 # palette "inferno" in categorical format and add the species names as
 # annotations for the colorbar
 pygmt.makecpt(
-    cmap="inferno",
+    cmap="matplotlib/inferno",
     # Use the minimum and maximum of the categorical number code
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),

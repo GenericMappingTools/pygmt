@@ -10,7 +10,10 @@ the first time you use them (usually ``~/.gmt/cache``).
 """
 
 # %%
+import io
+
 import pygmt
+from pygmt.params import Box, Position
 
 # %%
 # For example, let's load the sample dataset of tsunami generating earthquakes
@@ -18,7 +21,9 @@ import pygmt
 # The data are loaded as a :class:`pandas.DataFrame`.
 
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
+data.head()
 
+# %%
 # Set the region for the plot to be slightly larger than the data bounds.
 region = [
     data.longitude.min() - 1,
@@ -26,9 +31,7 @@ region = [
     data.latitude.min() - 1,
     data.latitude.max() + 1,
 ]
-
-print(region)
-print(data.head())
+region
 
 # %%
 # We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
@@ -49,6 +52,11 @@ fig.show()
 # array to the ``size`` parameter. Because the magnitude is on a logarithmic
 # scale, it helps to show the differences by scaling the values using a power
 # law.
+#
+# A legend for the size of the circles can not be added automatically. But users can
+# create an :class:`io.StringIO` object, which can be passed to the ``spec`` parameter
+# of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutorial
+# :doc:`multiple-column legend </tutorials/advanced/legends>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
@@ -60,6 +68,15 @@ fig.plot(
     style="cc",
     fill="white",
     pen="black",
+)
+legend = io.StringIO(
+    "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
+)
+fig.legend(
+    spec=legend,
+    position=Position("BR", offset=0.2),
+    line_spacing=2,
+    box=Box(fill="white", pen="black"),
 )
 fig.show()
 
@@ -75,12 +92,13 @@ fig.show()
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 # :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
-#
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
-pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
+pygmt.makecpt(
+    cmap="matplotlib/viridis", series=[data.depth_km.min(), data.depth_km.max()]
+)
 fig.plot(
     x=data.longitude,
     y=data.latitude,
@@ -90,7 +108,13 @@ fig.plot(
     style="cc",
     pen="black",
 )
-fig.colorbar(frame="xaf+lDepth (km)")
+fig.colorbar(annot=True, tick=True, label="Depth (km)")
+fig.legend(
+    spec=legend,
+    position=Position("BR", offset=0.2),
+    line_spacing=2,
+    box=Box(fill="white", pen="black"),
+)
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3

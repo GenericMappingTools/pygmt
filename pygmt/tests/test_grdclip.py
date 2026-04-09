@@ -4,9 +4,14 @@ Test pygmt.grdclip.
 
 from pathlib import Path
 
+import numpy as np
+import numpy.testing as npt
 import pytest
 import xarray as xr
-from pygmt import grdclip, load_dataarray
+from pygmt import grdclip
+from pygmt.datasets import load_earth_mask
+from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -49,10 +54,10 @@ def test_grdclip_outgrid(grid, expected_grid):
         )
         assert result is None  # return value is None
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         assert temp_grid.dims == ("lat", "lon")
-        assert temp_grid.gmt.gtype == 1  # Geographic grid
-        assert temp_grid.gmt.registration == 1  # Pixel registration
+        assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+        assert temp_grid.gmt.registration is GridRegistration.PIXEL
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
@@ -65,6 +70,49 @@ def test_grdclip_no_outgrid(grid, expected_grid):
         grid=grid, below=[550, -1000], above=[700, 1000], region=[-53, -49, -19, -16]
     )
     assert temp_grid.dims == ("lat", "lon")
-    assert temp_grid.gmt.gtype == 1  # Geographic grid
-    assert temp_grid.gmt.registration == 1  # Pixel registration
+    assert temp_grid.gmt.gtype is GridType.GEOGRAPHIC
+    assert temp_grid.gmt.registration is GridRegistration.PIXEL
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
+
+
+def test_grdclip_replace():
+    """
+    Test the replace parameter for grdclip.
+    """
+    grid = load_earth_mask(region=[0, 10, 0, 10])
+    npt.assert_array_equal(np.unique(grid), [0, 1])  # Only have 0 and 1
+    grid = grdclip(grid=grid, replace=[0, 2])  # Replace 0 with 2
+    npt.assert_array_equal(np.unique(grid), [1, 2])
+
+
+def test_grdclip_replace_repeated():
+    """
+    Test passing a 2-D sequence to the replace parameter for grdclip.
+    """
+    grid = load_earth_mask(region=[0, 10, 0, 10])
+    npt.assert_array_equal(np.unique(grid), [0, 1])  # Only have 0 and 1
+    result = grdclip(grid=grid, replace=[[0, 2], [1, 3]])
+    npt.assert_array_equal(np.unique(result), [2, 3])
+
+
+def test_grdclip_between_repeated():
+    """
+    Test passing a 2-D sequence to the between parameter for grdclip.
+    """
+    grid = load_static_earth_relief()
+    # Replace values in the range 0-250 with 0, 250-500 with 1, 500-750 with 2, and
+    # 750-1000 with 3
+    result = grdclip(
+        grid,
+        between=[[0, 250, 0], [250, 500, 1], [500, 750, 2], [750, 1000, 3]],
+    )
+    # Result should have 4 unique values.
+    npt.assert_array_equal(np.unique(result.data), [0, 1, 2, 3])
+
+
+def test_grdclip_missing_required_parameter(grid):
+    """
+    Test that grdclip raises GMTParameterError if the clipping parameters are missing.
+    """
+    with pytest.raises(GMTParameterError):
+        grdclip(grid=grid)

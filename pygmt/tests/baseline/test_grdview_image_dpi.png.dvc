@@ -1,0 +1,5 @@
+outs:
+- md5: d384910b17de5a2a842cd2625761c821
+  size: 224724
+  hash: md5
+  path: test_grdview_image_dpi.png

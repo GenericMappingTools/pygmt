@@ -90,9 +90,9 @@ fig.show()
 # :meth:`pygmt.Figure.basemap`. The map boundaries (or plot axes) are named as
 # West/west/left (**W**, **w**, **l**), South/south/bottom
 # (**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
-# East/east/right (**E**, **e**, **r**) sides of a figure. If an upper-case
+# East/east/right (**E**, **e**, **r**) sides of a figure. If an uppercase
 # letter (**W**, **S**, **N**, **E**) is passed, the axis is plotted with
-# tick marks and annotations. The lower-case version
+# tick marks and annotations. The lowercase version
 # (**w**, **s**, **n**, **e**) plots the axis only with tick marks.
 # To only plot the axis pass **l**, **b**, **t**, **r**. By default
 # (``frame=True`` or ``frame="af"``), the West and the South axes are

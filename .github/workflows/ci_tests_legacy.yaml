@@ -1,8 +1,8 @@
 # Test PyGMT with GMT legacy versions on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
-# minor baseline image changes between GMT versions, the workflow only runs
-# the tests but doesn't do image comparisons.
+# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the minor
+# baseline image changes between GMT versions, the workflow only runs the tests but
+# doesn't do image comparisons.
 #
 # It is scheduled to run every Tuesday on the main branch.
 #
@@ -26,6 +26,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions: {}
+
 jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
@@ -34,8 +36,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
-        gmt_version: ['6.3', '6.4']
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022]
+        gmt_version: ['6.5']
     timeout-minutes: 30
     defaults:
       run:
@@ -44,63 +46,48 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+          persist-credentials: false
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.1
+        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
         with:
           environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: false
-          cache-environment: true
           create-args: >-
-            python=3.10
+            python=3.12
             gmt=${{ matrix.gmt_version }}
-            numpy
-            pandas<2
-            xarray
-            netCDF4
-            packaging
-            contextily
-            geopandas
+            ghostscript
+            numpy=2.0
+            pandas=2.2
+            xarray=2024.5
+            packaging=24.2
+            contextily=1.5
+            geopandas=1.0
             ipython
-            pyarrow
+            pyarrow-core=16
             rioxarray
             sphinx-gallery
-            build
             make
             pip
+            python-build
             pytest
             pytest-doctestplus
             pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.4
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
-          # Change modification times of the two files, so GMT won't refresh it
-          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
-          # in the `~/.gmt` directory for GMT>=6.5.
-          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
+          # Change modification times of the two files, so GMT won't refresh it.
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package

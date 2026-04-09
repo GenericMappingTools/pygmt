@@ -1,0 +1,5 @@
+outs:
+- md5: d4f3cfbe632135ba468ce0bf83d5f2bd
+  size: 50461
+  hash: md5
+  path: test_contour_interval.png

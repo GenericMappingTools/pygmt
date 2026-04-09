@@ -15,12 +15,14 @@ from pygmt.helpers.tempfile import (
     unique_name,
 )
 from pygmt.helpers.utils import (
+    _check_encoding,
+    _validate_data_input,
     args_in_kwargs,
     build_arg_list,
-    build_arg_string,
     data_kind,
     is_nonstr_iter,
     launch_external_viewer,
     non_ascii_to_octal,
+    sequence_join,
 )
 from pygmt.helpers.validators import validate_output_table_type

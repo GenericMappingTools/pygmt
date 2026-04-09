@@ -1,5 +1,5 @@
 outs:
-- md5: 3e44dbdab2c386fd361481438fa10d58
-  size: 18174
+- md5: e1885c2a16e268ac5c06e2a959668c88
+  size: 18149
   path: test_text_transparency.png
   hash: md5
