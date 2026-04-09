@@ -11,20 +11,22 @@ import numpy as np
 import pygmt
 
 # Define a study region
-region = [120, 135, 25, 40]
+region = [125, 135, 25, 36]
 
-# Define two polygons, here triangels, use nan to separate the polygons
+# Define two closed polygons, here a quare and a triangle.
+# Use nan to separate the polygons
 polygon = np.array(
     [
-        [125, 30],
-        [130, 30],
-        [130, 35],
-        [125, 30],
+        [129, 31],
+        [134, 31],
+        [134, 35],
+        [129, 35],
+        [129, 31],
         [np.nan, np.nan],
-        [122, 37],
-        [128, 37],
-        [128, 39],
-        [122, 37],
+        [126, 26],
+        [131, 26],
+        [131, 30],
+        [126, 26],
     ],
 )
 
