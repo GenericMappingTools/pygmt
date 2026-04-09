@@ -22,6 +22,13 @@ def test_params_frame_only():
     """
     assert str(Frame("WSen")) == "WSen"
     assert str(Frame(axes="WSEN", title="My Title")) == "WSEN+tMy Title"
+    assert (
+        str(Frame(axes="WSEN", title="My Title", subtitle="My Subtitle"))
+        == "WSEN+tMy Title+sMy Subtitle"
+    )
+    assert (
+        str(Frame(axes="WSEN", title="My Title", fill="red")) == "WSEN+gred+tMy Title"
+    )
 
 
 def test_params_frame_axis():

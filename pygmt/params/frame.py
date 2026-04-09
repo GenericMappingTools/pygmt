@@ -79,12 +79,16 @@ class _Axes(BaseParam):
 
     axes: str | None = None
     title: str | None = None
+    subtitle: str | None = None
+    fill: str | None = None
 
     @property
     def _aliases(self):
         return [
             Alias(self.axes, name="axes"),
+            Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
+            Alias(self.subtitle, name="subtitle", prefix="+s"),
         ]
 
 
@@ -173,6 +177,14 @@ class Frame(BaseParam):
     #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
 
+    #: The subtitle string centered below the title [Default is no subtitle]. When
+    #: ``subtitle`` is used, ``title`` is required.
+    subtitle: str | None = None
+
+    #: Fill for the interior of the frame with a color or a pattern [Default is no
+    #: fill].
+    fill: str | None = None
+
     #: Specify the attributes for axes by an :class:`Axis` object.
     #:
     #: The attributes for x and y axes can be specified in two ways: (1) specifying the
@@ -204,12 +216,19 @@ class Frame(BaseParam):
                 conflicts_with=("axis", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
                 reason="Either 'axis' or the individual axis parameters can be set, but not both.",
             )
+        if self.subtitle is not None and self.title is None:
+            raise GMTParameterError(
+                required="title",
+                reason="The 'title' parameter is required when 'subtitle' is used.",
+            )
 
     @property
     def _aliases(self):
         # _Axes() maps to an empty string, which becomes '-B' without arguments and is
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
-        frame_settings = _Axes(axes=self.axes, title=self.title)
+        frame_settings = _Axes(
+            axes=self.axes, title=self.title, subtitle=self.subtitle, fill=self.fill
+        )
         return [
             Alias(frame_settings) if str(frame_settings) else Alias(None),
             Alias(self.axis, name="axis"),
