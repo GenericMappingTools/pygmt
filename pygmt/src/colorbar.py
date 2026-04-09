@@ -210,6 +210,26 @@ def _alias_option_D(  # noqa: N802, PLR0913
     ]
 
 
+def _alias_option_N(dpi=None):  # noqa: N802
+    """
+    Return an Alias object for the colorbar encoding setting.
+
+    The ``dpi`` parameter controls how the colorbar is encoded graphically. Passing
+    ``0`` preferentially draws color rectangles. Any positive integer is passed through
+    as the rasterization resolution.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(N=_alias_option_N(**kwargs)).get("N")
+    >>> parse(dpi=300)
+    '300'
+    >>> parse(dpi=0)
+    'p'
+    """
+    return Alias("p" if dpi == 0 else dpi, name="dpi")
+
+
 @fmt_docstring
 @use_alias(C="cmap", L="equalsize", Z="zfile")
 def colorbar(  # noqa: PLR0913
@@ -240,6 +260,7 @@ def colorbar(  # noqa: PLR0913
     log: bool = False,
     scale: float | None = None,
     monochrome: bool = False,
+    dpi: int | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: str | Sequence[str] | Literal["none"] | bool = False,
@@ -280,6 +301,7 @@ def colorbar(  # noqa: PLR0913
        - I = shading
        - J = projection
        - M = monochrome
+       - N = dpi
        - Q = log
        - R = region
        - V = verbose
@@ -414,6 +436,17 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     monochrome
         Force a monochrome graybar using the (television) YIQ transformation.
+    dpi
+        Control how the color scale should be encoded graphically.
+
+        - Use a positive integer to draw the color scale as image and set the effective
+          dots-per-inch for rasterization of color scales, which is useful for
+          continuous colormaps.
+        - Use ``dpi=0`` to draw color rectangles, which is useful for discrete
+          colormaps.
+
+        If not specified, GMT uses its default encoding behavior, and the default dpi
+        is 600 if the colorbar is drawn as image.
     $projection
     $region
     $verbose
@@ -472,6 +505,7 @@ def colorbar(  # noqa: PLR0913
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),
         M=Alias(monochrome, name="monochrome"),
+        N=_alias_option_N(dpi=dpi),
         Q=Alias(log, name="log"),
         W=Alias(scale, name="scale"),
     ).add_common(
