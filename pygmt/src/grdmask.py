@@ -128,14 +128,13 @@ def grdmask(
     """
     Create mask grid from polygons or point coverage.
 
-    Reads one or more files containing polygon or data point coordinates, and creates a
-    grid where nodes that fall inside, on the edge, or outside the polygons (or within
-    the search radius from data points) are assigned values based on the ``outside``,
-    ``edge``, and ``inside`` parameters.
+    Takes one or more polygons or data point coordinates, and creates a grid where nodes
+    that fall inside, on the edge, or outside the polygons or within the search radius
+    from data points are assigned values based on the ``outside``, ``edge``, and
+    ``inside`` parameters.
 
-    The mask grid can be used to mask out specific regions in other grids using
-    :func:`pygmt.grdmath` or similar tools. For masking based on coastline features,
-    consider using :func:`pygmt.grdlandmask` instead.
+    The mask grid can be used to mask out specific regions from an grid. For masking
+    based on coastline features, consider using :func:`pygmt.grdlandmask` instead.
 
     Full GMT docs at :gmt-docs:`grdmask.html`.
 
@@ -156,7 +155,7 @@ def grdmask(
         Pass in either a file name to an ASCII data table, a 2-D $table_classes
         containing the polygon(s) or data points. Input can be:
 
-        - **Polygon mode**: One or more files containing closed polygon coordinates
+        - **Polygon mode**: One or more polygons with closed coordinates
         - **Point coverage mode**: Data points (used with ``search_radius`` parameter)
     $outgrid
     $spacing
