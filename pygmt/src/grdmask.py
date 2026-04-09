@@ -133,8 +133,9 @@ def grdmask(
     from data points are assigned values based on the ``outside``, ``edge``, and
     ``inside`` parameters.
 
-    The mask grid can be used to mask out specific regions from an grid. For masking
-    based on coastline features, consider using :func:`pygmt.grdlandmask` instead.
+    The mask grid can be used to mask out specific regions from another grid. For
+    masking based on coastline features, consider using :func:`pygmt.grdlandmask`
+    instead.
 
     Full GMT docs at :gmt-docs:`grdmask.html`.
 
