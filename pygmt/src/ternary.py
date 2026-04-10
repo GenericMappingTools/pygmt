@@ -13,6 +13,88 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
 
+def _ternary_frame(frame):
+    """
+    Convert a Frame/Axis parameter to ternary-compatible format.
+
+    For ternary diagrams, GMT uses axis names **a**, **b**, **c** instead of
+    **x**, **y**, **z**, and there are no primary/secondary axes. This function
+    converts a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object
+    to a list of strings with the correct ternary prefixes.
+
+    Parameters
+    ----------
+    frame : Frame, Axis, str, list, or bool
+        The frame parameter to convert.
+
+    Returns
+    -------
+    str, list of str, or bool
+        The converted frame parameter.
+
+    Examples
+    --------
+    >>> from pygmt.params import Axis, Frame
+    >>> _ternary_frame(Axis(annot=True, tick=True, grid=True))
+    'afg'
+    >>> _ternary_frame(Frame(axis=Axis(annot=True, tick=True)))
+    ['af']
+    >>> _ternary_frame(Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True)))
+    ['+tTitle', 'afg']
+    >>> _ternary_frame(Frame(
+    ...     title="Title",
+    ...     xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+    ...     yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+    ...     zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+    ... ))
+    ['+tTitle', 'aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
+    >>> _ternary_frame("afg")
+    'afg'
+    >>> _ternary_frame(True)
+    True
+    >>> _ternary_frame(["afg", "aafg+lWater"])
+    ['afg', 'aafg+lWater']
+    >>> _ternary_frame(Frame(axes="WSen", axis=Axis(annot=True)))  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    pygmt.exceptions.GMTParameterError: ...
+    >>> _ternary_frame(Frame(xaxis2=Axis(annot=True)))  # doctest: +IGNORE_EXCEPTION_DETAIL
+    Traceback (most recent call last):
+    pygmt.exceptions.GMTParameterError: ...
+    """
+    if isinstance(frame, Axis):
+        return str(frame)
+    if isinstance(frame, Frame):
+        if frame.axes:
+            raise GMTParameterError(
+                conflicts_with=("frame", ["frame.axes"]),
+                reason="For ternary diagrams, Frame.axes (e.g., 'WSen') is not supported.",
+            )
+        if any((frame.xaxis2, frame.yaxis2, frame.zaxis2)):
+            raise GMTParameterError(
+                conflicts_with=(
+                    "frame",
+                    ["frame.xaxis2", "frame.yaxis2", "frame.zaxis2"],
+                ),
+                reason="For ternary diagrams, secondary axes are not supported.",
+            )
+        parts = []
+        if frame.title:
+            parts.append(f"+t{frame.title}")
+        # Uniform axis setting (applies to all three ternary axes)
+        if frame.axis:
+            parts.append(str(frame.axis))
+        # Per-axis: xaxis→a, yaxis→b, zaxis→c
+        for ternary_prefix, axis_obj in [
+            ("a", frame.xaxis),
+            ("b", frame.yaxis),
+            ("c", frame.zaxis),
+        ]:
+            if axis_obj:
+                parts.append(f"{ternary_prefix}{axis_obj}")
+        return parts
+    return frame
+
+
 @fmt_docstring
 @use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
 def ternary(  # noqa: PLR0913
@@ -93,41 +175,7 @@ def ternary(  # noqa: PLR0913
     labels = _labels if any(v != "-" for v in _labels) else None
 
     # Convert Frame/Axis to ternary-compatible format.
-    # For ternary diagrams, axis names are a, b, c (not x, y, z), there are no
-    # primary/secondary axes, and frame sides (e.g., "WSen") are not supported.
-    if isinstance(frame, Axis):
-        frame = str(frame)
-    elif isinstance(frame, Frame):
-        if frame.axes:
-            raise GMTParameterError(
-                conflicts_with=("frame", ["frame.axes"]),
-                reason="For ternary diagrams, Frame.axes (e.g., 'WSen') is not supported.",
-            )
-        if any((frame.xaxis2, frame.yaxis2, frame.zaxis2)):
-            raise GMTParameterError(
-                conflicts_with=(
-                    "frame",
-                    ["frame.xaxis2", "frame.yaxis2", "frame.zaxis2"],
-                ),
-                reason="For ternary diagrams, secondary axes are not supported.",
-            )
-
-        parts = []
-
-        if frame.title:
-            parts.append(f"+t{frame.title}")
-        # Uniform axis setting (applies to all three ternary axes)
-        if frame.axis:
-            parts.append(str(frame.axis))
-        # Per-axis: xaxis→a, yaxis→b, zaxis→c
-        for ternary_prefix, axis_obj in [
-            ("a", frame.xaxis),
-            ("b", frame.yaxis),
-            ("c", frame.zaxis),
-        ]:
-            if axis_obj:
-                parts.append(f"{ternary_prefix}{axis_obj}")
-        frame = parts
+    frame = _ternary_frame(frame)
 
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
