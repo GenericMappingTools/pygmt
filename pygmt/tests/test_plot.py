@@ -46,7 +46,7 @@ def test_plot_red_circles(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+        frame=Axis(annot=True, tick=True, grid=True),
     )
     return fig
 
@@ -62,7 +62,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -71,7 +71,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -80,7 +80,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     # Should also fail if given too much data
     with pytest.raises(GMTParameterError):
@@ -92,7 +92,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+            frame=Axis(annot=True, tick=True, grid=True),
         )
 
 
@@ -133,7 +133,7 @@ def test_plot_projection(data):
         projection="R270/10c",
         style="s0.2c",
         fill="green",
-        frame=Frame(axis=Axis(annot=True, grid=True)),
+        frame=Axis(annot=True, grid=True),
     )
     return fig
 
@@ -152,7 +152,7 @@ def test_plot_colors(data, region):
         projection="X10c",
         style="c0.5c",
         cmap="cpt-city/cubhelix",
-        frame=Frame(axis=Axis(annot=True, tick=True)),
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -171,7 +171,7 @@ def test_plot_sizes(data, region):
         projection="X10c",
         style="cc",
         fill="blue",
-        frame=Frame(axis=Axis(annot=True, tick=True)),
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -191,7 +191,7 @@ def test_plot_colors_sizes(data, region):
         projection="X10c",
         style="cc",
         cmap="matlab/copper",
-        frame=Frame(axis=Axis(annot=True, tick=True)),
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -205,7 +205,7 @@ def test_plot_colors_sizes_proj(data, region):
     fig.coast(
         region=region,
         projection="M15c",
-        frame=Frame(axis=Axis(annot=True, tick=True)),
+        frame=Axis(annot=True, tick=True),
         water="skyblue",
     )
     fig.plot(
@@ -328,7 +328,7 @@ def test_plot_symbol():
         fill="blue",
         size=[0.1, 0.2, 0.3, 0.4],
         symbol=["c", "t", "i", "s"],
-        frame="af",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -346,7 +346,7 @@ def test_plot_matrix(data, fill):
         projection="M15c",
         style="cc",
         fill=fill,
-        frame="a",
+        frame=Axis(annot=True),
         incols="0,1,2+s0.5",
     )
     return fig
@@ -364,7 +364,7 @@ def test_plot_matrix_color(data):
         projection="X10c",
         style="c0.5c",
         cmap="gmt/rainbow",
-        frame="a",
+        frame=Axis(annot=True),
     )
     return fig
 
@@ -406,7 +406,7 @@ def test_plot_vectors():
         projection="X10c",
         style="V0.2c+e+n",
         fill="black",
-        frame="af",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -503,7 +503,11 @@ def test_plot_timedelta64():
     fig.basemap(
         projection="X8c/5c",
         region=[tmin, tmax, 0, 10],
-        frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=True, label="Forecast Days"),
+            yaxis=Axis(annot=True, tick=True, label="RMSE"),
+        ),
     )
     fig.plot(
         x=np.arange(tmin, tmax),
