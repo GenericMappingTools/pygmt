@@ -1,6 +1,6 @@
 """
 Directional map rose
-=====================
+====================
 
 The :meth:`pygmt.Figure.directional_rose` method allows to add
 directional roses on maps. Using the method
@@ -24,7 +24,6 @@ y1 = -5
 width = "1.5c"
 
 fig.basemap(region=[-5, 80, -17, 32], projection="M10c", frame=True)
-
 
 # Plain rose of 1.5 cm width showing an arrow towards North, a cross
 # indicating the cardinal directions, and a label for the North direction
