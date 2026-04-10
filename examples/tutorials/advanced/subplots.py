@@ -44,7 +44,7 @@ fig = pygmt.Figure()
 #         nrows=2,
 #         ncols=3,
 #         figsize=("15c", "6c"),
-#         frame=Frame(axes="lrtb")
+#         frame=Frame(axes="lrtb"),
 #    ):
 #         ...
 
