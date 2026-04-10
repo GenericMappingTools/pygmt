@@ -104,16 +104,16 @@ def ternary(  # noqa: PLR0913
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-            kwargs = build_arg_list(aliasdict, infile=vintbl)
-            for i, arg in enumerate(kwargs):
+            arg_list = build_arg_list(aliasdict, infile=vintbl)
+            for i, arg in enumerate(arg_list):
                 if arg.startswith("-Bp"):  # -Bpx, -Bpy, -Bpz
-                    kwargs[i] = (
+                    arg_list[i] = (
                         arg.replace("-Bpx", "-Ba")
                         .replace("-Bpy", "-Bb")
                         .replace("-Bpz", "-Bc")
                     )
                 elif arg.startswith(("-Bx", "-By", "-Bz")):
-                    kwargs[i] = (
+                    arg_list[i] = (
                         arg.replace("-Bx", "-Ba")
                         .replace("-By", "-Bb")
                         .replace("-Bz", "-Bc")
@@ -121,5 +121,5 @@ def ternary(  # noqa: PLR0913
 
             lib.call_module(
                 module="ternary",
-                args=kwargs,
+                args=arg_list,
             )
