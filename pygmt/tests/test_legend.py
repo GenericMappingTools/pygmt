@@ -9,6 +9,7 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis
 
 
 @pytest.fixture(scope="module", name="legend_spec")
@@ -119,7 +120,7 @@ S 0.1i i 0.15i cyan 0.25p 0.3i This triangle is boring
 """
     )
     fig = Figure()
-    fig.basemap(projection="x1c", region=[0, 20, 0, 20], frame="g1")
+    fig.basemap(projection="x1c", region=[0, 20, 0, 20], frame=Axis(grid=1))
     # Default width and height
     fig.legend(spec, position="TL", box=True)
 

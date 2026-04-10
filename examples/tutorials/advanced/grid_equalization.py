@@ -8,7 +8,7 @@ statistics based on a cumulative distribution function.
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Frame, Position
 
 # %%
 # Load sample data
@@ -43,7 +43,7 @@ with fig.subplot(
 ):
     # Plot the original digital elevation model in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=grid, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=grid, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the z-value distribution in the original digital
     # elevation model
     with fig.set_panel(panel=1):
@@ -117,7 +117,7 @@ with fig.subplot(
 ):
     # Plot the grid with a linear distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=linear, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=linear, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the linear z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
@@ -172,7 +172,7 @@ with fig.subplot(
 ):
     # Plot the grid with a normal distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=normal, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=normal, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the normal z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
@@ -241,7 +241,9 @@ with fig.subplot(
 ):
     # Plot the grid with a quadratic distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=quadratic, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(
+            grid=quadratic, projection="M?", frame=Frame(axes="WSne"), cmap=True
+        )
     # Plot a histogram showing the quadratic z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
