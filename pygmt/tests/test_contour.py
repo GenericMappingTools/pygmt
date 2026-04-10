@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
+from pygmt.params import Axis
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -72,7 +73,11 @@ def test_contour_from_file(region):
     """
     fig = Figure()
     fig.contour(
-        data=POINTS_DATA, projection="X10c", region=region, frame="af", pen="#ffcb87"
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        pen="#ffcb87",
     )
     return fig
 
@@ -87,7 +92,7 @@ def test_contour_interval(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=0.1,
         annotation=0.2,
         pen=True,
@@ -105,7 +110,7 @@ def test_contour_one_level(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=[0.4],
         annotation=[0.5],
         pen=True,
@@ -123,7 +128,7 @@ def test_contour_multiple_levels(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=[0.2, 0.3],
         annotation=[0.4, 0.45],
         pen=True,

@@ -5,7 +5,7 @@ Test Figure.subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Position
 
 
 @pytest.mark.benchmark
@@ -33,8 +33,12 @@ def test_subplot_direct():
     fig = Figure()
 
     with fig.subplot(nrows=2, ncols=1, subsize=("3c", "3c")):
-        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[0, 0])
-        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[1, 0])
+        fig.basemap(
+            region=[0, 3, 0, 3], frame=Axis(annot=True, tick=True), panel=[0, 0]
+        )
+        fig.basemap(
+            region=[0, 3, 0, 3], frame=Axis(annot=True, tick=True), panel=[1, 0]
+        )
     return fig
 
 

@@ -20,9 +20,14 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
-    region="g", projection="E-100/40/15c", frame="afg", land="khaki", water="white"
+    region="g",
+    projection="E-100/40/15c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="khaki",
+    water="white",
 )
 fig.show()

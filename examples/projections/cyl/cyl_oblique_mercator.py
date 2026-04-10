@@ -24,13 +24,14 @@ modifier **+v**. The figure size is set with *scale* or *width*.
 # The central meridian is set by *lon0/lat0*. The oblique equator is set by *azimuth*.
 
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     projection="Oa-120/25/-30/3c+v",
     # Set bottom left and top right coordinates of the figure with "+r"
     region="-122/35/-107/22+r",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )
@@ -50,7 +51,7 @@ fig = pygmt.Figure()
 fig.coast(
     projection="Ob130/35/25/35/3c",
     region="130/35/145/40+r",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )
@@ -70,7 +71,7 @@ fig = pygmt.Figure()
 fig.coast(
     projection="Oc280/25.5/22/69/4c",
     region="270/20/305/25+r",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )
