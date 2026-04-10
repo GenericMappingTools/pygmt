@@ -1,6 +1,6 @@
 """
-Create grid mask from polygons
-==============================
+Create grid masks from geospatial shapes
+========================================
 :func:`pygmt.grdmask`.
 
 :func:`pygmt.grdlandmask` and gallery example https://www.pygmt.org/latest/gallery/images/grdlandmask.html.
