@@ -19,8 +19,8 @@ from pygmt.helpers import (
     launch_external_viewer,
     unique_name,
 )
-from pygmt.params import Axis, Frame
 from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
+from pygmt.params import Axis, Frame
 
 
 def test_load_static_earth_relief():
