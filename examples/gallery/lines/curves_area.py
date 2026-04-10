@@ -23,7 +23,11 @@ data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
 
 
 # %%
-# Fill the area between the two curves using the ``fill_between`` parameter.
+# Fill the areas between the two curves using the ``fill_between`` parameter.
+# Use the ``fill`` parameter and the modifier **+g** for ``fill_between`` to
+# set different fills for areas with y1 > y2 and y2 < y1, respectively. Use
+# the ``label`` parameter and the modifier **+l** for ``fill_between`` to
+# set the corresponding legend entries.
 
 fig = gmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
@@ -31,8 +35,8 @@ fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 fig.plot(
     data=data_df,
     fill="orange",
-    fill_between="c+gsteelblue+lshort < long",
     label="short > long",
+    fill_between="c+gsteelblue+lshort < long",
 )
 
 fig.legend()
@@ -41,9 +45,10 @@ fig.show()
 
 
 # %%
-# Additionally we can draw the curves.
+# Additionally to filling the areas, we can draw the curves. Use the ``pen``
+# parameter and the modifier **+p** for ``fill_between`` to set different
+# lines for the two curves y1 and y2, respectively.
 
-# Set up new Figure instance
 fig = gmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
@@ -58,9 +63,9 @@ fig.show()
 
 
 # %%
-# Compare to a horizontal line.
+# To compare a curve y1 to a horizontal line, append **+y** to ``fill_between``
+# and give the desired y-level.
 
-# Set up new Figure instance
 fig = gmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
@@ -68,6 +73,7 @@ fig.plot(
     data=data_df[["x", "y1"]],
     fill="p8",
     pen="1p,black,solid",
+    # Define a horizontal line at y=0.42
     fill_between="c+gp17+p1p,black,dashed+y0.42",
 )
 
