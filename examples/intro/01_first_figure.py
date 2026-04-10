@@ -16,6 +16,7 @@ address other PyGMT methods.
 # are accessible from the :mod:`pygmt` top level package.
 
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Creating a figure
@@ -128,7 +129,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame="a",
+    frame=Axis(annot=True),
 )
 fig.show()
 

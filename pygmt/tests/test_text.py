@@ -136,7 +136,13 @@ def test_text_position(region):
     Left/Centre/Right).
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position)
     return fig
@@ -171,7 +177,13 @@ def test_text_position_offset_with_line(region):
     shifted point.
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position, offset="j0.5c+v")
     return fig
@@ -322,7 +334,7 @@ def test_text_angle_font_justify_from_textfile():
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
-            frame="a",
+            frame=Axis(annot=True),
             textfiles=tempfile.name,
             angle=True,
             font=True,
@@ -337,7 +349,7 @@ def test_text_justify_array(region):
     Test passing an array of justify codes.
     """
     fig = Figure()
-    fig.basemap(region=region, projection="x1c", frame="a")
+    fig.basemap(region=region, projection="x1c", frame=Axis(annot=True))
     fig.text(
         x=[0, 2.5, 5.0, 0, 2.5, 5.0, 0, 2.5, 5.0],
         y=[0, 0, 0, 1.25, 1.25, 1.25, 2.5, 2.5, 2.5],

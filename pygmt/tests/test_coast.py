@@ -5,6 +5,7 @@ Test Figure.coast.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError
+from pygmt.params import Axis
 
 
 @pytest.mark.benchmark
@@ -52,7 +53,7 @@ def test_coast_dcw_single():
     fig = Figure()
     fig.coast(
         region=[-10, 15, 25, 44],
-        frame="a",
+        frame=Axis(annot=True),
         projection="M15c",
         land="brown",
         dcw="ES+gbisque+pblue",
@@ -68,7 +69,7 @@ def test_coast_dcw_list():
     fig = Figure()
     fig.coast(
         region=[-10, 15, 25, 44],
-        frame="a",
+        frame=Axis(annot=True),
         projection="M15c",
         land="brown",
         dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],

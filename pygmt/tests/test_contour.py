@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
+from pygmt.params import Axis
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -44,7 +45,15 @@ def test_contour_vec(region):
     y = y.flatten()
     z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
     z = np.exp(-z / 10**2 * np.log(2))
-    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
+    fig.contour(
+        x=x,
+        y=y,
+        z=z,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True),
+        pen=True,
+    )
     return fig
 
 
@@ -160,7 +169,7 @@ def test_contour_incols_transposed_data(region):
         data,
         projection="X10c",
         region=region,
-        frame="a",
+        frame=Axis(annot=True),
         pen=True,
         incols=[1, 0, 2],
     )
