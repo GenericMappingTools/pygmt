@@ -5,6 +5,9 @@ Using the ``fill_between`` parameter of the :meth:`pygmt.Figure.plot` method it 
 possible to fill the area between two curves y1 and y2. Different fills (colors or
 patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the curves can
 be drawn.
+To plot an anomaly along a track use :meth:`pygmt.Figure.grdlandmask` and see the
+gallery example :doc:`Wiggle along tracks </gallery/lines/wiggle>`.
+
 """
 
 # %%
