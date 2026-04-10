@@ -4,6 +4,7 @@ Test Figure.basemap.
 
 import pytest
 from pygmt import Figure
+from pygmt.params import Axis
 
 
 @pytest.mark.benchmark
@@ -13,7 +14,11 @@ def test_basemap():
     Create a simple basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(
+        region=[10, 70, -3, 8],
+        projection="X8c/6c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -51,7 +56,11 @@ def test_basemap_polar():
     Create a polar basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[0, 360, 0, 1000], projection="P8c", frame="afg")
+    fig.basemap(
+        region=[0, 360, 0, 1000],
+        projection="P8c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -61,7 +70,11 @@ def test_basemap_winkel_tripel():
     Create a Winkel Tripel basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[90, 450, -90, 90], projection="R270/20c", frame="afg")
+    fig.basemap(
+        region=[90, 450, -90, 90],
+        projection="R270/20c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -84,7 +97,11 @@ def test_basemap_utm_projection(projection):
         "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
-    fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
+    fig.basemap(
+        region=[-52, -50, -12, -11],
+        projection=projection,
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 

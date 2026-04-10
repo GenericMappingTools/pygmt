@@ -8,6 +8,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Plot Cartesian Vectors
@@ -436,7 +437,7 @@ fig = pygmt.Figure()
 fig.coast(
     region=[-180, 180, -80, 80],
     projection="M0/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="lightbrown",
     water="lightblue",
 )

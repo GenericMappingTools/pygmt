@@ -22,13 +22,14 @@ The figure size is set with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use the ISO country code for Brazil and add a padding of 2 degrees (+R2)
 fig.coast(
     region="BR+R2",
     projection="B-55/-15/-25/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="seagreen",
     water="gray90",
 )

@@ -129,6 +129,7 @@ def grdcontour(
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # Load the 15 arc-minutes grid with "gridline" registration in the
     >>> # specified region
     >>> grid = pygmt.datasets.load_earth_relief(
@@ -147,7 +148,7 @@ def grdcontour(
     ...     # Set the interval for annotated contour lines at 1,000 meters
     ...     annotation=1000,
     ...     # Add a frame for the plot
-    ...     frame="a",
+    ...     frame=Axis(annot=True),
     ...     # Set the projection to Mercator for the 10 cm figure
     ...     projection="M10c",
     ... )
