@@ -37,8 +37,8 @@ def _ternary_frame(frame):
     >>> from pygmt.params import Axis, Frame
     >>> _ternary_frame(Axis(annot=True, tick=True, grid=True))
     'afg'
-    >>> _ternary_frame(Frame(axis=Axis(annot=True, tick=True)))
-    ['af']
+    >>> _ternary_frame(Axis(annot=True, tick=True))
+    'af'
     >>> _ternary_frame(Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True)))
     ['+tTitle', 'afg']
     >>> _ternary_frame(Frame(
@@ -54,10 +54,10 @@ def _ternary_frame(frame):
     True
     >>> _ternary_frame(["afg", "aafg+lWater"])
     ['afg', 'aafg+lWater']
-    >>> _ternary_frame(Frame(axes="WSen", axis=Axis(annot=True)))  # doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> _ternary_frame(Frame(axes="WSen", axis=Axis(annot=True)))
     Traceback (most recent call last):
     pygmt.exceptions.GMTParameterError: ...
-    >>> _ternary_frame(Frame(xaxis2=Axis(annot=True)))  # doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> _ternary_frame(Frame(xaxis2=Axis(annot=True)))
     Traceback (most recent call last):
     pygmt.exceptions.GMTParameterError: ...
     """
