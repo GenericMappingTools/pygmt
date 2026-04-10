@@ -86,10 +86,10 @@ provider = "https://naciscdn.org/naturalearth"
 states = geopandas.read_file(
     f"{provider}/50m/cultural/ne_50m_admin_1_states_provinces.zip"
 )
-wyoming = states[states["name"] == "Missouri"]
+missouri = states[states["name"] == "Missouri"]
 
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="01m")
-mask = pygmt.grdmask(region=region, data=wyoming, spacing="01m", inside="NaN")
+mask = pygmt.grdmask(region=region, data=missouri, spacing="01m", outside="NaN")
 mask_lonlat = mask.rename(new_name_or_name_dict={"x": "lon", "y": "lat"})
 grid_mask = grid * mask_lonlat
 
@@ -98,16 +98,17 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="oleron", series=[-2000, 2000])
 
 # Plot the elevation grid
-fig.basemap("L-96/35/33/41/12c", region=region, frame=True)
+fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
 fig.grdimage(grid=grid, cmap=True)
-fig.plot(data=wyoming, pen="1p,darkorange")
+fig.plot(data=missouri, pen="1p,darkorange")
 
 fig.shift_origin(xshift="+w+1c")
 
 # Plot the masked elevation grid
-fig.basemap("L-96/35/33/41/12c", region=region, frame=True)
+#fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
+fig.basemap(projection="M10c", region=[-96.5, -88.5, 35.8, 41], frame=True)
 fig.grdimage(grid=grid_mask, cmap=True)
-fig.plot(data=wyoming, pen="1p,darkorange")
+fig.plot(data=missouri, pen="1p,darkorange")
 
 fig.colorbar(frame=True)
 fig.show()
