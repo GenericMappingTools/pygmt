@@ -7,7 +7,6 @@ patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the curves 
 be drawn.
 To plot an anomaly along a track use :meth:`pygmt.Figure.grdlandmask` and see the
 gallery example :doc:`Wiggle along tracks </gallery/lines/wiggle>`.
-
 """
 
 # %%
@@ -53,6 +52,23 @@ fig.plot(
     fill="p8",
     pen="1p,black,solid",
     fill_between="c+gp17+p1p,black,dashed",
+)
+
+fig.show()
+
+
+# %%
+# Compare to a horizontal line.
+
+# Set up new Figure instance
+fig = gmt.Figure()
+fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
+
+fig.plot(
+    data=data_df[["x", "y1"]],
+    fill="p8",
+    pen="1p,black,solid",
+    fill_between="c+gp17+p1p,black,dashed+y0.42",
 )
 
 fig.show()
