@@ -70,7 +70,7 @@ def test_rose_2d_array_single():
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+glightgray",
+            fill="lightgray",
         ),
         pen="1p",
         norm=True,
@@ -94,7 +94,7 @@ def test_rose_2d_array_multiple(data):
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+gmoccasin",
+            fill="moccasin",
         ),
         pen="1p",
         norm=True,
@@ -121,7 +121,7 @@ def test_rose_plot_data_using_cpt(data):
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+gdarkgray",
+            fill="darkgray",
         ),
         pen="1p",
         norm=True,
@@ -147,7 +147,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+glightgray",
+            fill="lightgray",
         ),
         pen="1p",
         norm=True,
@@ -196,7 +196,7 @@ def test_rose_bools(data_fractures_compilation):
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+glightgray",
+            fill="lightgray",
         ),
         fill="red3",
         pen="1p",
