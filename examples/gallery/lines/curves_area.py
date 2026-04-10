@@ -19,8 +19,6 @@ y1 = np.sin(x * 3)
 y2 = np.sin(x / 2)
 
 data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
-# -----------------------------------------------------------------------------
-# Set up new Figure instance
 fig = gmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
