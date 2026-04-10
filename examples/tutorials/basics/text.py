@@ -197,11 +197,7 @@ fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: Add a tag to a subplot
-fig.basemap(
-    region=[-5, 5, -5, 5],
-    projection="X5c",
-    frame=[Frame(axes="WStr"), Axis(annot=True, tick=True)],
-)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WStr", "af"])
 
 fig.text(
     text="(a)",
@@ -214,11 +210,7 @@ fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Right: Add a text label outside of the plot or map frame
-fig.basemap(
-    region=[-30, 30, 10, 60],
-    projection="L0/35/23/47/5c",
-    frame=[Frame(axes="wSnE"), Axis(annot=True, tick=True)],
-)
+fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
 
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
