@@ -5,7 +5,7 @@ Plotting single-parameter symbols
 The :meth:`pygmt.Figure.plot` method can plot symbols via the ``style``, ``size``, and
 ``symbol`` parameters. This tutorial focuses on single-parameter symbols; for an
 overview of the available single-parameter symbols, see the Gallery example
-:doc:`Single-parameter symbols </gallery/symbols/basic_symbols>`. The available 
+:doc:`Single-parameter symbols </gallery/symbols/basic_symbols>`. The available
 multi-parameter symbols are explained in the Gallery example
 :doc:`Multi-parameter symbols </gallery/symbols/multi_parameter_symbols>`.
 """
