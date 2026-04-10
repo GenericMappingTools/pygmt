@@ -157,9 +157,7 @@ fig.show()
 # and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
-fig.basemap(
-    region=[108, 121, -5, 8], projection="M10c", frame=Axis(annot=2, tick=1)
-)
+fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame=Axis(annot=2, tick=1))
 fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file with region / sea names:
