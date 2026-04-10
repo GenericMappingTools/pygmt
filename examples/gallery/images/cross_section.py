@@ -14,7 +14,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Position
 
 # Define region of study area
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
@@ -30,7 +30,7 @@ fig = pygmt.Figure()
 # Bottom: Map of elevation in study area
 
 # Set up basic map using a Mercator projection with a width of 12 centimeters
-fig.basemap(region=region_map, projection="M12c", frame="af")
+fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
 # Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]

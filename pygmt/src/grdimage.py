@@ -158,13 +158,19 @@ def grdimage(  # noqa: PLR0913
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # pass in the grid and set the CPT to "geo"
     >>> # set the projection to Mollweide and the size to 10 cm
-    >>> fig.grdimage(grid=grid, cmap="gmt/geo", projection="W10c", frame="ag")
+    >>> fig.grdimage(
+    ...     grid=grid,
+    ...     cmap="gmt/geo",
+    ...     projection="W10c",
+    ...     frame=Axis(annot=True, grid=True),
+    ... )
     >>> # show the plot
     >>> fig.show()
     """

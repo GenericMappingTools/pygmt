@@ -27,12 +27,13 @@ with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[-180, -20, 0, 90],
     projection="Poly/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="seagreen",
     water="gray90",
 )

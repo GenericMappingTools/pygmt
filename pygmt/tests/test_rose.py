@@ -6,6 +6,7 @@ import numpy as np
 import pytest
 from pygmt import Figure
 from pygmt.datasets import load_sample_data
+from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="data")
@@ -41,7 +42,11 @@ def test_rose_data_file(data_fractures_compilation):
         sector=15,
         diameter="5.5c",
         fill="blue",
-        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="lightgray",
+        ),
         pen="1p",
         norm="",
         scale=0.4,
@@ -62,7 +67,11 @@ def test_rose_2d_array_single():
         sector=10,
         diameter="5.5c",
         fill="cyan",
-        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="lightgray",
+        ),
         pen="1p",
         norm=True,
         scale=0.4,
@@ -82,7 +91,11 @@ def test_rose_2d_array_multiple(data):
         sector=10,
         diameter="5.5c",
         fill="blue",
-        frame=["x0.2g0.2", "y30g30", "+gmoccasin"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="moccasin",
+        ),
         pen="1p",
         norm=True,
         scale=0.4,
@@ -105,7 +118,11 @@ def test_rose_plot_data_using_cpt(data):
         sector=15,
         diameter="5.5c",
         cmap="SCM/batlow",
-        frame=["x0.2g0.2", "y30g30", "+gdarkgray"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="darkgray",
+        ),
         pen="1p",
         norm=True,
         scale=0.4,
@@ -127,7 +144,11 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
         sector=15,
         diameter="5.5c",
         fill="blue",
-        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="lightgray",
+        ),
         pen="1p",
         norm=True,
         scale=0.4,
@@ -149,7 +170,9 @@ def test_rose_no_sectors(data_fractures_compilation):
         region=[0, 500, 0, 360],
         diameter="10c",
         labels="180/0/90/270",
-        frame=["xg100", "yg45", "+tWindrose diagram"],
+        frame=Frame(
+            xaxis=Axis(grid=100), yaxis=Axis(grid=45), title="Windrose diagram"
+        ),
         pen="1.5p,red3",
         transparency=40,
         scale=0.5,
@@ -170,7 +193,11 @@ def test_rose_bools(data_fractures_compilation):
         region=[0, 1, 0, 360],
         sector=10,
         diameter="10c",
-        frame=["x0.2g0.2", "y30g30", "+glightgray"],
+        frame=Frame(
+            xaxis=Axis(annot=0.2, grid=0.2),
+            yaxis=Axis(grid=30, annot=30),
+            fill="lightgray",
+        ),
         fill="red3",
         pen="1p",
         orientation=False,
