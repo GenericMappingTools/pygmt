@@ -39,12 +39,15 @@ polygon = np.array(
 # Download elevation grid
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="30s")
 
-# Create a grid mask based on the two polygons defined above, set all values
-# outside the polygons to NaN
-mask = pygmt.grdmask(region=region, data=polygon, spacing="30s", outside="NaN")
+# Create a grid mask based on the two polygons defined above
+# Set all values outside the polygons to NaN
+mask_out = pygmt.grdmask(region=region, data=polygon, spacing="30s", outside="NaN")
+# Set all values inside the polygons to NaN
+mask_in = pygmt.grdmask(region=region, data=polygon, spacing="30s", inside="NaN")
 
 # Apply the grid mask to the downloaded elevation grid by multiplying the two grids
-grid_mask = grid * mask
+grid_mask_out = grid * mask_out
+grid_mask_in = grid * mask_in
 
 
 fig = pygmt.Figure()
@@ -53,15 +56,20 @@ pygmt.makecpt(cmap="oleron", series=[-2000, 2000])
 # Plot the elevation grid
 fig.basemap(region=region, projection="M12c", frame=True)
 fig.grdimage(grid=grid, cmap=True)
-fig.basemap(frame="g1")
 fig.plot(data=polygon, pen="2p,darkorange")
 
 fig.shift_origin(xshift="+w+2c")
 
-# Plot the masked elevation grid
+# Plot the masked elevation grid outside
 fig.basemap(region=region, projection="M12c", frame=True)
-fig.grdimage(grid=grid_mask, cmap=True)
-fig.basemap(frame="g1")
+fig.grdimage(grid=grid_mask_out, cmap=True)
+fig.plot(data=polygon, pen="2p,darkorange")
+
+fig.shift_origin(xshift="+w+2c")
+
+# Plot the masked elevation grid inside
+fig.basemap(region=region, projection="M12c", frame=True)
+fig.grdimage(grid=grid_mask_in, cmap=True)
 fig.plot(data=polygon, pen="2p,darkorange")
 
 fig.colorbar(frame=True)
