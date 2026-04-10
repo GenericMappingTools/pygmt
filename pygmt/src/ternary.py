@@ -39,14 +39,18 @@ def _ternary_frame(frame):
     'afg'
     >>> _ternary_frame(Axis(annot=True, tick=True))
     'af'
-    >>> _ternary_frame(Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True)))
+    >>> _ternary_frame(
+    ...     Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True))
+    ... )
     ['+tTitle', 'afg']
-    >>> _ternary_frame(Frame(
-    ...     title="Title",
-    ...     xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
-    ...     yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
-    ...     zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
-    ... ))
+    >>> _ternary_frame(
+    ...     Frame(
+    ...         title="Title",
+    ...         xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+    ...         yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+    ...         zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+    ...     )
+    ... )
     ['+tTitle', 'aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
     >>> _ternary_frame("afg")
     'afg'
