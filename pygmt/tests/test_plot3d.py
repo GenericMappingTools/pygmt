@@ -9,6 +9,7 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis, Frame
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -45,7 +46,10 @@ def test_plot3d_red_circles_zscale(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame=["afg", "zafg"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
@@ -66,7 +70,10 @@ def test_plot3d_red_circles_zsize(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame=["afg", "zafg"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
@@ -77,7 +84,12 @@ def test_plot3d_fail_1d_array_with_data(data, region):
     with matrix.
     """
     fig = Figure()
-    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
+    kwargs = {
+        "data": data,
+        "region": region,
+        "projection": "X10c",
+        "frame": Axis(annot=True, tick=True, grid=True),
+    }
     with pytest.raises(GMTTypeError):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTTypeError):
@@ -119,7 +131,9 @@ def test_plot3d_projection(data, region):
         projection="R40/10c",
         style="s1c",
         fill="green",
-        frame=["ag", "zag"],
+        frame=Frame(
+            axis=Axis(annot=True, grid=True), zaxis=Axis(annot=True, grid=True)
+        ),
     )
     return fig
 
@@ -141,7 +155,10 @@ def test_plot3d_colors(data, region):
         projection="X6c",
         style="c0.5c",
         cmap="cpt-city/cubhelix",
-        frame=["afg", "zafg"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
@@ -165,7 +182,9 @@ def test_plot3d_sizes(data, region):
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         fill="blue",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -190,7 +209,9 @@ def test_plot3d_colors_sizes(data, region):
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         cmap="matlab/copper",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -209,7 +230,9 @@ def test_plot3d_colors_sizes_proj(data, region):
         perspective=[225, 30],
         region=region,
         projection="M20c",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
         fill=data[:, 2],
         size=data[:, 2],
         # Using inches instead of cm because of upstream bug at
@@ -239,7 +262,7 @@ def test_plot3d_varying_intensity():
         projection="X15c/5c",
         zsize="5c",
         perspective=[135, 30],
-        frame=["Sltr", "xaf+lIntensity"],
+        frame=Frame(axes="Sltr", xaxis=Axis(annot=True, tick=True, label="Intensity")),
         style="c0.5c",
         fill="blue",
         intensity=intensity,
@@ -346,7 +369,7 @@ def test_plot3d_symbol():
         fill="blue",
         size=[0.1, 0.2, 0.3, 0.4],
         symbol=["c", "t", "i", "u"],
-        frame=["WSenZ", "afg"],
+        frame=Frame(axes="WSenZ", axis=Axis(annot=True, tick=True, grid=True)),
         perspective=[135, 30],
     )
     return fig
@@ -368,7 +391,7 @@ def test_plot3d_matrix(data, region, fill):
         projection="M20c",
         style="c1c",
         fill=fill,
-        frame=["a", "za"],
+        frame=Frame(axis=Axis(annot=True), zaxis=Axis(annot=True)),
         incols="0,1,2",
     )
     return fig
@@ -389,7 +412,7 @@ def test_plot3d_matrix_color(data, region):
         style="c0.5c",
         cmap="gmt/rainbow",
         incols=[0, 1, 2, 2],
-        frame=["a", "za"],
+        frame=Frame(axis=Axis(annot=True), zaxis=Axis(annot=True)),
     )
     return fig
 
@@ -408,7 +431,9 @@ def test_plot3d_from_file(region):
         projection="X20c",
         style="d1c",
         fill="yellow",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
         incols=[0, 1, 2],
     )
     return fig
@@ -438,7 +463,9 @@ def test_plot3d_vectors():
         projection="X10c",
         style="V1c+e+n",
         fill="black",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -451,7 +478,11 @@ def test_plot3d_scalar_xyz():
     fig = Figure()
     fig.basemap(
         region=[-2, 2, -2, 2, -2, 2],
-        frame=["xaf+lx", "yaf+ly", "zaf+lz"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, label="x"),
+            yaxis=Axis(annot=True, tick=True, label="y"),
+            zaxis=Axis(annot=True, tick=True, label="z"),
+        ),
         zscale=2,
         perspective=[225, 30],
     )
@@ -488,7 +519,12 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",
-            frame=["WsNeZ1", "xag", "yag", "zag"],
+            frame=Frame(
+                axes="WsNeZ1",
+                xaxis=Axis(annot=True, grid=True),
+                yaxis=Axis(annot=True, grid=True),
+                zaxis=Axis(annot=True, grid=True),
+            ),
             zscale=1.5,
         )
         return fig
@@ -513,7 +549,12 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",
-            frame=["WsNeZ1", "xag", "yag", "zag"],
+            frame=Frame(
+                axes="WsNeZ1",
+                xaxis=Axis(annot=True, grid=True),
+                yaxis=Axis(annot=True, grid=True),
+                zaxis=Axis(annot=True, grid=True),
+            ),
             zscale=1.5,
             style="c0.2c",
         )
