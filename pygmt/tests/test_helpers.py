@@ -19,6 +19,7 @@ from pygmt.helpers import (
     launch_external_viewer,
     unique_name,
 )
+from pygmt.params import Axis, Frame
 from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
 
 
@@ -52,11 +53,12 @@ def test_non_ascii_to_octal():
     fig.basemap(
         region=[0, 10, 0, 5],
         projection="X10c/5c",
-        frame=[
-            "xaf+lISOLatin1: ﬁ‰“”¥",
-            "yaf+lSymbol: αβ∇∋∈",
-            "WSen+tZapfDingbats: ①❷➂➍✦❝❞",
-        ],
+        frame=Frame(
+            axes="WSen",
+            xaxis=Axis(annot=True, tick=True, label="ISOLatin1: ﬁ‰“”¥"),
+            yaxis=Axis(annot=True, tick=True, label="Symbol: αβ∇∋∈"),
+            title="ZapfDingbats: ①❷➂➍✦❝❞",
+        ),
     )
     return fig
 
