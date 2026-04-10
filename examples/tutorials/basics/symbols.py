@@ -78,8 +78,7 @@ fig.plot(
     y=y,
     # Plot circles (first "c") with a diameter in centimeters (second "c")
     style="cc",
-    # Use individual sizes
-    size=np.array([0.5, 0.2, 0.4, 0.6, 0.3]),
+    size=[0.5, 0.2, 0.4, 0.6, 0.3],  # Use individual sizes
     fill="gray",
     pen="1p,orange",
 )
@@ -129,7 +128,7 @@ fig.plot(
     x=x,
     y=y,
     symbol=["c", "s", "t", "i", "d"],
-    size=np.array([0.5, 0.2, 0.4, 0.6, 0.3]),
+    size=[0.5, 0.2, 0.4, 0.6, 0.3],
     fill="gray",
     pen="1p,orange",
 )
