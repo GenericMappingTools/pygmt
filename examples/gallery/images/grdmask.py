@@ -40,10 +40,13 @@ polygon = np.array(
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="30s")
 
 # Create a grid mask based on the two polygons defined above
-# Set all values outside the polygons to NaN
+# Set all grid nodes outside the polygons to NaN
 mask_out = pygmt.grdmask(region=region, data=polygon, spacing="30s", outside="NaN")
-# Set all values inside the polygons to NaN
-mask_in = pygmt.grdmask(region=region, data=polygon, spacing="30s", inside="NaN")
+# Set all grid nodes inside the polygons to NaN
+# Set the outside parameter to a value larger 0 to keep the nodes outside unchanged
+mask_in = pygmt.grdmask(
+    region=region, data=polygon, spacing="30s", inside="NaN", outside=1
+)
 
 # Apply the grid mask to the downloaded elevation grid by multiplying the two grids
 grid_mask_out = grid * mask_out
