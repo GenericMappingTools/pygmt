@@ -5,6 +5,8 @@ Test Figure.ternary.
 import numpy as np
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTParameterError
+from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="array")
@@ -58,7 +60,11 @@ def test_ternary(array):
         region=[0, 100, 0, 100, 0, 100],
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
         style="c0.1c",
         pen="thinnest",
     )
@@ -80,7 +86,11 @@ def test_ternary_3_labels(array):
         alabel="A",
         blabel="B",
         clabel="C",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
         style="c0.1c",
         pen="thinnest",
     )
@@ -99,8 +109,58 @@ def test_ternary_1_label(array):
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
         alabel="A",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
         style="c0.1c",
         pen="thinnest",
     )
     return fig
+
+
+def test_ternary_axis(array):
+    """
+    Test plotting a ternary chart with Axis object for frame.
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        frame=Axis(annot=True, tick=True, grid=True),
+        style="c0.1c",
+        pen="thinnest",
+    )
+
+
+def test_ternary_frame_axes_not_supported(array):
+    """
+    Test that Frame.axes is rejected for ternary diagrams.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError, match=r"Frame\.axes"):
+        fig.ternary(
+            data=array,
+            region=[0, 100, 0, 100, 0, 100],
+            width="10c",
+            frame=Frame(axes="WSen", axis=Axis(annot=True)),
+            style="c0.1c",
+        )
+
+
+def test_ternary_frame_secondary_axes_not_supported(array):
+    """
+    Test that secondary axes are rejected for ternary diagrams.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError, match="secondary axes"):
+        fig.ternary(
+            data=array,
+            region=[0, 100, 0, 100, 0, 100],
+            width="10c",
+            frame=Frame(xaxis2=Axis(annot=True)),
+            style="c0.1c",
+        )

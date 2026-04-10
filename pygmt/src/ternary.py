@@ -8,7 +8,9 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
@@ -20,7 +22,7 @@ def ternary(  # noqa: PLR0913
     blabel: str | None = None,
     clabel: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: str | Sequence[str] | Literal["none"] | bool | Frame | Axis = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -90,6 +92,43 @@ def ternary(  # noqa: PLR0913
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
 
+    # Convert Frame/Axis to ternary-compatible format.
+    # For ternary diagrams, axis names are a, b, c (not x, y, z), there are no
+    # primary/secondary axes, and frame sides (e.g., "WSen") are not supported.
+    if isinstance(frame, Axis):
+        frame = str(frame)
+    elif isinstance(frame, Frame):
+        if frame.axes:
+            raise GMTParameterError(
+                conflicts_with=("frame", ["frame.axes"]),
+                reason="For ternary diagrams, Frame.axes (e.g., 'WSen') is not supported.",
+            )
+        if any((frame.xaxis2, frame.yaxis2, frame.zaxis2)):
+            raise GMTParameterError(
+                conflicts_with=(
+                    "frame",
+                    ["frame.xaxis2", "frame.yaxis2", "frame.zaxis2"],
+                ),
+                reason="For ternary diagrams, secondary axes are not supported.",
+            )
+
+        parts = []
+
+        if frame.title:
+            parts.append(f"+t{frame.title}")
+        # Uniform axis setting (applies to all three ternary axes)
+        if frame.axis:
+            parts.append(str(frame.axis))
+        # Per-axis: xaxis→a, yaxis→b, zaxis→c
+        for ternary_prefix, axis_obj in [
+            ("a", frame.xaxis),
+            ("b", frame.yaxis),
+            ("c", frame.zaxis),
+        ]:
+            if axis_obj:
+                parts.append(f"{ternary_prefix}{axis_obj}")
+        frame = parts
+
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
@@ -104,22 +143,7 @@ def ternary(  # noqa: PLR0913
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-            arg_list = build_arg_list(aliasdict, infile=vintbl)
-            for i, arg in enumerate(arg_list):
-                if arg.startswith("-Bp"):  # -Bpx, -Bpy, -Bpz
-                    arg_list[i] = (
-                        arg.replace("-Bpx", "-Ba")
-                        .replace("-Bpy", "-Bb")
-                        .replace("-Bpz", "-Bc")
-                    )
-                elif arg.startswith(("-Bx", "-By", "-Bz")):
-                    arg_list[i] = (
-                        arg.replace("-Bx", "-Ba")
-                        .replace("-By", "-Bb")
-                        .replace("-Bz", "-Bc")
-                    )
-
             lib.call_module(
                 module="ternary",
-                args=arg_list,
+                args=build_arg_list(aliasdict, infile=vintbl),
             )
