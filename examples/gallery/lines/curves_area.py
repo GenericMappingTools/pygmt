@@ -1,9 +1,9 @@
 """
 Area between curves
 -------------------
-Using the ``M`` parameter of the :meth:`pygmt.Figure.plot` method it is possible
-to fill the area between two curves y_1 and y_2 with color. Different fills (colors
-or patterns) can be used for the areas y_1 > y_2 and y_1 < y_2. Optionally, the
+Using the ``fill_between`` parameter of the :meth:`pygmt.Figure.plot` method it is
+possible to fill the area between two curves y1 and y2 with color. Different fills
+(colors or patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the
 curves can be drawn.
 """
 
@@ -31,7 +31,7 @@ fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 fig.plot(
     data=data_df,
     fill="orange",
-    M="c+gsteelblue+lshort < long",
+    fill_between="c+gsteelblue+lshort < long",
     label="short > long",
 )
 
@@ -51,7 +51,7 @@ fig.plot(
     data=data_df,
     fill="p8",
     pen="1p,black,solid",
-    M="c+gp17+p1p,black,dashed",
+    fill_between="c+gp17+p1p,black,dashed",
 )
 
 fig.show()
