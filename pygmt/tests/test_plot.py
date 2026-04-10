@@ -12,6 +12,7 @@ import xarray as xr
 from pygmt import Figure, which
 from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis, Frame
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -45,7 +46,7 @@ def test_plot_red_circles(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame="afg",
+        frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
     )
     return fig
 
@@ -57,7 +58,11 @@ def test_plot_fail_no_data(data, region):
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(
-            region=region, projection="X10c", style="c0.2c", fill="red", frame="afg"
+            region=region,
+            projection="X10c",
+            style="c0.2c",
+            fill="red",
+            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -66,7 +71,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -75,7 +80,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
         )
     # Should also fail if given too much data
     with pytest.raises(GMTParameterError):
@@ -87,7 +92,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
         )
 
 
@@ -97,7 +102,12 @@ def test_plot_fail_1d_array_with_data(data, region):
     symbol are specified when data is given.
     """
     fig = Figure()
-    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
+    kwargs = {
+        "data": data,
+        "region": region,
+        "projection": "X10c",
+        "frame": Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    }
     with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTTypeError):
@@ -123,7 +133,7 @@ def test_plot_projection(data):
         projection="R270/10c",
         style="s0.2c",
         fill="green",
-        frame="ag",
+        frame=Frame(axis=Axis(annot=True, grid=True)),
     )
     return fig
 
@@ -142,7 +152,7 @@ def test_plot_colors(data, region):
         projection="X10c",
         style="c0.5c",
         cmap="cpt-city/cubhelix",
-        frame="af",
+        frame=Frame(axis=Axis(annot=True, tick=True)),
     )
     return fig
 
@@ -161,7 +171,7 @@ def test_plot_sizes(data, region):
         projection="X10c",
         style="cc",
         fill="blue",
-        frame="af",
+        frame=Frame(axis=Axis(annot=True, tick=True)),
     )
     return fig
 
@@ -181,7 +191,7 @@ def test_plot_colors_sizes(data, region):
         projection="X10c",
         style="cc",
         cmap="matlab/copper",
-        frame="af",
+        frame=Frame(axis=Axis(annot=True, tick=True)),
     )
     return fig
 
@@ -192,7 +202,12 @@ def test_plot_colors_sizes_proj(data, region):
     Plot the data using z as sizes and fills with a projection.
     """
     fig = Figure()
-    fig.coast(region=region, projection="M15c", frame="af", water="skyblue")
+    fig.coast(
+        region=region,
+        projection="M15c",
+        frame=Frame(axis=Axis(annot=True, tick=True)),
+        water="skyblue",
+    )
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
@@ -219,7 +234,7 @@ def test_plot_varying_intensity():
         y=y,
         region=[-1.1, 1.1, -0.5, 0.5],
         projection="X10c/2c",
-        frame=["S", "xaf+lIntensity"],
+        frame=Frame(axes="S", xaxis=Axis(annot=True, tick=True, label="Intensity")),
         style="c0.25c",
         fill="blue",
         intensity=intensity,
