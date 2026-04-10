@@ -132,7 +132,7 @@ fig.plot(data=circle, pen="2p,darkorange")
 fig.shift_origin(xshift="+w+2c")
 
 # Plot the masked elevation grid
-fig.basemap(region=region, projection="M12c", frame=True)
+fig.basemap(region=[125.5, 127.5, 32.5, 34.5], projection="M12c", frame=True)
 fig.grdimage(grid=grid_mask, cmap=True)
 fig.plot(data=circle, pen="2p,darkorange")
 
