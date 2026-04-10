@@ -45,7 +45,7 @@ def test_rose_data_file(data_fractures_compilation):
         frame=Frame(
             xaxis=Axis(annot=0.2, grid=0.2),
             yaxis=Axis(grid=30, annot=30),
-            axes="+glightgray",
+            fill="lightgray",
         ),
         pen="1p",
         norm="",
