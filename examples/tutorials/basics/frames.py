@@ -9,6 +9,7 @@ contain.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Plot frame
@@ -51,7 +52,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame="ag")
+fig.basemap(frame=Axis(annot=True, grid=True))
 fig.show()
 
 # %%

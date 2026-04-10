@@ -21,6 +21,7 @@ side-by-side, individual and thinner bars. Multi-band bars require
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 
@@ -30,7 +31,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     subsize=("8c", "4c"),
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     sharey=True,
     sharex=True,
     margins=["0.5c", "0.75c"],

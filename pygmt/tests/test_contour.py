@@ -69,7 +69,11 @@ def test_contour_matrix(array_func, data, region):
     """
     fig = Figure()
     fig.contour(
-        data=array_func(data), projection="X10c", region=region, frame="ag", pen=True
+        data=array_func(data),
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, grid=True),
+        pen=True,
     )
     return fig
 
