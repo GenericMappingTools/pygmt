@@ -71,7 +71,7 @@ fig.text(x=2.4, y=18, text='frame=["xg2", "yg5"]', **minorexplain)
 # ============ Map Boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(x=11.5, y=8, text="Map Boundary", **mainexplain)
-fig.text(x=11.5, y=6.8, text='frame=Frame(axes="WStr")', **minorexplain)
+fig.text(x=11.5, y=6.8, text='frame="WStr"', **minorexplain)
 # ============ fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.text(x=7, y=6.5, text="fig.plot(style)", **minorexplain)
