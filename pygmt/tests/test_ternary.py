@@ -5,7 +5,6 @@ Test Figure.ternary.
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="array")
@@ -59,11 +58,7 @@ def test_ternary(array):
         region=[0, 100, 0, 100, 0, 100],
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
-        frame=Frame(
-            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
-            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
-            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
-        ),
+        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
         pen="thinnest",
     )
@@ -85,11 +80,7 @@ def test_ternary_3_labels(array):
         alabel="A",
         blabel="B",
         clabel="C",
-        frame=Frame(
-            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
-            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
-            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
-        ),
+        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
         pen="thinnest",
     )
@@ -108,11 +99,7 @@ def test_ternary_1_label(array):
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
         alabel="A",
-        frame=Frame(
-            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
-            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
-            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
-        ),
+        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
         style="c0.1c",
         pen="thinnest",
     )
