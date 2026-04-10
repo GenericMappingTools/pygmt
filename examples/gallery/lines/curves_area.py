@@ -18,11 +18,7 @@ x = np.arange(-10, 10.2, 0.1)
 y1 = np.sin(x * 3)
 y2 = np.sin(x / 2)
 
-data = np.array([x, y1, y2])
-data_tp = data.transpose()
-
-data_df = pd.DataFrame(data_tp, columns=["x", "y1", "y2"])
-
+data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
 # -----------------------------------------------------------------------------
 # Set up new Figure instance
 fig = gmt.Figure()
