@@ -105,7 +105,7 @@ fig.plot(data=missouri, pen="1p,darkorange")
 fig.shift_origin(xshift="+w+1c")
 
 # Plot the masked elevation grid
-#fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
+# fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
 fig.basemap(projection="M10c", region=[-96.5, -88.5, 35.8, 41], frame=True)
 fig.grdimage(grid=grid_mask, cmap=True)
 fig.plot(data=missouri, pen="1p,darkorange")
