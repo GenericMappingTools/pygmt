@@ -12,13 +12,17 @@ import numpy as np
 import pandas as pd
 import pygmt as gmt
 
-# -----------------------------------------------------------------------------
 # Generate some test data and create a pandas DataFrame
 x = np.arange(-10, 10.2, 0.1)
 y1 = np.sin(x * 3)
 y2 = np.sin(x / 2)
 
 data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
+
+
+# %%
+# Fill the area between the two curves using the ``fill_between`` parameter.
+
 fig = gmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
