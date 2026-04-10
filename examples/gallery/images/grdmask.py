@@ -80,8 +80,8 @@ fig.show()
 
 
 # %%
-# US staat based on GeoPandas polygon geometry
-# --------------------------------------------
+# US state Missouri based on GeoPandas polygon geometry
+# -----------------------------------------------------
 
 region = [-126, -66, 25, 49]
 
