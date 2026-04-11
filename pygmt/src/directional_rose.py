@@ -26,7 +26,7 @@ def directional_rose(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: str | bool = False,
+    perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
 ):
     """

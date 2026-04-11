@@ -8,7 +8,6 @@ from pathlib import Path
 
 import pytest
 from pygmt.clib import Session
-from pygmt.params import Axis
 from pygmt.session_management import begin, end
 
 
@@ -74,11 +73,7 @@ def _gmt_func_wrapper(figname):
 
     reload(pygmt)
     fig = pygmt.Figure()
-    fig.basemap(
-        region=[10, 70, -3, 8],
-        projection="X8c/6c",
-        frame=Axis(annot=True, tick=True, grid=True),
-    )
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame=True)
     fig.savefig(figname)
 
 
