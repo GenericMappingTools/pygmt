@@ -32,7 +32,7 @@ from pygmt.helpers import (
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -235,6 +235,8 @@ def text_(  # noqa: PLR0912, PLR0913
     for arg, flag, _ in array_args:
         if arg is True:
             kwargs["F"] += flag
+        elif arg is False:
+            pass
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
