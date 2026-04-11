@@ -287,20 +287,19 @@ fig.show()
 #
 # This example focuses on annotating the axes and setting the interval in which the
 # annotations should appear. All of these modifications are passed to the ``frame``
-# parameter and each item in that list modifies a specific aspect of the frame.
+# parameter via a :class:`pygmt.params.Frame` object.
 #
-# Adding ``"WS"`` means that only the Western/Left (**W**) and Southern/Bottom (**S**)
-# borders of the plot are annotated. For more information on this, please refer to the
+# Setting ``axes="WS"`` in :class:`pygmt.params.Frame` means that only the
+# Western/Left (**W**) and Southern/Bottom (**S**) borders of the plot are annotated.
+# For more information on this, please refer to the
 # :doc:`Frames, ticks, titles, and labels tutorial </tutorials/basics/frames>`.
 #
-# Another important item in the list passed to ``frame`` is ``"sxa1Of1D"``. This string
-# modifies the secondary annotation (**s**) of the x-axis (**x**). Specifically, it sets
-# the main annotation and major tick spacing interval to one month (**a1O**) (capital
-# letter O, not zero). Additionally, it sets the minor tick spacing interval to 1 day
-# (**f1D**). To use the month name instead of its number set :gmt-term:`FORMAT_DATE_MAP`
-# to **o**. More information on configuring date formats can be found at
-# :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
-# :gmt-term:`FORMAT_DATE_OUT`.
+# Setting ``xaxis2=Axis(annot="1O", tick="1D")`` modifies the secondary x-axis
+# annotation interval to one month (**1O**) (capital letter O, not zero), and sets the
+# minor tick spacing interval to 1 day (**1D**). To use the month name instead of its
+# number set :gmt-term:`FORMAT_DATE_MAP` to **o**. More information on configuring
+# date formats can be found at :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`,
+# and :gmt-term:`FORMAT_DATE_OUT`.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]

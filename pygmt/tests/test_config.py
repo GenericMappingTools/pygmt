@@ -86,7 +86,7 @@ def test_config_format_date_map():
         fig.basemap(
             region=["1969-7-21T", "1969-7-23T", 0, 1],
             projection="X2.5c/0.1c",
-            frame=["sxa1D", "S"],
+            frame=Frame(axes="S", xaxis2=Axis(annot="1D")),
         )
     return fig
 
