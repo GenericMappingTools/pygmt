@@ -16,7 +16,6 @@ address other PyGMT methods.
 # are accessible from the :mod:`pygmt` top level package.
 
 import pygmt
-from pygmt.params import Axis, Frame
 
 # %%
 # Creating a figure
@@ -142,9 +141,9 @@ fig.show()
 # is set by passing ``"+t"`` followed by the title (e.g. setting the map
 # title to "Title" would be ``"+tTitle"``).
 #
-# To pass multiple arguments to ``frame``, a :class:`pygmt.params.Frame` object can be
-# used, as shown in the example below. This format uses ``frame`` to set both the axes
-# annotations and the figure title.
+# To pass multiple arguments to ``frame``, a list can be used, as shown in the
+# example below. This format uses ``frame`` to set both the axes annotations
+# and the figure title.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -153,7 +152,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=Frame(title="Maine", axis=Axis(annot=True)),
+    frame=["a", "+tMaine"],
 )
 fig.show()
 
