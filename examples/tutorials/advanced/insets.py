@@ -10,7 +10,7 @@ instead of the larger figure.
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Position
 
 # %%
 # Prior to creating an inset figure, a larger figure must first be plotted. In the
@@ -25,7 +25,7 @@ fig.coast(
     projection="M15c",  # Set Mercator projection and size of 15 centimeter
     land="lightyellow",  # Color land areas light yellow
     water="lightblue",  # Color water areas light blue
-    frame="a",  # Set frame with annotation and major tick spacing
+    frame=Axis(annot=True),  # Set frame with annotations
 )
 fig.show()
 
@@ -43,7 +43,7 @@ fig.coast(
     projection="M15c",
     land="lightyellow",
     water="lightblue",
-    frame="a",
+    frame=Axis(annot=True),
 )
 with fig.inset(position=Position("BL"), width=3, box=Box(pen="black", fill="lightred")):
     # pass is used to exit the with statement as no plotting methods are called
@@ -65,7 +65,7 @@ fig.coast(
     projection="M15c",
     land="lightyellow",
     water="lightblue",
-    frame="a",
+    frame=Axis(annot=True),
 )
 with fig.inset(
     position=Position("BL", offset=(0.5, 0.2)),
@@ -89,7 +89,7 @@ fig.coast(
     projection="M15c",
     land="lightyellow",
     water="lightblue",
-    frame="a",
+    frame=Axis(annot=True),
 )
 # This does not include an inset fill as it is covered by the inset figure. Inset
 # width/height are determined by the ``region`` and ``projection`` parameters.

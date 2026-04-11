@@ -18,12 +18,13 @@ of the figure.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="A30/-20/60/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="khaki",
     water="white",
 )

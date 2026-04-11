@@ -12,6 +12,7 @@ commas.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 
@@ -21,7 +22,7 @@ fig.coast(
     projection="A10/52/25/6c",
     land="gray",
     water="white",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     dcw=[
         # Great Britain (country code) with seagreen land
         "GB+gseagreen",
@@ -54,7 +55,7 @@ fig.coast(
     projection="H10c",
     land="gray",
     water="white",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     dcw=[
         # Europe
         "=EU+gseagreen",

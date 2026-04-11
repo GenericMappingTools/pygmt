@@ -5,6 +5,7 @@ Test Figure.timestamp.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError
+from pygmt.params import Axis
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -56,7 +57,7 @@ def test_timestamp_offset():
     Check if the "offset" parameter works.
     """
     fig = Figure()
-    fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame="g1")
+    fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame=Axis(grid=1))
     for offset in ["1c", "1c/2c", ("1c", "3c"), 4, (4, 1)]:
         fig.timestamp(offset=offset, timefmt=f"offset={offset}")
     return fig

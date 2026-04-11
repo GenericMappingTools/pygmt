@@ -10,7 +10,7 @@ manually created legends are supported.
 import io
 
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Box, Frame, Position
 
 # %%
 # Create an auto-legend
@@ -51,7 +51,7 @@ fig.show()
 # drawn by default if ``position`` is used
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb"))
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -62,7 +62,7 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 fig.legend(position=Position("TL", offset=(0.3, 0.2)))
 
 fig.shift_origin(xshift="w+1c")
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb"))
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")

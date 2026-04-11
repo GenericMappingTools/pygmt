@@ -211,6 +211,7 @@ def coast(  # noqa: PLR0913
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # Call the coast method for the plot
@@ -220,7 +221,7 @@ def coast(  # noqa: PLR0913
     ...     # Set the region of the plot
     ...     region=[-10, 30, 30, 60],
     ...     # Set the frame of the plot, here annotations and major ticks
-    ...     frame="a",
+    ...     frame=Axis(annot=True),
     ...     # Set the color of the land to "darkgreen"
     ...     land="darkgreen",
     ...     # Set the color of the water to "lightblue"
