@@ -4,6 +4,7 @@ Test pygmt.config.
 
 import pytest
 from pygmt import Figure, config
+from pygmt.params import Axis, Frame
 
 
 @pytest.mark.mpl_image_compare
@@ -15,7 +16,7 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", "+tBlue Annotation"]
+        region=[0, 10, 0, 10], projection="X5c/5c", frame=Frame(title="Blue Annotation", axis=Axis(annot=True, tick=True))
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
@@ -23,14 +24,14 @@ def test_config():
         fig.basemap(
             region=[0, 10, 0, 10],
             projection="X5c/5c",
-            frame=["xaf+lred label", "yaf", "+tred annotation"],
+            frame=Frame(title="red annotation", xaxis=Axis(annot=True, tick=True, label="red label"), yaxis=Axis(annot=True, tick=True)),
         )
 
     fig.shift_origin(xshift="7c")
     fig.basemap(
         region=[0, 10, 0, 10],
         projection="X5c/5c",
-        frame=["af", "+tBlue Annotation"],
+        frame=Frame(title="Blue Annotation", axis=Axis(annot=True, tick=True)),
     )
     # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
