@@ -19,9 +19,9 @@ def test_subplot_basic_frame():
 
     with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame=Frame(axes="WSne")):
         with fig.set_panel(panel="0,0"):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot0"))
         with fig.set_panel(panel=[0, 1]):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot1"))
     return fig
 
 
