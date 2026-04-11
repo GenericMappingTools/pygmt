@@ -10,6 +10,7 @@ It will use the :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Loading the Earth relief dataset
@@ -43,7 +44,7 @@ grid = pygmt.datasets.load_earth_relief(
 # "oleron" is used; a full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
+fig.grdimage(grid=grid, frame=Axis(annot=True), projection="M10c", cmap="SCM/oleron")
 fig.show()
 
 
@@ -63,7 +64,7 @@ fig.show()
 # :meth:`pygmt.Figure.grdimage`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
+fig.grdimage(grid=grid, frame=Axis(annot=True), projection="M10c", cmap="SCM/oleron")
 fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 
@@ -84,7 +85,7 @@ fig.show()
 # lines can be adjusted (separately) by specifying the desired ``pen``.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
+fig.grdimage(grid=grid, frame=Axis(annot=True), projection="M10c", cmap="SCM/oleron")
 fig.grdcontour(grid=grid, levels=500, annotation=1000)
 fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
@@ -99,7 +100,7 @@ fig.show()
 # the ``shorelines`` parameter draws a border around the islands.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="SCM/oleron")
+fig.grdimage(grid=grid, frame=Axis(annot=True), projection="M10c", cmap="SCM/oleron")
 fig.grdcontour(grid=grid, levels=500, annotation=1000)
 fig.coast(shorelines="2p", land="lightgray")
 fig.colorbar(annot=1000, label="Elevation", unit="m")

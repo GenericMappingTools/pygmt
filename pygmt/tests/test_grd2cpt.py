@@ -9,6 +9,7 @@ from pygmt import Figure, grd2cpt
 from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.params import Axis
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -27,9 +28,9 @@ def test_grd2cpt(grid):
     with a color bar.
     """
     fig = Figure()
-    fig.basemap(frame="a", projection="W0/15c", region="d")
+    fig.basemap(frame=Axis(annot=True), projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig.colorbar(frame="a")
+    fig.colorbar(frame=Axis(annot=True))
     return fig
 
 

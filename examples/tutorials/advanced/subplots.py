@@ -20,6 +20,7 @@ tutorial below will cover.
 
 # %%
 import pygmt
+from pygmt.params import Frame
 
 # %%
 # Let's start by initializing a :class:`pygmt.Figure` instance.
@@ -39,17 +40,22 @@ fig = pygmt.Figure()
 # %%
 # .. code-block:: default
 #
-#     with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
+#     with fig.subplot(
+#         nrows=2,
+#         ncols=3,
+#         figsize=("15c", "6c"),
+#         frame=Frame(axes="lrtb"),
+#    ):
 #         ...
 
 # %%
 # will define our figure to have a 2 row and 3 column grid layout.
 # ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm wide by
-# 6 cm high. Using ``frame="lrtb"`` allows us to customize the map frame for all
-# subplots instead of setting them individually. The figure layout will look like the
-# following:
+# 6 cm high. Using ``frame=Frame(axes="lrtb")`` allows us to customize the map frame for
+# all subplots instead of setting them individually. The figure layout will look like
+# the following:
 
-with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
+with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame=Frame(axes="lrtb")):
     for i in range(2):  # row number starting from 0
         for j in range(3):  # column number starting from 0
             index = i * 3 + j  # index number starting from 0
@@ -169,7 +175,7 @@ with fig.subplot(
     title="My Subplot Heading",
     sharex="b",  # shared x-axis on the bottom side
     sharey="l",  # shared y-axis on the left side
-    frame="WSrt",
+    frame=Frame(axes="WSrt"),
 ):
     fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
     fig.basemap(region=[0, 20, 0, 10], projection="X?", panel=True)
