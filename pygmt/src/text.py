@@ -32,7 +32,7 @@ from pygmt.helpers import (
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913
+def text_(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -118,12 +118,12 @@ def text_(  # noqa: PLR0912, PLR0913
         of the map.
     text
         The text string, or an array of strings to plot on the figure.
-    angle: float, str, bool or list
+    angle
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
         must have this as a column.
-    font : str, bool or list of str
+    font
         Set the font specification with format *size*\ ,\ *font*\ ,\ *color*
         where *size* is text size in points, *font* is the font to use, and
         *color* sets the font color. For example,
@@ -228,13 +228,15 @@ def text_(  # noqa: PLR0912, PLR0913
 
     # Build the -F option.
     if kwargs.get("F") is None and any(
-        v is not None for v in (position, angle, font, justify)
+        v is not None or v is not False for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
     for arg, flag, _ in array_args:
         if arg is True:
             kwargs["F"] += flag
+        elif arg is False:
+            pass
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
