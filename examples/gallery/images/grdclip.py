@@ -24,7 +24,12 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=Frame(axes="WSne", title="original grid", xaxis=Axis(annot=5, tick=1), yaxis=Axis(annot=2, tick=1)),
+    frame=Frame(
+        axes="WSne",
+        title="original grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
 )
 fig.grdimage(grid=grid, cmap="SCM/oleron")
 
@@ -39,7 +44,12 @@ grid = pygmt.grdclip(grid, below=[0, -2000])
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=Frame(axes="wSne", title="clipped grid", xaxis=Axis(annot=5, tick=1), yaxis=Axis(annot=2, tick=1)),
+    frame=Frame(
+        axes="wSne",
+        title="clipped grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
 )
 fig.grdimage(grid=grid)
 fig.colorbar(

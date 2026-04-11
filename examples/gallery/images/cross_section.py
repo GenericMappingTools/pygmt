@@ -120,6 +120,12 @@ fig.plot(
 # Add map frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
-fig.basemap(frame=Frame(axes="WSrt", xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"), yaxis=Axis(annot=4000, label="Elevation / m")))
+fig.basemap(
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"),
+        yaxis=Axis(annot=4000, label="Elevation / m"),
+    )
+)
 
 fig.show()

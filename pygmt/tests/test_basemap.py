@@ -31,7 +31,11 @@ def test_basemap_loglog():
     fig.basemap(
         region=[1, 10000, 1e20, 1e25],
         projection="X16cl/12cl",
-        frame=Frame(axes="WS", xaxis=Axis(annot=2, label="Wavelength"), yaxis=Axis(annot="1p", tick=3, label="Power")),
+        frame=Frame(
+            axes="WS",
+            xaxis=Axis(annot=2, label="Wavelength"),
+            yaxis=Axis(annot="1p", tick=3, label="Power"),
+        ),
     )
     return fig
 
@@ -45,7 +49,10 @@ def test_basemap_power_axis():
     fig.basemap(
         region=[0, 100, 0, 5000],
         projection="x1p0.5/-0.001",
-        frame=Frame(xaxis=Axis(annot="1p", label="Crustal age"), yaxis=Axis(annot=500, label="Depth")),
+        frame=Frame(
+            xaxis=Axis(annot="1p", label="Crustal age"),
+            yaxis=Axis(annot=500, label="Depth"),
+        ),
     )
     return fig
 

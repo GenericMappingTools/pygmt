@@ -35,7 +35,12 @@ pygmt.makecpt(cmap="gmt/gray", series=[200, 4000, 10])
 fig.grdimage(
     grid=grid,
     projection="M12c",
-    frame=Frame(axes="WSrt", title="Original Data Elevation Model", xaxis=Axis(annot=0.1), yaxis=Axis(annot=0.1)),
+    frame=Frame(
+        axes="WSrt",
+        title="Original Data Elevation Model",
+        xaxis=Axis(annot=0.1),
+        yaxis=Axis(annot=0.1),
+    ),
     cmap=True,
 )
 fig.colorbar(
@@ -57,7 +62,9 @@ pygmt.makecpt(cmap="gmt/gray", series=[-1.5, 0.3, 0.01])
 fig.grdimage(
     grid=dgrid,
     projection="M12c",
-    frame=Frame(axes="lSEt", title="Hillshade Map", xaxis=Axis(annot=0.1), yaxis=Axis(annot=0.1)),
+    frame=Frame(
+        axes="lSEt", title="Hillshade Map", xaxis=Axis(annot=0.1), yaxis=Axis(annot=0.1)
+    ),
     cmap=True,
 )
 

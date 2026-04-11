@@ -80,7 +80,9 @@ def test_grdview_image_dpi(grid):
             projection="M4c",
             surftype="image",
             dpi=dpi,
-            frame=Frame(axes="WSen", title=f"dpi={dpi}", axis=Axis(annot=True, tick=True)),
+            frame=Frame(
+                axes="WSen", title=f"dpi={dpi}", axis=Axis(annot=True, tick=True)
+            ),
             perspective=(225, 30),
         )
         fig.shift_origin(xshift="7c")
@@ -223,7 +225,11 @@ def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
         projection=projection,
         perspective=[225, 30],
         zscale=0.005,
-        frame=Frame(xaxis=Axis(annot=True, tick=True), yaxis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)),
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True),
+            yaxis=Axis(annot=True, tick=True),
+            zaxis=Axis(annot=True, tick=True),
+        ),
     )
     return fig
 

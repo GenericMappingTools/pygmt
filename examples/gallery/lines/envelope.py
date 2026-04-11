@@ -42,7 +42,12 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=Frame(axes="WSne", title="symmetric deviations +d", xaxis=Axis(annot=2, tick=1), yaxis=Axis(annot=1, tick=0.1)),
+    frame=Frame(
+        axes="WSne",
+        title="symmetric deviations +d",
+        xaxis=Axis(annot=2, tick=1),
+        yaxis=Axis(annot=1, tick=0.1),
+    ),
 )
 
 # Plot a symmetrical envelope based on the deviations ("+d")
@@ -65,7 +70,12 @@ fig.shift_origin(xshift="w+1c")
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=Frame(axes="WSne", title="asymmetric deviations +D", xaxis=Axis(annot=2, tick=1), yaxis=Axis(tick=0.1)),
+    frame=Frame(
+        axes="WSne",
+        title="asymmetric deviations +D",
+        xaxis=Axis(annot=2, tick=1),
+        yaxis=Axis(tick=0.1),
+    ),
 )
 
 # Plot an asymmetrical envelope based on the deviations ("+D")
@@ -88,7 +98,12 @@ fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
     # Use "\\053" to handle "+b" as a string not as a modifier
-    frame=Frame(axes="wSnE", title="bounds \\053b", xaxis=Axis(annot=2, tick=1), yaxis=Axis(annot=1, tick=0.1)),
+    frame=Frame(
+        axes="wSnE",
+        title="bounds \\053b",
+        xaxis=Axis(annot=2, tick=1),
+        yaxis=Axis(annot=1, tick=0.1),
+    ),
 )
 
 # Plot an envelope based on the bounds ("+b")

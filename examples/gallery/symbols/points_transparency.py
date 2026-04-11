@@ -20,7 +20,10 @@ transparency = x
 fig = pygmt.Figure()
 fig.basemap(
     region=[-5, 105, 0, 2],
-    frame=Frame(axes="WSrt", xaxis=Axis(annot=True, tick=True, label="Transparency level", unit="%")),
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=True, tick=True, label="Transparency level", unit="%"),
+    ),
     projection="X15c/6c",
 )
 fig.plot(x=x, y=y, style="c0.6c", fill="blue", pen="1p,red", transparency=transparency)

@@ -84,7 +84,11 @@ fig.grdview(
     grid=grid,
     # Set the azimuth to -130 (230) degrees and the elevation to 30 degrees
     perspective=[-130, 30],
-    frame=Frame(axes="WSnE", xaxis=Axis(annot=True, tick=True), yaxis=Axis(annot=True, tick=True)),
+    frame=Frame(
+        axes="WSnE",
+        xaxis=Axis(annot=True, tick=True),
+        yaxis=Axis(annot=True, tick=True),
+    ),
     projection="M15c",
     zsize="1.5c",
     surftype="surface",

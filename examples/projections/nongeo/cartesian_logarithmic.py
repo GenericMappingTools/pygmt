@@ -30,7 +30,12 @@ fig.basemap(
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
     # Set the figure's frame and color as well as annotations, ticks, and gridlines
-    frame=Frame(axes="WSne", fill="bisque", xaxis=Axis(annot=2, grid=3), yaxis=Axis(annot=2, tick=1, grid=2)),
+    frame=Frame(
+        axes="WSne",
+        fill="bisque",
+        xaxis=Axis(annot=2, grid=3),
+        yaxis=Axis(annot=2, tick=1, grid=2),
+    ),
 )
 
 # Set the line thickness to "2p", the color to "black", and the style to "dashed"

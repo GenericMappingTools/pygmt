@@ -119,7 +119,12 @@ def test_geopandas_plot3d_default_cube():
         perspective=[315, 25],
         region=[0, 2, 0, 2, 0, 2],
         projection="X2c",
-        frame=Frame(axes="WsNeZ1", xaxis=Axis(annot=True, grid=True), yaxis=Axis(annot=True, grid=True), zaxis=Axis(annot=True, grid=True)),
+        frame=Frame(
+            axes="WsNeZ1",
+            xaxis=Axis(annot=True, grid=True),
+            yaxis=Axis(annot=True, grid=True),
+            zaxis=Axis(annot=True, grid=True),
+        ),
         zscale=1.5,
     )
     return fig
@@ -152,7 +157,12 @@ def test_geopandas_plot3d_non_default_circle():
         perspective=[315, 25],
         region=[0, 2, 0, 2, 0, 2],
         projection="X2c",
-        frame=Frame(axes="WsNeZ1", xaxis=Axis(annot=True, grid=True), yaxis=Axis(annot=True, grid=True), zaxis=Axis(annot=True, grid=True)),
+        frame=Frame(
+            axes="WsNeZ1",
+            xaxis=Axis(annot=True, grid=True),
+            yaxis=Axis(annot=True, grid=True),
+            zaxis=Axis(annot=True, grid=True),
+        ),
         zscale=1.5,
         style="c0.2c",
     )

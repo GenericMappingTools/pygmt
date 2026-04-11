@@ -29,7 +29,12 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 5, 0, 6],
     projection="X14c/7c",
-    frame=Frame(axes="WSen", title="Title: α² ± β²", xaxis=Axis(annot=True, tick=True, label="Distance (°)"), yaxis=Axis(annot=True, tick=True, label="Value (‰)")),
+    frame=Frame(
+        axes="WSen",
+        title="Title: α² ± β²",
+        xaxis=Axis(annot=True, tick=True, label="Distance (°)"),
+        yaxis=Axis(annot=True, tick=True, label="Value (‰)"),
+    ),
 )
 
 fig.text(

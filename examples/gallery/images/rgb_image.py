@@ -39,6 +39,10 @@ with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
         grid=image,
         # Use a map scale where 1 cm on the map equals 1 km on the ground
         projection="x1:100000",
-        frame=Frame(axes="WSne", title=r"L@!a¯hain@!a¯, Hawai`i on 9 Aug 2023", axis=Axis(annot=True, tick=True)),
+        frame=Frame(
+            axes="WSne",
+            title=r"L@!a¯hain@!a¯, Hawai`i on 9 Aug 2023",
+            axis=Axis(annot=True, tick=True),
+        ),
     )
 fig.show()

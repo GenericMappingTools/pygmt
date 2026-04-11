@@ -207,17 +207,26 @@ fig = pygmt.Figure()
 # Bottom row, two subplots
 with fig.subplot(nrows=1, ncols=2, figsize=("15c", "3c"), tag="b)"):
     fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), panel=[0, 0]
+        region=[0, 5, 0, 5],
+        projection="X?",
+        frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+        panel=[0, 0],
     )
     fig.basemap(
-        region=[0, 5, 0, 5], projection="X?", frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), panel=[0, 1]
+        region=[0, 5, 0, 5],
+        projection="X?",
+        frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+        panel=[0, 1],
     )
 # Move plot origin by 1 cm above the height of the entire figure
 fig.shift_origin(yshift="h+1c")
 # Top row, one subplot
 with fig.subplot(nrows=1, ncols=1, figsize=("15c", "3c"), tag="a)"):
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X?", frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), panel=[0, 0]
+        region=[0, 10, 0, 10],
+        projection="X?",
+        frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+        panel=[0, 0],
     )
     fig.text(text="TEXT", x=5, y=5)
 

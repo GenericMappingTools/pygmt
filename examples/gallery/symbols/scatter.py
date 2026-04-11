@@ -21,7 +21,11 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[-1, 1, -1, 1],
     projection="X10c/10c",
-    frame=Frame(axes="WSrt", xaxis=Axis(annot=0.5, tick=True, grid=True), yaxis=Axis(annot=0.5, tick=True, grid=True)),
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=0.5, tick=True, grid=True),
+        yaxis=Axis(annot=0.5, tick=True, grid=True),
+    ),
 )
 for fill in ["gray73", "darkorange", "slateblue"]:
     # Generate standard normal distributions centered on 0

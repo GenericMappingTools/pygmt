@@ -21,7 +21,9 @@ from pygmt.params import Axis, Frame
 x = np.arange(start=20, stop=30, step=0.2)
 
 fig = pygmt.Figure()
-fig.basemap(frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), region=[20, 30, -10, 10])
+fig.basemap(
+    frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), region=[20, 30, -10, 10]
+)
 
 # Create a custom CPT with the batlow CPT and 10 discrete z-values (colors),
 # use color_model="+c0-9" to write the color palette in categorical format and
