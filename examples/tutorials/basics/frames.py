@@ -9,7 +9,7 @@ contain.
 
 # %%
 import pygmt
-from pygmt.params import Axis
+from pygmt.params import Axis, Frame
 
 # %%
 # Plot frame
@@ -72,12 +72,13 @@ fig.show()
 #
 # The figure title can be set by passing **+t**\ *title* to the ``frame``
 # parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-# ``frame`` can be done by using a list, as shown in the example below.
+# ``frame`` can be done by using a :class:`pygmt.params.Frame` object, as
+# shown in the example below.
 
 fig = pygmt.Figure()
 # region="TT" specifies Trinidad and Tobago using the ISO country code
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
-fig.basemap(frame=["a", "+tTrinidad and Tobago"])
+fig.basemap(frame=Frame(title="Trinidad and Tobago", axis=Axis(annot=True)))
 fig.show()
 
 
@@ -109,7 +110,7 @@ fig.basemap(
     # Plot axis with tick marks, annotations, and labels on the
     # West and South axes
     # Plot axis with tick marks on the north and east axes
-    frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
+    frame=Frame(axes="WSne", xaxis=Axis(annot=True, tick=True, label="x-axis"), yaxis=Axis(annot=True, tick=True, label="y-axis")),
 )
 fig.show()
 
