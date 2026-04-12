@@ -10,6 +10,7 @@ It is often useful to add text annotations to a plot or map. This is handled by 
 from pathlib import Path
 
 import pygmt
+from pygmt.params import Axis, Frame
 
 # %%
 # Adding a single text label
@@ -44,7 +45,7 @@ fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: "font", "angle", and "offset" parameters
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Change font size, family/weight, color of the text
 fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
@@ -64,7 +65,7 @@ fig.shift_origin(xshift="w+0.5c")
 
 # -----------------------------------------------------------------------------
 # Right: "justify" parameter
-fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame="rtlb")
+fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Plot markers for reference
 fig.plot(
@@ -103,7 +104,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Add a box with a fill in green color
 fig.text(x=0, y=3, text="My text", fill="green")
@@ -156,7 +157,7 @@ fig.show()
 # and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
-fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
+fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame=Axis(annot=2, tick=1))
 fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file with region / sea names:
@@ -196,7 +197,11 @@ fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: Add a tag to a subplot
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WStr", "af"])
+fig.basemap(
+    region=[-5, 5, -5, 5],
+    projection="X5c",
+    frame=Frame(axes="WStr", axis=Axis(annot=True, tick=True)),
+)
 
 fig.text(
     text="(a)",
@@ -209,7 +214,11 @@ fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Right: Add a text label outside of the plot or map frame
-fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
+fig.basemap(
+    region=[-30, 30, 10, 60],
+    projection="L0/35/23/47/5c",
+    frame=Frame(axes="wSnE", axis=Axis(annot=True, tick=True)),
+)
 
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT

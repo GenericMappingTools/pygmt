@@ -426,6 +426,7 @@ class Figure:
         logo,
         magnetic_rose,
         meca,
+        paragraph,
         plot,
         plot3d,
         psconvert,

@@ -14,13 +14,14 @@ The projection is set with **y** or **Y**. The projection center is set by
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
 fig.coast(
     region="d",
     projection="Y35/30/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

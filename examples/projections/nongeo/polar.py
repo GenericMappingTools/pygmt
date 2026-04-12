@@ -48,6 +48,7 @@ The following customizing modifiers are available:
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 
@@ -61,7 +62,11 @@ fig.basemap(
     # Set map width to 5 cm
     projection="P5c",
     # Set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "+gbisque+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
+    frame=Frame(
+        fill="bisque",
+        title="projection='P5c' @^ region=[0, 360, 0, 1]",
+        xaxis=Axis(annot=45, tick=True),
+    ),
 )
 
 fig.shift_origin(xshift="w+3c")
@@ -75,7 +80,11 @@ fig.basemap(
     # standard angle
     projection="P5c+a",
     # Set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
+    frame=Frame(
+        fill="bisque",
+        title="projection='P5c+a' @^ region=[0, 360, 0, 1]",
+        xaxis=Axis(annot=45, tick=True),
+    ),
 )
 
 fig.shift_origin(xshift="w+3c")
@@ -89,7 +98,13 @@ fig.basemap(
     # standard angle
     projection="P5c+a",
     # Set the frame and title; @^ allows for a line break within the title
-    frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
+    frame=Frame(
+        axes="WNe",
+        fill="bisque",
+        title="projection='P5c+a' @^ region=[0, 90, 0, 1]",
+        xaxis=Axis(annot=45, tick=True),
+        yaxis=Axis(annot=0.2),
+    ),
 )
 
 fig.shift_origin(xshift="-2w-6c", yshift="-h-2c")
@@ -103,11 +118,13 @@ fig.basemap(
     # standard angle, rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
     # Set the frame and title; @^ allows for a line break within the title
-    frame=[
-        "xa30f",
-        "ya0.2",
-        "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
-    ],
+    frame=Frame(
+        axes="WNe",
+        fill="bisque",
+        title="projection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
+        xaxis=Axis(annot=30, tick=True),
+        yaxis=Axis(annot=0.2),
+    ),
 )
 
 fig.shift_origin(xshift="w+3c", yshift="1.3c")
@@ -122,11 +139,13 @@ fig.basemap(
     # standard angle, rotate coordinate system counterclockwise by 45 degrees
     projection="P5c+a+t45",
     # Set the frame, and title; @^ allows for a line break within the title
-    frame=[
-        "xa30f",
-        "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
-    ],
+    frame=Frame(
+        axes="WNse",
+        fill="bisque",
+        title="projection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
+        xaxis=Axis(annot=30, tick=True),
+        yaxis=Axis(annot=True),
+    ),
 )
 
 fig.shift_origin(xshift="w+3c")
@@ -142,11 +161,13 @@ fig.basemap(
     # is marked as depth
     projection="P5c+a+t45+z",
     # Set the frame, and title; @^ allows for a line break within the title
-    frame=[
-        "xa30f",
-        "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
-    ],
+    frame=Frame(
+        axes="WNse",
+        fill="bisque",
+        title="projection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
+        xaxis=Axis(annot=30, tick=True),
+        yaxis=Axis(annot=True),
+    ),
 )
 
 fig.show()

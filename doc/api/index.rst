@@ -34,6 +34,7 @@ Plotting map elements
     Figure.legend
     Figure.logo
     Figure.magnetic_rose
+    Figure.paragraph
     Figure.pygmtlogo
     Figure.scalebar
     Figure.solar

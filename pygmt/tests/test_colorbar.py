@@ -5,6 +5,7 @@ Test Figure.colorbar.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError
+from pygmt.params import Axis
 from pygmt.params.position import Position
 
 
@@ -30,7 +31,7 @@ def test_colorbar_shading_list():
     Create colorbar and set shading by passing the high/low values as a list.
     """
     fig = Figure()
-    fig.basemap(region=[0, 10, 0, 2], projection="X10c/2c", frame="a")
+    fig.basemap(region=[0, 10, 0, 2], projection="X10c/2c", frame=Axis(annot=True))
     fig.colorbar(cmap="gmt/geo", shading=[-0.7, 0.2], frame=True)
     return fig
 

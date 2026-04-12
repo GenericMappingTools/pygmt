@@ -16,6 +16,7 @@ parameter:
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 # %%
 # We can plot multi-parameter symbols using the same symbol style. We need to define
@@ -70,7 +71,11 @@ fig.show()
 #   arguments are directions given in degrees counter-clockwise from horizontal
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 7, 0, 4], projection="x3c", frame=["xa1f0.2", "ya0.5f0.1"])
+fig.basemap(
+    region=[0, 7, 0, 4],
+    projection="x3c",
+    frame=Frame(xaxis=Axis(annot=1, tick=0.2), yaxis=Axis(annot=0.5, tick=0.1)),
+)
 
 # Ellipse
 data = [[0.5, 1, 45, 3, 1], [0.5, 3, 135, 2, 1]]
