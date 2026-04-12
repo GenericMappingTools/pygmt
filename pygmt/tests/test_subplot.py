@@ -13,6 +13,7 @@ from pygmt.params import Axis, Box, Frame, Position
 def test_subplot_basic_frame():
     """
     Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure the
     plot frame setting is applied to all subplot panels.
     """
     fig = Figure()
