@@ -15,6 +15,7 @@ for that axis after its size argument.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Create a list of y-values 0-10
 yvalues = np.arange(0, 11)
@@ -28,7 +29,12 @@ fig.basemap(
     projection="X15cp0.5/10c",
     # Set the figures frame as well as annotations and ticks
     # The "p" forces to show only square numbers as annotations of the x-axis
-    frame=["WSne+gbisque", "xfga1p", "ya2f1g"],
+    frame=Frame(
+        axes="WSne",
+        fill="bisque",
+        xaxis=Axis(annot="1p", tick=True, grid=True),
+        yaxis=Axis(annot=2, tick=1, grid=True),
+    ),
 )
 
 # Set the line thickness to "thick" (equals "1p", i.e. 1 point)
