@@ -230,8 +230,16 @@ class Frame(BaseParam):
             Alias(frame_settings) if str(frame_settings) else Alias(None),
             Alias(self.axis, name="axis", prefix="p" if has_secondary_xy_axis else ""),
             Alias(self.axis2, name="axis2", prefix="s"),
-            Alias(self.xaxis, name="xaxis", prefix="px" if self.xaxis2 or self.axis2 else "x"),
-            Alias(self.yaxis, name="yaxis", prefix="py" if self.yaxis2 or self.axis2 else "y"),
+            Alias(
+                self.xaxis,
+                name="xaxis",
+                prefix="px" if self.xaxis2 or self.axis2 else "x",
+            ),
+            Alias(
+                self.yaxis,
+                name="yaxis",
+                prefix="py" if self.yaxis2 or self.axis2 else "y",
+            ),
             Alias(self.zaxis, name="zaxis", prefix="pz" if self.zaxis2 else "z"),
             Alias(self.xaxis2, name="xaxis2", prefix="sx"),
             Alias(self.yaxis2, name="yaxis2", prefix="sy"),

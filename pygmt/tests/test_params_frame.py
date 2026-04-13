@@ -3,7 +3,6 @@ Test the Frame and Axis classes.
 """
 
 import pytest
-
 from pygmt.exceptions import GMTParameterError
 from pygmt.params import Axis, Frame
 
