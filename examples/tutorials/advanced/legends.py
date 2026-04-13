@@ -81,7 +81,9 @@ fig.show()
 # Use the ``box`` parameter for adjusting the box around the legend.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
+fig.basemap(
+    region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb", fill="lightgray")
+)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -90,7 +92,9 @@ fig.plot(x=[-3, 3], y=[-2, -2], pen="darkred", label="darkred line")
 fig.legend(position=Position("TL", offset=(0.3, 0.2)), box=True)
 
 fig.shift_origin(xshift="w+1c")
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
+fig.basemap(
+    region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb", fill="lightgray")
+)
 
 fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
 fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
