@@ -106,6 +106,69 @@ def create_logo(  # noqa: PLR0915
         case True | "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
+    # Private functions for letter coordinates
+    # Letter G
+    def letter_g_coords():
+        angles = np.deg2rad(np.arange(90, 361, 1))
+        g_x = np.concatenate(
+            [np.cos(angles) * r4, [r4, 0, 0, r5], np.cos(np.flip(angles)) * r5]
+        )
+        g_y = np.concatenate(
+            [
+                np.sin(angles) * r4,
+                [(r4 - r5) / 2, (r4 - r5) / 2, -(r4 - r5) / 2, -(r4 - r5) / 2],
+                np.sin(np.flip(angles)) * r5,
+            ]
+        )
+        return g_x, g_y
+
+    # Letter M
+    def letter_m_coords():
+        m_x1 = thin / 2  # Half of the pen thickness of compass lines.
+        m_x2 = r4
+        m_x = [
+            m_x1 + m_x2 / 5,  # vertical left upwards
+            m_x1,
+            m_x1,
+            m_x1 + m_x2 / 5,
+            m_x1 + (m_x2 - m_x1) / 2,  # mid pick above
+            m_x2 - m_x2 / 5,  # vertical right downwards
+            m_x2,
+            m_x2,
+            m_x2 - m_x2 / 5,
+            m_x2 - m_x2 / 5,  # right pick below
+            m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
+            m_x1 + m_x2 / 5,  # left pick below
+        ]
+        m_y1 = (r4 - r5) / 2 * 1.2
+        m_y2 = r4
+        m_y = [
+            m_y1,  # vertical left upwards
+            m_y1,
+            m_y2,
+            m_y2,
+            m_y2 - m_y2 / 4,  # mid pick above
+            m_y2,  # vertical right downwards
+            m_y2,
+            m_y1,
+            m_y1,
+            m_y2 - m_y2 / 3,  # right pick below
+            m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
+            m_y2 - m_y2 / 3,  # left pick below
+        ]
+        return m_x, m_y, m_x1, m_x2
+
+    # Letter T
+    def letter_t_coords():
+        angles = np.deg2rad(np.arange(150, 210, 0.1))
+        t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
+        t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
+        # Ensure the same X coordinate for the right edge of T and the middle of M.
+        mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
+        t_x = t_x[mask]
+        t_y = t_y[mask]
+        return t_x, t_y
+
     fig = pygmt.Figure()
     fig.basemap(
         region=region, projection=projection, perspective=perspective, frame="none"
@@ -148,18 +211,8 @@ def create_logo(  # noqa: PLR0915
         # fig.show()
 
     # Letter G
-    angles = np.deg2rad(np.arange(90, 361, 1))
-    x = np.concatenate(
-        [np.cos(angles) * r4, [r4, 0, 0, r5], np.cos(np.flip(angles)) * r5]
-    )
-    y = np.concatenate(
-        [
-            np.sin(angles) * r4,
-            [(r4 - r5) / 2, (r4 - r5) / 2, -(r4 - r5) / 2, -(r4 - r5) / 2],
-            np.sin(np.flip(angles)) * r5,
-        ]
-    )
-    fig.plot(x=x, y=y, fill=red, perspective=True)
+    x_g, y_g = letter_g_coords()
+    fig.plot(x=x_g, y=y_g, fill=red, perspective=True)
     # fig.show()
 
     # Upper vertical red line
@@ -176,49 +229,14 @@ def create_logo(  # noqa: PLR0915
     # Polygon with small distance to horizontal line of letter G
     # Starting point: lower right corner of the left vertical line of letter M
     # Direction: clockwise
-    m_x1 = thin / 2  # Half of the pen thickness of compass lines.
-    m_x2 = r4
-    m_x = [
-        m_x1 + m_x2 / 5,  # vertical left upwards
-        m_x1,
-        m_x1,
-        m_x1 + m_x2 / 5,
-        m_x1 + (m_x2 - m_x1) / 2,  # mid pick above
-        m_x2 - m_x2 / 5,  # vertical right downwards
-        m_x2,
-        m_x2,
-        m_x2 - m_x2 / 5,
-        m_x2 - m_x2 / 5,  # right pick below
-        m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
-        m_x1 + m_x2 / 5,  # left pick below
-    ]
-    m_y1 = (r4 - r5) / 2 * 1.2
-    m_y2 = r4
-    m_y = [
-        m_y1,  # vertical left upwards
-        m_y1,
-        m_y2,
-        m_y2,
-        m_y2 - m_y2 / 4,  # mid pick above
-        m_y2,  # vertical right downwards
-        m_y2,
-        m_y1,
-        m_y1,
-        m_y2 - m_y2 / 3,  # right pick below
-        m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
-        m_y2 - m_y2 / 3,  # left pick below
-    ]
+    m_x, m_y, m_x1, m_x2 = letter_m_coords()
     fig.plot(x=m_x, y=m_y, close=True, fill=red, perspective=True)
     # fig.show()
 
     # Letter T
     # Red curved horizontal line
-    angles = np.deg2rad(np.arange(150, 210, 0.1))
-    t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
-    t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
-    # Ensure the same X coordinate for the right edge of T and the middle of M.
-    mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
-    fig.plot(x=t_x[mask], y=t_y[mask], fill=red, perspective=True)
+    t_x, t_y = letter_t_coords()
+    fig.plot(x=t_x, y=t_y, fill=red, perspective=True)
     # fig.show()
     # The arrow
     fig.plot(
