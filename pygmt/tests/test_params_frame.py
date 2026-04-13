@@ -41,6 +41,14 @@ def test_params_frame_axis():
     )
     assert list(frame) == ["WSEN+tMy Title", "afg+lLABEL"]
 
+    frame = Frame(
+        axes="WSEN",
+        title="My Title",
+        axis=Axis(annot=30, tick=15, grid=10),
+        axis2=Axis(annot=60, tick=30, grid=20),
+    )
+    assert list(frame) == ["WSEN+tMy Title", "pa30f15g10", "sa60f30g20"]
+
 
 def test_params_frame_separate_axes():
     """
