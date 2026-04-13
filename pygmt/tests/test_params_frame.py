@@ -2,6 +2,9 @@
 Test the Frame and Axis classes.
 """
 
+import pytest
+
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Axis, Frame
 
 
@@ -104,3 +107,20 @@ def test_params_frame_separate_axis_secondary():
         yaxis=Axis(annot=True, tick=True, grid=True, label="Y-LABEL"),
     )
     assert list(frame) == ["WSEN+tMy Title", "xafg+lX-LABEL", "yafg+lY-LABEL"]
+
+
+def test_params_frame_invalid_axis_combinations():
+    """
+    Test that invalid combinations of uniform and individual axis settings fail.
+    """
+    with pytest.raises(GMTParameterError, match="Either 'axis' or"):
+        Frame(axis=Axis(annot=1), xaxis=Axis(annot=2))
+
+    with pytest.raises(GMTParameterError, match="Either 'axis' or"):
+        Frame(axis=Axis(annot=1), xaxis2=Axis(annot=2))
+
+    with pytest.raises(GMTParameterError, match="Either 'axis2' or"):
+        Frame(axis2=Axis(annot=1), xaxis=Axis(annot=2))
+
+    with pytest.raises(GMTParameterError, match="Either 'axis2' or"):
+        Frame(axis2=Axis(annot=1), yaxis2=Axis(annot=2))
