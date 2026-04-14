@@ -109,17 +109,24 @@ def create_logo(  # noqa: PLR0915
     # Private functions for letter coordinates
     # Letter G
     def _letter_g_coords():
-        angles = np.deg2rad(np.arange(90, 361, 1))
-        g_x = np.concatenate(
-            [np.cos(angles) * r4, [r4, 0, 0, r5], np.cos(np.flip(angles)) * r5]
-        )
-        g_y = np.concatenate(
-            [
-                np.sin(angles) * r4,
-                [(r4 - r5) / 2, (r4 - r5) / 2, -(r4 - r5) / 2, -(r4 - r5) / 2],
-                np.sin(np.flip(angles)) * r5,
-            ]
-        )
+        outer_angles = np.deg2rad(np.arange(90, 361))
+        inner_angles = outer_angles[::-1]
+        offset = (r4 - r5) / 2
+
+        # Outer arc (r4)
+        arc_outer_x = np.cos(outer_angles) * r4
+        arc_outer_y = np.sin(outer_angles) * r4
+
+        # Connecting lines
+        connector_x = [r4, 0, 0, r5]
+        connector_y = [offset, offset, -offset, -offset]
+
+        # Inner arc (r5)
+        arc_inner_x = np.cos(inner_angles) * r5
+        arc_inner_y = np.sin(inner_angles) * r5
+
+        g_x = np.concatenate([arc_outer_x, connector_x, arc_inner_x])
+        g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
         return g_x, g_y
 
     # Letter M
