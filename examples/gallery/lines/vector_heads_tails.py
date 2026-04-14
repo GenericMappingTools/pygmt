@@ -30,8 +30,8 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 Note: Vectors were completely redesigned for GMT 5 which separated the vector
 head (a polygon) from the vector stem (a line). In GMT 4, the entire vector was
-a polygon. Thus, for plotting an arrow with a fill for both head and stem users
-have to follow the GMT 4 synthax explained at :gmt-docs:`plot.html#id13`.
+a polygon. Thus, to fill the entire vector with a color users have to follow the
+GMT 4 synthax explained at :gmt-docs:`plot.html#id13`.
 """
 
 # %%
