@@ -30,12 +30,13 @@ viewing angle is both 60°, which imitates viewing with naked eye.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="G4/52/12c+a30+t45+v60/60+w0+z250",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="khaki",
     water="white",
 )

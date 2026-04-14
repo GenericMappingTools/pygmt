@@ -28,6 +28,7 @@ import numpy as np
 import pandas as pd
 import pygmt
 import xarray as xr
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 
@@ -36,7 +37,7 @@ fig = pygmt.Figure()
 fig.basemap(
     projection="X15c/5c",
     region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
-    frame=["WSen", "af"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True)),
 )
 
 # numpy.datetime64 types

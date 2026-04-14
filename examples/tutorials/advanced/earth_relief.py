@@ -9,6 +9,7 @@ object. The data can then be plotted using the :meth:`pygmt.Figure.grdimage` met
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Load sample Earth relief data for the entire globe at a resolution of 1 arc-degree.
@@ -90,11 +91,11 @@ fig.show()
 #
 # The example below uses data with a 10 arc-minutes resolution, and plots it on a
 # 15-centimeters-wide figure with a Mercator projection and a CPT set to *geo*.
-# ``frame="a"`` is used to add a frame with annotations to the figure.
+# ``frame=Axis(annot=True)`` is used to add a frame with annotations to the figure.
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="gmt/geo")
+fig.grdimage(grid=grid, projection="M15c", frame=Axis(annot=True), cmap="gmt/geo")
 fig.colorbar(annot=1000, label="Elevation", unit="m")
 fig.show()
 

@@ -45,8 +45,9 @@ fig.show()
 
 # %%
 # Use the ``fill`` the parameter to add a fill color or pattern. Note, that no outline
-# is drawn by default when ``fill`` is used. For the available patterns see the
-# Technical Reference :doc:`Bit and hachure patterns </techref/patterns>`.
+# is drawn by default when ``fill`` is used. For the available patterns and their usage
+# see :class:`pygmt.params.Pattern` and the Gallery example
+# :doc:`Bit and hachure patterns </gallery/symbols/patterns>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -2, 2], projection="X10c/4c", frame=True)

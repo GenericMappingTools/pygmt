@@ -255,6 +255,7 @@ def grdview(  # noqa: PLR0913
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
     >>> # Load the 30 arc-minutes grid with "gridline" registration in a given region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m",
@@ -271,7 +272,7 @@ def grdview(  # noqa: PLR0913
     ...     perspective=[130, 30],
     ...     # Add a frame to the x- and y-axes
     ...     # Specify annotations on the south and east borders of the plot
-    ...     frame=["xa", "ya", "wSnE"],
+    ...     frame=Frame(axes="wSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
     ...     # Set the projection of the 2-D map to Mercator with a 10 cm width
     ...     projection="M10c",
     ...     # Set the vertical scale (z-axis) to 2 cm

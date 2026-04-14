@@ -73,7 +73,7 @@ def _gmt_func_wrapper(figname):
 
     reload(pygmt)
     fig = pygmt.Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame=True)
     fig.savefig(figname)
 
 

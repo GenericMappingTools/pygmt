@@ -18,8 +18,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements
-~~~~~~~~~~~~~~~~~~~~~
+Plotting figure elements
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -34,6 +34,7 @@ Plotting map elements
     Figure.legend
     Figure.logo
     Figure.magnetic_rose
+    Figure.paragraph
     Figure.scalebar
     Figure.solar
     Figure.text

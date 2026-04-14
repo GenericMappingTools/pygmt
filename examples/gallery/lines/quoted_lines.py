@@ -17,13 +17,16 @@ at :gmt-docs:`plot.html#s`.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([1, 4])
 y = np.array([20, 20])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tQuoted Lines")
+fig.basemap(
+    region=[0, 10, 0, 20], projection="X15c/15c", frame=Frame(title="Quoted Lines")
+)
 
 # Plot different quoted lines
 for quotedline in [
