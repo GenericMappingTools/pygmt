@@ -16,7 +16,7 @@ address other PyGMT methods.
 # are accessible from the :mod:`pygmt` top level package.
 
 import pygmt
-from pygmt.params import Axis, Frame
+from pygmt.params import Frame
 
 # %%
 # Creating a figure
