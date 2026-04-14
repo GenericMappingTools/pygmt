@@ -4,21 +4,19 @@
 
 The figure below shows the naming of figure elements in PyGMT.
 
-- :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
-  figure must start with the creation of a :meth:`pygmt.Figure()` instance
-- ``frame``: setting plot boundaries (a combination of the single
-  letters of **WSNE**, **wsne**, or **lbtr**), adding annotations, ticks,
-  gridlines (**afg**), axis labels (**+l**), and title (**+t**), e.g.,
-  in :meth:`pygmt.Figure.basemap`. Detailed examples can be found at
+- :meth:`pygmt.Figure()`: having a number of plotting methods. Every new figure must
+  start with the creation of a :meth:`pygmt.Figure()` instance
+- ``frame``: setting plot boundaries (a combination of the single letters of **WSNE**,
+  **wsne**, or **lbtr**), adding annotations, ticks, gridlines, axis labels, and title,
+  e.g., in :meth:`pygmt.Figure.basemap`. Detailed examples can be found at
   :doc:`frame and axes attributes </tutorials/basics/frames>`
-- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen``
-  or ``style`` parameters, respectively
-- :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
-  parameter adjusts fontsize, fontstyle, and color
-- :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while
-  the ``label`` is given in :meth:`pygmt.Figure.plot`
-- :meth:`pygmt.Figure.show`: previewing the content added to the current
-  figure instance
+- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen`` or ``style``
+  parameters, respectively
+- :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font`` parameter
+  adjusts fontsize, fontstyle, and color
+- :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the
+  ``label`` is given in :meth:`pygmt.Figure.plot`
+- :meth:`pygmt.Figure.show`: previewing the content added to the current figure instance
 """
 
 # %%
@@ -64,25 +62,25 @@ fig.text(
 # ============ x-majorticks
 fig.plot(x=10, y=-0.2, style="c1c", pen="2p,darkblue", no_clip=True)
 fig.text(x=10, y=-1.6, text="Annotation", **mainexplain)
-fig.text(x=10, y=-2.8, text='frame=Frame(xaxis=Axis(annot=2))', **minorexplain)
+fig.text(x=10, y=-2.8, text="frame=Frame(xaxis=Axis(annot=2))", **minorexplain)
 # ============ y-majorticks
 fig.plot(x=-0.2, y=20, style="c1c", pen="2p,darkblue", no_clip=True)
 fig.text(x=0, y=23.4, text="Annotation", **mainexplain)
-fig.text(x=0, y=22.2, text='frame=Frame(yaxis=Axis(annot=5))', **minorexplain)
+fig.text(x=0, y=22.2, text="frame=Frame(yaxis=Axis(annot=5))", **minorexplain)
 # ============ x-minorticks
 fig.plot(x=1, y=-0.2, style="c0.7c", pen="2p,darkblue", no_clip=True)
 fig.text(x=1, y=-1.4, text="Frame", **mainexplain)
-fig.text(x=1, y=-2.6, text='frame=Frame(xaxis=Axis(tick=1))', **minorexplain)
+fig.text(x=1, y=-2.6, text="frame=Frame(xaxis=Axis(tick=1))", **minorexplain)
 # ============ y-minorticks
 fig.plot(x=0, y=2, style="c0.7c", pen="2p,darkblue", no_clip=True)
-fig.text(x=-1.5, y=1, text='frame=Frame(yaxis=Axis(tick=1))', **minorexplain)
+fig.text(x=-1.5, y=1, text="frame=Frame(yaxis=Axis(tick=1))", **minorexplain)
 # ============ Grid
 fig.plot(x=2, y=15, style="c0.5c", pen="2p,darkblue")
 fig.text(x=2, y=17, text="Grid", **mainexplain)
 fig.text(
     x=2.4,
     y=18,
-    text='frame=Frame(xaxis=Axis(grid=2), yaxis=Axis(grid=5))',
+    text="frame=Frame(xaxis=Axis(grid=2), yaxis=Axis(grid=5))",
     **minorexplain,
 )
 # ============ Plot Boundaries
