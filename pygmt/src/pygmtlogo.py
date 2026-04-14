@@ -108,7 +108,7 @@ def create_logo(  # noqa: PLR0915
 
     # Private functions for letter coordinates
     # Letter G
-    def letter_g_coords():
+    def _letter_g_coords():
         angles = np.deg2rad(np.arange(90, 361, 1))
         g_x = np.concatenate(
             [np.cos(angles) * r4, [r4, 0, 0, r5], np.cos(np.flip(angles)) * r5]
@@ -123,7 +123,7 @@ def create_logo(  # noqa: PLR0915
         return g_x, g_y
 
     # Letter M
-    def letter_m_coords():
+    def _letter_m_coords():
         m_x1 = thin / 2  # Half of the pen thickness of compass lines.
         m_x2 = r4
         m_x = [
@@ -159,7 +159,7 @@ def create_logo(  # noqa: PLR0915
         return m_x, m_y, m_x1, m_x2
 
     # Letter T
-    def letter_t_coords():
+    def _letter_t_coords():
         angles = np.deg2rad(np.arange(150, 210, 0.1))
         t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
         t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
