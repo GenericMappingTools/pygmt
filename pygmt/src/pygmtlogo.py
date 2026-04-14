@@ -212,7 +212,7 @@ def create_logo(  # noqa: PLR0915
         # fig.show()
 
     # Letter G
-    x_g, y_g = letter_g_coords()
+    x_g, y_g = _letter_g_coords()
     fig.plot(x=x_g, y=y_g, fill=red, perspective=True)
     # fig.show()
 
@@ -230,13 +230,13 @@ def create_logo(  # noqa: PLR0915
     # Polygon with small distance to horizontal line of letter G
     # Starting point: lower right corner of the left vertical line of letter M
     # Direction: clockwise
-    m_x, m_y, m_x1, m_x2 = letter_m_coords()
+    m_x, m_y, m_x1, m_x2 = _letter_m_coords()
     fig.plot(x=m_x, y=m_y, close=True, fill=red, perspective=True)
     # fig.show()
 
     # Letter T
     # Red curved horizontal line
-    t_x, t_y = letter_t_coords()
+    t_x, t_y = _letter_t_coords()
     fig.plot(x=t_x, y=t_y, fill=red, perspective=True)
     # fig.show()
     # The arrow
