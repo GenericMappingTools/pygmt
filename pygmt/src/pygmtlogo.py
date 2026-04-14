@@ -160,6 +160,7 @@ def create_logo(  # noqa: PLR0915
 
     # Letter T
     def _letter_t_coords():
+        # Red curved horizontal line
         angles = np.deg2rad(np.arange(150, 210, 0.1))
         t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
         t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
