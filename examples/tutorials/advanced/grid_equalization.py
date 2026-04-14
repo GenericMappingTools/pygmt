@@ -8,7 +8,7 @@ statistics based on a cumulative distribution function.
 
 # %%
 import pygmt
-from pygmt.params import Frame, Position
+from pygmt.params import Axis, Frame, Position
 
 # %%
 # Load sample data
@@ -52,7 +52,11 @@ with fig.subplot(
             projection="X?",
             region=[500, 3600, 0, 20],
             series=[500, 3600, 100],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Elevation (m)"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -125,7 +129,11 @@ with fig.subplot(
             projection="X?",
             region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -180,7 +188,11 @@ with fig.subplot(
             projection="X?",
             region=[-4.5, 4.5, 0, 20],
             series=[-4.5, 4.5, 0.2],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -251,7 +263,11 @@ with fig.subplot(
             projection="X?",
             region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",

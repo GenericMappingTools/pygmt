@@ -47,6 +47,16 @@ def _build_frame(
     ['xa1f0.5g0.2+lDistance+a30', 'y+lkm']
     >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"]))
     ['xaf0.5+lDistance', 'y+lkm']
+    >>> from pygmt.params import Axis, Frame
+    >>> list(
+    ...     _build_frame(
+    ...         frame=Frame(
+    ...             xaxis=Axis(annot=True, tick=0.5, label="Distance"),
+    ...             yaxis=Axis(label="km"),
+    ...         )
+    ...     )
+    ... )
+    ['xaf0.5+lDistance', 'y+lkm']
 
     >>> _build_frame(frame="none")
     'none'

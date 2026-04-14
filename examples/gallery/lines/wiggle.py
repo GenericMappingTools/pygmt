@@ -12,7 +12,7 @@ The positive and/or negative areas can be filled with color by setting the
 # %%
 import numpy as np
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 # Create (x, y, z) triplets
 x = np.arange(-7, 7, 0.1)
@@ -20,7 +20,11 @@ y = np.zeros(x.size)
 z = 50 * np.exp(-((x / 3) ** 2)) * np.cos(2 * np.pi * x)
 
 fig = pygmt.Figure()
-fig.basemap(region=[-8, 12, -1, 1], projection="X10c", frame=["Snlr", "xa2f1"])
+fig.basemap(
+    region=[-8, 12, -1, 1],
+    projection="X10c",
+    frame=Frame(axes="Snlr", xaxis=Axis(annot=2, tick=1)),
+)
 fig.wiggle(
     x=x,
     y=y,

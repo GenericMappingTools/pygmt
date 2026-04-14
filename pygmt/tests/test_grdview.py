@@ -7,6 +7,7 @@ from pygmt import Figure, grdcut
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="region")
@@ -79,7 +80,9 @@ def test_grdview_image_dpi(grid):
             projection="M4c",
             surftype="image",
             dpi=dpi,
-            frame=["af", f"WSen+tdpi={dpi}"],
+            frame=Frame(
+                axes="WSen", title=f"dpi={dpi}", axis=Axis(annot=True, tick=True)
+            ),
             perspective=(225, 30),
         )
         fig.shift_origin(xshift="7c")
@@ -222,7 +225,11 @@ def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
         projection=projection,
         perspective=[225, 30],
         zscale=0.005,
-        frame=["xaf", "yaf", "zaf"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True),
+            yaxis=Axis(annot=True, tick=True),
+            zaxis=Axis(annot=True, tick=True),
+        ),
     )
     return fig
 
