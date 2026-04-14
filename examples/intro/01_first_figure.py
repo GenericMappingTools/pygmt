@@ -120,8 +120,7 @@ fig.show()
 # annotate the latitude and longitude of the region.
 #
 # The ``frame`` parameter is used to add a frame to the figure. For now, it
-# will be set to :class:`pygmt.params.Axis` with ``annot=True`` to annotate the
-# axes automatically.
+# will be set to ``True`` to annotate the axes automatically.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -130,7 +129,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=Axis(annot=True),
+    frame=True,
 )
 fig.show()
 
@@ -140,8 +139,7 @@ fig.show()
 # -----------
 #
 # The ``frame`` parameter can also be used to add a title to the figure. Here,
-# :class:`pygmt.params.Frame` combines the automatic axis annotations with a
-# title.
+# :class:`pygmt.params.Frame` sets the map title.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -150,7 +148,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=Frame(title="Maine", axis=Axis(annot=True)),
+    frame=Frame(title="Maine"),
 )
 fig.show()
 
