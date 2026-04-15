@@ -20,15 +20,14 @@ segment. The angle of the vector head apex can be set using **+a**\ *angle*
 (default is 30). The shape of the vector head can be adjusted using
 **+h**\ *shape* (e.g. ``"+h0.5"``).
 
-For further modifiers see :gmt-docs:`plot.html#vector-attributes`.
-
 In the following, we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
 the vector type, here ``"v"`` for Cartesian vector, see also the
 :doc:`Vector types example </gallery/lines/vector_styles>`)
 by passing the corresponding shortcuts to the ``style`` parameter.
 
-Note: Vectors were completely redesigned for GMT 5 which separated the vector
+For further modifiers see :gmt-docs:`plot.html#vector-attributes`. Please note
+that vectors were completely redesigned for GMT 5 which separated the vector
 head (a polygon) from the vector stem (a line). In GMT 4, the entire vector was
 a polygon. Thus, to fill the entire vector with a color users have to follow the
 GMT 4 synthax explained at :gmt-docs:`plot.html#id13`.
