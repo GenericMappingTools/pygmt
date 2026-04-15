@@ -133,5 +133,3 @@ def test_ternary_axis(array):
         style="c0.1c",
         pen="thinnest",
     )
-
-

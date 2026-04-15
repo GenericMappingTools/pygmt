@@ -2,6 +2,7 @@
 ternary - Plot data on ternary diagrams.
 """
 
+import dataclasses
 from collections.abc import Sequence
 from typing import Literal
 
@@ -12,7 +13,6 @@ from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 from pygmt.params.frame import _Axes
-import dataclasses
 
 
 def _ternary_frame(frame):
