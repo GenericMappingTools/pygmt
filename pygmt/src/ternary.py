@@ -11,6 +11,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
+from pygmt.params.frame import _Axes
+import dataclasses
 
 
 def _ternary_frame(frame):
@@ -52,6 +54,8 @@ def _ternary_frame(frame):
     ...     )
     ... )
     ['+tTitle', 'aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
+    >>> _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
+    ['+glightblue', 'a']
     >>> _ternary_frame("afg")
     'afg'
     >>> _ternary_frame(True)
@@ -82,8 +86,15 @@ def _ternary_frame(frame):
                 reason="For ternary diagrams, secondary axes are not supported.",
             )
         parts = []
-        if frame.title:
-            parts.append(f"+t{frame.title}")
+        # Frame-level settings (title, fill, etc.)
+        kwargs = {
+            f.name: getattr(frame, f.name)
+            for f in dataclasses.fields(_Axes)
+            if hasattr(frame, f.name)
+        }
+        frame_settings = _Axes(**kwargs)
+        if str(frame_settings):
+            parts.append(str(frame_settings))
         # Uniform axis setting (applies to all three ternary axes)
         if frame.axis:
             parts.append(str(frame.axis))

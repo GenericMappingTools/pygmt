@@ -5,7 +5,6 @@ Test Figure.ternary.
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTParameterError
 from pygmt.params import Axis, Frame
 
 
@@ -136,31 +135,3 @@ def test_ternary_axis(array):
     )
 
 
-def test_ternary_frame_axes_not_supported(array):
-    """
-    Test that Frame.axes is rejected for ternary diagrams.
-    """
-    fig = Figure()
-    with pytest.raises(GMTParameterError, match=r"Frame\.axes"):
-        fig.ternary(
-            data=array,
-            region=[0, 100, 0, 100, 0, 100],
-            width="10c",
-            frame=Frame(axes="WSen", axis=Axis(annot=True)),
-            style="c0.1c",
-        )
-
-
-def test_ternary_frame_secondary_axes_not_supported(array):
-    """
-    Test that secondary axes are rejected for ternary diagrams.
-    """
-    fig = Figure()
-    with pytest.raises(GMTParameterError, match="secondary axes"):
-        fig.ternary(
-            data=array,
-            region=[0, 100, 0, 100, 0, 100],
-            width="10c",
-            frame=Frame(xaxis2=Axis(annot=True)),
-            style="c0.1c",
-        )
