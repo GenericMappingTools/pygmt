@@ -108,11 +108,9 @@ def test_config_format_time_map():
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=Frame(axes="NWse", xaxis=Axis(annot="1K"), xaxis2=Axis(annot="1K")),
+            frame=Frame(axes="NWse", axis=Axis(annot="1K"), axis2=Axis(annot="1K")),
         )
-    fig.basemap(
-        frame=Frame(axes="nwSE", xaxis=Axis(annot="1K"), xaxis2=Axis(annot="1K"))
-    )
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1K"), axis2=Axis(annot="1K")))
     return fig
 
 
@@ -127,11 +125,9 @@ def test_config_map_annot_offset():
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=Frame(axes="NWse", xaxis=Axis(annot="1d"), xaxis2=Axis(annot="1d")),
+            frame=Frame(axes="NWse", axis=Axis(annot="1d"), axis2=Axis(annot="1d")),
         )
-    fig.basemap(
-        frame=Frame(axes="nwSE", xaxis=Axis(annot="1d"), xaxis2=Axis(annot="1d"))
-    )
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1d"), axis2=Axis(annot="1d")))
     return fig
 
 
@@ -148,8 +144,8 @@ def test_config_map_grid_cross_size():
             projection="X6c/2c",
             frame=Frame(
                 axes="NWse",
-                xaxis=Axis(annot="1H", grid=True),
-                xaxis2=Axis(annot="45m", grid="45m"),
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
             ),
             verbose="error",
         )
@@ -157,8 +153,8 @@ def test_config_map_grid_cross_size():
     fig.basemap(
         frame=Frame(
             axes="nwSE",
-            xaxis=Axis(annot="1H", grid=True),
-            xaxis2=Axis(annot="45m", grid="45m"),
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
         ),
         verbose="error",
     )
@@ -178,8 +174,8 @@ def test_config_map_grid_pen():
             projection="X6c/2c",
             frame=Frame(
                 axes="NWse",
-                xaxis=Axis(annot="1H", grid=True),
-                xaxis2=Axis(annot="45m", grid="45m"),
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
             ),
             verbose="error",
         )
@@ -187,8 +183,8 @@ def test_config_map_grid_pen():
     fig.basemap(
         frame=Frame(
             axes="nwSE",
-            xaxis=Axis(annot="1H", grid=True),
-            xaxis2=Axis(annot="45m", grid="45m"),
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
         ),
         verbose="error",
     )
@@ -208,8 +204,8 @@ def test_config_map_tick_length():
             projection="X6c/2c",
             frame=Frame(
                 axes="NWse",
-                xaxis=Axis(annot="1H", grid=True),
-                xaxis2=Axis(annot="45m", grid="45m"),
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
             ),
             verbose="error",
         )
@@ -217,8 +213,8 @@ def test_config_map_tick_length():
     fig.basemap(
         frame=Frame(
             axes="nwSE",
-            xaxis=Axis(annot="1H", grid=True),
-            xaxis2=Axis(annot="45m", grid="45m"),
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
         ),
         verbose="error",
     )
@@ -238,8 +234,8 @@ def test_config_map_tick_pen():
             projection="X6c/2c",
             frame=Frame(
                 axes="NWse",
-                xaxis=Axis(annot="1H", grid=True),
-                xaxis2=Axis(annot="45m", grid="45m"),
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
             ),
             verbose="error",
         )
@@ -247,8 +243,8 @@ def test_config_map_tick_pen():
     fig.basemap(
         frame=Frame(
             axes="nwSE",
-            xaxis=Axis(annot="1H", grid=True),
-            xaxis2=Axis(annot="45m", grid="45m"),
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
         ),
         verbose="error",
     )
