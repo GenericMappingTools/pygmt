@@ -12,7 +12,7 @@ example :doc:`Wiggle along tracks </gallery/lines/wiggle>`.
 # %%
 import numpy as np
 import pandas as pd
-import pygmt as gmt
+import pygmt
 
 # Generate some test data and create a pandas DataFrame
 x = np.arange(-10, 10.2, 0.1)
@@ -29,7 +29,7 @@ data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
 # the ``label`` parameter and the modifier **+l** for ``fill_between`` to
 # set the corresponding legend entries.
 
-fig = gmt.Figure()
+fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
 fig.plot(
@@ -49,7 +49,7 @@ fig.show()
 # parameter and the modifier **+p** for ``fill_between`` to set different
 # lines for the two curves y1 and y2, respectively.
 
-fig = gmt.Figure()
+fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
 fig.plot(
@@ -66,7 +66,7 @@ fig.show()
 # To compare a curve y1 to a horizontal line, append **+y** to ``fill_between``
 # and give the desired y-level.
 
-fig = gmt.Figure()
+fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
 fig.plot(
