@@ -1,6 +1,6 @@
 """
 Fill area between curves
-------------------------
+========================
 Using the ``fill_between`` parameter of the :meth:`pygmt.Figure.plot` method it is
 possible to fill the area between two curves y1 and y2. Different fills (colors or
 patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the curves can
