@@ -45,12 +45,24 @@ class Axis(BaseParam):
     #: Specify the interval for gridlines. Same format as ``annot``.
     grid: float | str | bool = False
 
-    #: Label for the axis [Default is no label].
+    #: Label for the axis using GMT's default label orientation [Default is no label].
     label: str | None = None
+
+    #: Label for the axis with forced horizontal orientation for y-axes [Cartesian
+    #: plots only].
+    hlabel: str | None = None
 
     #: A leading text prefix for the axis annotations (e.g., dollar sign for plots
     #: related to money) [For Cartesian plots only].
     prefix: str | None = None
+
+    #: Alternate label for the right or upper axis using GMT's default label
+    #: orientation [Cartesian plots only].
+    alt_label: str | None = None
+
+    #: Alternate label for the right or upper axis with forced horizontal orientation
+    #: for y-axes [Cartesian plots only].
+    alt_hlabel: str | None = None
 
     #: Unit to append to the axis annotations [For Cartesian plots only].
     unit: str | None = None
@@ -65,8 +77,11 @@ class Axis(BaseParam):
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
             Alias(self.label, name="label", prefix="+l"),
+            Alias(self.hlabel, name="hlabel", prefix="+L"),
             Alias(self.angle, name="angle", prefix="+a"),
             Alias(self.prefix, name="prefix", prefix="+p"),
+            Alias(self.alt_label, name="alt_label", prefix="+s"),
+            Alias(self.alt_hlabel, name="alt_hlabel", prefix="+S"),
             Alias(self.unit, name="unit", prefix="+u"),
         ]
 
