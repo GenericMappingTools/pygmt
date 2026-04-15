@@ -45,7 +45,7 @@ fig.show()
 
 
 # %%
-# Additionally to filling the areas, we can draw the curves. Use the ``pen``
+# In addition to filling the areas, we can draw the curves. Use the ``pen``
 # parameter and the modifier **+p** for ``fill_between`` to set different
 # lines for the two curves y1 and y2, respectively.
 
