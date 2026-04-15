@@ -15,7 +15,7 @@ def test_params_axis():
     assert str(Axis(annot=True, tick=True, grid=True)) == "afg"
     assert str(Axis(annot=30, tick=15, grid=5)) == "a30f15g5"
     assert str(Axis(annot=30, label="LABEL")) == "a30+lLABEL"
-    assert str(Axis(annot=30, hlabel="LABEL")) == "a30+LLABEL"
+    assert str(Axis(annot=30, hlabel="HLABEL")) == "a30+LHLABEL"
     assert str(Axis(annot=30, prefix="$", unit="m")) == "a30+p$+um"
     assert str(Axis(annot=30, alt_label="LABEL2")) == "a30+sLABEL2"
     assert (

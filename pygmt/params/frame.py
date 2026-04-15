@@ -51,7 +51,7 @@ class Axis(BaseParam):
     #: Horizontal label for y-axes, useful for very short labels.
     hlabel: str | None = None
 
-    #: Alternate label for the right or upper axis [Default is the same as ``label``].
+    #: Alternate label for the right or top axis [Default is the same as ``label``].
     alt_label: str | None = None
 
     #: Horizontal label for the right y-axis, useful for very short labels.
