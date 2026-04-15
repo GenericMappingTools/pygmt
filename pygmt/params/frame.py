@@ -189,9 +189,11 @@ class Frame(BaseParam):
     #:
     #: GMT uses the notion of primary (the default) and secondary axes, while secondary
     #: axes are optional and mostly used for time axes annotations. To specify the
-    #: attributes for the secondary axes, use the ``xaxis2``, ``yaxis2``, and ``zaxis2``
-    #: parameters.
+    #: same attributes for both secondary x and y axes, use the ``axis2`` parameter.
+    #: To specify the attributes for the secondary axes separately, use the ``xaxis2``,
+    #: ``yaxis2``, and ``zaxis2`` parameters.
     axis: Axis | None = None
+    axis2: Axis | None = None
     xaxis: Axis | None = None
     yaxis: Axis | None = None
     zaxis: Axis | None = None
@@ -210,17 +212,34 @@ class Frame(BaseParam):
                 conflicts_with=("axis", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
                 reason="Either 'axis' or the individual axis parameters can be set, but not both.",
             )
+        if self.axis2 is not None and any(
+            [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
+        ):
+            raise GMTParameterError(
+                conflicts_with=("axis2", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
+                reason="Either 'axis2' or the individual axis parameters can be set, but not both.",
+            )
 
     @property
     def _aliases(self):
         # _Axes() maps to an empty string, which becomes '-B' without arguments and is
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
         frame_settings = _Axes(axes=self.axes, title=self.title, fill=self.fill)
+        has_secondary_xy_axis = any([self.axis2, self.xaxis2, self.yaxis2])
         return [
             Alias(frame_settings) if str(frame_settings) else Alias(None),
-            Alias(self.axis, name="axis"),
-            Alias(self.xaxis, name="xaxis", prefix="px" if self.xaxis2 else "x"),
-            Alias(self.yaxis, name="yaxis", prefix="py" if self.yaxis2 else "y"),
+            Alias(self.axis, name="axis", prefix="p" if has_secondary_xy_axis else ""),
+            Alias(self.axis2, name="axis2", prefix="s"),
+            Alias(
+                self.xaxis,
+                name="xaxis",
+                prefix="px" if self.xaxis2 or self.axis2 else "x",
+            ),
+            Alias(
+                self.yaxis,
+                name="yaxis",
+                prefix="py" if self.yaxis2 or self.axis2 else "y",
+            ),
             Alias(self.zaxis, name="zaxis", prefix="pz" if self.zaxis2 else "z"),
             Alias(self.xaxis2, name="xaxis2", prefix="sx"),
             Alias(self.yaxis2, name="yaxis2", prefix="sy"),
