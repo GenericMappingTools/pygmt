@@ -5,30 +5,31 @@ Test Figure.subplot.
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.params import Axis, Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
-    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure map
-    frame setting is applied to all subplot figures.
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure the
+    plot frame setting is applied to all subplot panels.
     """
     fig = Figure()
 
-    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
+    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame=Frame(axes="WSne")):
         with fig.set_panel(panel="0,0"):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot0"))
         with fig.set_panel(panel=[0, 1]):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot1"))
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_subplot_direct():
     """
-    Plot map elements to subplot directly using the panel parameter.
+    Plot elements to subplot directly using the panel parameter.
     """
     fig = Figure()
 
@@ -57,8 +58,8 @@ def test_subplot_tag_margins_title():
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
-        fig.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
-        fig.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
+        fig.basemap(region=[0, 1, 2, 3], frame=Frame(axes="WSne"), panel=[0, 0])
+        fig.basemap(region=[4, 5, 6, 7], frame=Frame(axes="WSne"), panel=[1, 0])
 
     return fig
 
@@ -75,7 +76,7 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
         nrows=2,
         ncols=2,
         figsize=("5c", "5c"),
-        frame="WSrt",
+        frame=Frame(axes="WSrt"),
         clearance=["s0.2c", "n0.2c"],
         sharex="t",
         sharey=True,

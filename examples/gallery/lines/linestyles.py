@@ -20,13 +20,16 @@ For more advanced *pen* attributes, see the GMT Technical Reference
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([0, 7])
 y = np.array([9, 9])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame="+tLine Styles")
+fig.basemap(
+    region=[0, 10, 0, 10], projection="X15c/8c", frame=Frame(title="Line Styles")
+)
 
 # Plot the line using the default line style
 fig.plot(x=x, y=y)

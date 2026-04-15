@@ -36,7 +36,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=2,
     y=8,
     style="v0c",
@@ -60,7 +60,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=[2, 4],
     y=[8, 1],
     style="v0.6c+e",
@@ -85,7 +85,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X5i/5i",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=2,
     y=8,
     style="v1c+e",
@@ -122,7 +122,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=vectors,
     style="v0.6c+e",
     pen="2p",
@@ -148,7 +148,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=vectors,
     style="v0.6c+e",
     pen="2p",
@@ -174,7 +174,7 @@ fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
     projection="M10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     borders=1,
     shorelines="0.25p,black",
     area_thresh=4000,
@@ -268,7 +268,7 @@ data = [circular_vector_1]
 fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=data,
     style="m0.5c+ea",
     pen="2p",
@@ -308,7 +308,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=data,
     style="m0.5c+ea",
     pen="2p",
@@ -330,7 +330,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=[circular_vector],
     style="m0.5c+ea",
     pen="2p",

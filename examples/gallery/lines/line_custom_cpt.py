@@ -15,12 +15,15 @@ setting the ``pen`` color.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Create a list of values between 20 and 30 with 0.2 intervals
 x = np.arange(start=20, stop=30, step=0.2)
 
 fig = pygmt.Figure()
-fig.basemap(frame=["WSne", "af"], region=[20, 30, -10, 10])
+fig.basemap(
+    frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)), region=[20, 30, -10, 10]
+)
 
 # Create a custom CPT with the batlow CPT and 10 discrete z-values (colors),
 # use color_model="+c0-9" to write the color palette in categorical format and
