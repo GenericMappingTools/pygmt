@@ -25,7 +25,7 @@ data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
 # %%
 # Fill the areas between the two curves using the ``fill_between`` parameter.
 # Use the ``fill`` parameter and the modifier **+g** for ``fill_between`` to
-# set different fills for areas with y1 > y2 and y2 < y1, respectively. Use
+# set different fills for areas with y1 > y2 and y1 < y2, respectively. Use
 # the ``label`` parameter and the modifier **+l** for ``fill_between`` to
 # set the corresponding legend entries.
 
