@@ -29,7 +29,7 @@ For further modifiers see :gmt-docs:`plot.html#vector-attributes`. Please note
 that vectors were completely redesigned for GMT 5 which separated the vector
 head (a polygon) from the vector stem (a line). In GMT 4, the entire vector was
 a polygon. Thus, to fill the entire vector with a color users have to follow the
-GMT 4 synthax explained at :gmt-docs:`plot.html#id13`.
+GMT 4 synthax, which can be found on the webpage mentioned above.
 """
 
 # %%
