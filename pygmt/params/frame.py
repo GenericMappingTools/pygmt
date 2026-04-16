@@ -189,8 +189,8 @@ class Frame(BaseParam):
     #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
 
-    #: The subtitle string centered below the plot title [Requires ``title``. Default is
-    #: no subtitle].
+    #: The subtitle string centered below the plot title. Requires ``title`` to be set.
+    #: [Default is no subtitle].
     subtitle: str | None = None
 
     #: Fill for the interior of the frame with a color or a pattern [Default is no
