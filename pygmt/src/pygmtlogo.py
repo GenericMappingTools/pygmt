@@ -238,7 +238,7 @@ def create_logo(  # noqa: PLR0915
     # Starting point: lower right corner of the left vertical line of letter M
     # Direction: clockwise
     m_x, m_y, m_x1, m_x2 = _letter_m_coords()
-    fig.plot(x=m_x, y=m_y, close=True, fill=red, perspective=True)
+    fig.plot(x=m_x, y=m_y, fill=red, perspective=True)
     # fig.show()
 
     # Letter T
