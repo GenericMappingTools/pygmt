@@ -214,7 +214,7 @@ def create_logo(  # noqa: PLR0915
     fig.plot(pen=f"{thick}c,{blue}", **args_shape)
     # fig.show()
     # Horizontal compass lines
-    for x, y in lines_compass[0:4]:
+    for x, y in lines_compass[:4]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         # fig.show()
 
