@@ -178,12 +178,15 @@ def ternary(  # noqa: PLR0913
 
     # Convert Frame/Axis to ternary-compatible format.
     frame_option = _ternary_frame(frame)
-    option_b = (
-        frame_option
-        if isinstance(frame_option, list)
-        and all(isinstance(alias, Alias) for alias in frame_option)
-        else Alias("+n" if frame_option == "none" else frame_option, name="frame")
-    )
+    if isinstance(frame_option, list) and all(
+        isinstance(alias, Alias) for alias in frame_option
+    ):
+        # Extract string values from Alias objects to avoid concatenation by
+        # AliasSystem, which would break -B modifiers like +l labels.
+        values = [alias._value for alias in frame_option if alias._value is not None]
+        option_b = Alias(values or None, name="frame")
+    else:
+        option_b = Alias("+n" if frame_option == "none" else frame_option, name="frame")
 
     aliasdict = AliasSystem(
         B=option_b,
