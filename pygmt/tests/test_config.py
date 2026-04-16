@@ -108,9 +108,9 @@ def test_config_format_time_map():
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=["pa1K", "sa1K", "NWse"],
+            frame=Frame(axes="NWse", axis=Axis(annot="1K"), axis2=Axis(annot="1K")),
         )
-    fig.basemap(frame=["pa1K", "sa1K", "nwSE"])
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1K"), axis2=Axis(annot="1K")))
     return fig
 
 
@@ -125,9 +125,9 @@ def test_config_map_annot_offset():
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=["pa1d", "sa1d", "NWse"],
+            frame=Frame(axes="NWse", axis=Axis(annot="1d"), axis2=Axis(annot="1d")),
         )
-    fig.basemap(frame=["pa1d", "sa1d", "nwSE"])
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1d"), axis2=Axis(annot="1d")))
     return fig
 
 
@@ -142,11 +142,22 @@ def test_config_map_grid_cross_size():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
             verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
@@ -161,11 +172,22 @@ def test_config_map_grid_pen():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
             verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
@@ -180,11 +202,22 @@ def test_config_map_tick_length():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
             verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
@@ -199,11 +232,22 @@ def test_config_map_tick_pen():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
             verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="error")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
