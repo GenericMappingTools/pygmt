@@ -30,8 +30,9 @@ def _ternary_frame(frame):
 
     Returns
     -------
-    str, list of str, or bool
-        The converted frame parameter.
+    str, bool, or list of Alias
+        The converted frame parameter. For Frame inputs, returns a list of Alias
+        objects; for Axis, str, bool, or list inputs, returns the value directly.
 
     Examples
     --------
@@ -40,11 +41,12 @@ def _ternary_frame(frame):
     'afg'
     >>> _ternary_frame(Axis(annot=True, tick=True))
     'af'
-    >>> _ternary_frame(
+    >>> result = _ternary_frame(
     ...     Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True))
     ... )
+    >>> [a._value for a in result if a._value is not None]
     ['+tTitle', 'afg']
-    >>> _ternary_frame(
+    >>> result = _ternary_frame(
     ...     Frame(
     ...         title="Title",
     ...         xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
@@ -52,8 +54,10 @@ def _ternary_frame(frame):
     ...         zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
     ...     )
     ... )
+    >>> [a._value for a in result if a._value is not None]
     ['+tTitle', 'aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
-    >>> _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
+    >>> result = _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
+    >>> [a._value for a in result if a._value is not None]
     ['+glightblue', 'a']
     >>> _ternary_frame("afg")
     'afg'
@@ -63,21 +67,23 @@ def _ternary_frame(frame):
     ['afg', 'aafg+lWater']
     >>> _ternary_frame(Frame(axes="WSen", axis=Axis(annot=True)))
     Traceback (most recent call last):
-    pygmt.exceptions.GMTParameterError: ...
+    pygmt.exceptions.GMTValueError: ...
     >>> _ternary_frame(Frame(xaxis2=Axis(annot=True)))
     Traceback (most recent call last):
-    pygmt.exceptions.GMTParameterError: ...
+    pygmt.exceptions.GMTValueError: ...
     """
     if isinstance(frame, Axis):
         return str(frame)
     if isinstance(frame, Frame):
-        _attributs = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
-        if any(getattr(frame, attr) and attr not in _attributs for attr in vars(frame)):
+        _attributes = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
+        if any(
+            getattr(frame, attr) and attr not in _attributes for attr in vars(frame)
+        ):
             raise GMTValueError(
                 repr(frame),
                 description="frame setting",
                 reason="For ternary diagrams, only Frame attributes "
-                f"{', '.join(repr(_attr) for _attr in _attributs)} are supported.",
+                f"{', '.join(repr(_attr) for _attr in _attributes)} are supported.",
             )
         frame_settings = _Axes(
             title=frame.title, subtitle=frame.subtitle, fill=frame.fill
@@ -166,18 +172,23 @@ def ternary(  # noqa: PLR0913
     $transparency
     """
     self._activate_figure()
-
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
 
     # Convert Frame/Axis to ternary-compatible format.
-    frame = _ternary_frame(frame)
+    frame_option = _ternary_frame(frame)
+    option_b = (
+        frame_option
+        if isinstance(frame_option, list)
+        and all(isinstance(alias, Alias) for alias in frame_option)
+        else Alias("+n" if frame_option == "none" else frame_option, name="frame")
+    )
 
     aliasdict = AliasSystem(
+        B=option_b,
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
-        B=frame,
         R=region,
         V=verbose,
         c=panel,
