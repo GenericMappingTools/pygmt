@@ -81,28 +81,14 @@ def _ternary_frame(frame):
                 description="frame setting",
                 reason="For ternary diagrams, only Frame attributes " + f"{', '.join(repr(_attr) for _attr in _attributs)} are supported."
             )
-        parts = []
-        # Frame-level settings (title, fill, etc.)
-        kwargs = {
-            f.name: getattr(frame, f.name)
-            for f in dataclasses.fields(_Axes)
-            if hasattr(frame, f.name)
-        }
-        frame_settings = _Axes(**kwargs)
-        if str(frame_settings):
-            parts.append(str(frame_settings))
-        # Uniform axis setting (applies to all three ternary axes)
-        if frame.axis:
-            parts.append(str(frame.axis))
-        # Per-axis: xaxis→a, yaxis→b, zaxis→c
-        for ternary_prefix, axis_obj in [
-            ("a", frame.xaxis),
-            ("b", frame.yaxis),
-            ("c", frame.zaxis),
-        ]:
-            if axis_obj:
-                parts.append(f"{ternary_prefix}{axis_obj}")
-        return parts
+        frame_settings = _Axes(title=frame.title, subtitle=frame.subtitle, fill=frame.fill)
+        return [
+            Alias(frame_settings) if str(frame_settings) else Alias(None),
+            Alias(frame.axis),
+            Alias(frame.xaxis, prefix="a"),
+            Alias(frame.yaxis, prefix="b"),
+            Alias(frame.zaxis, prefix="c"),
+        ]
     return frame
 
 
