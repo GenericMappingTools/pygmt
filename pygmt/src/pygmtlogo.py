@@ -159,17 +159,15 @@ def create_logo(  # noqa: PLR0915
         ]
         return m_x, m_y, m_x1, m_x2
 
-    # Letter T
+    # Letter T: curved horizontal line for the top of T
     def _letter_t_coords():
-        # Red curved horizontal line
-        angles = np.deg2rad(np.arange(150, 210, 0.1))
-        t_x = np.concatenate([r3 * np.sin(angles), r2 * np.sin(np.flip(angles))])
-        t_y = np.concatenate([r3 * np.cos(angles), r2 * np.cos(np.flip(angles))])
+        outer_angles = np.deg2rad(np.arange(150, 210))
+        inner_angles = outer_angles[::-1]
+        t_x = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
+        t_y = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
         # Ensure the same X coordinate for the right edge of T and the middle of M.
         mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
-        t_x = t_x[mask]
-        t_y = t_y[mask]
-        return t_x, t_y
+        return t_x[mask], t_y[mask]
 
     fig = pygmt.Figure()
     fig.basemap(
