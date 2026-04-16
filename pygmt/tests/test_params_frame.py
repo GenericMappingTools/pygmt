@@ -14,8 +14,16 @@ def test_params_axis():
     assert str(Axis(annot=True)) == "a"
     assert str(Axis(annot=True, tick=True, grid=True)) == "afg"
     assert str(Axis(annot=30, tick=15, grid=5)) == "a30f15g5"
-    assert str(Axis(annot=30, label="LABEL")) == "a30+lLABEL"
     assert str(Axis(annot=30, prefix="$", unit="m")) == "a30+p$+um"
+    assert str(Axis(annot=30, label="LABEL")) == "a30+lLABEL"
+    assert str(Axis(annot=30, alt_label="LABEL2")) == "a30+sLABEL2"
+    assert str(Axis(annot=30, hlabel="HLABEL")) == "a30+LHLABEL"
+    assert str(Axis(annot=30, alt_hlabel="HLABEL2")) == "a30+SHLABEL2"
+
+    xaxis = Axis(annot=30, label="LABEL", alt_label="LABEL2")
+    assert str(xaxis) == "a30+lLABEL+sLABEL2"
+    yaxis = Axis(annot=30, hlabel="HLABEL", alt_hlabel="HLABEL2")
+    assert str(yaxis) == "a30+LHLABEL+SHLABEL2"
 
 
 def test_params_frame_only():

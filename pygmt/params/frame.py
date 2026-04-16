@@ -48,6 +48,15 @@ class Axis(BaseParam):
     #: Label for the axis [Default is no label].
     label: str | None = None
 
+    #: Alternate label for the right or top axis [Default is the same as ``label``].
+    alt_label: str | None = None
+
+    #: Horizontal label for y-axes, useful for very short labels.
+    hlabel: str | None = None
+
+    #: Horizontal label for the right y-axis, useful for very short labels.
+    alt_hlabel: str | None = None
+
     #: A leading text prefix for the axis annotations (e.g., dollar sign for plots
     #: related to money) [For Cartesian plots only].
     prefix: str | None = None
@@ -65,9 +74,12 @@ class Axis(BaseParam):
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
             Alias(self.label, name="label", prefix="+l"),
-            Alias(self.angle, name="angle", prefix="+a"),
+            Alias(self.alt_label, name="alt_label", prefix="+s"),
+            Alias(self.hlabel, name="hlabel", prefix="+L"),
+            Alias(self.alt_hlabel, name="alt_hlabel", prefix="+S"),
             Alias(self.prefix, name="prefix", prefix="+p"),
             Alias(self.unit, name="unit", prefix="+u"),
+            Alias(self.angle, name="angle", prefix="+a"),
         ]
 
 
