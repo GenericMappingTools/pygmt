@@ -9,6 +9,7 @@ import pytest
 from pygmt import Figure, info, makecpt, which
 from pygmt.helpers import data_kind
 from pygmt.helpers.testing import skip_if_no
+from pygmt.params import Axis, Frame
 
 geopandas = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -118,7 +119,12 @@ def test_geopandas_plot3d_default_cube():
         perspective=[315, 25],
         region=[0, 2, 0, 2, 0, 2],
         projection="X2c",
-        frame=["WsNeZ1", "xag", "yag", "zag"],
+        frame=Frame(
+            axes="WsNeZ1",
+            xaxis=Axis(annot=True, grid=True),
+            yaxis=Axis(annot=True, grid=True),
+            zaxis=Axis(annot=True, grid=True),
+        ),
         zscale=1.5,
     )
     return fig
@@ -151,7 +157,12 @@ def test_geopandas_plot3d_non_default_circle():
         perspective=[315, 25],
         region=[0, 2, 0, 2, 0, 2],
         projection="X2c",
-        frame=["WsNeZ1", "xag", "yag", "zag"],
+        frame=Frame(
+            axes="WsNeZ1",
+            xaxis=Axis(annot=True, grid=True),
+            yaxis=Axis(annot=True, grid=True),
+            zaxis=Axis(annot=True, grid=True),
+        ),
         zscale=1.5,
         style="c0.2c",
     )

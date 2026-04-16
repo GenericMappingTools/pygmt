@@ -7,6 +7,7 @@ import datetime
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.params import Axis
 
 
 @pytest.mark.mpl_image_compare
@@ -16,7 +17,7 @@ def test_solar_terminators():
     the default terminator type.
     """
     fig = Figure()
-    fig.basemap(region="d", projection="W0/15c", frame="a")
+    fig.basemap(region="d", projection="W0/15c", frame=Axis(annot=True))
     fig.solar(
         terminator="d",
         pen="1p,blue",
@@ -57,7 +58,7 @@ def test_solar_set_terminator_datetime(terminator_datetime):
     fig.solar(
         region="d",
         projection="W0/15c",
-        frame="a",
+        frame=Axis(annot=True),
         terminator="day_night",
         terminator_datetime=terminator_datetime,
     )
@@ -79,7 +80,7 @@ def test_solar_invalid_inputs(kwargs, expected_exception):
     """
     fig = Figure()
     with pytest.raises(expected_exception):
-        fig.solar(region="d", projection="W0/15c", frame="a", **kwargs)
+        fig.solar(region="d", projection="W0/15c", frame=Axis(annot=True), **kwargs)
 
 
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
@@ -92,7 +93,7 @@ def test_solar_default_terminator():
     fig.solar(
         region="d",
         projection="W0/15c",
-        frame="a",
+        frame=Axis(annot=True),
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig

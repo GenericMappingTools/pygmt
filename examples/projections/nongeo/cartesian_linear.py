@@ -19,10 +19,15 @@ GMT documentation :gmt-docs:`Calendar time coordinates
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 # The region parameter is specified as xmin, xmax, ymin, ymax
-fig.basemap(region=[0, 10, 0, 50], projection="X15c/10c", frame=["afg", "+gbisque"])
+fig.basemap(
+    region=[0, 10, 0, 50],
+    projection="X15c/10c",
+    frame=Frame(fill="bisque", axis=Axis(annot=True, tick=True, grid=True)),
+)
 fig.plot(x=[3, 9, 2], y=[4, 9, 37], pen="2p,black")
 # Plot data points on top of the line
 # Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline

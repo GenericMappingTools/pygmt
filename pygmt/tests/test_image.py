@@ -11,7 +11,7 @@ from pygmt.params import Box, Position
 @pytest.mark.mpl_image_compare
 def test_image():
     """
-    Place images on map.
+    Place images on the figure.
     """
     fig = Figure()
     fig.image(imagefile="@circuit.png")
