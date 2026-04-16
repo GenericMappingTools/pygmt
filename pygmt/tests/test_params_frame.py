@@ -32,9 +32,15 @@ def test_params_frame_only():
     """
     assert str(Frame("WSen")) == "WSen"
     assert str(Frame(axes="WSEN", title="My Title")) == "WSEN+tMy Title"
+    assert str(Frame(axes="WSEN", subtitle="My Subtitle")) == "WSEN+sMy Subtitle"
 
     frame = str(Frame(axes="WSEN", title="My Title", fill="red"))
     assert frame == "WSEN+gred+tMy Title"
+
+    frame = str(
+        Frame(axes="WSEN", title="My Title", subtitle="My Subtitle", fill="red")
+    )
+    assert frame == "WSEN+gred+tMy Title+sMy Subtitle"
 
 
 def test_params_frame_axis():
@@ -47,9 +53,10 @@ def test_params_frame_axis():
     frame = Frame(
         axes="WSEN",
         title="My Title",
+        subtitle="My Subtitle",
         axis=Axis(annot=True, tick=True, grid=True, label="LABEL"),
     )
-    assert list(frame) == ["WSEN+tMy Title", "afg+lLABEL"]
+    assert list(frame) == ["WSEN+tMy Title+sMy Subtitle", "afg+lLABEL"]
 
     frame = Frame(
         axes="WSEN",
