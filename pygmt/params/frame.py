@@ -189,7 +189,8 @@ class Frame(BaseParam):
     #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
 
-    #: The subtitle string centered below the plot title [Default is no subtitle].
+    #: The subtitle string centered below the plot title [Requires ``title``. Default is
+    #: no subtitle].
     subtitle: str | None = None
 
     #: Fill for the interior of the frame with a color or a pattern [Default is no
@@ -225,7 +226,7 @@ class Frame(BaseParam):
         if self.subtitle is not None and self.title is None:
             raise GMTParameterError(
                 required="title",
-                reason="The 'subtitle' parameter requires 'title' to be set.",
+                reason="The 'subtitle' attribute requires 'title' to be set.",
             )
         if self.axis is not None and any(
             [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
