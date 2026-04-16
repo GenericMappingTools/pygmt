@@ -3,8 +3,8 @@ Fill area between curves
 ========================
 Using the ``fill_between`` parameter of the :meth:`pygmt.Figure.plot` method it is
 possible to fill the area between two curves y1 and y2. Different fills (colors or
-patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the curves can
-be drawn.
+patterns) can be used for the areas y1 > y2 and y1 < y2. Optionally, the curves can be
+drawn.
 To plot an anomaly along a track use :meth:`pygmt.Figure.wiggle` and see the gallery
 example :doc:`Wiggle along tracks </gallery/lines/wiggle>`.
 """
@@ -23,11 +23,10 @@ data_df = pd.DataFrame({"x": x, "y1": y1, "y2": y2})
 
 
 # %%
-# Fill the areas between the two curves using the ``fill_between`` parameter.
-# Use the ``fill`` parameter and the modifier **+g** for ``fill_between`` to
-# set different fills for areas with y1 > y2 and y1 < y2, respectively. Use
-# the ``label`` parameter and the modifier **+l** for ``fill_between`` to
-# set the corresponding legend entries.
+# Fill the areas between the two curves using the ``fill_between`` parameter. Use the
+# ``fill`` parameter and the modifier **+g** for ``fill_between`` to set different fills
+# for areas with y1 > y2 and y1 < y2, respectively. Use the ``label`` parameter and the
+# modifier **+l** for ``fill_between`` to set the corresponding legend entries.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
@@ -45,9 +44,9 @@ fig.show()
 
 
 # %%
-# In addition to filling the areas, we can draw the curves. Use the ``pen``
-# parameter and the modifier **+p** for ``fill_between`` to set different
-# lines for the two curves y1 and y2, respectively.
+# In addition to filling the areas, we can draw the curves. Use the ``pen`` parameter
+# and the modifier **+p** for ``fill_between`` to set different lines for the two
+# curves y1 and y2, respectively.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
@@ -63,8 +62,8 @@ fig.show()
 
 
 # %%
-# To compare a curve y1 to a horizontal line, append **+y** to ``fill_between``
-# and give the desired y-level.
+# To compare a curve y1 to a horizontal line, append **+y** to ``fill_between`` and give
+# the desired y-level.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
