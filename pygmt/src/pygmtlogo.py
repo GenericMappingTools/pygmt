@@ -206,7 +206,7 @@ def create_logo(  # noqa: PLR0915
         ([x1, x2], [-x1, -x2]),  # lower right
     ]
     # Non-horizontal compass lines
-    for x, y in lines_compass[4 : len(lines_compass)]:
+    for x, y in lines_compass[4:]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         # fig.show()
 
