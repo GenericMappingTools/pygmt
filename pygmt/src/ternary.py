@@ -30,9 +30,9 @@ def _ternary_frame(frame):
 
     Returns
     -------
-    str, bool, or list of Alias
-        The converted frame parameter. For Frame inputs, returns a list of Alias
-        objects; for Axis, str, bool, or list inputs, returns the value directly.
+    str, bool, or list of str
+        The converted frame parameter. For Frame inputs, returns a list of strings;
+        for Axis, str, bool, or list inputs, returns the value directly.
 
     Examples
     --------
@@ -41,12 +41,11 @@ def _ternary_frame(frame):
     'afg'
     >>> _ternary_frame(Axis(annot=True, tick=True))
     'af'
-    >>> result = _ternary_frame(
+    >>> _ternary_frame(
     ...     Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True))
     ... )
-    >>> [a._value for a in result if a._value is not None]
     ['+tTitle', 'afg']
-    >>> result = _ternary_frame(
+    >>> _ternary_frame(
     ...     Frame(
     ...         title="Title",
     ...         xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
@@ -54,10 +53,8 @@ def _ternary_frame(frame):
     ...         zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
     ...     )
     ... )
-    >>> [a._value for a in result if a._value is not None]
     ['+tTitle', 'aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
-    >>> result = _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
-    >>> [a._value for a in result if a._value is not None]
+    >>> _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
     ['+glightblue', 'a']
     >>> _ternary_frame("afg")
     'afg'
@@ -179,15 +176,7 @@ def ternary(  # noqa: PLR0913
 
     # Convert Frame/Axis to ternary-compatible format.
     frame_option = _ternary_frame(frame)
-    if isinstance(frame_option, list) and all(
-        isinstance(alias, Alias) for alias in frame_option
-    ):
-        # Extract string values from Alias objects to avoid concatenation by
-        # AliasSystem, which would break -B modifiers like +l labels.
-        values = [alias._value for alias in frame_option if alias._value is not None]
-        option_b = Alias(values or None, name="frame")
-    else:
-        option_b = Alias("+n" if frame_option == "none" else frame_option, name="frame")
+    option_b = Alias("+n" if frame_option == "none" else frame_option, name="frame")
 
     aliasdict = AliasSystem(
         B=option_b,
