@@ -72,18 +72,14 @@ def _ternary_frame(frame):
     if isinstance(frame, Axis):
         return str(frame)
     if isinstance(frame, Frame):
-        if frame.axes:
-            raise GMTParameterError(
-                conflicts_with=("frame", ["frame.axes"]),
-                reason="For ternary diagrams, Frame.axes (e.g., 'WSen') is not supported.",
-            )
-        if any((frame.xaxis2, frame.yaxis2, frame.zaxis2)):
-            raise GMTParameterError(
-                conflicts_with=(
-                    "frame",
-                    ["frame.xaxis2", "frame.yaxis2", "frame.zaxis2"],
-                ),
-                reason="For ternary diagrams, secondary axes are not supported.",
+        _attributs = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
+        if any(
+            getattr(frame, attr) and attr not in _attributs for attr in vars(frame)
+        ):
+            raise GMTValueError(
+                repr(frame),
+                description="frame setting",
+                reason="For ternary diagrams, only Frame attributes " + f"{', '.join(repr(_attr) for _attr in _attributs)} are supported."
             )
         parts = []
         # Frame-level settings (title, fill, etc.)
