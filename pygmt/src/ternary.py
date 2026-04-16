@@ -2,14 +2,13 @@
 ternary - Plot data on ternary diagrams.
 """
 
-import dataclasses
 from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 from pygmt.params.frame import _Axes
@@ -73,15 +72,16 @@ def _ternary_frame(frame):
         return str(frame)
     if isinstance(frame, Frame):
         _attributs = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
-        if any(
-            getattr(frame, attr) and attr not in _attributs for attr in vars(frame)
-        ):
+        if any(getattr(frame, attr) and attr not in _attributs for attr in vars(frame)):
             raise GMTValueError(
                 repr(frame),
                 description="frame setting",
-                reason="For ternary diagrams, only Frame attributes " + f"{', '.join(repr(_attr) for _attr in _attributs)} are supported."
+                reason="For ternary diagrams, only Frame attributes "
+                f"{', '.join(repr(_attr) for _attr in _attributs)} are supported.",
             )
-        frame_settings = _Axes(title=frame.title, subtitle=frame.subtitle, fill=frame.fill)
+        frame_settings = _Axes(
+            title=frame.title, subtitle=frame.subtitle, fill=frame.fill
+        )
         return [
             Alias(frame_settings) if str(frame_settings) else Alias(None),
             Alias(frame.axis),
