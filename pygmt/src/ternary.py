@@ -88,13 +88,14 @@ def _ternary_frame(frame):
         frame_settings = _Axes(
             title=frame.title, subtitle=frame.subtitle, fill=frame.fill
         )
-        return [
+        paras = [
             Alias(frame_settings) if str(frame_settings) else Alias(None),
             Alias(frame.axis),
             Alias(frame.xaxis, prefix="a"),
             Alias(frame.yaxis, prefix="b"),
             Alias(frame.zaxis, prefix="c"),
         ]
+        return [par._value for par in paras if par._value is not None]
     return frame
 
 
