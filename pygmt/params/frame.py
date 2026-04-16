@@ -222,6 +222,11 @@ class Frame(BaseParam):
         """
         Validate the parameters of the Frame class.
         """
+        if self.subtitle is not None and self.title is None:
+            raise GMTParameterError(
+                required="title",
+                reason="The 'subtitle' parameter requires 'title' to be set.",
+            )
         if self.axis is not None and any(
             [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
         ):

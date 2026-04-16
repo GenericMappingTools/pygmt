@@ -32,7 +32,6 @@ def test_params_frame_only():
     """
     assert str(Frame("WSen")) == "WSen"
     assert str(Frame(axes="WSEN", title="My Title")) == "WSEN+tMy Title"
-    assert str(Frame(axes="WSEN", subtitle="My Subtitle")) == "WSEN+sMy Subtitle"
 
     frame = str(Frame(axes="WSEN", title="My Title", fill="red"))
     assert frame == "WSEN+gred+tMy Title"
@@ -127,6 +126,9 @@ def test_params_frame_invalid_axis_combinations():
     """
     Test that invalid combinations of uniform and individual axis settings fail.
     """
+    with pytest.raises(GMTParameterError, match="subtitle.*requires 'title'"):
+        Frame(subtitle="My Subtitle")
+
     with pytest.raises(GMTParameterError, match="Either 'axis' or"):
         Frame(axis=Axis(annot=1), xaxis=Axis(annot=2))
 
