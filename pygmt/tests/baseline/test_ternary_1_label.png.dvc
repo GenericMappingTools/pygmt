@@ -1,5 +1,5 @@
 outs:
-- md5: 7ee745cf4ebcd9af8f8dfc6c25c972ee
+- md5: 8046b09ffd4020ac84b43704b39597d3
   size: 63378
   path: test_ternary_1_label.png
   hash: md5
