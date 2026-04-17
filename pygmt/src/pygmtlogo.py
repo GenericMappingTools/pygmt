@@ -106,9 +106,8 @@ def create_logo(  # noqa: PLR0915
         case True | "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
-    # Private functions for letter coordinates
-    # Letter G
     def _letter_g_coords():
+        """Coordinates for letter G."""
         outer_angles = np.deg2rad(np.arange(90, 361))
         inner_angles = outer_angles[::-1]
         offset = (r4 - r5) / 2
