@@ -118,7 +118,7 @@ def test_ternary_1_label(array):
     )
     return fig
 
-
+@pytest.mark.mpl_image_compare
 def test_ternary_axis(array):
     """
     Test plotting a ternary chart with Axis object for frame.
