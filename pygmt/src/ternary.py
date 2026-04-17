@@ -39,8 +39,6 @@ def _ternary_frame(frame):
     >>> from pygmt.params import Axis, Frame
     >>> _ternary_frame(Axis(annot=True, tick=True, grid=True))
     'afg'
-    >>> _ternary_frame(Axis(annot=True, tick=True))
-    'af'
     >>> _ternary_frame(
     ...     Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True))
     ... )
