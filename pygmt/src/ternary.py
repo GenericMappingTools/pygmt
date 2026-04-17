@@ -16,7 +16,7 @@ from pygmt.params.frame import _Axes
 
 def _ternary_frame(frame):
     """
-    Convert a Frame/Axis parameter to ternary-compatible format.
+    Convert 'frame' to ternary-compatible format.
 
     For ternary diagrams, GMT uses axis names **a**, **b**, **c** instead of
     **x**, **y**, **z**, and there are no primary/secondary axes. This function
