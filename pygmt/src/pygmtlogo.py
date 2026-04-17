@@ -233,8 +233,7 @@ def create_logo(  # noqa: PLR0915
     fig.plot(x=m_x, y=m_y, fill=red, perspective=True)
     # fig.show()
 
-    # Letter T
-    # Red curved horizontal line
+    # Letter T: red curved horizontal line
     t_x, t_y = _letter_t_coords()
     fig.plot(x=t_x, y=t_y, fill=red, perspective=True)
     # fig.show()
