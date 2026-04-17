@@ -92,7 +92,7 @@ def _ternary_frame(frame):
             Alias(frame.yaxis, prefix="b"),
             Alias(frame.zaxis, prefix="c"),
         ]
-        return [par._value for par in paras if par._value is not None]
+        return [par._value for par in params if par._value is not None]
     return frame
 
 
