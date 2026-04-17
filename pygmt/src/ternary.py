@@ -18,10 +18,10 @@ def _ternary_frame(frame):
     """
     Convert 'frame' to ternary-compatible format.
 
-    For ternary diagrams, GMT uses axis names **a**, **b**, **c** instead of
-    **x**, **y**, **z**, and there are no primary/secondary axes. This function
-    converts a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object
-    to a string or a list of strings with the correct axis prefixes.
+    For ternary diagrams, GMT uses axis names **a**, **b**, **c** instead of **x**,
+    **y**, **z**, and there are no primary/secondary axes. This function converts a
+    :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object to a string or
+    a list of strings with the correct axis prefixes.
 
     Parameters
     ----------
@@ -150,6 +150,10 @@ def ternary(  # noqa: PLR0913
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
+    $frame
+        For ternary diagrams, use :class:`pygmt.params.Frame` ``xaxis``, ``yaxis``,
+        and ``zaxis`` attributes to set the **a**, **b**, and **c** axes,
+        respectively.
     $cmap
     $fill
     alabel

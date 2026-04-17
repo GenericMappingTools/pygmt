@@ -133,3 +133,19 @@ def test_ternary_axis(array):
         style="c0.1c",
         pen="thinnest",
     )
+
+
+def test_ternary_no_frame(array):
+    """
+    Test plotting a ternary chart with frame set to "none".
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        frame="none",
+        style="c0.1c",
+        pen="thinnest",
+    )
