@@ -122,8 +122,8 @@ def create_logo(  # noqa: PLR0915
         g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
         return g_x, g_y
 
-    # Letter M
     def _letter_m_coords():
+        """Coordinates for letter M."""
         m_x1 = thin / 2  # Half of the pen thickness of compass lines.
         m_x2 = r4
         m_x = [
