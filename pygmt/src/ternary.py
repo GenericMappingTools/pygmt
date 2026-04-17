@@ -179,7 +179,6 @@ def ternary(  # noqa: PLR0913
     option_b = Alias("+n" if frame_option == "none" else frame_option, name="frame")
 
     aliasdict = AliasSystem(
-        B=option_b,
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
         R=region,
