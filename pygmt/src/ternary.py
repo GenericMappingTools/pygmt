@@ -177,6 +177,7 @@ def ternary(  # noqa: PLR0913
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
+        B=_ternary_frame(frame),
         R=region,
         V=verbose,
         c=panel,
