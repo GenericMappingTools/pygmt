@@ -60,6 +60,8 @@ def _ternary_frame(frame):
     True
     >>> _ternary_frame(["aafg+lWater", "bafg+lAir", "cafg+lLimestone"])
     ['aafg+lWater', 'bafg+lAir', 'cafg+lLimestone']
+    >>> _ternary_frame("none")
+    'none'
     >>> _ternary_frame(Frame(axes="WSen", axis=Axis(annot=True)))
     Traceback (most recent call last):
     pygmt.exceptions.GMTValueError: ...
