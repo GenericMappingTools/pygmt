@@ -118,6 +118,7 @@ def test_ternary_1_label(array):
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_ternary_axis(array):
     """
@@ -133,6 +134,7 @@ def test_ternary_axis(array):
         style="c0.1c",
         pen="thinnest",
     )
+
 
 @pytest.mark.mpl_image_compare
 def test_ternary_no_frame(array):
