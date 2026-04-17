@@ -134,6 +134,7 @@ def test_ternary_axis(array):
         style="c0.1c",
         pen="thinnest",
     )
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -151,3 +152,4 @@ def test_ternary_no_frame(array):
         style="c0.1c",
         pen="thinnest",
     )
+    return fig
