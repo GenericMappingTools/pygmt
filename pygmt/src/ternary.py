@@ -174,10 +174,6 @@ def ternary(  # noqa: PLR0913
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
 
-    # Convert Frame/Axis to ternary-compatible format.
-    frame_option = _ternary_frame(frame)
-    option_b = Alias("+n" if frame_option == "none" else frame_option, name="frame")
-
     aliasdict = AliasSystem(
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
