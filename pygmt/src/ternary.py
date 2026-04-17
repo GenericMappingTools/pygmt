@@ -151,9 +151,8 @@ def ternary(  # noqa: PLR0913
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
     $frame
-        For ternary diagrams, use :class:`pygmt.params.Frame` ``xaxis``, ``yaxis``,
-        and ``zaxis`` attributes to set the **a**, **b**, and **c** axes,
-        respectively.
+        For ternary diagrams, use :class:`pygmt.params.Frame` ``xaxis``, ``yaxis``, and
+        ``zaxis`` attributes to set the **a**, **b**, and **c** axes, respectively.
     $cmap
     $fill
     alabel
