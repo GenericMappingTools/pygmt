@@ -21,7 +21,7 @@ def _ternary_frame(frame):
     For ternary diagrams, GMT uses axis names **a**, **b**, **c** instead of
     **x**, **y**, **z**, and there are no primary/secondary axes. This function
     converts a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object
-    to a list of strings with the correct ternary prefixes.
+    to a string or a list of strings with the correct axis prefixes.
 
     Parameters
     ----------
