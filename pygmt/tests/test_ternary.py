@@ -134,7 +134,7 @@ def test_ternary_axis(array):
         pen="thinnest",
     )
 
-
+@pytest.mark.mpl_image_compare
 def test_ternary_no_frame(array):
     """
     Test plotting a ternary chart with frame set to "none".
