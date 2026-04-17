@@ -74,7 +74,7 @@ def _ternary_frame(frame):
     if isinstance(frame, Frame):
         _attributes = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
         if any(
-            getattr(frame, attr) and attr not in _attributes for attr in vars(frame)
+            _attr not in _attributes and getattr(frame, _attr) for _attr in vars(frame)
         ):
             raise GMTValueError(
                 repr(frame),
