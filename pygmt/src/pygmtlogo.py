@@ -88,15 +88,15 @@ def create_logo(  # noqa: PLR0915
             size_shape = r0 + r1  # radius
             size_shape_add = r0 - r1
             hex_factor = 1
-            y_vline = r0
-            y_arrow = -r0
+            vline_y = r0
+            arrow_y = -r0
         case "hexagon":
             symbol = "h"  # hexagon
             size_shape = (r0 - 0.3) * 2  # diameter
             size_shape_add = 0.6
             hex_factor = 0.98
-            y_vline = r1 * 0.99
-            y_arrow = -r1 * 0.99
+            vline_y = r1 * 0.99
+            arrow_y = -r1 * 0.99
 
     # Define wordmark
     font = "AvantGarde-Book"
@@ -186,7 +186,7 @@ def create_logo(  # noqa: PLR0915
     # Upper vertical red line
     def _red_line_coords():
         red_line_x = [0, 0]
-        red_line_y = [y_vline, r3]
+        red_line_y = [vline_y, r3]
         return red_line_y, red_line_x
 
     fig = pygmt.Figure()
@@ -249,14 +249,14 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
     # The arrow
     fig.plot(
-        data=[[0, -r2, 0, y_arrow * 1.05]],
+        data=[[0, -r2, 0, arrow_y * 1.05]],
         pen=color_bg,
         style=f"v{thick * 1.6}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     # fig.show()
     fig.plot(
-        data=[[0, -r3, 0, y_arrow]],
+        data=[[0, -r3, 0, arrow_y]],
         pen=f"{thick}c,{red}",
         style=f"v{thick * 1.4}c+s+e+h0+a60+g{red}",
         perspective=True,
