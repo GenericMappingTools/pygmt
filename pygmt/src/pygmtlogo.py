@@ -88,14 +88,14 @@ def create_logo(  # noqa: PLR0915
             size_shape = r0 + r1  # radius
             size_shape_add = r0 - r1
             hex_factor = 1
-            y_vertline = r0
+            y_vline = r0
             y_arrow = -r0
         case "hexagon":
             symbol = "h"  # hexagon
             size_shape = (r0 - 0.3) * 2  # diameter
             size_shape_add = 0.6
             hex_factor = 0.98
-            y_vertline = r1 * 0.99
+            y_vline = r1 * 0.99
             y_arrow = -r1 * 0.99
 
     # Define wordmark
@@ -183,6 +183,12 @@ def create_logo(  # noqa: PLR0915
         ]
         return compass_lines
 
+    # Upper vertical red line
+    def _red_line_coords():
+        red_line_x = [0, 0]
+        red_line_y = [y_vline, r3]
+        return red_line_y, red_line_x
+
     fig = pygmt.Figure()
     fig.basemap(
         region=region, projection=projection, perspective=perspective, frame="none"
@@ -220,12 +226,13 @@ def create_logo(  # noqa: PLR0915
 
     # Upper vertical red line
     # Space between red line and blue circle / hexagon
+    red_line_x, red_line_y = _red_line_coords()
     fig.plot(
-        x=[0, 0], y=[y_vertline, r3], pen=f"{thick * 1.5}c,{color_bg}", perspective=True
+        x=red_line_x, y=red_line_y, pen=f"{thick * 1.5}c,{color_bg}", perspective=True
     )
     # fig.show()
     # red line
-    fig.plot(x=[0, 0], y=[y_vertline, r3], pen=f"{thick}c,{red}", perspective=True)
+    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick}c,{red}", perspective=True)
     # fig.show()
 
     # Letter M
