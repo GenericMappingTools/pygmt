@@ -169,7 +169,10 @@ def create_logo(  # noqa: PLR0915
         return t_x[mask], t_y[mask]
 
     def _compass_lines():
-        """Compass (plot vertical line on top of letters G and M again at the end)."""
+        """
+        Coordinates of compass lines.
+        Plot vertical line on top of letters G and M again at the end.
+        """
         x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
         compass_lines = [
             ([-r0 * hex_factor, -r3], [0, 0]),  # horizontal lines
@@ -183,8 +186,8 @@ def create_logo(  # noqa: PLR0915
         ]
         return compass_lines
 
-    # Upper vertical red line
     def _red_line_coords():
+        """Coordinates of Upper vertical red line."""
         red_line_x = [0, 0]
         red_line_y = [vline_y, r3]
         return red_line_y, red_line_x
