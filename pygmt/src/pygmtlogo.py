@@ -220,8 +220,8 @@ def create_logo(  # noqa: PLR0915
         # fig.show()
 
     # Letter G
-    x_g, y_g = _letter_g_coords()
-    fig.plot(x=x_g, y=y_g, fill=red, perspective=True)
+    g_x, g_y = _letter_g_coords()
+    fig.plot(x=g_x, y=g_y, fill=red, perspective=True)
     # fig.show()
 
     # Upper vertical red line
