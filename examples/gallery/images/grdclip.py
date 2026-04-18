@@ -10,7 +10,7 @@ parameter.
 
 # %%
 import pygmt
-from pygmt.params.position import Position
+from pygmt.params import Axis, Frame, Position
 
 fig = pygmt.Figure()
 
@@ -24,7 +24,12 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
+    frame=Frame(
+        axes="WSne",
+        title="original grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
 )
 fig.grdimage(grid=grid, cmap="SCM/oleron")
 
@@ -39,7 +44,12 @@ grid = pygmt.grdclip(grid, below=[0, -2000])
 fig.basemap(
     region=region,
     projection="M12c",
-    frame=["wSne+tclipped grid", "xa5f1", "ya2f1"],
+    frame=Frame(
+        axes="wSne",
+        title="clipped grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
 )
 fig.grdimage(grid=grid)
 fig.colorbar(

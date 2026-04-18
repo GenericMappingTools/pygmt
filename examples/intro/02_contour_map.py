@@ -57,7 +57,7 @@ fig.show()
 #
 # To control the annotation and labels on the colorbar, use the ``annot`` parameter to
 # set the annotation interval (in this case every 1,000 meters), the ``label`` and
-# ``unit``parameters to set the labels along the long and short dimensions of the
+# ``unit`` parameters to set the labels along the long and short dimensions of the
 # colorbar, respectively.
 #
 # By default, the CPT for the colorbar is the same as the one set in

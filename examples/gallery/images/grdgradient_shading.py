@@ -22,7 +22,7 @@ parameters.
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45])
@@ -58,10 +58,10 @@ with fig.subplot(
                     grid=grid,
                     shading=shade,
                     projection="M?",
-                    frame=[
-                        "a4f2",
-                        f"+tazimuth={azi}, normalize={normalize}, amp={amp}",
-                    ],
+                    frame=Frame(
+                        title=f"azimuth={azi}, normalize={normalize}, amp={amp}",
+                        axis=Axis(annot=4, tick=2),
+                    ),
                     cmap=True,
                     panel=True,
                 )

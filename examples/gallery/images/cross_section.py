@@ -14,7 +14,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Axis, Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Define region of study area
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
@@ -120,6 +120,12 @@ fig.plot(
 # Add map frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
-fig.basemap(frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"])
+fig.basemap(
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"),
+        yaxis=Axis(annot=4000, label="Elevation / m"),
+    )
+)
 
 fig.show()
