@@ -163,10 +163,9 @@ def grdmask(
     outside
     edge
     inside
-        Set the values assigned to nodes outside, on the edge, or inside the polygons.
-        Use ``1`` for keeping the values of the gird for these nodes. Use ``None``,
-        ``"NaN"``, and ``np.nan`` for setting them to NaN; and ``0`` to set them to
-        zero. Defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for
+        Set the value assigned to nodes outside, on the edge, or inside the polygons.
+        Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
+        Defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for
         ``inside``.
 
         ``edge`` and ``inside`` can also be set to one of the following values:
