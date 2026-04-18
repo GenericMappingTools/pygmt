@@ -168,6 +168,21 @@ def create_logo(  # noqa: PLR0915
         mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
         return t_x[mask], t_y[mask]
 
+    def _compass_lines():
+        """Compass (plot vertical line on top of letters G and M again at the end)."""
+        x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
+        compass_lines = [
+            ([-r0 * hex_factor, -r3], [0, 0]),  # horizontal lines
+            ([-r5, 0], [0, 0]),
+            ([r3, r0 * hex_factor], [0, 0]),
+            ([0, 0], [-r3, 0]),  # vertical line
+            ([-x1, -x2], [x1, x2]),  # upper left
+            ([-x1, -x2], [-x1, -x2]),  # lower left
+            ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
+            ([x1, x2], [-x1, -x2]),  # lower right
+        ]
+        return compass_lines
+
     fig = pygmt.Figure()
     fig.basemap(
         region=region, projection=projection, perspective=perspective, frame="none"
@@ -184,20 +199,9 @@ def create_logo(  # noqa: PLR0915
     fig.plot(fill=color_bg, **args_shape)
     # fig.show()
 
-    # Compass (plot vertical line on top of letters G and M again at the end)
-    x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
-    lines_compass = [
-        ([-r0 * hex_factor, -r3], [0, 0]),  # horizontal lines
-        ([-r5, 0], [0, 0]),
-        ([r3, r0 * hex_factor], [0, 0]),
-        ([0, 0], [-r3, 0]),  # vertical line
-        ([-x1, -x2], [x1, x2]),  # upper left
-        ([-x1, -x2], [-x1, -x2]),  # lower left
-        ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
-        ([x1, x2], [-x1, -x2]),  # lower right
-    ]
+    compass_lines = _compass_lines()
     # Non-horizontal compass lines
-    for x, y in lines_compass[4:]:
+    for x, y in compass_lines[4:]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         # fig.show()
 
@@ -205,7 +209,7 @@ def create_logo(  # noqa: PLR0915
     fig.plot(pen=f"{thick}c,{blue}", **args_shape)
     # fig.show()
     # Horizontal compass lines
-    for x, y in lines_compass[:4]:
+    for x, y in compass_lines[:4]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
         # fig.show()
 
