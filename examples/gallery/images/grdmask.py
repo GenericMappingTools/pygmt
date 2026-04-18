@@ -19,8 +19,8 @@ from shapely.geometry import Point
 # Define a study region
 region = [125, 135, 25, 36]
 
-# Define two closed polygons, here a quare and a triangle.
-# Use nan to separate the polygons
+# Define two closed polygons, here a square and a triangle.
+# Use an np.nan to separate the polygons
 polygon = np.array(
     [
         [129, 31],
@@ -54,7 +54,7 @@ grid_mask_in = grid * mask_in
 
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="oleron", series=[-2000, 2000])
+pygmt.makecpt(cmap="SCM/oleron", series=[-2000, 2000])
 
 # Plot the elevation grid
 fig.basemap(region=region, projection="M12c", frame=True)
@@ -98,7 +98,7 @@ grid_mask = grid * mask_lonlat
 
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="oleron", series=[-2000, 2000])
+pygmt.makecpt(cmap="SCM/oleron", series=[-2000, 2000])
 
 # Plot the elevation grid
 fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
@@ -134,7 +134,7 @@ grid_mask = grid * mask_lonlat
 
 
 fig = pygmt.Figure()
-pygmt.makecpt(cmap="oleron", series=[-2000, 2000])
+pygmt.makecpt(cmap="SCM/oleron", series=[-2000, 2000])
 
 # Plot the elevation grid
 fig.basemap(region=region, projection="M12c", frame=True)
