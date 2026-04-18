@@ -159,7 +159,7 @@ def create_logo(  # noqa: PLR0915
         return m_x, m_y, m_x1, m_x2
 
     def _letter_t_coords():
-       """Coordinates of the top curved horizontal line for letter T."""
+        """Coordinates of the top curved horizontal line for letter T."""
         outer_angles = np.deg2rad(np.arange(150, 210))
         inner_angles = outer_angles[::-1]
         t_x = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
