@@ -171,7 +171,7 @@ def create_logo(  # noqa: PLR0915
         """Coordinates of Upper vertical red line."""
         red_line_x = [0, 0]
         red_line_y = [vline_y, r3]
-        return red_line_y, red_line_x
+        return red_line_x, red_line_y
 
     fig = pygmt.Figure()
     fig.basemap(
