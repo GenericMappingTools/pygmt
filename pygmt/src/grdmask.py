@@ -128,14 +128,14 @@ def grdmask(
     """
     Create mask grid from polygons or point coverage.
 
-    Reads one or more files containing polygon or data point coordinates, and creates a
-    grid where nodes that fall inside, on the edge, or outside the polygons (or within
-    the search radius from data points) are assigned values based on the ``outside``,
-    ``edge``, and ``inside`` parameters.
+    Takes one or more polygons or data point coordinates, and creates a grid where nodes
+    that fall inside, on the edge, or outside the polygons or within the search radius
+    from data points are assigned values based on the ``outside``, ``edge``, and
+    ``inside`` parameters.
 
-    The mask grid can be used to mask out specific regions in other grids using
-    :func:`pygmt.grdmath` or similar tools. For masking based on coastline features,
-    consider using :func:`pygmt.grdlandmask` instead.
+    The mask grid can be used to mask out specific regions from another grid. For
+    masking based on coastline features, consider using :func:`pygmt.grdlandmask`
+    instead.
 
     Full GMT docs at :gmt-docs:`grdmask.html`.
 
@@ -156,7 +156,7 @@ def grdmask(
         Pass in either a file name to an ASCII data table, a 2-D $table_classes
         containing the polygon(s) or data points. Input can be:
 
-        - **Polygon mode**: One or more files containing closed polygon coordinates
+        - **Polygon mode**: One or more polygons with closed coordinates
         - **Point coverage mode**: Data points (used with ``search_radius`` parameter)
     $outgrid
     $spacing
@@ -165,10 +165,13 @@ def grdmask(
     inside
         Set the value assigned to nodes outside, on the edge, or inside the polygons.
         Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
+        Defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for
+        ``inside``. When setting these values, keep in mind you are creating a mask grid
+        which is thought to be applied to a real grid in a second step.
 
-        ``inside`` and ``edge`` can also be set to one of the following values:
+        ``edge`` and ``inside`` can also be set to one of the following values:
 
-        - ``"z"``: Use the z-value from polygon data (segment header ``-Zzval``,
+        - ``"z"``: Use the z-values from polygon data (segment header ``-Zzval``,
           ``-Lheader``, or via ``-aZ=name``).
         - ``"id"``: Use a running polygon ID number.
 

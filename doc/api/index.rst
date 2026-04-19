@@ -128,7 +128,6 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
-    grdmask
     nearneighbor
     project
     select
@@ -158,6 +157,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdmask
     grdpaste
     grdproject
     grdsample

@@ -3,6 +3,7 @@ The Axis and Frame classes for specifying the frame.
 """
 
 import dataclasses
+from typing import Literal
 
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTParameterError
@@ -45,6 +46,11 @@ class Axis(BaseParam):
     #: Specify the interval for gridlines. Same format as ``annot``.
     grid: float | str | bool = False
 
+    #: Skip annotations that fall exactly at the ends of the axis. Set to ``True`` to
+    #: skip both ends, or use ``"lower"``/``"upper"`` to skip only the lower/upper
+    #: end.
+    end_skip: Literal["lower", "upper"] | bool = False
+
     #: Label for the axis [Default is no label].
     label: str | None = None
 
@@ -73,6 +79,12 @@ class Axis(BaseParam):
             Alias(self.annot, name="annot", prefix="a"),
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
+            Alias(
+                self.end_skip,
+                name="end_skip",
+                prefix="+e",
+                mapping={"lower": "l", "upper": "u"},
+            ),
             Alias(self.label, name="label", prefix="+l"),
             Alias(self.alt_label, name="alt_label", prefix="+s"),
             Alias(self.hlabel, name="hlabel", prefix="+L"),
