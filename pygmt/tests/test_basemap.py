@@ -4,6 +4,7 @@ Test Figure.basemap.
 
 import pytest
 from pygmt import Figure
+from pygmt.params import Axis, Frame
 
 
 @pytest.mark.benchmark
@@ -13,7 +14,11 @@ def test_basemap():
     Create a simple basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(
+        region=[10, 70, -3, 8],
+        projection="X8c/6c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -26,7 +31,11 @@ def test_basemap_loglog():
     fig.basemap(
         region=[1, 10000, 1e20, 1e25],
         projection="X16cl/12cl",
-        frame=["WS", "x2+lWavelength", "ya1pf3+lPower"],
+        frame=Frame(
+            axes="WS",
+            xaxis=Axis(annot=2, label="Wavelength"),
+            yaxis=Axis(annot="1p", tick=3, label="Power"),
+        ),
     )
     return fig
 
@@ -40,7 +49,10 @@ def test_basemap_power_axis():
     fig.basemap(
         region=[0, 100, 0, 5000],
         projection="x1p0.5/-0.001",
-        frame=["x1p+lCrustal age", "y500+lDepth"],
+        frame=Frame(
+            xaxis=Axis(annot="1p", label="Crustal age"),
+            yaxis=Axis(annot=500, label="Depth"),
+        ),
     )
     return fig
 
@@ -51,7 +63,11 @@ def test_basemap_polar():
     Create a polar basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[0, 360, 0, 1000], projection="P8c", frame="afg")
+    fig.basemap(
+        region=[0, 360, 0, 1000],
+        projection="P8c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -61,7 +77,11 @@ def test_basemap_winkel_tripel():
     Create a Winkel Tripel basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[90, 450, -90, 90], projection="R270/20c", frame="afg")
+    fig.basemap(
+        region=[90, 450, -90, 90],
+        projection="R270/20c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -84,7 +104,11 @@ def test_basemap_utm_projection(projection):
         "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
-    fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
+    fig.basemap(
+        region=[-52, -50, -12, -11],
+        projection=projection,
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 

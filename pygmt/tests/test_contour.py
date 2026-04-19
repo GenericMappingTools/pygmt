@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
+from pygmt.params import Axis
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -44,7 +45,15 @@ def test_contour_vec(region):
     y = y.flatten()
     z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
     z = np.exp(-z / 10**2 * np.log(2))
-    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
+    fig.contour(
+        x=x,
+        y=y,
+        z=z,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True),
+        pen=True,
+    )
     return fig
 
 
@@ -60,7 +69,11 @@ def test_contour_matrix(array_func, data, region):
     """
     fig = Figure()
     fig.contour(
-        data=array_func(data), projection="X10c", region=region, frame="ag", pen=True
+        data=array_func(data),
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, grid=True),
+        pen=True,
     )
     return fig
 
@@ -72,7 +85,11 @@ def test_contour_from_file(region):
     """
     fig = Figure()
     fig.contour(
-        data=POINTS_DATA, projection="X10c", region=region, frame="af", pen="#ffcb87"
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        pen="#ffcb87",
     )
     return fig
 
@@ -87,7 +104,7 @@ def test_contour_interval(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=0.1,
         annotation=0.2,
         pen=True,
@@ -105,7 +122,7 @@ def test_contour_one_level(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=[0.4],
         annotation=[0.5],
         pen=True,
@@ -123,7 +140,7 @@ def test_contour_multiple_levels(region):
         data=POINTS_DATA,
         projection="X10c",
         region=region,
-        frame="af",
+        frame=Axis(annot=True, tick=True),
         levels=[0.2, 0.3],
         annotation=[0.4, 0.45],
         pen=True,
@@ -160,7 +177,7 @@ def test_contour_incols_transposed_data(region):
         data,
         projection="X10c",
         region=region,
-        frame="a",
+        frame=Axis(annot=True),
         pen=True,
         incols=[1, 0, 2],
     )
