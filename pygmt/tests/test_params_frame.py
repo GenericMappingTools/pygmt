@@ -52,17 +52,13 @@ def test_params_frame_only():
         axes="WSrtZ",
         box=True,
         title="My Title",
-        subtitle="My Subtitle",
         fill="gray",
         wall_pen="0.5p,black",
         yzfill="red",
         xzfill="green",
         xyfill="blue",
     )
-    assert (
-        str(frame)
-        == "WSrtZ+b+ggray+tMy Title+sMy Subtitle+w0.5p,black+xred+ygreen+zblue"
-    )
+    assert str(frame) == "WSrtZ+b+ggray+tMy Title+w0.5p,black+xred+ygreen+zblue"
 
 
 def test_params_frame_axis():

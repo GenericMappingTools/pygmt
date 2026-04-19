@@ -115,10 +115,10 @@ class _Axes(BaseParam):
     def _aliases(self):
         return [
             Alias(self.axes, name="axes"),
-            Alias(self.box, name="box", prefix="+b"),
             Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
             Alias(self.subtitle, name="subtitle", prefix="+s"),
+            Alias(self.box, name="box", prefix="+b"),
             Alias(self.wall_pen, name="wall_pen", prefix="+w"),
             Alias(self.yzfill, name="yzfill", prefix="+x"),
             Alias(self.xzfill, name="xzfill", prefix="+y"),
@@ -219,19 +219,20 @@ class Frame(BaseParam):
     #: fill].
     fill: str | None = None
 
-    #: Draw the foreground lines of a 3-D box.
+    #: Draw the foreground lines of a 3-D box. [For 3-D plots only]
     box: bool = False
 
-    #: Pen for the outlines of the side walls in a 3-D plot.
+    #: Draw the outlines of the x-z and y-z planes by the specified pen attributes.
+    #: If ``True``, use the default pen. [For 3-D plots only]
     wall_pen: str | bool = False
 
-    #: Fill for the yz-plane (the plane normal to the x-axis) in a 3-D plot.
+    #: Fill for the yz-plane (the plane normal to the x-axis). [For 3-D plots only]
     yzfill: str | None = None
 
-    #: Fill for the xz-plane (the plane normal to the y-axis) in a 3-D plot.
+    #: Fill for the xz-plane (the plane normal to the y-axis). [For 3-D plots only]
     xzfill: str | None = None
 
-    #: Fill for the xy-plane (the plane normal to the z-axis) in a 3-D plot.
+    #: Fill for the xy-plane (the plane normal to the z-axis). [For 3-D plots only]
     xyfill: str | None = None
 
     #: Specify the attributes for axes by an :class:`Axis` object.
