@@ -245,7 +245,7 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
 
     # Extra vertical compass line above letters G and M.
-    fig.plot(x=[0, 0], y=[-r5 * 0.9, r3], pen=f"{thin}c,{yellow}", perspective=True)
+    fig.plot(x=[0, 0], y=[-thicker / 2, r3], pen=f"{thin}c,{yellow}", perspective=True)
     # fig.show()
 
     # Outline around the shape for black and white color with dark theme
