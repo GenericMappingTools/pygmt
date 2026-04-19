@@ -110,20 +110,20 @@ def create_logo(  # noqa: PLR0915
     def _letter_m_coords():
         """Coordinates for letter M."""
         # X coordinates from left to right.
-        m_x1 = thick_gap  # Left edge of left vertical line of M.
-        m_x5 = r4  # Right edge of right vertical line of M.
-        m_x2 = m_x1 + thick_m  # Right edge of left vertical line of M.
-        m_x3 = (m_x1 + m_x5) / 2  # The middle of M.
-        m_x4 = m_x5 - thick_m  # Left edge of right vertical line of M.
+        x1 = thick_gap  # Left edge of left vertical line of M.
+        x5 = r4  # Right edge of right vertical line of M.
+        x2 = x1 + thick_m  # Right edge of left vertical line of M.
+        x3 = (x1 + x5) / 2  # The middle of M.
+        x4 = x5 - thick_m  # Left edge of right vertical line of M.
         # Y coordinates from bottom to top.
-        m_y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
-        m_y2 = r5 - thick_gt  # Bottom of the middle peak of M.
-        m_y3 = r5  # Top of the middle peak of M.
-        m_y4 = r4  # Top of letter M.
+        y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
+        y2 = r5 - thick_gt  # Bottom of the middle peak of M.
+        y3 = r5  # Top of the middle peak of M.
+        y4 = r4  # Top of letter M.
         # X- and Y-coordinates of the letter M, starting from the left edge of the left
         # vertical line and going clockwise.
-        m_x = [m_x1, m_x1, m_x2, m_x3, m_x4, m_x5, m_x5, m_x4, m_x4, m_x3, m_x2, m_x2]
-        m_y = [m_y1, m_y4, m_y4, m_y3, m_y4, m_y4, m_y1, m_y1, m_y3, m_y2, m_y3, m_y1]
+        m_x = [x1, x1, x2, x3, x4, x5, x5, x4, x4, x3, x2, x2]
+        m_y = [y1, y4, y4, y3, y4, y4, y1, y1, y3, y2, y3, y1]
         return {"x": m_x, "y": m_y}
 
     def _letter_t_coords():
