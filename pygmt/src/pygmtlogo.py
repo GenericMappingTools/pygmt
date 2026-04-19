@@ -220,7 +220,7 @@ def create_logo(  # noqa: PLR0915
 
     # The arrow
     fig.plot(
-        data=[[0, -r2, 0, arrow_y * 1.05]],
+        data=[[0, -r2, 0, arrow_y - thick_comp]],
         pen=color_bg,
         style=f"v{thick_shape + thick_comp * 2}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
