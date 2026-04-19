@@ -133,7 +133,7 @@ def create_logo(  # noqa: PLR0915
         t_x = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
         t_y = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
         # Ensure the same X coordinate for the right edge of T and the middle of M.
-        mask = np.abs(t_x) <= (thick_gap + (r4 - thick_gap) / 2)
+        mask = np.abs(t_x) <= (thick_gap + r4) / 2
         return {"x": t_x[mask], "y": t_y[mask]}
 
     def _compass_lines():
