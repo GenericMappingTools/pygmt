@@ -200,6 +200,7 @@ def create_logo(  # noqa: PLR0915
     # Blue outlined circle / hexagon for Earth
     fig.plot(pen=f"{thick}c,{blue}", **args_shape)
     # fig.show()
+
     # Horizontal compass lines
     for x, y in compass_lines[:4]:
         fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
@@ -228,6 +229,7 @@ def create_logo(  # noqa: PLR0915
     # Letter T: red curved horizontal line
     fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
     # fig.show()
+
     # The arrow
     fig.plot(
         data=[[0, -r2, 0, arrow_y * 1.05]],
