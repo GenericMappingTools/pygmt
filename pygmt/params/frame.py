@@ -102,17 +102,27 @@ class _Axes(BaseParam):
     """
 
     axes: str | None = None
+    box: bool = False
     title: str | None = None
     subtitle: str | None = None
     fill: str | None = None
+    wall_pen: str | bool = False
+    yzfill: str | None = None
+    xzfill: str | None = None
+    xyfill: str | None = None
 
     @property
     def _aliases(self):
         return [
             Alias(self.axes, name="axes"),
+            Alias(self.box, name="box", prefix="+b"),
             Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
             Alias(self.subtitle, name="subtitle", prefix="+s"),
+            Alias(self.wall_pen, name="wall_pen", prefix="+w"),
+            Alias(self.yzfill, name="yzfill", prefix="+x"),
+            Alias(self.xzfill, name="xzfill", prefix="+y"),
+            Alias(self.xyfill, name="xyfill", prefix="+z"),
         ]
 
 
@@ -209,6 +219,21 @@ class Frame(BaseParam):
     #: fill].
     fill: str | None = None
 
+    #: Draw the foreground lines of a 3-D box.
+    box: bool = False
+
+    #: Pen for the outlines of the side walls in a 3-D plot.
+    wall_pen: str | bool = False
+
+    #: Fill for the yz-plane (the plane normal to the x-axis) in a 3-D plot.
+    yzfill: str | None = None
+
+    #: Fill for the xz-plane (the plane normal to the y-axis) in a 3-D plot.
+    xzfill: str | None = None
+
+    #: Fill for the xy-plane (the plane normal to the z-axis) in a 3-D plot.
+    xyfill: str | None = None
+
     #: Specify the attributes for axes by an :class:`Axis` object.
     #:
     #: The attributes for x and y axes can be specified in two ways: (1) specifying the
@@ -260,7 +285,15 @@ class Frame(BaseParam):
         # _Axes() maps to an empty string, which becomes '-B' without arguments and is
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
         frame_settings = _Axes(
-            axes=self.axes, title=self.title, subtitle=self.subtitle, fill=self.fill
+            axes=self.axes,
+            box=self.box,
+            title=self.title,
+            subtitle=self.subtitle,
+            fill=self.fill,
+            wall_pen=self.wall_pen,
+            yzfill=self.yzfill,
+            xzfill=self.xzfill,
+            xyfill=self.xyfill,
         )
         has_secondary_xy_axis = any([self.axis2, self.xaxis2, self.yaxis2])
         return [
