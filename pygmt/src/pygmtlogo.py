@@ -142,17 +142,22 @@ def create_logo(  # noqa: PLR0915
         Plot vertical line on top of letters G and M again at the end.
         """
         x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
-        compass_lines = [
-            ([-r0 * hex_factor, -r3], [0, 0]),  # horizontal lines
-            ([-r5, 0], [0, 0]),
-            ([r3, r0 * hex_factor], [0, 0]),
-            ([0, 0], [-r3, 0]),  # vertical line
-            ([-x1, -x2], [x1, x2]),  # upper left
-            ([-x1, -x2], [-x1, -x2]),  # lower left
-            ([x1, x2 + (r4 - r5)], [x1, x2 + (r4 - r5)]),  # upper right
-            ([x1, x2], [-x1, -x2]),  # lower right
-        ]
-        return compass_lines
+        # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
+        return {
+            "hline": [
+                (-r0 * hex_factor, 0, -r3, 0),
+                (-r5, 0, 0, 0),
+                (r3, 0, r0 * hex_factor, 0),
+            ],
+            "diagonal": [
+                (-x1, x1, -x2, x2),  # upper left
+                (-x1, -x1, -x2, -x2),  # lower left
+                (x1, x1, x2 + (r4 - r5), x2 + (r4 - r5)),  # upper right
+                (x1, -x1, x2, -x2),  # lower right
+            ],
+            "vline1": [(0, -r3, 0, 0)],
+            "vline2": [(0, -thick_shape / 2, 0, r3)],
+        }
 
     def _red_line_coords():
         """Coordinates of upper vertical red line."""
@@ -178,19 +183,19 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
 
     compass_lines = _compass_lines()
+    args_compass = {
+        "pen": f"{thick_comp}c,{yellow}", "perspective": True, "style": "v0c+s",
+    }
     # Non-horizontal compass lines
-    for x, y in compass_lines[4:]:
-        fig.plot(x=x, y=y, pen=f"{thick_comp}c,{yellow}", perspective=True)
-        # fig.show()
+    fig.plot(data=compass_lines["diagonal"], **args_compass)
 
     # Blue outlined circle / hexagon for Earth
     fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
-    # Horizontal compass lines
-    for x, y in compass_lines[:4]:
-        fig.plot(x=x, y=y, pen=f"{thick_comp}c,{yellow}", perspective=True)
-        # fig.show()
+    # Horizontal and vertical compass lines
+    fig.plot(data=compass_lines["hline"], **args_compass)
+    fig.plot(data=compass_lines["vline1"], **args_compass)
 
     # Letter G
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
@@ -234,14 +239,8 @@ def create_logo(  # noqa: PLR0915
     )
     # fig.show()
 
-    # Extra vertical compass line above letters G and M.
-    fig.plot(
-        x=[0, 0],
-        y=[-thick_shape / 2, r3],
-        pen=f"{thick_comp}c,{yellow}",
-        perspective=True,
-    )
-    # fig.show()
+    # Vertical compass line above letters G and M.
+    fig.plot(data=compass_lines["vline2"], **args_compass)
 
     # Outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
