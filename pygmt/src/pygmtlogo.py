@@ -121,21 +121,21 @@ def create_logo(  # noqa: PLR0915
             m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
             m_x1 + m_x2 / 5,  # left pick below
         ]
-        m_y1 = (r4 - r5) / 2 * 1.2
+        m_y1 = (r4 - r5) / 2 * 1.25  # horizontal gab between the letters G and M
         m_y2 = r4
         m_y = [
             m_y1,  # vertical left upwards
             m_y1,
             m_y2,
             m_y2,
-            m_y2 - m_y2 / 4,  # mid pick above
+            r5, #m_y2 - m_y2 / 4,  # mid pick above
             m_y2,  # vertical right downwards
             m_y2,
             m_y1,
             m_y1,
-            m_y2 - m_y2 / 3,  # right pick below
-            m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
-            m_y2 - m_y2 / 3,  # left pick below
+            r5, #m_y2 - m_y2 / 3,  # right pick below
+            r5 - (r4 - r5), #m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
+            r5, #m_y2 - m_y2 / 3,  # left pick below
         ]
         return m_x, m_y, m_x1, m_x2
 
