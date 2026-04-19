@@ -103,7 +103,7 @@ def create_logo(  # noqa: PLR0915
         # Combine all coordinates (outer arc, connectors, inner arc)
         g_x = np.concatenate([arc_outer_x, connector_x, arc_inner_x])
         g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
-        return g_x, g_y
+        return {"x": g_x, "y": g_y}
 
     def _letter_m_coords():
         """Coordinates for letter M."""
@@ -149,7 +149,7 @@ def create_logo(  # noqa: PLR0915
         t_y = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
         # Ensure the same X coordinate for the right edge of T and the middle of M.
         mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
-        return t_x[mask], t_y[mask]
+        return {"x": t_x[mask], "y": t_y[mask]}
 
     def _compass_lines():
         """
@@ -206,8 +206,7 @@ def create_logo(  # noqa: PLR0915
         # fig.show()
 
     # Letter G
-    g_x, g_y = _letter_g_coords()
-    fig.plot(x=g_x, y=g_y, fill=red, perspective=True)
+    fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
     # fig.show()
 
     # Upper vertical red line
@@ -227,8 +226,7 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
 
     # Letter T: red curved horizontal line
-    t_x, t_y = _letter_t_coords()
-    fig.plot(x=t_x, y=t_y, fill=red, perspective=True)
+    fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
     # fig.show()
     # The arrow
     fig.plot(
