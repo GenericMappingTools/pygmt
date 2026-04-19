@@ -109,35 +109,21 @@ def create_logo(  # noqa: PLR0915
 
     def _letter_m_coords():
         """Coordinates for letter M."""
-        m_x = [
-            thick_gap + thick_m,  # vertical left upwards
-            thick_gap,
-            thick_gap,
-            thick_gap + thick_m,
-            thick_gap + (r4 - thick_gap) / 2,  # mid pick above
-            r4 - thick_m,  # vertical right downwards
-            r4,
-            r4,
-            r4 - thick_m,
-            r4 - thick_m,  # right pick below
-            thick_gap + (r4 - thick_gap) / 2,  # mid pick below
-            thick_gap + thick_m,  # left pick below
-        ]
+        # X coordinates from left to right.
+        m_x1 = thick_gap  # Left edge of left vertical line of M.
+        m_x5 = r4  # Right edge of right vertical line of M.
+        m_x2 = m_x1 + thick_m  # Right edge of left vertical line of M.
+        m_x3 = (m_x1 + m_x5) / 2  # The middle of M.
+        m_x4 = m_x5 - thick_m  # Left edge of right vertical line of M.
+        # Y coordinates from bottom to top.
         m_y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
-        m_y = [
-            m_y1,  # vertical left upwards
-            m_y1,
-            r4,
-            r4,
-            r5,  # mid pick above
-            r4,  # vertical right downwards
-            r4,
-            m_y1,
-            m_y1,
-            r5,  # right pick below
-            r5 - thick_gt,  # mid pick below
-            r5,  # left pick below
-        ]
+        m_y2 = r5 - (r4 - r5)  # Bottom of the middle peak of M.
+        m_y3 = r5  # Top of the middle peak of M.
+        m_y4 = r4  # Top of letter M.
+        # X- and Y-coordinates of the letter M, starting from the left edge of the left
+        # vertical line and going clockwise.
+        m_x = [m_x1, m_x1, m_x2, m_x3, m_x4, m_x5, m_x5, m_x4, m_x4, m_x3, m_x2, m_x2]
+        m_y = [m_y1, m_y4, m_y4, m_y3, m_y4, m_y4, m_y1, m_y1, m_y3, m_y2, m_y3, m_y1]
         return {"x": m_x, "y": m_y}
 
     def _letter_t_coords():
