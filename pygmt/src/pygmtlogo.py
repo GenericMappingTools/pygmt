@@ -33,9 +33,9 @@ def create_logo(  # noqa: PLR0915
         [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
     # Pen thicknesses
-    thick = r0 - r1  # for shape
-    middle = r4 - r5  # for letters
-    thin = thick / 3  # for compass lines
+    thicker = r0 - r1  # for shape
+    thick = r4 - r5  # for letters
+    thin = thicker / 3  # for compass lines
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -103,7 +103,7 @@ def create_logo(  # noqa: PLR0915
         # Combine all coordinates (outer arc, connectors, inner arc)
         g_x = np.concatenate([arc_outer_x, connector_x, arc_inner_x])
         g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
-        return {"x": g_x, "y": g_y}
+        return {"x": g_x, "y": g_y}
 
     def _letter_m_coords():
         """Coordinates for letter M."""
@@ -130,14 +130,14 @@ def create_logo(  # noqa: PLR0915
             m_y1,
             m_y2,
             m_y2,
-            r5, #m_y2 - m_y2 / 4,  # mid pick above
+            r5,  # m_y2 - m_y2 / 4,  # mid pick above
             m_y2,  # vertical right downwards
             m_y2,
             m_y1,
             m_y1,
-            r5, #m_y2 - m_y2 / 3,  # right pick below
-            r5 - (r4 - r5), #m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
-            r5, #m_y2 - m_y2 / 3,  # left pick below
+            r5,  # m_y2 - m_y2 / 3,  # right pick below
+            r5 - (r4 - r5),  # m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
+            r5,  # m_y2 - m_y2 / 3,  # left pick below
         ]
         return m_x, m_y, m_x1, m_x2
 
@@ -198,7 +198,7 @@ def create_logo(  # noqa: PLR0915
         # fig.show()
 
     # Blue outlined circle / hexagon for Earth
-    fig.plot(pen=f"{thick}c,{blue}", **args_shape)
+    fig.plot(pen=f"{thicker}c,{blue}", **args_shape)
     # fig.show()
 
     # Horizontal compass lines
@@ -214,11 +214,11 @@ def create_logo(  # noqa: PLR0915
     # Space between red line and blue circle / hexagon
     red_line_x, red_line_y = _red_line_coords()
     fig.plot(
-        x=red_line_x, y=red_line_y, pen=f"{middle * 1.45}c,{color_bg}", perspective=True
+        x=red_line_x, y=red_line_y, pen=f"{thick * 1.45}c,{color_bg}", perspective=True
     )
     # fig.show()
     # red line
-    fig.plot(x=red_line_x, y=red_line_y, pen=f"{middle}c,{red}", perspective=True)
+    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick}c,{red}", perspective=True)
     # fig.show()
 
     # Letter M
@@ -234,14 +234,14 @@ def create_logo(  # noqa: PLR0915
     fig.plot(
         data=[[0, -r2, 0, arrow_y * 1.05]],
         pen=color_bg,
-        style=f"v{thick * 1.45}c+s+e+h0+a60+g{color_bg}",
+        style=f"v{thicker * 1.45}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     # fig.show()
     fig.plot(
         data=[[0, -r3, 0, arrow_y]],
-        pen=f"{middle}c,{red}",
-        style=f"v{thick * 1.4}c+s+e+h0+a60+g{red}",
+        pen=f"{thick}c,{red}",
+        style=f"v{thicker * 1.4}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
     # fig.show()
