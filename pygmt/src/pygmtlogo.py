@@ -116,7 +116,7 @@ def create_logo(  # noqa: PLR0915
         x3 = (x1 + x5) / 2  # The middle of M.
         x4 = x5 - thick_m  # Left edge of right vertical line of M.
         # Y coordinates from bottom to top.
-        y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
+        y1 = thick_gt / 2 + thick_gap  # Bottom of the letter M.
         y2 = r5 - thick_gt  # Bottom of the middle peak of M.
         y3 = r5  # Top of the middle peak of M.
         y4 = r4  # Top of letter M.
