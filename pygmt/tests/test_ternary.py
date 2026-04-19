@@ -138,6 +138,24 @@ def test_ternary_axis(array):
 
 
 @pytest.mark.mpl_image_compare
+def test_ternary_frame_string(array):
+    """
+    Test plotting a ternary chart with frame as a string.
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        frame="afg",
+        style="c0.1c",
+        pen="thinnest",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_ternary_no_frame(array):
     """
     Test plotting a ternary chart with frame set to "none".

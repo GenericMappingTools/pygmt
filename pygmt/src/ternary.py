@@ -38,7 +38,7 @@ def _ternary_frame(frame):
     --------
     >>> from pygmt.params import Axis, Frame
     >>> _ternary_frame(Axis(annot=True, tick=True, grid=True))
-    'afg'
+    ['afg', '']
     >>> _ternary_frame(
     ...     Frame(title="Title", axis=Axis(annot=True, tick=True, grid=True))
     ... )
@@ -70,7 +70,10 @@ def _ternary_frame(frame):
     pygmt.exceptions.GMTValueError: ...
     """
     if isinstance(frame, Axis):
-        return str(frame)
+        axis_str = str(frame)
+        if axis_str:
+            return [axis_str, ""]
+        return axis_str
     if isinstance(frame, Frame):
         _attributes = ["title", "subtitle", "fill", "axis", "xaxis", "yaxis", "zaxis"]
         if any(
@@ -92,7 +95,15 @@ def _ternary_frame(frame):
             Alias(frame.yaxis, prefix="b"),
             Alias(frame.zaxis, prefix="c"),
         ]
-        return [par._value for par in params if par._value is not None]
+        result = [par._value for par in params if par._value is not None]
+        # When only general axis settings are used without frame-level settings
+        # (title/fill) or axis-specific settings (xaxis/yaxis/zaxis), GMT needs
+        # a bare -B to draw the frame border. E.g., -Bafg alone doesn't draw it.
+        if not str(frame_settings) and not any((frame.xaxis, frame.yaxis, frame.zaxis)):
+            result.append("")
+        return result
+    if isinstance(frame, str) and frame not in {"", "none", "+n"}:
+        return [frame, ""]
     return frame
 
 
