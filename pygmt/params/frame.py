@@ -287,10 +287,10 @@ class Frame(BaseParam):
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
         frame_settings = _Axes(
             axes=self.axes,
-            box=self.box,
             title=self.title,
             subtitle=self.subtitle,
             fill=self.fill,
+            box=self.box,
             wall_pen=self.wall_pen,
             yzfill=self.yzfill,
             xzfill=self.xzfill,
