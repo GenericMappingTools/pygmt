@@ -95,7 +95,7 @@ def create_logo(  # noqa: PLR0915
         """Coordinates for letter G."""
         outer_angles = np.deg2rad(np.arange(90, 361))
         inner_angles = outer_angles[::-1]
-        offset = (r4 - r5) / 2
+        offset = thick_gt / 2
         # Outer arc (r4)
         arc_outer_x, arc_outer_y = np.cos(outer_angles) * r4, np.sin(outer_angles) * r4
         # Connecting lines
@@ -117,7 +117,7 @@ def create_logo(  # noqa: PLR0915
         m_x4 = m_x5 - thick_m  # Left edge of right vertical line of M.
         # Y coordinates from bottom to top.
         m_y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
-        m_y2 = r5 - (r4 - r5)  # Bottom of the middle peak of M.
+        m_y2 = r5 - thick_gt  # Bottom of the middle peak of M.
         m_y3 = r5  # Top of the middle peak of M.
         m_y4 = r4  # Top of letter M.
         # X- and Y-coordinates of the letter M, starting from the left edge of the left
