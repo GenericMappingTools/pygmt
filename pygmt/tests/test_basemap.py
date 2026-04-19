@@ -180,7 +180,11 @@ def test_basemap_frame_sequence_true():
     Test for https://github.com/GenericMappingTools/pygmt/issues/3981.
     """
     fig = Figure()
-    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=[True, "WSen"])
+    fig.basemap(
+        region=[0, 10, 0, 10],
+        projection="X10c",
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True)),
+    )
     return fig
 
 
