@@ -34,8 +34,9 @@ def create_logo(  # noqa: PLR0915
     )
     # Pen thicknesses
     thicker = r0 - r1  # for shape
-    thick = r4 - r5  # for letters
+    thick = r4 - r5  # for letters G and T
     thin = thicker / 3  # for compass lines
+    thinner = thin / 2  # for letter M
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -105,41 +106,39 @@ def create_logo(  # noqa: PLR0915
         g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
         return {"x": g_x, "y": g_y}
 
+    # m_x2 = r4
     def _letter_m_coords():
         """Coordinates for letter M."""
-        m_x1 = thin / 2  # Half of the pen thickness of compass lines.
-        m_x2 = r4
         m_x = [
-            m_x1 + m_x2 / 5,  # vertical left upwards
-            m_x1,
-            m_x1,
-            m_x1 + m_x2 / 5,
-            m_x1 + (m_x2 - m_x1) / 2,  # mid pick above
-            m_x2 - m_x2 / 5,  # vertical right downwards
-            m_x2,
-            m_x2,
-            m_x2 - m_x2 / 5,
-            m_x2 - m_x2 / 5,  # right pick below
-            m_x1 + (m_x2 - m_x1) / 2,  # mid pick below
-            m_x1 + m_x2 / 5,  # left pick below
+            thinner + r4 / 5,  # vertical left upwards
+            thinner,
+            thinner,
+            thinner + r4 / 5,
+            thinner + (r4 - thinner) / 2,  # mid pick above
+            r4 - r4 / 5,  # vertical right downwards
+            r4,
+            r4,
+            r4 - r4 / 5,
+            r4 - r4 / 5,  # right pick below
+            thinner + (r4 - thinner) / 2,  # mid pick below
+            thinner + r4 / 5,  # left pick below
         ]
         m_y1 = (r4 - r5) / 2 * 1.25  # horizontal gab between the letters G and M
-        m_y2 = r4
         m_y = [
             m_y1,  # vertical left upwards
             m_y1,
-            m_y2,
-            m_y2,
+            r4,
+            r4,
             r5,  # m_y2 - m_y2 / 4,  # mid pick above
-            m_y2,  # vertical right downwards
-            m_y2,
+            r4,  # vertical right downwards
+            r4,
             m_y1,
             m_y1,
             r5,  # m_y2 - m_y2 / 3,  # right pick below
             r5 - (r4 - r5),  # m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
             r5,  # m_y2 - m_y2 / 3,  # left pick below
         ]
-        return m_x, m_y, m_x1, m_x2
+        return {"x": m_x, "y": m_y}
 
     def _letter_t_coords():
         """Coordinates of the top curved horizontal line for letter T."""
@@ -148,7 +147,7 @@ def create_logo(  # noqa: PLR0915
         t_x = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
         t_y = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
         # Ensure the same X coordinate for the right edge of T and the middle of M.
-        mask = np.abs(t_x) <= (m_x1 + (m_x2 - m_x1) / 2)
+        mask = np.abs(t_x) <= (thinner + (r4 - thinner) / 2)
         return {"x": t_x[mask], "y": t_y[mask]}
 
     def _compass_lines():
@@ -175,6 +174,7 @@ def create_logo(  # noqa: PLR0915
         red_line_y = [vline_y, r3]
         return red_line_x, red_line_y
 
+    # %%
     fig = pygmt.Figure()
     fig.basemap(
         region=region, projection=projection, perspective=perspective, frame="none"
@@ -222,8 +222,7 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
 
     # Letter M
-    m_x, m_y, m_x1, m_x2 = _letter_m_coords()
-    fig.plot(x=m_x, y=m_y, fill=red, perspective=True)
+    fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
     # fig.show()
 
     # Letter T: red curved horizontal line
