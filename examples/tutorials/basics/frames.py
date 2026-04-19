@@ -23,9 +23,10 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.show()
 
 # %%
-# To add the default GMT frame style to the plot, use ``frame=Axis(tick=True)`` in
-# :meth:`pygmt.Figure.basemap` or another plotting method (which has the
-# ``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
+# To add the default GMT frame style to the plot, use
+# ``frame=Axis(tick=True)`` in :meth:`pygmt.Figure.basemap` or another
+# plotting method (which has the ``frame`` parameter, with the exception of
+# :meth:`pygmt.Figure.colorbar`):
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
@@ -37,14 +38,13 @@ fig.show()
 # Ticks and grid lines
 # --------------------
 #
-# The automatic frame (``frame=True`` or ``frame=Axis(annot=True, tick=True)``)
-# adds the default GMT
-# frame style and automatically determines tick labels from the plot region.
-# In GMT the tick labels are called **a**\ nnotations.
+# The automatic frame (``frame=True``) adds the default GMT frame style and
+# automatically determines tick labels from the plot region. In GMT the tick
+# labels are called **a**\ nnotations.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame=Axis(annot=True, tick=True))
+fig.basemap(frame=True)
 fig.show()
 
 # %%
@@ -85,17 +85,17 @@ fig.show()
 # Axis labels
 # -----------
 #
-# Axis labels, in GMT simply called labels, can be set through the ``xaxis`` and
-# ``yaxis`` parameters of :class:`Frame`. The map boundaries (or plot axes) are
-# named as West/west/left (**W**, **w**, **l**), South/south/bottom
-# (**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
-# East/east/right (**E**, **e**, **r**) sides of a figure. If an uppercase
-# letter (**W**, **S**, **N**, **E**) is passed, the axis is plotted with
-# tick marks and annotations. The lowercase version (**w**, **s**, **n**, **e**)
-# plots the axis only with tick marks. To only plot the axis pass **l**, **b**,
-# **t**, **r**. By default (``frame=True`` or
-# ``frame=Axis(annot=True, tick=True)``), the West and the South axes are plotted
-# with both tick marks and annotations.
+# Axis labels, in GMT simply called labels, can be set through the ``xaxis``
+# and ``yaxis`` parameters of :class:`Frame`. The map boundaries (or plot
+# axes) are named as West/west/left (**W**, **w**, **l**),
+# South/south/bottom (**S**, **s**, **b**), North/north/top (**N**, **n**,
+# **t**), and East/east/right (**E**, **e**, **r**) sides of a figure. If an
+# uppercase letter (**W**, **S**, **N**, **E**) is passed, the axis is
+# plotted with tick marks and annotations. The lowercase version (**w**,
+# **s**, **n**, **e**) plots the axis only with tick marks. To only plot the
+# axis pass **l**, **b**, **t**, **r**. By default (``frame=True`` or
+# ``frame=Axis(annot=True, tick=True)``), the West and the South axes are
+# plotted with both tick marks and annotations.
 #
 # The example below uses a Cartesian projection, as GMT does not allow
 # labels to be set for geographic maps.
