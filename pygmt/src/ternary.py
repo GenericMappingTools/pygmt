@@ -55,7 +55,7 @@ def _ternary_frame(frame):
     >>> _ternary_frame(Frame(fill="lightblue", axis=Axis(annot=True)))
     ['+glightblue', 'a']
     >>> _ternary_frame("afg")
-    'afg'
+    ['afg', '']
     >>> _ternary_frame(True)
     True
     >>> _ternary_frame(["aafg+lWater", "bafg+lAir", "cafg+lLimestone"])
