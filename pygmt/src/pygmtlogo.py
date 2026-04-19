@@ -28,7 +28,7 @@ def create_logo(  # noqa: PLR0915
     region = [-size, size] * 2
     projection = "x1c"
 
-    # Radii
+    # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array(
         [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
