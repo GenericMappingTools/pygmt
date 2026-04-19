@@ -106,7 +106,6 @@ def create_logo(  # noqa: PLR0915
         g_y = np.concatenate([arc_outer_y, connector_y, arc_inner_y])
         return {"x": g_x, "y": g_y}
 
-    # m_x2 = r4
     def _letter_m_coords():
         """Coordinates for letter M."""
         m_x = [
@@ -123,20 +122,20 @@ def create_logo(  # noqa: PLR0915
             thinner + (r4 - thinner) / 2,  # mid pick below
             thinner + r4 / 5,  # left pick below
         ]
-        m_y1 = (r4 - r5) / 2 * 1.25  # horizontal gab between the letters G and M
+        m_y1 = thick / 2 + thinner # horizontal gab between the letters G and M
         m_y = [
             m_y1,  # vertical left upwards
             m_y1,
             r4,
             r4,
-            r5,  # m_y2 - m_y2 / 4,  # mid pick above
+            r5,  # mid pick above
             r4,  # vertical right downwards
             r4,
             m_y1,
             m_y1,
-            r5,  # m_y2 - m_y2 / 3,  # right pick below
-            r5 - (r4 - r5),  # m_y2 - m_y2 / 2 - m_y2 / 18,  # mid pick below
-            r5,  # m_y2 - m_y2 / 3,  # left pick below
+            r5,  # right pick below
+            r5 - thick,  # mid pick below
+            r5,  # left pick below
         ]
         return {"x": m_x, "y": m_y}
 
