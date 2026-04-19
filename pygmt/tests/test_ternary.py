@@ -119,28 +119,19 @@ def test_ternary_1_label(array):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_ternary_axis(array):
+@pytest.mark.parametrize(
+    "frame",
+    [
+        Axis(annot=True, tick=True, grid=True),
+        "afg",
+        Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    ],
+    ids=["axis", "string", "frame-axis"],
+)
+@pytest.mark.mpl_image_compare(filename="test_ternary_axis.png")
+def test_ternary_axis(array, frame):
     """
-    Test plotting a ternary chart with Axis object for frame.
-    """
-    fig = Figure()
-    fig.ternary(
-        data=array,
-        region=[0, 100, 0, 100, 0, 100],
-        cmap="red,orange,yellow,green,blue,violet",
-        width="10c",
-        frame=Axis(annot=True, tick=True, grid=True),
-        style="c0.1c",
-        pen="thinnest",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_ternary_frame_string(array):
-    """
-    Test plotting a ternary chart with frame as a string.
+    Test plotting a ternary chart with equivalent frame settings.
     """
     fig = Figure()
     fig.ternary(
@@ -148,7 +139,7 @@ def test_ternary_frame_string(array):
         region=[0, 100, 0, 100, 0, 100],
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
-        frame="afg",
+        frame=frame,
         style="c0.1c",
         pen="thinnest",
     )
