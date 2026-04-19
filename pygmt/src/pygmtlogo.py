@@ -213,7 +213,7 @@ def create_logo(  # noqa: PLR0915
     # Space between red line and blue circle / hexagon
     red_line_x, red_line_y = _red_line_coords()
     fig.plot(
-        x=red_line_x, y=red_line_y, pen=f"{thick * 1.45}c,{color_bg}", perspective=True
+        x=red_line_x, y=red_line_y, pen=f"{thick + thin}c,{color_bg}", perspective=True
     )
     # fig.show()
     # red line
@@ -232,14 +232,14 @@ def create_logo(  # noqa: PLR0915
     fig.plot(
         data=[[0, -r2, 0, arrow_y * 1.05]],
         pen=color_bg,
-        style=f"v{thicker * 1.45}c+s+e+h0+a60+g{color_bg}",
+        style=f"v{thicker + thin * 2}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     # fig.show()
     fig.plot(
         data=[[0, -r3, 0, arrow_y]],
         pen=f"{thick}c,{red}",
-        style=f"v{thicker * 1.4}c+s+e+h0+a60+g{red}",
+        style=f"v{thicker + thin}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
     # fig.show()
