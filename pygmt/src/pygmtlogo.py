@@ -32,8 +32,10 @@ def create_logo(  # noqa: PLR0915
     r0, r1, r2, r3, r4, r5 = size * np.array(
         [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
-    thick = r0 - r1  # thick pen in centimeters
-    thin = thick / 3  # thin pen in centimeters
+    # Pen thicknesses
+    thick = r0 - r1  # for shape
+    middle = r4 - r5  # for letters
+    thin = thick / 3  # for compass lines
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -216,7 +218,7 @@ def create_logo(  # noqa: PLR0915
     )
     # fig.show()
     # red line
-    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick}c,{red}", perspective=True)
+    fig.plot(x=red_line_x, y=red_line_y, pen=f"{middle}c,{red}", perspective=True)
     # fig.show()
 
     # Letter M
@@ -232,13 +234,13 @@ def create_logo(  # noqa: PLR0915
     fig.plot(
         data=[[0, -r2, 0, arrow_y * 1.05]],
         pen=color_bg,
-        style=f"v{thick * 1.6}c+s+e+h0+a60+g{color_bg}",
+        style=f"v{thick * 1.45}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     # fig.show()
     fig.plot(
         data=[[0, -r3, 0, arrow_y]],
-        pen=f"{thick}c,{red}",
+        pen=f"{middle}c,{red}",
         style=f"v{thick * 1.4}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
