@@ -102,10 +102,10 @@ class _Axes(BaseParam):
     """
 
     axes: str | None = None
-    box: bool = False
     title: str | None = None
     subtitle: str | None = None
     fill: str | None = None
+    box: bool = False
     wall_pen: str | bool = False
     yzfill: str | None = None
     xzfill: str | None = None
