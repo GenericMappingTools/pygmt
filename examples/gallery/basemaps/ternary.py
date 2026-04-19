@@ -35,11 +35,11 @@ fig.ternary(
     clabel="Air",
     cmap=True,
     frame=Frame(
-        aaxis=Axis(
+        xaxis=Axis(
             annot=True, tick=True, grid=True, label="Limestone component", unit="%"
         ),
-        baxis=Axis(annot=True, tick=True, grid=True, label="Water component", unit="%"),
-        caxis=Axis(annot=True, tick=True, grid=True, label="Air component", unit="%"),
+        yaxis=Axis(annot=True, tick=True, grid=True, label="Water component", unit="%"),
+        zaxis=Axis(annot=True, tick=True, grid=True, label="Air component", unit="%"),
     ),
 )
 
