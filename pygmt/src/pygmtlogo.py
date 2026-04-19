@@ -33,10 +33,11 @@ def create_logo(  # noqa: PLR0915
         [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]
     )
     # Pen thicknesses
-    thicker = r0 - r1  # for shape
-    thick = r4 - r5  # for letters G and T
-    thin = thicker / 3  # for compass lines
-    thinner = thin / 2  # for letter M
+    thick_shape = r0 - r1  # for shape
+    thick_gt = r4 - r5  # for letters G and T
+    thick_m = r4 / 5  # for letter M
+    thick_comp = thick_gt / 3  # for compass lines
+    thick_gap = thick_comp / 2
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
@@ -109,20 +110,20 @@ def create_logo(  # noqa: PLR0915
     def _letter_m_coords():
         """Coordinates for letter M."""
         m_x = [
-            thinner + r4 / 5,  # vertical left upwards
-            thinner,
-            thinner,
-            thinner + r4 / 5,
-            thinner + (r4 - thinner) / 2,  # mid pick above
-            r4 - r4 / 5,  # vertical right downwards
+            thick_gap + thick_m,  # vertical left upwards
+            thick_gap,
+            thick_gap,
+            thick_gap + thick_m,
+            thick_gap + (r4 - thick_gap) / 2,  # mid pick above
+            r4 - thick_m,  # vertical right downwards
             r4,
             r4,
-            r4 - r4 / 5,
-            r4 - r4 / 5,  # right pick below
-            thinner + (r4 - thinner) / 2,  # mid pick below
-            thinner + r4 / 5,  # left pick below
+            r4 - thick_m,
+            r4 - thick_m,  # right pick below
+            thick_gap + (r4 - thick_gap) / 2,  # mid pick below
+            thick_gap + thick_m,  # left pick below
         ]
-        m_y1 = thick / 2 + thinner # horizontal gab between the letters G and M
+        m_y1 = thick_gt / 2 + thick_gap  # horizontal gab between the letters G and M
         m_y = [
             m_y1,  # vertical left upwards
             m_y1,
@@ -134,7 +135,7 @@ def create_logo(  # noqa: PLR0915
             m_y1,
             m_y1,
             r5,  # right pick below
-            r5 - thick,  # mid pick below
+            r5 - thick_gt,  # mid pick below
             r5,  # left pick below
         ]
         return {"x": m_x, "y": m_y}
@@ -146,7 +147,7 @@ def create_logo(  # noqa: PLR0915
         t_x = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
         t_y = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
         # Ensure the same X coordinate for the right edge of T and the middle of M.
-        mask = np.abs(t_x) <= (thinner + (r4 - thinner) / 2)
+        mask = np.abs(t_x) <= (thick_gap + (r4 - thick_gap) / 2)
         return {"x": t_x[mask], "y": t_y[mask]}
 
     def _compass_lines():
@@ -193,16 +194,16 @@ def create_logo(  # noqa: PLR0915
     compass_lines = _compass_lines()
     # Non-horizontal compass lines
     for x, y in compass_lines[4:]:
-        fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
+        fig.plot(x=x, y=y, pen=f"{thick_comp}c,{yellow}", perspective=True)
         # fig.show()
 
     # Blue outlined circle / hexagon for Earth
-    fig.plot(pen=f"{thicker}c,{blue}", **args_shape)
+    fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
     # Horizontal compass lines
     for x, y in compass_lines[:4]:
-        fig.plot(x=x, y=y, pen=f"{thin}c,{yellow}", perspective=True)
+        fig.plot(x=x, y=y, pen=f"{thick_comp}c,{yellow}", perspective=True)
         # fig.show()
 
     # Letter G
@@ -213,11 +214,14 @@ def create_logo(  # noqa: PLR0915
     # Space between red line and blue circle / hexagon
     red_line_x, red_line_y = _red_line_coords()
     fig.plot(
-        x=red_line_x, y=red_line_y, pen=f"{thick + thin}c,{color_bg}", perspective=True
+        x=red_line_x,
+        y=red_line_y,
+        pen=f"{thick_gt + thick_comp}c,{color_bg}",
+        perspective=True,
     )
     # fig.show()
     # red line
-    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick}c,{red}", perspective=True)
+    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick_gt}c,{red}", perspective=True)
     # fig.show()
 
     # Letter M
@@ -232,20 +236,25 @@ def create_logo(  # noqa: PLR0915
     fig.plot(
         data=[[0, -r2, 0, arrow_y * 1.05]],
         pen=color_bg,
-        style=f"v{thicker + thin * 2}c+s+e+h0+a60+g{color_bg}",
+        style=f"v{thick_shape + thick_comp * 2}c+s+e+h0+a60+g{color_bg}",
         perspective=True,
     )
     # fig.show()
     fig.plot(
         data=[[0, -r3, 0, arrow_y]],
-        pen=f"{thick}c,{red}",
-        style=f"v{thicker + thin}c+s+e+h0+a60+g{red}",
+        pen=f"{thick_gt}c,{red}",
+        style=f"v{thick_shape + thick_comp}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
     # fig.show()
 
     # Extra vertical compass line above letters G and M.
-    fig.plot(x=[0, 0], y=[-thicker / 2, r3], pen=f"{thin}c,{yellow}", perspective=True)
+    fig.plot(
+        x=[0, 0],
+        y=[-thick_shape / 2, r3],
+        pen=f"{thick_comp}c,{yellow}",
+        perspective=True,
+    )
     # fig.show()
 
     # Outline around the shape for black and white color with dark theme
