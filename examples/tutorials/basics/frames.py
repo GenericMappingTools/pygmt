@@ -9,7 +9,7 @@ contain.
 
 # %%
 import pygmt
-from pygmt.params import Axis
+from pygmt.params import Axis, Frame
 
 # %%
 # Plot frame
@@ -23,13 +23,13 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.show()
 
 # %%
-# To add the default GMT frame style to the plot, use ``frame="f"`` in
+# To add the default GMT frame style to the plot, use ``frame=Axis(tick=True)`` in
 # :meth:`pygmt.Figure.basemap` or another plotting method (which has the
 # ``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame="f")
+fig.basemap(frame=Axis(tick=True))
 fig.show()
 
 
@@ -37,13 +37,14 @@ fig.show()
 # Ticks and grid lines
 # --------------------
 #
-# The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
+# The automatic frame (``frame=True`` or ``frame=Axis(annot=True, tick=True)``)
+# adds the default GMT
 # frame style and automatically determines tick labels from the plot region.
 # In GMT the tick labels are called **a**\ nnotations.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame="af")
+fig.basemap(frame=Axis(annot=True, tick=True))
 fig.show()
 
 # %%
@@ -62,7 +63,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame="a30f7.5g15")
+fig.basemap(frame=Axis(annot=30, tick=7.5, grid=15))
 fig.show()
 
 
@@ -70,14 +71,13 @@ fig.show()
 # Title
 # -----
 #
-# The figure title can be set by passing **+t**\ *title* to the ``frame``
-# parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-# ``frame`` can be done by using a list, as shown in the example below.
+# The figure title can be set by passing ``title=...`` to a :class:`Frame`
+# object. Combine it with an :class:`Axis` object to keep automatic annotations.
 
 fig = pygmt.Figure()
 # region="TT" specifies Trinidad and Tobago using the ISO country code
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
-fig.basemap(frame=["a", "+tTrinidad and Tobago"])
+fig.basemap(frame=Frame(title="Trinidad and Tobago", axis=Axis(annot=True)))
 fig.show()
 
 
@@ -85,19 +85,17 @@ fig.show()
 # Axis labels
 # -----------
 #
-# Axis labels, in GMT simply called labels, can be set by passing
-# **x+l**\ *label* (or starting with **y** if
-# labeling the y-axis) to the ``frame`` parameter of
-# :meth:`pygmt.Figure.basemap`. The map boundaries (or plot axes) are named as
-# West/west/left (**W**, **w**, **l**), South/south/bottom
+# Axis labels, in GMT simply called labels, can be set through the ``xaxis`` and
+# ``yaxis`` parameters of :class:`Frame`. The map boundaries (or plot axes) are
+# named as West/west/left (**W**, **w**, **l**), South/south/bottom
 # (**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
 # East/east/right (**E**, **e**, **r**) sides of a figure. If an uppercase
 # letter (**W**, **S**, **N**, **E**) is passed, the axis is plotted with
-# tick marks and annotations. The lowercase version
-# (**w**, **s**, **n**, **e**) plots the axis only with tick marks.
-# To only plot the axis pass **l**, **b**, **t**, **r**. By default
-# (``frame=True`` or ``frame="af"``), the West and the South axes are
-# plotted with both tick marks and annotations.
+# tick marks and annotations. The lowercase version (**w**, **s**, **n**, **e**)
+# plots the axis only with tick marks. To only plot the axis pass **l**, **b**,
+# **t**, **r**. By default (``frame=True`` or
+# ``frame=Axis(annot=True, tick=True)``), the West and the South axes are plotted
+# with both tick marks and annotations.
 #
 # The example below uses a Cartesian projection, as GMT does not allow
 # labels to be set for geographic maps.
@@ -109,7 +107,11 @@ fig.basemap(
     # Plot axis with tick marks, annotations, and labels on the
     # West and South axes
     # Plot axis with tick marks on the north and east axes
-    frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=True, label="x-axis"),
+        yaxis=Axis(annot=True, tick=True, label="y-axis"),
+    ),
 )
 fig.show()
 
