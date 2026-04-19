@@ -141,7 +141,8 @@ def create_logo(  # noqa: PLR0915
         Coordinates of compass lines.
         Plot vertical line on top of letters G and M again at the end.
         """
-        x1, x2 = r1 * 0.7071, r3 * 0.7071  # sqrt(2)/2 = 0.7071
+        sqrt2 = np.sqrt(2) / 2
+        x1, x2, x3 = r1 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return {
             "hline": [
@@ -152,7 +153,7 @@ def create_logo(  # noqa: PLR0915
             "diagonal": [
                 (-x1, x1, -x2, x2),  # upper left
                 (-x1, -x1, -x2, -x2),  # lower left
-                (x1, x1, x2 + (r4 - r5), x2 + (r4 - r5)),  # upper right
+                (x1, x1, x3, x3),  # upper right
                 (x1, -x1, x2, -x2),  # lower right
             ],
             "vline1": [(0, -r3, 0, 0)],
