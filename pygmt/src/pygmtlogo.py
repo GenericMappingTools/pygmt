@@ -30,9 +30,9 @@ def create_logo(  # noqa: PLR0915
 
     # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array(
-       #  [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]   # old
-       #  [1, 0.875, 0.58125, 0.4825, 0.4125, 0.31375]   # exact
-        [1, 224/256, 150/256, 122/256, 106/256, 78/256]
+        #  [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]   # old
+        #  [1, 0.875, 0.58125, 0.4825, 0.4125, 0.31375]   # exact
+        [1, 224 / 256, 150 / 256, 122 / 256, 106 / 256, 78 / 256]
     )
     # Pen thicknesses
     thick_shape = r0 - r1  # for shape
@@ -148,9 +148,9 @@ def create_logo(  # noqa: PLR0915
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return {
             "hline": [
-                (-r0 * hex_factor, 0, -r3, 0),
+                (-r1 * hex_factor, 0, -r3, 0),
                 # (-r5, 0, 0, 0),
-                (r3, 0, r0 * hex_factor, 0),
+                (r3, 0, r1 * hex_factor, 0),
             ],
             "diagonal": [
                 (-x1, x1, -x2, x2),  # upper left
@@ -188,6 +188,9 @@ def create_logo(  # noqa: PLR0915
     # White filled circle / hexagon for Earth
     fig.plot(fill=color_bg, **args_shape)
     # fig.show()
+    # Blue outlined circle / hexagon for Earth
+    fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
+    # fig.show()
 
     compass_lines = _compass_lines()
     args_compass = {
@@ -195,14 +198,8 @@ def create_logo(  # noqa: PLR0915
         "perspective": True,
         "style": "v0c+s",
     }
-    # Diagonal compass lines
+    # Compass lines
     fig.plot(data=compass_lines["diagonal"], **args_compass)
-
-    # Blue outlined circle / hexagon for Earth
-    fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
-    # fig.show()
-
-    # Horizontal and vertical compass lines
     fig.plot(data=compass_lines["hline"], **args_compass)
     # fig.plot(data=compass_lines["vline1"], **args_compass)
 
