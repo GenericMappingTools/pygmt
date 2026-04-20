@@ -1,9 +1,15 @@
 """
-Create grid masks from geospatial shapes
-========================================
-:func:`pygmt.grdmask`.
+Create grid masks from spatial shapes
+=====================================
 
-:func:`pygmt.grdlandmask` and gallery example https://www.pygmt.org/latest/gallery/images/grdlandmask.html.
+The functionn :func:`pygmt.grdmask` allows to create a grid mask based on spatial
+shapes given as closed polygons. These polygons can be provided as NumPy arrays or
+GeoPandas DataFrame. For the nodes falling inside, outside, and on the edges, different
+values can be defined. The create mask can then be applied to a desired grid.
+
+To create a land-water mask based on the GMT built-in shoreline data you can directly
+use the function :func:`pygmt.grdlandmask` explained in the gallery example
+:doc:` Create 'wet-dry' mask grid </gallery/images/gradlandmask>`.
 """
 
 # %%
