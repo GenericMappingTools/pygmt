@@ -31,8 +31,6 @@ def create_logo(  # noqa: PLR0915
 
     # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array(
-        #  [1, 0.875, 0.58125, 0.4625, 0.4125, 0.29375]   # old
-        #  [1, 0.875, 0.58125, 0.4825, 0.4125, 0.31375]   # exact
         [1, 224 / 256, 150 / 256, 122 / 256, 106 / 256, 78 / 256]
     )
     # Pen thicknesses
@@ -146,19 +144,13 @@ def create_logo(  # noqa: PLR0915
         x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return {
-            "hline": [
-                (-r0, 0, -r3, 0),
-                # (-r5, 0, 0, 0),
-                (r3, 0, r0, 0),
-            ],
+            "hline": [(-r0, 0, -r3, 0), (r3, 0, r0, 0)],
             "diagonal": [
                 (-x1, x1, -x2, x2),  # upper left
                 (-x1, -x1, -x2, -x2),  # lower left
                 (x1, x1, x3, x3),  # upper right
                 (x1, -x1, x2, -x2),  # lower right
             ],
-            "vline1": [(0, -r3, 0, 0)],
-            "vline2": [(0, -thick_shape / 2, 0, r3)],
         }
 
     def _vline_coords(gap=0):
@@ -198,7 +190,6 @@ def create_logo(  # noqa: PLR0915
     compass_lines = _compass_lines()
     fig.plot(data=compass_lines["diagonal"], **args_compass)
     fig.plot(data=compass_lines["hline"], **args_compass)
-    # fig.plot(data=compass_lines["vline1"], **args_compass)
     # fig.show()
 
     # Shape outline (over ends of compass lines for hexagon shape)
@@ -230,10 +221,6 @@ def create_logo(  # noqa: PLR0915
         style=f"v{thick_shape + thick_comp}c+s+e+h0+a60+g{red}",
         perspective=True,
     )
-    # fig.show()
-
-    # Vertical compass line above letters G and M.
-    # fig.plot(data=compass_lines["vline2"], **args_compass)
     # fig.show()
 
     # Outline around the shape for black and white color with dark theme
