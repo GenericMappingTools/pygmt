@@ -74,14 +74,12 @@ def create_logo(  # noqa: PLR0915
             symbol = "c"  # circle
             size_shape = r0 + r1  # radius
             size_shape_add = r0 - r1
-            hex_factor = 1
             vline_y = r0
             arrow_y = -r0
         case "hexagon":
             symbol = "h"  # hexagon
             size_shape = (r0 - 0.3) * 2  # diameter
             size_shape_add = 0.6
-            hex_factor = 0.98
             vline_y = r1 * 0.99
             arrow_y = -r1 * 0.99
 
@@ -148,9 +146,9 @@ def create_logo(  # noqa: PLR0915
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return {
             "hline": [
-                (-r1 * hex_factor, 0, -r3, 0),
+                (-r1, 0, -r3, 0),
                 # (-r5, 0, 0, 0),
-                (r3, 0, r1 * hex_factor, 0),
+                (r3, 0, r1, 0),
             ],
             "diagonal": [
                 (-x1, x1, -x2, x2),  # upper left
