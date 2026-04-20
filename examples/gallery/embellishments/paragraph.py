@@ -3,13 +3,12 @@ Paragraph
 =========
 
 To plot longer text as one or several paragraphs the `pygmt.Figure.paragraph`
-method can be used. The ``parwidth`` and ``linespacing`` parameters allow to
-set the line length  and line spacing of the paragraph, respectively.` Two
-paragraphs are automatically separated by a blank line.
+method can be used. The ``parwidth`` and ``linespacing`` parameters allow to set
+the line length and spacing of the paragraph, respectively.` Two paragraphs are
+automatically separated by a blank line.
 
-For detailed text formatting see the gallery example
-https://www.pygmt.org/latest/gallery/embellishments/text_formatting.html
-
+For details on text formatting see the gallery example
+:doc:`Text formatting </gallery/embellishments/text_formatting>`.
 """
 
 import pygmt
