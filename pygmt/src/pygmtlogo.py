@@ -36,7 +36,7 @@ def create_logo(  # noqa: PLR0915
     thick_shape = r0 - r1  # for shape
     thick_gt = r4 - r5  # for letters G and T
     thick_m = r4 / 5  # for letter M
-    thick_comp = thick_gt / 3  # for compass lines
+    thick_comp = thick_shape / 3  # for compass lines
     thick_gap = thick_comp / 2
 
     # Rotation around z (vertical) axis placed in the center
