@@ -39,7 +39,7 @@ def create_logo(  # noqa: PLR0915
     thick_gt = r4 - r5  # for letters G and T
     thick_m = r4 / 5  # for letter M
     thick_comp = thick_shape / 3  # for compass lines
-    thick_gap = thick_comp / 2
+    thick_gap = (thick_comp / 4) * 3
 
     # Rotation around z (vertical) axis placed in the center
     # Has to be applied to each plotting command, up on second call set to True
