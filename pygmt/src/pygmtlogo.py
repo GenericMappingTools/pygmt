@@ -147,7 +147,7 @@ def create_logo(  # noqa: PLR0915
         return {
             "hline": [
                 (-r0 * hex_factor, 0, -r3, 0),
-                (-r5, 0, 0, 0),
+                # (-r5, 0, 0, 0),
                 (r3, 0, r0 * hex_factor, 0),
             ],
             "diagonal": [
@@ -189,7 +189,7 @@ def create_logo(  # noqa: PLR0915
         "perspective": True,
         "style": "v0c+s",
     }
-    # Non-horizontal compass lines
+    # Diagonal compass lines
     fig.plot(data=compass_lines["diagonal"], **args_compass)
 
     # Blue outlined circle / hexagon for Earth
@@ -198,7 +198,7 @@ def create_logo(  # noqa: PLR0915
 
     # Horizontal and vertical compass lines
     fig.plot(data=compass_lines["hline"], **args_compass)
-    fig.plot(data=compass_lines["vline1"], **args_compass)
+    # fig.plot(data=compass_lines["vline1"], **args_compass)
 
     # Letter G
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
@@ -243,7 +243,7 @@ def create_logo(  # noqa: PLR0915
     # fig.show()
 
     # Vertical compass line above letters G and M.
-    fig.plot(data=compass_lines["vline2"], **args_compass)
+    # fig.plot(data=compass_lines["vline2"], **args_compass)
     # fig.show()
 
     # Outline around the shape for black and white color with dark theme
