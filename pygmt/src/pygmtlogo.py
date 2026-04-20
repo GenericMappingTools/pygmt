@@ -198,8 +198,9 @@ def create_logo(  # noqa: PLR0915
     fig.plot(data=compass_lines["diagonal"], **args_compass)
     fig.plot(data=compass_lines["hline"], **args_compass)
     # fig.plot(data=compass_lines["vline1"], **args_compass)
+    # fig.show()
 
-    # Shape outline
+    # Shape outline (over ends of compass lines for hexagon shape)
     fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
