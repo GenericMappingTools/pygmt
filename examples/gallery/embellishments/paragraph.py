@@ -11,6 +11,7 @@ For details on text formatting see the gallery example
 :doc:`Text formatting </gallery/embellishments/text_formatting>`.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
