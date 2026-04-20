@@ -206,19 +206,14 @@ def create_logo(  # noqa: PLR0915
 
     # Letter G
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
-    # fig.show()
+    # Letter M
+    fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
+    # Letter T: red curved horizontal line
+    fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
 
     # Upper vertical lines
     fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
     fig.plot(data=_vline_coords(), fill=red, perspective=True)
-
-    # Letter M
-    fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
-    # fig.show()
-
-    # Letter T: red curved horizontal line
-    fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
-    # fig.show()
 
     # The arrow
     fig.plot(
