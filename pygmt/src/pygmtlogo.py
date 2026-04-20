@@ -162,11 +162,15 @@ def create_logo(  # noqa: PLR0915
             "vline2": [(0, -thick_shape / 2, 0, r3)],
         }
 
-    def _red_line_coords():
-        """Coordinates of upper vertical red line."""
-        red_line_x = [0, 0]
-        red_line_y = [vline_y, r3]
-        return red_line_x, red_line_y
+    def _vline_coords(gap=0):
+        """
+        Coordinates for vertical lines.
+        """
+        x0 = (thick_gt + gap) / 2
+        return {
+            "x": [-x0, -x0, x0, x0],
+            "y": [vline_y, r3, r3, vline_y],
+        }
 
     # %%
     fig = pygmt.Figure()
@@ -206,19 +210,9 @@ def create_logo(  # noqa: PLR0915
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
     # fig.show()
 
-    # Upper vertical red line
-    # Space between red line and blue circle / hexagon
-    red_line_x, red_line_y = _red_line_coords()
-    fig.plot(
-        x=red_line_x,
-        y=red_line_y,
-        pen=f"{thick_gt + thick_comp}c,{color_bg}",
-        perspective=True,
-    )
-    # fig.show()
-    # red line
-    fig.plot(x=red_line_x, y=red_line_y, pen=f"{thick_gt}c,{red}", perspective=True)
-    # fig.show()
+    # Upper vertical lines
+    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
+    fig.plot(data=_vline_coords(), fill=red, perspective=True)
 
     # Letter M
     fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
