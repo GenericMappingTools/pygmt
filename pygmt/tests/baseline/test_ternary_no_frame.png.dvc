@@ -1,0 +1,5 @@
+outs:
+- md5: 0d4303390ab992ab68cdf7fc045cb9d9
+  size: 10357
+  hash: md5
+  path: test_ternary_no_frame.png
