@@ -176,6 +176,7 @@ def create_logo(  # noqa: PLR0915
         region=region, projection=projection, perspective=perspective, frame="none"
     )
 
+    # Earth - circle / hexagon
     args_shape = {
         "x": 0,
         "y": 0,
@@ -183,23 +184,24 @@ def create_logo(  # noqa: PLR0915
         "perspective": True,
         "no_clip": True,  # Needed for corners of hexagon shape
     }
-    # White filled circle / hexagon for Earth
+    # Shape fill
     fig.plot(fill=color_bg, **args_shape)
     # fig.show()
-    # Blue outlined circle / hexagon for Earth
-    fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
-    # fig.show()
 
-    compass_lines = _compass_lines()
+    # Compass - yellow lines
     args_compass = {
         "pen": f"{thick_comp}c,{yellow}",
         "perspective": True,
         "style": "v0c+s",
     }
-    # Compass lines
+    compass_lines = _compass_lines()
     fig.plot(data=compass_lines["diagonal"], **args_compass)
     fig.plot(data=compass_lines["hline"], **args_compass)
     # fig.plot(data=compass_lines["vline1"], **args_compass)
+
+    # Shape outline
+    fig.plot(pen=f"{thick_shape}c,{blue}", **args_shape)
+    # fig.show()
 
     # Letter G
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
