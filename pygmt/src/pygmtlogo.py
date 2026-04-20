@@ -79,10 +79,10 @@ def create_logo(  # noqa: PLR0915
             arrow_y = -r0
         case "hexagon":
             symbol = "h"  # hexagon
-            size_shape = (r0 - 0.3) * 2  # diameter
+            size_shape = (r0 + 0.3) * 2  # diameter
             size_shape_add = 0.6
-            vline_y = r1 * 0.99
-            arrow_y = -r1 * 0.99
+            vline_y = r0 * 0.99
+            arrow_y = -r0 * 0.99
 
     # Define wordmark
     font = "AvantGarde-Book"
@@ -143,13 +143,13 @@ def create_logo(  # noqa: PLR0915
         Plot vertical line on top of letters G and M again at the end.
         """
         sqrt2 = np.sqrt(2) / 2
-        x1, x2, x3 = r1 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
+        x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return {
             "hline": [
-                (-r1, 0, -r3, 0),
+                (-r0, 0, -r3, 0),
                 # (-r5, 0, 0, 0),
-                (r3, 0, r1, 0),
+                (r3, 0, r0, 0),
             ],
             "diagonal": [
                 (-x1, x1, -x2, x2),  # upper left
