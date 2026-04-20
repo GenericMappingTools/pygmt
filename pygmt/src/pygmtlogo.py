@@ -158,10 +158,7 @@ def create_logo(  # noqa: PLR0915
         Coordinates for vertical lines.
         """
         x0 = (thick_gt + gap) / 2
-        return {
-            "x": [-x0, -x0, x0, x0],
-            "y": [vline_y, r3, r3, vline_y],
-        }
+        return {"x": [-x0, -x0, x0, x0], "y": [vline_y, r3, r3, vline_y]}
 
     # %%
     fig = pygmt.Figure()
