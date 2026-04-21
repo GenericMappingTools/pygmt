@@ -136,7 +136,6 @@ def create_logo(  # noqa: PLR0915
     def _compass_lines():
         """
         Coordinates of compass lines.
-        Plot vertical line on top of letters G and M again at the end.
         """
         sqrt2 = np.sqrt(2) / 2
         x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
