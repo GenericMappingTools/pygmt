@@ -70,11 +70,13 @@ def _create_logo(  # noqa: PLR0915
         case "circle":
             symbol = "c"
             size_shape = r0 + r1
+            hex_factor = 1
             vline_y = r0
             arrow_y = -r0
         case "hexagon":
             symbol = "h"
-            size_shape = r0 * 2
+            size_shape = (r0 + 0.35) * 2
+            hex_factor = 1.1
             vline_y = r0 * 0.93
             arrow_y = -r0 * 0.93
 
@@ -136,11 +138,11 @@ def _create_logo(  # noqa: PLR0915
         Coordinates of compass lines.
         """
         sqrt2 = np.sqrt(2) / 2
-        x1, x2, x3 = r1 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
+        x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return [
-            (-r0, 0, -r3, 0),  # left horizontal
-            (r3, 0, r0, 0),  # right horizontal
+            (-r0 * hex_factor, 0, -r3, 0),  # left horizontal
+            (r3, 0, r0 * hex_factor, 0),  # right horizontal
             (-x1, x1, -x2, x2),  # upper left
             (-x1, -x1, -x2, -x2),  # lower left
             (x1, x1, x3, x3),  # upper right
