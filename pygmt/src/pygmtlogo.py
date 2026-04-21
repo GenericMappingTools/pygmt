@@ -68,15 +68,13 @@ def _create_logo(  # noqa: PLR0915
     # Define shape
     match shape:
         case "circle":
-            symbol = "c"  # circle
-            size_shape = r0 + r1  # radius
-            size_shape_add = r0 - r1
+            symbol = "c"
+            size_shape = r0 + r1
             vline_y = r0
             arrow_y = -r0
         case "hexagon":
-            symbol = "h"  # hexagon
-            size_shape = r0 * 2  # diameter
-            size_shape_add = 0.6
+            symbol = "h"
+            size_shape = r0 * 2
             vline_y = r0 * 0.93
             arrow_y = -r0 * 0.93
 
@@ -212,7 +210,7 @@ def _create_logo(  # noqa: PLR0915
         fig.plot(
             x=0,
             y=0,
-            style=f"{symbol}{size_shape + size_shape_add}c",
+            style=f"{symbol}{size_shape + thick_shape}c",
             pen=f"1p,{color_dark}",
             perspective=True,
             no_clip=True,
