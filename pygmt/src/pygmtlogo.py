@@ -291,6 +291,21 @@ def pygmtlogo(  # noqa: PLR0913
     color
         Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
         (red) [Default]. For ``False``, the logo is drawn in black and white.
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
+    >>> fig.pygmtlogo(
+    ...     shape="circle",
+    ...     theme="light",
+    ...     wordmark="horizontal",
+    ...     color=True,
+    ...     position="BR",
+    ...     height="1c",
+    ... )
+    >>> fig.show()
     """
 
     # -----------------------------------------------------------------------------
