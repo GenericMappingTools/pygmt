@@ -198,6 +198,8 @@ def _create_logo(  # noqa: PLR0915
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
+    # Background vertical line and arrow head
+    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
     fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
 
     # Letters G, M, and T
@@ -205,8 +207,7 @@ def _create_logo(  # noqa: PLR0915
     fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
     fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
 
-    # Upper vertical lines
-    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
+    # Upper vertical line
     fig.plot(data=_vline_coords(), fill=red, perspective=True)
 
     # Outline around the shape for black and white color with dark theme
