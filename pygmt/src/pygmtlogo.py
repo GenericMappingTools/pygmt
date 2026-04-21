@@ -140,15 +140,14 @@ def _create_logo(  # noqa: PLR0915
         sqrt2 = np.sqrt(2) / 2
         x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
-        return {
-            "hline": [(-r0, 0, -r3, 0), (r3, 0, r0, 0)],
-            "diagonal": [
-                (-x1, x1, -x2, x2),  # upper left
-                (-x1, -x1, -x2, -x2),  # lower left
-                (x1, x1, x3, x3),  # upper right
-                (x1, -x1, x2, -x2),  # lower right
-            ],
-        }
+        return [
+            (-r0, 0, -r3, 0),  # left horizontal
+            (r3, 0, r0, 0),  # right horizontal
+            (-x1, x1, -x2, x2),  # upper left
+            (-x1, -x1, -x2, -x2),  # lower left
+            (x1, x1, x3, x3),  # upper right
+            (x1, -x1, x2, -x2),  # lower right
+        ]
 
     def _vline_coords(gap=0):
         """
@@ -169,16 +168,13 @@ def _create_logo(  # noqa: PLR0915
     # Shape fill
     fig.plot(x=0, y=0, fill=color_bg, **args_shape)
 
-    # Compass - yellow lines
-    args_compass = {
-        "pen": f"{thick_comp}c,{yellow}",
-        "perspective": True,
-        "style": "v0c+s",
-    }
-    compass_lines = _compass_lines()
-    fig.plot(data=compass_lines["diagonal"], **args_compass)
-    fig.plot(data=compass_lines["hline"], **args_compass)
-    # fig.show()
+    # Compass lines
+    fig.plot(
+        data=_compass_lines(),
+        pen=f"{thick_comp}c,{yellow}",
+        style="v0c+s",
+        perspective=True,
+    )
 
     # Shape outline (over ends of compass lines for hexagon shape)
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
