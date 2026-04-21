@@ -127,7 +127,7 @@ def _create_logo(  # noqa: PLR0915
         arc_inner_x, arc_inner_y = np.cos(inner_angles) * r3, np.sin(inner_angles) * r3
         # The arrowhead is an equilateral triangle
         x0 = thick_gt / 2  # Extra half-width for arrow head
-        y0 = 2 * x0 * np.sqrt(3)  # Height for arrow head
+        y0 = 1.8 * x0 * np.sqrt(3)  # Height for arrow head
         arrow_x = [-x0, -x0, -x0 * 2.0, 0, x0 * 2.0, x0, x0]
         arrow_y = [-r2, -r0 + y0, -r0 + y0, -r0, -r0 + y0, -r0 + y0, -r2]
         mask_left = arc_outer_x < -x0
@@ -146,8 +146,8 @@ def _create_logo(  # noqa: PLR0915
         """Coordinates for the background arrow."""
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
-        y0 = 2 * x0 * np.sqrt(3)
-        arrow_x = [-x0 * 3.0, -x0, x0, x0 * 3.0]
+        y0 = 1.8 * x0 * np.sqrt(3)
+        arrow_x = [-x0 * 2 - thick_comp/2, -thick_comp/2, thick_comp/2, x0 * 2 + thick_comp/2]
         arrow_y = [-r0 + y0, -r0, -r0, -r0 + y0]
         return {"x": arrow_x, "y": arrow_y}
 
