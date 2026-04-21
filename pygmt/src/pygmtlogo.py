@@ -243,8 +243,8 @@ def _create_logo(  # noqa: PLR0915
             fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.3p,gray30")
         fig.plot(x=0, y=0, style=f"c{2 * (r2 + (r3 - r4))}c", pen="0.3p,gray30,2_2")
         # Lines for letter M
-        fig.hlines(y=[r4, r5], pen="0.3p,gray30,2_2")
-        fig.vlines(x=[r4, (thick_gap + r4) / 2], pen="0.3p,gray30,2_2")
+        fig.hlines(y=[r4, r5], pen="0.3p,gray30,2_2", perspective=True)
+        fig.vlines(x=[r4, (thick_gap + r4) / 2], pen="0.3p,gray30,2_2", perspective=True)
 
     # fig.show()
     fig_name_logo = "pygmt_logo"
