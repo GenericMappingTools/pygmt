@@ -72,13 +72,11 @@ def _create_logo(  # noqa: PLR0915
             size_shape = r0 + r1
             hex_factor = 1
             vline_y = r0
-            arrow_y = -r0
         case "hexagon":
             symbol = "h"
             size_shape = (r0 + 0.35) * 2
             hex_factor = 1.1
             vline_y = r0 * 0.93
-            arrow_y = -r0 * 0.93
 
     # Define wordmark
     font = "AvantGarde-Book"
@@ -127,16 +125,36 @@ def _create_logo(  # noqa: PLR0915
         """Coordinates of the top curved horizontal line for letter T."""
         outer_angles = np.deg2rad(np.arange(240, 300, 0.5))
         inner_angles = outer_angles[::-1]
-        t_x = np.concatenate([r2 * np.cos(outer_angles), r3 * np.cos(inner_angles)])
-        t_y = np.concatenate([r2 * np.sin(outer_angles), r3 * np.sin(inner_angles)])
+        arc_outer_x, arc_outer_y = np.cos(outer_angles) * r2, np.sin(outer_angles) * r2
+        arc_inner_x, arc_inner_y = np.cos(inner_angles) * r3, np.sin(inner_angles) * r3
+        # The arrowhead is an equilateral triangle
+        x0 = thick_gt / 2  # Extra half-width for arrow head
+        y0 = 2 * x0 * np.sqrt(3)  # Height for arrow head
+        arrow_x = [-x0, -x0, -x0 * 2.0, 0, x0 * 2.0, x0, x0]
+        arrow_y = [-r2, -r0 + y0, -r0 + y0, -r0, -r0 + y0, -r0 + y0, -r2]
+        mask_left = arc_outer_x < -x0
+        mask_right = arc_outer_x > x0
+        t_x = np.concatenate(
+            [arc_inner_x, arc_outer_x[mask_left], arrow_x, arc_outer_x[mask_right]]
+        )
+        t_y = np.concatenate(
+            [arc_inner_y, arc_outer_y[mask_left], arrow_y, arc_outer_y[mask_right]]
+        )
         # Ensure the same X-coordinate for the right edge of T and the middle of M.
         mask = np.abs(t_x) <= (thick_gap + r4) / 2
         return {"x": t_x[mask], "y": t_y[mask]}
 
+    def _bg_arrow_coords():
+        """Coordinates for the background arrow."""
+        # x0, y0 is the same as in _letter_t_coords().
+        x0 = thick_gt / 2
+        y0 = 2 * x0 * np.sqrt(3)
+        arrow_x = [-x0 * 3.0, -x0, x0, x0 * 3.0]
+        arrow_y = [-r0 + y0, -r0, -r0, -r0 + y0]
+        return {"x": arrow_x, "y": arrow_y}
+
     def _compass_lines():
-        """
-        Coordinates of compass lines.
-        """
+        """Coordinates of compass lines."""
         sqrt2 = np.sqrt(2) / 2
         x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
@@ -180,6 +198,8 @@ def _create_logo(  # noqa: PLR0915
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
+    fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
+
     # Letter G
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
     # Letter M
@@ -190,22 +210,6 @@ def _create_logo(  # noqa: PLR0915
     # Upper vertical lines
     fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
     fig.plot(data=_vline_coords(), fill=red, perspective=True)
-
-    # The arrow
-    fig.plot(
-        data=[[0, -r2, 0, arrow_y - thick_comp]],
-        pen=color_bg,
-        style=f"v{thick_shape + thick_comp * 2}c+s+e+h0+a60+g{color_bg}",
-        perspective=True,
-    )
-    # fig.show()
-    fig.plot(
-        data=[[0, -r3, 0, arrow_y]],
-        pen=f"{thick_gt}c,{red}",
-        style=f"v{thick_shape + thick_comp}c+s+e+h0+a60+g{red}",
-        perspective=True,
-    )
-    # fig.show()
 
     # Outline around the shape for black and white color with dark theme
     if not color and theme == "dark":
