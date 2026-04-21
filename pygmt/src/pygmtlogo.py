@@ -120,7 +120,7 @@ def _create_logo(  # noqa: PLR0915
         return {"x": m_x, "y": m_y}
 
     def _letter_t_coords():
-        """Coordinates of the top curved horizontal line for letter T."""
+        """Coordinates for letter T."""
         outer_angles = np.deg2rad(np.arange(240, 300, 0.5))
         inner_angles = outer_angles[::-1]
         arc_outer_x, arc_outer_y = np.cos(outer_angles) * r2, np.sin(outer_angles) * r2
@@ -197,17 +197,16 @@ def _create_logo(  # noqa: PLR0915
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
+    # Background vertical line and arrow head
+    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
     fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
 
-    # Letter G
+    # Letters G, M, and T
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
-    # Letter M
     fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
-    # Letter T: red curved horizontal line
     fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
 
-    # Upper vertical lines
-    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
+    # Upper vertical line
     fig.plot(data=_vline_coords(), fill=red, perspective=True)
 
     # Outline around the shape for black and white color with dark theme
