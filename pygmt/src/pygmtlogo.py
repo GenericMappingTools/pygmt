@@ -170,7 +170,6 @@ def create_logo(  # noqa: PLR0915
     }
     # Shape fill
     fig.plot(x=0, y=0, fill=color_bg, **args_shape)
-    # fig.show()
 
     # Compass - yellow lines
     args_compass = {
