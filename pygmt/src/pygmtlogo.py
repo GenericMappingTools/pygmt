@@ -71,12 +71,10 @@ def _create_logo(  # noqa: PLR0915
             symbol = "c"
             size_shape = r0 + r1
             hex_factor = 1
-            vline_y = r0
         case "hexagon":
             symbol = "h"
-            size_shape = (r0 + 0.35) * 2
+            size_shape = (r0 + 0.34) * 2
             hex_factor = 1.1
-            vline_y = r0 * 0.93
 
     # Define wordmark
     font = "AvantGarde-Book"
@@ -172,7 +170,7 @@ def _create_logo(  # noqa: PLR0915
         Coordinates for vertical lines.
         """
         x0 = (thick_gt + gap) / 2
-        return {"x": [-x0, -x0, x0, x0], "y": [vline_y, r3, r3, vline_y]}
+        return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
 
     fig = pygmt.Figure()
     fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
@@ -192,6 +190,7 @@ def _create_logo(  # noqa: PLR0915
         pen=f"{thick_comp}c,{yellow}",
         style="v0c+s",
         perspective=True,
+        no_clip=True,
     )
 
     # Shape outline (over ends of compass lines for hexagon shape)
