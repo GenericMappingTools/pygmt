@@ -260,6 +260,8 @@ def pygmtlogo(  # noqa: PLR0913
     shape="circle",
     wordmark=True,
     position=None,  # -> Use position parameter of Figure.image
+    width=None,  # -> Use width parameter of Figure.image
+    height=None,  # -> Use height parameter of Figure.image
     box=None,  # -> Use box parameter of Figure.image
     projection=None,
     region=None,
@@ -304,6 +306,8 @@ def pygmtlogo(  # noqa: PLR0913
     self.image(
         imagefile=f"{fig_name_logo}.eps",
         position=position,
+        width=width,
+        height=height,
         box=box,
         projection=projection,
         region=region,
