@@ -20,8 +20,6 @@ def create_logo(  # noqa: PLR0915
 ):
     """
     Create the PyGMT logo using PyGMT.
-    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
-    and consists of a visual and the wordmark "PyGMT".
     """
 
     # Helpful definitions
