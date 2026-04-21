@@ -147,7 +147,12 @@ def _create_logo(  # noqa: PLR0915
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
         y0 = 1.8 * x0 * np.sqrt(3)
-        arrow_x = [-x0 * 2 - thick_comp/2, -thick_comp/2, thick_comp/2, x0 * 2 + thick_comp/2]
+        arrow_x = [
+            -x0 * 2 - thick_comp / 2,
+            -thick_comp / 2,
+            thick_comp / 2,
+            x0 * 2 + thick_comp / 2,
+        ]
         arrow_y = [-r0 + y0, -r0, -r0, -r0 + y0]
         return {"x": arrow_x, "y": arrow_y}
 
