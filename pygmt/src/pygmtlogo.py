@@ -27,7 +27,7 @@ def _create_logo(  # noqa: PLR0915
     # Helpful definitions
     size = 4
     region = [-size, size] * 2
-    projection = "x1c"
+    proj = "x1c"
 
     # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array(
@@ -160,9 +160,7 @@ def _create_logo(  # noqa: PLR0915
         return {"x": [-x0, -x0, x0, x0], "y": [vline_y, r3, r3, vline_y]}
 
     fig = pygmt.Figure()
-    fig.basemap(
-        region=region, projection=projection, perspective=perspective, frame="none"
-    )
+    fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
 
     # Earth - circle / hexagon
     args_shape = {
