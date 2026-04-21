@@ -10,8 +10,10 @@ from typing import Literal
 import numpy as np
 import pygmt
 
+__doctest_skip__ = ["pygmtlogo"]
 
-def create_logo(  # noqa: PLR0915
+
+def _create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["horizontal", "vertical"] | bool = True,
@@ -292,7 +294,7 @@ def pygmtlogo(  # noqa: PLR0913
     # -----------------------------------------------------------------------------
     # Create logo file
     # -----------------------------------------------------------------------------
-    fig_name_logo = create_logo(
+    fig_name_logo = _create_logo(
         color=color, theme=theme, shape=shape, wordmark=wordmark
     )
 
