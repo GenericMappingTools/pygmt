@@ -200,11 +200,9 @@ def _create_logo(  # noqa: PLR0915
 
     fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
 
-    # Letter G
+    # Letters G, M, and T
     fig.plot(data=_letter_g_coords(), fill=red, perspective=True)
-    # Letter M
     fig.plot(data=_letter_m_coords(), fill=red, perspective=True)
-    # Letter T: red curved horizontal line
     fig.plot(data=_letter_t_coords(), fill=red, perspective=True)
 
     # Upper vertical lines
