@@ -300,17 +300,12 @@ def pygmtlogo(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-
-    # -----------------------------------------------------------------------------
     # Create logo file
-    # -----------------------------------------------------------------------------
     fig_name_logo = _create_logo(
         color=color, theme=theme, shape=shape, wordmark=wordmark
     )
 
-    # -----------------------------------------------------------------------------
     # Add to existing Figure instance
-    # -----------------------------------------------------------------------------
     self.image(
         imagefile=f"{fig_name_logo}.eps",
         position=position,
