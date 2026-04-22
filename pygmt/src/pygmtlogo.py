@@ -312,8 +312,6 @@ def pygmtlogo(  # noqa: PLR0913
         width=width,
         height=height,
         box=box,
-        projection=projection,
-        region=region,
         verbose=verbose,
         panel=panel,
         transparency=transparency,
