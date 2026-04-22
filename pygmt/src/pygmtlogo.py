@@ -1,6 +1,7 @@
 """
-pygmtlogo - Create and plot the PyGMT logo.
-The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
+pygmtlogo - Plot the PyGMT logo.
+
+The initial design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
 and consists of a visual and the wordmark "PyGMT".
 """
 
