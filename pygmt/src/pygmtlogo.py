@@ -258,8 +258,6 @@ def pygmtlogo(  # noqa: PLR0913
     width=None,  # -> Use width parameter of Figure.image
     height=None,  # -> Use height parameter of Figure.image
     box=None,  # -> Use box parameter of Figure.image
-    projection=None,
-    region=None,
     verbose=None,
     panel=None,
     transparency=None,
