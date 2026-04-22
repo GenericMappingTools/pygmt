@@ -147,13 +147,12 @@ def _create_logo(  # noqa: PLR0915
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
         y0 = 1.8 * x0 * np.sqrt(3)
-        arrow_x = [
-            -x0 * 2 - thick_comp / 2,
-            -thick_comp / 2,
-            thick_comp / 2,
-            x0 * 2 + thick_comp / 2,
-        ]
-        arrow_y = [-r0 + y0, -r0, -r0, -r0 + y0]
+        # The background arrow is thick_comp wide than the letter T.
+        x1 = x0 + thick_comp / 2.0  # Half-width of the arrow tail
+        x2 = 2 * x0 + thick_comp / np.sqrt(3)  # Half-width of the arrow head
+
+        arrow_x = [-x1, -x1, -x2, -(x2 - 2 * x0), (x2 - 2 * x0), x2, x1, x1]
+        arrow_y = [r0, -r0 + y0, -r0 + y0, -r0, -r0, -r0 + y0, -r0 + y0, r0]
         return {"x": arrow_x, "y": arrow_y}
 
     def _compass_lines():
@@ -170,11 +169,11 @@ def _create_logo(  # noqa: PLR0915
             (x1, -x1, x2, -x2),  # lower right
         ]
 
-    def _vline_coords(gap=0):
+    def _vline_coords():
         """
-        Coordinates for vertical lines.
+        Coordinates for the vertical line at the top.
         """
-        x0 = (thick_gt + gap) / 2
+        x0 = thick_gt / 2
         return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
 
     fig = pygmt.Figure()
@@ -202,8 +201,7 @@ def _create_logo(  # noqa: PLR0915
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
     # fig.show()
 
-    # Background vertical line and arrow head
-    fig.plot(data=_vline_coords(gap=thick_comp), fill=color_bg, perspective=True)
+    # Arrow in background color (over shape outline but under letters)
     fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
 
     # Letters G, M, and T
