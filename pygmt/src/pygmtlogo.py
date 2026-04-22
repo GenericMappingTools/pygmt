@@ -200,7 +200,6 @@ def _create_logo(  # noqa: PLR0915
 
     # Shape outline (over ends of compass lines for hexagon shape)
     fig.plot(x=0, y=0, pen=f"{thick_shape}c,{blue}", **args_shape)
-    # fig.show()
 
     # Arrow in background color (over shape outline but under letters)
     fig.plot(data=_bg_arrow_coords(), fill=color_bg, perspective=True)
@@ -223,13 +222,11 @@ def _create_logo(  # noqa: PLR0915
             perspective=True,
             no_clip=True,
         )
-        # fig.show()
 
     # Add wordmark "PyGMT"
     if wordmark:
         text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
         fig.text(text=text_wm, no_clip=True, **args_text_wm)
-        # fig.show()
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
@@ -245,7 +242,6 @@ def _create_logo(  # noqa: PLR0915
         fig.hlines(y=[r4, r5], xmin=-3, pen=pen, perspective=True)
         fig.vlines(x=[r4, (thick_gap + r4) / 2], ymax=3, pen=pen, perspective=True)
 
-    # fig.show()
     fig_name_logo = "pygmt_logo"
     fig.savefig(fname=f"{fig_name_logo}.eps")
 
