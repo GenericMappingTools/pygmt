@@ -147,7 +147,7 @@ def _create_logo(  # noqa: PLR0915
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
         y0 = 1.8 * x0 * np.sqrt(3)
-        # The background arrow is thick_comp wide than the letter T.
+        # The background arrow is thick_comp wider than the letter T.
         x1 = x0 + thick_comp / 2.0  # Half-width of the arrow tail
         x2 = 2 * x0 + thick_comp / np.sqrt(3)  # Half-width of the arrow head
 
