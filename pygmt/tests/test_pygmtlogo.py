@@ -8,65 +8,21 @@ from pygmt import Figure
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
-def test_pylogo():
+def test_pylogo_color_light_nowordmark():
     """
-    Plot the PyGMT logo using the default settings.
-    """
-    fig = Figure()
-    fig.pygmtlogo()
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_pylogo_vertical_wordmark():
-    """
-    Plot the PyGMT logo with vertical orientation of the wordmark.
+    Plot the PyGMT logo without the wordmark in color using light mode.
     """
     fig = Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(wordmark="vertical")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_pylogo_no_wordmark():
-    """
-    Plot the PyGMT logo without wordmark.
-    """
-    fig = Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
     fig.pygmtlogo(wordmark=False)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_pylogo_color_darkmode():
+def test_pylogo_color_dark_nowordmark():
     """
-    Plot the PyGMT logo in dark mode.
-    """
-    fig = Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(theme="dark")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_pylogo_blackwhite_light():
-    """
-    Plot the PyGMT logo in dark mode.
+    Plot the PyGMT logo without the wordmark in color using dark mode.
     """
     fig = Figure()
     fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(color=False)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_pylogo_backwhite_dark():
-    """
-    Plot the PyGMT logo in dark mode.
-    """
-    fig = Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X10c", frame=1)
-    fig.pygmtlogo(color=False, theme="dark")
+    fig.pygmtlogo(wordmark=False, mode="dark")
     return fig
