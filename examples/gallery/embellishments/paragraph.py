@@ -1,6 +1,6 @@
 """
-Paragraph
-=========
+Paragraphs of long text
+=======================
 
 To plot longer text as one or several paragraphs the :meth:`pygmt.Figure.paragraph`
 method can be used. The ``parwidth`` and ``linespacing`` parameters allow to set
