@@ -17,7 +17,7 @@ __doctest_skip__ = ["pygmtlogo"]
 def _create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
-    wordmark: Literal["horizontal", "vertical"] | bool = True,
+    wordmark: Literal["horizontal", "vertical"] | bool = False,
     color: bool = True,
     debug: bool = False,
 ):
@@ -253,7 +253,7 @@ def pygmtlogo(  # noqa: PLR0913
     color=True,
     theme="light",
     shape="circle",
-    wordmark=True,
+    wordmark=False,
     position=None,  # -> Use position parameter of Figure.image
     width=None,  # -> Use width parameter of Figure.image
     height=None,  # -> Use height parameter of Figure.image
@@ -277,10 +277,10 @@ def pygmtlogo(  # noqa: PLR0913
         Use ``"light"`` for light mode (i.e., a white background) [Default] and
         ``"dark"`` for dark mode (i.e., a darkgray [gray20] background).
     wordmark
-        Add the wordmark "PyGMT" and adjust its orientation relative to the visual. Set
-        to ``True`` or ``"horizontal"``, to add the wordmark at the right side of the
-        visual [Default]. Use ``"vertical"`` to place the wordmark below the visual and
-        ``False`` to add no wordmark.
+        Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
+        ``True`` or ``"horizontal"`` adds the wordmark at the right side of the visual.
+        Use ``"vertical"`` to place the wordmark below the visual and ``False`` to add
+        no wordmark [Default].
     color
         Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
         (red) [Default]. For ``False``, the logo is drawn in black and white.
