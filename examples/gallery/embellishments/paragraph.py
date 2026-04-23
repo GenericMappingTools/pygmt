@@ -2,9 +2,9 @@
 Paragraphs of long text
 =======================
 
-To plot longer text as one or several paragraphs the :meth:`pygmt.Figure.paragraph`
+To typeset long text as one or several paragraphs the :meth:`pygmt.Figure.paragraph`
 method can be used. The ``parwidth`` and ``linespacing`` parameters allow to set
-the line length and spacing of the paragraph, respectively.` The desired text can
+the width of the paragraph and line spacing, respectively. The desired text can
 be provided using two ways to indicate a new paragraph:
 
 (1) a single string separated by a blank line
