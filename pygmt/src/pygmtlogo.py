@@ -18,6 +18,7 @@ def _create_logo(  # noqa: PLR0915
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
     color: bool = True,
+    figname: str | Path = "pygmt_logo.eps",
     debug: bool = False,
 ):
     """
@@ -243,10 +244,7 @@ def _create_logo(  # noqa: PLR0915
         fig.hlines(y=[r4, r5], xmin=-3, pen=pen, perspective=True)
         fig.vlines(x=[r4, (thick_gap + r4) / 2], ymax=3, pen=pen, perspective=True)
 
-    fig_name_logo = "pygmt_logo"
-    fig.savefig(fname=f"{fig_name_logo}.eps")
-
-    return fig_name_logo
+    fig.savefig(fname=figname)
 
 
 def pygmtlogo(  # noqa: PLR0913
@@ -301,21 +299,26 @@ def pygmtlogo(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    # Create logo file
-    fig_name_logo = _create_logo(
-        color=color, theme=theme, shape=shape, wordmark=wordmark
-    )
+    with GMTTempFile(suffix=".eps") as logofile:
+        # Create logo file
+        _create_logo(
+            color=color,
+            theme=theme,
+            shape=shape,
+            wordmark=wordmark,
+            figname=logofile.name,
+        )
 
-    # Add to existing Figure instance
-    self.image(
-        imagefile=f"{fig_name_logo}.eps",
-        position=position,
-        width=width,
-        height=height,
-        box=box,
-        verbose=verbose,
-        panel=panel,
-        transparency=transparency,
-    )
+        # Add to existing Figure instance
+        self.image(
+            imagefile=logofile.name,
+            position=position,
+            width=width,
+            height=height,
+            box=box,
+            verbose=verbose,
+            panel=panel,
+            transparency=transparency,
+        )
 
     Path.unlink(f"{fig_name_logo}.eps")
