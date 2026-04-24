@@ -43,7 +43,6 @@ def _create_logo(  # noqa: PLR0915
     thick_comp = thick_shape / 3  # for compass lines
     thick_gap = thick_shape / 4
 
-
     # Define colors
     color_light = "white"
     color_dark = "gray20"
@@ -232,6 +231,7 @@ def _create_logo(  # noqa: PLR0915
     # Helpful for implementing the logo; not included in the logo
     if debug:
         from pygmt import config  # noqa: PLC0415
+
         # Gridlines
         with config(MAP_FRAME_TYPE="inside", MAP_GRID_PEN="0.1p,gray30"):
             fig.basemap(frame="g1")
