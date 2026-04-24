@@ -16,7 +16,7 @@ __doctest_skip__ = ["pygmtlogo"]
 def _create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
-    wordmark: Literal["horizontal", "vertical"] | bool = False,
+    wordmark: Literal["none", "horizontal", "vertical"] = "none",
     color: bool = True,
     debug: bool = False,
 ):
@@ -82,7 +82,7 @@ def _create_logo(  # noqa: PLR0915
     match wordmark:
         case "vertical":
             args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.5c,{font}"}
-        case True | "horizontal":
+        case "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
     def _letter_g_coords():
@@ -224,7 +224,7 @@ def _create_logo(  # noqa: PLR0915
         )
 
     # Add wordmark "PyGMT"
-    if wordmark:
+    if wordmark != "none":
         text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
         fig.text(text=text_wm, no_clip=True, **args_text_wm)
 
