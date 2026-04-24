@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Literal
 
 import numpy as np
-import pygmt
 
 __doctest_skip__ = ["pygmtlogo"]
 
@@ -24,6 +23,7 @@ def _create_logo(  # noqa: PLR0915
     """
     Create the PyGMT logo using PyGMT.
     """
+    from pygmt.figure import Figure  # noqa: PLC0415
 
     # Helpful definitions
     size = 4
@@ -177,7 +177,7 @@ def _create_logo(  # noqa: PLR0915
         x0 = thick_gt / 2
         return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
 
-    fig = pygmt.Figure()
+    fig = Figure()
     fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
 
     # Earth - circle / hexagon
@@ -230,8 +230,9 @@ def _create_logo(  # noqa: PLR0915
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
+        from pygmt import config  # noqa: PLC0415
         # Gridlines
-        with pygmt.config(MAP_FRAME_TYPE="inside", MAP_GRID_PEN="0.1p,gray30"):
+        with config(MAP_FRAME_TYPE="inside", MAP_GRID_PEN="0.1p,gray30"):
             fig.basemap(frame="g1")
         # Circles for the different radii
         for r in [r0, r1, r2, r3, r4, r5]:
