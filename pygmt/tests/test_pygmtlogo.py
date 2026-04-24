@@ -8,9 +8,9 @@ from pygmt import Figure
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
-def test_pylogo_color_light_nowordmark():
+def test_pygmtlogo():
     """
-    Plot the PyGMT logo without wordmark in color using light mode.
+    Plot the default PyGMT logo, colored, light theme, without wordmark.
     """
     fig = Figure()
     fig.pygmtlogo()
