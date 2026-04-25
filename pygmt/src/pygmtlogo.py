@@ -323,4 +323,4 @@ def pygmtlogo(  # noqa: PLR0913
             transparency=transparency,
         )
 
-    Path.unlink(f"{fig_name_logo}.eps")
+    Path.unlink(f"{logofile.name}.eps")
