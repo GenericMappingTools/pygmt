@@ -261,6 +261,8 @@ def pygmtlogo(  # noqa: PLR0913
     panel=None,
     transparency=None,
 ):
+    from pygmt.helpers import GMTTempFile  # noqa: PLC0415
+
     """
     Plot the PyGMT logo.
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
