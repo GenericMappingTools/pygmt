@@ -20,7 +20,7 @@ from pygmt.params import Axis, Frame
 # coastlines of the world with a Mercator projection:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
 fig.show()
 
 # %%
@@ -29,7 +29,7 @@ fig.show()
 # parameter:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
 fig.basemap(frame=True)
 fig.show()
 
@@ -47,7 +47,7 @@ fig.show()
 # determined by GMT:
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
 fig.basemap(frame=Axis(annot=True, tick=True, grid=True))
 fig.show()
 
@@ -57,7 +57,7 @@ fig.show()
 # 15 degrees, respectively.
 
 fig = pygmt.Figure()
-fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
 fig.basemap(frame=Axis(annot=30, tick=7.5, grid=15))
 fig.show()
 
@@ -70,7 +70,7 @@ fig.show()
 
 fig = pygmt.Figure()
 # region="TT" specifies Trinidad and Tobago using the ISO country code
-fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
+fig.coast(shorelines="1/0.5p", region="TT", projection="M15c")
 fig.basemap(frame=Frame(title="Trinidad and Tobago", axis=Axis(annot=True)))
 fig.show()
 
