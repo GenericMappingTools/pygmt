@@ -278,7 +278,7 @@ def pygmtlogo(  # noqa: PLR0913
         ``"hexagon"`` for a hexagon shape.
     theme
         Use ``"light"`` for light mode (i.e., a white background) [Default] and
-        ``"dark"`` for dark mode (i.e., a darkgray [gray20] background).
+        ``"dark"`` for dark mode (i.e., a darkgray background).
     wordmark
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
         ``True`` or ``"horizontal"`` adds the wordmark at the right side of the visual.
