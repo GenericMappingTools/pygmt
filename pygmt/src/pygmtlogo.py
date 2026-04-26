@@ -281,9 +281,11 @@ def pygmtlogo(  # noqa: PLR0913
         ``"dark"`` for dark mode (i.e., a darkgray background).
     wordmark
         Add the wordmark "PyGMT" and adjust its orientation relative to the visual.
-        ``True`` or ``"horizontal"`` adds the wordmark at the right side of the visual.
-        Use ``"vertical"`` to place the wordmark below the visual and ``False`` to add
-        no wordmark [Default].
+        Valid values are:
+
+        - ``"none"``: no wordmark [Default].
+        - ``"horizontal"``: wordmark at the right side of the visual.
+        - ``"vertical"``: wordmark below the visual.
     color
         Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
         (red) [Default]. For ``False``, the logo is drawn in black and white.
