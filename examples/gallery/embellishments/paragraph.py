@@ -8,7 +8,7 @@ the width of the paragraph and line spacing, respectively. The desired text can
 be provided using two ways to indicate a new paragraph:
 
 (1) a single string separated by a blank line
-(2) a list of strings
+(2) a list of strings, whereby each string needs to end with a white space
 
 During plotting the paragraphs are automatically separated by a blank line.
 
