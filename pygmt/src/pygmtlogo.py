@@ -327,5 +327,3 @@ def pygmtlogo(  # noqa: PLR0913
             panel=panel,
             transparency=transparency,
         )
-
-    Path.unlink(f"{logofile.name}.eps")
