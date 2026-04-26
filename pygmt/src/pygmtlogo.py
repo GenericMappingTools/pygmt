@@ -287,8 +287,7 @@ def pygmtlogo(  # noqa: PLR0913
         - ``"horizontal"``: wordmark at the right side of the visual.
         - ``"vertical"``: wordmark below the visual.
     color
-        Set to ``True`` to use colors referring to Python (blue and yellow) and GMT
-        (red) [Default]. For ``False``, the logo is drawn in black and white.
+        ``True`` for a color logo, and ``False`` for a black and white logo.
 
     Examples
     --------
