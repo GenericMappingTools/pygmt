@@ -48,8 +48,8 @@ def paragraph(  # noqa: PLR0913
     spacing. The text can be aligned left, center, right, or justified.
 
     Multiple paragraphs can be provided as a sequence of strings, where each string
-    represents a separate paragraph, or as a single string with a blank line (``\n\n``)
-    separating the paragraphs.
+    needs to end with a white space and represents a separate paragraph, or as a single
+    string with a blank line (``\n\n``) separating the paragraphs.
 
     Full GMT docs at :gmt-docs:`text.html`.
 
