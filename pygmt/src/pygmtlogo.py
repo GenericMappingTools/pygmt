@@ -5,10 +5,12 @@ The initial design of the logo is kindly provided by `@sfrooti <https://github.c
 and consists of a visual and the wordmark "PyGMT".
 """
 
-from pathlib import Path
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
+from pygmt._typing import AnchorCode, PathLike
+from pygmt.params import Box, Position
 
 __doctest_skip__ = ["pygmtlogo"]
 
@@ -18,7 +20,7 @@ def _create_logo(  # noqa: PLR0915
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
     color: bool = True,
-    figname: str | Path = "pygmt_logo.eps",
+    figname: PathLike = "pygmt_logo.eps",
     debug: bool = False,
 ):
     """
@@ -249,17 +251,19 @@ def _create_logo(  # noqa: PLR0915
 
 def pygmtlogo(  # noqa: PLR0913
     self,
-    color=True,
-    theme="light",
-    shape="circle",
-    wordmark=False,
-    position=None,  # -> Use position parameter of Figure.image
-    width=None,  # -> Use width parameter of Figure.image
-    height=None,  # -> Use height parameter of Figure.image
-    box=None,  # -> Use box parameter of Figure.image
-    verbose=None,
-    panel=None,
-    transparency=None,
+    shape: Literal["circle", "hexagon"] = "circle",
+    theme: Literal["light", "dark"] = "light",
+    wordmark: Literal["none", "horizontal", "vertical"] = "none",
+    color: bool = True,
+    width: float | str | None = None,
+    height: float | str | None = None,
+    position: Position | Sequence[float | str] | AnchorCode | None = None,
+    box: Box | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
 ):
     """
     Plot the PyGMT logo.
