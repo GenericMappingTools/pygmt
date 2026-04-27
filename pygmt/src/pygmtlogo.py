@@ -33,9 +33,8 @@ def _create_logo(  # noqa: PLR0915
     size = 4
     region = [-size, size] * 2
     proj = "x1c"
-    # Rotation around z (vertical) axis placed in the center
-    # Has to be applied to each plotting command, up on second call set to True
-    perspective = "30+w0/0"  # by 30 degrees counter-clockwise
+    # Rotation around z-axis by 30 degrees counter-clockwise placed in the center.
+    perspective = "30+w0/0"
 
     # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array([256, 224, 150, 122, 106, 78]) / 256
