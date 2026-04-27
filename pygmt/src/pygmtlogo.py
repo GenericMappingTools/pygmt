@@ -10,6 +10,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike
+from pygmt.helpers import GMTTempFile
 from pygmt.params import Box, Position
 
 __doctest_skip__ = ["pygmtlogo"]
@@ -304,8 +305,6 @@ def pygmtlogo(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    from pygmt.helpers import GMTTempFile  # noqa: PLC0415
-
     with GMTTempFile(suffix=".eps") as logofile:
         # Create logo file
         _create_logo(
