@@ -292,13 +292,20 @@ def pygmtlogo(  # noqa: PLR0913
     Examples
     --------
     >>> import pygmt
+
+    The simplest way to plot the PyGMT logo is to call the method without any arguments.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.pygmtlogo()
+    >>> fig.show()
+
+    Plot the PyGMT logo with the wordmark "PyGMT" at the right side in the Bottom Right
+    corner on an existing basemap:
+
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
     >>> fig.pygmtlogo(
-    ...     shape="circle",
-    ...     theme="light",
     ...     wordmark="horizontal",
-    ...     color=True,
     ...     position="BR",
     ...     height="1c",
     ... )
