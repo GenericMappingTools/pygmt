@@ -9,7 +9,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.params import Axis, Box, Frame
 
 __doctest_skip__ = ["coast"]
 
@@ -30,7 +30,7 @@ def coast(  # noqa: PLR0913
     box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
