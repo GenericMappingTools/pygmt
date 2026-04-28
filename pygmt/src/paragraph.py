@@ -3,6 +3,7 @@ paragraph - Typeset one or multiple paragraphs.
 """
 
 import io
+import re
 from collections.abc import Sequence
 from typing import Literal
 
@@ -35,6 +36,8 @@ def paragraph(  # noqa: PLR0913
     fill: str | None = None,
     pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
+    tab_width: int = 4,
+    blankline_between_paragraphs: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -79,6 +82,13 @@ def paragraph(  # noqa: PLR0913
     alignment
         Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.
+    tab_width
+        Number of spaces used to expand tab characters in ``text`` when typesetting.
+        Must be a non-negative integer. Use ``0`` to remove tab characters instead of
+        replacing them with spaces.
+    blankline_between_paragraphs
+        If ``True``, use a blank line between paragraphs. [Default is ``False``, i.e.,
+        no blank line between paragraphs.]
     $verbose
     $panel
     $transparency
@@ -108,6 +118,12 @@ def paragraph(  # noqa: PLR0913
             description="value for parameter 'alignment'",
             choices=_valid_alignments,
         )
+    if tab_width < 0:
+        raise GMTValueError(
+            tab_width,
+            description="value for parameter 'tab_width'",
+            reason="Must be a non-negative integer.",
+        )
 
     aliasdict = AliasSystem(
         F=[
@@ -124,11 +140,32 @@ def paragraph(  # noqa: PLR0913
     )
     aliasdict.merge({"M": True})
 
-    confdict = {}
     # Prepare the text string that will be passed to an io.StringIO object.
-    # Multiple paragraphs are separated by a blank line "\n\n".
-    _textstr: str = "\n\n".join(text) if is_nonstr_iter(text) else str(text)
+    #
+    # The GMT's behavior:
+    # - Leading and trailing spaces are ignored.
+    # - Multiple spaces inside a paragraph are combined into one single space.
+    # - Leading tabs are combined into one tab that results in a 4-space indentation.
+    # - Trailing tabs are ignored.
+    # - Multiple tabs inside a paragraph are converted to multiple spaces.
+    # - Mixing tabs and spaces inside a paragraph has a complicated behavior.
+    # - Newline characters are always converted into spaces.
 
+    # Separator for multiple paragraphs.
+    # "\n\n": the default separator, which results in no blank line between paragraphs.
+    # " \n\n": add a blank line between paragraphs.
+    sep = " \n\n" if blankline_between_paragraphs else "\n\n"
+    # Convert a single string into a list of paragraphs for consistent handling.
+    # Split the single string on black lines, allowing for whitespaces in between.
+    if not is_nonstr_iter(text):
+        text = re.split(r"\n\s*\n", text)
+    # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
+    # newlines in each paragraph, but keep leading whitespaces and tabs for now.
+    _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
+    # Replace two or more consecutive spaces with \040 (octal for space), and replace
+    # tabs with the appropriate number of \040.
+    _textstr = re.sub(r" {2,}", lambda m: r"\040" * len(m.group()), _textstr)
+    _textstr = _textstr.replace("\t", r"\040" * tab_width)
     if _textstr == "":
         raise GMTValueError(
             text,
@@ -136,6 +173,7 @@ def paragraph(  # noqa: PLR0913
             reason="'text' must be a non-empty string or sequence of strings.",
         )
 
+    confdict = {}
     # Check the encoding of the text string and convert it to octal if necessary.
     if (encoding := _check_encoding(_textstr)) != "ascii":
         _textstr = non_ascii_to_octal(_textstr, encoding=encoding)
