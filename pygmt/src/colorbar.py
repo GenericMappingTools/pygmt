@@ -273,7 +273,7 @@ def colorbar(  # noqa: PLR0913
     dpi: int | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
