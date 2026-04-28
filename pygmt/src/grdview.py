@@ -12,6 +12,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
@@ -138,7 +139,7 @@ def grdview(  # noqa: PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
