@@ -116,7 +116,7 @@ jobs:
             sphinx_rtd_theme
             cairosvg
             sphinxcontrib-svg2pdfconverter
-            tectonic
+            tectonic=0.15
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
