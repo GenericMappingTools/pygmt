@@ -92,11 +92,12 @@ COMMON_DOCSTRINGS = {
     "frame": r"""
         frame
             Set frame and axes attributes for the plot. It can be a bool, ``"none"``,
-            a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object. If
-            ``frame=True``, frame will be drawn with the default attributes. If
-            ``frame="none"``, no frame will be drawn. Use a :class:`pygmt.params.Frame`
-            or :class:`pygmt.params.Axis` object for more control over the attributes of
-            the frame and axes. A tutorial is available at
+            a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object. Raw GMT
+            strings or sequences of strings are also supported for backward
+            compatibility. If ``frame=True``, frame will be drawn with the default
+            attributes. If ``frame="none"``, no frame will be drawn. Use a
+            :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object for more
+            control over the attributes of the frame and axes. A tutorial is available at
             :doc:`frame and axes attributes </tutorials/basics/frames>`. Full
             documentation is at :gmt-docs:`gmt.html#b-full`.""",
     "gap": r"""

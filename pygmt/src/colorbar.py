@@ -368,10 +368,11 @@ def colorbar(  # noqa: PLR0913
         the angle of the annotation text.
     frame
         Set colorbar boundary frame, labels, and axes attributes. If ``frame=True``, a
-        default frame will be drawn. If ``frame="none"``, no frame will be drawn. For
-        more control over the frame attributes, use parameters such as ``annot``,
-        ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``, ``annot_unit``,
-        ``label``, and ``unit`` instead.
+        default frame will be drawn. If ``frame="none"``, no frame will be drawn. Raw
+        GMT strings or sequences of strings are also supported for backward
+        compatibility. For more control over the frame attributes, use parameters such
+        as ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
+        ``annot_unit``, ``label``, and ``unit`` instead.
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center
