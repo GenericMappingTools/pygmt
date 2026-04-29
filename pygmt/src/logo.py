@@ -100,6 +100,16 @@ def logo(  # noqa: PLR0913
     Examples
     --------
     >>> import pygmt
+
+    The simplest way to plot the GMT logo is to just call the method without any
+    arguments.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.logo()
+    >>> fig.show()
+
+    To plot the GMT logo at the Top Right corner on an existing basemap:
+
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
     >>> fig.logo(position="TR", width="3c")
