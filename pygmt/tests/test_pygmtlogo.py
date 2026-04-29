@@ -15,5 +15,5 @@ def test_pygmtlogo():
     fig = Figure()
     fig.pygmtlogo()
     fig.shift_origin(xshift="+w")
-    fig.pygmtlogo(mode="dark")
+    fig.pygmtlogo(theme="dark")
     return fig
