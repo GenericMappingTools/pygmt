@@ -23,6 +23,7 @@ The figure below shows the naming of figure elements in PyGMT.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 
@@ -33,7 +34,12 @@ y_2 = [4, 5, 6, 3, 5, 5]
 fig.basemap(
     region=[0, 10, 0, 20],
     projection="X10c/8c",
-    frame=["WStr+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
+    frame=Frame(
+        axes="WSrt",
+        title="Title",
+        xaxis=Axis(annot=2, tick=1, grid=2, label="xlabel"),
+        yaxis=Axis(annot=5, tick=1, grid=5, label="ylabel"),
+    ),
 )
 fig.plot(x=x, y=y_1, style="t0.3c", label="fig.plot (style)")
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
