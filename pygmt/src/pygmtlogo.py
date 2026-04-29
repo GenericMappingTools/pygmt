@@ -73,7 +73,7 @@ def _create_logo(  # noqa: PLR0915
         case "circle":
             symbol = "c"
             size_shape = r0 + r1
-            hex_factor = 1
+            hex_factor = 1.0
         case "hexagon":
             symbol = "h"
             size_shape = (r0 + 0.34) * 2
