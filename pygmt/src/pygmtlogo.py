@@ -37,7 +37,7 @@ def _create_logo(  # noqa: PLR0915
     perspective = "30+w0/0"
 
     # Radii (make sure that r4-r5 == r2-r3)
-    r0, r1, r2, r3, r4, r5 = size * np.array([256, 224, 150, 122, 106, 78]) / 256
+    r0, r1, r2, r3, r4, r5 = size * np.array([128, 112, 75, 61, 53, 39]) / 128
     # Pen thicknesses
     thick_shape = r0 - r1  # for shape
     thick_gt = r4 - r5  # for letters G and T
