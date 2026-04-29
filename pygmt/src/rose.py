@@ -119,9 +119,9 @@ def rose(  # noqa: PLR0913
          to 1.
 
     $frame
-        Remember that here *x* is the radial distance and *y* is the azimuth. The y label
-        may be used to plot a figure caption. The scale bar length is determined by the
-        radial gridline spacing.
+        Remember that here *x* is the radial distance and *y* is the azimuth. The y
+        label may be used to plot a figure caption. The scale bar length is determined
+        by the radial gridline spacing.
 
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to
