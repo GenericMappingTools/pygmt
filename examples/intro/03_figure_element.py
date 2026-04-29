@@ -3,22 +3,6 @@
 ==================
 
 The figure below shows the naming of figure elements in PyGMT.
-
-- :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
-  figure must start with the creation of a :meth:`pygmt.Figure()` instance
-- ``frame``: setting plot boundaries (a combination of the single
-  letters of **WSNE**, **wsne**, or **lbtr**), adding annotations, ticks,
-  gridlines (**afg**), axis labels (**+l**), and title (**+t**), e.g.,
-  in :meth:`pygmt.Figure.basemap`. Detailed examples can be found at
-  :doc:`frame and axes attributes </tutorials/basics/frames>`
-- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen``
-  or ``style`` parameters, respectively
-- :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
-  parameter adjusts fontsize, fontstyle, and color
-- :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while
-  the ``label`` is given in :meth:`pygmt.Figure.plot`
-- :meth:`pygmt.Figure.show`: previewing the content added to the current
-  figure instance
 """
 
 # %%
