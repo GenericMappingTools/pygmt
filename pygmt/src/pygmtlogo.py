@@ -10,7 +10,10 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike
-from pygmt.helpers import GMTTempFile
+from pygmt.helpers import (
+    GMTTempFile,
+    fmt_docstring,
+)
 from pygmt.params import Box, Position
 
 __doctest_skip__ = ["pygmtlogo"]
@@ -249,6 +252,7 @@ def _create_logo(  # noqa: PLR0915
     fig.savefig(fname=figname)
 
 
+@fmt_docstring
 def pygmtlogo(  # noqa: PLR0913
     self,
     shape: Literal["circle", "hexagon"] = "circle",
@@ -265,7 +269,7 @@ def pygmtlogo(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
 ):
-    """
+    r"""
     Plot the PyGMT logo.
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
     and consists of a visual and the wordmark "PyGMT".
