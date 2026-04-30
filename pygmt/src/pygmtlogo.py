@@ -314,8 +314,8 @@ def pygmtlogo(  # noqa: PLR0913
     >>> fig.pygmtlogo()
     >>> fig.show()
 
-    Plot the PyGMT logo with the wordmark "PyGMT" at the right side in the Bottom Right
-    corner on an existing basemap:
+    Plot the PyGMT logo with the wordmark "PyGMT" with a height of 1 centimeter at the
+    right side in the Bottom Right corner on an existing basemap:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
