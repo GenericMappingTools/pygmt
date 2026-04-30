@@ -37,7 +37,7 @@ from pygmt.src.solar import solar as _solar
 from pygmt.src.subplot import set_panel as _set_panel
 from pygmt.src.subplot import subplot as _subplot
 from pygmt.src.ternary import ternary as _ternary
-from pygmt.src.text import text_ as _text
+from pygmt.src.text import text as _text
 from pygmt.src.tilemap import tilemap as _tilemap
 from pygmt.src.timestamp import timestamp as _timestamp
 from pygmt.src.velo import velo as _velo
