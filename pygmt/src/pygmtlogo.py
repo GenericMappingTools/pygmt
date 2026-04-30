@@ -288,6 +288,17 @@ def pygmtlogo(  # noqa: PLR0913
         - ``"vertical"``: wordmark below the visual.
     color
         ``True`` for a color logo, and ``False`` for a black and white logo.
+    width
+        Set the width of the logo.
+    hight
+        Set the hight of the logo.
+    $position
+    box
+        Add a box around the logo.
+    $verbose
+    $panel
+    $perspective
+    $transparency
 
     Examples
     --------
