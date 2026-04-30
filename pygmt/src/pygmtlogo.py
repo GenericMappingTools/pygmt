@@ -276,7 +276,6 @@ def pygmtlogo(  # noqa: PLR0913
 
     Parameters
     ----------
-
     shape
         Shape of the visual logo. Use ``"circle"`` for a circle shape [Default] or
         ``"hexagon"`` for a hexagon shape.
@@ -292,10 +291,6 @@ def pygmtlogo(  # noqa: PLR0913
         - ``"vertical"``: wordmark below the visual.
     color
         ``True`` for a color logo, and ``False`` for a black and white logo.
-    width
-        Set the width of the logo.
-    hight
-        Set the hight of the logo.
     position
         Position of the GMT logo on the plot. It can be specified in multiple ways:
 
@@ -308,8 +303,15 @@ def pygmtlogo(  # noqa: PLR0913
 
         If not specified, defaults to the Bottom Left corner of the plot (position
         ``(0, 0)`` with anchor ``"BL"``).
+    width
+    height
+        Width or height of the PyGMT logo. Since the aspect ratio is fixed, only one of
+        the two can be specified.
     box
-        Add a box around the logo.
+        Draw a background box behind the logo. If set to ``True``, a simple rectangular
+        box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
+        pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
+        box properties.
     $verbose
     $panel
     $perspective
