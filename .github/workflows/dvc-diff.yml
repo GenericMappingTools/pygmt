@@ -37,6 +37,8 @@ jobs:
 
     - name: Setup continuous machine learning (CML)
       uses: iterative/setup-cml@1b5ab8766e715e8f1aab96bbb1f4f2e3e1e8af45 # v3
+      with:
+        vega: false
 
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images

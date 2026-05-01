@@ -9,6 +9,40 @@ from tempfile import TemporaryDirectory
 from typing import Literal, overload
 
 from pygmt._typing import PathLike
+from pygmt.src.basemap import basemap as _basemap
+from pygmt.src.choropleth import choropleth as _choropleth
+from pygmt.src.coast import coast as _coast
+from pygmt.src.colorbar import colorbar as _colorbar
+from pygmt.src.contour import contour as _contour
+from pygmt.src.directional_rose import directional_rose as _directional_rose
+from pygmt.src.grdcontour import grdcontour as _grdcontour
+from pygmt.src.grdimage import grdimage as _grdimage
+from pygmt.src.grdview import grdview as _grdview
+from pygmt.src.histogram import histogram as _histogram
+from pygmt.src.hlines import hlines as _hlines
+from pygmt.src.image import image as _image
+from pygmt.src.inset import inset as _inset
+from pygmt.src.legend import legend as _legend
+from pygmt.src.logo import logo as _logo
+from pygmt.src.magnetic_rose import magnetic_rose as _magnetic_rose
+from pygmt.src.meca import meca as _meca
+from pygmt.src.paragraph import paragraph as _paragraph
+from pygmt.src.plot import plot as _plot
+from pygmt.src.plot3d import plot3d as _plot3d
+from pygmt.src.psconvert import psconvert as _psconvert
+from pygmt.src.rose import rose as _rose
+from pygmt.src.scalebar import scalebar as _scalebar
+from pygmt.src.shift_origin import shift_origin as _shift_origin
+from pygmt.src.solar import solar as _solar
+from pygmt.src.subplot import set_panel as _set_panel
+from pygmt.src.subplot import subplot as _subplot
+from pygmt.src.ternary import ternary as _ternary
+from pygmt.src.text import text as _text
+from pygmt.src.tilemap import tilemap as _tilemap
+from pygmt.src.timestamp import timestamp as _timestamp
+from pygmt.src.velo import velo as _velo
+from pygmt.src.vlines import vlines as _vlines
+from pygmt.src.wiggle import wiggle as _wiggle
 
 try:
     import IPython
@@ -408,42 +442,41 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore[misc] # noqa: PLC0415
-        basemap,
-        choropleth,
-        coast,
-        colorbar,
-        contour,
-        directional_rose,
-        grdcontour,
-        grdimage,
-        grdview,
-        histogram,
-        hlines,
-        image,
-        inset,
-        legend,
-        logo,
-        magnetic_rose,
-        meca,
-        paragraph,
-        plot,
-        plot3d,
-        psconvert,
-        rose,
-        scalebar,
-        set_panel,
-        shift_origin,
-        solar,
-        subplot,
-        ternary,
-        text,
-        tilemap,
-        timestamp,
-        velo,
-        vlines,
-        wiggle,
-    )
+    # Attach plotting functions implemented in pygmt/src as Figure methods.
+    basemap = _basemap
+    choropleth = _choropleth
+    coast = _coast
+    colorbar = _colorbar
+    contour = _contour
+    directional_rose = _directional_rose
+    grdcontour = _grdcontour
+    grdimage = _grdimage
+    grdview = _grdview
+    histogram = _histogram
+    hlines = _hlines
+    image = _image
+    inset = _inset
+    legend = _legend
+    logo = _logo
+    magnetic_rose = _magnetic_rose
+    meca = _meca
+    paragraph = _paragraph
+    plot = _plot
+    plot3d = _plot3d
+    psconvert = _psconvert
+    rose = _rose
+    scalebar = _scalebar
+    set_panel = _set_panel
+    shift_origin = _shift_origin
+    solar = _solar
+    subplot = _subplot
+    ternary = _ternary
+    text = _text
+    tilemap = _tilemap
+    timestamp = _timestamp
+    velo = _velo
+    vlines = _vlines
+    wiggle = _wiggle
 
 
 def set_display(method: Literal["external", "notebook", "none", None] = None) -> None:
