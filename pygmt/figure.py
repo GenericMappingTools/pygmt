@@ -442,7 +442,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    # Attach plotting functions implemented in pygmt.src as Figure methods.
+    # Attach plotting functions implemented in pygmt/src as Figure methods.
     basemap = _basemap
     choropleth = _choropleth
     coast = _coast
