@@ -10,10 +10,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike
-from pygmt.helpers import (
-    GMTTempFile,
-    fmt_docstring,
-)
+from pygmt.helpers import GMTTempFile, fmt_docstring
 from pygmt.params import Box, Position
 
 __doctest_skip__ = ["pygmtlogo"]
