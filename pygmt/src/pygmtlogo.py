@@ -329,11 +329,7 @@ def pygmtlogo(  # noqa: PLR0913
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
-    >>> fig.pygmtlogo(
-    ...     wordmark="horizontal",
-    ...     position="BR",
-    ...     height="1c",
-    ... )
+    >>> fig.pygmtlogo(wordmark="horizontal", position="BR", height="1c")
     >>> fig.show()
     """
     with GMTTempFile(suffix=".eps") as logofile:
