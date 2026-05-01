@@ -30,7 +30,7 @@ permissions: {}
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macos-slim
+    runs-on: ubuntu-slim
     defaults:
       run:
         shell: bash -l {0}
