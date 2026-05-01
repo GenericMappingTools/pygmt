@@ -66,3 +66,14 @@ jobs:
             rm output.txt
             exit $nfiles
           fi
+
+      - name: Ensure baseline PNG DVC metadata does not mark files executable
+        run: |
+          grep -l '^[[:space:]]*isexec:[[:space:]]*true$' pygmt/tests/baseline/*.png.dvc > output.txt || true
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "The following baseline PNG DVC files mark images as executable:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi
