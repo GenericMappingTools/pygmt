@@ -1,6 +1,5 @@
 outs:
 - md5: 35c59c31c92f13c705a24933465ff551
   size: 14374
-  isexec: true
   hash: md5
   path: test_pygmtlogo.png
