@@ -136,42 +136,6 @@ class Figure:
         self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
-        # Attach plotting functions implemented in pygmt/src as bound instance methods.
-        self.basemap = _basemap
-        self.choropleth = _choropleth
-        self.coast = _coast
-        self.colorbar = _colorbar
-        self.contour = _contour
-        self.directional_rose = _directional_rose
-        self.grdcontour = _grdcontour
-        self.grdimage = _grdimage
-        self.grdview = _grdview
-        self.histogram = _histogram
-        self.hlines = _hlines
-        self.image = _image
-        self.inset = _inset
-        self.legend = _legend
-        self.logo = _logo
-        self.magnetic_rose = _magnetic_rose
-        self.meca = _meca
-        self.paragraph = _paragraph
-        self.plot = _plot
-        self.plot3d = _plot3d
-        self.psconvert = _psconvert
-        self.rose = _rose
-        self.scalebar = _scalebar
-        self.set_panel = _set_panel
-        self.shift_origin = _shift_origin
-        self.solar = _solar
-        self.subplot = _subplot
-        self.ternary = _ternary
-        self.text = _text
-        self.tilemap = _tilemap
-        self.timestamp = _timestamp
-        self.velo = _velo
-        self.vlines = _vlines
-        self.wiggle = _wiggle
-
     def __del__(self) -> None:
         """
         Clean up the temporary directory that stores the previews.
@@ -477,6 +441,42 @@ class Figure:
         base64_png = base64.encodebytes(raw_png)
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
+
+    # Attach plotting functions implemented in pygmt.src as Figure methods.
+    basemap = _basemap
+    choropleth = _choropleth
+    coast = _coast
+    colorbar = _colorbar
+    contour = _contour
+    directional_rose = _directional_rose
+    grdcontour = _grdcontour
+    grdimage = _grdimage
+    grdview = _grdview
+    histogram = _histogram
+    hlines = _hlines
+    image = _image
+    inset = _inset
+    legend = _legend
+    logo = _logo
+    magnetic_rose = _magnetic_rose
+    meca = _meca
+    paragraph = _paragraph
+    plot = _plot
+    plot3d = _plot3d
+    psconvert = _psconvert
+    rose = _rose
+    scalebar = _scalebar
+    set_panel = _set_panel
+    shift_origin = _shift_origin
+    solar = _solar
+    subplot = _subplot
+    ternary = _ternary
+    text = _text
+    tilemap = _tilemap
+    timestamp = _timestamp
+    velo = _velo
+    vlines = _vlines
+    wiggle = _wiggle
 
 
 def set_display(method: Literal["external", "notebook", "none", None] = None) -> None:
