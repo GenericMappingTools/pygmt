@@ -3,7 +3,7 @@ Source code for PyGMT methods.
 """
 
 # Re-export standalone functions that can be used directly.
-# Figure plotting methods are attached in pygmt.figure and are not exported here.
+# Figure plotting methods are attached in pygmt/figure.py and are not exported here.
 from pygmt.src.binstats import binstats
 from pygmt.src.blockm import blockmean, blockmedian, blockmode
 from pygmt.src.config import config
