@@ -10,7 +10,8 @@ from pygmt.params import Axis, Position
 @pytest.mark.mpl_image_compare
 def test_pygmtlogo_circle_no_wordmark():
     """
-    Plot the default PyGMT logo, colored, light and dark themes, without wordmark.
+    Test the PyGMT circular logo without the wordmark, including both light/dark themes,
+    and colored/black-and-white versions.
     """
     fig = Figure()
     fig.basemap(region=[-0.5, 5.0, -0.5, 5.0], projection="x1c", frame=Axis(grid=0.5))
