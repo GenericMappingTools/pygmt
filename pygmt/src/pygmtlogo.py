@@ -268,7 +268,7 @@ def pygmtlogo(  # noqa: PLR0913
 ):
     """
     Plot the PyGMT logo.
-    
+
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
     and consists of a visual and the wordmark "PyGMT".
 
