@@ -216,7 +216,7 @@ class Frame(BaseParam):
     subtitle: str | None = None
 
     #: Fill for the interior of the frame with a color or a pattern [Default is no
-    #: fill]. For 3-D plots, it sets the fill for the xy-, yz-, and xz-planes, but can 
+    #: fill]. For 3-D plots, it sets the fill for the xy-, yz-, and xz-planes, but can
     #: be overridden by ``xyfill``, ``yzfill``, and ``xzfill``.
     fill: str | None = None
 
