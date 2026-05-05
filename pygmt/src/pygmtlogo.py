@@ -30,6 +30,7 @@ def _create_logo(  # noqa: PLR0915
     from pygmt.figure import Figure  # noqa: PLC0415
 
     # Helpful definitions
+    # See https://github.com/GenericMappingTools/pygmt/pull/4617#issuecomment-4366140123
     size = 4.1615  # size to make the circular logo 2-cm wide when plotted with 300 dpi.
     region = [-size, size] * 2
     proj = "x1c"
