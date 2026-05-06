@@ -221,7 +221,7 @@ def _create_logo(  # noqa: PLR0915, PLR0912
             x=0,
             y=0,
             style=f"{symbol}{size_shape + thick_shape}c",
-            pen=f"1p,{color_dark}",
+            pen=f"{thick_comp / 2.0}c,{color_bg}",
             perspective=True,
             no_clip=True,
         )
