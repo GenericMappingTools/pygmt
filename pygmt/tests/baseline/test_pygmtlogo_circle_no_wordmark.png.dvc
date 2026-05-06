@@ -1,0 +1,5 @@
+outs:
+- md5: b1dee02932b292335cf5f8b95676a258
+  size: 19161
+  hash: md5
+  path: test_pygmtlogo_circle_no_wordmark.png

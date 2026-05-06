@@ -10,6 +10,7 @@ from typing import Literal
 
 import numpy as np
 from pygmt._typing import AnchorCode, PathLike
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile, fmt_docstring
 from pygmt.params import Box, Position
 
@@ -304,7 +305,8 @@ def pygmtlogo(  # noqa: PLR0913
     width
     height
         Width or height of the PyGMT logo. Since the aspect ratio is fixed, only one of
-        the two can be specified.
+        the two can be specified. If not specified, the default size of the visual logo
+        is set to 2 cm.
     box
         Draw a background box behind the logo. If set to ``True``, a simple rectangular
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
@@ -333,6 +335,20 @@ def pygmtlogo(  # noqa: PLR0913
     >>> fig.pygmtlogo(wordmark="horizontal", position="BR", height="1c")
     >>> fig.show()
     """
+    # Set the default size of the visual logo to 2 cm.
+    if width is None and height is None:
+        match wordmark:
+            case "none" | "vertical":
+                width = width or "2c"
+            case "horizontal":
+                height = height or "2c"
+            case _:
+                raise GMTValueError(
+                    wordmark,
+                    description="value for wordmark",
+                    choices={"none", "horizontal", "vertical"},
+                )
+
     with GMTTempFile(suffix=".eps") as logofile:
         # Create logo file
         _create_logo(
