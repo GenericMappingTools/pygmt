@@ -17,12 +17,12 @@ from pygmt.params import Box, Position
 __doctest_skip__ = ["pygmtlogo"]
 
 
-def _create_logo(  # noqa: PLR0915
+def _create_logo(  # noqa: PLR0915, PLR0912
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
     color: bool = True,
-    figname: PathLike = "pygmt_logo.eps",
+    figname: PathLike | None = None,
     debug: bool = False,
 ):
     """
@@ -236,8 +236,8 @@ def _create_logo(  # noqa: PLR0915
         from pygmt import config  # noqa: PLC0415
 
         # Gridlines
-        with config(MAP_FRAME_TYPE="inside", MAP_GRID_PEN="0.1p,gray30"):
-            fig.basemap(frame="g1")
+        with config(MAP_GRID_PEN="0.1p,gray30"):
+            fig.basemap(frame="00g1")
         # Circles for the different radii
         for r in [r0, r1, r2, r3, r4, r5]:
             fig.plot(x=0, y=0, style=f"c{2 * r}c", pen="0.3p,gray30")
@@ -247,7 +247,10 @@ def _create_logo(  # noqa: PLR0915
         fig.hlines(y=[r4, r5], xmin=-3, pen=pen, perspective=True)
         fig.vlines(x=[r4, (thick_gap + r4) / 2], ymax=3, pen=pen, perspective=True)
 
-    fig.savefig(fname=figname)
+    if figname:
+        fig.savefig(fname=figname)
+        return None
+    return fig
 
 
 @fmt_docstring
