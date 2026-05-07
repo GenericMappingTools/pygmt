@@ -5,6 +5,20 @@ Test Figure.pygmtlogo.
 import pytest
 from pygmt import Figure
 from pygmt.params import Axis, Position
+from pygmt.src.pygmtlogo import _create_logo
+
+
+@pytest.mark.mpl_image_compare(savefig_kwargs={"dpi": 600})
+def test_pygmtlogo_circle_design():
+    """
+    Test the design details of the PyGMT circular logo.
+
+    This is a regression test to ensure that the design of the logo does not change
+    unintentionally. The debugging lines (gridlines and circles) are helpful for
+    implementing the logo, but they are not included in the final logo design.
+    """
+    fig = _create_logo(debug=True)
+    return fig
 
 
 @pytest.mark.mpl_image_compare
