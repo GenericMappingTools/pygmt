@@ -9,7 +9,8 @@ can be visualized using a perspective 3-D plot. The ``region``
 parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
 using :func:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
-minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
+minimum to something like ``Frame(axes="WsNeZ", zaxis=Axis(annot=True, tick=True))``.
+Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 """
@@ -17,6 +18,7 @@ the vertical exaggeration factor.
 # %%
 import pandas as pd
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
@@ -54,7 +56,7 @@ fig = pygmt.Figure()
 # palette "cubhelix" in categorical format and add the species names as
 # annotations for the colorbar
 pygmt.makecpt(
-    cmap="cubhelix",
+    cmap="cpt-city/cubhelix",
     # Use the minimum and maximum of the categorical number code
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
@@ -77,22 +79,23 @@ fig.plot3d(
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
-    # Set map dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
+    # Set plot dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
     region=region,
     # Set frame parameters
-    frame=[
-        "WsNeZ3+tIris flower data set",  # z axis label positioned on 3rd corner, add title
-        "xafg+lPetal Width (cm)",
-        "yafg+lSepal Length (cm)",
-        "zafg+lPetal Length (cm)",
-    ],
+    frame=Frame(
+        axes="WsNeZ3",  # z axis label positioned on 3rd corner
+        title="Iris flower data set",
+        xaxis=Axis(annot=True, tick=True, grid=True, label="Petal Width (cm)"),
+        yaxis=Axis(annot=True, tick=True, grid=True, label="Sepal Length (cm)"),
+        zaxis=Axis(annot=True, tick=True, grid=True, label="Petal Length (cm)"),
+    ),
     # Set perspective to azimuth NorthWest (315°), at elevation 25°
     perspective=[315, 25],
     # Vertical exaggeration factor
     zscale=1.5,
 )
 
-# Shift the plot origin in x direction temporarily and add the colorbar
+# Shift the plot origin in x-direction temporarily and add the colorbar
 with fig.shift_origin(xshift=3.1):
     fig.colorbar()
 

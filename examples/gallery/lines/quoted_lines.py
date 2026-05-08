@@ -17,13 +17,16 @@ at :gmt-docs:`plot.html#s`.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([1, 4])
 y = np.array([20, 20])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tQuoted Lines")
+fig.basemap(
+    region=[0, 10, 0, 20], projection="X15c/15c", frame=Frame(title="Quoted Lines")
+)
 
 # Plot different quoted lines
 for quotedline in [
@@ -41,7 +44,7 @@ for quotedline in [
     "qN+1:+ltext",
     # Adjust the justification of the labels via "+j", here Top Center
     "qd1c:+ltext+jTC",
-    # Shift labels using "+n" in x and y directions relative to the main
+    # Shift labels using "+n" in x- and y-directions relative to the main
     # quoted line
     "qd1c:+ltext+n-0.5c/0.1c",
     # Rotate labels via "+a" (counter-clockwise from horizontal)
@@ -54,7 +57,7 @@ for quotedline in [
     "qd1c:+ltext+p0.5p,blue,dashed",
     # Append "+o" to get a box with rounded edges
     "qd1c:+ltext+p0.5p,blue+o",
-    # Adjust the space between label and box in x and y directions via "+c"
+    # Adjust the space between label and box in x- and y-directions via "+c"
     "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
     # Give a fill of the box via "+g" together with the desired color
     "qd1c:+ltext+gdodgerblue",

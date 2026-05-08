@@ -14,7 +14,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
+.. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -38,13 +38,14 @@ and the figure size is set with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # UTM Zone is set to 52R
 fig.coast(
     region=[127.5, 128.5, 26, 27],
     projection="U52R/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

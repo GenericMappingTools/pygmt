@@ -18,13 +18,16 @@ or weather fronts; for details see the
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([1, 4])
 y = np.array([24, 24])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 24], projection="X15c", frame="+tDecorated Lines")
+fig.basemap(
+    region=[0, 10, 0, 24], projection="X15c", frame=Frame(title="Decorated Lines")
+)
 
 # Plot different decorated lines
 for decoline in [
@@ -47,7 +50,8 @@ for decoline in [
     # Line with squares ("s") with a size of 0.7 centimeters in a distance of
     # 1 centimeter
     "~d1c:+ss0.7c+gtan+p1p,black",
-    # Shift symbols using "+n" in x and y directions relative to the main decorated line
+    # Shift symbols using "+n" in x- and y-directions relative to the main decorated
+    # line
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
     # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",

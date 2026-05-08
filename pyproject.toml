@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 license = "BSD-3-Clause"
 license-files = ["LICENSE.txt"]
@@ -30,27 +30,29 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX",
     "Operating System :: Unix",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "numpy>=1.25",
-    "pandas>=2.0",
-    "xarray>=2023.04",
-    "netCDF4",
-    "packaging",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "xarray>=2024.5",
+    "packaging>=24.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "contextily",
-    "geopandas",
+    "contextily>=1.5",
+    "geopandas>=1.0",
     "IPython",  # 'ipython' is not the correct module name.
-    "pyarrow",
+    "pyarrow>=16",
     "rioxarray",
 ]
+
+[project.entry-points."xarray.backends"]
+gmt = "pygmt.xarray:GMTBackendEntrypoint"
 
 [project.urls]
 "Homepage" = "https://www.pygmt.org"
@@ -134,6 +136,7 @@ extend-select = [
     "D410",     # A blank line after section headings.
     "PLR6201",  # Use a set literal when testing for membership
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
+    "RUF027",   # Possible f-string without an f prefix
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas
@@ -145,7 +148,6 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability

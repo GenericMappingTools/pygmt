@@ -6,8 +6,10 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -17,15 +19,13 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@use_alias(
-    E="end",
-    F="filter_type",
-    N="time_col",
-)
+@use_alias(E="end", F="filter_type", N="time_col")
 def filter1d(
-    data,
+    data: PathLike | TableLike,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -39,14 +39,15 @@ def filter1d(
     Read a table and output as a :class:`numpy.ndarray`,
     :class:`pandas.DataFrame`, or ASCII file.
 
-    Full option list at :gmt-docs:`filter1d.html`
+    Full GMT docs at :gmt-docs:`filter1d.html`.
 
-    {aliases}
+    $aliases
+       - V = verbose
 
     Parameters
     ----------
-    {output_type}
-    {outfile}
+    $output_type
+    $outfile
     filter_type : str
         **type**\ *width*\ [**+h**].
         Set the filter **type**. Choose among convolution and non-convolution
@@ -99,6 +100,7 @@ def filter1d(
         Indicate which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
         [Default is ``0``].
+    $verbose
 
     Returns
     -------
@@ -111,10 +113,14 @@ def filter1d(
           (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
-        msg = "Pass a required argument to 'filter_type'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(required="filter_type")
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
+
+    aliasdict = AliasSystem().add_common(
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -123,6 +129,6 @@ def filter1d(
         ):
             lib.call_module(
                 module="filter1d",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

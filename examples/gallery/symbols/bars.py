@@ -7,7 +7,7 @@ horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. By default, *base* = 0 meaning that the
 bar is starting from 0. Append **+b**\[*base*] to change this
 value. To plot multi-band bars, please append
-**+v**\|\ **i**\ *ny* (for verticals bars) or **+v**\|\ **i**\ *nx*
+**+v**\|\ **i**\ *ny* (for vertical bars) or **+v**\|\ **i**\ *nx*
 (for horizontal ones), where *ny* or *nx* indicate the total
 number of bands in the bar (and hence the number of values required
 to follow the *x,y* coordinate pair in the input). Here, **+i**
@@ -21,16 +21,17 @@ side-by-side, individual and thinner bars. Multi-band bars require
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 
-pygmt.makecpt(cmap="roma", series=[0, 4, 1])
+pygmt.makecpt(cmap="SCM/roma", series=[0, 4, 1])
 
 with fig.subplot(
     nrows=2,
     ncols=2,
     subsize=("8c", "4c"),
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     sharey=True,
     sharex=True,
     margins=["0.5c", "0.75c"],
@@ -38,7 +39,7 @@ with fig.subplot(
     pen = "1.5p"
     with fig.set_panel(panel=0):
         fill = "skyblue"
-        fig.basemap(region=[0, 4, 0, 3], frame="+tvertical bars")
+        fig.basemap(region=[0, 4, 0, 3], frame=Frame(title="vertical bars"))
         fig.plot(x=1, y=2, style="b0.5c", fill=fill, pen=pen)
         fig.plot(x=2, y=2.5, style="b1c", fill=fill, pen=pen)
         # +b1 means that the bar is starting from y=1 here
@@ -46,7 +47,7 @@ with fig.subplot(
 
     with fig.set_panel(panel=1):
         fill = "tomato"
-        fig.basemap(region=[0, 4, 0, 3], frame="+thorizontal bars")
+        fig.basemap(region=[0, 4, 0, 3], frame=Frame(title="horizontal bars"))
         fig.plot(x=1.5, y=0.5, style="B0.75c", fill=fill, pen=pen)
         fig.plot(x=3, y=1.5, style="B1c", fill=fill, pen=pen)
         # +b2 means that the bar is starting from x=2 here
@@ -62,11 +63,11 @@ with fig.subplot(
     }
 
     with fig.set_panel(panel=2):
-        fig.basemap(region=[0, 4, 0, 3], frame="+tstacked bars")
+        fig.basemap(region=[0, 4, 0, 3], frame=Frame(title="stacked bars"))
         fig.plot(data=data, style="B0.75c+i4", cmap=True, pen=pen)
 
     with fig.set_panel(panel=3):
-        fig.basemap(region=[0, 4, 0, 3], frame="+tsplit bars")
+        fig.basemap(region=[0, 4, 0, 3], frame=Frame(title="split bars"))
         fig.plot(data=data, style="B1c+v4+s", cmap=True, pen=pen)
 
 fig.show()

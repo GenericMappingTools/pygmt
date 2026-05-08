@@ -4,9 +4,45 @@ Define the Figure class that handles all plotting.
 
 import base64
 import os
-from pathlib import Path, PurePath
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Literal, overload
+
+from pygmt._typing import PathLike
+from pygmt.src.basemap import basemap as _basemap
+from pygmt.src.choropleth import choropleth as _choropleth
+from pygmt.src.coast import coast as _coast
+from pygmt.src.colorbar import colorbar as _colorbar
+from pygmt.src.contour import contour as _contour
+from pygmt.src.directional_rose import directional_rose as _directional_rose
+from pygmt.src.grdcontour import grdcontour as _grdcontour
+from pygmt.src.grdimage import grdimage as _grdimage
+from pygmt.src.grdview import grdview as _grdview
+from pygmt.src.histogram import histogram as _histogram
+from pygmt.src.hlines import hlines as _hlines
+from pygmt.src.image import image as _image
+from pygmt.src.inset import inset as _inset
+from pygmt.src.legend import legend as _legend
+from pygmt.src.logo import logo as _logo
+from pygmt.src.magnetic_rose import magnetic_rose as _magnetic_rose
+from pygmt.src.meca import meca as _meca
+from pygmt.src.paragraph import paragraph as _paragraph
+from pygmt.src.plot import plot as _plot
+from pygmt.src.plot3d import plot3d as _plot3d
+from pygmt.src.psconvert import psconvert as _psconvert
+from pygmt.src.rose import rose as _rose
+from pygmt.src.scalebar import scalebar as _scalebar
+from pygmt.src.shift_origin import shift_origin as _shift_origin
+from pygmt.src.solar import solar as _solar
+from pygmt.src.subplot import set_panel as _set_panel
+from pygmt.src.subplot import subplot as _subplot
+from pygmt.src.ternary import ternary as _ternary
+from pygmt.src.text import text as _text
+from pygmt.src.tilemap import tilemap as _tilemap
+from pygmt.src.timestamp import timestamp as _timestamp
+from pygmt.src.velo import velo as _velo
+from pygmt.src.vlines import vlines as _vlines
+from pygmt.src.wiggle import wiggle as _wiggle
 
 try:
     import IPython
@@ -17,7 +53,7 @@ except ImportError:
 
 import numpy as np
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import launch_external_viewer, unique_name
 
 
@@ -57,7 +93,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
-SHOWED_FIGURES = []
+SHOWED_FIGURES: list["Figure"] = []
 # Configurations for figure display.
 SHOW_CONFIG = {
     "method": _get_default_display_method(),  # The image preview display method.
@@ -117,14 +153,6 @@ class Figure:
         with Session() as lib:
             lib.call_module(module="figure", args=[self._name, fmt])
 
-    def _preprocess(self, **kwargs):
-        """
-        Call the ``figure`` module before each plotting command to ensure we're plotting
-        to this particular figure.
-        """
-        self._activate_figure()
-        return kwargs
-
     @property
     def region(self) -> np.ndarray:
         """
@@ -137,7 +165,7 @@ class Figure:
 
     def savefig(
         self,
-        fname: str | PurePath,
+        fname: PathLike,
         transparent: bool = False,
         crop: bool = True,
         anti_alias: bool = True,
@@ -224,35 +252,40 @@ class Figure:
             case "kml":  # KML
                 kwargs["W"] = "+k"
             case "ps":
-                msg = "Extension '.ps' is not supported. Use '.eps' or '.pdf' instead."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    reason="Extension '.ps' is not supported. Use '.eps' or '.pdf' instead.",
+                )
             case ext if ext not in fmts:
-                msg = f"Unknown extension '.{ext}'."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext, description="file extension", choices=fmts.keys()
+                )
 
         if transparent and ext not in {"kml", "png"}:
-            msg = f"Transparency unavailable for '{ext}', only for png and kml."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                transparent,
+                description="value for parameter 'transparent'",
+                reason=f"Transparency unavailable for {ext!r}, only for png and kml.",
+            )
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
 
         if worldfile:
             if ext in {"eps", "kml", "pdf", "tiff"}:
-                msg = f"Saving a world file is not supported for '{ext}' format."
-                raise GMTInvalidInput(msg)
+                raise GMTValueError(
+                    ext,
+                    description="file extension",
+                    choices=["eps", "kml", "pdf", "tiff"],
+                    reason="Saving a world file is not supported for this format.",
+                )
             kwargs["W"] = True
 
         # pytest-mpl v0.17.0 added the "metadata" parameter to Figure.savefig, which is
         # not recognized. So remove it before calling Figure.psconvert.
         kwargs.pop("metadata", None)
         self.psconvert(prefix=prefix, fmt=fmts[ext], crop=crop, **kwargs)
-
-        # TODO(GMT>=6.5.0): Remove the workaround for upstream bug in GMT<6.5.0.
-        # Remove the .pgw world file if exists. Not necessary after GMT 6.5.0.
-        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff":
-            fname.with_suffix(".pgw").unlink(missing_ok=True)
 
         # Rename if file extension doesn't match the input file suffix.
         if ext != suffix[1:]:
@@ -348,11 +381,11 @@ class Figure:
             case "none":
                 pass  # Do nothing
             case _:
-                msg = (
-                    f"Invalid display method '{method}'. "
-                    "Valid values are 'external', 'notebook', 'none' or None."
+                raise GMTValueError(
+                    method,
+                    description="display method",
+                    choices=["external", "notebook", "none", None],
                 )
-                raise GMTInvalidInput(msg)
 
     @overload
     def _preview(
@@ -409,37 +442,41 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore[misc]
-        basemap,
-        coast,
-        colorbar,
-        contour,
-        grdcontour,
-        grdimage,
-        grdview,
-        histogram,
-        hlines,
-        image,
-        inset,
-        legend,
-        logo,
-        meca,
-        plot,
-        plot3d,
-        psconvert,
-        rose,
-        set_panel,
-        shift_origin,
-        solar,
-        subplot,
-        ternary,
-        text,
-        tilemap,
-        timestamp,
-        velo,
-        vlines,
-        wiggle,
-    )
+    # Attach plotting functions implemented in pygmt/src as Figure methods.
+    basemap = _basemap
+    choropleth = _choropleth
+    coast = _coast
+    colorbar = _colorbar
+    contour = _contour
+    directional_rose = _directional_rose
+    grdcontour = _grdcontour
+    grdimage = _grdimage
+    grdview = _grdview
+    histogram = _histogram
+    hlines = _hlines
+    image = _image
+    inset = _inset
+    legend = _legend
+    logo = _logo
+    magnetic_rose = _magnetic_rose
+    meca = _meca
+    paragraph = _paragraph
+    plot = _plot
+    plot3d = _plot3d
+    psconvert = _psconvert
+    rose = _rose
+    scalebar = _scalebar
+    set_panel = _set_panel
+    shift_origin = _shift_origin
+    solar = _solar
+    subplot = _subplot
+    ternary = _ternary
+    text = _text
+    tilemap = _tilemap
+    timestamp = _timestamp
+    velo = _velo
+    vlines = _vlines
+    wiggle = _wiggle
 
 
 def set_display(method: Literal["external", "notebook", "none", None] = None) -> None:
@@ -484,8 +521,8 @@ def set_display(method: Literal["external", "notebook", "none", None] = None) ->
         case None:
             SHOW_CONFIG["method"] = _get_default_display_method()
         case _:
-            msg = (
-                f"Invalid display method '{method}'. "
-                "Valid values are 'external', 'notebook', 'none' or None."
+            raise GMTValueError(
+                method,
+                description="display method",
+                choices=["external", "notebook", "none", None],
             )
-            raise GMTInvalidInput(msg)

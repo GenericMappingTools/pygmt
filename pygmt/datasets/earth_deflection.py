@@ -55,8 +55,8 @@ def load_earth_deflection(
 
     This dataset comes with a color palette table (CPT) file, ``@earth_defl.cpt``. To
     use the dataset-specific CPT when plotting the dataset, explicitly set
-    ``cmap="@earth_defl.cpt"``, otherwise GMT's default CPT (*turbo*) will be used. If
-    the dataset is referenced by the file name in a grid plotting method, the
+    ``cmap="@earth_defl.cpt"``, otherwise GMT's default CPT (*google/turbo*) will be
+    used. If the dataset is referenced by the file name in a grid plotting method, the
     dataset-specific CPT file is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-edefl.html` and :gmt-datasets:`earth-ndefl.html` for
@@ -90,12 +90,8 @@ def load_earth_deflection(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
-    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
-    properties may be lost after specific grid operations (such as slicing) and will
-    need to be manually set before passing the grid to any PyGMT data processing or
-    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
-    explanations and workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------

@@ -2,13 +2,17 @@
 select - Select data table subsets based on multiple spatial criteria.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -19,18 +23,18 @@ __doctest_skip__ = ["select"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'mask' parameter.
+# TODO(PyGMT>=0.20.0): Remove the deprecated 'gridmask' parameter.
+@deprecate_parameter("mask", "mask_values", "v0.18.0", remove_version="v0.20.0")
+@deprecate_parameter("gridmask", "mask_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="area_thresh",
     C="dist2pt",
-    D="resolution",
     F="polygon",
-    G="gridmask",
+    G="mask_grid",
     I="reverse",
-    J="projection",
     L="dist2line",
-    N="mask",
-    R="region",
-    V="verbose",
+    N="mask_values",
     Z="z_subregion",
     b="binary",
     d="nodata",
@@ -38,16 +42,23 @@ __doctest_skip__ = ["select"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence")
 def select(
-    data=None,
+    data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
-    outfile: str | None = None,
+    outfile: PathLike | None = None,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude", None
+    ] = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -69,18 +80,24 @@ def select(
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
 
-    Full option list at :gmt-docs:`gmtselect.html`
+    Full GMT docs at :gmt-docs:`gmtselect.html`.
 
-    {aliases}
+    $aliases
+       - D = resolution
+       - J = projection
+       - R = region
+       - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
-    data : str, {table-like}
+    data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
-    {area_thresh}
+        $table_classes.
+    $output_type
+    $outfile
+    $area_thresh
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
@@ -116,19 +133,9 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    resolution : str
-        *resolution*\ [**+f**].
-        Ignored unless ``mask`` is set. Selects the resolution of the coastline
-        data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,
-        or (**c**)rude). The resolution drops off by ~80% between data sets.
-        [Default is **l**]. Append (**+f**) to automatically select a lower
-        resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details
-        it is not guaranteed that a point will remain inside [or outside] when
-        a different resolution is selected.
-    gridmask : str
+    mask_grid : str
         Pass all locations that are inside the valid data area of the grid
-        *gridmask*. Nodes that are outside are either NaN or zero.
+        *mask_grid*. Nodes that are outside are either NaN or zero.
     reverse : str
         [**cflrsz**].
         Reverse the sense of the test for each of the criteria specified:
@@ -136,26 +143,30 @@ def select(
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
         - **g** will pass records inside the cells with z equal zero of the
-          grid mask in ``gridmask``.
+          *mask_grid* in ``mask_grid``.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
-        - **s** select records NOT considered inside as specified by ``mask``
+        - **s** select records NOT considered inside as specified by ``mask_values``
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    {projection}
-    mask : str or list
-        Pass all records whose location is inside specified geographical
-        features. Specify if records should be skipped (s) or kept (k) using
-        1 of 2 formats:
+    mask_values : str or list
+        Pass all records whose location is inside specified geographical features.
+        Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
 
         - *wet/dry*.
         - *ocean/land/lake/island/pond*.
 
-        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
-        land].
-    {region}
-    {verbose}
+        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry land].
+    resolution
+        Ignored unless ``mask_values`` is set. Select the resolution of the coastline
+        dataset to use. The available resolutions from highest to lowest are:
+        ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which
+        drops by 80% between levels. Alternatively, choose ``"auto"`` to automatically
+        select the most suitable resolution given the chosen region. Note that because
+        the coastlines differ in details, a node in a mask file using one resolution is
+        not guaranteed to remain inside [or outside] when a different resolution is
+        selected. If ``None``, the low resolution is used by default.
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -175,16 +186,19 @@ def select(
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $projection
+    $region
+    $verbose
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
@@ -211,6 +225,28 @@ def select(
     if output_type == "pandas" and isinstance(data, pd.DataFrame):
         column_names = data.columns.to_list()
 
+    aliasdict = AliasSystem(
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        i=incols,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
@@ -218,7 +254,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

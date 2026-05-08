@@ -5,24 +5,11 @@ Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import datetime
-import importlib
 
-from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
-from pygmt.clib import required_gmt_version
+from pygmt._show_versions import _get_dep_specifier
 from pygmt.sphinx_gallery import PyGMTScraper
 
-# Dictionary for dependency name and minimum required versions.
-requirements = {
-    Requirement(requirement).name: str(Requirement(requirement).specifier)
-    for requirement in importlib.metadata.requires("pygmt")
-}
-requirements.update(
-    {
-        "python": importlib.metadata.metadata("pygmt")["Requires-Python"],
-        "gmt": f">={required_gmt_version}",
-    }
-)
 # Is a development version or not.
 isdev = "dev" in __version__ or __version__ == "unknown"
 # Some variables.
@@ -101,8 +88,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.5/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.6/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
@@ -142,7 +129,7 @@ myst_enable_extensions = [
 ]
 # Enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
-    "requires": requirements,
+    "requires": _get_dep_specifier(),
 }
 
 # Options for MyST-NB.

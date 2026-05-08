@@ -37,7 +37,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -45,16 +45,15 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.4
+        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.13
-            gmt=6.5.0
+            python=3.14
+            gmt=6.6.0
             numpy
             pandas
             xarray
-            netCDF4
             packaging
             contextily
             geopandas

@@ -22,12 +22,13 @@ The figure size is set with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[0, 360, -80, 80],
     projection="M0/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

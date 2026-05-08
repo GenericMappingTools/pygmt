@@ -8,6 +8,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Plot Cartesian Vectors
@@ -35,7 +36,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=2,
     y=8,
     style="v0c",
@@ -46,7 +47,7 @@ fig.show()
 # %%
 # In this example, we apply the same concept shown previously to plot multiple
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
-# of all x and y coordinates will be passed. Similarly, the length of direction
+# of all x- and y-coordinates will be passed. Similarly, the length of direction
 # list will increase accordingly.
 #
 # Additionally, we change the style of the vector to include a red
@@ -59,7 +60,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=[2, 4],
     y=[8, 1],
     style="v0.6c+e",
@@ -84,7 +85,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X5i/5i",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     x=2,
     y=8,
     style="v1c+e",
@@ -121,7 +122,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=vectors,
     style="v0.6c+e",
     pen="2p",
@@ -147,7 +148,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=vectors,
     style="v0.6c+e",
     pen="2p",
@@ -157,8 +158,8 @@ fig.show()
 
 # %%
 # In this example, Cartesian vectors are plotted over a Mercator
-# projection of the continental US. The x values represent the
-# longitude and y values represent the latitude where the vector starts.
+# projection of the continental US. The x-values represent the
+# longitude and y-values represent the latitude where the vector starts.
 #
 # This example also shows some of the styles a vector supports.
 # The beginning point of the vector (**+b**)
@@ -173,7 +174,7 @@ fig = pygmt.Figure()
 fig.coast(
     region=[-127, -64, 24, 53],
     projection="M10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     borders=1,
     shorelines="0.25p,black",
     area_thresh=4000,
@@ -213,8 +214,8 @@ fig.show()
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
-x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
-y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
+x = np.linspace(36, 42, 5)  # x-values = [36.  37.5 39.  40.5 42.]
+y = np.linspace(39, 39, 5)  # y-values = [39. 39. 39. 39.]
 direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
 length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
@@ -267,7 +268,7 @@ data = [circular_vector_1]
 fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=data,
     style="m0.5c+ea",
     pen="2p",
@@ -307,7 +308,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[-5, 5, -5, 5],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=data,
     style="m0.5c+ea",
     pen="2p",
@@ -329,7 +330,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=[0, 10, 0, 10],
     projection="X10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     data=[circular_vector],
     style="m0.5c+ea",
     pen="2p",
@@ -436,7 +437,7 @@ fig = pygmt.Figure()
 fig.coast(
     region=[-180, 180, -80, 80],
     projection="M0/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="lightbrown",
     water="lightblue",
 )

@@ -69,11 +69,11 @@ def _gmt_func_wrapper(figname):
     Currently, we have to import pygmt and reload it in each process. Workaround from
     https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
     """
-    import pygmt
+    import pygmt  # noqa: PLC0415
 
     reload(pygmt)
     fig = pygmt.Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame=True)
     fig.savefig(figname)
 
 
