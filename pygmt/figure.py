@@ -94,7 +94,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
-SHOWED_FIGURES = []
+SHOWED_FIGURES: list["Figure"] = []
 # Configurations for figure display.
 SHOW_CONFIG = {
     "method": _get_default_display_method(),  # The image preview display method.
