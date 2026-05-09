@@ -37,4 +37,14 @@ def test_pygmtlogo_circle_no_wordmark():
         position=Position((3.5, 3.5), anchor="CM", cstype="mapcoords"),
         theme="dark",
     )
+    fig.pygmtlogo(
+        position=Position((1, 1), anchor="CM", cstype="mapcoords"),
+        theme="light",
+        color=False,
+    )
+    fig.pygmtlogo(
+        position=Position((3.5, 1), anchor="CM", cstype="mapcoords"),
+        theme="dark",
+        color=False,
+    )
     return fig

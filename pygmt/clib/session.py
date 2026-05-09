@@ -110,7 +110,7 @@ DTYPES_TEXT = {
 DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
 
 # Dictionary for storing the values of GMT constants.
-GMT_CONSTANTS = {}
+GMT_CONSTANTS: dict[str, int] = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
