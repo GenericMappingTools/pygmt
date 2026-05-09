@@ -154,16 +154,19 @@ def _create_logo(  # noqa: PLR0915
 
     def _compass_lines():
         """Coordinates of compass lines."""
-        sqrt2 = np.sqrt(2) / 2
-        x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
+        angle = np.deg2rad(45.0)  # Angle of diagonal compass lines
+        sinx, cosx = np.sin(angle), np.cos(angle)
+
+        x1, x2, x3 = r0 * sinx, r3 * sinx, (r2 + (r3 - r4)) * sinx
+        y1, y2, y3 = r0 * cosx, r3 * cosx, (r2 + (r3 - r4)) * cosx
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return [
             (-r0 * hex_factor, 0, -r3, 0),  # left horizontal
             (r3, 0, r0 * hex_factor, 0),  # right horizontal
-            (-x1, x1, -x2, x2),  # upper left
-            (-x1, -x1, -x2, -x2),  # lower left
-            (x1, x1, x3, x3),  # upper right
-            (x1, -x1, x2, -x2),  # lower right
+            (-x1, y1, -x2, y2),  # upper left
+            (-x1, -y1, -x2, -y2),  # lower left
+            (x1, y1, x3, y3),  # upper right
+            (x1, -y1, x2, -y2),  # lower right
         ]
 
     def _vline_coords():
