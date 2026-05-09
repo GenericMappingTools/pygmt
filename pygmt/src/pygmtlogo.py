@@ -17,7 +17,7 @@ from pygmt.params import Box, Position
 __doctest_skip__ = ["pygmtlogo"]
 
 
-def _create_logo(  # noqa: PLR0915, PLR0912
+def _create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
@@ -49,25 +49,18 @@ def _create_logo(  # noqa: PLR0915, PLR0912
     # Define colors
     color_light = "white"
     color_dark = "gray20"
-
+    # Blue, yellow, and red colors
     blue = "48/105/152"  # Python blue
     yellow = "255/212/59"  # Python yellow
     red = "238/86/52"  # GMT red
     if not color:
-        blue = yellow = red = color_dark
-        if theme == "dark":
-            blue = yellow = red = color_light
-
+        mono = color_dark if theme == "light" else color_light
+        blue = yellow = red = mono
     # Background and wordmark
-    match theme:
-        case "light":
-            color_bg = color_light
-            color_py = blue
-            color_gmt = color_dark
-        case "dark":
-            color_bg = color_dark
-            color_py = yellow
-            color_gmt = color_light
+    color_bg, color_py, color_gmt = {
+        "light": (color_light, blue, color_dark),
+        "dark": (color_dark, yellow, color_light),
+    }[theme]
 
     # Define shape
     match shape:
