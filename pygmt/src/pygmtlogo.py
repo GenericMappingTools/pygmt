@@ -144,14 +144,21 @@ def _create_logo(  # noqa: PLR0915
         mask = np.abs(t_x) <= (thick_gap + r4) / 2
         return {"x": t_x[mask], "y": t_y[mask]}
 
+    def _vline_coords():
+        """
+        Coordinates for the vertical line at the top.
+        """
+        x0 = thick_gt / 2
+        return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
+
     def _bg_arrow_coords():
         """Coordinates for the background arrow."""
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
         y0 = 1.8 * x0 * np.sqrt(3)
-        # The background arrow is thick_comp wider than the letter T.
-        x1 = x0 + thick_comp / 2.0  # Half-width of the arrow tail
-        x2 = 2 * x0 + thick_comp / np.sqrt(3)  # Half-width of the arrow head
+        # The background arrow 2*thick_gap wider than the letter T.
+        x1 = x0 + thick_gap  # Half-width of the arrow tail
+        x2 = 2 * (x0 + thick_gap / np.sqrt(3))  # Half-width of the arrow head
 
         arrow_x = [-x1, -x1, -x2, -(x2 - 2 * x0), (x2 - 2 * x0), x2, x1, x1]
         arrow_y = [r0, -r0 + y0, -r0 + y0, -r0, -r0, -r0 + y0, -r0 + y0, r0]
@@ -173,13 +180,6 @@ def _create_logo(  # noqa: PLR0915
             (x1, y1, x3, y3),  # upper right
             (x1, -y1, x2, -y2),  # lower right
         ]
-
-    def _vline_coords():
-        """
-        Coordinates for the vertical line at the top.
-        """
-        x0 = thick_gt / 2
-        return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
 
     fig = Figure()
     fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
