@@ -32,8 +32,13 @@ def _create_logo(  # noqa: PLR0915
 
     # Helpful definitions
     size = 4
-    region = [-size, size] * 2
     proj = "x1c"
+    region = {
+        "horizontal": [-size, size * 8.0, -size, size],
+        "vertical": [-size, size, -size * 1.75, size],
+        "none": [-size, size, -size, size],
+    }[wordmark]
+
     # Rotation around z-axis by 30 degrees counter-clockwise placed in the center.
     perspective = "30+w0/0"
 
@@ -240,8 +245,9 @@ def _create_logo(  # noqa: PLR0915
         pen = "0.3p,gray30,2_2"
         fig.plot(x=0, y=0, style=f"c{2 * (r2 + (r3 - r4))}c", pen=pen)
         # Lines for letter M
-        fig.hlines(y=[r4, r5], xmin=-3, pen=pen, perspective=True)
-        fig.vlines(x=[r4, (thick_gap + r4) / 2], ymax=3, pen=pen, perspective=True)
+        fig.hlines(y=[r4, r5], xmin=-size, xmax=size, pen=pen, perspective=True)
+        m_mid = (thick_gap + r4) / 2
+        fig.vlines(x=[r4, m_mid], ymin=size, ymax=size, pen=pen, perspective=True)
 
     if figname:
         fig.savefig(fname=figname)

@@ -9,15 +9,16 @@ from pygmt.src.pygmtlogo import _create_logo
 
 
 @pytest.mark.mpl_image_compare(savefig_kwargs={"dpi": 600})
-def test_pygmtlogo_circle_design():
+@pytest.mark.parametrize("wordmark", ["horizontal", "vertical"])
+def test_pygmtlogo_circle_design(wordmark):
     """
-    Test the design details of the PyGMT circular logo.
+    Test the design details of the PyGMT circular logo, with a wordmark.
 
     This is a regression test to ensure that the design of the logo does not change
     unintentionally. The debugging lines (gridlines and circles) are helpful for
     implementing the logo, but they are not included in the final logo design.
     """
-    fig = _create_logo(debug=True)
+    fig = _create_logo(debug=True, wordmark=wordmark)
     return fig
 
 
