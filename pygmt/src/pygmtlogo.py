@@ -246,7 +246,7 @@ def _create_logo(  # noqa: PLR0915
         # Lines for letter M
         fig.hlines(y=[r4, r5], xmin=-size, xmax=size, pen=pen, perspective=True)
         m_mid = (thick_gap + r4) / 2
-        fig.vlines(x=[r4, m_mid], ymin=size, ymax=size, pen=pen, perspective=True)
+        fig.vlines(x=[r4, m_mid], ymin=-size, ymax=size, pen=pen, perspective=True)
 
     if figname:
         fig.savefig(fname=figname)
