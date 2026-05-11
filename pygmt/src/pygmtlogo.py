@@ -82,7 +82,7 @@ def _create_logo(  # noqa: PLR0915
     font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
-            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.5c,{font}"}
+            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
         case "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
@@ -229,8 +229,7 @@ def _create_logo(  # noqa: PLR0915
 
     # Add wordmark "PyGMT"
     if wordmark != "none":
-        text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
-        fig.text(text=text_wm, no_clip=True, **args_text_wm)
+        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;;", **args_text_wm)
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
