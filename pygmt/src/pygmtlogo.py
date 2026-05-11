@@ -244,9 +244,10 @@ def _create_logo(  # noqa: PLR0915
         pen = "0.3p,gray30,2_2"
         fig.plot(x=0, y=0, style=f"c{2 * (r2 + (r3 - r4))}c", pen=pen)
         # Lines for letter M
-        fig.hlines(y=[r4, r5], xmin=-size, xmax=size, pen=pen, perspective=True)
+        size_s = size - size * 0.1
+        fig.hlines(y=[r4, r5], xmin=-size_s, xmax=size_s, pen=pen, perspective=True)
         m_mid = (thick_gap + r4) / 2
-        fig.vlines(x=[r4, m_mid], ymin=-size, ymax=size, pen=pen, perspective=True)
+        fig.vlines(x=[r4, m_mid], ymin=-size_s, ymax=size_s, pen=pen, perspective=True)
 
     if figname:
         fig.savefig(fname=figname)
