@@ -17,7 +17,7 @@ from pygmt.params import Box, Position
 __doctest_skip__ = ["pygmtlogo"]
 
 
-def _create_logo(  # noqa: PLR0915, PLR0912
+def _create_logo(  # noqa: PLR0915
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
@@ -33,8 +33,13 @@ def _create_logo(  # noqa: PLR0915, PLR0912
 
     # Helpful definitions
     size = 4
-    region = [-size, size] * 2
     proj = "x1c"
+    region = {
+        "horizontal": [-size, size * 8.0, -size, size],
+        "vertical": [-size, size, -size * 1.75, size],
+        "none": [-size, size, -size, size],
+    }[wordmark]
+
     # Rotation around z-axis by 30 degrees counter-clockwise placed in the center.
     perspective = "30+w0/0"
 
@@ -50,25 +55,18 @@ def _create_logo(  # noqa: PLR0915, PLR0912
     # Define colors
     color_light = "white"
     color_dark = "gray20"
-
+    # Blue, yellow, and red colors
     blue = "48/105/152"  # Python blue
     yellow = "255/212/59"  # Python yellow
     red = "238/86/52"  # GMT red
     if not color:
-        blue = yellow = red = color_dark
-        if theme == "dark":
-            blue = yellow = red = color_light
-
+        mono = color_dark if theme == "light" else color_light
+        blue = yellow = red = mono
     # Background and wordmark
-    match theme:
-        case "light":
-            color_bg = color_light
-            color_py = blue
-            color_gmt = color_dark
-        case "dark":
-            color_bg = color_dark
-            color_py = yellow
-            color_gmt = color_light
+    color_bg, color_py, color_gmt = {
+        "light": (color_light, blue, color_dark),
+        "dark": (color_dark, yellow, color_light),
+    }[theme]
 
     # Define shape
     match shape:
@@ -85,7 +83,7 @@ def _create_logo(  # noqa: PLR0915, PLR0912
     # font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
-            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.5c,{font}"}
+            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
         case "horizontal":
             args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
 
@@ -147,14 +145,21 @@ def _create_logo(  # noqa: PLR0915, PLR0912
         mask = np.abs(t_x) <= (thick_gap + r4) / 2
         return {"x": t_x[mask], "y": t_y[mask]}
 
+    def _vline_coords():
+        """
+        Coordinates for the vertical line at the top.
+        """
+        x0 = thick_gt / 2
+        return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
+
     def _bg_arrow_coords():
         """Coordinates for the background arrow."""
         # x0, y0 is the same as in _letter_t_coords().
         x0 = thick_gt / 2
         y0 = 1.8 * x0 * np.sqrt(3)
-        # The background arrow is thick_comp wider than the letter T.
-        x1 = x0 + thick_comp / 2.0  # Half-width of the arrow tail
-        x2 = 2 * x0 + thick_comp / np.sqrt(3)  # Half-width of the arrow head
+        # The background arrow 2*thick_gap wider than the letter T.
+        x1 = x0 + thick_gap  # Half-width of the arrow tail
+        x2 = 2 * (x0 + thick_gap / np.sqrt(3))  # Half-width of the arrow head
 
         arrow_x = [-x1, -x1, -x2, -(x2 - 2 * x0), (x2 - 2 * x0), x2, x1, x1]
         arrow_y = [r0, -r0 + y0, -r0 + y0, -r0, -r0, -r0 + y0, -r0 + y0, r0]
@@ -162,24 +167,20 @@ def _create_logo(  # noqa: PLR0915, PLR0912
 
     def _compass_lines():
         """Coordinates of compass lines."""
-        sqrt2 = np.sqrt(2) / 2
-        x1, x2, x3 = r0 * sqrt2, r3 * sqrt2, (r2 + (r3 - r4)) * sqrt2
+        angle = np.deg2rad(45.0)  # Angle of diagonal compass lines
+        sinx, cosx = np.sin(angle), np.cos(angle)
+
+        x1, x2, x3 = r0 * sinx, r3 * sinx, (r2 + (r3 - r4)) * sinx
+        y1, y2, y3 = r0 * cosx, r3 * cosx, (r2 + (r3 - r4)) * cosx
         # Coordinates of vectors in the format of (x_start, y_start, x_end, y_end).
         return [
             (-r0 * hex_factor, 0, -r3, 0),  # left horizontal
             (r3, 0, r0 * hex_factor, 0),  # right horizontal
-            (-x1, x1, -x2, x2),  # upper left
-            (-x1, -x1, -x2, -x2),  # lower left
-            (x1, x1, x3, x3),  # upper right
-            (x1, -x1, x2, -x2),  # lower right
+            (-x1, y1, -x2, y2),  # upper left
+            (-x1, -y1, -x2, -y2),  # lower left
+            (x1, y1, x3, y3),  # upper right
+            (x1, -y1, x2, -y2),  # lower right
         ]
-
-    def _vline_coords():
-        """
-        Coordinates for the vertical line at the top.
-        """
-        x0 = thick_gt / 2
-        return {"x": [-x0, -x0, x0, x0], "y": [r0, r3, r3, r0]}
 
     fig = Figure()
     fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
@@ -229,8 +230,7 @@ def _create_logo(  # noqa: PLR0915, PLR0912
 
     # Add wordmark "PyGMT"
     if wordmark != "none":
-        text_wm = f"@;{color_py};Py@;;@;{color_gmt};GMT@;;"
-        fig.text(text=text_wm, no_clip=True, **args_text_wm)
+        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;;", **args_text_wm)
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
@@ -245,8 +245,10 @@ def _create_logo(  # noqa: PLR0915, PLR0912
         pen = "0.3p,gray30,2_2"
         fig.plot(x=0, y=0, style=f"c{2 * (r2 + (r3 - r4))}c", pen=pen)
         # Lines for letter M
-        fig.hlines(y=[r4, r5], xmin=-3, pen=pen, perspective=True)
-        fig.vlines(x=[r4, (thick_gap + r4) / 2], ymax=3, pen=pen, perspective=True)
+        size_s = 0.9 * size
+        fig.hlines(y=[r4, r5], xmin=-size_s, xmax=size_s, pen=pen, perspective=True)
+        m_mid = (thick_gap + r4) / 2
+        fig.vlines(x=[r4, m_mid], ymin=-size_s, ymax=size_s, pen=pen, perspective=True)
 
     if figname:
         fig.savefig(fname=figname)
