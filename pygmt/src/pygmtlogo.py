@@ -22,7 +22,6 @@ def _create_logo(  # noqa: PLR0915
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
     color: bool = True,
-    font: str | None = None,
     figname: PathLike | None = None,
     debug: bool = False,
 ):
@@ -80,7 +79,7 @@ def _create_logo(  # noqa: PLR0915
             hex_factor = 1.1
 
     # Define wordmark
-    # font = "AvantGarde-Book"
+    font = "AvantGarde-Book"
     match wordmark:
         case "vertical":
             args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
@@ -262,7 +261,6 @@ def pygmtlogo(  # noqa: PLR0913
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
-    font: str | None = None,
     color: bool = True,
     width: float | str | None = None,
     height: float | str | None = None,
@@ -363,7 +361,6 @@ def pygmtlogo(  # noqa: PLR0913
             theme=theme,
             shape=shape,
             wordmark=wordmark,
-            font=font,
             figname=logofile.name,
         )
 
