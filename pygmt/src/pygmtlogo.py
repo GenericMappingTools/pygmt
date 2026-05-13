@@ -79,12 +79,27 @@ def _create_logo(  # noqa: PLR0915
             hex_factor = 1.1
 
     # Define wordmark
+    # See https://github.com/GenericMappingTools/pygmt/pull/4627#issuecomment-4437317011
+    # for the rationale behind the magic values.
     font = "AvantGarde-Book"
+    plsb = 0.076  # Left side bearing of the font for letter "P"
+    pstroke = 0.0735  # Stroke with of the font for letter "P"
+    pheight = 0.739  # Height of the font for letter "P"
+
     match wordmark:
         case "vertical":
-            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
+            args_wordmark = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
         case "horizontal":
-            args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
+            # The stroke width matches the outline thickness.
+            # The left edge of "P" is aligned at y=size * 1.25.
+            # Letters "PGMT" are placed vertically centered at y=0.
+            fontsize = thick_shape / pstroke
+            args_wordmark = {
+                "x": size * 1.25 - plsb * fontsize,
+                "y": -pheight / 2.0 * fontsize,
+                "justify": "BL",
+                "font": f"{fontsize}c,{font}",
+            }
 
     def _letter_g_coords():
         """Coordinates for letter G."""
@@ -229,7 +244,7 @@ def _create_logo(  # noqa: PLR0915
 
     # Add wordmark "PyGMT"
     if wordmark != "none":
-        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;;", **args_text_wm)
+        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;", **args_wordmark)
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
