@@ -82,9 +82,9 @@ def _create_logo(  # noqa: PLR0915
     # See https://github.com/GenericMappingTools/pygmt/pull/4627#issuecomment-4437317011
     # for the rationale behind the magic values.
     font = "AvantGarde-Book"
-    plsb = 0.076  # Left side bearing of the font for letter "P"
-    pstroke = 0.0735  # Stroke with of the font for letter "P"
-    pheight = 0.739  # Height of the font for letter "P"
+    pheight = 0.739  # Height of letter "P"
+    plsb = 0.076  # Left side bearing of letter "P"
+    pstroke = 0.0735  # Stroke thickness of letter "P"
 
     match wordmark:
         case "vertical":
