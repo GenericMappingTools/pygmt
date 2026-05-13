@@ -34,7 +34,7 @@ def _create_logo(  # noqa: PLR0915
     size = 4
     proj = "x1c"
     region = {
-        "horizontal": [-size, size * 8.0, -size, size],
+        "horizontal": [-size, size * 7.0, -size, size],
         "vertical": [-size, size, -size * 1.75, size],
         "none": [-size, size, -size, size],
     }[wordmark]
