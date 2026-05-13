@@ -96,7 +96,7 @@ def _create_logo(  # noqa: PLR0915
                 "y": -size * 1.125,
                 "justify": "TL",
                 "font": f"{fontsize}c,{font}",
-                "no_clip": True,  # Needed because x0<xmin.
+                "no_clip": True,  # Needed because x<xmin.
             }
         case "horizontal":
             # The stroke width matches the outline thickness.
