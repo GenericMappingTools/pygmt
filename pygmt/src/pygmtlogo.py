@@ -263,6 +263,11 @@ def _create_logo(  # noqa: PLR0915
         fig.hlines(y=[r4, r5], xmin=-size_s, xmax=size_s, pen=pen, perspective=True)
         m_mid = (thick_gap + r4) / 2
         fig.vlines(x=[r4, m_mid], ymin=-size_s, ymax=size_s, pen=pen, perspective=True)
+        # Lines for wordmark
+        if wordmark == "horizontal":
+            halfheight = pheight / 2.0 * fontsize
+            fig.hlines(y=[-halfheight, halfheight], xmin=size, pen=pen)
+            fig.vlines(x=[size * 1.25, size * 1.25 + pstroke * fontsize], pen=pen)
 
     if figname:
         fig.savefig(fname=figname)
