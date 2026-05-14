@@ -240,17 +240,6 @@ def _create_logo(  # noqa: PLR0915
     # Upper vertical line
     fig.plot(data=_vline_coords(), fill=red, perspective=True)
 
-    # Outline around the shape for black and white color with dark theme
-    if not color and theme == "dark":
-        fig.plot(
-            x=0,
-            y=0,
-            style=f"{symbol}{size_shape + thick_shape}c",
-            pen=f"{thick_comp / 2.0}c,{color_bg}",
-            perspective=True,
-            no_clip=True,
-        )
-
     # Add wordmark "PyGMT"
     if wordmark != "none":
         fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;", **args_wordmark)
