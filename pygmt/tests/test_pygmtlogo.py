@@ -25,7 +25,7 @@ def test_pygmtlogo_design(shape, wordmark):
 
 @pytest.mark.mpl_image_compare
 @pytest.mark.parametrize("shape", ["circle"])
-def test_pygmtlogo_no_wordmark(shape):
+def test_pygmtlogo_wordmark_none(shape):
     """
     Test the PyGMT logo without the wordmark, including both light/dark themes, and
     colored/black-and-white versions.
