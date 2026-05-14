@@ -60,26 +60,16 @@ def test_pygmtlogo_circle_horizontal_wordmark():
         projection="x1c",
         frame=Frame(fill="gray", axis=Axis(grid=0.5)),
     )
-    fig.pygmtlogo(
-        position=Position((0, 8.5), anchor="ML", cstype="mapcoords"),
-        theme="light",
-        wordmark="horizontal",
-    )
-    fig.pygmtlogo(
-        position=Position((0, 6), anchor="ML", cstype="mapcoords"),
-        theme="dark",
-        wordmark="horizontal",
-    )
-    fig.pygmtlogo(
-        position=Position((0, 3.5), anchor="ML", cstype="mapcoords"),
-        theme="light",
-        color=False,
-        wordmark="horizontal",
-    )
-    fig.pygmtlogo(
-        position=Position((0, 1), anchor="ML", cstype="mapcoords"),
-        theme="dark",
-        color=False,
-        wordmark="horizontal",
-    )
+    for (x, y), theme, color in [
+        ((0, 8.5), "light", True),
+        ((0, 6), "dark", True),
+        ((0, 3.5), "light", False),
+        ((0, 1), "dark", False),
+    ]:
+        fig.pygmtlogo(
+            position=Position((x, y), anchor="ML", cstype="mapcoords"),
+            theme=theme,
+            color=color,
+            wordmark="horizontal",
+        )
     return fig
