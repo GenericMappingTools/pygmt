@@ -233,7 +233,7 @@ def _create_logo(  # noqa: PLR0915
 
     # Add wordmark "PyGMT"
     if wordmark != "none":
-        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;", **args_wordmark)
+        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;;", **args_wordmark)
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
