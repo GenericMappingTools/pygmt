@@ -34,7 +34,7 @@ def _create_logo(  # noqa: PLR0915
     size = 4
     proj = "x1c"
     region = {
-        "horizontal": [-size, size * 8.0, -size, size],
+        "horizontal": [-size, size * 7.0, -size, size],
         "vertical": [-size, size, -size * 1.75, size],
         "none": [-size, size, -size, size],
     }[wordmark]
@@ -79,12 +79,36 @@ def _create_logo(  # noqa: PLR0915
             hex_factor = 1.1
 
     # Define wordmark
+    # See https://github.com/GenericMappingTools/pygmt/pull/4627#issuecomment-4437317011
+    # for the rationale behind the magic values.
     font = "AvantGarde-Book"
+    pheight = 0.739  # Height of letter "P"
+    plsb = 0.076  # Left side bearing of letter "P"
+    pstroke = 0.0735  # Stroke thickness of letter "P"
+    pygmtwidth = 3.262  # Full width of "PyGMT"
+
     match wordmark:
         case "vertical":
-            args_text_wm = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
+            # Ensure the same width for the visual logo and wordmark
+            fontsize = size * 2.0 / pygmtwidth
+            args_wordmark = {
+                "x": -size - fontsize * plsb,
+                "y": -size * 1.125,
+                "justify": "TL",
+                "font": f"{fontsize}c,{font}",
+                "no_clip": True,  # Needed because x<xmin.
+            }
         case "horizontal":
-            args_text_wm = {"x": 4.5, "y": 0.8, "justify": "LM", "font": f"8c,{font}"}
+            # The stroke width matches the outline thickness.
+            # The left edge of "P" is aligned at y=size * 1.25.
+            # Letters "PGMT" are placed vertically centered at y=0.
+            fontsize = thick_shape / pstroke
+            args_wordmark = {
+                "x": size * 1.25 - plsb * fontsize,
+                "y": -pheight / 2.0 * fontsize,
+                "justify": "BL",
+                "font": f"{fontsize}c,{font}",
+            }
 
     def _letter_g_coords():
         """Coordinates for letter G."""
@@ -218,7 +242,7 @@ def _create_logo(  # noqa: PLR0915
 
     # Add wordmark "PyGMT"
     if wordmark != "none":
-        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;;", **args_text_wm)
+        fig.text(text=f"@;{color_py};Py@;;@;{color_gmt};GMT@;", **args_wordmark)
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
@@ -237,6 +261,13 @@ def _create_logo(  # noqa: PLR0915
         fig.hlines(y=[r4, r5], xmin=-size_s, xmax=size_s, pen=pen, perspective=True)
         m_mid = (thick_gap + r4) / 2
         fig.vlines(x=[r4, m_mid], ymin=-size_s, ymax=size_s, pen=pen, perspective=True)
+        # Lines for wordmark
+        if wordmark == "horizontal":
+            halfheight = pheight / 2.0 * fontsize
+            fig.hlines(y=[-halfheight, halfheight], xmin=size, pen=pen)
+            fig.vlines(x=[size * 1.25, size * 1.25 + pstroke * fontsize], pen=pen)
+        elif wordmark == "vertical":
+            fig.hlines(y=-size * 1.125, pen=pen)
 
     if figname:
         fig.savefig(fname=figname)

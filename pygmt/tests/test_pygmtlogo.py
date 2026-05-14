@@ -46,3 +46,57 @@ def test_pygmtlogo_circle_no_wordmark():
             color=color,
         )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pygmtlogo_circle_horizontal_wordmark():
+    """
+    Test the PyGMT circular logo with a horizontal wordmark, including both light/dark
+    themes, and colored/black-and-white versions.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[-0.5, 8.0, -0.5, 10.0],
+        projection="x1c",
+        frame=Frame(fill="gray", axis=Axis(grid=0.5)),
+    )
+    for (x, y), theme, color in [
+        ((0, 8.5), "light", True),
+        ((0, 6), "dark", True),
+        ((0, 3.5), "light", False),
+        ((0, 1), "dark", False),
+    ]:
+        fig.pygmtlogo(
+            position=Position((x, y), anchor="ML", cstype="mapcoords"),
+            theme=theme,
+            color=color,
+            wordmark="horizontal",
+        )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_pygmtlogo_circle_vertical_wordmark():
+    """
+    Test the PyGMT circular logo with a vertical wordmark, including both light/dark
+    themes, and colored/black-and-white versions.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[-0.5, 5.0, -0.5, 5.5],
+        projection="x1c",
+        frame=Frame(fill="gray", axis=Axis(grid=0.5)),
+    )
+    for (x, y), theme, color in [
+        ((1.0, 4.0), "light", True),
+        ((3.5, 4.0), "dark", True),
+        ((1.0, 1.0), "light", False),
+        ((3.5, 1.0), "dark", False),
+    ]:
+        fig.pygmtlogo(
+            position=Position((x, y), anchor="CM", cstype="mapcoords"),
+            theme=theme,
+            color=color,
+            wordmark="vertical",
+        )
+    return fig
