@@ -4,7 +4,7 @@ Test Figure.pygmtlogo.
 
 import pytest
 from pygmt import Figure
-from pygmt.params import Axis, Position
+from pygmt.params import Axis, Frame, Position
 from pygmt.src.pygmtlogo import _create_logo
 
 
@@ -29,23 +29,20 @@ def test_pygmtlogo_circle_no_wordmark():
     and colored/black-and-white versions.
     """
     fig = Figure()
-    fig.basemap(region=[-0.5, 5.0, -0.5, 5.0], projection="x1c", frame=Axis(grid=0.5))
-    fig.pygmtlogo(
-        position=Position((1, 3.5), anchor="CM", cstype="mapcoords"),
-        theme="light",
+    fig.basemap(
+        region=[-0.5, 5.0, -0.5, 5.0],
+        projection="x1c",
+        frame=Frame(fill="gray", axis=Axis(grid=0.5)),
     )
-    fig.pygmtlogo(
-        position=Position((3.5, 3.5), anchor="CM", cstype="mapcoords"),
-        theme="dark",
-    )
-    fig.pygmtlogo(
-        position=Position((1, 1), anchor="CM", cstype="mapcoords"),
-        theme="light",
-        color=False,
-    )
-    fig.pygmtlogo(
-        position=Position((3.5, 1), anchor="CM", cstype="mapcoords"),
-        theme="dark",
-        color=False,
-    )
+    for (x, y), theme, color in [
+        ((1.0, 3.5), "light", True),
+        ((3.5, 3.5), "dark", True),
+        ((1.0, 1.0), "light", False),
+        ((3.5, 1.0), "dark", False),
+    ]:
+        fig.pygmtlogo(
+            position=Position((x, y), anchor="CM", cstype="mapcoords"),
+            theme=theme,
+            color=color,
+        )
     return fig
