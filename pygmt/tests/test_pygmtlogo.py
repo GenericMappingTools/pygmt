@@ -10,23 +10,25 @@ from pygmt.src.pygmtlogo import _create_logo
 
 @pytest.mark.mpl_image_compare(savefig_kwargs={"dpi": 600})
 @pytest.mark.parametrize("wordmark", ["horizontal", "vertical"])
-def test_pygmtlogo_circle_design(wordmark):
+@pytest.mark.parametrize("shape", ["circle"])
+def test_pygmtlogo_design(shape, wordmark):
     """
-    Test the design details of the PyGMT circular logo, with a wordmark.
+    Test the design details of the PyGMT logo with a wordmark.
 
     This is a regression test to ensure that the design of the logo does not change
     unintentionally. The debugging lines (gridlines and circles) are helpful for
     implementing the logo, but they are not included in the final logo design.
     """
-    fig = _create_logo(debug=True, wordmark=wordmark)
+    fig = _create_logo(debug=True, shape=shape, wordmark=wordmark)
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_pygmtlogo_circle_no_wordmark():
+@pytest.mark.parametrize("shape", ["circle"])
+def test_pygmtlogo_wordmark_none(shape):
     """
-    Test the PyGMT circular logo without the wordmark, including both light/dark themes,
-    and colored/black-and-white versions.
+    Test the PyGMT logo without the wordmark, including both light/dark themes, and
+    colored/black-and-white versions.
     """
     fig = Figure()
     fig.basemap(
@@ -41,8 +43,9 @@ def test_pygmtlogo_circle_no_wordmark():
         ((3.5, 1.0), "dark", False),
     ]:
         fig.pygmtlogo(
-            position=Position((x, y), anchor="CM", cstype="mapcoords"),
+            position=Position((x, y), anchor="MC", cstype="mapcoords"),
             theme=theme,
             color=color,
+            shape=shape,
         )
     return fig
