@@ -75,7 +75,7 @@ def _create_logo(  # noqa: PLR0915
             hex_factor = 1.0
         case "hexagon":
             symbol = "h"
-            size_shape = (r0 + 0.34) * 2
+            size_shape = (r0 + r1) / np.cos(np.deg2rad(30))
             hex_factor = 1.1
 
     # Define wordmark
