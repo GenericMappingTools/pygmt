@@ -166,8 +166,7 @@ def _create_logo(  # noqa: PLR0915
 
     def _compass_lines():
         """Coordinates of compass lines."""
-        # Angle of diagonal compass lines
-        angle = np.deg2rad({"circle": 45.0, "hexagon": 30.0}[shape])
+        angle = np.deg2rad(45.0)  # Angle of diagonal compass lines
         sinx, cosx = np.sin(angle), np.cos(angle)
 
         x1, x2, x3 = r0 * sinx, r3 * sinx, (r2 + (r3 - r4)) * sinx
