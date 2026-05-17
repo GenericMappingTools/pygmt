@@ -23,6 +23,3 @@ The following people have contributed code and/or documentation to the project
 | [Xingchen He](https://github.com/Chuan1937) | [0009-0004-7182-2252](https://orcid.org/0009-0004-7182-2252) | Chengdu University of Technology, China |
 | [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel |
 | [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Unaffiliated |
-
-Individuals who have made significant contributions to PyGMT are recognized on the
-[PyGMT Team](https://www.pygmt.org/dev/team.html) page.
