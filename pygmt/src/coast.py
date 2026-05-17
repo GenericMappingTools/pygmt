@@ -30,7 +30,7 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
     ...     return AliasSystem(C=_alias_option_C(**kwargs)).get("C")
     >>> parse()
     >>> parse(lakes="blue")
-    'blue'
+    'blue+l'
     >>> parse(river_lakes="cyan")
     'cyan+r'
     >>> parse(lakes="blue", river_lakes="cyan")
@@ -57,9 +57,8 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
             raise GMTInvalidInput(msg)
         return Alias(lakes, name="lakes")  # Return as is.
 
-    # If only 'lakes' is specified, no suffix is needed.
     return [
-        Alias(lakes, name="lakes", suffix="+l" if river_lakes is not None else ""),
+        Alias(lakes, name="lakes", suffix="+l"),
         Alias(river_lakes, name="river_lakes", suffix="+r"),
     ]
 
