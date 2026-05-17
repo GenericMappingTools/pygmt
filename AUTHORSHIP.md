@@ -15,7 +15,7 @@ The following are the ways in which individuals who have contributed will be rec
 > 1. These policies are not set in stone and may be changed to accommodate the growth of
 >    the project or the preferences of the community.
 > 2. Authorship and contributor recognition apply to human contributors. Bots, automated
->    accounts, and AI tools are not considered authors or contributors. If these tools
+>    accounts, and AI tools are not considered as authors or contributors. If these tools
 >    assist with a contribution, the recognized contributor is the human who reviews and
 >    submits the work.
 
