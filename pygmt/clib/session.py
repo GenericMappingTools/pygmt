@@ -110,7 +110,7 @@ DTYPES_TEXT = {
 DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
 
 # Dictionary for storing the values of GMT constants.
-GMT_CONSTANTS = {}
+GMT_CONSTANTS: dict[str, int] = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
@@ -1918,7 +1918,7 @@ class Session:
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                    _data = [array for _, array in data.items()]
+                    _data = [array for _, array in data.items()]  # noqa: PERF102
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)

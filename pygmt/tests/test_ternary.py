@@ -5,6 +5,7 @@ Test Figure.ternary.
 import numpy as np
 import pytest
 from pygmt import Figure
+from pygmt.params import Axis, Frame
 
 
 @pytest.fixture(scope="module", name="array")
@@ -58,7 +59,11 @@ def test_ternary(array):
         region=[0, 100, 0, 100, 0, 100],
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
         style="c0.1c",
         pen="thinnest",
     )
@@ -80,7 +85,11 @@ def test_ternary_3_labels(array):
         alabel="A",
         blabel="B",
         clabel="C",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
         style="c0.1c",
         pen="thinnest",
     )
@@ -99,7 +108,56 @@ def test_ternary_1_label(array):
         cmap="red,orange,yellow,green,blue,violet",
         width="10c",
         alabel="A",
-        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, grid=True, label="Water"),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Air"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Limestone"),
+        ),
+        style="c0.1c",
+        pen="thinnest",
+    )
+    return fig
+
+
+@pytest.mark.parametrize(
+    "frame",
+    [
+        Axis(annot=True, tick=True, grid=True),
+        "afg",
+        Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    ],
+    ids=["axis", "string", "frame-axis"],
+)
+@pytest.mark.mpl_image_compare(filename="test_ternary_axis.png")
+def test_ternary_axis(array, frame):
+    """
+    Test plotting a ternary chart with equivalent frame settings.
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        frame=frame,
+        style="c0.1c",
+        pen="thinnest",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_ternary_no_frame(array):
+    """
+    Test plotting a ternary chart with frame set to "none".
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        frame="none",
         style="c0.1c",
         pen="thinnest",
     )

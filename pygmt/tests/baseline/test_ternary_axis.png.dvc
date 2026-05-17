@@ -1,0 +1,5 @@
+outs:
+- md5: 97854ed4620b20f7fdf8fc685b6f7d3a
+  size: 57608
+  hash: md5
+  path: test_ternary_axis.png

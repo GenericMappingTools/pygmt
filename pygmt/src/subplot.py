@@ -17,7 +17,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
@@ -145,7 +145,7 @@ def subplot(  # noqa: PLR0913
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
     projection: str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -245,7 +245,7 @@ def subplot(  # noqa: PLR0913
         to set aside space on more than one side (e.g.
         ``clearance=["w1c", "s2c"]`` would set a clearance of 1 cm on west
         side and 2 cm on south side). Such space will be left untouched by
-        the main map plotting but can be accessed by methods that plot
+        the main plotting but can be accessed by methods that plot
         scales, bars, text, etc.
     margins
         Margin space that is added between neighboring subplots (i.e., the interior
@@ -375,7 +375,7 @@ def set_panel(
     Before you start plotting you must first select the active subplot.
     **Note**: If any *projection* option is passed with the question mark
     **?** as scale or width when plotting subplots, then the dimensions of
-    the map are automatically determined by the subplot size and your
+    the plot are automatically determined by the subplot size and your
     region. For Cartesian plots: If you want the scale to apply equally to
     both dimensions then you must specify ``projection="x"`` [The default
     ``projection="X"`` will fill the subplot by using unequal scales].
@@ -407,7 +407,7 @@ def set_panel(
         **s**, or **n**. The option is repeatable to set aside space on more
         than one side (e.g. ``clearance=["w1c", "s2c"]`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
-        untouched by the main map plotting but can be accessed by methods that
+        untouched by the main plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
@@ -419,13 +419,11 @@ def set_panel(
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
+    args = ["set"]
+    if panel is not None:
+        args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
+    args.extend(build_arg_list(aliasdict))
+
     with Session() as lib:
-        lib.call_module(
-            module="subplot",
-            args=[
-                "set",
-                Alias(panel, name="panel", sep=",", size=2)._value,
-                *build_arg_list(aliasdict),
-            ],
-        )
+        lib.call_module(module="subplot", args=args)
         yield

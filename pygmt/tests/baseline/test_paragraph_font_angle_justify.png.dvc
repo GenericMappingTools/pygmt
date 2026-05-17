@@ -1,0 +1,5 @@
+outs:
+- md5: 6f55167eb6bc626b2bfee89ffe73faad
+  size: 48604
+  hash: md5
+  path: test_paragraph_font_angle_justify.png

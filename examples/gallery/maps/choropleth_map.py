@@ -38,7 +38,7 @@ fig.choropleth(data=africa, column="POP_EST", pen="0.8p,gray50")
 
 # Add colorbar legend.
 fig.colorbar(
-    frame="x+lPopulation (millions)",
+    label="Population (millions)",
     position=Position("ML", offset=(2, -2.5)),
     length=5,
     fg_triangle=True,
