@@ -1,6 +1,6 @@
 # PyGMT Developers
 
-The following people have contributed code and/or documentation to the project
+The following people have contributed code and/or documentation to the PyGMT project
 (alphabetically by name) and are considered to be "PyGMT Developers":
 
 | Name | ORCID | Affiliation |
