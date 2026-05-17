@@ -139,9 +139,9 @@ def coast(  # noqa: PLR0913
         Select filling of "wet" areas.
     lakes
     river_lakes
-        Select filling of lakes and river-lakes. If not specified, will use the fill for
-        "wet" areas set by the ``water`` parameter. If ``lakes`` is specified but
-        ``river_lakes`` isn't, ``river_lakes`` will use the same fill as ``lakes``.
+        Select filling of lakes or river-lakes, respectively. If not specified, will use
+        the fill for "wet" areas set by the ``water`` parameter. If only one of the two
+        parameters is specified, the other will be set to unfilled (transparent).
     rivers
         Draw rivers. Specify the type of rivers to draw, and optionally append a pen
         attribute, in the format *river*\ /*pen* [Default pen is
