@@ -58,7 +58,7 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
         return Alias(lakes, name="lakes")  # Return as is.
 
     return [
-        Alias(lakes, name="lakes", suffix="+l"),
+        Alias(lakes, name="lakes", suffix="+l" if "+" not in str(lakes) else ""),
         Alias(river_lakes, name="river_lakes", suffix="+r"),
     ]
 
