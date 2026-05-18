@@ -185,14 +185,6 @@ The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
 [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
-## About Us
-
-PyGMT is maintained and governed by the [PyGMT Team](https://www.pygmt.org/dev/team.html).
-For a list of PyGMT Developers, see
-[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md).
-For authorship and contributor recognition guidelines, see
-[AUTHORSHIP.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORSHIP.md).
-
 ## Related projects
 
 Other official wrappers for GMT:
