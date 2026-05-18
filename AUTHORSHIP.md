@@ -24,6 +24,14 @@ The `AUTHORS.md` file lists PyGMT Developers. Anyone who has contributed a pull 
 to the project is welcome to add themselves to the file. This file lives in the
 repository and is packaged with distributions. This is an optional process.
 
+## The PyGMT Team
+
+[The PyGMT Team](https://github.com/GenericMappingTools/pygmt/blob/main/doc/team.md) is
+a group of individuals who maintain the PyGMT project, make decisions about the
+direction of the project, and manage release cycles. The team also includes
+distinguished contributors who have made significant contributions to the project in
+many ways and who are selected by a vote of the active maintainers before each release.
+
 ## Changelog for each release
 
 Every time we make a release, everyone who has made a contribution (commits or PR
