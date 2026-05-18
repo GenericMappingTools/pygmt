@@ -30,7 +30,7 @@ repository and is packaged with distributions. This is an optional process.
 a group of individuals who maintain the PyGMT project, make decisions about the
 direction of the project, and manage release cycles. The team also includes
 distinguished contributors who have made significant contributions to the project in
-many ways and who are selected by a vote of the active maintainers before each release.
+many ways in the project's history.
 
 ## Changelog for each release
 
