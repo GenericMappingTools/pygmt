@@ -20,9 +20,9 @@ The following are the ways in which individuals who have contributed will be rec
 
 ## The `AUTHORS.md` file
 
-Anyone who has contributed a pull request to the project is welcome to add themselves to
-the `AUTHORS.md` file. This file lives in the repository and is packaged with
-distributions. This is an optional process.
+The `AUTHORS.md` file lists PyGMT Developers. Anyone who has contributed a pull request
+to the project is welcome to add themselves to the file. This file lives in the
+repository and is packaged with distributions. This is an optional process.
 
 ## Changelog for each release
 
