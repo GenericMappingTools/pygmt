@@ -7,6 +7,7 @@ import pytest
 from pygmt import Figure
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.datasets import load_blue_marble
+from pygmt.exceptions import GMTTypeError
 
 rioxarray = pytest.importorskip("rioxarray")
 
@@ -49,10 +50,9 @@ def test_grdimage_image_dataarray(xr_image):
 )
 def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
     """
-    Plot a 3-band RGB image using xarray.DataArray input, with an unsupported data type.
+    Unsupported dtypes for 3-band RGB image input should raise an error.
     """
     fig = Figure()
     image = xr_image.copy().astype(dtype=dtype)
-    with pytest.warns(expected_warning=RuntimeWarning) as record:
+    with pytest.raises(GMTTypeError, match="unsupported"):
         fig.grdimage(grid=image)
-    assert len(record) == 1
