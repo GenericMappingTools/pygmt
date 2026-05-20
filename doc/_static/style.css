@@ -162,6 +162,18 @@ html.writer-html5 .rst-content dl.field-list {
     max-width: 80%!important;
 }
 
+.sphx-glr-tag-label {
+    font-weight: bold;
+    background-color: #f2f3f5;
+    padding: 0.1rem 0.35rem;
+}
+
+.sphx-glr-tag {
+    background-color: #e6eef8;
+    margin: 0.1rem 0.2rem 0.1rem 0;
+    padding: 0.1rem 0.35rem;
+}
+
 /*
  * Styles for aligning table cells.
  * https://myst-parser.readthedocs.io/en/latest/syntax/tables.html#markdown-syntax
