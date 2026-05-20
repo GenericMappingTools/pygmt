@@ -46,9 +46,9 @@ dynamic = ["version"]
 all = [
     "contextily>=1.5",
     "geopandas>=1.0",
-    "IPython",  # 'ipython' is not the correct module name.
+    "IPython>=8",  # 'ipython' is not the correct module name.
     "pyarrow>=16",
-    "rioxarray",
+    "rioxarray>=0.14",
 ]
 
 [project.entry-points."xarray.backends"]
