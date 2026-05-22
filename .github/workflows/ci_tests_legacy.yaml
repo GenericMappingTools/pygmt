@@ -63,7 +63,7 @@ jobs:
             ghostscript
             numpy=2.0
             pandas=2.3
-            xarray=2024.5
+            xarray=2024.7
             packaging=24.2
             contextily=1.5
             geopandas=1.0
