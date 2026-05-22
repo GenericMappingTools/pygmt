@@ -62,7 +62,7 @@ jobs:
             gmt=${{ matrix.gmt_version }}
             ghostscript
             numpy=2.0
-            pandas=2.2
+            pandas=2.3
             xarray=2024.5
             packaging=24.2
             contextily=1.5
