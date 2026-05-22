@@ -7,7 +7,7 @@ dependencies:
     # Required dependencies
     - gmt=6.6.0
     - ghostscript=10.07.0
-    - numpy>=2.0
+    - numpy>=2.1
     - pandas>=2.3
     - xarray>=2024.7
     - packaging>=24.2
