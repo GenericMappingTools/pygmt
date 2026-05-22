@@ -30,3 +30,5 @@ fig.coast(
     water="steelblue",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["equidistant"]
