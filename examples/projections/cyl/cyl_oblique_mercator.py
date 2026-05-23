@@ -78,3 +78,4 @@ fig.coast(
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_tags = ["conformal"]

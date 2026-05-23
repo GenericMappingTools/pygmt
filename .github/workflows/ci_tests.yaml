@@ -75,9 +75,9 @@ jobs:
         include:
           # Python 3.12 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.12'
-            numpy-version: '2.0'
-            pandas-version: '=2.2'
-            xarray-version: '=2024.5'
+            numpy-version: '2.1'
+            pandas-version: '=2.3'
+            xarray-version: '=2024.7'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.14 + core packages (latest versions) + optional packages
           - python-version: '3.14'
@@ -128,7 +128,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.6.0
-            ghostscript=10.07.0
+            ghostscript=10.07.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
