@@ -17,6 +17,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 
 __doctest_skip__ = ["grdcontour"]
 
@@ -40,7 +41,7 @@ def grdcontour(
     grid: PathLike | xr.DataArray,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -129,6 +130,7 @@ def grdcontour(
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # Load the 15 arc-minutes grid with "gridline" registration in the
     >>> # specified region
     >>> grid = pygmt.datasets.load_earth_relief(
@@ -147,7 +149,7 @@ def grdcontour(
     ...     # Set the interval for annotated contour lines at 1,000 meters
     ...     annotation=1000,
     ...     # Add a frame for the plot
-    ...     frame="a",
+    ...     frame=Axis(annot=True),
     ...     # Set the projection to Mercator for the 10 cm figure
     ...     projection="M10c",
     ... )

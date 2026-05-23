@@ -145,7 +145,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (NumPy, pandas, Xarray, etc)
+    - Core dependency versions (NumPy, pandas, xarray, etc)
     - GDAL and Ghostscript versions
     - GMT library information
 

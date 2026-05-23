@@ -18,8 +18,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements
-~~~~~~~~~~~~~~~~~~~~~
+Plotting figure elements
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -34,6 +34,7 @@ Plotting map elements
     Figure.legend
     Figure.logo
     Figure.magnetic_rose
+    Figure.paragraph
     Figure.scalebar
     Figure.solar
     Figure.text
@@ -155,6 +156,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdmask
     grdpaste
     grdproject
     grdsample
@@ -199,7 +201,7 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
-Xarray Integration
+xarray Integration
 ------------------
 
 .. autosummary::
@@ -217,7 +219,9 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
     Position
 

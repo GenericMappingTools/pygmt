@@ -13,6 +13,7 @@ east_sigma by north_sigma.
 # %%
 import pandas as pd
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 df = pd.DataFrame(
@@ -31,7 +32,7 @@ fig.velo(
     data=df,
     region=[-10, 8, -10, 6],
     projection="x0.8c",
-    frame=["WSne", "2g2f"],
+    frame=Frame(axes="WSne", axis=Axis(annot=2, grid=2, tick=True)),
     spec="e0.2/0.39+f18",
     uncertainty_fill="lightblue1",
     pen="0.6p,red",

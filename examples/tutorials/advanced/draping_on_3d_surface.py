@@ -69,7 +69,7 @@ fig.grdview(
 )
 
 # Add colorbar for the crustal age
-fig.colorbar(frame=["x+lseafloor crustal age", "y+lMyr"], nan=True)
+fig.colorbar(label="Seafloor crustal age", unit="Myr", nan=True)
 
 fig.show()
 
@@ -97,7 +97,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 
 # Load a PNG image of the EU flag using rasterio into an xarray.DataArray.
 # The original image is available on Wikimedia Commons at
-# https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1024px-Flag_of_Europe.svg.png
+# https://commons.wikimedia.org/wiki/File:Flag_of_Europe.svg
 # but we use a cached version on the GMT data server.
 url_to_image = "https://oceania.generic-mapping-tools.org/cache/euflag.png"
 with rasterio.open(url_to_image) as dataset:

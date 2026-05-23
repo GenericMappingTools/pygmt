@@ -16,6 +16,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
 
@@ -55,7 +56,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -171,7 +172,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
         [Default plots points whose coordinates are strictly inside the
         frame boundaries only].
         This parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360° longitude) maps we
+        clipped to the plot region. For periodic (360° longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping

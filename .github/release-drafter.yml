@@ -22,13 +22,14 @@ exclude-labels:
   - 'skip-changelog'
 exclude-contributors:
   - 'actions-bot'
+  - 'Copilot'
+  - 'copilot-swe-agent[bot]'
   - 'dependabot'
   - 'dependabot[bot]'
-  - 'pre-commit-ci'
-  - 'pre-commit-ci[bot]'
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
+sort-direction: 'ascending'
 replacers:
   - search: '/@(\w+)?/g'
     replace: '[@$1](https://github.com/$1)'

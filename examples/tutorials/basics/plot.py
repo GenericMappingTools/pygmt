@@ -108,7 +108,7 @@ fig.plot(
     style="cc",
     pen="black",
 )
-fig.colorbar(frame="xaf+lDepth (km)")
+fig.colorbar(annot=True, tick=True, label="Depth (km)")
 fig.legend(
     spec=legend,
     position=Position("BR", offset=0.2),
