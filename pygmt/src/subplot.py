@@ -419,13 +419,11 @@ def set_panel(
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
+    args = ["set"]
+    if panel is not None:
+        args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
+    args.extend(build_arg_list(aliasdict))
+
     with Session() as lib:
-        lib.call_module(
-            module="subplot",
-            args=[
-                "set",
-                Alias(panel, name="panel", sep=",", size=2)._value,
-                *build_arg_list(aliasdict),
-            ],
-        )
+        lib.call_module(module="subplot", args=args)
         yield

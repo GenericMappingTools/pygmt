@@ -27,3 +27,5 @@ fig.coast(
     water="bisque4",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]
