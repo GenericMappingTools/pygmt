@@ -27,10 +27,14 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macos-slim
+    runs-on: ubuntu-slim
     defaults:
       run:
         shell: bash -l {0}

@@ -75,9 +75,9 @@ jobs:
         include:
           # Python 3.12 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.12'
-            numpy-version: '2.0'
-            pandas-version: '=2.2'
-            xarray-version: '=2024.5'
+            numpy-version: '2.1'
+            pandas-version: '=2.3'
+            xarray-version: '=2024.7'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.14 + core packages (latest versions) + optional packages
           - python-version: '3.14'
@@ -128,7 +128,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.6.0
-            ghostscript=10.07.0
+            ghostscript=10.07.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
@@ -154,7 +154,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
