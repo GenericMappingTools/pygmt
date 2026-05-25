@@ -148,7 +148,7 @@ def paragraph(  # noqa: PLR0913
     # Convert a single string into a list of paragraphs for consistent handling.
     # Split the single string on black lines, allowing for whitespaces in between.
     if not is_nonstr_iter(text):
-        text = re.split(r"\n\s*\n", text)
+        text = re.split(r"\n\s*\n", text)  # type: ignore[arg-type]
     # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
     # newlines in each paragraph, but keep leading whitespaces and tabs for now.
     _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
