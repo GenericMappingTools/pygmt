@@ -141,16 +141,6 @@ def paragraph(  # noqa: PLR0913
     aliasdict.merge({"M": True})
 
     # Prepare the text string that will be passed to an io.StringIO object.
-    #
-    # The GMT's behavior:
-    # - Leading and trailing spaces are ignored.
-    # - Multiple spaces inside a paragraph are combined into one single space.
-    # - Leading tabs are combined into one tab that results in a 4-space indentation.
-    # - Trailing tabs are ignored.
-    # - Multiple tabs inside a paragraph are converted to multiple spaces.
-    # - Mixing tabs and spaces inside a paragraph has a complicated behavior.
-    # - Newline characters are always converted into spaces.
-
     # Separator for multiple paragraphs.
     # "\n\n": the default separator, which results in no blank line between paragraphs.
     # " \n\n": add a blank line between paragraphs.
