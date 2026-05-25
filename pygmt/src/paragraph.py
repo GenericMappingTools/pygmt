@@ -77,8 +77,7 @@ def paragraph(  # noqa: PLR0913
     fill
         Set color for filling the paragraph box [Default is no fill].
     pen
-        Set the pen used to draw a rectangle around the paragraph [Default is
-        ``"0.25p,black,solid"``].
+        Set the pen for the paragraph box [Default is ``"0.25p,black,solid"``].
     alignment
         Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
         ``"right"``, and ``"justified"``.

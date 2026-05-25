@@ -29,25 +29,31 @@ def test_paragraph_multiple_paragraphs(inputtype):
     """
     Test typesetting multiple paragraphs.
     """
-    if inputtype == "list":
-        text = [
-            "This is the first paragraph. " * 5,
-            "This is the second paragraph. " * 5,
-        ]
-    else:
-        text = (
-            "This is the first paragraph. " * 5
-            + "\n\n"  # Separate the paragraphs with a blank line.
-            + "This is the second paragraph. " * 5
-        )
+    text = [
+        "  Paragraph 1: Two leading whitespaces. Three inline   whitespaces. Two trailing whitespaces.  ",
+        "	Paragraph 2: One leading tab results in one indentation (four whitespaces by default).",
+        "		Paragraph 3: Two leading tabs results in two indentation (eight whitespaces by default).",
+        "Paragraph 4: Multiple inline			tabs are converted to multiple spaces. Trailing tabs have not effects.		",
+        "Paragraph 5: Mixing tabs and spaces. 2T3STST(		   	 	).",
+        "\nParagraph 6: Leading newline is converted to a space. Trailing newlines are converted to spaces.\n\n",
+        "\n\nParagraph 7: Multiple leading newline are converted to multiple spaces. xxx yyy zzz.",
+        "Paragraph 8: Newlines insiden a paragraph\n\nare converted to spaces.",
+        "Paragraph 9: This is the last paragraph.",
+    ]
 
+    if inputtype == "list":
+        pass
+    else:
+        text = "\n\n".join(text)
     fig = Figure()
-    fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
+    fig.basemap(region=[0, 17, 0, 12], projection="x1c", frame=True)
     fig.paragraph(
-        x=4,
-        y=4,
+        x=1,
+        y=1,
         text=text,
-        parwidth="5c",
+        font="Courier",
+        justify="BL",
+        parwidth="15c",
         linespacing="12p",
     )
     return fig
