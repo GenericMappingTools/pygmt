@@ -14,14 +14,17 @@ size is set with *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use the PROJ string to set the Spilhaus projection
-fig.basemap(projection="+proj=spilhaus+width=15c", region="d", frame="none")
-# Plot Earth relief with shading for better visual effect
-fig.grdimage(grid="@earth_relief_01d", shading=True)
-fig.coast(shorelines=True)
-fig.basemap(frame="a30f30g")
+fig.coast(
+    region="d",
+    projection="+proj=spilhaus+width=12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="ivory",
+    water="bisque4",
+)
 fig.show()
 
 # sphinx_gallery_tags = ["misc"]
