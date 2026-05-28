@@ -1854,16 +1854,13 @@ class Session:
             )
             mincols = 3
 
+        # Specify either data or x/y/z.
+        if data is not None and any(v is not None for v in (x, y, z)):
+            msg = "Too much data. Use either data or x/y/z."
+            raise GMTInvalidInput(msg)
+
+        # Determine the kind of data.
         kind = data_kind(data, required=required)
-        _validate_data_input(
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            required=required,
-            mincols=mincols,
-            kind=kind,
-        )
 
         if check_kind:
             valid_kinds = ("file", "arg") if required is False else ("file",)
@@ -1930,6 +1927,9 @@ class Session:
                 # non-integer/float type inputs (e.g. for string or datetime data types)
                 _virtualfile_from = self.virtualfile_from_vectors
                 _data = data.T
+
+        # Check if _data to be passed to the virtualfile_from_ function is valid.
+        _validate_data_input(data=_data, kind=kind, mincols=mincols)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(_data)
