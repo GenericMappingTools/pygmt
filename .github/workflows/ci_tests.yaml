@@ -192,6 +192,7 @@ jobs:
         # run: make test PYTEST_EXTRA="-r P --reruns 2"
         run: |
           mkdir -p tmp-test-dir-with-unique-name
+          export PYTHONFAULTHANDLER=1
           cd tmp-test-dir-with-unique-name; PYGMT_USE_EXTERNAL_DISPLAY="false" pytest --doctest-plus --cov=pygmt --cov-config=../pyproject.toml --cov-report=term-missing --cov-report=xml --cov-report=html -r P --reruns 2 --pyargs pygmt
           echo $?
 
