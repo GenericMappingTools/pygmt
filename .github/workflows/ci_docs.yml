@@ -152,6 +152,7 @@ jobs:
           exit_code=${PIPESTATUS[0]}
           if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
             echo "Sphinx LaTeX build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
           fi
 
       - name: Create the HTML ZIP archive and rename the PDF file
