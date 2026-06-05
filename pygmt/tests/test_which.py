@@ -68,7 +68,10 @@ def test_which_nonascii_path(monkeypatch):
             # Start a new session
             begin()
             # GMT should download the remote file under the new home directory.
-            fname = which(fname="@static_earth_relief.nc", download="cache")
+            try:
+                fname = which(fname="@static_earth_relief.nc", download="cache")
+            except FileNotFoundError:
+                pytest.skip("Failed to download the file, skipping the test.")
             assert fname.startswith(fakehome)
             assert fname.endswith("static_earth_relief.nc")
             end()
