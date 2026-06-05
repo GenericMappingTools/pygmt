@@ -22,7 +22,6 @@ fig.coast(
     region="d",
     projection="+proj=spilhaus+width=12c",
     frame=Axis(annot=True, tick=True, grid=True),
-    land="ivory",
-    water="bisque4",
+    shorelines=True,
 )
 fig.show()
