@@ -189,15 +189,7 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: |
-          log_file="${RUNNER_TEMP}/pytest.log"
-          make test PYTEST_EXTRA="-r P --reruns 2" 2>&1 | tee "${log_file}"
-          exit_code=${PIPESTATUS[0]}
-          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
-            echo "Tests exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
-            exit 0
-          fi
-          exit "${exit_code}"
+        run: make test PYTEST_EXTRA="-r P --reruns 2"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails

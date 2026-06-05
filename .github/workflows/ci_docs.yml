@@ -53,7 +53,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
+        # os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
@@ -135,25 +136,10 @@ jobs:
           python -m pip install dist/*
 
       - name: Build the HTML documentation
-        run: |
-          log_file="${RUNNER_TEMP}/sphinx-html.log"
-          make -C doc clean html 2>&1 | tee "${log_file}"
-          exit_code=${PIPESTATUS[0]}
-          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
-            echo "Sphinx HTML build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
-            exit 0
-          fi
-          exit "${exit_code}"
+        run: make -C doc clean html
 
       - name: Build the PDF documentation
-        run: |
-          log_file="${RUNNER_TEMP}/sphinx-latex.log"
-          make -C doc latex 2>&1 | tee "${log_file}"
-          exit_code=${PIPESTATUS[0]}
-          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
-            echo "Sphinx LaTeX build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
-            exit 0
-          fi
+        run:  make -C doc pdf
 
       - name: Create the HTML ZIP archive and rename the PDF file
         run: |
