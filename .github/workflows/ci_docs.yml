@@ -147,11 +147,11 @@ jobs:
 
       - name: Build the PDF documentation
         run: |
-          log_file="${RUNNER_TEMP}/sphinx-latex.log"
-          make -C doc latex 2>&1 | tee "${log_file}"
+          log_file="${RUNNER_TEMP}/sphinx-pdf.log"
+          make -C doc pdf 2>&1 | tee "${log_file}"
           exit_code=${PIPESTATUS[0]}
           if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
-            echo "Sphinx LaTeX build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            echo "Sphinx PDF build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
             exit 0
           fi
 
