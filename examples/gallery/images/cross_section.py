@@ -61,7 +61,7 @@ fig.text(
     x=[lonA, lonB],
     y=[latA, latB],
     text=["A", "B"],
-    offset="0c/0.3c",  # Move text 0.2 centimeters up (y-direction)
+    offset=(0, 0.3),  # Move text 0.3 centimeters up (y-direction)
     font="15p,red",  # Use a red font with a size of 15 points
 )
 

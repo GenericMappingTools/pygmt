@@ -70,7 +70,7 @@ for quotedline in [
         text=quotedline,
         font="Courier-Bold",
         justify="ML",
-        offset="0.75c/0c",
+        offset=(0.75, 0),
     )
 
 fig.show()
