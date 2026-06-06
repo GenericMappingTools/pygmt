@@ -10,6 +10,11 @@ developed by Athelstan Spilhaus and is useful for oceanographic studies.
 
 The projection is set as a PROJ string with ``+proj=spilhaus`` and the figure
 size is set with *width*.
+
+.. note::
+
+    This projection works well for coastlines but currently has issues for filling
+    land and water masses.
 """
 
 # %%
