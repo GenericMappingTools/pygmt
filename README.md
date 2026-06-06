@@ -11,7 +11,7 @@
 [![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
 [![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
 [![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-submission/issues/43)
-[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v3.0%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
@@ -75,9 +75,11 @@ following example:
 
 ``` python
 import pygmt
+
 fig = pygmt.Figure()
-fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
-fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
+fig.basemap(projection="R7c", region=[0, 360, -90, 90], frame=True)
+fig.coast(land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
 
