@@ -105,6 +105,11 @@ class _Axes(BaseParam):
     title: str | None = None
     subtitle: str | None = None
     fill: str | None = None
+    box: bool = False
+    wall_pen: str | bool = False
+    yzfill: str | None = None
+    xzfill: str | None = None
+    xyfill: str | None = None
 
     @property
     def _aliases(self):
@@ -113,6 +118,11 @@ class _Axes(BaseParam):
             Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
             Alias(self.subtitle, name="subtitle", prefix="+s"),
+            Alias(self.box, name="box", prefix="+b"),
+            Alias(self.wall_pen, name="wall_pen", prefix="+w"),
+            Alias(self.yzfill, name="yzfill", prefix="+x"),
+            Alias(self.xzfill, name="xzfill", prefix="+y"),
+            Alias(self.xyfill, name="xyfill", prefix="+z"),
         ]
 
 
@@ -206,8 +216,25 @@ class Frame(BaseParam):
     subtitle: str | None = None
 
     #: Fill for the interior of the frame with a color or a pattern [Default is no
-    #: fill].
+    #: fill]. For 3-D plots, it sets the fill for the xy-, yz-, and xz-planes, but can
+    #: be overridden by ``xyfill``, ``yzfill``, and ``xzfill``.
     fill: str | None = None
+
+    #: Draw the foreground lines of a 3-D box. [For 3-D plots only]
+    box: bool = False
+
+    #: Draw the outlines of the x-z and y-z planes by the specified pen attributes.
+    #: If ``True``, use the default pen. [For 3-D plots only]
+    wall_pen: str | bool = False
+
+    #: Fill for the yz-plane (the plane normal to the x-axis). [For 3-D plots only]
+    yzfill: str | None = None
+
+    #: Fill for the xz-plane (the plane normal to the y-axis). [For 3-D plots only]
+    xzfill: str | None = None
+
+    #: Fill for the xy-plane (the plane normal to the z-axis). [For 3-D plots only]
+    xyfill: str | None = None
 
     #: Specify the attributes for axes by an :class:`Axis` object.
     #:
@@ -260,7 +287,15 @@ class Frame(BaseParam):
         # _Axes() maps to an empty string, which becomes '-B' without arguments and is
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
         frame_settings = _Axes(
-            axes=self.axes, title=self.title, subtitle=self.subtitle, fill=self.fill
+            axes=self.axes,
+            title=self.title,
+            subtitle=self.subtitle,
+            fill=self.fill,
+            box=self.box,
+            wall_pen=self.wall_pen,
+            yzfill=self.yzfill,
+            xzfill=self.xzfill,
+            xyfill=self.xyfill,
         )
         has_secondary_xy_axis = any([self.axis2, self.xaxis2, self.yaxis2])
         return [
