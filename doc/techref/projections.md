@@ -47,4 +47,4 @@ The table below shows the projection codes for the 32 GMT map projections:
 | **W**[{{ lon0 }}/]*width*                                   | [](/projections/misc/misc_mollweide.rst) |
 | **X***width*[**l**\|**p***exp*\|**T**\|**t**][/*height*[**l**\|**p***exp*\|**T**\|**t**]][**d**] | Cartesian [linear](/projections/nongeo/cartesian_linear.rst), [logarithmic](/projections/nongeo/cartesian_logarithmic.rst), [power](/projections/nongeo/cartesian_power.rst), and time |
 | **Y**{{ lon0 }}/{{ lat0 }}/*width*                          | [](/projections/cyl/cyl_equal_area.rst) |
-| **+proj=spilhaus+width=**_width_                             | [](/projections/misc/misc_spilhaus.rst) |
+| **+proj=spilhaus+width=**_width_                            | [](/projections/misc/misc_spilhaus.rst) |
