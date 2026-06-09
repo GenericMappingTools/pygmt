@@ -25,7 +25,6 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     C="clearance",
-    D="offset",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -45,6 +44,7 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
     fill: str | None = None,
     pen: str | None = None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -77,6 +77,7 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
 
     $aliases
        - B = frame
+       - D = offset
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - G = fill
        - J = projection
@@ -157,16 +158,14 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
     pen
         Set the pen used to draw a rectangle around the text string (see ``clearance``)
         [Default is ``"0.25p,black,solid"``].
-    offset : str
-        [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offset the text from the projected (x, y) point by *dx*/\ *dy*
-        [Default is ``"0/0"``].
-        If *dy* is not specified then it is set equal to *dx*. Use **j** to
-        offset the text away from the point instead (i.e., the text
-        justification will determine the direction of the shift). Using
-        **J** will shorten diagonal offsets at corners by sqrt(2).
-        Optionally, append **+v** which will draw a line from the original
-        point to the shifted point; append a pen to change the attributes
+    offset
+        (*dx*, *dy*) or [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
+        Offset the text from the projected (x, y) point by (*dx*, *dy*) [Default is
+        (0, 0)]. If *dy* is not specified then it is set equal to *dx*. Use **j** to
+        offset the text away from the point instead (i.e., the text justification will
+        determine the direction of the shift). Using **J** will shorten diagonal offsets
+        at corners by sqrt(2). Optionally, append **+v** which will draw a line from
+        the original point to the shifted point; append a pen to change the attributes
         for this line.
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
@@ -281,6 +280,7 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
                 )
 
     aliasdict = AliasSystem(
+        D=Alias(offset, name="offset", sep="/", size=2),
         G=Alias(fill, name="fill"),
         N=Alias(no_clip, name="no_clip"),
         W=Alias(pen, name="pen"),
