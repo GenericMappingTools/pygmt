@@ -59,7 +59,7 @@ fig.text(x=0, y=-3, text="my text")
 # Shift the text label relatively to the position given via the x and y parameters
 # by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down
 # (negative y-direction)
-fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
+fig.text(x=0, y=-3, text="my text", offset=(1, -0.5))
 
 fig.shift_origin(xshift="w+0.5c")
 
@@ -196,19 +196,13 @@ fig.show()
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
-# Left: Add a tag to a subplot
+# Left: Add a tag to a subplot at the Top Left corner
 fig.basemap(
     region=[-5, 5, -5, 5],
     projection="X5c",
     frame=Frame(axes="WStr", axis=Axis(annot=True, tick=True)),
 )
-
-fig.text(
-    text="(a)",
-    position="TL",  # Top Left
-    justify="TL",  # Top Left
-    offset="0.1c/-0.1c",
-)
+fig.text(text="(a)", position="TL", justify="TL", offset=(0.1, -0.1))
 
 fig.shift_origin(xshift="w+1c")
 
@@ -224,7 +218,7 @@ fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
     position="TC",  # Top Center
     justify="MC",  # Middle Center
-    offset="0c/0.2c",
+    offset=(0, 0.2),
     no_clip=True,  # Allow plotting outside of the plot frame
 )
 
