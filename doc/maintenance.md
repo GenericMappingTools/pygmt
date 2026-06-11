@@ -243,7 +243,7 @@ publishing the actual release notes at [](changes.md).
    inside the badge url.
 
     ```
-    [![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.<INSERT-DOI-HERE>.svg)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
+    [![Digital Object Identifier for PyGMT vX.Y.Z](https://img.shields.io/badge/DOI-10.5281/zenodo.<INSERT-DOI-HERE>-blue)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
     ```
 3. Open a new pull request using the title 'Changelog entry for vX.Y.Z' with
    the updated release notes, so that other people can help to review and
