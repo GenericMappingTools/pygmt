@@ -49,7 +49,8 @@ def paragraph(  # noqa: PLR0913
 
     Multiple paragraphs can be provided as a sequence of strings, where each string
     represents a separate paragraph, or as a single string with a blank line (``\n\n``)
-    separating the paragraphs.
+    separating the paragraphs. Please note the paragraphs typeset on the plot are not
+    separated by a blank line, but by starting a new line.
 
     Full GMT docs at :gmt-docs:`text.html`.
 
