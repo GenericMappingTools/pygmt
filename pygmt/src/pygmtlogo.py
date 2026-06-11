@@ -93,8 +93,8 @@ def _create_logo(  # noqa: PLR0915
             fontsize = size * 2.0 / pygmtwidth
             args_wordmark = {
                 "x": -size - fontsize * plsb,
-                "y": -size * 1.125,
-                "justify": "TL",
+                "y": -size * 1.375,  # Center of the wordmark.
+                "justify": "ML",
                 "font": f"{fontsize}c,{font}",
                 "no_clip": True,  # Needed because x<xmin.
             }
@@ -267,7 +267,7 @@ def _create_logo(  # noqa: PLR0915
             fig.hlines(y=[-halfheight, halfheight], xmin=size, pen=pen)
             fig.vlines(x=[size * 1.25, size * 1.25 + pstroke * fontsize], pen=pen)
         elif wordmark == "vertical":
-            fig.hlines(y=-size * 1.125, pen=pen)
+            fig.hlines(y=-size * 1.375, pen=pen)
 
     if figname:
         fig.savefig(fname=figname)
