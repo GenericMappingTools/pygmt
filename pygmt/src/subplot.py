@@ -17,7 +17,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
@@ -145,7 +145,7 @@ def subplot(  # noqa: PLR0913
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
     projection: str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -419,13 +419,11 @@ def set_panel(
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
+    args = ["set"]
+    if panel is not None:
+        args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
+    args.extend(build_arg_list(aliasdict))
+
     with Session() as lib:
-        lib.call_module(
-            module="subplot",
-            args=[
-                "set",
-                Alias(panel, name="panel", sep=",", size=2)._value,
-                *build_arg_list(aliasdict),
-            ],
-        )
+        lib.call_module(module="subplot", args=args)
         yield

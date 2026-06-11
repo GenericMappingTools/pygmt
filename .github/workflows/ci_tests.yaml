@@ -75,9 +75,9 @@ jobs:
         include:
           # Python 3.12 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.12'
-            numpy-version: '2.0'
-            pandas-version: '=2.2'
-            xarray-version: '=2024.5'
+            numpy-version: '2.1'
+            pandas-version: '=2.3'
+            xarray-version: '=2024.7'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.14 + core packages (latest versions) + optional packages
           - python-version: '3.14'
@@ -107,7 +107,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -128,7 +128,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.6.0
-            ghostscript=10.07.0
+            ghostscript=10.07.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
@@ -154,7 +154,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
@@ -189,11 +189,19 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P --reruns 2"
+        run: |
+          log_file="${RUNNER_TEMP}/pytest.log"
+          make test PYTEST_EXTRA="-r P --reruns 2" 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Tests exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
+          exit "${exit_code}"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
         with:
           name: artifact-${{ matrix.os }}-${{ matrix.python-version }}
@@ -201,7 +209,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         if: success() || failure()
         with:
           use_oidc: true

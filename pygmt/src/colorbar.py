@@ -273,7 +273,7 @@ def colorbar(  # noqa: PLR0913
     dpi: int | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -367,8 +367,12 @@ def colorbar(  # noqa: PLR0913
         annotation text; the unit is placed after the annotation text; and the angle is
         the angle of the annotation text.
     frame
-        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
-        then no frame will be drawn.
+        Set colorbar boundary frame, labels, and axes attributes. If ``frame=True``, a
+        default frame will be drawn. If ``frame="none"``, no frame will be drawn. Raw
+        GMT strings or sequences of strings are also supported for backward
+        compatibility. For more control over the frame attributes, use parameters such
+        as ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
+        ``annot_unit``, ``label``, and ``unit`` instead.
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center

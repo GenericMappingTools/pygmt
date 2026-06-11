@@ -68,7 +68,7 @@ def logo(  # noqa: PLR0913
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing the x- and y- coordinates in plot
+        - A sequence of two values representing the x- and y-coordinates in plot
           coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
@@ -100,6 +100,16 @@ def logo(  # noqa: PLR0913
     Examples
     --------
     >>> import pygmt
+
+    The simplest way to plot the GMT logo is to just call the method without any
+    arguments.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.logo()
+    >>> fig.show()
+
+    To plot the GMT logo at the Top Right corner on an existing basemap:
+
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-90, -70, 0, 20], projection="M10c", frame=True)
     >>> fig.logo(position="TR", width="3c")

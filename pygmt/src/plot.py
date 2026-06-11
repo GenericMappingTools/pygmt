@@ -16,6 +16,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
 
@@ -54,7 +55,7 @@ def plot(  # noqa: PLR0912, PLR0913
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
