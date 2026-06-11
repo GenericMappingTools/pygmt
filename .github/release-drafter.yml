@@ -22,6 +22,8 @@ exclude-labels:
   - 'skip-changelog'
 exclude-contributors:
   - 'actions-bot'
+  - 'Copilot'
+  - 'copilot-swe-agent[bot]'
   - 'dependabot'
   - 'dependabot[bot]'
 category-template: '### $TITLE'
