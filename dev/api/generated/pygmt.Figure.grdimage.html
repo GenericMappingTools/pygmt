@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.grdimage.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=a651e41a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -99,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-figure-elements">Plotting figure elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
@@ -119,7 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
@@ -197,7 +198,7 @@
 <h1>pygmt.Figure.grdimage<a class="headerlink" href="#pygmt-figure-grdimage" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.grdimage">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monochrome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdimage" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monochrome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdimage" title="Link to this definition"></a></dt>
 <dd><p>Project and plot grids or images.</p>
 <p>Reads a 2-D grid file and produces a gray-shaded (or colored) map by
 building a rectangular image and assigning pixels a gray-shade (or color)
@@ -222,7 +223,7 @@ the input grid nodes. If two or more nodes are projected onto the same
 pixel, their average will dominate in the calculation of the pixel
 value. Interpolation and aliasing is controlled with the
 <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> parameter.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter can be used to select a map region larger or
+<p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter can be used to select a plot region larger or
 smaller than that implied by the extent of the grid.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/grdimage.html">https://docs.generic-mapping-tools.org/6.6/grdimage.html</a>.</p>
 <p><strong>Aliases:</strong></p>
@@ -254,13 +255,11 @@ smaller than that implied by the extent of the grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<li><p><strong>grid</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
 <p>For reading a specific grid file format or applying basic data operations,
 see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#grd-inout-full</a> for the available modifiers.</p>
 </p></li>
-<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Set map boundary
-<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – File name of a CPT file or a series of comma-separated colors
 (e.g., <em>color1</em>,<em>color2</em>,<em>color3</em>) to build a linear continuous
 CPT from those colors automatically.</p></li>
@@ -287,7 +286,7 @@ this parameter will instead use the image as a transparent mask and
 paint the mask with the given color. Append <strong>+b</strong> to paint the
 background pixels (1) or <strong>+f</strong> for the foreground pixels
 [Default is <strong>+f</strong>].</p></li>
-<li><p><strong>shading</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – [<em>intensfile</em>|<em>intensity</em>|<em>modifiers</em>].
+<li><p><strong>shading</strong> (str or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – [<em>intensfile</em>|<em>intensity</em>|<em>modifiers</em>].
 Give the name of a grid file or a DataArray with intensities in the
 (-1,+1) range, or a constant intensity to apply everywhere (affects the
 ambient light). Alternatively, derive an intensity grid from the input
@@ -301,8 +300,6 @@ intensities from another file than grid, specify the file with
 suitable modifiers [Default is no illumination]. <strong>Note</strong>: If the
 input data represent an <em>image</em> then an <em>intensfile</em> or constant
 <em>intensity</em> must be provided.</p></li>
-<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
-Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>monochrome</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Force conversion to monochrome image using the (television) YIQ transformation.
 Cannot be used with <code class="docutils literal notranslate"><span class="pre">nan_transparent</span></code>.</p></li>
 <li><p><strong>no_clip</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Do <strong>not</strong> clip the image at the frame boundaries (only relevant for
@@ -313,8 +310,19 @@ feature in PostScript Level 3 (the PS device must support PS Level
 3). If the input is a grid, use <strong>+z</strong> to select another grid value
 than NaN. If input is instead an image, append an alternate <em>color</em> to
 select another pixel value to be transparent [Default is <code class="docutils literal notranslate"><span class="pre">&quot;black&quot;</span></code>].</p></li>
+<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>frame</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.frame.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></a> | <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.frame.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'none'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Set frame and axes attributes for the plot. It can be a bool, <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>,
+a <a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Frame</span></code></a> or <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Axis</span></code></a> object. Raw GMT
+strings or sequences of strings are also supported for backward
+compatibility. If <code class="docutils literal notranslate"><span class="pre">frame=True</span></code>, the frame will be drawn with the default
+attributes. If <code class="docutils literal notranslate"><span class="pre">frame=&quot;none&quot;</span></code>, no frame will be drawn. Use a
+<a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Frame</span></code></a> or <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Axis</span></code></a> object for more
+control over the attributes of the frame and axes. A tutorial is available at
+<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>. Full
+documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#b-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#b-full</a>.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>panel</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – <p>Select a specific subplot panel. Only allowed when used in
 <a class="reference internal" href="pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Figure.subplot</span></code></a> mode.</p>
@@ -346,7 +354,7 @@ Select interpolation mode for grids. You can select the type of spline used:</p>
 i.e., looking from south to north].</p></li>
 <li><p><em>elevation</em>: Elevation angle of the viewpoint above the horizon [Default
 is 90, i.e., looking straight down at nadir].</p></li>
-<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
 Only applied when used together with <code class="docutils literal notranslate"><span class="pre">zsize</span></code> or <code class="docutils literal notranslate"><span class="pre">zscale</span></code>. [Default is
 at the bottom of the z-axis].</p></li>
 </ul>
@@ -371,13 +379,19 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a new plot with pygmt.Figure()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># pass in the grid and set the CPT to &quot;geo&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># set the projection to Mollweide and the size to 10 cm</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;ag&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W10c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame</span><span class="o">=</span><span class="n">Axis</span><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># show the plot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -401,9 +415,9 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html"><span class="doc">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
-<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html"><span class="doc">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html"><span class="doc">Calculating grid gradient with custom azimuth and normalization parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalization parameters</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdlandmask function allows setting all nodes on land or water to a specified value using the mask_values parameter."><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdlandmask.html"><span class="doc">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
@@ -444,9 +458,9 @@ the maximum cores available); or set a negative number <em>-n</em> to select
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/6eea101f8">6eea101f</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jun 11, 2026.
       </span></p>
   </div>
 

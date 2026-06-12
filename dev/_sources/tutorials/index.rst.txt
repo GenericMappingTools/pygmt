@@ -6,6 +6,10 @@ Tutorials
 These examples teach us how to complete various tasks using PyGMT!
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -22,6 +26,10 @@ These examples teach us how to complete various tasks using PyGMT!
 Basics
 ------
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -49,7 +57,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, titles, and labels is handled by the frame parameter that many plotting methods of the pygmt.Figure class accept. This tutorial focuses on setting the frame parameter using the pygmt.params.Axis and pygmt.params.Frame classes.">
 
 .. only:: html
 
@@ -117,7 +125,24 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot symbols via the style, size, and symbol parameters. This tutorial focuses on single-parameter symbols; for an overview of the available single-parameter symbols, see the Gallery example Single-parameter symbols &lt;/gallery/symbols/basic_symbols&gt;. The available multi-parameter symbols are explained in the Gallery example Multi-parameter symbols &lt;/gallery/symbols/multi_parameter_symbols&gt;.">
+
+.. only:: html
+
+  .. image:: /tutorials/basics/images/thumb/sphx_glr_symbols_thumb.png
+    :alt:
+
+  :doc:`/tutorials/basics/symbols`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting single-parameter symbols</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot. This is handled by the pygmt.Figure.text method of the pygmt.Figure class.">
 
 .. only:: html
 
@@ -164,12 +189,17 @@ Basics
    /tutorials/basics/plot
    /tutorials/basics/lines
    /tutorials/basics/polygons
+   /tutorials/basics/symbols
    /tutorials/basics/text
    /tutorials/basics/regions
 
 Advanced
 --------
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -316,7 +346,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots.">
+    <div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and tag them &#x27;abcd&#x27;. These individual plots are called subplots.">
 
 .. only:: html
 
@@ -379,6 +409,23 @@ Advanced
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In addition to draping a dataset (grid or image) on top of a topographic surface, you may want to add additional features like coastlines, symbols, and text annotations. This tutorial shows how to use pygmt.Figure.coast, pygmt.Figure.plot3d, and pygmt.Figure.text to add these features on a 3-D surface created by pygmt.Figure.grdview.">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_features_on_3d_surface_thumb.png
+    :alt:
+
+  :doc:`/tutorials/advanced/features_on_3d_surface`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting features on a 3-D surface</div>
     </div>
 
 
@@ -455,6 +502,7 @@ Advanced
    /tutorials/advanced/grid_equalization
    /tutorials/advanced/earth_relief
    /tutorials/advanced/date_time_charts
+   /tutorials/advanced/features_on_3d_surface
    /tutorials/advanced/focal_mechanisms
    /tutorials/advanced/vectors
    /tutorials/advanced/non_ascii_text

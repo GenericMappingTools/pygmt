@@ -30,12 +30,13 @@ The standard parallel is typically one of these (but can be any value):
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="Cyl_stere/30/-20/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

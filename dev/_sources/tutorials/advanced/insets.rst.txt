@@ -31,7 +31,7 @@ instead of the larger figure.
 .. code-block:: Python
 
     import pygmt
-    from pygmt.params import Box, Position
+    from pygmt.params import Axis, Box, Position
 
 
 
@@ -59,7 +59,7 @@ Massachusetts.
         projection="M15c",  # Set Mercator projection and size of 15 centimeter
         land="lightyellow",  # Color land areas light yellow
         water="lightblue",  # Color water areas light blue
-        frame="a",  # Set frame with annotation and major tick spacing
+        frame=Axis(annot=True),  # Set frame with annotations
     )
     fig.show()
 
@@ -95,7 +95,7 @@ inset.
         projection="M15c",
         land="lightyellow",
         water="lightblue",
-        frame="a",
+        frame=Axis(annot=True),
     )
     with fig.inset(position=Position("BL"), width=3, box=Box(pen="black", fill="lightred")):
         # pass is used to exit the with statement as no plotting methods are called
@@ -135,7 +135,7 @@ the inset is shifted 0.5 centimeters on the x-axis and 0.2 centimeters on the y-
         projection="M15c",
         land="lightyellow",
         water="lightblue",
-        frame="a",
+        frame=Axis(annot=True),
     )
     with fig.inset(
         position=Position("BL", offset=(0.5, 0.2)),
@@ -177,7 +177,7 @@ states.
         projection="M15c",
         land="lightyellow",
         water="lightblue",
-        frame="a",
+        frame=Axis(annot=True),
     )
     # This does not include an inset fill as it is covered by the inset figure. Inset
     # width/height are determined by the ``region`` and ``projection`` parameters.
@@ -212,7 +212,7 @@ states.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.041 seconds)
+   **Total running time of the script:** (0 minutes 1.005 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_insets.py:

@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/intro/03_figure_element.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../_static/documentation_options.js?v=a651e41a"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -183,7 +184,7 @@ to download the full example code.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a>: having a number of plotting methods. Every new
 figure must start with the creation of a <a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a> instance</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">frame</span></code>: setting plot or map boundaries (a combination of the single
+<li><p><code class="docutils literal notranslate"><span class="pre">frame</span></code>: setting plot boundaries (a combination of the single
 letters of <strong>WSNE</strong>, <strong>wsne</strong>, or <strong>lbtr</strong>), adding annotations, ticks,
 gridlines (<strong>afg</strong>), axis labels (<strong>+l</strong>), and title (<strong>+t</strong>), e.g.,
 in <a class="reference internal" href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a>. Detailed examples can be found at
@@ -243,9 +244,9 @@ figure instance</p></li>
 <a href="../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;c0.5c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,darkblue&quot;</span><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Grid&quot;</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mainexplain</span></a><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;frame=[&quot;xg2&quot;, &quot;yg5&quot;]&#39;</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">minorexplain</span></a><span class="p">)</span>
-<span class="c1"># ============ Map Boundaries</span>
+<span class="c1"># ============ Plot Boundaries</span>
 <a href="../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;c0.5c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,darkblue&quot;</span><span class="p">,</span> <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Map Boundary&quot;</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mainexplain</span></a><span class="p">)</span>
+<a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Plot Boundary&quot;</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mainexplain</span></a><span class="p">)</span>
 <a href="../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">6.8</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;frame=&quot;WStr&quot;&#39;</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">minorexplain</span></a><span class="p">)</span>
 <span class="c1"># ============ fig.plot (style)</span>
 <a href="../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#range" title="builtins.range" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;c0.7c&quot;</span><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p,darkblue&quot;</span><span class="p">)</span>
@@ -261,7 +262,7 @@ figure instance</p></li>
 <a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.314 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.291 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-intro-03-figure-element-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfc8b1803b652afb4ccb04ae46fba41/03_figure_element.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_figure_element.ipynb</span></code></a></p>
@@ -289,9 +290,9 @@ figure instance</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/6eea101f8">6eea101f</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jun 11, 2026.
       </span></p>
   </div>
 

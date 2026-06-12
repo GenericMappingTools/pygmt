@@ -15,6 +15,7 @@ function.
 # %%
 import pandas as pd
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Load sample penguins data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
@@ -51,11 +52,12 @@ fig = pygmt.Figure()
 fig.basemap(
     region=region,
     projection="X10c/10c",
-    frame=[
-        "xafg+lBill length (mm)",
-        "yafg+lBill depth (mm)",
-        "WSen+tPenguin size at Palmer Station",
-    ],
+    frame=Frame(
+        axes="WSen",
+        title="Penguin size at Palmer Station",
+        xaxis=Axis(annot=True, tick=True, grid=True, label="Bill length (mm)"),
+        yaxis=Axis(annot=True, tick=True, grid=True, label="Bill depth (mm)"),
+    ),
 )
 
 # Define a colormap for three categories, define the range of the

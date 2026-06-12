@@ -34,7 +34,7 @@ projection center, *horizon* specifies the maximum distance from projection
 center (in degrees, <= 180, default 90), and *scale* or *width* sets the size
 of the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-31
+.. GENERATED FROM PYTHON SOURCE LINES 20-33
 
 
 
@@ -50,21 +50,28 @@ of the figure.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region="g",
         projection="A30/-20/60/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="khaki",
         water="white",
     )
     fig.show()
 
 
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.210 seconds)
+   **Total running time of the script:** (0 minutes 0.209 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: equal-area
 
 
 .. _sphx_glr_download_projections_azim_azim_lambert.py:

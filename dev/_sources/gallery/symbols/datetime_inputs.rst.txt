@@ -38,7 +38,7 @@ The ``region`` parameter has to include the :math:`x` and :math:`y` axis limits
 in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 *date_max* can be directly defined as datetime input.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-70
+.. GENERATED FROM PYTHON SOURCE LINES 25-71
 
 
 
@@ -59,6 +59,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
     import pandas as pd
     import pygmt
     import xarray as xr
+    from pygmt.params import Axis, Frame
 
     fig = pygmt.Figure()
 
@@ -67,7 +68,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
     fig.basemap(
         projection="X15c/5c",
         region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
-        frame=["WSen", "af"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True)),
     )
 
     # numpy.datetime64 types
@@ -102,7 +103,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.119 seconds)
+   **Total running time of the script:** (0 minutes 0.130 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_datetime_inputs.py:

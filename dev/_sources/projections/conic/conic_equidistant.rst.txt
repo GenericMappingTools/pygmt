@@ -33,7 +33,7 @@ The projection is set with **d** or **D**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-30
+.. GENERATED FROM PYTHON SOURCE LINES 19-32
 
 
 
@@ -49,21 +49,28 @@ The figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region=[-88, -70, 18, 24],
         projection="D-79/21/19/23/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="seagreen",
         water="gray90",
     )
     fig.show()
 
 
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.157 seconds)
+   **Total running time of the script:** (0 minutes 0.156 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: equidistant
 
 
 .. _sphx_glr_download_projections_conic_conic_equidistant.py:

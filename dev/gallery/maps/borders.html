@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/maps/borders.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=a651e41a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -206,17 +207,22 @@ list of boundaries below:</p>
 black line color use <code class="docutils literal notranslate"><span class="pre">borders=&quot;1/1p,black&quot;</span></code>. You can draw multiple boundaries
 by passing in a list to <code class="docutils literal notranslate"><span class="pre">borders</span></code>.</p>
 <img src="../../_images/sphx_glr_borders_001.png" srcset="../../_images/sphx_glr_borders_001.png" alt="borders" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Make a Sinusoidal projection map of the Americas with automatic annotations,</span>
 <span class="c1"># ticks and gridlines</span>
-<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;I-90/15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;afg&quot;</span><span class="p">)</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;I-90/15c&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="c1"># Plot each level of the boundaries dataset with a different color.</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">borders</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;1/0.5p,black&quot;</span><span class="p">,</span> <span class="s2">&quot;2/0.5p,red&quot;</span><span class="p">,</span> <span class="s2">&quot;3/0.5p,blue&quot;</span><span class="p">],</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.360 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.342 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-borders-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/22670d1b9eefc72d26e95710491e5349/borders.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">borders.ipynb</span></code></a></p>
@@ -244,9 +250,9 @@ by passing in a list to <code class="docutils literal notranslate"><span class="
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/6eea101f8">6eea101f</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jun 11, 2026.
       </span></p>
   </div>
 

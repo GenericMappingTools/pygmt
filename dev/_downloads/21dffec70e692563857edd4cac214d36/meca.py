@@ -13,6 +13,7 @@ the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use th
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 
@@ -23,7 +24,7 @@ fig.coast(
     land="grey",
     water="lightblue",
     shorelines=True,
-    frame="a",
+    frame=Axis(annot=True),
 )
 
 # Store focal mechanism parameters in a dictionary based on the Aki & Richards

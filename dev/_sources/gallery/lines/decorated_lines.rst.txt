@@ -33,7 +33,7 @@ so-called *line fronts*, which are often used to plot fault lines, subduction zo
 or weather fronts; for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-84
+.. GENERATED FROM PYTHON SOURCE LINES 19-87
 
 
 
@@ -50,13 +50,16 @@ or weather fronts; for details see the
 
     import numpy as np
     import pygmt
+    from pygmt.params import Frame
 
     # Generate a two-point line for plotting
     x = np.array([1, 4])
     y = np.array([24, 24])
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 10, 0, 24], projection="X15c", frame="+tDecorated Lines")
+    fig.basemap(
+        region=[0, 10, 0, 24], projection="X15c", frame=Frame(title="Decorated Lines")
+    )
 
     # Plot different decorated lines
     for decoline in [
@@ -109,7 +112,7 @@ or weather fronts; for details see the
             text=decoline,
             font="Courier-Bold",
             justify="ML",
-            offset="0.75c/0c",
+            offset=(0.75, 0),
         )
 
     fig.show()
@@ -117,7 +120,7 @@ or weather fronts; for details see the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.302 seconds)
+   **Total running time of the script:** (0 minutes 0.326 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_decorated_lines.py:

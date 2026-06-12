@@ -34,7 +34,7 @@ For example, to draw national boundaries with a line thickness of 1 point and
 black line color use ``borders="1/1p,black"``. You can draw multiple boundaries
 by passing in a list to ``borders``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-29
+.. GENERATED FROM PYTHON SOURCE LINES 20-34
 
 
 
@@ -50,11 +50,16 @@ by passing in a list to ``borders``.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     # Make a Sinusoidal projection map of the Americas with automatic annotations,
     # ticks and gridlines
-    fig.basemap(region=[-150, -30, -60, 60], projection="I-90/15c", frame="afg")
+    fig.basemap(
+        region=[-150, -30, -60, 60],
+        projection="I-90/15c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     # Plot each level of the boundaries dataset with a different color.
     fig.coast(borders=["1/0.5p,black", "2/0.5p,red", "3/0.5p,blue"], land="gray")
     fig.show()
@@ -62,7 +67,7 @@ by passing in a list to ``borders``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.360 seconds)
+   **Total running time of the script:** (0 minutes 0.342 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_borders.py:

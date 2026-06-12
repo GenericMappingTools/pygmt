@@ -35,7 +35,7 @@ projection center, the optional parameter *horizon* specifies the maximum
 distance from projection center (in degrees, <= 90, default 90), and *scale*
 and *width* set the figure size.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-32
+.. GENERATED FROM PYTHON SOURCE LINES 21-33
 
 
 
@@ -51,12 +51,13 @@ and *width* set the figure size.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region="g",
         projection="G10/52/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="khaki",
         water="white",
     )
@@ -65,7 +66,7 @@ and *width* set the figure size.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.245 seconds)
+   **Total running time of the script:** (0 minutes 0.243 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_orthographic.py:

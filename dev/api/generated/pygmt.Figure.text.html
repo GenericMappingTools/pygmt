@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.text.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=a651e41a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -99,14 +100,19 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-figure-elements">Plotting figure elements</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.choropleth.html">pygmt.Figure.choropleth</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.directional_rose.html">pygmt.Figure.directional_rose</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.hlines.html">pygmt.Figure.hlines</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.magnetic_rose.html">pygmt.Figure.magnetic_rose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.paragraph.html">pygmt.Figure.paragraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.scalebar.html">pygmt.Figure.scalebar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.text</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
@@ -125,7 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
@@ -203,7 +209,7 @@
 <h1>pygmt.Figure.text<a class="headerlink" href="#pygmt-figure-text" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.text">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">textfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.text" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">textfiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.text" title="Link to this definition"></a></dt>
 <dd><p>Plot or typeset text.</p>
 <p>Must provide at least one of the following combinations as input:</p>
 <ul class="simple">
@@ -215,29 +221,31 @@
 non-ASCII characters defined in the Adobe ISOLatin1+, Adobe Symbol, Adobe
 ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
 <a class="reference internal" href="../../techref/encodings.html"><span class="doc">Supported Encodings and Non-ASCII Characters</span></a> for the full list of supported non-ASCII characters.</p>
+<p>For typesetting one or more paragraphs of text, see
+<a class="reference internal" href="pygmt.Figure.paragraph.html#pygmt.Figure.paragraph" title="pygmt.Figure.paragraph"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.paragraph</span></code></a>.</p>
 <p>Full GMT docs at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/text.html">https://docs.generic-mapping-tools.org/6.6/text.html</a>.</p>
 <p><strong>Aliases:</strong></p>
 <table class="hlist"><tr><td><ul class="simple">
 <li><p>C = clearance</p></li>
-<li><p>D = offset</p></li>
-<li><p>G = fill</p></li>
-<li><p>W = pen</p></li>
 <li><p>a = aspatial</p></li>
 <li><p>e = find</p></li>
 <li><p>f = coltypes</p></li>
-</ul>
-</td><td><ul class="simple">
 <li><p>h = header</p></li>
 <li><p>it = use_word</p></li>
 <li><p>w = wrap</p></li>
-<li><p>B = frame</p></li>
-<li><p>F = <strong>+a</strong>: angle, <strong>+c</strong>: position, <strong>+j</strong>: justify, <strong>+f</strong>: font</p></li>
-<li><p>J = projection</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>B = frame</p></li>
+<li><p>D = offset</p></li>
+<li><p>F = <strong>+a</strong>: angle, <strong>+c</strong>: position, <strong>+j</strong>: justify, <strong>+f</strong>: font</p></li>
+<li><p>G = fill</p></li>
+<li><p>J = projection</p></li>
 <li><p>N = no_clip</p></li>
+</ul>
+</td><td><ul class="simple">
 <li><p>R = region</p></li>
 <li><p>V = verbose</p></li>
+<li><p>W = pen</p></li>
 <li><p>c = panel</p></li>
 <li><p>p = perspective</p></li>
 <li><p>t = transparency</p></li>
@@ -265,18 +273,18 @@ columns must be in the order mentioned above.</p>
 </p></li>
 <li><p><strong>x/y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><em>1-D arrays</em>) – The x and y coordinates, or an array of x and y coordinates to plot
 the text.</p></li>
-<li><p><strong>position</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'TL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ML'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BR'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set reference point on the map for the text by using x, y
+<li><p><strong>position</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'TL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'TR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ML'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MR'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BC'</span></code>, <code class="docutils literal notranslate"><span class="pre">'BR'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set reference point on the plot for the text by using x, y
 coordinates extracted from <code class="docutils literal notranslate"><span class="pre">region</span></code> instead of providing them
 through <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>. Specify with a
 <a class="reference internal" href="../../techref/justification_codes.html"><span class="doc">2-character justification code</span></a>.
 For example, <code class="docutils literal notranslate"><span class="pre">position=&quot;TL&quot;</span></code> plots the text at the Top Left corner
-of the map.</p></li>
-<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.StringArray.html#pyarrow.StringArray" title="(in Apache Arrow v22.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The text string, or an array of strings to plot on the figure.</p></li>
-<li><p><strong>angle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Set the angle measured in degrees counter-clockwise from
+of the plot.</p></li>
+<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.StringArray.html#pyarrow.StringArray" title="(in Apache Arrow v24.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The text string, or an array of strings to plot on the figure.</p></li>
+<li><p><strong>angle</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Set the angle measured in degrees counter-clockwise from
 horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
 explicitly given (i.e. <code class="docutils literal notranslate"><span class="pre">angle=True</span></code>) then the input to <code class="docutils literal notranslate"><span class="pre">textfiles</span></code>
 must have this as a column.</p></li>
-<li><p><strong>font</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set the font specification with format <em>size</em>,<em>font</em>,<em>color</em>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.StringArray.html#pyarrow.StringArray" title="(in Apache Arrow v24.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringArray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Set the font specification with format <em>size</em>,<em>font</em>,<em>color</em>
 where <em>size</em> is text size in points, <em>font</em> is the font to use, and
 <em>color</em> sets the font color. For example,
 <code class="docutils literal notranslate"><span class="pre">font=&quot;12p,Helvetica-Bold,red&quot;</span></code> selects a 12p, red, Helvetica-Bold
@@ -289,11 +297,6 @@ will be mapped onto the (x, y) point. Choose a
 e.g., <strong>BL</strong> for Bottom Left. If no justification is explicitly given
 (i.e. <code class="docutils literal notranslate"><span class="pre">justify=True</span></code>), then the input to <code class="docutils literal notranslate"><span class="pre">textfiles</span></code> must have
 this as a column.</p></li>
-<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
-Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
-Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.
-<em>Required if this is the first plot command.</em></p></li>
 <li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<em>dx/dy</em>][<strong>+to</strong>|<strong>O</strong>|<strong>c</strong>|<strong>C</strong>].
 Adjust the clearance between the text and the surrounding box
 [Default is 15% of the font size]. Only used if <code class="docutils literal notranslate"><span class="pre">pen</span></code> or <code class="docutils literal notranslate"><span class="pre">fill</span></code>
@@ -306,20 +309,23 @@ to get a straight rectangle [Default is <strong>o</strong>]. Append uppercase
 <strong>O</strong> to get a rounded rectangle. In paragraph mode (<em>paragraph</em>)
 you can also append lowercase <strong>c</strong> to get a concave rectangle or
 append uppercase <strong>C</strong> to get a convex rectangle.</p></li>
-<li><p><strong>fill</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set color for filling text boxes [Default is no fill].</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>j</strong>|<strong>J</strong>]<em>dx</em>[/<em>dy</em>][<strong>+v</strong>[<em>pen</em>]].
-Offset the text from the projected (x, y) point by <em>dx</em>/<em>dy</em>
-[Default is <code class="docutils literal notranslate"><span class="pre">&quot;0/0&quot;</span></code>].
-If <em>dy</em> is not specified then it is set equal to <em>dx</em>. Use <strong>j</strong> to
-offset the text away from the point instead (i.e., the text
-justification will determine the direction of the shift). Using
-<strong>J</strong> will shorten diagonal offsets at corners by sqrt(2).
-Optionally, append <strong>+v</strong> which will draw a line from the original
-point to the shifted point; append a pen to change the attributes
+<li><p><strong>fill</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set color for filling text boxes [Default is no fill].</p></li>
+<li><p><strong>pen</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Set the pen used to draw a rectangle around the text string (see <code class="docutils literal notranslate"><span class="pre">clearance</span></code>)
+[Default is <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black,solid&quot;</span></code>].</p></li>
+<li><p><strong>offset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – (<em>dx</em>, <em>dy</em>) or [<strong>j</strong>|<strong>J</strong>]<em>dx</em>[/<em>dy</em>][<strong>+v</strong>[<em>pen</em>]].
+Offset the text from the projected (x, y) point by (<em>dx</em>, <em>dy</em>) [Default is
+(0, 0)]. If <em>dy</em> is not specified then it is set equal to <em>dx</em>. Use <strong>j</strong> to
+offset the text away from the point instead (i.e., the text justification will
+determine the direction of the shift). Using <strong>J</strong> will shorten diagonal offsets
+at corners by sqrt(2). Optionally, append <strong>+v</strong> which will draw a line from
+the original point to the shifted point; append a pen to change the attributes
 for this line.</p></li>
-<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set the pen used to draw a rectangle around the text string
-(see <code class="docutils literal notranslate"><span class="pre">clearance</span></code>) [Default is <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black,solid&quot;</span></code>].</p></li>
 <li><p><strong>no_clip</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Do <strong>not</strong> clip text at the frame boundaries [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
+<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.
+<em>Required if this is the first plot command.</em></p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>aspatial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<em>col</em>=]<em>name</em>[,…].
 Control how aspatial data are handled during input and output.
@@ -374,7 +380,7 @@ columns can be specified.</p></li>
 i.e., looking from south to north].</p></li>
 <li><p><em>elevation</em>: Elevation angle of the viewpoint above the horizon [Default
 is 90, i.e., looking straight down at nadir].</p></li>
-<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
 Only applied when used together with <code class="docutils literal notranslate"><span class="pre">zsize</span></code> or <code class="docutils literal notranslate"><span class="pre">zscale</span></code>. [Default is
 at the bottom of the z-axis].</p></li>
 </ul>
@@ -459,13 +465,16 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
 <p><a class="reference internal" href="../../intro/03_figure_element.html"><span class="doc">3. Figure elements</span></a></p>
   <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In addition to draping a dataset (grid or image) on top of a topographic surface, you may want to add additional features like coastlines, symbols, and text annotations. This tutorial shows how to use pygmt.Figure.coast, pygmt.Figure.plot3d, and pygmt.Figure.text to add these features on a 3-D surface created by pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_features_on_3d_surface_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/features_on_3d_surface.html"><span class="doc">Plotting features on a 3-D surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting features on a 3-D surface</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In addition to ASCII printable characters, sometimes you may also want to typeset non-ASCII characters on the plot, such as Greek letters, mathematical symbols, or special characters."><img alt="" src="../../_images/sphx_glr_non_ascii_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/non_ascii_text.html"><span class="doc">Typesetting non-ASCII text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Typesetting non-ASCII text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and label them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put many individual plots into one large figure, and tag them &#x27;abcd&#x27;. These individual plots are called subplots."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/subplots.html"><span class="doc">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/text.html"><span class="doc">Plotting text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting text</div>
 </div></div><div style='clear:both'></div></section>
@@ -484,9 +493,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/6eea101f8">6eea101f</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jun 11, 2026.
       </span></p>
   </div>
 

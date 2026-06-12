@@ -7,6 +7,10 @@ This gallery contains examples of what PyGMT can do. Click on any example to see
 code used to generate it.
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -24,6 +28,10 @@ Maps and map elements
 ---------------------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -33,7 +41,7 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.choropleth method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object or an OGR_GMT file. Use geopandas.read_file to load data from any supported OGR formats such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.choropleth, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to specify the column name to the column parameter.">
 
 .. only:: html
 
@@ -172,6 +180,10 @@ Lines and vectors
 -----------------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -244,6 +256,23 @@ Lines and vectors
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Envelope</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Fill area between curves">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_fill_areas_between_curves_thumb.png
+    :alt:
+
+  :doc:`/gallery/lines/fill_areas_between_curves`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Fill area between curves</div>
     </div>
 
 
@@ -431,6 +460,7 @@ Lines and vectors
    /gallery/lines/connection_lines
    /gallery/lines/decorated_lines
    /gallery/lines/envelope
+   /gallery/lines/fill_areas_between_curves
    /gallery/lines/great_circles
    /gallery/lines/linestrings
    /gallery/lines/hlines_vlines
@@ -445,6 +475,10 @@ Lines and vectors
 Symbols and markers
 -------------------
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -642,7 +676,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for vertical bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band.">
 
 .. only:: html
 
@@ -684,6 +718,10 @@ Images, contours, and fields
 ----------------------------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -710,7 +748,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object.">
 
 .. only:: html
 
@@ -721,7 +759,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+      <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalization parameters</div>
     </div>
 
 
@@ -868,6 +906,10 @@ Images, contours, and fields
 ---------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -877,7 +919,24 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor.">
+    <div class="sphx-glr-thumbcontainer" tooltip="A 3-D bar plot can be created from any collection of three-dimensional tabular data. The data points can lie on a regular grid or be irregularly scattered. A special case is creating such a 3-D bar plot based on a grid. This can be done in two steps:">
+
+.. only:: html
+
+  .. image:: /gallery/3d_plots/images/thumb/sphx_glr_3d_bar_thumb.png
+    :alt:
+
+  :doc:`/gallery/3d_plots/3d_bar`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3-D bar plot</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like Frame(axes=&quot;WsNeZ&quot;, zaxis=Axis(annot=True, tick=True)). Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor.">
 
 .. only:: html
 
@@ -894,7 +953,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;surface&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;.">
 
 .. only:: html
 
@@ -919,12 +978,17 @@ Images, contours, and fields
 .. toctree::
    :hidden:
 
+   /gallery/3d_plots/3d_bar
    /gallery/3d_plots/scatter3d
    /gallery/3d_plots/grdview_surface
 
 Seismology and geodesy
 ----------------------
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -984,6 +1048,10 @@ Base maps
 ---------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -1041,6 +1109,10 @@ Base maps
 Histograms
 ----------
 
+
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
 
 
 .. raw:: html
@@ -1136,6 +1208,10 @@ Plot embellishments
 -------------------
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 
@@ -1145,7 +1221,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the frame parameter to add labels to the x and y axes of the colorbar by appending +l followed by the desired text. To add and adjust the annotations (a) and ticks (f) append the letter followed by the desired interval. The placement of the colorbar is set by passing a pygmt.params.Position object to the position parameter.">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the label and unit parameters to set the labels along the long and short dimensions of the colorbar, respectively. To set the annotation and tick intervals, use the annot and tick parameters. The placement of the colorbar is set by passing a pygmt.params.Position object to the position parameter.">
 
 .. only:: html
 
@@ -1174,6 +1250,23 @@ Plot embellishments
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Day-night terminator and twilights</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.directional_rose method allows to add directional roses on maps. Using the method without any arguments will plot a rose at the bottom left corner, but this example will focus on customizing its position and appearance.">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_directional_roses_thumb.png
+    :alt:
+
+  :doc:`/gallery/embellishments/directional_roses`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Directional map rose</div>
     </div>
 
 
@@ -1247,6 +1340,23 @@ Plot embellishments
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The method pygmt.Figure.magnetic_rose can be used to add a magnetic rose to a map. This example shows how such a magnetic rose can be customized.">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_magnetic_rose_thumb.png
+    :alt:
+
+  :doc:`/gallery/embellishments/magnetic_rose`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Magnetic rose</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details.">
 
 .. only:: html
@@ -1264,7 +1374,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The map_scale parameter of the pygmt.Figure.basemap and pygmt.Figure.coast methods is used to add a scale bar to a map. This example shows how such a scale bar can be customized:">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.scalebar method can be used to add a scale bar to a map. This example shows how such a scale bar can be customized.">
 
 .. only:: html
 
@@ -1325,10 +1435,12 @@ Plot embellishments
 
    /gallery/embellishments/colorbar
    /gallery/embellishments/solar
+   /gallery/embellishments/directional_roses
    /gallery/embellishments/gmt_logo
    /gallery/embellishments/inset
    /gallery/embellishments/inset_rectangle_region
    /gallery/embellishments/legend
+   /gallery/embellishments/magnetic_rose
    /gallery/embellishments/colorbars_multiple
    /gallery/embellishments/scalebar
    /gallery/embellishments/text_formatting

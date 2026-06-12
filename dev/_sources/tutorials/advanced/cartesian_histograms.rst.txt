@@ -42,7 +42,7 @@ Import the required packages
 
     import numpy as np
     import pygmt
-    from pygmt.params import Pattern
+    from pygmt.params import Axis, Frame, Pattern
 
 
 
@@ -90,7 +90,7 @@ later in this tutorial). Use the ``pen`` parameter to adjust width, color, and s
 of the outlines. By default, a histogram with vertical bars is created. Horizontal
 bars can be achieved via ``horizontal=True``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-91
+.. GENERATED FROM PYTHON SOURCE LINES 47-99
 
 .. code-block:: Python
 
@@ -105,7 +105,11 @@ bars can be achieved via ``horizontal=True``.
         projection="X10c",  # Cartesian projection with a width of 10 centimeters
         # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"; the
         # numbers give the steps of annotations and ticks
-        frame=["WStr", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WStr",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data01,
         # Set the bin width via the "series" parameter
         series=10,
@@ -124,7 +128,11 @@ bars can be achieved via ``horizontal=True``.
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WStr", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WStr",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data01,
         series=10,
         fill="red3",
@@ -150,7 +158,7 @@ bars can be achieved via ``horizontal=True``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-97
+.. GENERATED FROM PYTHON SOURCE LINES 100-105
 
 Stair-steps
 -----------
@@ -158,7 +166,7 @@ Stair-steps
 A stair-step diagram can be created by setting ``stairs=True``. Then only the
 outer outlines of the bars are drawn, and no internal bars are visible.
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-132
+.. GENERATED FROM PYTHON SOURCE LINES 105-148
 
 .. code-block:: Python
 
@@ -169,7 +177,11 @@ outer outlines of the bars are drawn, and no internal bars are visible.
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSne", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data01,
         series=10,
         # Draw a 1-point thick, dotted outline in "red3"
@@ -185,7 +197,11 @@ outer outlines of the bars are drawn, and no internal bars are visible.
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSne", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data02,
         series=10,
         # Draw a 1.5-point thick, dashed outline in "orange"
@@ -209,7 +225,7 @@ outer outlines of the bars are drawn, and no internal bars are visible.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-139
+.. GENERATED FROM PYTHON SOURCE LINES 149-155
 
 Counts and frequency percent
 ----------------------------
@@ -218,7 +234,7 @@ By default, a histogram showing the counts in each bin is created (``histtype=0`
 To show the frequency percent set the ``histtype`` parameter to ``1``. For further
 options please have a look at the documentation of :meth:`pygmt.Figure.histogram`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-174
+.. GENERATED FROM PYTHON SOURCE LINES 155-198
 
 .. code-block:: Python
 
@@ -229,7 +245,11 @@ options please have a look at the documentation of :meth:`pygmt.Figure.histogram
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSnr", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSnr",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data02,
         series=10,
         fill="orange",
@@ -245,7 +265,11 @@ options please have a look at the documentation of :meth:`pygmt.Figure.histogram
         region=[0, 200, 0, 0],
         projection="X10c",
         # Add suffix % (+u)
-        frame=["lSnE", "xaf10", "ya2f1+u%+lFrequency percent"],
+        frame=Frame(
+            axes="lSnE",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=2, tick=1, unit="%", label="Frequency percent"),
+        ),
         data=data02,
         series=10,
         fill="orange",
@@ -269,7 +293,7 @@ options please have a look at the documentation of :meth:`pygmt.Figure.histogram
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-182
+.. GENERATED FROM PYTHON SOURCE LINES 199-206
 
 Cumulative values
 -----------------
@@ -279,7 +303,7 @@ bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern`
 the ``fill`` parameter. Annotate each bar with the counts it represents using the
 ``annotate`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-221
+.. GENERATED FROM PYTHON SOURCE LINES 206-253
 
 .. code-block:: Python
 
@@ -290,7 +314,11 @@ the ``fill`` parameter. Annotate each bar with the counts it represents using th
     fig.histogram(
         region=[0, 200, 0, len(data01) + 1],
         projection="X10c",
-        frame=["WSne", "xaf10", "ya5f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=5, tick=1, label="Counts"),
+        ),
         data=data01,
         series=10,
         fill="red3",
@@ -306,7 +334,11 @@ the ``fill`` parameter. Annotate each bar with the counts it represents using th
     fig.histogram(
         region=[0, 200, 0, len(data01) + 1],
         projection="X10c",
-        frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
+        frame=Frame(
+            axes="wSnE",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=5, tick=1, label="Cumulative counts"),
+        ),
         data=data01,
         series=10,
         # Fill bars with GMT pattern 8, with white background and black foreground.
@@ -334,7 +366,7 @@ the ``fill`` parameter. Annotate each bar with the counts it represents using th
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-234
+.. GENERATED FROM PYTHON SOURCE LINES 254-266
 
 Overlaid bars
 -------------
@@ -349,7 +381,7 @@ Limitations of histograms with overlaid bars are:
 - Visually more colors or/and patterns than data sets
 - Visually a "third histogram" (or more in case of more than two data sets)
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-269
+.. GENERATED FROM PYTHON SOURCE LINES 266-305
 
 .. code-block:: Python
 
@@ -360,7 +392,11 @@ Limitations of histograms with overlaid bars are:
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSne", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data01,
         series=10,
         fill="red3",
@@ -400,7 +436,7 @@ Limitations of histograms with overlaid bars are:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 270-282
+.. GENERATED FROM PYTHON SOURCE LINES 306-318
 
 Stacked bars
 ------------
@@ -415,7 +451,7 @@ Limitations of histograms with stacked bars are:
 - No common baseline
 - Partly not directly clear whether overlaid or stacked bars
 
-.. GENERATED FROM PYTHON SOURCE LINES 282-319
+.. GENERATED FROM PYTHON SOURCE LINES 318-359
 
 .. code-block:: Python
 
@@ -429,7 +465,11 @@ Limitations of histograms with stacked bars are:
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSne", "xaf10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data_merge,
         series=10,
         fill="orange",
@@ -468,7 +508,7 @@ Limitations of histograms with stacked bars are:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 320-330
+.. GENERATED FROM PYTHON SOURCE LINES 360-370
 
 Grouped bars
 ------------
@@ -481,7 +521,7 @@ Limitations of histograms with grouped bars are:
 - Careful setting width and position of the bars in respect to the bin width
 - Difficult to see the variations of the single data sets
 
-.. GENERATED FROM PYTHON SOURCE LINES 330-371
+.. GENERATED FROM PYTHON SOURCE LINES 370-415
 
 .. code-block:: Python
 
@@ -495,7 +535,11 @@ Limitations of histograms with grouped bars are:
     fig.histogram(
         region=[0, 200, 0, 0],
         projection="X10c",
-        frame=["WSne", "xaf10g10", "ya1f1+lCounts"],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=10, grid=10),
+            yaxis=Axis(annot=1, tick=1, label="Counts"),
+        ),
         data=data01,
         series=binwidth,
         fill="red3",
@@ -541,7 +585,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.195 seconds)
+   **Total running time of the script:** (0 minutes 1.267 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:

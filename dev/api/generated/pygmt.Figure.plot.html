@@ -12,32 +12,34 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/api/generated/pygmt.Figure.plot.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=a651e41a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.Figure.plot3d" href="pygmt.Figure.plot3d.html" />
-    <link rel="prev" title="pygmt.Figure.meca" href="pygmt.Figure.meca.html" />
+    <link rel="prev" title="pygmt.Figure.paragraph" href="pygmt.Figure.paragraph.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -99,7 +101,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-figure-elements">Plotting figure elements</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.contour.html">pygmt.Figure.contour</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.histogram.html">pygmt.Figure.histogram</a></li>
@@ -123,7 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">Xarray Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#xarray-integration">xarray Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#class-style-parameters">Class-style Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
@@ -201,10 +203,10 @@
 <h1>pygmt.Figure.plot<a class="headerlink" href="#pygmt-figure-plot" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.plot">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">straight_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.plot" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">straight_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.plot" title="Link to this definition"></a></dt>
 <dd><p>Plot lines, polygons, and symbols in 2-D.</p>
 <p>Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
-polygons, or symbols at those locations on a map.</p>
+polygons, or symbols at those locations on a plot.</p>
 <p>Must provide either <code class="docutils literal notranslate"><span class="pre">data</span></code> or <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
 <p>If providing data through <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">fill</span></code> can be a 1-D array that
 will be mapped to a colormap.</p>
@@ -227,11 +229,12 @@ polygon outline is drawn or not. If a symbol is selected, <code class="docutils 
 <li><p>G = fill</p></li>
 <li><p>I = intensity</p></li>
 <li><p>L = close</p></li>
+<li><p>M = fill_between</p></li>
 <li><p>N = no_clip</p></li>
 <li><p>S = style</p></li>
-<li><p>W = pen</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>W = pen</p></li>
 <li><p>Z = zvalue</p></li>
 <li><p>a = aspatial</p></li>
 <li><p>b = binary</p></li>
@@ -241,9 +244,9 @@ polygon outline is drawn or not. If a symbol is selected, <code class="docutils 
 <li><p>g = gap</p></li>
 <li><p>h = header</p></li>
 <li><p>l = label</p></li>
-<li><p>w = wrap</p></li>
 </ul>
 </td><td><ul class="simple">
+<li><p>w = wrap</p></li>
 <li><p>A = straight_line</p></li>
 <li><p>B = frame</p></li>
 <li><p>J = projection</p></li>
@@ -258,10 +261,10 @@ polygon outline is drawn or not. If a symbol is selected, <code class="docutils 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Pass in either a file name to an ASCII data table, a 2-D
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2025.12.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathLike</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> | <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoDataFrame</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Pass in either a file name to an ASCII data table, a 2-D
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v3.0.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v1.1.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.
 Use parameter <code class="docutils literal notranslate"><span class="pre">incols</span></code> to choose which columns are x, y, fill, and
 size, respectively.</p></li>
@@ -274,10 +277,6 @@ Only valid if using <code class="docutils literal notranslate"><span class="pre"
 should be a list of two 1-D arrays with the vector directions. These
 can be angle and length, azimuth and length, or x and y components,
 depending on the style options chosen.</p></li>
-<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
-Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
-Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>straight_line</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'x'</span></code>, <code class="docutils literal notranslate"><span class="pre">'y'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – <p>By default, line segments are drawn as straight lines in the Cartesian and polar
 coordinate systems, and as great circle arcs (by resampling coarse input data
 along such arcs) in the geographic coordinate system. The <code class="docutils literal notranslate"><span class="pre">straight_line</span></code>
@@ -302,8 +301,6 @@ parallels. The bug is fixed by upstream
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt/pull/8648">PR #8648</a>.</p>
 </div>
 </p></li>
-<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Set map boundary
-<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
 <li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – File name of a CPT file or a series of comma-separated colors
 (e.g., <em>color1</em>,<em>color2</em>,<em>color3</em>) to build a linear continuous
 CPT from those colors automatically.</p></li>
@@ -343,6 +340,9 @@ for all groups.</p>
 [Default is no fill].
 <em>fill</em> can be a 1-D array, but it is only valid if using <code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>
 and <code class="docutils literal notranslate"><span class="pre">cmap=True</span></code> is also required.</p></li>
+<li><p><strong>fill_between</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<strong>c</strong>|<strong>s</strong>][<strong>+l</strong><em>seclabel</em>][<strong>+g</strong><em>fill</em>][<strong>p</strong><em>pen</em>]
+[<strong>+r</strong><em>pen</em>][<strong>+y</strong>[<em>level</em>]].
+Fill the middle area between two curves <span class="math notranslate nohighlight">\(y_0(x)\)</span> and <span class="math notranslate nohighlight">\(y_1(x)\)</span>.</p></li>
 <li><p><strong>intensity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, or </em><em>1-D array</em>) – Provide an <em>intensity</em> value (nominally in the -1 to +1 range) to
 modulate the fill color by simulating illumination. If using
 <code class="docutils literal notranslate"><span class="pre">intensity=True</span></code>, we will instead read <em>intensity</em> from the first
@@ -357,7 +357,7 @@ Do <strong>not</strong> clip symbols that fall outside the frame boundaries
 [Default plots points whose coordinates are strictly inside the
 frame boundaries only].
 The parameter does not apply to lines and polygons which are always
-clipped to the map region. For periodic (360-longitude) maps we
+clipped to the plot region. For periodic (360-longitude) maps we
 must plot all symbols twice in case they are clipped by the
 repeating boundary. <code class="docutils literal notranslate"><span class="pre">no_clip=True</span></code> will turn off clipping and not
 plot repeating symbols. Use <code class="docutils literal notranslate"><span class="pre">no_clip=&quot;r&quot;</span></code> to turn off clipping
@@ -367,7 +367,6 @@ repeating symbols.</p></li>
 <li><p><strong>style</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Plot symbols (including vectors, pie slices, fronts, decorated or
 quoted lines).</p></li>
 <li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>zvalue</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <em>value</em>|<em>file</em>.
 Instead of specifying a symbol or polygon fill and outline color
 via <code class="docutils literal notranslate"><span class="pre">fill</span></code> and <code class="docutils literal notranslate"><span class="pre">pen</span></code>, give both a <em>value</em> via <code class="docutils literal notranslate"><span class="pre">zvalue</span></code> and a
@@ -376,6 +375,20 @@ color lookup table via <code class="docutils literal notranslate"><span class="p
 polygon in the input data. To apply it to the fill color, use
 <code class="docutils literal notranslate"><span class="pre">fill=&quot;+z&quot;</span></code>. To apply it to the pen color, append <strong>+z</strong> to
 <code class="docutils literal notranslate"><span class="pre">pen</span></code>.</p></li>
+<li><p><strong>projection</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>frame</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.frame.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">Frame</span></code></a> | <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.frame.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'none'</span></code>] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Set frame and axes attributes for the plot. It can be a bool, <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>,
+a <a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Frame</span></code></a> or <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Axis</span></code></a> object. Raw GMT
+strings or sequences of strings are also supported for backward
+compatibility. If <code class="docutils literal notranslate"><span class="pre">frame=True</span></code>, the frame will be drawn with the default
+attributes. If <code class="docutils literal notranslate"><span class="pre">frame=&quot;none&quot;</span></code>, no frame will be drawn. Use a
+<a class="reference internal" href="pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Frame</span></code></a> or <a class="reference internal" href="pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.params.Axis</span></code></a> object for more
+control over the attributes of the frame and axes. A tutorial is available at
+<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>. Full
+documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#b-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#b-full</a>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Select verbosity level [<a class="reference internal" href="../../techref/common_parameters.html#term-verbose"><span class="xref std std-term">Full usage</span></a>].</p></li>
 <li><p><strong>aspatial</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – [<em>col</em>=]<em>name</em>[,…].
 Control how aspatial data are handled during input and output.
 Full documentation is at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#aspatial-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#aspatial-full</a>.</p></li>
@@ -522,7 +535,7 @@ documentation is at <a class="extlink-gmt-docs reference external" href="https:/
 i.e., looking from south to north].</p></li>
 <li><p><em>elevation</em>: Elevation angle of the viewpoint above the horizon [Default
 is 90, i.e., looking straight down at nadir].</p></li>
-<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+<li><p><em>zlevel</em>: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
 Only applied when used together with <code class="docutils literal notranslate"><span class="pre">zsize</span></code> or <code class="docutils literal notranslate"><span class="pre">zscale</span></code>. [Default is
 at the bottom of the z-axis].</p></li>
 </ul>
@@ -592,6 +605,9 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The close parameter of the pygmt.Figure.plot method can be used to build a symmetrical or an asymmetrical envelope. The user can give either the deviations or the bounds in y-direction. For the first case append &quot;+d&quot; or &quot;+D&quot; and for the latter case &quot;+b&quot;."><img alt="" src="../../_images/sphx_glr_envelope_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/envelope.html"><span class="doc">Envelope</span></a></p>
   <div class="sphx-glr-thumbnail-title">Envelope</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Fill area between curves"><img alt="" src="../../_images/sphx_glr_fill_areas_between_curves_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/fill_areas_between_curves.html"><span class="doc">Fill area between curves</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Fill area between curves</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points can be defined via the center and endpoint parameters, respectively. Using the generate parameter allows to generate (r, s, p) points every dist units of p along a profile as output. By default, all units (r, s and p) are set to degrees while unit=True allows to set the unit for p to km."><img alt="" src="../../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/great_circles.html"><span class="doc">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
@@ -619,10 +635,7 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style parameter controls vector attributes. See also the Vector attributes example &lt;/gallery/lines/vector_heads_tails&gt;."><img alt="" src="../../_images/sphx_glr_vector_styles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_styles.html"><span class="doc">Cartesian, circular, and geographic vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
-<p><a class="reference internal" href="../../gallery/maps/choropleth_map.html"><span class="doc">Choropleth map</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Choropleth map</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for verticals bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corresponding shortcut to the style parameter. By default, base = 0 meaning that the bar is starting from 0. Append +b\[base] to change this value. To plot multi-band bars, please append +v\|\ i\ ny (for vertical bars) or +v\|\ i\ nx (for horizontal ones), where ny or nx indicate the total number of bands in the bar (and hence the number of values required to follow the x,y coordinate pair in the input). Here, +i means we must accumulate the bar values from the increments dy or dx, while +v means we get the complete values relative to base. Normally, the bands are plotted as sections of a final single bar. Use +s to instead split the bar into ny or nx side-by-side, individual and thinner bars. Multi-band bars require cmap=True with one color per band."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html"><span class="doc">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding shortcuts to the style parameter. The 14 basic geometric symbols are shown underneath their corresponding shortcut codes. Four symbols (-, +, x and y) are line-symbols only for which we can adjust the linewidth via the pen parameter. The point symbol (p) only takes a color fill which we can define via the fill parameter. For the remaining symbols we may define a linewidth as well as a color fill."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
@@ -691,7 +704,10 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting polygons is handled by the pygmt.Figure.plot method."><img alt="" src="../../_images/sphx_glr_polygons_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/polygons.html"><span class="doc">Plotting polygons</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting polygons</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot symbols via the style, size, and symbol parameters. This tutorial focuses on single-parameter symbols; for an overview of the available single-parameter symbols, see the Gallery example Single-parameter symbols &lt;/gallery/symbols/basic_symbols&gt;. The available multi-parameter symbols are explained in the Gallery example Multi-parameter symbols &lt;/gallery/symbols/multi_parameter_symbols&gt;."><img alt="" src="../../_images/sphx_glr_symbols_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/symbols.html"><span class="doc">Plotting single-parameter symbols</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting single-parameter symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot. This is handled by the pygmt.Figure.text method of the pygmt.Figure class."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/text.html"><span class="doc">Plotting text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting text</div>
 </div></div><div style='clear:both'></div></section>
@@ -702,7 +718,7 @@ cyclical coordinate transformations are supported:</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.Figure.meca.html" class="btn btn-neutral float-left" title="pygmt.Figure.meca" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.paragraph.html" class="btn btn-neutral float-left" title="pygmt.Figure.paragraph" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pygmt.Figure.plot3d.html" class="btn btn-neutral float-right" title="pygmt.Figure.plot3d" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -710,9 +726,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/6eea101f8">6eea101f</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jun 11, 2026.
       </span></p>
   </div>
 

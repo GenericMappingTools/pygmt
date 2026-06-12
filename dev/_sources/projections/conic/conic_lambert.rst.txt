@@ -36,7 +36,7 @@ The projection is set with **l** or **L**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-34
+.. GENERATED FROM PYTHON SOURCE LINES 22-35
 
 
 
@@ -52,22 +52,28 @@ The figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region=[-130, -70, 24, 52],
         projection="L-100/35/33/45/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="seagreen",
         water="gray90",
     )
-
     fig.show()
+
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.189 seconds)
+   **Total running time of the script:** (0 minutes 0.186 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: conformal
 
 
 .. _sphx_glr_download_projections_conic_conic_lambert.py:

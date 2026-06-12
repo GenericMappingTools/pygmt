@@ -11,6 +11,7 @@ using :meth:`pygmt.Figure.shift_origin`.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Generate random x-, y-coordinates from a standard normal distribution.
 # x-values are centered on 0 with a standard deviation of 1, and y-values are centered
@@ -35,7 +36,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[xmin, xmax, ymin, ymax],
     projection=f"X{width}/{height}",
-    frame=["WSrt", "af"],
+    frame=Frame(axes="WSrt", axis=Axis(annot=True, tick=True)),
 )
 
 # Plot data points as circles with a diameter of 0.15 centimeters and set transparency
@@ -46,7 +47,11 @@ fig.plot(x=x, y=y, style="c0.15c", fill=fill, transparency=50)
 with fig.shift_origin(yshift=height + 0.25):
     fig.histogram(
         projection=f"X{width}/3",
-        frame=["Wsrt", "xf", "yaf+lCounts"],
+        frame=Frame(
+            axes="Wsrt",
+            xaxis=Axis(tick=True),
+            yaxis=Axis(annot=True, tick=True, label="Counts"),
+        ),
         # Give the same value for ymin and ymax to have them calculated automatically.
         region=[xmin, xmax, 0, 0],
         data=x,
@@ -63,7 +68,11 @@ with fig.shift_origin(xshift=width + 0.25):
         horizontal=True,
         projection=f"X3/{height}",
         # Note that the x- and y-axes are flipped, with the y-axis plotted horizontally.
-        frame=["wSrt", "xf", "yaf+lCounts"],
+        frame=Frame(
+            axes="wSrt",
+            xaxis=Axis(tick=True),
+            yaxis=Axis(annot=True, tick=True, label="Counts"),
+        ),
         region=[ymin, ymax, 0, 0],
         data=y,
         fill=fill,

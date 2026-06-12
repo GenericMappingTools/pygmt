@@ -31,11 +31,12 @@ parameter:
 - **R**: rounded rectangle
 - **w**: pie wedge
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-20
+.. GENERATED FROM PYTHON SOURCE LINES 18-21
 
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis, Frame
 
 
 
@@ -44,7 +45,7 @@ parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-38
+.. GENERATED FROM PYTHON SOURCE LINES 22-39
 
 We can plot multi-parameter symbols using the same symbol style. We need to define
 locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for a single symbol or
@@ -64,7 +65,7 @@ The multi-parameter symbols in the ``style`` parameter are defined as:
 Uppercase versions **E**, **J**, and **W** are similar to **e**, **j**, and **w**
 but expect geographic azimuths and distances.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-57
+.. GENERATED FROM PYTHON SOURCE LINES 39-58
 
 .. code-block:: Python
 
@@ -99,7 +100,7 @@ but expect geographic azimuths and distances.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-71
+.. GENERATED FROM PYTHON SOURCE LINES 59-72
 
 We can also plot symbols with varying parameters via defining those values in a 2-D
 list or numpy array (``[[parameters]]`` for a single symbol or
@@ -115,13 +116,17 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 - **w**: pie wedge, ``[[lon, lat, diameter, startdir, stopdir]]``, the last two
   arguments are directions given in degrees counter-clockwise from horizontal
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-96
+.. GENERATED FROM PYTHON SOURCE LINES 72-101
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 7, 0, 4], projection="x3c", frame=["xa1f0.2", "ya0.5f0.1"])
+    fig.basemap(
+        region=[0, 7, 0, 4],
+        projection="x3c",
+        frame=Frame(xaxis=Axis(annot=1, tick=0.2), yaxis=Axis(annot=0.5, tick=0.1)),
+    )
 
     # Ellipse
     data = [[0.5, 1, 45, 3, 1], [0.5, 3, 135, 2, 1]]
@@ -159,7 +164,7 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.399 seconds)
+   **Total running time of the script:** (0 minutes 0.432 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_multi_parameter_symbols.py:

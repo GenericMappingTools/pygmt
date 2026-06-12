@@ -21,16 +21,17 @@
 Plotting text
 =============
 
-It is often useful to add text annotations to a plot or map. This is handled by the
+It is often useful to add text annotations to a plot. This is handled by the
 :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-14
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
 .. code-block:: Python
 
     from pathlib import Path
 
     import pygmt
+    from pygmt.params import Axis, Frame
 
 
 
@@ -39,7 +40,7 @@ It is often useful to add text annotations to a plot or map. This is handled by 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-20
+.. GENERATED FROM PYTHON SOURCE LINES 16-21
 
 Adding a single text label
 --------------------------
@@ -47,7 +48,7 @@ Adding a single text label
 To add a single text label to a plot, use the ``text`` and ``x`` and ``y`` parameters
 to specify the text and position.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-27
+.. GENERATED FROM PYTHON SOURCE LINES 21-28
 
 .. code-block:: Python
 
@@ -70,7 +71,7 @@ to specify the text and position.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-42
+.. GENERATED FROM PYTHON SOURCE LINES 29-43
 
 Adjusting the text label
 ------------------------
@@ -87,7 +88,7 @@ There are several optional parameters to adjust the text label:
   specified by a :doc:`2-character justification code </techref/justification_codes>`.
 * ``offset``: Shifts the text relatively to the reference point.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-93
+.. GENERATED FROM PYTHON SOURCE LINES 43-94
 
 .. code-block:: Python
 
@@ -96,7 +97,7 @@ There are several optional parameters to adjust the text label:
 
     # -----------------------------------------------------------------------------
     # Left: "font", "angle", and "offset" parameters
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
     # Change font size, family/weight, color of the text
     fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
@@ -110,13 +111,13 @@ There are several optional parameters to adjust the text label:
     # Shift the text label relatively to the position given via the x and y parameters
     # by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down
     # (negative y-direction)
-    fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
+    fig.text(x=0, y=-3, text="my text", offset=(1, -0.5))
 
     fig.shift_origin(xshift="w+0.5c")
 
     # -----------------------------------------------------------------------------
     # Right: "justify" parameter
-    fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame="rtlb")
+    fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame=Frame(axes="rtlb"))
 
     # Plot markers for reference
     fig.plot(
@@ -154,7 +155,7 @@ There are several optional parameters to adjust the text label:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-103
+.. GENERATED FROM PYTHON SOURCE LINES 95-104
 
 Adding a text box
 -----------------
@@ -166,14 +167,14 @@ There are different optional parameters to add and customize a text box:
 * ``clearance``: Adds margins in x-and y-directions between the text and the outline
   of the text box. Can be used to get a text box with rounded edges.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-124
+.. GENERATED FROM PYTHON SOURCE LINES 104-125
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
 
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
     # Add a box with a fill in green color
     fig.text(x=0, y=3, text="My text", fill="green")
@@ -203,7 +204,7 @@ There are different optional parameters to add and customize a text box:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-130
+.. GENERATED FROM PYTHON SOURCE LINES 126-131
 
 Adding multiple text labels with individual configurations
 ----------------------------------------------------------
@@ -211,7 +212,7 @@ Adding multiple text labels with individual configurations
 To add multiple text labels with individual ``font``, ``angle``, and ``justify``,
 one can provide lists with the corresponding arguments.
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-150
+.. GENERATED FROM PYTHON SOURCE LINES 131-151
 
 .. code-block:: Python
 
@@ -247,7 +248,7 @@ one can provide lists with the corresponding arguments.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-157
+.. GENERATED FROM PYTHON SOURCE LINES 152-158
 
 Using an external input file
 ----------------------------
@@ -256,13 +257,13 @@ It is also possible to add text labels via an external input file containing ``x
 ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
 and ``justify`` parameters can be provided. Here, we give a complete example.
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-184
+.. GENERATED FROM PYTHON SOURCE LINES 158-185
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
+    fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame=Axis(annot=2, tick=1))
     fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
     # Create space-delimited file with region / sea names:
@@ -299,7 +300,7 @@ and ``justify`` parameters can be provided. Here, we give a complete example.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-194
+.. GENERATED FROM PYTHON SOURCE LINES 186-195
 
 Using the position parameter
 ----------------------------
@@ -308,10 +309,10 @@ Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can 
 specified to set the reference point for the text on the plot. As for the ``justify``
 parameter, the ``position`` parameter is specified by a
 :doc:`2-character justification code </techref/justification_codes>`.
-This can be helpful to add a tag to a subplot or text labels out of the plot or map
+This can be helpful to add a tag to a subplot or text labels out of the plot
 frame, e.g., for depth slices.
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-225
+.. GENERATED FROM PYTHON SOURCE LINES 195-228
 
 .. code-block:: Python
 
@@ -319,28 +320,30 @@ frame, e.g., for depth slices.
     fig = pygmt.Figure()
 
     # -----------------------------------------------------------------------------
-    # Left: Add a tag to a subplot
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WStr", "af"])
-
-    fig.text(
-        text="(a)",
-        position="TL",  # Top Left
-        justify="TL",  # Top Left
-        offset="0.1c/-0.1c",
+    # Left: Add a tag to a subplot at the Top Left corner
+    fig.basemap(
+        region=[-5, 5, -5, 5],
+        projection="X5c",
+        frame=Frame(axes="WStr", axis=Axis(annot=True, tick=True)),
     )
+    fig.text(text="(a)", position="TL", justify="TL", offset=(0.1, -0.1))
 
     fig.shift_origin(xshift="w+1c")
 
     # -----------------------------------------------------------------------------
-    # Right: Add a text label outside of the plot or map frame
-    fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
+    # Right: Add a text label outside of the plot frame
+    fig.basemap(
+        region=[-30, 30, 10, 60],
+        projection="L0/35/23/47/5c",
+        frame=Frame(axes="wSnE", axis=Axis(annot=True, tick=True)),
+    )
 
     fig.text(
         text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
         position="TC",  # Top Center
         justify="MC",  # Middle Center
-        offset="0c/0.2c",
-        no_clip=True,  # Allow plotting outside of the map or plot frame
+        offset=(0, 0.2),
+        no_clip=True,  # Allow plotting outside of the plot frame
     )
 
     fig.show()
@@ -358,7 +361,7 @@ frame, e.g., for depth slices.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-233
+.. GENERATED FROM PYTHON SOURCE LINES 229-236
 
 Advanced configuration
 ----------------------
@@ -371,7 +374,7 @@ luck!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.765 seconds)
+   **Total running time of the script:** (0 minutes 0.810 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_text.py:

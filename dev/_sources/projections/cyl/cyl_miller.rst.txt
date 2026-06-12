@@ -34,7 +34,7 @@ by 0.8.
 The projection is set with **j** or **J**. The central meridian is set by the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-31
+.. GENERATED FROM PYTHON SOURCE LINES 20-32
 
 
 
@@ -50,12 +50,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region=[-180, 180, -80, 80],
         projection="J-65/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="gray80",
         water="steelblue",
     )
@@ -64,7 +65,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.208 seconds)
+   **Total running time of the script:** (0 minutes 0.197 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_miller.py:

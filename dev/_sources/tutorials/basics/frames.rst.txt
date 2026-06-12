@@ -21,15 +21,17 @@
 Frames, ticks, titles, and labels
 =================================
 
-Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
-parameter that most plotting methods of the :class:`pygmt.Figure` class
-contain.
+Setting frame, ticks, titles, and labels is handled by the ``frame`` parameter that
+many plotting methods of the :class:`pygmt.Figure` class accept. This tutorial focuses
+on setting the ``frame`` parameter using the :class:`pygmt.params.Axis` and
+:class:`pygmt.params.Frame` classes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-13
+.. GENERATED FROM PYTHON SOURCE LINES 12-15
 
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis, Frame
 
 
 
@@ -38,21 +40,21 @@ contain.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-19
+.. GENERATED FROM PYTHON SOURCE LINES 16-21
 
 Plot frame
 ----------
 
-By default, PyGMT does not add a frame to your plot. For example, we can plot
-the coastlines of the world with a Mercator projection:
+By default, PyGMT does not add a frame to your plot. For example, we can plot the
+coastlines of the world with a Mercator projection:
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-24
+.. GENERATED FROM PYTHON SOURCE LINES 21-26
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
     fig.show()
 
 
@@ -67,20 +69,20 @@ the coastlines of the world with a Mercator projection:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-28
+.. GENERATED FROM PYTHON SOURCE LINES 27-30
 
-To add the default GMT frame style to the plot, use ``frame="f"`` in
-:meth:`pygmt.Figure.basemap` or another plotting method (which has the
-``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
+To add the default GMT frame style to the plot, use ``frame=True`` in
+:meth:`pygmt.Figure.basemap` or another plotting method that accepts a ``frame``
+parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-35
+.. GENERATED FROM PYTHON SOURCE LINES 30-37
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-    fig.basemap(frame="f")
+    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
+    fig.basemap(frame=True)
     fig.show()
 
 
@@ -96,23 +98,27 @@ To add the default GMT frame style to the plot, use ``frame="f"`` in
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-42
+.. GENERATED FROM PYTHON SOURCE LINES 38-48
 
-Ticks and grid lines
---------------------
+Annotations, tick marks and grid lines
+--------------------------------------
 
-The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
-frame style and automatically determines tick labels from the plot region.
-In GMT the tick labels are called **a**\ nnotations.
+The default frame style includes tick labels (called annotations in GMT) and tick
+marks at intervals determined by GMT, but doesn't include grid lines. To control
+the presence and intervals of annotations, tick marks, and grid lines, you can use the
+:class:`pygmt.params.Axis` class. The ``annot``, ``tick``, and ``grid`` attributes of
+:class:`pygmt.params.Axis` control the presence and intervals of annotations, tick
+marks, and grid lines, respectively. Setting them to ``True`` adds them at intervals
+determined by GMT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-48
+.. GENERATED FROM PYTHON SOURCE LINES 48-54
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-    fig.basemap(frame="af")
+    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
+    fig.basemap(frame=Axis(annot=True, tick=True, grid=True))
     fig.show()
 
 
@@ -127,19 +133,20 @@ In GMT the tick labels are called **a**\ nnotations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-51
+.. GENERATED FROM PYTHON SOURCE LINES 55-58
 
-Add automatic grid lines to the plot by passing ``g`` through the ``frame``
-parameter:
+To set specific intervals, pass values to ``annot``, ``tick``, and ``grid``. In the
+example below, the annotation, tick, and gridline intervals are set to 30, 7.5, and
+15 degrees, respectively.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-57
+.. GENERATED FROM PYTHON SOURCE LINES 58-64
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-    fig.basemap(frame="ag")
+    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M15c")
+    fig.basemap(frame=Axis(annot=30, tick=7.5, grid=15))
     fig.show()
 
 
@@ -154,20 +161,23 @@ parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-61
+.. GENERATED FROM PYTHON SOURCE LINES 65-70
 
-To adjust the step widths of annotations, frame, and grid lines we can
-add the desired step widths after ``a``, ``f``, or ``g``. In the example
-below, the step widths are set to 30°, 7.5°, and 15°, respectively.
+Title
+-----
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-68
+The :class:`pygmt.params.Frame` class lets us configure frame-wide settings such as
+titles. Combine it with an :class:`Axis` object to keep automatic annotations.
+
+.. GENERATED FROM PYTHON SOURCE LINES 70-78
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-    fig.basemap(frame="a30f7.5g15")
+    # region="TT" specifies Trinidad and Tobago using the ISO country code
+    fig.coast(shorelines="1/0.5p", region="TT", projection="M15c")
+    fig.basemap(frame=Frame(title="Trinidad and Tobago", axis=Axis(annot=True)))
     fig.show()
 
 
@@ -183,26 +193,42 @@ below, the step widths are set to 30°, 7.5°, and 15°, respectively.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-75
+.. GENERATED FROM PYTHON SOURCE LINES 79-94
 
-Title
------
+Axis labels
+-----------
 
-The figure title can be set by passing **+t**\ *title* to the ``frame``
-parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-``frame`` can be done by using a list, as shown in the example below.
+Axis labels, in GMT simply called labels, can be set through the ``xaxis`` and
+``yaxis`` parameters of :class:`Frame`. The map boundaries (or plot axes) are named as
+West/west/left (**W**, **w**, **l**), South/south/bottom (**S**, **s**, **b**),
+North/north/top (**N**, **n**, **t**), and East/east/right (**E**, **e**, **r**) sides
+of a figure. Uppercase letters (**W**, **S**, **N**, **E**) draw axes with annotations
+and tick marks, lowercase letters (**w**, **s**, **n**, **e**) draw axes with tick
+marks only, and **l**, **b**, **t**, **r** draw plain axis lines without ticks or
+annotations. A frame like ``Frame(axes="WS")`` draws annotated west and south axes
+only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-83
+The example below uses a Cartesian projection, as GMT does not allow labels to be set
+for geographic maps.
+
+.. GENERATED FROM PYTHON SOURCE LINES 94-109
 
 .. code-block:: Python
 
 
     fig = pygmt.Figure()
-    # region="TT" specifies Trinidad and Tobago using the ISO country code
-    fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
-    fig.basemap(frame=["a", "+tTrinidad and Tobago"])
+    fig.basemap(
+        region=[0, 10, 0, 20],
+        projection="X10c/8c",
+        # Plot axis with tick marks, annotations, and labels on the West and South axes.
+        # Plot axis with tick marks on the north and east axes
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=True, label="x-axis"),
+            yaxis=Axis(annot=True, tick=True, label="y-axis"),
+        ),
+    )
     fig.show()
-
 
 
 
@@ -216,60 +242,10 @@ parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-103
-
-Axis labels
------------
-
-Axis labels, in GMT simply called labels, can be set by passing
-**x+l**\ *label* (or starting with **y** if
-labeling the y-axis) to the ``frame`` parameter of
-:meth:`pygmt.Figure.basemap`. The map boundaries (or plot axes) are named as
-West/west/left (**W**, **w**, **l**), South/south/bottom
-(**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
-East/east/right (**E**, **e**, **r**) sides of a figure. If an uppercase
-letter (**W**, **S**, **N**, **E**) is passed, the axis is plotted with
-tick marks and annotations. The lowercase version
-(**w**, **s**, **n**, **e**) plots the axis only with tick marks.
-To only plot the axis pass **l**, **b**, **t**, **r**. By default
-(``frame=True`` or ``frame="af"``), the West and the South axes are
-plotted with both tick marks and annotations.
-
-The example below uses a Cartesian projection, as GMT does not allow
-labels to be set for geographic maps.
-
-.. GENERATED FROM PYTHON SOURCE LINES 103-115
-
-.. code-block:: Python
-
-
-    fig = pygmt.Figure()
-    fig.basemap(
-        region=[0, 10, 0, 20],
-        projection="X10c/8c",
-        # Plot axis with tick marks, annotations, and labels on the
-        # West and South axes
-        # Plot axis with tick marks on the north and east axes
-        frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
-    )
-    fig.show()
-
-
-
-
-.. image-sg:: /tutorials/basics/images/sphx_glr_frames_007.png
-   :alt: frames
-   :srcset: /tutorials/basics/images/sphx_glr_frames_007.png
-   :class: sphx-glr-single-img
-
-
-
-
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.814 seconds)
+   **Total running time of the script:** (0 minutes 1.245 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_frames.py:

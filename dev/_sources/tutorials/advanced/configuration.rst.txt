@@ -79,9 +79,9 @@ Globally overriding defaults
 
 The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of which
 there are 5 options: ``fancy`` (default, see above), ``fancy+``, ``plain``, ``graph``
-(which does not apply to geographical maps) and ``inside``.
+(which does not apply to geographic maps) and ``inside``.
 
-The ``FORMAT_GEO_MAP`` parameter controls the format of geographical tick annotations.
+The ``FORMAT_GEO_MAP`` parameter controls the format of geographic tick annotations.
 The default uses degrees and minutes. Here we specify the ticks to be a decimal number
 of degrees.
 
@@ -163,7 +163,7 @@ of :class:`pygmt.config` as a context manager is shown below:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.557 seconds)
+   **Total running time of the script:** (0 minutes 0.539 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_configuration.py:

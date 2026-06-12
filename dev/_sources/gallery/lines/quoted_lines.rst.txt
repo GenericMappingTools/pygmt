@@ -32,19 +32,22 @@ see the :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
 at :gmt-docs:`plot.html#s`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-75
+.. GENERATED FROM PYTHON SOURCE LINES 18-78
 
 .. code-block:: Python
 
     import numpy as np
     import pygmt
+    from pygmt.params import Frame
 
     # Generate a two-point line for plotting
     x = np.array([1, 4])
     y = np.array([20, 20])
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tQuoted Lines")
+    fig.basemap(
+        region=[0, 10, 0, 20], projection="X15c/15c", frame=Frame(title="Quoted Lines")
+    )
 
     # Plot different quoted lines
     for quotedline in [
@@ -88,7 +91,7 @@ at :gmt-docs:`plot.html#s`.
             text=quotedline,
             font="Courier-Bold",
             justify="ML",
-            offset="0.75c/0c",
+            offset=(0.75, 0),
         )
 
     fig.show()
@@ -105,12 +108,12 @@ at :gmt-docs:`plot.html#s`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-78
+.. GENERATED FROM PYTHON SOURCE LINES 79-81
 
 For curved labels following the line, append ``"+v"`` to the argument passed
 to the ``style`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-98
+.. GENERATED FROM PYTHON SOURCE LINES 81-101
 
 .. code-block:: Python
 
@@ -149,7 +152,7 @@ to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.948 seconds)
+   **Total running time of the script:** (0 minutes 1.276 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_quoted_lines.py:

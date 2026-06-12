@@ -34,7 +34,7 @@ The projection is set with **t** or **T**. The central meridian is set
 by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
 figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-31
+.. GENERATED FROM PYTHON SOURCE LINES 20-33
 
 
 
@@ -50,21 +50,28 @@ figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region=[20, 50, 30, 45],
         projection="T35/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="gray80",
         water="steelblue",
     )
     fig.show()
 
 
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.178 seconds)
+   **Total running time of the script:** (0 minutes 0.177 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: conformal
 
 
 .. _sphx_glr_download_projections_cyl_cyl_transverse_mercator.py:

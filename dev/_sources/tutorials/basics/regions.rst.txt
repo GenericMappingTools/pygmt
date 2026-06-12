@@ -25,11 +25,12 @@ Many of the plotting methods take the ``region`` parameter, which sets the
 area that will be shown in the figure. This tutorial covers the different types
 of inputs that it can accept.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-13
+.. GENERATED FROM PYTHON SOURCE LINES 11-14
 
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
 
 
@@ -38,7 +39,7 @@ of inputs that it can accept.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-19
+.. GENERATED FROM PYTHON SOURCE LINES 15-20
 
 Coordinates
 -----------
@@ -46,7 +47,7 @@ Coordinates
 A string of coordinates can be passed to ``region``, in the form of
 *xmin*/*xmax*/*ymin*/*ymax*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-39
+.. GENERATED FROM PYTHON SOURCE LINES 20-40
 
 .. code-block:: Python
 
@@ -66,7 +67,7 @@ A string of coordinates can be passed to ``region``, in the form of
         # Display the shorelines and set the pen thickness to 0.5p
         shorelines="1/0.5p",
         # Set the frame to display annotations and gridlines
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -82,12 +83,12 @@ A string of coordinates can be passed to ``region``, in the form of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-42
+.. GENERATED FROM PYTHON SOURCE LINES 41-43
 
 The coordinates can be passed to ``region`` as a list, in the form of
 [*xmin*, *xmax*, *ymin*, *ymax*].
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-56
+.. GENERATED FROM PYTHON SOURCE LINES 43-57
 
 .. code-block:: Python
 
@@ -101,7 +102,7 @@ The coordinates can be passed to ``region`` as a list, in the form of
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -117,14 +118,14 @@ The coordinates can be passed to ``region`` as a list, in the form of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-61
+.. GENERATED FROM PYTHON SOURCE LINES 58-62
 
 Instead of passing axes minima and maxima, the coordinates can be passed for
 the bottom-left and top-right corners. The string format takes the
 coordinates for the bottom-left and top-right coordinates. To specify corner
 coordinates, append **+r** at the end of the ``region`` string.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-77
+.. GENERATED FROM PYTHON SOURCE LINES 62-78
 
 .. code-block:: Python
 
@@ -139,7 +140,7 @@ coordinates, append **+r** at the end of the ``region`` string.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -156,7 +157,7 @@ coordinates, append **+r** at the end of the ``region`` string.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-87
+.. GENERATED FROM PYTHON SOURCE LINES 79-88
 
 Global regions
 --------------
@@ -168,7 +169,7 @@ defaults to be centered at the mid-point of both x- and y-axes. Using
 **d**\ , the figure is centered at (0, 0), or the intersection of the equator
 and prime meridian.
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-100
+.. GENERATED FROM PYTHON SOURCE LINES 88-101
 
 .. code-block:: Python
 
@@ -181,7 +182,7 @@ and prime meridian.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -197,14 +198,14 @@ and prime meridian.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-105
+.. GENERATED FROM PYTHON SOURCE LINES 102-106
 
 The argument **g** can be passed, which encompasses the entire globe. The
 range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
 set for the projection, the figure is centered at (180, 0), or the
 intersection of the equator and International Date Line.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-119
+.. GENERATED FROM PYTHON SOURCE LINES 106-120
 
 .. code-block:: Python
 
@@ -217,7 +218,7 @@ intersection of the equator and International Date Line.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -234,7 +235,7 @@ intersection of the equator and International Date Line.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-126
+.. GENERATED FROM PYTHON SOURCE LINES 121-127
 
 ISO code
 --------
@@ -243,7 +244,7 @@ The ``region`` can be set to include a specific area specified by the
 two-character ISO 3166-1 alpha-2 convention
 (for further information: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-140
+.. GENERATED FROM PYTHON SOURCE LINES 127-141
 
 .. code-block:: Python
 
@@ -257,7 +258,7 @@ two-character ISO 3166-1 alpha-2 convention
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -273,7 +274,7 @@ two-character ISO 3166-1 alpha-2 convention
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-146
+.. GENERATED FROM PYTHON SOURCE LINES 142-147
 
 The area encompassed by the ISO code can be expanded by appending
 **+r**\ *increment* to the ISO code. The *increment* unit is in degrees, and
@@ -281,7 +282,7 @@ if only one value is added it expands the range of the region in all
 directions. Using **+r** expands the final region boundaries to be multiples
 of *increment* .
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-161
+.. GENERATED FROM PYTHON SOURCE LINES 147-162
 
 .. code-block:: Python
 
@@ -296,7 +297,7 @@ of *increment* .
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -312,13 +313,13 @@ of *increment* .
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-165
+.. GENERATED FROM PYTHON SOURCE LINES 163-166
 
 Instead of expanding the range of the plot uniformly in all directions, two
 values can be passed to expand differently on each axis. The format is
 *xinc*/*yinc*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-180
+.. GENERATED FROM PYTHON SOURCE LINES 166-181
 
 .. code-block:: Python
 
@@ -333,7 +334,7 @@ values can be passed to expand differently on each axis. The format is
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -349,14 +350,14 @@ values can be passed to expand differently on each axis. The format is
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-185
+.. GENERATED FROM PYTHON SOURCE LINES 182-186
 
 Instead of expanding the range of the plot uniformly in all directions, four
 values can be passed to expand differently in each direction.
 The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
 east, south, and north axes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-200
+.. GENERATED FROM PYTHON SOURCE LINES 186-201
 
 .. code-block:: Python
 
@@ -371,7 +372,7 @@ east, south, and north axes.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -387,12 +388,12 @@ east, south, and north axes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 201-203
+.. GENERATED FROM PYTHON SOURCE LINES 202-204
 
 The ``region`` increment can be appended with **+R**, which adds the
 increment without rounding.
 
-.. GENERATED FROM PYTHON SOURCE LINES 203-218
+.. GENERATED FROM PYTHON SOURCE LINES 204-219
 
 .. code-block:: Python
 
@@ -407,7 +408,7 @@ increment without rounding.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -423,14 +424,14 @@ increment without rounding.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-223
+.. GENERATED FROM PYTHON SOURCE LINES 220-224
 
 The ``region`` increment can be appended with **+e**, which is like **+r**
 and expands the final region boundaries to be multiples of *increment*.
 However, it ensures that the bounding box extends by at least 0.25 times the
 increment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-237
+.. GENERATED FROM PYTHON SOURCE LINES 224-238
 
 .. code-block:: Python
 
@@ -445,7 +446,7 @@ increment.
         water="white",
         borders="1/0.5p",
         shorelines="1/0.5p",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     fig.show()
 
@@ -463,7 +464,7 @@ increment.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.540 seconds)
+   **Total running time of the script:** (0 minutes 3.448 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_regions.py:

@@ -50,7 +50,7 @@ an alternate pen, append **+p**\ *pen*. To skip the outline, just use
 For modifying the main front line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-94
+.. GENERATED FROM PYTHON SOURCE LINES 36-97
 
 
 
@@ -67,13 +67,16 @@ For modifying the main front line via the ``pen`` parameter, see the
 
     import numpy as np
     import pygmt
+    from pygmt.params import Frame
 
     # Generate a two-point line for plotting
     x = np.array([1, 4])
     y = np.array([20, 20])
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tLine Fronts")
+    fig.basemap(
+        region=[0, 10, 0, 20], projection="X15c/15c", frame=Frame(title="Line Fronts")
+    )
 
     # Plot the line using different front styles
     for frontstyle in [
@@ -119,7 +122,7 @@ For modifying the main front line via the ``pen`` parameter, see the
             text=frontstyle,
             font="Courier-Bold",
             justify="ML",
-            offset="0.75c/0c",
+            offset=(0.75, 0),
         )
 
     fig.show()
@@ -127,7 +130,7 @@ For modifying the main front line via the ``pen`` parameter, see the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.203 seconds)
+   **Total running time of the script:** (0 minutes 0.213 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linefronts.py:

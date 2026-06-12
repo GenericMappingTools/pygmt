@@ -14,7 +14,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Define region of study area
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
@@ -30,7 +30,7 @@ fig = pygmt.Figure()
 # Bottom: Map of elevation in study area
 
 # Set up basic map using a Mercator projection with a width of 12 centimeters
-fig.basemap(region=region_map, projection="M12c", frame="af")
+fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
 # Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
@@ -42,18 +42,15 @@ fig.grdimage(grid=grid_map, cmap="SCM/oleron")
 # Add a colorbar for the elevation
 fig.colorbar(
     # Place the colorbar inside the plot in the Bottom Right (BR) corner with an offset
-    # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively;
-    # move the x-label above the horizontal colorbar.
+    # of 0.7 centimeters and 0.3 centimeters in x- or y-directions, respectively.
     position=Position("BR", offset=(0.7, 0.8)),
     length=5,
     width=0.3,
     orientation="horizontal",
-    move_text="label",
-    # Add a box around the colobar, filled in white and a 30 % transparency, with a
-    # 0.8-point thick, black, outline.
+    move_text="label",  # move the x-label above the horizontal colorbar.
     box=Box(pen="0.8p,black", fill="white@30"),
-    # Add x- and y-labels ("+l")
-    frame=["x+lElevation", "y+lm"],
+    label="Elevation",
+    unit="m",
 )
 
 # Plot the survey line
@@ -64,7 +61,7 @@ fig.text(
     x=[lonA, lonB],
     y=[latA, latB],
     text=["A", "B"],
-    offset="0c/0.3c",  # Move text 0.2 centimeters up (y-direction)
+    offset=(0, 0.3),  # Move text 0.3 centimeters up (y-direction)
     font="15p,red",  # Use a red font with a size of 15 points
 )
 
@@ -75,7 +72,7 @@ fig.text(
 fig.shift_origin(yshift="h+1.5c")
 
 fig.basemap(
-    region=[0, 15, -8000, 6000],  # x_min, x_max, y_min, y_max
+    region=[0, 15, -8000, 6000],  # xmin, xmax, ymin, ymax
     # Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
     projection="X12c/3c",
     frame=0,
@@ -123,6 +120,12 @@ fig.plot(
 # Add map frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
-fig.basemap(frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"])
+fig.basemap(
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"),
+        yaxis=Axis(annot=4000, label="Elevation / m"),
+    )
+)
 
 fig.show()

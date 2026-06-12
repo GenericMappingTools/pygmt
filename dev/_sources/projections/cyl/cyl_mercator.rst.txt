@@ -38,7 +38,7 @@ The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-35
+.. GENERATED FROM PYTHON SOURCE LINES 24-37
 
 
 
@@ -54,21 +54,28 @@ The figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.coast(
         region=[0, 360, -80, 80],
         projection="M0/0/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="gray80",
         water="steelblue",
     )
     fig.show()
 
 
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.218 seconds)
+   **Total running time of the script:** (0 minutes 0.210 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: conformal
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:
