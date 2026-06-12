@@ -2,7 +2,7 @@
 
 ## Release v0.18.0 (2026/01/12)
 
-[![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.18080259.svg)](https://doi.org/10.5281/zenodo.18080259)
+[![Digital Object Identifier for PyGMT v0.18.0](https://img.shields.io/badge/DOI-10.5281/zenodo.18080259-blue)](https://doi.org/10.5281/zenodo.18080259)
 
 ### Highlights
 
@@ -87,7 +87,7 @@
 
 ## Release v0.17.0 (2025/10/03)
 
-[![Digital Object Identifier for PyGMT v0.17.0](https://zenodo.org/badge/DOI/10.5281/zenodo.17156962.svg)](https://doi.org/10.5281/zenodo.17156962)
+[![Digital Object Identifier for PyGMT v0.17.0](https://img.shields.io/badge/DOI-10.5281/zenodo.17156962-blue)](https://doi.org/10.5281/zenodo.17156962)
 
 ### Highlights
 
@@ -157,7 +157,7 @@
 
 ## Release v0.16.0 (2025/06/18)
 
-[![Digital Object Identifier for PyGMT v0.16.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15628725.svg)](https://doi.org/10.5281/zenodo.15628725)
+[![Digital Object Identifier for PyGMT v0.16.0](https://img.shields.io/badge/DOI-10.5281/zenodo.15628725-blue)](https://doi.org/10.5281/zenodo.15628725)
 
 ### Highlights
 
@@ -215,7 +215,7 @@
 
 ## Release v0.15.0 (2025/03/31)
 
-[![Digital Object Identifier for PyGMT v0.15.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15071586.svg)](https://doi.org/10.5281/zenodo.15071586)
+[![Digital Object Identifier for PyGMT v0.15.0](https://img.shields.io/badge/DOI-10.5281/zenodo.15071586-blue)](https://doi.org/10.5281/zenodo.15071586)
 
 ### Highlights
 
@@ -270,7 +270,7 @@
 
 ## Release v0.14.2 (2025/02/15)
 
-[![Digital Object Identifier for PyGMT v0.14.2](https://zenodo.org/badge/DOI/10.5281/zenodo.14868324.svg)](https://doi.org/10.5281/zenodo.14868324)
+[![Digital Object Identifier for PyGMT v0.14.2](https://img.shields.io/badge/DOI-10.5281/zenodo.14868324-blue)](https://doi.org/10.5281/zenodo.14868324)
 
 
 ### Bug Fixes
@@ -288,7 +288,7 @@
 
 ## Release v0.14.1 (2025/02/01)
 
-[![Digital Object Identifier for PyGMT v0.14.1](https://zenodo.org/badge/DOI/10.5281/zenodo.14742338.svg)](https://doi.org/10.5281/zenodo.14742338)
+[![Digital Object Identifier for PyGMT v0.14.1](https://img.shields.io/badge/DOI-10.5281/zenodo.14742338-blue)](https://doi.org/10.5281/zenodo.14742338)
 
 ### Highlights
 
@@ -314,7 +314,7 @@
 
 ## Release v0.14.0 (2024/12/31)
 
-[![Digital Object Identifier for PyGMT v0.14.0](https://zenodo.org/badge/DOI/10.5281/zenodo.14535921.svg)](https://doi.org/10.5281/zenodo.14535921)
+[![Digital Object Identifier for PyGMT v0.14.0](https://img.shields.io/badge/DOI-10.5281/zenodo.14535921-blue)](https://doi.org/10.5281/zenodo.14535921)
 
 ### Highlights
 
@@ -418,7 +418,7 @@
 
 ## Release v0.13.0 (2024/09/05)
 
-[![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.13679420.svg)](https://doi.org/10.5281/zenodo.13679420)
+[![Digital Object Identifier for PyGMT v0.13.0](https://img.shields.io/badge/DOI-10.5281/zenodo.13679420-blue)](https://doi.org/10.5281/zenodo.13679420)
 
 ### Highlights
 
@@ -506,7 +506,7 @@
 
 ## Release v0.12.0 (2024/05/01)
 
-[![Digital Object Identifier for PyGMT v0.12.0](https://zenodo.org/badge/DOI/10.5281/zenodo.11062720.svg)](https://doi.org/10.5281/zenodo.11062720)
+[![Digital Object Identifier for PyGMT v0.12.0](https://img.shields.io/badge/DOI-10.5281/zenodo.11062720-blue)](https://doi.org/10.5281/zenodo.11062720)
 
 ### Highlights
 
@@ -598,7 +598,7 @@
 
 ## Release v0.11.0 (2024/02/01)
 
-[![Digital Object Identifier for PyGMT v0.11.0](https://zenodo.org/badge/DOI/10.5281/zenodo.10578540.svg)](https://doi.org/10.5281/zenodo.10578540)
+[![Digital Object Identifier for PyGMT v0.11.0](https://img.shields.io/badge/DOI-10.5281/zenodo.10578540-blue)](https://doi.org/10.5281/zenodo.10578540)
 
 ### Highlights
 
@@ -712,7 +712,7 @@
 
 ## Release v0.10.0 (2023/09/02)
 
-[![Digital Object Identifier for PyGMT v0.10.0](https://zenodo.org/badge/DOI/10.5281/zenodo.8303186.svg)](https://doi.org/10.5281/zenodo.8303186)
+[![Digital Object Identifier for PyGMT v0.10.0](https://img.shields.io/badge/DOI-10.5281/zenodo.8303186-blue)](https://doi.org/10.5281/zenodo.8303186)
 
 ### Highlights
 
@@ -799,7 +799,7 @@
 
 ## Release v0.9.0 (2023/03/31)
 
-[![Digital Object Identifier for PyGMT v0.9.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7772533.svg)](https://doi.org/10.5281/zenodo.7772533)
+[![Digital Object Identifier for PyGMT v0.9.0](https://img.shields.io/badge/DOI-10.5281/zenodo.7772533-blue)](https://doi.org/10.5281/zenodo.7772533)
 
 ### Highlights
 
@@ -885,7 +885,7 @@
 
 ## Release v0.8.0 (2022/12/30)
 
-[![Digital Object Identifier for PyGMT v0.8.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7481934.svg)](https://doi.org/10.5281/zenodo.7481934)
+[![Digital Object Identifier for PyGMT v0.8.0](https://img.shields.io/badge/DOI-10.5281/zenodo.7481934-blue)](https://doi.org/10.5281/zenodo.7481934)
 
 ### Highlights
 
@@ -988,7 +988,7 @@
 
 ## Release v0.7.0 (2022/07/01)
 
-[![Digital Object Identifier for PyGMT v0.7.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6702566.svg)](https://doi.org/10.5281/zenodo.6702566)
+[![Digital Object Identifier for PyGMT v0.7.0](https://img.shields.io/badge/DOI-10.5281/zenodo.6702566-blue)](https://doi.org/10.5281/zenodo.6702566)
 
 ### Highlights
 
@@ -1061,7 +1061,7 @@
 
 ## Release v0.6.1 (2022/04/11)
 
-[![Digital Object Identifier for PyGMT v0.6.1](https://zenodo.org/badge/DOI/10.5281/zenodo.6426493.svg)](https://doi.org/10.5281/zenodo.6426493)
+[![Digital Object Identifier for PyGMT v0.6.1](https://img.shields.io/badge/DOI-10.5281/zenodo.6426493-blue)](https://doi.org/10.5281/zenodo.6426493)
 
 ### Highlights
 
@@ -1098,7 +1098,7 @@
 
 ## Release v0.6.0 (2022/03/14)
 
-[![Digital Object Identifier for PyGMT v0.6.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6349217.svg)](https://doi.org/10.5281/zenodo.6349217)
+[![Digital Object Identifier for PyGMT v0.6.0](https://img.shields.io/badge/DOI-10.5281/zenodo.6349217-blue)](https://doi.org/10.5281/zenodo.6349217)
 
 ### Highlights
 
@@ -1191,7 +1191,7 @@
 
 ## Release v0.5.0 (2021/10/29)
 
-[![Digital Object Identifier for PyGMT v0.5.0](https://zenodo.org/badge/DOI/10.5281/zenodo.5607255.svg)](https://doi.org/10.5281/zenodo.5607255)
+[![Digital Object Identifier for PyGMT v0.5.0](https://img.shields.io/badge/DOI-10.5281/zenodo.5607255-blue)](https://doi.org/10.5281/zenodo.5607255)
 
 ### Highlights
 
@@ -1309,7 +1309,7 @@
 
 ## Release v0.4.1 (2021/08/07)
 
-[![Digital Object Identifier for PyGMT v0.4.1](https://zenodo.org/badge/DOI/10.5281/zenodo.5162003.svg)](https://doi.org/10.5281/zenodo.5162003)
+[![Digital Object Identifier for PyGMT v0.4.1](https://img.shields.io/badge/DOI-10.5281/zenodo.5162003-blue)](https://doi.org/10.5281/zenodo.5162003)
 
 ### Highlights
 
@@ -1359,7 +1359,7 @@
 
 ## Release v0.4.0 (2021/06/20)
 
-[![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg)](https://doi.org/10.5281/zenodo.4978645)
+[![Digital Object Identifier for PyGMT v0.4.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4978645-blue)](https://doi.org/10.5281/zenodo.4978645)
 
 ### Highlights
 
@@ -1486,7 +1486,7 @@
 
 ## Release v0.3.1 (2021/03/14)
 
-[![Digital Object Identifier for PyGMT v0.3.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4592991.svg)](https://doi.org/10.5281/zenodo.4592991)
+[![Digital Object Identifier for PyGMT v0.3.1](https://img.shields.io/badge/DOI-10.5281/zenodo.4592991-blue)](https://doi.org/10.5281/zenodo.4592991)
 
 ### Highlights
 
@@ -1555,7 +1555,7 @@
 
 ## Release v0.3.0 (2021/02/15)
 
-[![Digital Object Identifier for PyGMT v0.3.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg)](https://doi.org/10.5281/zenodo.4522136)
+[![Digital Object Identifier for PyGMT v0.3.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4522136-blue)](https://doi.org/10.5281/zenodo.4522136)
 
 ### Highlights
 
@@ -1659,7 +1659,7 @@
 
 ## Release v0.2.1 (2020/11/14)
 
-[![Digital Object Identifier for PyGMT v0.2.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg)](https://doi.org/10.5281/zenodo.4253459)
+[![Digital Object Identifier for PyGMT v0.2.1](https://img.shields.io/badge/DOI-10.5281/zenodo.4253459-blue)](https://doi.org/10.5281/zenodo.4253459)
 
 ### Highlights
 
@@ -1733,7 +1733,7 @@
 
 ## Release v0.2.0 (2020/09/12)
 
-[![Digital Object Identifier for PyGMT v0.2.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg)](https://doi.org/10.5281/zenodo.4025418)
+[![Digital Object Identifier for PyGMT v0.2.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4025418-blue)](https://doi.org/10.5281/zenodo.4025418)
 
 ### Highlights
 
@@ -1802,7 +1802,7 @@
 
 ## Release v0.1.2 (2020/07/07)
 
-[![Digital Object Identifier for PyGMT v0.1.2](https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg)](https://doi.org/10.5281/zenodo.3930577)
+[![Digital Object Identifier for PyGMT v0.1.2](https://img.shields.io/badge/DOI-10.5281/zenodo.3930577-blue)](https://doi.org/10.5281/zenodo.3930577)
 
 ### Highlights
 
@@ -1851,7 +1851,7 @@
 
 ## Release v0.1.1 (2020/05/22)
 
-[![Digital Object Identifier for PyGMT v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg)](https://doi.org/10.5281/zenodo.3837197)
+[![Digital Object Identifier for PyGMT v0.1.1](https://img.shields.io/badge/DOI-10.5281/zenodo.3837197-blue)](https://doi.org/10.5281/zenodo.3837197)
 
 ### Highlights
 
@@ -1888,7 +1888,7 @@
 
 ## Release v0.1.0 (2020/05/03)
 
-[![Digital Object Identifier for PyGMT v0.1.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3782862.svg)](https://doi.org/10.5281/zenodo.3782862)
+[![Digital Object Identifier for PyGMT v0.1.0](https://img.shields.io/badge/DOI-10.5281/zenodo.3782862-blue)](https://doi.org/10.5281/zenodo.3782862)
 
 ### Highlights
 
