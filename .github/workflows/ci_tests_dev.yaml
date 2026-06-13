@@ -34,12 +34,14 @@ jobs:
   test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
-    environment: pr-tests
+    environment:
+      name: pr-tests
+      deployment: false
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/test-gmt-dev')
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-26, windows-2025]
+        os: [ubuntu-26.04, ubuntu-26.04-arm, macos-26, windows-2025]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
