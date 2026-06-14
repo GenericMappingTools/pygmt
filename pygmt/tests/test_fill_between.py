@@ -55,7 +55,7 @@ def test_fill_between_y2_scalar(x, y):
 
 
 @pytest.mark.mpl_image_compare
-def test_fill_between_two_coregistered_curves(x, y, y2):
+def test_fill_between_coregistered(x, y, y2):
     """
     Fill between two co-registered curves.
     """
