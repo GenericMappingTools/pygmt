@@ -25,13 +25,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
 fig.fill_between(
-    x=x,
-    y=y1,
-    y2=y2,
-    fill="orange",
-    fill2="steelblue",
-    label="short > long",
-    label2="short < long",
+    x=x, y=y1, y2=y2, fill="orange", fill2="steelblue", label="y=y1", label2="y=y2"
 )
 fig.legend()
 fig.show()
