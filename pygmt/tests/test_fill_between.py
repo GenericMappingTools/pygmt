@@ -82,8 +82,14 @@ def test_fill_between_invalid_input():
     """
     fig = Figure()
     with pytest.raises(GMTValueError):
+        fig.fill_between(x=0, y=[1, 2])
+    with pytest.raises(GMTValueError):
+        fig.fill_between(x=[0, 1], y=1)
+    with pytest.raises(GMTValueError):
+        fig.fill_between(x=[0], y=[1])
+    with pytest.raises(GMTValueError):
         fig.fill_between(x=[0, 1], y=[1])
     with pytest.raises(GMTValueError):
-        fig.fill_between(x=[0, 1], y=[1, 2], y2=[0, 1, 2])
-    with pytest.raises(GMTValueError):
         fig.fill_between(x=[0, 1], y=[1, 2], y2=[0])
+    with pytest.raises(GMTValueError):
+        fig.fill_between(x=[0, 1], y=[1, 2], y2=[0, 1, 2])

@@ -16,8 +16,8 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 def fill_between(  # noqa: PLR0913
     self,
-    x: float | Sequence[float],
-    y: float | Sequence[float],
+    x: Sequence[float],
+    y: Sequence[float],
     y2: float | Sequence[float] = 0,
     fill: str | None = None,
     pen: str | None = None,
@@ -98,7 +98,14 @@ def fill_between(  # noqa: PLR0913
 
     y2_is_scalar = np.ndim(y2) == 0
 
+    # Validate the lengths of the input arrays
     npoints = _x.size
+    if npoints <= 1:
+        raise GMTValueError(
+            npoints,
+            description="size for 'x'/'y'",
+            reason="'x' and 'y' must be arrays with lengths greater than 1.",
+        )
     if _y.size != npoints:
         raise GMTValueError(
             _y.size,
