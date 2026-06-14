@@ -48,6 +48,7 @@ Plotting tabular data
     :toctree: generated
 
     Figure.contour
+    Figure.fill_between
     Figure.histogram
     Figure.meca
     Figure.plot

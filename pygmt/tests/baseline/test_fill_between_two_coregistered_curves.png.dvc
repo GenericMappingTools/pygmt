@@ -1,0 +1,5 @@
+outs:
+- md5: a4e06de28387321846b5dc8308224bde
+  size: 28624
+  hash: md5
+  path: test_fill_between_two_coregistered_curves.png
