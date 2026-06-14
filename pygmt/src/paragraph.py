@@ -37,7 +37,7 @@ def paragraph(  # noqa: PLR0913
     pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
     tab_width: int = 4,
-    blankline_between_paragraphs: bool = False,
+    blank_line: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -85,7 +85,7 @@ def paragraph(  # noqa: PLR0913
         Number of spaces used to expand tab characters in ``text`` when typesetting.
         Must be a non-negative integer. Use ``0`` to remove tab characters instead of
         replacing them with spaces.
-    blankline_between_paragraphs
+    blank_line
         If ``True``, use a blank line between paragraphs. [Default is ``False``, i.e.,
         no blank line between paragraphs.]
     $verbose
@@ -143,7 +143,7 @@ def paragraph(  # noqa: PLR0913
     # Separator for multiple paragraphs.
     # "\n\n": the default separator, which results in no blank line between paragraphs.
     # " \n\n": add a blank line between paragraphs.
-    sep = " \n\n" if blankline_between_paragraphs else "\n\n"
+    sep = " \n\n" if blank_line else "\n\n"
     # Convert a single string into a list of paragraphs for consistent handling.
     # Split the single string on black lines, allowing for whitespaces in between.
     if not is_nonstr_iter(text):
