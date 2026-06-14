@@ -28,10 +28,11 @@ def fill_between(  # noqa: PLR0913
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
-    verbose: bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
+    transparency: float | None = None,
 ):
     """
     Fill the area between two horizontal curves.
