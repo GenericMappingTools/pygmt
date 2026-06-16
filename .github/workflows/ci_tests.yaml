@@ -100,7 +100,6 @@ jobs:
 
     # Environment variables used by codecov
     env:
-      GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
       NUMPY: ${{ matrix.numpy-version }}
