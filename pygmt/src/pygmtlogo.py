@@ -85,10 +85,19 @@ def _create_logo(  # noqa: PLR0915
     pheight = 0.739  # Height of letter "P"
     plsb = 0.076  # Left side bearing of letter "P"
     pstroke = 0.0735  # Stroke thickness of letter "P"
+    pygmtwidth = 3.262  # Full width of "PyGMT"
 
     match wordmark:
         case "vertical":
-            args_wordmark = {"x": 0, "y": -4.5, "justify": "CT", "font": f"2.4c,{font}"}
+            # Ensure the same width for the visual logo and wordmark
+            fontsize = size * 2.0 / pygmtwidth
+            args_wordmark = {
+                "x": -size - fontsize * plsb,
+                "y": -size * 1.375,  # Center of the wordmark.
+                "justify": "ML",
+                "font": f"{fontsize}c,{font}",
+                "no_clip": True,  # Needed because x<xmin.
+            }
         case "horizontal":
             # The stroke width matches the outline thickness.
             # The left edge of "P" is aligned at y=size * 1.25.
@@ -257,6 +266,8 @@ def _create_logo(  # noqa: PLR0915
             halfheight = pheight / 2.0 * fontsize
             fig.hlines(y=[-halfheight, halfheight], xmin=size, pen=pen)
             fig.vlines(x=[size * 1.25, size * 1.25 + pstroke * fontsize], pen=pen)
+        elif wordmark == "vertical":
+            fig.hlines(y=-size * 1.375, pen=pen)
 
     if figname:
         fig.savefig(fname=figname)

@@ -78,3 +78,32 @@ def test_pygmtlogo_wordmark_horizontal(shape):
             wordmark="horizontal",
         )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+@pytest.mark.parametrize("shape", ["circle"])
+def test_pygmtlogo_wordmark_vertical(shape):
+    """
+    Test the PyGMT logo with a vertical wordmark, including both light/dark themes,
+    and colored/black-and-white versions.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[-0.5, 5.0, -0.5, 5.5],
+        projection="x1c",
+        frame=Frame(fill="gray", axis=Axis(grid=0.5)),
+    )
+    for (x, y), theme, color in [
+        ((1.0, 4.0), "light", True),
+        ((3.5, 4.0), "dark", True),
+        ((1.0, 1.0), "light", False),
+        ((3.5, 1.0), "dark", False),
+    ]:
+        fig.pygmtlogo(
+            position=Position((x, y), anchor="CM", cstype="mapcoords"),
+            theme=theme,
+            color=color,
+            shape=shape,
+            wordmark="vertical",
+        )
+    return fig
