@@ -39,7 +39,7 @@ jobs:
       - name: List installed packages
         run: python -m pip list
 
-      - name: Formatting check (ruff + prek)
+      - name: Formatting check (Ruff + prek)
         run: |
            make check
            prek run --all-files
