@@ -2,8 +2,7 @@
 
 This file gives coding agents the project-specific context needed to work safely in
 this repository. It summarizes the contributor and maintainer guidance; when in doubt,
-prefer the authoritative sources in `CONTRIBUTING.md`, `doc/contributing.md`, and
-`doc/maintenance.md`.
+prefer the authoritative sources in `doc/contributing.md` and `doc/maintenance.md`.
 
 ## Project Overview
 
@@ -37,8 +36,7 @@ The `main` branch is expected to stay tested and releasable; do not push directl
 ## Development Environment
 
 The recommended development environment is the conda environment in `environment.yml`.
-It includes GMT, Ghostscript, DVC, pytest, pytest-mpl, Ruff, prek, Sphinx, mypy, and
-documentation dependencies.
+It includes all dev dependencies.
 
 Common setup:
 
@@ -48,7 +46,7 @@ mamba activate pygmt
 make install
 ```
 
-`make install` installs PyGMT in editable mode with `python -m pip install --no-deps -e .`.
+`make install` installs PyGMT in editable mode.
 
 ## Core Commands
 
@@ -79,7 +77,6 @@ runs that may render figures.
 
 ## Style and Conventions
 
-- Python requires 3.12 or newer.
 - Formatting and linting are managed by Ruff; do not hand-format large areas.
 - Ruff uses an 88-character line length. Docstrings should also be manually wrapped to
   88 characters for readable IPython/Jupyter display.
@@ -117,7 +114,6 @@ For GMT options and aliases:
 - Check `COMMON_DOCSTRINGS` in `pygmt/helpers/decorators.py` before writing duplicate
   parameter documentation.
 - Use `@fmt_docstring` when docstrings include shared placeholders.
-- Use `@use_alias` where a module follows the decorator-based alias style.
 - Use `Session.virtualfile_in` and related virtual file helpers for in-memory data.
 - Validate PyGMT-specific Python behavior; do not duplicate exhaustive GMT option tests.
 
