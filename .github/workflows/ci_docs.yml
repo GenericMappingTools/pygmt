@@ -68,9 +68,6 @@ jobs:
       run:
         shell: bash -l {0}
 
-    env:
-      GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
-
     steps:
       # Checkout current git repository
       - name: Checkout
