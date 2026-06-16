@@ -100,6 +100,7 @@ jobs:
 
     # Environment variables used by codecov
     env:
+      GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
       OS: ${{ matrix.os }}
       PYTHON: ${{ matrix.python-version }}
       NUMPY: ${{ matrix.numpy-version }}
@@ -189,6 +190,8 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
+        env:
+          GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
         run: |
           log_file="${RUNNER_TEMP}/pytest.log"
           make test PYTEST_EXTRA="-r P --reruns 2" 2>&1 | tee "${log_file}"

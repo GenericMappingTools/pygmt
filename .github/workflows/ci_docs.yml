@@ -68,6 +68,9 @@ jobs:
       run:
         shell: bash -l {0}
 
+    env:
+      GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
+
     steps:
       # Checkout current git repository
       - name: Checkout
@@ -135,6 +138,8 @@ jobs:
           python -m pip install dist/*
 
       - name: Build the HTML documentation
+        env:
+          GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
         run: |
           log_file="${RUNNER_TEMP}/sphinx-html.log"
           make -C doc clean html 2>&1 | tee "${log_file}"
@@ -146,6 +151,8 @@ jobs:
           exit "${exit_code}"
 
       - name: Build the PDF documentation
+        env:
+          GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
         run: |
           log_file="${RUNNER_TEMP}/sphinx-pdf.log"
           make -C doc pdf 2>&1 | tee "${log_file}"

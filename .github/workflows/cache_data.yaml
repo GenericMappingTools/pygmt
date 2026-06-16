@@ -70,6 +70,8 @@ jobs:
 
       # Download remote files
       - name: Download remote data
+        env:
+          GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
         run: |
           python -c "from pygmt.helpers.caching import cache_data; cache_data()"
 
