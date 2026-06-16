@@ -184,7 +184,7 @@ jobs:
       - name: Test with pytest
         run: make test PYTEST_EXTRA="-r P --reruns 2"
         env:
-          GMT_DATA_SERVER: https://mirrors.ustc.edu.cn/gmtdata/
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
           GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 
       # Upload diff images on test failure
