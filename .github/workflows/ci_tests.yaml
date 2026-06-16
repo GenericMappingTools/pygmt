@@ -144,15 +144,15 @@ jobs:
             pytest-rerunfailures
 
       # Download cached remote files (artifacts) from GitHub
-      #- name: Download remote data from GitHub
-      #  run: |
-      #    # Download files to ~/.gmt directory and list them
-      #    gh run download --name gmt-cache --dir ~/.gmt/
-      #    # Change modification times of the two files, so GMT won't refresh it
-      #    touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-      #    ls -lhR ~/.gmt
-      #  env:
-      #    GH_TOKEN: ${{ github.token }}
+      - name: Download remote data from GitHub
+        run: |
+          # Download files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
