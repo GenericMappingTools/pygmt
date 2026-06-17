@@ -78,9 +78,7 @@ def fill_between(  # noqa: PLR0913
     >>> import pygmt
     >>> x = np.linspace(0, 2 * np.pi, 200)
     >>> fig = pygmt.Figure()
-    >>> fig = fig.basemap(
-    ...     region=[0, 4 * np.pi, -1.2, 1.2], projection="X10c/4c", frame=True
-    ... )
+    >>> fig.basemap(region=[0, 4 * np.pi, -1.2, 1.2], projection="X10c/4c", frame=True)
     >>> fig.fill_between(
     ...     x=x,
     ...     y=np.sin(2 * x),
