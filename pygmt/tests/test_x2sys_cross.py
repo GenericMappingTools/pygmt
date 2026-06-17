@@ -254,10 +254,13 @@ def test_x2sys_cross_region_interpolation_numpoints():
         )
 
         assert isinstance(output, pd.DataFrame)
-        raise ValueError(
-            platform.uname(), platform.freedesktop_os_release(), platform.libc_ver()
-        )
-        if platform.machine() in {"aarch64", "arm64"}:
+
+        if platform.machine() in {"aarch64", "arm64"} or (
+            platform.system() == "Linux"
+            and platform.freedesktop_os_release()["PRETTY_NAME"].startswith(
+                "Ubuntu 26.04"
+            )
+        ):
             assert output.shape == (3894, 12)
             # Check crossover errors (z_X) and mean value of observables (z_M)
             npt.assert_allclose(output.z_X.mean(), -138.23215, rtol=1e-4)
@@ -280,20 +283,18 @@ def test_x2sys_cross_track_values():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, track_values=True)
 
         assert isinstance(output, pd.DataFrame)
-        if platform.machine() in {"aarch64", "arm64"}:
+        if platform.machine() in {"aarch64", "arm64"} or (
+            platform.system() == "Linux"
+            and platform.freedesktop_os_release()["PRETTY_NAME"].startswith(
+                "Ubuntu 26.04"
+            )
+        ):
             assert output.shape == (14374, 12)
             # Check mean of track 1 values (z_1) and track 2 values (z_2)
             npt.assert_allclose(output.z_1.mean(), -2422.973372, rtol=1e-4)
             npt.assert_allclose(output.z_2.mean(), -2402.87476, rtol=1e-4)
         else:
-            try:
-                assert output.shape == (14338, 12)
-            except AssertionError as e:
-                raise ValueError(
-                    platform.uname(),
-                    platform.freedesktop_os_release(),
-                    platform.libc_ver(),
-                ) from e
+            assert output.shape == (14338, 12)
             npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
             npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
 
