@@ -66,9 +66,9 @@ def test_fill_between_coregistered(x, y, y2):
         y=y,
         y2=y2,
         fill="lightgreen",
-        fill2="lightred",
+        fill2="lightbrown",
         pen="1p,green",
-        pen2="1p,red",
+        pen2="1p,brown",
         label="y=sin(5x)",
         label2="y=0.5*cos(3x)",
     )
