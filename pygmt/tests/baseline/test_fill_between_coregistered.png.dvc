@@ -1,5 +1,5 @@
 outs:
-- md5: a4e06de28387321846b5dc8308224bde
-  size: 28624
+- md5: 27d288932c7094da06cd2532bfcb707c
+  size: 29497
   hash: md5
   path: test_fill_between_coregistered.png
