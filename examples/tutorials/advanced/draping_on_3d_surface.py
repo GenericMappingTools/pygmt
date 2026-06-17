@@ -99,7 +99,9 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 # The original image is available on Wikimedia Commons at
 # https://commons.wikimedia.org/wiki/File:Flag_of_Europe.svg
 # but we use a cached version on the GMT data server.
-url_to_image = "https://oceania.generic-mapping-tools.org/cache/euflag.png"
+url_to_image = (
+    "https://github.com/GenericMappingTools/gmtserver-admin/raw/master/cache/euflag.png"
+)
 with rasterio.open(url_to_image) as dataset:
     data = dataset.read()
     drape_grid = xr.DataArray(data, dims=("band", "y", "x"))

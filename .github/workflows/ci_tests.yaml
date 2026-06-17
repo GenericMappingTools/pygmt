@@ -189,6 +189,8 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         run: |
           log_file="${RUNNER_TEMP}/pytest.log"
           make test PYTEST_EXTRA="-r P --reruns 2" 2>&1 | tee "${log_file}"
