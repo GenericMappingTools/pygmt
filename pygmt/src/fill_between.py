@@ -45,7 +45,7 @@ def fill_between(  # noqa: PLR0913
     Parameters
     ----------
     x
-        X-coordinates of the curves.
+        X-coordinates shared by the two curves.
     y
         Y-coordinates of the primary curve.
     y2
@@ -78,13 +78,11 @@ def fill_between(  # noqa: PLR0913
     >>> import pygmt
     >>> x = np.linspace(0, 2 * np.pi, 200)
     >>> fig = pygmt.Figure()
+    >>> fig = fig.basemap(region=[0, 4 * np.pi, -1.2, 1.2], projection="X10c/4c", frame=True)
     >>> fig.fill_between(
     ...     x=x,
     ...     y=np.sin(2 * x),
     ...     y2=np.sin(3 * x),
-    ...     region=[0, 4 * np.pi, -1.2, 1.2],
-    ...     projection="X10c/4c",
-    ...     frame=True,
     ...     fill="lightblue",
     ...     pen="1p,blue",
     ...     fill2="lightred",
