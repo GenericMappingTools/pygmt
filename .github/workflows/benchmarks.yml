@@ -85,6 +85,8 @@ jobs:
       # Run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@9d332c4d90b43981c3e55ae8e38e68709996240f # v4.17.0
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         with:
           mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.
