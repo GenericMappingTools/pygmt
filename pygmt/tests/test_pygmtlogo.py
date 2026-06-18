@@ -89,7 +89,7 @@ def test_pygmtlogo_wordmark_vertical(shape):
     """
     fig = Figure()
     fig.basemap(
-        region=[-0.5, 5.0, -0.5, 5.5],
+        region=[-0.5, 5.0, -1.0, 6.0],
         projection="x1c",
         frame=Frame(fill="gray", axis=Axis(grid=0.5)),
     )
