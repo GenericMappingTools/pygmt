@@ -263,8 +263,9 @@ pygmt.show_versions()
 
 ```{code-cell} ipython
 fig = pygmt.Figure()
-fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
-fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
+fig.basemap(projection="R7c", region=[0, 360, -90, 90], frame=True)
+fig.coast(land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
 
