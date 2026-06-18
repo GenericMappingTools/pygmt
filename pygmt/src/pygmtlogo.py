@@ -118,7 +118,8 @@ def _create_logo(  # noqa: PLR0915
         # Outer arc (r4)
         arc_outer_x, arc_outer_y = np.cos(outer_angles) * r4, np.sin(outer_angles) * r4
         # Connecting lines
-        connector_x, connector_y = [r4, 0, 0, r5], [offset, offset, -offset, -offset]
+        connector_x = [r4, thick_gap, thick_gap, r5]
+        connector_y = [offset, offset, -offset, -offset]
         # Inner arc (r5)
         arc_inner_x, arc_inner_y = np.cos(inner_angles) * r5, np.sin(inner_angles) * r5
         # Combine all coordinates (outer arc, connectors, inner arc)
