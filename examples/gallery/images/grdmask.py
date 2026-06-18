@@ -9,7 +9,7 @@ values can be defined. The create mask can then be applied to a desired grid.
 
 To create a land-water mask based on the GMT built-in shoreline data you can directly
 use the function :func:`pygmt.grdlandmask` explained in the gallery example
-:doc:` Create 'wet-dry' mask grid </gallery/images/gradlandmask>`.
+:doc:`Create 'wet-dry' mask grid </gallery/images/gradlandmask>`.
 """
 
 # %%
