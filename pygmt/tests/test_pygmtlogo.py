@@ -10,7 +10,7 @@ from pygmt.src.pygmtlogo import _create_logo
 
 @pytest.mark.mpl_image_compare(savefig_kwargs={"dpi": 600})
 @pytest.mark.parametrize("wordmark", ["horizontal", "vertical"])
-@pytest.mark.parametrize("shape", ["circle"])
+@pytest.mark.parametrize("shape", ["circle", "hexagon"])
 def test_pygmtlogo_design(shape, wordmark):
     """
     Test the design details of the PyGMT logo with a wordmark.
@@ -24,7 +24,7 @@ def test_pygmtlogo_design(shape, wordmark):
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.parametrize("shape", ["circle"])
+@pytest.mark.parametrize("shape", ["circle", "hexagon"])
 def test_pygmtlogo_wordmark_none(shape):
     """
     Test the PyGMT logo without the wordmark, including both light/dark themes, and
@@ -52,7 +52,7 @@ def test_pygmtlogo_wordmark_none(shape):
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.parametrize("shape", ["circle"])
+@pytest.mark.parametrize("shape", ["circle", "hexagon"])
 def test_pygmtlogo_wordmark_horizontal(shape):
     """
     Test the PyGMT logo with a horizontal wordmark, including both light/dark themes,
@@ -81,7 +81,7 @@ def test_pygmtlogo_wordmark_horizontal(shape):
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.parametrize("shape", ["circle"])
+@pytest.mark.parametrize("shape", ["circle", "hexagon"])
 def test_pygmtlogo_wordmark_vertical(shape):
     """
     Test the PyGMT logo with a vertical wordmark, including both light/dark themes,

@@ -75,7 +75,7 @@ def _create_logo(  # noqa: PLR0915
             hex_factor = 1.0
         case "hexagon":
             symbol = "h"
-            size_shape = (r0 + 0.34) * 2
+            size_shape = (r0 + r1) / np.cos(np.deg2rad(30))
             hex_factor = 1.1
 
     # Define wordmark
@@ -93,7 +93,7 @@ def _create_logo(  # noqa: PLR0915
             fontsize = size * 2.0 / pygmtwidth
             args_wordmark = {
                 "x": -size - fontsize * plsb,
-                "y": -size * 1.375,  # Center of the wordmark.
+                "y": -size * (1.375 if shape == "circle" else 1.5),
                 "justify": "ML",
                 "font": f"{fontsize}c,{font}",
                 "no_clip": True,  # Needed because x<xmin.
@@ -266,7 +266,7 @@ def _create_logo(  # noqa: PLR0915
             halfheight = pheight / 2.0 * fontsize
             fig.hlines(y=[-halfheight, halfheight], xmin=size, pen=pen)
             fig.vlines(x=[size * 1.25, size * 1.25 + pstroke * fontsize], pen=pen)
-        elif wordmark == "vertical":
+        elif wordmark == "vertical" and shape == "circle":
             fig.hlines(y=-size * 1.375, pen=pen)
 
     if figname:
