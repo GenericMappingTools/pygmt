@@ -154,7 +154,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Install uv
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
         with:
           activate-environment: true
           python-version: ${{ matrix.python-version }}
@@ -189,6 +189,8 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         run: |
           log_file="${RUNNER_TEMP}/pytest.log"
           make test PYTEST_EXTRA="-r P --reruns 2" 2>&1 | tee "${log_file}"
