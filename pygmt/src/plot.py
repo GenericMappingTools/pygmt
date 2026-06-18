@@ -86,6 +86,17 @@ def plot(  # noqa: PLR0912, PLR0913
 
     Full GMT docs at :gmt-docs:`plot.html`.
 
+    See Also
+    --------
+    pygmt.Figure.choropleth
+        Plot a choropleth map.
+    pygmt.Figure.hlines
+        Plot horizontal lines.
+    pygmt.Figure.vlines
+        Plot vertical lines.
+    pygmt.Figure.fill_between
+        Fill the area between two curves.
+
     $aliases
        - A = straight_line
        - B = frame
