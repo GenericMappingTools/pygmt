@@ -136,9 +136,13 @@ jobs:
 
       - name: Build the HTML documentation
         run: make -C doc clean html
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
 
       - name: Build the PDF documentation
         run:  make -C doc pdf
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
 
       - name: Create the HTML ZIP archive and rename the PDF file
         run: |

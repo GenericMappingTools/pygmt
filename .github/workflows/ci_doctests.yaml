@@ -85,3 +85,5 @@ jobs:
       # Run the doctests
       - name: Run doctests
         run: make doctest PYTEST_EXTRA="-r P"
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
