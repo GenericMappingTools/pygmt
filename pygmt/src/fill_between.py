@@ -1,5 +1,5 @@
 """
-fill_between - Fill the area between two horizontal curves.
+fill_between - Fill the area between two curves.
 """
 
 from collections.abc import Sequence
