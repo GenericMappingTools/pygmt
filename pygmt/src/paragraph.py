@@ -46,13 +46,19 @@ def paragraph(  # noqa: PLR0913
     r"""
     Typeset one or multiple paragraphs.
 
-    This method typesets one or multiple paragraphs of text at a given position on the
-    figure. The text is flowed within a given paragraph width and with a specified line
-    spacing. The text can be aligned left, center, right, or justified.
+    This method typesets one or multiple paragraphs of text at a given position. The
+    text is flowed within a given paragraph width and with a specified line spacing, and
+    can be aligned left, center, right, or justified.
 
     Multiple paragraphs can be provided as a sequence of strings, where each string
     represents a separate paragraph, or as a single string with a blank line (``\n\n``)
     separating the paragraphs.
+
+    The text string is typeset following the What You Type Is What You Get principle,
+    meaning that the text is rendered exactly as it appears in the input string. This
+    allows for precise control over the formatting of the text, including the use of
+    multiple spaces and tabs. By default, a tab is replaced with four spaces, but this
+    can be changed by setting the ``tab_width``.
 
     Full GMT docs at :gmt-docs:`text.html`.
 
@@ -74,13 +80,13 @@ def paragraph(  # noqa: PLR0913
     justify
         Set the alignment of the block of text, relative to the given x, y position.
         Choose a :doc:`2-character justification code </techref/justification_codes>`.
+    alignment
+        Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
+        ``"right"``, and ``"justified"``.
     fill
         Set color for filling the paragraph box [Default is no fill].
     pen
         Set the pen for the paragraph box [Default is ``"0.25p,black,solid"``].
-    alignment
-        Set the alignment of the text. Valid values are ``"left"``, ``"center"``,
-        ``"right"``, and ``"justified"``.
     tab_width
         Number of spaces used to expand tab characters in ``text`` when typesetting.
         Must be a non-negative integer. Use ``0`` to remove tab characters instead of
@@ -145,11 +151,12 @@ def paragraph(  # noqa: PLR0913
     # " \n\n": add a blank line between paragraphs.
     sep = " \n\n" if blank_line else "\n\n"
     # Convert a single string into a list of paragraphs for consistent handling.
-    # Split the single string on black lines, allowing for whitespaces in between.
+    # Split the single string on blank lines, allowing for whitespaces in between.
     if not is_nonstr_iter(text):
         text = re.split(r"\n\s*\n", text)  # type: ignore[arg-type]
     # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
     # newlines in each paragraph, but keep leading whitespaces and tabs for now.
+    # _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     # Replace two or more consecutive spaces with \040 (octal for space), and replace
     # tabs with the appropriate number of \040.
