@@ -239,7 +239,7 @@ def velo(  # noqa : PLR0913
         Select the quantity that will be used with the CPT given via ``cmap``
         to set the fill color.  Choose from **m**\ agnitude (vector magnitude
         or rotation magnitude), **e**\ ast-west velocity, **n**\ orth-south
-        velocity, or **u**\ ser-supplied data column (supplied after the
+        velocity, or **u** (User-supplied data column after the
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
