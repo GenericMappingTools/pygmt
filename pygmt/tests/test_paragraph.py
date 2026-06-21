@@ -40,13 +40,11 @@ def test_paragraph_multiple_paragraphs(inputtype):
         "Paragraph 8: Newlines insiden a paragraph\nare converted to spaces.",
         "Paragraph 9: This is the last paragraph.",
     ]
-
-    if inputtype == "list":
-        pass
-    else:
+    if inputtype == "string":
         text = "\n\n".join(text)
+
     fig = Figure()
-    fig.basemap(region=[0, 17, 0, 12], projection="x1c", frame=True)
+    fig.basemap(region=[0, 17, 0, 8], projection="x1c", frame=True)
     fig.paragraph(
         x=1,
         y=1,
@@ -100,4 +98,36 @@ def test_paragraph_font_angle_justify():
         angle=45,
         justify="TL",
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_paragraph_blank_line():
+    """
+    Test typesetting a single paragraph with blank_line option.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 4], projection="X10c/4c", frame=True)
+    text = (
+        "This is a long paragraph. " * 5
+        + "\n\n"
+        + "This is another long paragraph. " * 5
+    )
+    fig.paragraph(
+        x=5, y=2, text=text, parwidth="8c", linespacing="12p", blank_line=True
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_paragraph_tab_width():
+    """
+    Test typesetting a single paragraph with tab_width option.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 4], projection="X10c/6c", frame=True)
+    text = "A paragraph with tabs\tinside. " * 3
+    fig.paragraph(x=5, y=3, text=text, parwidth="8c", linespacing="12p")
+    fig.paragraph(x=5, y=2, text=text, parwidth="8c", linespacing="12p", tab_width=0)
+    fig.paragraph(x=5, y=1, text=text, parwidth="8c", linespacing="12p", tab_width=8)
     return fig
