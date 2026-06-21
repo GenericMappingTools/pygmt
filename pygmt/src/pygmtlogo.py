@@ -33,10 +33,11 @@ def _create_logo(  # noqa: PLR0915
     # Helpful definitions
     size = 4
     proj = "x1c"
+    factor = 1.2  # Extension factor for the region
     region = {
-        "horizontal": [-size, size * 7.0, -size, size],
-        "vertical": [-size, size, -size * 1.75, size],
-        "none": [-size, size, -size, size],
+        "horizontal": [-size * factor, size * 7.0, -size * factor, size * factor],
+        "vertical": [-size * factor, size * factor, -size * 2.0, size * factor],
+        "none": [-size * factor, size * factor, -size * factor, size * factor],
     }[wordmark]
 
     # Rotation around z-axis by 30 degrees counter-clockwise placed in the center.
@@ -96,7 +97,6 @@ def _create_logo(  # noqa: PLR0915
                 "y": -size * (1.375 if shape == "circle" else 1.5),
                 "justify": "ML",
                 "font": f"{fontsize}c,{font}",
-                "no_clip": True,  # Needed because x<xmin.
             }
         case "horizontal":
             # The stroke width matches the outline thickness.
@@ -210,11 +210,7 @@ def _create_logo(  # noqa: PLR0915
     fig.basemap(region=region, projection=proj, perspective=perspective, frame="none")
 
     # Earth - circle / hexagon
-    args_shape = {
-        "style": f"{symbol}{size_shape}c",
-        "perspective": True,
-        "no_clip": True,  # Needed for corners of hexagon shape
-    }
+    args_shape = {"style": f"{symbol}{size_shape}c", "perspective": True}
     # Shape fill
     fig.plot(x=0, y=0, fill=color_bg, **args_shape)
 
@@ -224,7 +220,6 @@ def _create_logo(  # noqa: PLR0915
         pen=f"{thick_comp}c,{yellow}",
         style="v0c+s",
         perspective=True,
-        no_clip=True,
     )
 
     # Shape outline (over ends of compass lines for hexagon shape)
