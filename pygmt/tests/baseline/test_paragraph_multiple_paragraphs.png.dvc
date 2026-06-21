@@ -1,5 +1,5 @@
 outs:
-- md5: 167d4be24bca4e287b2056ecbfbb629a
-  size: 29076
+- md5: ebf9e854384e7cbdd66b0f9d97d69620
+  size: 63143
   hash: md5
   path: test_paragraph_multiple_paragraphs.png

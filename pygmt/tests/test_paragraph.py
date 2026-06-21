@@ -37,7 +37,7 @@ def test_paragraph_multiple_paragraphs(inputtype):
         "Paragraph 5: Mixing tabs and spaces. 2T3STST(		   	 	).",
         "\nParagraph 6: Leading newline is converted to a space. Trailing newlines are converted to spaces.\n\n",
         "\n\nParagraph 7: Multiple leading newline are converted to multiple spaces. xxx yyy zzz.",
-        "Paragraph 8: Newlines insiden a paragraph\n\nare converted to spaces.",
+        "Paragraph 8: Newlines insiden a paragraph\nare converted to spaces.",
         "Paragraph 9: This is the last paragraph.",
     ]
 
