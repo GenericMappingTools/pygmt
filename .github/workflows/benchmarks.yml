@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -84,7 +84,9 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@c381be0bfd20e844fb45594f6aa182ffcd94545c # v4.15.0
+        uses: CodSpeedHQ/action@9d332c4d90b43981c3e55ae8e38e68709996240f # v4.17.0
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         with:
           mode: "instrumentation"
           # 'bash -el -c' is needed to use the custom shell.

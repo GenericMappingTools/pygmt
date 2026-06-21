@@ -15,6 +15,7 @@ from pygmt.src.coast import coast as _coast
 from pygmt.src.colorbar import colorbar as _colorbar
 from pygmt.src.contour import contour as _contour
 from pygmt.src.directional_rose import directional_rose as _directional_rose
+from pygmt.src.fill_between import fill_between as _fill_between
 from pygmt.src.grdcontour import grdcontour as _grdcontour
 from pygmt.src.grdimage import grdimage as _grdimage
 from pygmt.src.grdview import grdview as _grdview
@@ -449,6 +450,7 @@ class Figure:
     colorbar = _colorbar
     contour = _contour
     directional_rose = _directional_rose
+    fill_between = _fill_between
     grdcontour = _grdcontour
     grdimage = _grdimage
     grdview = _grdview

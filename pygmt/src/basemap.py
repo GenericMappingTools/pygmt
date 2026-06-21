@@ -123,6 +123,13 @@ def basemap(  # noqa: PLR0913
     $coltypes
     $perspective
     $transparency
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region="g", projection="H15c", frame=True)
+    >>> fig.show()
     """
     self._activate_figure()
 

@@ -26,14 +26,14 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
         persist-credentials: false
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
+      uses: iterative/setup-dvc@6c05772f52d19792ed73aedb6c2bf65ec92adebb # v3.0.0
 
     - name: Setup continuous machine learning (CML)
       uses: iterative/setup-cml@1b5ab8766e715e8f1aab96bbb1f4f2e3e1e8af45 # v3
