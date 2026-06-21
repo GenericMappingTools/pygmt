@@ -4,6 +4,7 @@ Tests for Figure.paragraph.
 
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -131,3 +132,50 @@ def test_paragraph_tab_width():
     fig.paragraph(x=5, y=2, text=text, parwidth="8c", linespacing="12p", tab_width=0)
     fig.paragraph(x=5, y=1, text=text, parwidth="8c", linespacing="12p", tab_width=8)
     return fig
+
+
+def test_paragraph_invalid_alignment():
+    """
+    Test that providing an invalid alignment raises a GMTValueError.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError, match="value for parameter 'alignment'"):
+        fig.paragraph(
+            x=1,
+            y=1,
+            text="This is a long paragraph.",
+            parwidth="8c",
+            linespacing="12p",
+            alignment="invalid",
+        )
+
+
+def test_paragraph_invalid_tab_width():
+    """
+    Test that providing an invalid tab_width raises a GMTValueError.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError, match="value for parameter 'tab_width'"):
+        fig.paragraph(
+            x=1,
+            y=1,
+            text="This is a long paragraph.",
+            parwidth="8c",
+            linespacing="12p",
+            tab_width=-1,
+        )
+
+
+def test_paragraph_empty_text():
+    """
+    Test that providing an invalid text type raises a GMTValueError.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError):
+        fig.paragraph(
+            x=1,
+            y=1,
+            text="",
+            parwidth="8c",
+            linespacing="12p",
+        )
