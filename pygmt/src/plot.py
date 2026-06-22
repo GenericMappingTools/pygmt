@@ -97,17 +97,6 @@ def plot(  # noqa: PLR0912, PLR0913
        - p = perspective
        - t = transparency
 
-    See Also
-    --------
-    pygmt.Figure.choropleth
-        Plot a choropleth map.
-    pygmt.Figure.hlines
-        Plot horizontal lines.
-    pygmt.Figure.vlines
-        Plot vertical lines.
-    pygmt.Figure.fill_between
-        Fill the area between two curves.
-
     Parameters
     ----------
     data
@@ -247,6 +236,17 @@ def plot(  # noqa: PLR0912, PLR0913
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``.
     $wrap
+
+    See Also
+    --------
+    pygmt.Figure.choropleth
+        Plot a choropleth map.
+    pygmt.Figure.hlines
+        Plot horizontal lines.
+    pygmt.Figure.vlines
+        Plot vertical lines.
+    pygmt.Figure.fill_between
+        Fill the area between two curves.
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
