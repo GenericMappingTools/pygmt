@@ -12,6 +12,8 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["fill_between"]
+
 
 @fmt_docstring
 def fill_between(  # noqa: PLR0913
