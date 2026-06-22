@@ -241,12 +241,12 @@ def plot(  # noqa: PLR0912, PLR0913
     --------
     pygmt.Figure.choropleth
         Plot a choropleth map.
+    pygmt.Figure.fill_between
+        Fill the area between two curves.
     pygmt.Figure.hlines
         Plot horizontal lines.
     pygmt.Figure.vlines
         Plot vertical lines.
-    pygmt.Figure.fill_between
-        Fill the area between two curves.
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
