@@ -14,7 +14,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Define region of study area
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
@@ -30,7 +30,7 @@ fig = pygmt.Figure()
 # Bottom: Map of elevation in study area
 
 # Set up basic map using a Mercator projection with a width of 12 centimeters
-fig.basemap(region=region_map, projection="M12c", frame="af")
+fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
 # Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
@@ -61,7 +61,7 @@ fig.text(
     x=[lonA, lonB],
     y=[latA, latB],
     text=["A", "B"],
-    offset="0c/0.3c",  # Move text 0.2 centimeters up (y-direction)
+    offset=(0, 0.3),  # Move text 0.3 centimeters up (y-direction)
     font="15p,red",  # Use a red font with a size of 15 points
 )
 
@@ -120,6 +120,12 @@ fig.plot(
 # Add map frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
-fig.basemap(frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"])
+fig.basemap(
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"),
+        yaxis=Axis(annot=4000, label="Elevation / m"),
+    )
+)
 
 fig.show()

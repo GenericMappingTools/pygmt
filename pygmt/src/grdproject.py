@@ -47,8 +47,8 @@ def grdproject(  # noqa: PLR0913
     ``interpolation`` parameter. The new node spacing may be determined in one of
     several ways by specifying the grid spacing, number of nodes, or resolution. Nodes
     not constrained by input data are set to NaN. The ``region`` parameter can be used
-    to select a map region large or smaller than that implied by the extent of the grid
-    file.
+    to select a plot region larger or smaller than that implied by the extent of the
+    grid file.
 
     Full GMT docs at :gmt-docs:`grdproject.html`.
 

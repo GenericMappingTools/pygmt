@@ -5,38 +5,31 @@ Test Figure.solar.
 import datetime
 
 import pytest
+from packaging.version import Version
 from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.params import Axis
 
 
+# TODO(GMT>6.6.0): Remove the xfail marker.
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) <= Version("6.6.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8938",
+)
 @pytest.mark.mpl_image_compare
 def test_solar_terminators():
     """
     Test passing the solar argument with a time string and no terminator type to confirm
     the default terminator type.
     """
+    dt = "1990-02-17 04:25:00"
     fig = Figure()
-    fig.basemap(region="d", projection="W0/15c", frame="a")
-    fig.solar(
-        terminator="d",
-        pen="1p,blue",
-        terminator_datetime="1990-02-17 04:25:00",
-    )
-    fig.solar(
-        terminator="a",
-        pen="1p,red",
-        terminator_datetime="1990-02-17 04:25:00",
-    )
-    fig.solar(
-        terminator="c",
-        pen="1p,green",
-        terminator_datetime="1990-02-17 04:25:00",
-    )
-    fig.solar(
-        terminator="n",
-        pen="1p,yellow",
-        terminator_datetime="1990-02-17 04:25:00",
-    )
+    fig.basemap(region="d", projection="W0/15c", frame=Axis(annot=True))
+    fig.solar(terminator="day_night", pen="1p,blue", terminator_datetime=dt)
+    fig.solar(terminator="astronomical", pen="1p,red", terminator_datetime=dt)
+    fig.solar(terminator="civil", pen="1p,green", terminator_datetime=dt)
+    fig.solar(terminator="nautical", pen="1p,yellow", terminator_datetime=dt)
     return fig
 
 
@@ -57,7 +50,7 @@ def test_solar_set_terminator_datetime(terminator_datetime):
     fig.solar(
         region="d",
         projection="W0/15c",
-        frame="a",
+        frame=Axis(annot=True),
         terminator="day_night",
         terminator_datetime=terminator_datetime,
     )
@@ -79,7 +72,7 @@ def test_solar_invalid_inputs(kwargs, expected_exception):
     """
     fig = Figure()
     with pytest.raises(expected_exception):
-        fig.solar(region="d", projection="W0/15c", frame="a", **kwargs)
+        fig.solar(region="d", projection="W0/15c", frame=Axis(annot=True), **kwargs)
 
 
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
@@ -92,7 +85,7 @@ def test_solar_default_terminator():
     fig.solar(
         region="d",
         projection="W0/15c",
-        frame="a",
+        frame=Axis(annot=True),
         terminator_datetime="1990-02-17 04:25:00",
     )
     return fig

@@ -8,10 +8,10 @@
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt)](https://anaconda.org/conda-forge/pygmt)
 [![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 [![Compatible Python versions](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FGenericMappingTools%2Fpygmt%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)](https://www.pygmt.org/dev/minversions.html)
-[![Digital Object Identifier for the Zenodo archive](https://zenodo.org/badge/DOI/10.5281/3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for the Zenodo archive](https://img.shields.io/badge/DOI-10.5281/zenodo.3781524-blue)](https://doi.org/10.5281/zenodo.3781524)
 [![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
 [![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-submission/issues/43)
-[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v3.0%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
@@ -75,9 +75,11 @@ following example:
 
 ``` python
 import pygmt
+
 fig = pygmt.Figure()
-fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblue")
-fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
+fig.basemap(projection="R7c", region=[0, 360, -90, 90], frame=True)
+fig.coast(land="tan", water="lightblue")
+fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
 
@@ -154,6 +156,7 @@ Feel free to cite our work in your research using the following BibTeX:
                   Anant, Abhishek and
                   Ziebarth, Malte and
                   Quinn, Jamie and
+                  He, Xingchen and
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
@@ -181,8 +184,8 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 ## Support
 
 The development of PyGMT has been supported by NSF grants
-[OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403) and
-[EAR-1948603](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
 ## Related projects
 

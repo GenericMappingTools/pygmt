@@ -407,7 +407,7 @@ the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by ruff, docstrings
+While the maximum line length for code is automatically set by Ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
 limited to 88 characters** per line.
 
@@ -475,7 +475,7 @@ section.
 
 ### Code Style
 
-We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
+We use the [Ruff](https://docs.astral.sh/ruff) tool to format the code, so we
 don't have to think about it. It loosely follows the [PEP8](https://pep8.org) guide
 but with a few differences. Regardless, you won't have to worry about formatting
 the code yourself. Before committing, run it to automatically format your code:
@@ -504,14 +504,14 @@ editors or IDEs. We consistently use `# %%` as code block separators (please
 refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
 for the discussions) and require at least one separator in all example files.
 
-We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
+We also use [Ruff](https://docs.astral.sh/ruff) to check the quality of the code
 and quickly catch common errors.
 
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running the linter checks:
 
 ```bash
-make check   # Runs ruff in check mode
+make check   # Runs Ruff in check mode
 ```
 
 ### Wrapping a GMT Module
@@ -579,7 +579,7 @@ After the initial implementation, missing aliases can be added in separate PRs:
   - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
     `pygmt/helpers/decorators.py`
   - whether other wrapped GMT modules have a similar parameter
-  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/) has defined an alias
+  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
 * Add the alias to the `AliasSystem` class and the function signature.
 * Add the alias and description to the parameters section of the docstring, using the
   `fmt_docstring` decorator to add descriptions for parameters included in the
@@ -600,8 +600,8 @@ Tests also help us be confident that we won't break your code in the future.
 When writing tests, don't test everything that the GMT function already tests, such as
 every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
-The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+The highest priority for tests should be the Python-specific code, such as NumPy,
+pandas, and xarray objects and the virtual file mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**

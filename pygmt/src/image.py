@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
@@ -28,7 +28,7 @@ def image(  # noqa: PLR0913
     invert: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -39,7 +39,7 @@ def image(  # noqa: PLR0913
     r"""
     Plot raster or EPS images.
 
-    Reads an Encapsulated PostScript file or a raster image file and plot it on a map.
+    Reads an Encapsulated PostScript file or a raster image file and plots it.
     The image can be scaled arbitrarily, and 1-bit raster images can be:
 
     - inverted, i.e., black pixels (on) become white (off) and vice versa.

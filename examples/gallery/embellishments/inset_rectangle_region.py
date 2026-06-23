@@ -9,7 +9,7 @@ statement plot into the inset figure.
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Set the region of the main figure
 region = [137.5, 141, 34, 37]
@@ -17,7 +17,11 @@ region = [137.5, 141, 34, 37]
 fig = pygmt.Figure()
 # Plot the base map of the main figure. Universal Transverse Mercator (UTM) projection
 # is used and the UTM zone is set to be "54S".
-fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
+fig.basemap(
+    region=region,
+    projection="U54S/12c",
+    frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+)
 
 # Set the land color to "lightbrown", the water color to "azure1", the shoreline width
 # to "2p", and the area threshold to 1000 km^2 for the main figure.

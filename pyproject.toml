@@ -35,9 +35,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "numpy>=2.0",
-    "pandas>=2.2",
-    "xarray>=2024.5",
+    "numpy>=2.1",
+    "pandas>=2.3",
+    "xarray>=2024.7",
     "packaging>=24.2",
 ]
 dynamic = ["version"]
@@ -71,7 +71,7 @@ local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,oints,reenable,tripel,trough,ND"
+ignore-words-list = "astroid,buda,oints,reenable,te,tripel,trough,ND"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
@@ -119,7 +119,7 @@ select = [
     "PTH",  # flake8-use-pathlib
     "RET",  # flake8-return
     "RSE",  # flake8-raise
-    "RUF",  # ruff-specific
+    "RUF",  # Ruff-specific
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print

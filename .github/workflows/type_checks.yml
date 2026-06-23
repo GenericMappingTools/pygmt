@@ -30,25 +30,25 @@ permissions: {}
 jobs:
   static_check:
     name: Static Type Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           persist-credentials: false
 
       # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v6.2.0
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.14'
           # Need to install following packages:
           # 1. required packages
           # 2. type checker and stub packages
           # 3. other packages that are used somewhere in PyGMT
-          pip-install: |
+          pip-install: | # zizmor: ignore[misfeature]
             numpy pandas xarray packaging
             mypy pandas-stubs pyarrow-stubs
 

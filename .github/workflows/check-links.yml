@@ -21,18 +21,18 @@ permissions:
 jobs:
   check_links:
     name: Check Links
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v6.0.1
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         path: repository
         persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@v6.0.1
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         ref: gh-pages
         path: documentation
@@ -68,7 +68,6 @@ jobs:
           --exclude "^https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html"
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
-          --exclude "^https://zenodo.org/badge/DOI/"
           --exclude "^https://stackoverflow.com/a/69170441"
           "repository/*.md"
           "repository/**/*.py"

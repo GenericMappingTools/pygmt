@@ -3,6 +3,7 @@ The Axis and Frame classes for specifying the frame.
 """
 
 import dataclasses
+from typing import Literal
 
 from pygmt.alias import Alias
 from pygmt.exceptions import GMTParameterError
@@ -45,8 +46,22 @@ class Axis(BaseParam):
     #: Specify the interval for gridlines. Same format as ``annot``.
     grid: float | str | bool = False
 
+    #: Skip annotations that fall exactly at the ends of the axis. Set to ``True`` to
+    #: skip both ends, or use ``"lower"``/``"upper"`` to skip only the lower/upper
+    #: end.
+    end_skip: Literal["lower", "upper"] | bool = False
+
     #: Label for the axis [Default is no label].
     label: str | None = None
+
+    #: Alternate label for the right or top axis [Default is the same as ``label``].
+    alt_label: str | None = None
+
+    #: Horizontal label for y-axes, useful for very short labels.
+    hlabel: str | None = None
+
+    #: Horizontal label for the right y-axis, useful for very short labels.
+    alt_hlabel: str | None = None
 
     #: A leading text prefix for the axis annotations (e.g., dollar sign for plots
     #: related to money) [For Cartesian plots only].
@@ -64,10 +79,19 @@ class Axis(BaseParam):
             Alias(self.annot, name="annot", prefix="a"),
             Alias(self.tick, name="tick", prefix="f"),
             Alias(self.grid, name="grid", prefix="g"),
+            Alias(
+                self.end_skip,
+                name="end_skip",
+                prefix="+e",
+                mapping={"lower": "l", "upper": "u"},
+            ),
             Alias(self.label, name="label", prefix="+l"),
-            Alias(self.angle, name="angle", prefix="+a"),
+            Alias(self.alt_label, name="alt_label", prefix="+s"),
+            Alias(self.hlabel, name="hlabel", prefix="+L"),
+            Alias(self.alt_hlabel, name="alt_hlabel", prefix="+S"),
             Alias(self.prefix, name="prefix", prefix="+p"),
             Alias(self.unit, name="unit", prefix="+u"),
+            Alias(self.angle, name="angle", prefix="+a"),
         ]
 
 
@@ -79,12 +103,16 @@ class _Axes(BaseParam):
 
     axes: str | None = None
     title: str | None = None
+    subtitle: str | None = None
+    fill: str | None = None
 
     @property
     def _aliases(self):
         return [
             Alias(self.axes, name="axes"),
+            Alias(self.fill, name="fill", prefix="+g"),
             Alias(self.title, name="title", prefix="+t"),
+            Alias(self.subtitle, name="subtitle", prefix="+s"),
         ]
 
 
@@ -173,18 +201,29 @@ class Frame(BaseParam):
     #: The title string centered above the plot frame [Default is no title].
     title: str | None = None
 
+    #: The subtitle string centered below the plot title. Requires ``title`` to be set.
+    #: [Default is no subtitle].
+    subtitle: str | None = None
+
+    #: Fill for the interior of the frame with a color or a pattern [Default is no
+    #: fill].
+    fill: str | None = None
+
     #: Specify the attributes for axes by an :class:`Axis` object.
     #:
-    #: The attributes for each axis can be specified in two ways: (1) specifying the
-    #: same attributes for all axes using the ``axis`` parameter; (2) specifying the
-    #: attributes for each axis separately using the ``xaxis``, ``yaxis``, ``zaxis``
-    #: parameter for the x-, y, and z-axes, respectively.
+    #: The attributes for x and y axes can be specified in two ways: (1) specifying the
+    #: same attributes for both axes using the ``axis`` parameter; (2) specifying the
+    #: attributes for each axis separately using the ``xaxis`` and ``yaxis`` parameters.
+    #: The attributes for z-axis can only be specified separately using the ``zaxis``
+    #: parameter.
     #:
     #: GMT uses the notion of primary (the default) and secondary axes, while secondary
     #: axes are optional and mostly used for time axes annotations. To specify the
-    #: attributes for the secondary axes, use the ``xaxis2``, ``yaxis2``, and ``zaxis2``
-    #: parameters.
+    #: same attributes for both secondary x and y axes, use the ``axis2`` parameter.
+    #: To specify the attributes for the secondary axes separately, use the ``xaxis2``,
+    #: ``yaxis2``, and ``zaxis2`` parameters.
     axis: Axis | None = None
+    axis2: Axis | None = None
     xaxis: Axis | None = None
     yaxis: Axis | None = None
     zaxis: Axis | None = None
@@ -196,27 +235,48 @@ class Frame(BaseParam):
         """
         Validate the parameters of the Frame class.
         """
+        if self.subtitle is not None and self.title is None:
+            raise GMTParameterError(
+                required="title",
+                reason="The 'subtitle' attribute requires 'title' to be set.",
+            )
         if self.axis is not None and any(
-            [self.xaxis, self.yaxis, self.zaxis, self.xaxis2, self.yaxis2, self.zaxis2]
+            [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
         ):
             raise GMTParameterError(
-                conflicts_with=(
-                    "axis",
-                    ["xaxis", "yaxis", "zaxis", "xaxis2", "yaxis2", "zaxis2"],
-                ),
+                conflicts_with=("axis", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
                 reason="Either 'axis' or the individual axis parameters can be set, but not both.",
+            )
+        if self.axis2 is not None and any(
+            [self.xaxis, self.yaxis, self.xaxis2, self.yaxis2]
+        ):
+            raise GMTParameterError(
+                conflicts_with=("axis2", ["xaxis", "yaxis", "xaxis2", "yaxis2"]),
+                reason="Either 'axis2' or the individual axis parameters can be set, but not both.",
             )
 
     @property
     def _aliases(self):
         # _Axes() maps to an empty string, which becomes '-B' without arguments and is
         # invalid when combined with individual axis settings (e.g., '-B -Bxaf -Byaf').
-        frame_settings = _Axes(axes=self.axes, title=self.title)
+        frame_settings = _Axes(
+            axes=self.axes, title=self.title, subtitle=self.subtitle, fill=self.fill
+        )
+        has_secondary_xy_axis = any([self.axis2, self.xaxis2, self.yaxis2])
         return [
             Alias(frame_settings) if str(frame_settings) else Alias(None),
-            Alias(self.axis, name="axis"),
-            Alias(self.xaxis, name="xaxis", prefix="px" if self.xaxis2 else "x"),
-            Alias(self.yaxis, name="yaxis", prefix="py" if self.yaxis2 else "y"),
+            Alias(self.axis, name="axis", prefix="p" if has_secondary_xy_axis else ""),
+            Alias(self.axis2, name="axis2", prefix="s"),
+            Alias(
+                self.xaxis,
+                name="xaxis",
+                prefix="px" if self.xaxis2 or self.axis2 else "x",
+            ),
+            Alias(
+                self.yaxis,
+                name="yaxis",
+                prefix="py" if self.yaxis2 or self.axis2 else "y",
+            ),
             Alias(self.zaxis, name="zaxis", prefix="pz" if self.zaxis2 else "z"),
             Alias(self.xaxis2, name="xaxis2", prefix="sx"),
             Alias(self.yaxis2, name="yaxis2", prefix="sy"),

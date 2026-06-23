@@ -10,6 +10,7 @@ details.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 
@@ -28,7 +29,8 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), tag=True, margins=0.5)
         pygmt.makecpt(cmap="gmt/geo", series=[-8000, 8000])
         # "R?" means Winkel Tripel projection with map width automatically determined
         # from the subplot width.
-        fig.grdimage(grid=grid_globe, projection="R?", region="g", frame="a")
+        fig.basemap(projection="R?", region="g", frame=Axis(annot=True))
+        fig.grdimage(grid=grid_globe)
         fig.colorbar(annot=4000, tick=2000, label="Elevation", unit="m")
     # Activate the second panel so that the colormap created by the makecpt function is
     # a panel-level CPT
@@ -36,7 +38,8 @@ with fig.subplot(nrows=1, ncols=2, figsize=("15c", "8c"), tag=True, margins=0.5)
         pygmt.makecpt(cmap="gmt/globe", series=[-6000, 3000])
         # "M?" means Mercator projection with map width also automatically determined
         # from the subplot width.
-        fig.grdimage(grid=grid_subset, projection="M?", region=subset_region, frame="a")
+        fig.basemap(projection="M?", region=subset_region, frame=Axis(annot=True))
+        fig.grdimage(grid=grid_subset)
         fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
 
 fig.show()

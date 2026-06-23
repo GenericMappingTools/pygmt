@@ -14,7 +14,7 @@ sample dataset via ``cmap=True``.
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 fig = pygmt.Figure()
 
@@ -34,11 +34,13 @@ fig.ternary(
     blabel="Water",
     clabel="Air",
     cmap=True,
-    frame=[
-        "aafg+lLimestone component+u %",
-        "bafg+lWater component+u %",
-        "cafg+lAir component+u %",
-    ],
+    frame=Frame(
+        xaxis=Axis(
+            annot=True, tick=True, grid=True, label="Limestone component", unit="%"
+        ),
+        yaxis=Axis(annot=True, tick=True, grid=True, label="Water component", unit="%"),
+        zaxis=Axis(annot=True, tick=True, grid=True, label="Air component", unit="%"),
+    ),
 )
 
 # Add a colorbar indicating the values given in the fourth column of the input dataset

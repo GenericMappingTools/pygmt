@@ -9,6 +9,7 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
@@ -40,7 +41,7 @@ def rose(  # noqa: PLR0913
     length=None,
     azimuth=None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -117,11 +118,10 @@ def rose(  # noqa: PLR0913
          by the largest value so all radii (or bin counts) range from 0
          to 1.
 
-    frame : str
-         Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The y label may be
-         used to plot a figure caption. The scale bar length is determined
-         by the radial gridline spacing.
+    $frame
+        Remember that here *x* is the radial distance and *y* is the azimuth. The y
+        label may be used to plot a figure caption. The scale bar length is determined
+        by the radial gridline spacing.
 
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to

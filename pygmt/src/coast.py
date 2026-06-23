@@ -9,7 +9,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.params import Axis, Box, Frame
 
 __doctest_skip__ = ["coast"]
 
@@ -30,7 +30,7 @@ def coast(  # noqa: PLR0913
     box: Box | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -211,6 +211,7 @@ def coast(  # noqa: PLR0913
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # Call the coast method for the plot
@@ -220,7 +221,7 @@ def coast(  # noqa: PLR0913
     ...     # Set the region of the plot
     ...     region=[-10, 30, 30, 60],
     ...     # Set the frame of the plot, here annotations and major ticks
-    ...     frame="a",
+    ...     frame=Axis(annot=True),
     ...     # Set the color of the land to "darkgreen"
     ...     land="darkgreen",
     ...     # Set the color of the water to "lightblue"
