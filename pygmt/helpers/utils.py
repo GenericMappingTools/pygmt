@@ -563,7 +563,7 @@ def build_arg_list(  # noqa: PLR0912
         if len(key) > 2:  # Raise an exception for unrecognized options
             msg = f"Unrecognized parameter {key!r}."
             raise GMTInvalidInput(msg)
-        if value is None or value is False:  # Exclude arguments that are None or False
+        if not is_given(value):
             pass
         elif value is True:
             gmt_args.append(f"-{key}")

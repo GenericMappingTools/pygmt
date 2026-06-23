@@ -8,7 +8,7 @@ from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.helpers.utils import is_nonstr_iter, sequence_join
+from pygmt.helpers.utils import is_given, is_nonstr_iter, sequence_join
 
 
 def _to_string(
@@ -141,7 +141,7 @@ def _to_string(
     '2010-01-01/2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
     """
     # None and False are converted to None.
-    if value is None or value is False:
+    if not is_given(value):
         return None
     # True is converted to an empty string with the optional prefix and suffix.
     if value is True:

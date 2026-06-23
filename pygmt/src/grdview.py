@@ -11,7 +11,13 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    is_given,
+    use_alias,
+)
 from pygmt.params import Axis, Frame
 from pygmt.src.grdinfo import grdinfo
 
