@@ -75,13 +75,13 @@ fig.show()
 # x-coordinates. For providing the x-coordinates for the second curve, use
 # parameter ``x2``.
 
-x1 = np.linspace(0, 4, 100)
-y1 = np.sin(5 * x1)
-x2 = np.array([0, 0.21, 0.4, 0.63, 0.89, 1.18, 1.45, 1.69, 1.96, 2.26, 2.61, 3.23, 3.49, 4.0])
-y2 = 0.5 * np.cos(3 * x2)
+x1 = np.arange(-10, 10.2, 0.2)
+y1 = np.sin(2 * x)
+x2 = np.array([-10, -8.21, -7.4, -6.63, -5.89, -4.18, -3.45, -2.69, -1.96, 0.26, 1.61, 2.23, 3.49, 4.0, 5.28, 6.79, 7.12, 8.25, 9.13, 10])
+y2 = 0.5 * np.cos(2 * x2)
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 4, -1.2, 1.2], projection="X10c/5c", frame=True)
+fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
 
 fig.fill_between(
     x=x1,
@@ -90,15 +90,15 @@ fig.fill_between(
     y2=y2,
     fill="orange",
     fill2="steelblue",
-    pen="1p,darkred",
-    pen2="1p,darkblue",
+    pen="1p,darkred,solid",
+    pen2="1p,darkblue,solid",
     label="y1(x1)",
     label2="y2(x2)",
 )
 
 # Mark sampling points
-fig.plot(x=x1, y=y1, style="c0.1c", fill="darkred")
-fig.plot(x=x2, y=y2, style="c0.1c", fill="darkblue")
+fig.plot(x=x1, y=y1, style="c0.1c", fill="magenta")
+fig.plot(x=x2, y=y2, style="c0.1c", fill="cyan")
 
 fig.legend()
 fig.show()
