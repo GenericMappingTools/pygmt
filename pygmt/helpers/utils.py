@@ -563,7 +563,7 @@ def build_arg_list(  # noqa: PLR0912
         if len(key) > 2:  # Raise an exception for unrecognized options
             msg = f"Unrecognized parameter {key!r}."
             raise GMTInvalidInput(msg)
-        if value is None or value is False:  # Exclude arguments that are None or False
+        if not is_given(value):
             pass
         elif value is True:
             gmt_args.append(f"-{key}")
@@ -601,6 +601,44 @@ def build_arg_list(  # noqa: PLR0912
             raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
+
+
+def is_given(value: Any) -> bool:
+    """
+    Check if a parameter is given (not None and not False).
+
+    In PyGMT, most parameters default to ``False`` (for boolean-only parameters) or
+    ``None`` (for non-boolean parameters), which means the parameters are not given and
+    should not be used in building the CLI option string.
+
+    Parameters
+    ----------
+    value
+        The value to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if the value is not ``None`` and not ``False``, otherwise ``False``.
+
+    Examples
+    --------
+    >>> is_given(None)
+    False
+    >>> is_given(False)
+    False
+    >>> is_given(True)
+    True
+    >>> is_given(0)
+    True
+    >>> is_given("")
+    True
+    >>> is_given([])
+    True
+    >>> is_given("value")
+    True
+    """
+    return value is not None and value is not False
 
 
 def is_nonstr_iter(value: Any) -> bool:
@@ -720,9 +758,7 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
     True
     """
-    return any(
-        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
-    )
+    return any(is_given(kwargs.get(arg)) for arg in args)
 
 
 def sequence_join(

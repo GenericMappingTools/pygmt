@@ -126,7 +126,7 @@ COMMON_DOCSTRINGS = {
               or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
               **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
             - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-              **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
+              **i** (inches), **c** (centimeters), or **p** (points).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].

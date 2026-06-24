@@ -1,0 +1,5 @@
+outs:
+- md5: 50d5b464fcff97f1f42f62d83e98c6de
+  size: 25471
+  hash: md5
+  path: test_fill_between_y2_scalar.png
