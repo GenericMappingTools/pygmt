@@ -75,11 +75,9 @@ fig.show()
 # x-coordinates. For providing the x-coordinates for the second curve, use
 # parameter ``x2``.
 
-x1 = np.linspace(0, 4, 10)
-y1 = 0.5 * np.cos(3 * x1)
-x2 = np.array(
-    [0, 0.21, 0.4, 0.63, 0.89, 1.18, 1.45, 1.69, 1.96, 2.26, 2.61, 3.23, 3.49, 4.0]
-)
+x1 = np.linspace(0, 4, 100)
+y1 = np.sin(5 * x1)
+x2 = np.array([0, 0.21, 0.4, 0.63, 0.89, 1.18, 1.45, 1.69, 1.96, 2.26, 2.61, 3.23, 3.49, 4.0])
 y2 = 0.5 * np.cos(3 * x2)
 
 fig = pygmt.Figure()
