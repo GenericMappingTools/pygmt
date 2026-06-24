@@ -10,8 +10,8 @@ figure (**reference point**) and a point on the feature (**anchor point**). For 
 users can use a two-character code, a combination of a vertical code and a horizontal
 code (order-independent):
 
-- Vertical: **T**(op), **M**(iddle), **B**(ottom)
-- Horizontal: **L**(eft), **C**(entre), **R**(ight)
+- Vertical: **T** (Top), **M** (Middle), **B** (Bottom)
+- Horizontal: **L** (Left), **C** (Centre), **R** (Right)
 
 For example, `"TL"` means **T**op **L**eft.
 
