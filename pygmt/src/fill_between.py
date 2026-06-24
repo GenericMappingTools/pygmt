@@ -12,6 +12,8 @@ from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["fill_between"]
+
 
 @fmt_docstring
 def fill_between(  # noqa: PLR0913
@@ -19,6 +21,7 @@ def fill_between(  # noqa: PLR0913
     x: Sequence[float],
     y: Sequence[float],
     y2: float | Sequence[float] = 0,
+    x2: Sequence[float] | None = None,
     fill: str | None = None,
     pen: str | None = None,
     label: str | None = None,
@@ -39,19 +42,23 @@ def fill_between(  # noqa: PLR0913
 
     This method is a high-level wrapper around :meth:`pygmt.Figure.plot` to fill the
     area between a primary curve ``y(x)`` and a secondary curve ``y2(x)``. The ``y2``
-    parameter can be either a single value [Default is 0] or a sequence with the same
-    length as ``x`` and ``y``.
+    parameter can be either a single value [Default is 0] or a sequence. It can share
+    the same ``x`` coordinates as ``y`` or use a separate ``x2`` coordinate sequence.
 
     Parameters
     ----------
     x
-        X-coordinates shared by the two curves.
+        X-coordinates of the primary curve.
     y
         Y-coordinates of the primary curve.
     y2
         Y-coordinates of the secondary curve. It can be a scalar value for a horizontal
-        reference line, or a sequence with the same length as ``x`` and ``y``. Default
-        is 0.
+        reference line, or a sequence with the same length as ``x`` and ``y`` when
+        ``x2`` is not used. Default is 0.
+    x2
+        X-coordinates of the secondary curve. Use this parameter only when ``y2`` is a
+        sequence sampled at different x-coordinates from ``y``. In that case, ``y2``
+        must have the same length as ``x2``.
     fill
         Fill for areas where the primary curve is greater than the secondary curve.
     fill2
@@ -111,19 +118,30 @@ def fill_between(  # noqa: PLR0913
             description="size for 'y'",
             reason=f"'y' is expected to have length {npoints!r}.",
         )
-    if not y2_is_scalar and _y2.size != npoints:
+    if y2_is_scalar and x2 is not None:
+        raise GMTValueError(
+            x2,
+            description="value for 'x2'",
+            reason="'x2' can only be used when 'y2' is a sequence.",
+        )
+    if not y2_is_scalar and x2 is None and _y2.size != npoints:
         raise GMTValueError(
             _y2.size,
             description="size for 'y2'",
             reason=f"'y2' is expected to be a scalar or have length {npoints!r}.",
         )
-
-    data = {"x": _x, "y": _y} if y2_is_scalar else {"x": _x, "y": _y, "y2": _y2}
+    _x2 = None if x2 is None else np.atleast_1d(x2)
+    if _x2 is not None and _y2.size != _x2.size:
+        raise GMTValueError(
+            _y2.size,
+            description="size for 'y2'",
+            reason=f"'y2' is expected to have length {_x2.size!r} when 'x2' is used.",
+        )
 
     aliasdict = AliasSystem(
         G=Alias(fill, name="fill"),
         M=[
-            Alias("c"),
+            Alias("s" if _x2 is not None else "c"),
             Alias(fill2, name="fill2", prefix="+g"),
             Alias(pen2, name="pen2", prefix="+p"),
             Alias(label2, name="label2", prefix="+l"),
@@ -142,7 +160,18 @@ def fill_between(  # noqa: PLR0913
     )
 
     with Session() as lib:
-        with lib.virtualfile_in(data=data) as vintbl:
-            lib.call_module(
-                module="plot", args=build_arg_list(aliasdict, infile=vintbl)
-            )
+        if _x2 is not None:
+            with (
+                lib.virtualfile_in(data={"x": _x, "y": _y}) as vintbl1,
+                lib.virtualfile_in(data={"x": _x2, "y": _y2}) as vintbl2,
+            ):
+                lib.call_module(
+                    module="plot",
+                    args=build_arg_list(aliasdict, infile=[vintbl1, vintbl2]),
+                )
+        else:
+            data = {"x": _x, "y": _y} if y2_is_scalar else {"x": _x, "y": _y, "y2": _y2}
+            with lib.virtualfile_in(data=data) as vintbl:
+                lib.call_module(
+                    module="plot", args=build_arg_list(aliasdict, infile=vintbl)
+                )
