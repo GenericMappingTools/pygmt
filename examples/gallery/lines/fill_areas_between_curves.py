@@ -80,7 +80,7 @@ y1 = np.sin(2 * x1)
 # Partly Segmentation fault problem (at least on Windows)
 x2 = np.sort((np.random.rand(20) - 0.5) * 20)
 # Line limit still applies
-x2 = np.array([-9, -8.21, -7.4, -6.63, -5.89, -4.18, -3.45, -2.69, -1.96, 0.26, 1.61, 2.23, 3.49, 4.0, 5.28, 6.79, 7.12, 8.25, 9.13, 9])  # noqa: E501
+x2 = np.array([-10, -8.21, -7.4, -6.63, -5.89, -4.18, -3.45, -2.69, -1.96, 0.26, 1.61, 2.23, 3.49, 4.0, 5.28, 6.79, 7.12, 8.25, 9.13, 10])  # noqa: E501
 y2 = 0.5 * np.cos(x2 / 2)
 
 fig = pygmt.Figure()
