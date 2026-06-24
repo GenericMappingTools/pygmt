@@ -11,7 +11,13 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    is_given,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdfill"]
 
@@ -125,7 +131,7 @@ def grdfill(
         "spline_fill": spline_fill,
         "inquire": inquire,
     }
-    n_given = sum(v is not None and v is not False for v in params.values())
+    n_given = sum(is_given(v) for v in params.values())
     if n_given == 0:
         raise GMTParameterError(at_least_one=params)
     if n_given > 1:
