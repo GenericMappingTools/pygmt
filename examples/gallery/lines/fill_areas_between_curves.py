@@ -76,12 +76,12 @@ fig.show()
 # parameter ``x2``.
 
 x1 = np.arange(-10, 10.2, 0.2)
-y1 = np.sin(2 * x1)
+y1 = np.sin(3 * x1)
 # Partly Segmentation fault problem (at least on Windows)
 x2 = np.sort((np.random.rand(20) - 0.5) * 20)
 # Line limit still applies
 x2 = np.array([-10, -8.21, -7.4, -6.63, -5.89, -4.18, -3.45, -2.69, -1.96, 0.26, 1.61, 2.23, 3.49, 4.0, 5.28, 6.79, 7.12, 8.25, 9.13, 10])  # noqa: E501
-y2 = 0.5 * np.cos(x2 / 2)
+y2 = np.sin(x2 / 2)
 
 fig = pygmt.Figure()
 fig.basemap(region=[-10, 10, -3.5, 3.5], projection="X15c/5c", frame=True)
