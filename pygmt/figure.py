@@ -208,7 +208,7 @@ class Figure:
             supported formats and their extensions above.
         transparent
             Use a transparent background for the figure. Only valid for PNG format and
-            the PNG file asscoiated with KML format.
+            the PNG file associated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
