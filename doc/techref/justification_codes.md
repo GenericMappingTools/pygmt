@@ -106,7 +106,7 @@ fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
 fig.colorbar(
-    cmap="SCM/buda",
+    cmap="SCM/hawaii",
     frame=0,
     position="MC",
     length=10,
