@@ -3,7 +3,8 @@ Fill area between curves
 ========================
 The :meth:`pygmt.Figure.fill_between` method fills the area between two curves y1 and
 y2. Different fills (colors or patterns) can be used for the areas y1 > y2 and
-y1 < y2. Optionally, the curves can be drawn.
+y1 < y2. Optionally, the curves can be drawn. The two curves can be co-registered or
+have different x-coordinates.
 To plot an anomaly along a track use :meth:`pygmt.Figure.wiggle` and see the gallery
 example :doc:`Wiggle along tracks </gallery/lines/wiggle>`.
 """
@@ -14,7 +15,7 @@ import pygmt
 
 # Generate some test data
 x = np.arange(-10, 10.2, 0.1)
-y1 = np.sin(x * 3)
+y1 = np.sin(3 * x)
 y2 = np.sin(x / 2)
 
 
@@ -67,5 +68,40 @@ fig.fill_between(
     pen2="1p,black,dashed",
 )
 fig.show()
+
+
+# %%
+# Now, we use two non-co-registered curves, e.g., the two curves have different
+# x-coordinates. For providing the x-coordinates for the second curve, use
+# parameter ``x2``.
+
+x1 = np.linspace(0, 4, 100)
+x2 = np.array(
+    [0, 0.21, 0.4, 0.63, 0.89, 1.18, 1.45, 1.69, 1.96, 2.26, 2.61, 3.23, 3.49, 4.0]
+)
+y1 = 0.5 * np.cos(3 * x1)
+y2 = 0.5 * np.cos(3 * x2)
+
+fig = pygmt.Figure()
+fig.basemap(region=[0, 4, -1.2, 1.2], projection="X10c/5c", frame=True)
+
+fig.fill_between(
+    x=x1,
+    y=y1,
+    x2=x2,
+    y2=y2,
+    fill="orange",
+    fill2="steelblue",
+    pen="1p,darkred",
+    pen2="1p,darkblue",
+    label="y1(x1)",
+    label2="y2(x2)",
+)
+# Mark sampling points
+fig.plot(x=x1, y=y1, style="c0.1c", fill="darkred")
+fig.plot(x=x2, y=y2, style="c0.1c", fill="darkblue")
+
+fig.legend()
+
 
 # sphinx_gallery_thumbnail_number = 1
