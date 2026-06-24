@@ -76,7 +76,7 @@ fig.show()
 # parameter ``x2``.
 
 x1 = np.arange(-10, 10.2, 0.2)
-y1 = np.sin(2 * x)
+y1 = np.sin(2 * x1)
 x2 = np.array(
     [
         -10,
