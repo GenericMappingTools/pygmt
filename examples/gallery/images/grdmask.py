@@ -26,7 +26,7 @@ from shapely.geometry import Point
 region = [125, 135, 25, 36]
 
 # Define two closed polygons, here a square and a triangle.
-# Use an np.nan to separate the polygons
+# Use a record with np.nan to separate the polygons
 polygon = np.array(
     [
         [129, 31],
