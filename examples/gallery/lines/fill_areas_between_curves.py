@@ -25,7 +25,7 @@ y2 = np.sin(x / 2)
 # ``label`` and ``label2`` parameters to set the corresponding legend entries.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
+fig.basemap(region=[-10, 10, -3.5, 3.5], projection="X15c/5c", frame=True)
 
 fig.fill_between(
     x=x, y=y1, y2=y2, fill="orange", fill2="steelblue", label="y1(x)", label2="y2(x)"
@@ -39,7 +39,7 @@ fig.show()
 # ``pen2`` parameters to set different lines for the two curves y1 and y2, respectively.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
+fig.basemap(region=[-10, 10, -3.5, 3.5], projection="X15c/5c", frame=True)
 fig.fill_between(
     x=x,
     y=y1,
@@ -56,7 +56,7 @@ fig.show()
 # To compare a curve y1 to a horizontal line, pass the desired y-level to ``y2``.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
+fig.basemap(region=[-10, 10, -3.5, 3.5], projection="X15c/5c", frame=True)
 
 fig.fill_between(
     x=x,
@@ -101,10 +101,10 @@ x2 = np.array(
         10,
     ]
 )
-y2 = 0.5 * np.cos(2 * x2)
+y2 = 0.5 * np.cos(x2 / 2)
 
 fig = pygmt.Figure()
-fig.basemap(region=[-10, 10, -5, 5], projection="X15c/5c", frame=True)
+fig.basemap(region=[-10, 10, -3.5, 3.5], projection="X15c/5c", frame=True)
 
 fig.fill_between(
     x=x1,
@@ -120,7 +120,7 @@ fig.fill_between(
 )
 
 # Mark sampling points
-fig.plot(x=x1, y=y1, style="c0.1c", fill="magenta")
+fig.plot(x=x1, y=y1, style="c0.1c", fill="pink")
 fig.plot(x=x2, y=y2, style="c0.1c", fill="cyan")
 
 fig.legend()
