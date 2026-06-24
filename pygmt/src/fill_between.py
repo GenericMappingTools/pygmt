@@ -31,6 +31,7 @@ def fill_between(  # noqa: PLR0913
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
+    no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -71,6 +72,8 @@ def fill_between(  # noqa: PLR0913
         Label for the primary curve, to be displayed in the legend.
     label2
         Label for the secondary curve, to be displayed in the legend.
+    no_clip
+        Do **not** clip curves that fall outside the frame boundaries.
     $projection
     $region
     $frame
@@ -85,7 +88,7 @@ def fill_between(  # noqa: PLR0913
     >>> import pygmt
     >>> x = np.linspace(0, 2 * np.pi, 200)
     >>> fig = pygmt.Figure()
-    >>> fig.basemap(region=[0, 4 * np.pi, -1.2, 1.2], projection="X10c/4c", frame=True)
+    >>> fig.basemap(region=[0, 2 * np.pi, -1.2, 1.2], projection="X10c/4c", frame=True)
     >>> fig.fill_between(
     ...     x=x,
     ...     y=np.sin(2 * x),
@@ -147,6 +150,7 @@ def fill_between(  # noqa: PLR0913
             Alias(label2, name="label2", prefix="+l"),
             Alias(y2 if y2_is_scalar else None, name="y2", prefix="+y"),
         ],
+        N=Alias(no_clip, name="no_clip"),
         W=Alias(pen, name="pen"),
         l=Alias(label, name="label"),
     ).add_common(
