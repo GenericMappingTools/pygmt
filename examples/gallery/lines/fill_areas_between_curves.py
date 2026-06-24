@@ -117,6 +117,7 @@ fig.fill_between(
     pen2="1p,darkblue,solid",
     label="y1(x1)",
     label2="y2(x2)",
+    # legend_pen="5p",
 )
 
 # Mark sampling points
