@@ -20,11 +20,11 @@ import numpy as np
 import pygmt
 
 # Generate some test data
-x = np.arange(-10, 10.2, 0.2)
+x = np.arange(-10, 10.2, 0.15)
 y1 = np.sin(3 * x)
 y2 = np.sin(x / 2)
 
-x3 = np.arange(-10, 10.4, 0.5) - 0.15
+x3 = np.arange(-10, 10.4, 0.5) - 0.13
 y3 = np.sin(x3 / 2)
 
 
