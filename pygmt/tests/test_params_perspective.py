@@ -11,15 +11,15 @@ def test_params_perspective():
     """
     Test the Perspective class with various parameters.
     """
-    # Test azimuth, elevation, and zlevel separately
+    # Test azimuth, elevation, and level separately
     assert str(Perspective(azimuth=120)) == "120"
     assert str(Perspective(elevation=30)) == "180.0/30"
-    assert str(Perspective(zlevel=1000)) == "180.0/90.0/1000"
+    assert str(Perspective(level=1000)) == "180.0/90.0/1000"
 
-    # Test combinations of azimuth, elevation, and zlevel
+    # Test combinations of azimuth, elevation, and level
     assert str(Perspective(azimuth=120, elevation=30)) == "120/30"
-    assert str(Perspective(azimuth=120, elevation=30, zlevel=1000)) == "120/30/1000"
-    assert str(Perspective(elevation=30, zlevel=1000)) == "180.0/30/1000"
+    assert str(Perspective(azimuth=120, elevation=30, level=1000)) == "120/30/1000"
+    assert str(Perspective(elevation=30, level=1000)) == "180.0/30/1000"
 
     # Test plane parameter
     assert str(Perspective(azimuth=120, elevation=30, plane="x")) == "x120/30"

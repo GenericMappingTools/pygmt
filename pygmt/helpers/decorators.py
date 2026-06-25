@@ -278,13 +278,13 @@ COMMON_DOCSTRINGS = {
             Select perspective view and set the azimuth and elevation of the viewpoint.
 
             Accepts a single value or a sequence of two or three values: *azimuth*,
-            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
+            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *level*).
 
             - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *zlevel*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
+            - *level*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
 
