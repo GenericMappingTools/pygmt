@@ -63,7 +63,7 @@ fig.show()
 # %%
 # Now, we use two non-co-registered curves, e.g., the two curves have different
 # x-coordinates. For providing the x-coordinates for the second curve, use
-# parameter ``x2``.  Via the ``legend_pen`` parameter the appearence in the legend
+# parameter ``x2``.  Via the ``legend_pen`` parameter the appearance in the legend
 # can be changed to draw the legend entries as colored lines (using the fill colors)
 # instead of filled and outlined boxes.
 
