@@ -14,23 +14,21 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 # %%
 import pygmt
-from pygmt.params import Box, Position
+from pygmt.params import Axis, Box, Frame, Position
 
 # Define region of study area
-# lon_min, lon_max, lat_min, lat_max in degrees East and North
 region_map = [122, 149, 30, 49]
 
 # Chose a survey line with start point A and end point B
 lonA, latA, lonB, latB = 126, 42, 146, 40  # noqa: N816
 
-# Create a new pygmt.Figure instance
-fig = pygmt.Figure()
 
+fig = pygmt.Figure()
 # ----------------------------------------------------------------------------
 # Bottom: Map of elevation in study area
 
 # Set up basic map using a Mercator projection with a width of 12 centimeters
-fig.basemap(region=region_map, projection="M12c", frame="af")
+fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
 # Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
@@ -61,7 +59,7 @@ fig.text(
     x=[lonA, lonB],
     y=[latA, latB],
     text=["A", "B"],
-    offset="0c/0.3c",  # Move text 0.2 centimeters up (y-direction)
+    offset=(0, 0.3),  # Move text 0.3 centimeters up (y-direction)
     font="15p,red",  # Use a red font with a size of 15 points
 )
 
@@ -71,12 +69,8 @@ fig.text(
 # Shift plot origin to the top by the height of the map ("+h") plus 1.5 centimeters
 fig.shift_origin(yshift="h+1.5c")
 
-fig.basemap(
-    region=[0, 15, -8000, 6000],  # xmin, xmax, ymin, ymax
-    # Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
-    projection="X12c/3c",
-    frame=0,
-)
+# Cartesian projection with a width of 12 centimeters and a height of 3 centimeters
+fig.basemap(region=[0, 15, -8000, 6000], projection="X12c/3c", frame=0)
 
 # Add labels "A" and "B" for the start and end points of the survey line
 fig.text(
@@ -99,27 +93,23 @@ track_df = pygmt.project(
 # new column "elevation" to the pandas.DataFrame
 track_df = pygmt.grdtrack(grid=grid_map, points=track_df, newcolname="elevation")
 
-# Plot water masses
-fig.plot(
-    x=[0, 15],
-    y=[0, 0],
-    fill="lightblue",  # Fill the polygon in "lightblue"
-    pen="0.25p,black,solid",  # Draw a 0.25-point thick, black, solid outline
-    close="+y-8000",  # Force closed polygon
-)
+# Plot water masses down to -8000 meters below sea level as a light blue area.
+fig.fill_between(x=[0, 15], y=[0, 0], y2=-8000, pen="0.25p", fill="lightblue")
 
-# Plot elevation along the survey line
-fig.plot(
-    x=track_df.p,
-    y=track_df.elevation,
-    fill="gray",
-    pen="1p,red,solid",
-    close="+y-8000",
+# Plot elevation along the survey line, filled down to -8000 meters below sea level.
+fig.fill_between(
+    x=track_df.p, y=track_df.elevation, y2=-8000, pen="1p,red", fill="gray"
 )
 
 # Add map frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
-fig.basemap(frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"])
+fig.basemap(
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=2, tick=1, label="Distance", unit="°"),
+        yaxis=Axis(annot=4000, label="Elevation / m"),
+    )
+)
 
 fig.show()

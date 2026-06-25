@@ -91,11 +91,15 @@ COMMON_DOCSTRINGS = {
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
         frame
-            Set frame and axes attributes for the plot. It can be a bool, a string, or
-            a list of strings. If ``frame=True``, frame will be drawn with the default
-            attributes. If ``frame="none"``, no frame will be drawn. A tutorial is
-            available at :doc:`frame and axes attributes </tutorials/basics/frames>`.
-            Full documentation is at :gmt-docs:`gmt.html#b-full`.""",
+            Set frame and axes attributes for the plot. It can be a bool, ``"none"``,
+            a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object. Raw GMT
+            strings or sequences of strings are also supported for backward
+            compatibility. If ``frame=True``, the frame will be drawn with the default
+            attributes. If ``frame="none"``, no frame will be drawn. Use a
+            :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object for more
+            control over the attributes of the frame and axes. A tutorial is available at
+            :doc:`frame and axes attributes </tutorials/basics/frames>`. Full
+            documentation is at :gmt-docs:`gmt.html#b-full`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
@@ -279,7 +283,7 @@ COMMON_DOCSTRINGS = {
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+            - *zlevel*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
 

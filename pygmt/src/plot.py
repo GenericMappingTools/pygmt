@@ -16,6 +16,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
 
@@ -53,7 +54,7 @@ def plot(  # noqa: PLR0912, PLR0913
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -66,7 +67,7 @@ def plot(  # noqa: PLR0912, PLR0913
     Plot lines, polygons, and symbols in 2-D.
 
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    polygons, or symbols at those locations on a plot.
 
     Must provide either ``data`` or ``x``/``y``.
 
@@ -196,7 +197,7 @@ def plot(  # noqa: PLR0912, PLR0913
         [Default plots points whose coordinates are strictly inside the
         frame boundaries only].
         The parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360-longitude) maps we
+        clipped to the plot region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping

@@ -38,6 +38,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> import pytest
     >>> import shutil
     >>> from pygmt import Figure
+    >>> from pygmt.params import Axis, Frame
     >>> from pathlib import Path
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
@@ -46,7 +47,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
     ...     fig_test = Figure()
     ...     fig_test.basemap(
-    ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
+    ...         projection="X5c",
+    ...         region=[0, 5, 0, 5],
+    ...         frame=Frame(axes="WrStZ", axis=Axis(annot=True, tick=True)),
     ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()

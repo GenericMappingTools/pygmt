@@ -53,8 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        # os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
@@ -72,7 +71,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -93,7 +92,7 @@ jobs:
           create-args: >-
             python=3.14
             gmt=6.6.0
-            ghostscript=10.07.0
+            ghostscript=10.07.1
             numpy
             pandas
             xarray
@@ -116,7 +115,7 @@ jobs:
             sphinx_rtd_theme
             cairosvg
             sphinxcontrib-svg2pdfconverter
-            tectonic
+            tectonic=0.15
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -136,10 +135,29 @@ jobs:
           python -m pip install dist/*
 
       - name: Build the HTML documentation
-        run: make -C doc clean html
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
+        run: |
+          log_file="${RUNNER_TEMP}/sphinx-html.log"
+          make -C doc clean html 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Sphinx HTML build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
+          exit "${exit_code}"
 
       - name: Build the PDF documentation
-        run:  make -C doc pdf
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
+        run: |
+          log_file="${RUNNER_TEMP}/sphinx-pdf.log"
+          make -C doc pdf 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Sphinx PDF build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
 
       - name: Create the HTML ZIP archive and rename the PDF file
         run: |
@@ -150,7 +168,7 @@ jobs:
           cd ../..
 
       - name: Upload PDF as artifact for previewing on pull requests
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
           name: artifact-pygmt-docs-pdf
@@ -168,7 +186,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

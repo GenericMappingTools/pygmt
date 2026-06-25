@@ -8,8 +8,8 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Box
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
+from pygmt.params import Axis, Box, Frame
 
 
 @fmt_docstring
@@ -20,7 +20,7 @@ def basemap(  # noqa: PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     map_scale: str | None = None,
@@ -123,6 +123,13 @@ def basemap(  # noqa: PLR0913
     $coltypes
     $perspective
     $transparency
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region="g", projection="H15c", frame=True)
+    >>> fig.show()
     """
     self._activate_figure()
 
@@ -131,7 +138,7 @@ def basemap(  # noqa: PLR0913
         ("compass", compass, "Figure.magnetic_rose"),
         ("rose", rose, "Figure.directional_rose"),
     ):
-        if value is not None and value is not False:
+        if is_given(value):
             warnings.warn(
                 f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
                 category=FutureWarning,

@@ -29,7 +29,7 @@ background colors. The foreground and background colors can also be inverted.
 
 # %%
 import pygmt
-from pygmt.params import Pattern
+from pygmt.params import Frame, Pattern
 
 # A list of patterns that will be demonstrated.
 # By default, a pattern is plotted in black and white with a resolution of 300 dpi.
@@ -52,7 +52,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, 0, 12],
     projection="X18c/10c",
-    frame="rlbt+glightgray+tBit and Hachure Patterns",
+    frame=Frame(axes="rlbt", fill="lightgray", title="Bit and Hachure Patterns"),
 )
 y = 11
 for pattern in patterns:

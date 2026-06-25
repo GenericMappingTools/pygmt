@@ -13,7 +13,7 @@ direction and altitude.
 
 # %%
 import pygmt
-from pygmt.params import Position
+from pygmt.params import Axis, Frame, Position
 
 # Define region of interest around Yosemite valley
 region = [-119.825, -119.4, 37.6, 37.825]
@@ -35,7 +35,12 @@ pygmt.makecpt(cmap="gmt/gray", series=[200, 4000, 10])
 fig.grdimage(
     grid=grid,
     projection="M12c",
-    frame=["WSrt+tOriginal Data Elevation Model", "xa0.1", "ya0.1"],
+    frame=Frame(
+        axes="WSrt",
+        title="Original Data Elevation Model",
+        xaxis=Axis(annot=0.1),
+        yaxis=Axis(annot=0.1),
+    ),
     cmap=True,
 )
 fig.colorbar(
@@ -57,7 +62,9 @@ pygmt.makecpt(cmap="gmt/gray", series=[-1.5, 0.3, 0.01])
 fig.grdimage(
     grid=dgrid,
     projection="M12c",
-    frame=["lSEt+tHillshade Map", "xa0.1", "ya0.1"],
+    frame=Frame(
+        axes="lSEt", title="Hillshade Map", xaxis=Axis(annot=0.1), yaxis=Axis(annot=0.1)
+    ),
     cmap=True,
 )
 

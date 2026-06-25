@@ -33,7 +33,7 @@ assignees: ''
 - [ ] Update warnings in `pygmt/_show_versions.py` as well as notes in [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency) regarding GMT-Ghostscript incompatibility
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
-- [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
+- [ ] Run `make spellcheck` to check common misspellings. If there are any, either fix them or add them to the relevant spelling configuration in `pyproject.toml`
 - [ ] Draft the announcement on https://hackmd.io/@pygmt
 
 **Release**:

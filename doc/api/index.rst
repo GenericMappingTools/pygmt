@@ -18,8 +18,8 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements
-~~~~~~~~~~~~~~~~~~~~~
+Plotting figure elements
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
@@ -34,6 +34,7 @@ Plotting map elements
     Figure.legend
     Figure.logo
     Figure.magnetic_rose
+    Figure.paragraph
     Figure.scalebar
     Figure.solar
     Figure.text
@@ -47,6 +48,7 @@ Plotting tabular data
     :toctree: generated
 
     Figure.contour
+    Figure.fill_between
     Figure.histogram
     Figure.meca
     Figure.plot
@@ -126,7 +128,6 @@ Operations on tabular data
     blockmedian
     blockmode
     filter1d
-    grdmask
     nearneighbor
     project
     select
@@ -156,6 +157,7 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdmask
     grdpaste
     grdproject
     grdsample

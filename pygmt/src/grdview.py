@@ -11,7 +11,14 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    is_given,
+    use_alias,
+)
+from pygmt.params import Axis, Frame
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
@@ -68,8 +75,7 @@ def _alias_option_Q(  # noqa: N802
     _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
 
     if _old_surftype_syntax and any(
-        v is not None and v is not False
-        for v in (dpi, mesh_fill, monochrome, nan_transparent)
+        is_given(v) for v in (dpi, mesh_fill, monochrome, nan_transparent)
     ):
         raise GMTParameterError(
             conflicts_with=(
@@ -138,7 +144,7 @@ def grdview(  # noqa: PLR0913
     zscale: float | str | None = None,
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -255,6 +261,7 @@ def grdview(  # noqa: PLR0913
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
     >>> # Load the 30 arc-minutes grid with "gridline" registration in a given region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m",
@@ -271,7 +278,7 @@ def grdview(  # noqa: PLR0913
     ...     perspective=[130, 30],
     ...     # Add a frame to the x- and y-axes
     ...     # Specify annotations on the south and east borders of the plot
-    ...     frame=["xa", "ya", "wSnE"],
+    ...     frame=Frame(axes="wSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
     ...     # Set the projection of the 2-D map to Mercator with a 10 cm width
     ...     projection="M10c",
     ...     # Set the vertical scale (z-axis) to 2 cm

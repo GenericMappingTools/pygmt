@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
@@ -47,17 +47,27 @@ def _build_frame(
     ['xa1f0.5g0.2+lDistance+a30', 'y+lkm']
     >>> list(_build_frame(frame=["xaf0.5+lDistance", "y+lkm"]))
     ['xaf0.5+lDistance', 'y+lkm']
+    >>> from pygmt.params import Axis, Frame
+    >>> list(
+    ...     _build_frame(
+    ...         frame=Frame(
+    ...             xaxis=Axis(annot=True, tick=0.5, label="Distance"),
+    ...             yaxis=Axis(label="km"),
+    ...         )
+    ...     )
+    ... )
+    ['xaf0.5+lDistance', 'y+lkm']
 
     >>> _build_frame(frame="none")
     'none'
     >>> _build_frame()  # Passing no parameters returns None
     """
     # Using the old 'frame' parameter.
-    if frame is not None and frame is not False:
+    if is_given(frame):
         return frame
 
     _xaxis_is_set = any(
-        v is not None and v is not False
+        is_given(v)
         for v in {annot, tick, grid, annot_angle, annot_prefix, annot_unit, label}
     )
     _yaxis_is_set = unit is not None
@@ -210,6 +220,26 @@ def _alias_option_D(  # noqa: N802, PLR0913
     ]
 
 
+def _alias_option_N(dpi=None):  # noqa: N802
+    """
+    Return an Alias object for the colorbar encoding setting.
+
+    The ``dpi`` parameter controls how the colorbar is encoded graphically. Passing
+    ``0`` preferentially draws color rectangles. Any positive integer is passed through
+    as the rasterization resolution.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(N=_alias_option_N(**kwargs)).get("N")
+    >>> parse(dpi=300)
+    '300'
+    >>> parse(dpi=0)
+    'p'
+    """
+    return Alias("p" if dpi == 0 else dpi, name="dpi")
+
+
 @fmt_docstring
 @use_alias(C="cmap", L="equalsize", Z="zfile")
 def colorbar(  # noqa: PLR0913
@@ -240,9 +270,10 @@ def colorbar(  # noqa: PLR0913
     log: bool = False,
     scale: float | None = None,
     monochrome: bool = False,
+    dpi: int | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
@@ -280,6 +311,7 @@ def colorbar(  # noqa: PLR0913
        - I = shading
        - J = projection
        - M = monochrome
+       - N = dpi
        - Q = log
        - R = region
        - V = verbose
@@ -335,8 +367,12 @@ def colorbar(  # noqa: PLR0913
         annotation text; the unit is placed after the annotation text; and the angle is
         the angle of the annotation text.
     frame
-        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
-        then no frame will be drawn.
+        Set colorbar boundary frame, labels, and axes attributes. If ``frame=True``, a
+        default frame will be drawn. If ``frame="none"``, no frame will be drawn. Raw
+        GMT strings or sequences of strings are also supported for backward
+        compatibility. For more control over the frame attributes, use parameters such
+        as ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
+        ``annot_unit``, ``label``, and ``unit`` instead.
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center
@@ -414,6 +450,17 @@ def colorbar(  # noqa: PLR0913
         requested colorbar length.
     monochrome
         Force a monochrome graybar using the (television) YIQ transformation.
+    dpi
+        Control how the color scale should be encoded graphically.
+
+        - Use a positive integer to draw the color scale as image and set the effective
+          dots-per-inch for rasterization of color scales, which is useful for
+          continuous colormaps.
+        - Use ``dpi=0`` to draw color rectangles, which is useful for discrete
+          colormaps.
+
+        If not specified, GMT uses its default encoding behavior, and the default dpi
+        is 600 if the colorbar is drawn as image.
     $projection
     $region
     $verbose
@@ -472,6 +519,7 @@ def colorbar(  # noqa: PLR0913
         G=Alias(truncate, name="truncate", sep="/", size=2),
         I=Alias(shading, name="shading", sep="/", size=2),
         M=Alias(monochrome, name="monochrome"),
+        N=_alias_option_N(dpi=dpi),
         Q=Alias(log, name="log"),
         W=Alias(scale, name="scale"),
     ).add_common(

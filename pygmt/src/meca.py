@@ -18,6 +18,7 @@ from pygmt.helpers import (
     fmt_docstring,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 from pygmt.src._common import _FocalMechanismConvention
 
 
@@ -148,7 +149,7 @@ def meca(  # noqa: PLR0913
     event_name: str | Sequence[str] | None = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | Literal["none"] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
