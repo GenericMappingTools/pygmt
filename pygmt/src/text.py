@@ -6,12 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
-from pygmt._typing import (
-    AnchorCode,
-    PathLike,
-    StringArrayTypes,
-    TableLike,
-)
+from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
