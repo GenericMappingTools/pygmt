@@ -124,6 +124,15 @@ def basemap(  # noqa: PLR0913
     $perspective
     $transparency
 
+    See Also
+    --------
+    pygmt.Figure.directional_rose
+        Add a map directional rose.
+    pygmt.Figure.magnetic_rose
+        Add a map magnetic rose.
+    pygmt.Figure.scalebar
+        Add a scale bar.
+
     Examples
     --------
     >>> import pygmt
