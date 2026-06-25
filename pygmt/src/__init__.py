@@ -7,8 +7,6 @@ Source code for PyGMT methods.
 from pygmt.src.binstats import binstats
 from pygmt.src.blockm import blockmean, blockmedian, blockmode
 from pygmt.src.clip import ClipAccessor
-from pygmt.src.coast import coast
-from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.dimfilter import dimfilter
 from pygmt.src.filter1d import filter1d
