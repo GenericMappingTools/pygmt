@@ -1,11 +1,14 @@
-# Units
+# Dimension and Distance Units
 
-GMT uses two unit groups: **dimension units** (plot units) and **distance units** (Earth distances).
+As a geospatial analyis and mapping package, GMT needs to distinguish between two types
+of units: those used for plotting and those used for geographic distances. The former
+are called **dimension units** (or plot units) and the latter are called
+**distance units**.
 
-(plot-units)=
-## Dimension Units (Plot Units)
+(dimension-units)=
+## Dimension Units
 
-Use these for map widths, offsets, symbol sizes, pen widths, etc.
+Dimension units are used for map dimensions, symbol sizes, pen widths, etc.
 
 | Code | Unit | Notes |
 |------|------|-------|
