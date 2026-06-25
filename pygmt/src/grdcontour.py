@@ -17,7 +17,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 __doctest_skip__ = ["grdcontour"]
 
@@ -45,7 +45,7 @@ def grdcontour(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

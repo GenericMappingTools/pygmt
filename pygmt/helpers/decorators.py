@@ -277,8 +277,9 @@ COMMON_DOCSTRINGS = {
         perspective
             Select perspective view and set the azimuth and elevation of the viewpoint.
 
-            Accepts a single value or a sequence of two or three values: *azimuth*,
-            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *level*).
+            Accepts a :class:`pygmt.params.Perspective` object, a single value, or a
+            sequence of two or three values: *azimuth*, (*azimuth*, *elevation*), or
+            (*azimuth*, *elevation*, *level*).
 
             - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
               i.e., looking from south to north].
@@ -287,6 +288,8 @@ COMMON_DOCSTRINGS = {
             - *level*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
+            - :class:`pygmt.params.Perspective`: A class-style way to specify the same
+              perspective parameters.
 
             Alternatively, set ``perspective=True`` to reuse the perspective setting
             from the previous plotting method, or pass a string following the full

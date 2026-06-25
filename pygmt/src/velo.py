@@ -12,7 +12,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 
 @fmt_docstring
@@ -47,7 +47,7 @@ def velo(  # noqa : PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

@@ -9,7 +9,7 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 
 @fmt_docstring
@@ -46,7 +46,7 @@ def rose(  # noqa: PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

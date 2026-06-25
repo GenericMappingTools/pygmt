@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Box, Frame, Position
+from pygmt.params import Axis, Box, Frame, Perspective, Position
 from pygmt.src._common import _parse_position
 
 
@@ -32,7 +32,7 @@ def image(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

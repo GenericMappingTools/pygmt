@@ -6,7 +6,12 @@ from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
-from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
+from pygmt._typing import (
+    AnchorCode,
+    PathLike,
+    StringArrayTypes,
+    TableLike,
+)
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
@@ -19,6 +24,7 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
+from pygmt.params import Perspective
 from pygmt.params import Axis, Frame
 
 
@@ -52,7 +58,7 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
