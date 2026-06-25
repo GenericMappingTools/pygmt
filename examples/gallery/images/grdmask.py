@@ -81,7 +81,6 @@ fig.basemap(region=region, projection="M12c", frame=True)
 fig.grdimage(grid=grid_mask_in, cmap=True)
 fig.plot(data=polygon, pen="2p,cyan")
 
-fig.colorbar(frame=True)
 fig.show()
 
 
