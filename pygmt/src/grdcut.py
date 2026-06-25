@@ -7,15 +7,10 @@ from typing import Literal
 
 import xarray as xr
 from pygmt._typing import PathLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError, GMTValueError
-from pygmt.helpers import (
-    build_arg_list,
-    data_kind,
-    fmt_docstring,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdcut"]
 
@@ -30,6 +25,9 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    polygon: PathLike | None = None,
+    crop: bool = False,
+    invert: bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -85,6 +83,17 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+    polygon : str, geopandas.GeoDataFrame, or shapely.geometry
+        Extract a subregion using a polygon. Can be either:
+        - A GMT ASCII polygon file (`.gmt`)
+        - A geopandas.GeoDataFrame
+        - A shapely.geometry.Polygon or MultiPolygon
+        The polygon can have holes or multiple rings.
+        Optional modifiers:
+        - crop : bool
+            If True, crop the output grid region to the bounding box of the polygon.
+        - invert : bool
+            If True, invert the selection, setting all nodes inside the polygon to NaN.
     $projection
     $region
     $verbose
@@ -114,6 +123,12 @@ def grdcut(
     if kind not in {"grid", "image"}:
         raise GMTValueError(kind, description="raster kind", choices=["grid", "image"])
 
+    if polygon and data_kind(polygon) not in {"file", "geojson"}:
+        raise GMTTypeError(
+            type(polygon),
+            reason="Must be a PathLike, GeoDataFrame, or Shapely geometry.",
+        )
+
     # Determine the output data kind based on the input data kind.
     match inkind := data_kind(grid):
         case "grid" | "image":
@@ -123,7 +138,12 @@ def grdcut(
         case _:
             raise GMTTypeError(type(grid))
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        F=[
+            Alias(crop, name="crop", prefix="+c"),
+            Alias(invert, name="invert", prefix="+i"),
+        ]
+    ).add_common(
         J=projection,
         R=region,
         V=verbose,
@@ -133,9 +153,16 @@ def grdcut(
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="vector", data=polygon, required=False
+            ) as vinpoly,
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             aliasdict["G"] = voutgrd
+
+            if polygon:
+                aliasdict["F"] = str(vinpoly) + aliasdict.get("F", "")
+
             lib.call_module(
                 module="grdcut", args=build_arg_list(aliasdict, infile=vingrd)
             )
