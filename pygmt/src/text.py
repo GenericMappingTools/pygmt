@@ -9,7 +9,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike, StringArrayTypes, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     _check_encoding,
     build_arg_list,
@@ -19,14 +19,12 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
 @use_alias(
     C="clearance",
-    D="offset",
-    G="fill",
-    W="pen",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -34,25 +32,28 @@ from pygmt.helpers import (
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913, PLR0915
+def text(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
-    angle=None,
-    font=None,
+    angle: float | Sequence[float] | bool = False,
+    font: str | StringArrayTypes | bool = False,
+    fill: str | None = None,
+    pen: str | None = None,
     justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | Sequence[float] | bool | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
@@ -69,15 +70,21 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to
     :doc:`/techref/encodings` for the full list of supported non-ASCII characters.
 
+    For typesetting one or more paragraphs of text, see
+    :meth:`pygmt.Figure.paragraph`.
+
     Full GMT docs at :gmt-docs:`text.html`.
 
-    {aliases}
+    $aliases
        - B = frame
+       - D = offset
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
+       - G = fill
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -105,20 +112,20 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
     position
-        Set reference point on the map for the text by using x, y
+        Set reference point on the plot for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a
         :doc:`2-character justification code </techref/justification_codes>`.
         For example, ``position="TL"`` plots the text at the Top Left corner
-        of the map.
+        of the plot.
     text
         The text string, or an array of strings to plot on the figure.
-    angle: float, str, bool or list
+    angle
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
         must have this as a column.
-    font : str, bool or list of str
+    font
         Set the font specification with format *size*\ ,\ *font*\ ,\ *color*
         where *size* is text size in points, *font* is the font to use, and
         *color* sets the font color. For example,
@@ -133,9 +140,6 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         e.g., **BL** for Bottom Left. If no justification is explicitly given
         (i.e. ``justify=True``), then the input to ``textfiles`` must have
         this as a column.
-    {projection}
-    {region}
-        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -149,39 +153,45 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
         you can also append lowercase **c** to get a concave rectangle or
         append uppercase **C** to get a convex rectangle.
-    fill : str
+    fill
         Set color for filling text boxes [Default is no fill].
-    offset : str
-        [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offset the text from the projected (x, y) point by *dx*/\ *dy*
-        [Default is ``"0/0"``].
-        If *dy* is not specified then it is set equal to *dx*. Use **j** to
-        offset the text away from the point instead (i.e., the text
-        justification will determine the direction of the shift). Using
-        **J** will shorten diagonal offsets at corners by sqrt(2).
-        Optionally, append **+v** which will draw a line from the original
-        point to the shifted point; append a pen to change the attributes
+    pen
+        Set the pen used to draw a rectangle around the text string (see ``clearance``)
+        [Default is ``"0.25p,black,solid"``].
+    offset
+        (*dx*, *dy*) or [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
+        Offset the text from the projected (x, y) point by (*dx*, *dy*) [Default is
+        (0, 0)]. If *dy* is not specified then it is set equal to *dx*. Use **j** to
+        offset the text away from the point instead (i.e., the text justification will
+        determine the direction of the shift). Using **J** will shorten diagonal offsets
+        at corners by sqrt(2). Optionally, append **+v** which will draw a line from
+        the original point to the shifted point; append a pen to change the attributes
         for this line.
-    pen : str
-        Set the pen used to draw a rectangle around the text string
-        (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
-    {verbose}
-    {aspatial}
-    {panel}
-    {find}
-    {coltypes}
-    {header}
+    $projection
+    $region
+        *Required if this is the first plot command.*
+    $verbose
+    $aspatial
+    $panel
+    $find
+    $coltypes
+    $header
     use_word : int
         Select a specific word from the trailing text, with the first
         word being 0 [Default is the entire trailing text]. No numerical
         columns can be specified.
-    {perspective}
-    {transparency}
+    $perspective
+    $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
         but this option is only valid if using ``x``/``y`` and ``text``.
-    {wrap}
+    $wrap
+
+    See Also
+    --------
+    pygmt.Figure.paragraph
+        Typeset one or multiple paragraphs.
     """
     self._activate_figure()
 
@@ -191,16 +201,16 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         + (position is not None)
         + (x is not None or y is not None)
     ) != 1:
-        msg = "Provide either 'textfiles', 'x'/'y'/'text', or 'position'/'text'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
 
     if position is not None:
         if text is None:
-            msg = "'text' can't be None when 'position' is given."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                required="text", reason="Required when 'position' is set."
+            )
         if is_nonstr_iter(text):
             raise GMTTypeError(
                 type(text),
@@ -208,11 +218,11 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
             )
 
     if textfiles is not None and text is not None:
-        msg = "'text' can't be specified when 'textfiles' is given."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
-        msg = "Must provide text with x/y pairs."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="text", reason="Required when 'x' and 'y' are set."
+        )
 
     # Arguments that can accept arrays.
     array_args = [
@@ -223,13 +233,15 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     # Build the -F option.
     if kwargs.get("F") is None and any(
-        v is not None for v in (position, angle, font, justify)
+        v is not None or v is not False for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
     for arg, flag, _ in array_args:
         if arg is True:
             kwargs["F"] += flag
+        elif arg is False:
+            pass
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
@@ -273,7 +285,10 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
                 )
 
     aliasdict = AliasSystem(
+        D=Alias(offset, name="offset", sep="/", size=2),
+        G=Alias(fill, name="fill"),
         N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,

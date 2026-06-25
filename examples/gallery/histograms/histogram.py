@@ -11,6 +11,7 @@ selected via the ``histtype`` parameter.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Generate random elevation data from a normal distribution
 rng = np.random.default_rng(seed=100)
@@ -23,9 +24,15 @@ fig = pygmt.Figure()
 
 fig.histogram(
     data=data,
-    # Define the frame, add a title, and set the background color to
-    # "lightgray". Add labels to the x-axis and y-axis
-    frame=["WSne+tHistogram+glightgray", "x+lElevation (m)", "y+lCounts"],
+    # Define the frame, add a title, and set the background color to "lightgray".
+    # Add labels to the x-axis and y-axis
+    frame=Frame(
+        axes="WSne",
+        title="Histogram",
+        fill="lightgray",
+        xaxis=Axis(label="Elevation (m)"),
+        yaxis=Axis(label="Counts"),
+    ),
     # Generate evenly spaced bins by increments of 5
     series=5,
     # Use "red3" as color fill for the bars

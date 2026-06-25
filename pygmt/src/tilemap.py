@@ -10,6 +10,7 @@ from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 try:
     from xyzservices import TileProvider
@@ -31,12 +32,12 @@ def tilemap(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     r"""
@@ -52,7 +53,7 @@ def tilemap(  # noqa: PLR0913
     ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and
     provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = monochrome
@@ -87,8 +88,8 @@ def tilemap(  # noqa: PLR0913
           tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
-          URL need to be ``{{x}}``, ``{{y}}``, ``{{z}}``, respectively. E.g.
-          ``https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png``.
+          URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
+          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.

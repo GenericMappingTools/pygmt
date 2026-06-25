@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt import grdclip
 from pygmt.datasets import load_earth_mask
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -84,11 +84,15 @@ def test_grdclip_replace():
     grid = grdclip(grid=grid, replace=[0, 2])  # Replace 0 with 2
     npt.assert_array_equal(np.unique(grid), [1, 2])
 
-    # Test for the deprecated 'new' parameter
-    # TODO(PyGMT>=0.19.0): Remove this test below for the 'new' parameter
-    with pytest.warns(FutureWarning):
-        grid = grdclip(grid=grid, new=[1, 3])  # Replace 1 with 3
-    npt.assert_array_equal(np.unique(grid), [2, 3])
+
+def test_grdclip_replace_repeated():
+    """
+    Test passing a 2-D sequence to the replace parameter for grdclip.
+    """
+    grid = load_earth_mask(region=[0, 10, 0, 10])
+    npt.assert_array_equal(np.unique(grid), [0, 1])  # Only have 0 and 1
+    result = grdclip(grid=grid, replace=[[0, 2], [1, 3]])
+    npt.assert_array_equal(np.unique(result), [2, 3])
 
 
 def test_grdclip_between_repeated():
@@ -108,7 +112,7 @@ def test_grdclip_between_repeated():
 
 def test_grdclip_missing_required_parameter(grid):
     """
-    Test that grdclip raises a ValueError if the required parameter is missing.
+    Test that grdclip raises GMTParameterError if the clipping parameters are missing.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdclip(grid=grid)

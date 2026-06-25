@@ -10,6 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 __doctest_skip__ = ["grdimage"]
 
@@ -31,13 +32,13 @@ def grdimage(  # noqa: PLR0913
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     cores: int | bool = False,
     **kwargs,
 ):
@@ -69,12 +70,12 @@ def grdimage(  # noqa: PLR0913
     value. Interpolation and aliasing is controlled with the
     ``interpolation`` parameter.
 
-    The ``region`` parameter can be used to select a map region larger or
+    The ``region`` parameter can be used to select a plot region larger or
     smaller than that implied by the extent of the grid.
 
     Full GMT docs at :gmt-docs:`grdimage.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - J = projection
        - M = monochrome
@@ -88,9 +89,8 @@ def grdimage(  # noqa: PLR0913
 
     Parameters
     ----------
-    {grid}
-    {frame}
-    {cmap}
+    $grid
+    $cmap
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
@@ -132,7 +132,6 @@ def grdimage(  # noqa: PLR0913
         suitable modifiers [Default is no illumination]. **Note**: If the
         input data represent an *image* then an *intensfile* or constant
         *intensity* must be provided.
-    {projection}
     monochrome
         Force conversion to monochrome image using the (television) YIQ transformation.
         Cannot be used with ``nan_transparent``.
@@ -146,25 +145,33 @@ def grdimage(  # noqa: PLR0913
         3). If the input is a grid, use **+z** to select another grid value
         than NaN. If input is instead an image, append an alternate *color* to
         select another pixel value to be transparent [Default is ``"black"``].
-    {region}
-    {verbose}
-    {panel}
-    {coltypes}
-    {interpolation}
-    {perspective}
-    {transparency}
-    {cores}
+    $projection
+    $region
+    $frame
+    $verbose
+    $panel
+    $coltypes
+    $interpolation
+    $perspective
+    $transparency
+    $cores
 
     Example
     -------
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # pass in the grid and set the CPT to "geo"
     >>> # set the projection to Mollweide and the size to 10 cm
-    >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
+    >>> fig.grdimage(
+    ...     grid=grid,
+    ...     cmap="gmt/geo",
+    ...     projection="W10c",
+    ...     frame=Axis(annot=True, grid=True),
+    ... )
     >>> # show the plot
     >>> fig.show()
     """

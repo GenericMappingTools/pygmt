@@ -8,7 +8,8 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
@@ -32,22 +33,21 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma")
-def rose(
+def rose(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
-    frame: str | Sequence[str] | bool = False,
     region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    transparency: float | None = None,
+    incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | None = None,
     **kwargs,
 ):
     """
@@ -65,11 +65,12 @@ def rose(
 
     Full GMT docs at :gmt-docs:`rose.html`.
 
-    {aliases}
+    $aliases
        - B = frame
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
        - p = perspective
        - t = transparency
 
@@ -77,7 +78,7 @@ def rose(
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
         ``incols`` to indicate the single column with azimuths; then all
@@ -117,11 +118,10 @@ def rose(
          by the largest value so all radii (or bin counts) range from 0
          to 1.
 
-    frame : str
-         Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The y label may be
-         used to plot a figure caption. The scale bar length is determined
-         by the radial gridline spacing.
+    $frame
+        Remember that here *x* is the radial distance and *y* is the azimuth. The y
+        label may be used to plot a figure caption. The scale bar length is determined
+        by the radial gridline spacing.
 
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to
@@ -198,16 +198,16 @@ def rose(
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
     self._activate_figure()
 
@@ -216,6 +216,7 @@ def rose(
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
         p=perspective,
         t=transparency,
     )

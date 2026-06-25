@@ -14,6 +14,7 @@ def cache_data() -> None:
         # List of GMT remote datasets.
         "@earth_age_01d_g",
         "@earth_age_30m_g",
+        "@earth_age_10m_g",
         "@earth_day_01d_p",
         "@earth_dist_01d_g",
         "@earth_dist_30m_g",
@@ -45,6 +46,7 @@ def cache_data() -> None:
         "@earth_relief_05m_p",
         "@earth_relief_10m_g",
         "@earth_relief_10m_p",
+        "@earth_relief_15m_g",
         "@earth_relief_30m_g",
         "@earth_relief_30m_p",
         "@earth_synbath_01d_g",
@@ -81,8 +83,10 @@ def cache_data() -> None:
         "@S30W060.earth_mag_02m_p.nc",
         "@S90E000.earth_mag_05m_g.nc",
         "@S30W120.earth_mag4km_02m_p.nc",
+        "@N00W030.earth_mss_01m_g.nc",
         "@N30E090.earth_mss_01m_g.nc",
         "@S90E000.earth_mss_05m_g.nc",
+        "@N00W030.earth_ndefl_01m_p.nc",
         "@N30E090.earth_ndefl_01m_p.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
@@ -112,6 +116,7 @@ def cache_data() -> None:
         "@RidgeTest.prj",
         "@RidgeTest.shp",
         "@RidgeTest.shx",
+        "@SOEST_block4.png",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
         "@capitals.gmt",
@@ -130,4 +135,4 @@ def cache_data() -> None:
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-    which(fname=datasets, download="a")
+    which(fname=datasets, download="auto")

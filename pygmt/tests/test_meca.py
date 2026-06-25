@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import GMTTempFile
 
 
@@ -283,7 +283,7 @@ def test_meca_spec_ndarray_no_convention():
     """
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.meca(spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3]]), scale="1c")
 
 

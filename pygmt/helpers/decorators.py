@@ -6,12 +6,13 @@ arguments, insert common text into docstrings, transform arguments to strings, e
 """
 
 import functools
+import string
 import textwrap
 import warnings
 from inspect import Parameter, signature
 
 import numpy as np
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
@@ -89,9 +90,16 @@ COMMON_DOCSTRINGS = {
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
-        frame : bool, str, or list
-            Set map boundary
-            :doc:`frame and axes attributes </tutorials/basics/frames>`.""",
+        frame
+            Set frame and axes attributes for the plot. It can be a bool, ``"none"``,
+            a :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object. Raw GMT
+            strings or sequences of strings are also supported for backward
+            compatibility. If ``frame=True``, the frame will be drawn with the default
+            attributes. If ``frame="none"``, no frame will be drawn. Use a
+            :class:`pygmt.params.Frame` or :class:`pygmt.params.Axis` object for more
+            control over the attributes of the frame and axes. A tutorial is available at
+            :doc:`frame and axes attributes </tutorials/basics/frames>`. Full
+            documentation is at :gmt-docs:`gmt.html#b-full`.""",
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
@@ -118,7 +126,7 @@ COMMON_DOCSTRINGS = {
               or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
               **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
             - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-              **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
+              **i** (inches), **c** (centimeters), or **p** (points).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -159,27 +167,24 @@ COMMON_DOCSTRINGS = {
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1-D array
-            Specify data columns for primary input in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            reads all columns in order, starting with the first (i.e., column
-            0)].
+        incols
+            Specify data columns for primary input in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default reads all columns
+            in order, starting with the first (i.e., column 0)].
 
-            - For *1-D array*: specify individual columns in input order (e.g.,
-              ``incols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``incols="0:2,4+l"`` to input the
-              first three columns followed by the log-transformed 5th column).
-              To read from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To read trailing
-              text, add the column **t**. Append the word number to **t** to
-              ingest only a single word from the trailing text. Instead of
-              specifying columns, use ``incols="n"`` to simply read numerical
-              input and skip trailing text. Optionally, append one of the
-              following modifiers to any column or column range to transform
-              the input columns:
+            - For a sequence: specify individual columns in input order (e.g.,
+              ``incols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``incols="0:2,4+l"`` to input the first three columns followed by the
+              log10-transformed 5th column). To read from a given column until the end of
+              the record, leave off *stop* when specifying the column range. To read
+              trailing text, add the column **t**. Append the word number to **t** to
+              ingest only a single word from the trailing text. Instead of specifying
+              columns, use ``incols="n"`` to simply read numerical input and skip
+              trailing text. Optionally, append one of the following modifiers to any
+              column or column range to transform the input columns:
 
               - **+l** to take the *log10* of the input values.
               - **+d** to divide the input values by the factor *divisor* [Default is 1].
@@ -207,28 +212,35 @@ COMMON_DOCSTRINGS = {
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "outcols": r"""
-        outcols : str or 1-D array
+        outcols
             *cols*\ [,...][,\ **t**\ [*word*]].
-            Specify data columns for primary output in arbitrary order. Columns
-            can be repeated and columns not listed will be skipped [Default
-            writes all columns in order, starting with the first (i.e., column
-            0)].
 
-            - For *1-D array*: specify individual columns in output order (e.g.,
-              ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
-            - For :py:class:`str`: specify individual columns or column
-              ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
-              defaults to 1 if not specified, with columns and/or column ranges
-              separated by commas (e.g., ``outcols="0:2,4"`` to output the
-              first three columns followed by the 5th column).
-              To write from a given column until the end of the record, leave
-              off *stop* when specifying the column range. To write trailing
-              text, add the column **t**. Append the word number to **t** to
-              write only a single word from the trailing text. Instead of
-              specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. **Note**: If ``incols`` is also
-              used then the columns given to ``outcols`` correspond to the
-              order after the ``incols`` selection has taken place.""",
+            Specify data columns for primary output in arbitrary order. Columns can be
+            repeated and columns not listed will be skipped [Default writes all columns
+            in order, starting with the first (i.e., column 0)].
+
+            - For a sequence: specify individual columns in output order (e.g.,
+              ``outcols=(1, 0)`` for the 2nd column followed by the 1st column).
+            - For a string: specify individual columns or column ranges in the format
+              *start*\ [:*inc*]:*stop*, where *inc* defaults to 1 if not specified, with
+              columns and/or column ranges separated by commas (e.g.,
+              ``outcols="0:2,4"`` to output the first three columns followed by the 5th
+              column). To write from a given column until the end of the record, leave
+              off *stop* when specifying the column range. To write trailing text, add
+              the column **t**. Append the word number to **t** to write only a single
+              word from the trailing text. Instead of specifying columns, use
+              ``outcols="n"`` to simply read numerical input and skip trailing text.
+              **Note**: If ``incols`` is also used then the columns given to ``outcols``
+              correspond to the order after the ``incols`` selection has taken place.
+
+              Optionally, append one of the following modifiers to any column or column
+              range to transform the output columns:
+
+              - **+l** to take the *log10* of the input values.
+              - **+d** to divide the output values by the factor *divisor* [Default is
+                1].
+              - **+s** to multiply the output values by the factor *scale* [Default is 1].
+              - **+o** to add the given *offset* to the output values [Default is 0].""",
     "outfile": """
         outfile
             File name for saving the result data. Required if ``output_type="file"``.
@@ -272,7 +284,7 @@ COMMON_DOCSTRINGS = {
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *zlevel*: Z-level at which 2-D elements (e.g., the map frame) are drawn.
+            - *zlevel*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
 
@@ -406,11 +418,11 @@ def fmt_docstring(module_func):
     ...     ----------
     ...     data
     ...         Pass in either a file name to an ASCII data table, a 2-D
-    ...         {table-classes}.
-    ...     {region}
-    ...     {projection}
+    ...         $table_classes.
+    ...     $region
+    ...     $projection
     ...
-    ...     {aliases}
+    ...     $aliases
     ...     '''
     ...     pass
     >>> print(gmtinfo.__doc__)
@@ -452,7 +464,7 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-classes"] = (
+    filler_text["table_classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
@@ -467,8 +479,7 @@ def fmt_docstring(module_func):
     # Dedent the docstring to make it all match the option text.
     docstring = textwrap.dedent(module_func.__doc__)
 
-    module_func.__doc__ = docstring.format(**filler_text)
-
+    module_func.__doc__ = string.Template(docstring).safe_substitute(**filler_text)
     return module_func
 
 
@@ -530,8 +541,7 @@ def use_alias(**aliases):
     >>> my_module(region="bla", projection="meh", J="bla")
     Traceback (most recent call last):
       ...
-    pygmt.exceptions.GMTInvalidInput:
-        Parameters in short-form (J) and long-form (projection) can't coexist.
+    pygmt.exceptions.GMTParameterError: Mutually exclusive parameters: ...
     """
 
     def alias_decorator(module_func):
@@ -546,44 +556,45 @@ def use_alias(**aliases):
             """
             for short_param, long_alias in aliases.items():
                 if long_alias in kwargs and short_param in kwargs:
-                    msg = (
-                        f"Parameters in short-form ({short_param}) and "
-                        f"long-form ({long_alias}) can't coexist."
+                    raise GMTParameterError(
+                        at_most_one=[long_alias, short_param],
+                        reason=f"Long-form parameter {long_alias!r} is recommended.",
                     )
-                    raise GMTInvalidInput(msg)
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
                     msg = (
                         f"Short-form parameter ({short_param}) is not recommended. "
-                        f"Use long-form parameter '{long_alias}' instead."
+                        f"Use long-form parameter {long_alias!r} instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
             # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                msg = (
-                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
-                    "Use Figure.timestamp() instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
+                        "Use Figure.timestamp() instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
 
             # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                msg = (
-                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(xshift=...) instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                        "Use Figure.shift_origin(xshift=...) instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
 
             # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                msg = (
-                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
-                    "Use Figure.shift_origin(yshift=...) instead."
+                raise GMTParameterError(
+                    reason=(
+                        "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                        "Use Figure.shift_origin(yshift=...) instead."
+                    )
                 )
-                raise GMTInvalidInput(msg)
-
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
@@ -625,7 +636,7 @@ def kwargs_to_strings(**conversions):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
@@ -680,7 +691,7 @@ def kwargs_to_strings(**conversions):
     ...     print(offset, end=" ")
     ...     print("{", end="")
     ...     print(
-    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         ", ".join(f"{k!r}: {kwargs[k]!r}" for k in sorted(kwargs)),
     ...         end="",
     ...     )
     ...     print("}")
@@ -701,7 +712,7 @@ def kwargs_to_strings(**conversions):
         if fmt not in separators:
             raise GMTValueError(
                 fmt,
-                description=f"conversion type for parameter '{arg}'",
+                description=f"conversion type for parameter {arg!r}",
                 choices=separators.keys(),
             )
 
@@ -798,9 +809,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ...         assert issubclass(w[i].category, FutureWarning)
     ...         assert "deprecated" in str(w[i].message)
     data=table.txt, size=5.0, color=red
-    >>> # using both old and new names will raise an GMTInvalidInput exception
+    >>> # using both old and new names will raise an GMTParameterError exception
     >>> import pytest
-    >>> with pytest.raises(GMTInvalidInput):
+    >>> with pytest.raises(GMTParameterError):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
     """
 
@@ -817,12 +828,14 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
             """
             if oldname in kwargs:
                 if newname in kwargs:
-                    msg = f"Can't provide both '{newname}' and '{oldname}'."
-                    raise GMTInvalidInput(msg)
+                    raise GMTParameterError(
+                        at_most_one=[newname, oldname],
+                        reason=f"{oldname!r} is deprecated and {newname!r} is recommended.",
+                    )
                 msg = (
-                    f"The '{oldname}' parameter has been deprecated since {deprecate_version}"
+                    f"The {oldname!r} parameter has been deprecated since {deprecate_version}"
                     f" and will be removed in {remove_version}."
-                    f" Please use '{newname}' instead."
+                    f" Please use {newname!r} instead."
                 )
                 warnings.warn(msg, category=FutureWarning, stacklevel=2)
                 kwargs[newname] = kwargs.pop(oldname)

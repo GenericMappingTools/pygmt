@@ -28,21 +28,22 @@ permissions: {}
 jobs:
   dvc_cache:
     name: Cache DVC baseline images
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    environment: pr-tests
     defaults:
       run:
         shell: bash -l {0}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
 
       - name: Setup data version control (DVC)
-        uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
+        uses: iterative/setup-dvc@6c05772f52d19792ed73aedb6c2bf65ec92adebb # v3.0.0
 
       - name: Pull baseline image data from dvc remote
         env:
@@ -52,7 +53,7 @@ jobs:
           dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
 
       - name: Upload DVC cache as artifacts to GitHub
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: dvc-cache
           include-hidden-files: true

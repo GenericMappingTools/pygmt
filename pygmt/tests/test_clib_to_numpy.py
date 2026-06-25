@@ -54,7 +54,7 @@ def _check_result(result, expected_dtype):
         pytest.param([1, 2, 3], np.int64, id="int"),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
-            [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
+            [complex(+1), -2j, complex("-Infinity+NaNj")],
             np.complex128,
             id="complex",
         ),
@@ -418,12 +418,6 @@ def test_to_numpy_pandas_date(dtype, expected_dtype):
     )
 
 
-pandas_old_version = pytest.mark.xfail(
-    condition=Version(pd.__version__) < Version("2.1"),
-    reason="pandas 2.0 bug reported in https://github.com/pandas-dev/pandas/issues/52705",
-)
-
-
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
     [
@@ -435,23 +429,14 @@ pandas_old_version = pytest.mark.xfail(
         # pandas.DatetimeTZDtype can be given in two ways [tz is required]:
         # 1. pandas.DatetimeTZDtype(unit, tz)
         # 2. String aliases: "datetime64[unit, tz]"
-        pytest.param(
-            "datetime64[s, UTC]",
-            "datetime64[s]",
-            id="datetime64[s, tz=UTC]",
-            marks=pandas_old_version,
-        ),
+        pytest.param("datetime64[s, UTC]", "datetime64[s]", id="datetime64[s, tz=UTC]"),
         pytest.param(
             "datetime64[s, America/New_York]",
             "datetime64[s]",
             id="datetime64[s, tz=America/New_York]",
-            marks=pandas_old_version,
         ),
         pytest.param(
-            "datetime64[s, +07:30]",
-            "datetime64[s]",
-            id="datetime64[s, +07:30]",
-            marks=pandas_old_version,
+            "datetime64[s, +07:30]", "datetime64[s]", id="datetime64[s, +07:30]"
         ),
         # PyArrow timestamp types can be given in two ways [tz is optional]:
         # 1. pd.ArrowDtype(pyarrow.Timestamp(unit, tz=tz))
@@ -466,13 +451,13 @@ pandas_old_version = pytest.mark.xfail(
             "timestamp[ms][pyarrow]",
             "datetime64[ms]",
             id="timestamp[ms][pyarrow]",
-            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+            marks=skip_if_no(package="pyarrow"),
         ),
         pytest.param(
             "timestamp[us][pyarrow]",
             "datetime64[us]",
             id="timestamp[us][pyarrow]",
-            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+            marks=skip_if_no(package="pyarrow"),
         ),
         pytest.param(
             "timestamp[ns][pyarrow]",

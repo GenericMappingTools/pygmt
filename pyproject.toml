@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 license = "BSD-3-Clause"
 license-files = ["LICENSE.txt"]
@@ -30,14 +30,14 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX",
     "Operating System :: Unix",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "numpy>=2.0",
-    "pandas>=2.2",
-    "xarray>=2024.5",
+    "numpy>=2.1",
+    "pandas>=2.3",
+    "xarray>=2024.7",
     "packaging>=24.2",
 ]
 dynamic = ["version"]
@@ -71,7 +71,23 @@ local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,oints,reenable,tripel,trough,ND"
+ignore-words-list = "astroid,te,tripel,trough"
+
+[tool.typos.default]
+extend-ignore-re = [
+    # Ignore lines that end with `# codespell:ignore`
+    # TODO: Refactor the re if codespell support is dropped in the future.
+    "(?Rm)^.*(#|//)\\s*codespell:ignore$",
+]
+extend-ignore-words-re = [
+    "astroid",
+    "fo",  # codespell:ignore
+    "OCE", # codespell:ignore
+    "[tT]ripel",
+]
+extend-ignore-identifiers-re = [
+    "pn",
+]
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
@@ -119,7 +135,7 @@ select = [
     "PTH",  # flake8-use-pathlib
     "RET",  # flake8-return
     "RSE",  # flake8-raise
-    "RUF",  # ruff-specific
+    "RUF",  # Ruff-specific
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
@@ -136,6 +152,7 @@ extend-select = [
     "D410",     # A blank line after section headings.
     "PLR6201",  # Use a set literal when testing for membership
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
+    "RUF027",   # Possible f-string without an f prefix
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas

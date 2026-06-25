@@ -21,12 +21,13 @@ distance from projection center (in degrees, < 90, default 60), and *scale* or
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region="g",
     projection="F-90/15/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="khaki",
     water="white",
 )

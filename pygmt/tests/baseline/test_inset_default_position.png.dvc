@@ -1,0 +1,5 @@
+outs:
+- md5: a99b3af4882f90e34ded939d9b5adcdc
+  size: 31554
+  hash: md5
+  path: test_inset_default_position.png

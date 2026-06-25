@@ -55,7 +55,7 @@ def load_libgmt(lib_fullnames: Iterator[str] | None = None) -> ctypes.CDLL:
                 error = False
                 break
         except (OSError, GMTCLibError) as err:
-            error_msg.append(f"Error loading GMT shared library at '{libname}'.\n{err}")
+            error_msg.append(f"Error loading GMT shared library at {libname!r}.\n{err}")
             failing_libs.append(libname)
 
     if error:
@@ -118,7 +118,7 @@ def clib_names(os_name: str) -> list[str]:
         case "win32":  # Windows
             libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
         case _:
-            msg = f"Operating system '{os_name}' is not supported."
+            msg = f"Operating system {os_name!r} is not supported."
             raise GMTOSError(msg)
     return libnames
 
@@ -201,7 +201,7 @@ def check_libgmt(libgmt: ctypes.CDLL) -> None:
     for func in ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]:
         if not hasattr(libgmt, f"GMT_{func}"):
             msg = (
-                f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
+                f"Error loading {libgmt._name!r}. Couldn't access function GMT_{func}. "
                 "Ensure that you have installed an up-to-date GMT version 6 library and "
                 "set the environment variable 'GMT_LIBRARY_PATH' to the directory of "
                 "the GMT 6 library."
