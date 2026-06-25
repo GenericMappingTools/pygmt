@@ -73,7 +73,9 @@ fig.show()
 # %%
 # Now, we use two non-co-registered curves, e.g., the two curves have different
 # x-coordinates. For providing the x-coordinates for the second curve, use
-# parameter ``x2``.
+# parameter ``x2``.  Via the ``legend_pen`` parameter the appearence in the legend
+# can be changed to draw the legend entries as colored lines (using the fill colors)
+# instead of filled boxes.
 
 x1 = np.arange(-10, 10.2, 0.2)
 y1 = np.sin(3 * x1)
@@ -97,7 +99,7 @@ fig.fill_between(
     pen2="1p,darkblue,solid",
     label="y1(x1)",
     label2="y2(x2)",
-    # legend_pen="5p",
+    legend_pen="5p",
 )
 
 # Mark sampling points
