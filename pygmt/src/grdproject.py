@@ -89,9 +89,9 @@ def grdproject(  # noqa: PLR0913
         Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual
         projected meters. To specify other units, set it to one of the supported units:
         **c**, **i**, **p**, **f**, **k**, **M**, **n**, and **u**. See
-        :docs:`/techref/units` for meanings of the units. Without ``scaling``, the
-        output (or input, see ``inverse``) is in the units specified by
-        :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
+        :ref:`dimension-units` and :ref:`distance-units` for meanings of the units.
+        Without ``scaling``, the output (or input, see ``inverse``) is in the units
+        specified by :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
     $projection
     $region
     $verbose

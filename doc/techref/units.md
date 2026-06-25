@@ -1,6 +1,6 @@
 # Dimension and Distance Units
 
-As a geospatial analyis and mapping package, GMT needs to distinguish between two types
+As a geospatial analysis and mapping package, GMT needs to distinguish between two types
 of units: those used for plotting and those used for geographic distances. The former
 are called **dimension units** (or plot units) and the latter are called
 **distance units**.
