@@ -71,7 +71,23 @@ local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
 [tool.codespell]
-ignore-words-list = "astroid,buda,oints,reenable,te,tripel,trough,ND"
+ignore-words-list = "astroid,te,tripel,trough"
+
+[tool.typos.default]
+extend-ignore-re = [
+    # Ignore lines that end with `# codespell:ignore`
+    # TODO: Refactor the re if codespell support is dropped in the future.
+    "(?Rm)^.*(#|//)\\s*codespell:ignore$",
+]
+extend-ignore-words-re = [
+    "astroid",
+    "fo",  # codespell:ignore
+    "OCE", # codespell:ignore
+    "[tT]ripel",
+]
+extend-ignore-identifiers-re = [
+    "pn",
+]
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]

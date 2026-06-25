@@ -8,7 +8,7 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.params import Axis, Box, Frame
 
 
@@ -147,7 +147,7 @@ def basemap(  # noqa: PLR0913
         ("compass", compass, "Figure.magnetic_rose"),
         ("rose", rose, "Figure.directional_rose"),
     ):
-        if value is not None and value is not False:
+        if is_given(value):
             warnings.warn(
                 f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
                 category=FutureWarning,
