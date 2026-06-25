@@ -9,15 +9,13 @@ import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring
+from pygmt.exceptions import GMTParameterError
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["grdclip"]
 
 
-# TODO(PyGMT>=0.19.0): Remove the deprecated "new" parameter.
 @fmt_docstring
-@deprecate_parameter("new", "replace", "v0.15.0", remove_version="v0.19.0")
 def grdclip(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -52,6 +50,7 @@ def grdclip(
     .. hlist::
        :columns: 3
 
+       - G = outgrid
        - R = region
        - Sa = above
        - Sb = below
@@ -61,9 +60,8 @@ def grdclip(
 
     Parameters
     ----------
-    {grid}
-    {outgrid}
-    {region}
+    $grid
+    $outgrid
     above
         Pass a sequence of two values in the form of (*high*, *above*), to set all node
         values greater than *high* to *above*.
@@ -81,7 +79,8 @@ def grdclip(
         (e.g., list of lists or 2-D numpy array) to replace different old values with
         different new values. This is mostly useful when your data are known to be
         integer values.
-    {verbose}
+    $region
+    $verbose
 
     Returns
     -------
@@ -102,20 +101,16 @@ def grdclip(
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
-    [183.5, 1807.0]
+    [np.float32(183.5), np.float32(1807.0)]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to 0 and all
     >>> # values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Report the minimum and maximum data values
     >>> [new_grid.data.min(), new_grid.data.max()]
-    [0.0, 10000.0]
+    [np.float32(0.0), np.float32(10000.0)]
     """
     if all(v is None for v in (above, below, between, replace)):
-        msg = (
-            "Must specify at least one of the following parameters: ",
-            "'above', 'below', 'between', or 'replace'.",
-        )
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(at_least_one=["above", "below", "between", "replace"])
 
     aliasdict = AliasSystem(
         Sa=Alias(above, name="above", sep="/", size=2),

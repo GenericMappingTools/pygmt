@@ -25,6 +25,7 @@ This tutorial is split into three parts:
 import numpy as np
 import panel as pn
 import pygmt
+from pygmt.params import Axis
 
 pn.extension()
 
@@ -47,10 +48,10 @@ fig.coast(
     # 15° North and a width of 12 centimeters
     projection="G0/15/12c",
     region="g",  # global
-    frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
+    frame=Axis(grid=30),  # Add gridlines in steps of 30 degrees on top
     land="gray",  # Color land masses in "gray"
     water="lightblue",  # Color water masses in "lightblue"
-    # Add coastlines with a 0.25 points thick pen in "gray50"
+    # Add coastlines with a 0.25-point thick pen in "gray50"
     shorelines="1/0.25p,gray50",
 )
 fig.show()
@@ -84,7 +85,7 @@ def view(central_lon):
         # Vary the central longitude used for the Orthographic projection
         projection=f"G{central_lon}/15/12c",
         region="g",
-        frame="g30",
+        frame=Axis(grid=30),
         land="gray",
         water="lightblue",
         shorelines="1/0.25p,gray50",
@@ -123,7 +124,7 @@ def view(central_lon):
     fig = pygmt.Figure()
     # Set up a colormap for the elevation in meters
     pygmt.makecpt(
-        cmap="oleron",
+        cmap="SCM/oleron",
         # minimum, maximum, step
         series=[int(grd_relief.data.min()) - 1, int(grd_relief.data.max()) + 1, 100],
     )
@@ -133,12 +134,10 @@ def view(central_lon):
         region="g",
         grid=grd_relief,  # Use grid downloaded above
         cmap=True,  # Use colormap defined above
-        frame="g30",
+        frame=Axis(grid=30),
     )
-    # Add a horizontal colorbar for the elevation
-    # with annotations (a) in steps of 2000 and ticks (f) in steps of 1000
-    # and labels (+l) at the x-axis "Elevation" and y-axis "m" (meters)
-    fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
+    # Add a horizontal colorbar for the elevation.
+    fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
     return fig
 
 

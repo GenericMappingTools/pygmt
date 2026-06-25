@@ -1,0 +1,5 @@
+outs:
+- md5: d0a262ef052241b331975e471f777785
+  size: 33972
+  hash: md5
+  path: test_fill_between_noncoregistered.png

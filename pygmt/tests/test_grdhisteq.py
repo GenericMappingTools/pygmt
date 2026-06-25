@@ -10,7 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import grdhisteq
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -138,5 +138,5 @@ def test_compute_bins_invalid_format(grid):
     """
     with pytest.raises(GMTValueError):
         grdhisteq.compute_bins(grid=grid, output_type=1)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")

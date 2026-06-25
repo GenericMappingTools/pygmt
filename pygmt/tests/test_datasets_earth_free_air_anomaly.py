@@ -22,8 +22,8 @@ def test_earth_faa_01d():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -188.85, atol=0.025)
-    npt.assert_allclose(data.max(), 161.25, atol=0.025)
+    npt.assert_allclose(data.min(), -188.625, atol=0.025)
+    npt.assert_allclose(data.max(), 161.1, atol=0.025)
 
 
 def test_earth_faa_01d_with_region():
@@ -35,8 +35,8 @@ def test_earth_faa_01d_with_region():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -36.125, atol=0.025)
-    npt.assert_allclose(data.max(), 45.3, atol=0.025)
+    npt.assert_allclose(data.min(), -36.075, atol=0.025)
+    npt.assert_allclose(data.max(), 45.45, atol=0.025)
 
 
 def test_earth_faa_01m_default_registration():
@@ -51,8 +51,8 @@ def test_earth_faa_01m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
-    npt.assert_allclose(data.min(), -49.225, atol=0.025)
-    npt.assert_allclose(data.max(), 115.0, atol=0.025)
+    npt.assert_allclose(data.min(), -49.85, atol=0.025)
+    npt.assert_allclose(data.max(), 114.125, atol=0.025)
 
 
 def test_earth_faaerror_01d():
@@ -70,7 +70,7 @@ def test_earth_faaerror_01d():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), 0.0, atol=0.04)
-    npt.assert_allclose(data.max(), 49.16, atol=0.04)
+    npt.assert_allclose(data.max(), 51.52, atol=0.04)
 
 
 def test_earth_faaerror_01d_with_region():
@@ -84,8 +84,8 @@ def test_earth_faaerror_01d_with_region():
     assert data.gmt.registration is GridRegistration.GRIDLINE
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 0.72, atol=0.04)
-    npt.assert_allclose(data.max(), 21.04, atol=0.04)
+    npt.assert_allclose(data.min(), 0.60, atol=0.04)
+    npt.assert_allclose(data.max(), 18.56, atol=0.04)
 
 
 def test_earth_faaerror_01m_default_registration():
@@ -103,4 +103,4 @@ def test_earth_faaerror_01m_default_registration():
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
     npt.assert_allclose(data.min(), 0.40, atol=0.04)
-    npt.assert_allclose(data.max(), 13.36, atol=0.04)
+    npt.assert_allclose(data.max(), 6.96, atol=0.04)

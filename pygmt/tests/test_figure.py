@@ -15,6 +15,7 @@ from pygmt import Figure, set_display
 from pygmt.exceptions import GMTValueError
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis
 
 _HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
 _HAS_RIOXARRAY = bool(importlib.util.find_spec("rioxarray"))
@@ -81,7 +82,11 @@ def test_figure_savefig_exists():
     Make sure the saved figure has the right name.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     prefix = "test_figure_savefig_exists"
     for fmt in [
         "bmp",
@@ -173,7 +178,11 @@ def test_figure_savefig_directory_nonexists():
     doesn't exist.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     with pytest.raises(FileNotFoundError, match=r"No such directory:"):
         fig.savefig("a-nonexist-directory/test_figure_savefig_directory_nonexists.png")
 
@@ -183,7 +192,11 @@ def test_figure_savefig_unknown_extension():
     Check that an error is raised when an unknown extension is passed.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     fname = "test_figure_savefig_unknown_extension.test"
     with pytest.raises(GMTValueError, match=r"Invalid file extension: 'test'."):
         fig.savefig(fname)
@@ -194,7 +207,11 @@ def test_figure_savefig_ps_extension():
     Check that an error is raised when .ps extension is specified.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3c/5c",
+        frame=Axis(annot=True, tick=True),
+    )
     fname = "test_figure_savefig_ps_extension.ps"
     with pytest.raises(GMTValueError, match=r"Extension '.ps' is not supported."):
         fig.savefig(fname)
@@ -205,7 +222,11 @@ def test_figure_savefig_transparent():
     Check if fails when transparency is not supported.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     prefix = "test_figure_savefig_transparent"
     for fmt in ["pdf", "jpg", "bmp", "eps", "tif"]:
         fname = f"{prefix}.{fmt}"
@@ -303,7 +324,11 @@ def test_figure_show():
     Test that show creates the correct file name and deletes the temp dir.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     fig.show()
 
 
@@ -312,7 +337,11 @@ def test_figure_show_invalid_method():
     Test to check if an error is raised when an invalid method is passed to show.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     with pytest.raises(GMTValueError):
         fig.show(method="test")
 

@@ -21,21 +21,24 @@ permissions:
 jobs:
   dvc-diff:
     name: DVC image diff
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    environment: pr-tests
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5.0.0
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
         persist-credentials: false
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@175771be1dc3d119268e00a896b52a4b77decb5e # v1.2.0
+      uses: iterative/setup-dvc@6c05772f52d19792ed73aedb6c2bf65ec92adebb # v3.0.0
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@f714cd201b7183852dd6f94192b34e7618717560 # v2.0.0
+      uses: iterative/setup-cml@1b5ab8766e715e8f1aab96bbb1f4f2e3e1e8af45 # v3
+      with:
+        vega: false
 
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
@@ -58,6 +61,7 @@ jobs:
     - name: Generate the image diff report
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
         PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
@@ -69,7 +73,7 @@ jobs:
 
         # Pull image data from cloud storage
         dvc pull --remote upstream
-        dvc diff --md main HEAD >> report.md
+        dvc diff --md "${PR_BASE_REF}" HEAD >> report.md
 
         # Get just the filename of the added and modified image from the report
         awk 'NF==5 && NR>=7 && $2=="added" {print $4}' report.md > added_files.txt
@@ -78,8 +82,8 @@ jobs:
         # Backup new images in the baseline-new directory
         mkdir pygmt/tests/baseline-new
         cp pygmt/tests/baseline/*.png pygmt/tests/baseline-new/
-        # Pull images in the main branch from cloud storage
-        git checkout main
+        # Pull images in the PR base branch from cloud storage
+        git checkout "${PR_BASE_REF}"
         dvc pull --remote upstream --force
 
         # Append each image to the markdown report

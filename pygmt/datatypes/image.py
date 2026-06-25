@@ -67,16 +67,16 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     [2, 2, 2, 2]
     b'BRPa' 0.5
     1 0
-    >>> x  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
+    >>> x
     array([-179.5, -178.5, ..., 178.5, 179.5])
-    >>> y  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
+    >>> y
     array([ 89.5,  88.5, ..., -88.5, -89.5])
     >>> data.dtype
     dtype('uint8')
     >>> data.shape
     (180, 360, 3)
     >>> data.min(), data.max()
-    (10, 255)
+    (np.uint8(10), np.uint8(255))
     """
 
     _fields_: ClassVar = [
@@ -121,7 +121,7 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         ...         image = lib.read_virtualfile(voutimg, kind="image")
         ...         # Convert to xarray.DataArray and use it later
         ...         da = image.contents.to_xarray()
-        >>> da  # doctest: +NORMALIZE_WHITESPACE
+        >>> da
         <xarray.DataArray 'z' (band: 3, y: 180, x: 360)> Size: 194kB
         array([[[ 10,  10,  10, ...,  10,  10,  10],
                 [ 10,  10,  10, ...,  10,  10,  10],
@@ -145,7 +145,8 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
                 ...,
                 [177, 179, 179, ..., 178, 177, 177],
                 [185, 187, 187, ..., 187, 186, 185],
-                [189, 191, 191, ..., 191, 191, 189]]], dtype=uint8)
+                [189, 191, 191, ..., 191, 191, 189]]],
+              shape=(3, 180, 360), dtype=uint8)
         Coordinates:
           * band     (band) uint8 3B 1 2 3
           * y        (y) float64 1kB 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5
@@ -153,16 +154,16 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         Attributes:
             long_name:  z
 
-        >>> da.coords["x"]  # doctest: +NORMALIZE_WHITESPACE
+        >>> da.coords["x"]
         <xarray.DataArray 'x' (x: 360)> Size: 3kB
-        array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5])
+        array([-179.5, -178.5, -177.5, ...,  177.5,  178.5,  179.5], shape=(360,))
         Coordinates:
           * x        (x) float64 3kB -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
         Attributes:
             long_name:     x
             axis:          X
             actual_range:  [-180.  180.]
-        >>> da.coords["y"]  # doctest: +NORMALIZE_WHITESPACE
+        >>> da.coords["y"]
         <xarray.DataArray 'y' (y: 180)> Size: 1kB
         array([ 89.5,  88.5,  87.5,  86.5,  ...,   -87.5, -88.5, -89.5])
         Coordinates:

@@ -18,7 +18,7 @@ In this tutorial, different histogram related aspects are addressed:
 # Import the required packages
 import numpy as np
 import pygmt
-from pygmt.params import Pattern
+from pygmt.params import Axis, Frame, Pattern
 
 # %%
 # Generate random data from a normal distribution:
@@ -55,7 +55,11 @@ fig.histogram(
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"; the
     # numbers give the steps of annotations and ticks
-    frame=["WStr", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data01,
     # Set the bin width via the "series" parameter
     series=10,
@@ -74,7 +78,11 @@ fig.shift_origin(xshift="w+2c")
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WStr", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data01,
     series=10,
     fill="red3",
@@ -101,7 +109,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data01,
     series=10,
     # Draw a 1-point thick, dotted outline in "red3"
@@ -117,10 +129,14 @@ fig.shift_origin(xshift="w+2c")
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data02,
     series=10,
-    # Draw a 1.5-points thick, dashed outline in "orange"
+    # Draw a 1.5-point thick, dashed outline in "orange"
     pen="1.5p,orange,dashed",
     histtype=0,
     stairs=True,
@@ -143,7 +159,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSnr", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSnr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data02,
     series=10,
     fill="orange",
@@ -159,7 +179,11 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     # Add suffix % (+u)
-    frame=["lSnE", "xaf10", "ya2f1+u%+lFrequency percent"],
+    frame=Frame(
+        axes="lSnE",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=2, tick=1, unit="%", label="Frequency percent"),
+    ),
     data=data02,
     series=10,
     fill="orange",
@@ -186,7 +210,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, len(data01) + 1],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya5f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=5, tick=1, label="Counts"),
+    ),
     data=data01,
     series=10,
     fill="red3",
@@ -202,7 +230,11 @@ fig.shift_origin(xshift="w+1c")
 fig.histogram(
     region=[0, 200, 0, len(data01) + 1],
     projection="X10c",
-    frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
+    frame=Frame(
+        axes="wSnE",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=5, tick=1, label="Cumulative counts"),
+    ),
     data=data01,
     series=10,
     # Fill bars with GMT pattern 8, with white background and black foreground.
@@ -238,7 +270,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data01,
     series=10,
     fill="red3",
@@ -289,7 +325,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data_merge,
     series=10,
     fill="orange",
@@ -320,7 +360,7 @@ fig.show()
 # Grouped bars
 # ------------
 #
-# By setting the ``barwidth`` parameter in respect to the values passed to the
+# By setting the ``bar_width`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
 #
 # Limitations of histograms with grouped bars are:
@@ -337,7 +377,11 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10g10", "ya1f1+lCounts"],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10, grid=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
     data=data01,
     series=binwidth,
     fill="red3",
@@ -345,9 +389,9 @@ fig.histogram(
     histtype=0,
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
-    # Offset ("+o") the bars to align each bar with the left limit of the corresponding
-    # bin
-    barwidth=f"{binwidth / 2}+o-{binwidth / 4}",
+    bar_width=binwidth / 2,
+    # Offset the bars to align each bar with the left limit of the corresponding bin
+    bar_offset=-binwidth / 4,
     label="data01",
 )
 
@@ -358,7 +402,8 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray,solid",
     histtype=0,
-    barwidth=f"{binwidth / 2}+o{binwidth / 4}",
+    bar_width=binwidth / 2,
+    bar_offset=binwidth / 4,
     label="data02",
 )
 

@@ -18,20 +18,25 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Plotting map elements
-~~~~~~~~~~~~~~~~~~~~~
+Plotting figure elements
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
     :toctree: generated
 
     Figure.basemap
+    Figure.choropleth
     Figure.clip
     Figure.coast
     Figure.colorbar
+    Figure.directional_rose
     Figure.hlines
     Figure.inset
     Figure.legend
     Figure.logo
+    Figure.magnetic_rose
+    Figure.paragraph
+    Figure.scalebar
     Figure.solar
     Figure.text
     Figure.timestamp
@@ -44,6 +49,7 @@ Plotting tabular data
     :toctree: generated
 
     Figure.contour
+    Figure.fill_between
     Figure.histogram
     Figure.meca
     Figure.plot
@@ -152,6 +158,8 @@ Operations on raster data
     grdhisteq.equalize_grid
     grdhisteq.compute_bins
     grdlandmask
+    grdmask
+    grdpaste
     grdproject
     grdsample
     grdtrack
@@ -195,7 +203,7 @@ Getting metadata from tabular or grid data:
     info
     grdinfo
 
-Xarray Integration
+xarray Integration
 ------------------
 
 .. autosummary::
@@ -213,8 +221,11 @@ Class-style Parameters
     :toctree: generated
     :template: autosummary/params.rst
 
+    Axis
     Box
+    Frame
     Pattern
+    Position
 
 Enums
 -----
@@ -291,14 +302,15 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     :toctree: generated
 
     exceptions.GMTError
-    exceptions.GMTInvalidInput
-    exceptions.GMTVersionError
-    exceptions.GMTOSError
     exceptions.GMTCLibError
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
+    exceptions.GMTInvalidInput
+    exceptions.GMTOSError
+    exceptions.GMTParameterError
     exceptions.GMTTypeError
     exceptions.GMTValueError
+    exceptions.GMTVersionError
 
 
 .. currentmodule:: pygmt

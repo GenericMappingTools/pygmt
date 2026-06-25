@@ -1,21 +1,30 @@
 # Map author/committer names and/or email addresses for git.
 # Reference: https://git-scm.com/docs/gitmailmap
+
+# Canonical identities: "Canonical Name <Canonical Email>"
 Dongdong Tian <seisman.info@gmail.com>
-Dongdong Tian <seisman.info@gmail.com> <seisman@users.noreply.github.com>
 Jiayuan Yao <coreman.seism@gmail.com>
-Jiayuan Yao <coreman.seism@gmail.com> <core-man@users.noreply.github.com>
 Jing-Hui Tong <86273921+JingHuiTong@users.noreply.github.com>
-Jing-Hui Tong <86273921+JingHuiTong@users.noreply.github.com> <r0922422020@g.ntu.edu.tw>
 Max Jones <14077947+maxrjones@users.noreply.github.com>
+Michael Grund <23025878+michaelgrund@users.noreply.github.com>
+Wei Ji Leong <23487320+weiji14@users.noreply.github.com>
+Will Schlitzer <schlitzer90@gmail.com>
+Xingchen He <chuanjun@stu.cdut.edu.cn>
+Yvonne Fröhlich <94163266+yvonnefroehlich@users.noreply.github.com>
+
+# Alias mappings: "Canonical Name <Canonical Email> <Alias Email>"
+Dongdong Tian <seisman.info@gmail.com> <seisman@users.noreply.github.com>
+Jiayuan Yao <coreman.seism@gmail.com> <core-man@users.noreply.github.com>
+Jing-Hui Tong <86273921+JingHuiTong@users.noreply.github.com> <r0922422020@g.ntu.edu.tw>
 Max Jones <14077947+maxrjones@users.noreply.github.com> <meghanj@alum.mit.edu>
 Max Jones <14077947+maxrjones@users.noreply.github.com> <meghanj@hawaii.edu>
 Max Jones <14077947+maxrjones@users.noreply.github.com> <meghanrjones@users.noreply.github.com>
-Michael Grund <michael_grund@gmx.de> <23025878+michaelgrund@users.noreply.github.com>
-Michael Grund <michael_grund@gmx.de> <michael.grund@kit.edu>
-Michael Grund <michael_grund@gmx.de> <michaelgrund@users.noreply.github.com>
-Wei Ji Leong <23487320+weiji14@users.noreply.github.com>
+Michael Grund <23025878+michaelgrund@users.noreply.github.com> <michael_grund@gmx.de>
+Michael Grund <23025878+michaelgrund@users.noreply.github.com> <michael.grund@kit.edu>
+Michael Grund <23025878+michaelgrund@users.noreply.github.com> <michaelgrund@users.noreply.github.com>
 Wei Ji Leong <23487320+weiji14@users.noreply.github.com> <weiji.leong@vuw.ac.nz>
 Wei Ji Leong <23487320+weiji14@users.noreply.github.com> <weiji14@users.noreply.github.com>
 Will Schlitzer <schlitzer90@gmail.com> <willschlitzer@users.noreply.github.com>
+Xingchen He <chuanjun@stu.cdut.edu.cn> <chuanjun1978@gmail.com>
 Yvonne Fröhlich <94163266+yvonnefroehlich@users.noreply.github.com> <yvonne.froehlich@kit.edu>
 Yvonne Fröhlich <94163266+yvonnefroehlich@users.noreply.github.com> <yfroe@gpiseis16.gpi.kit.edu>

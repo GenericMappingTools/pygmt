@@ -2,40 +2,45 @@ r"""
 Vector heads and tails
 ======================
 
-Many methods in PyGMT allow plotting vectors with individual
-heads and tails. For this purpose, several modifiers may be appended to
-the corresponding vector-producing parameters for specifying the placement
-of vector heads and tails, their shapes, and the justification of the vector.
+Many methods in PyGMT allow plotting vectors with individual heads and tails.
+For this purpose, several modifiers may be appended to the corresponding
+vector-producing parameters for specifying the placement of vector heads and
+tails, their shapes, and the justification of the vector.
 
-To place a vector head at the beginning of the vector path
-simply append **+b** to the vector-producing option (use **+e** to place
-one at the end). Optionally, append **t** for a terminal line, **c** for a
-circle, **a** for arrow (default), **i** for tail, **A** for plain open
-arrow, and **I** for plain open tail. Further append **l** or **r** (e.g.
-``"+bar"``) to only draw the left or right half-sides of the selected head/tail
-(default is both sides) or use **+l** or **+r** to apply simultaneously to both
-beginning and end. In this context left and right refer to the side of the
-vector line when viewed from the beginning point to the end point of a line
-segment. The angle of the vector head apex can be set using **+a**\ *angle*
-(default is 30). The shape of the vector head can be adjusted using
-**+h**\ *shape* (e.g. ``"+h0.5"``).
+To place a vector head at the beginning of the vector path simply append **+b**
+to the vector-producing option (use **+e** to place one at the end). Optionally,
+append **t** for a terminal line, **c** for a circle, **a** for arrow (default),
+**i** for tail, **A** for plain open arrow, and **I** for plain open tail.
+Further append **l** or **r** (e.g. ``"+bar"``) to only draw the left or right
+half-sides of the selected head/tail (default is both sides) or use **+l** or
+**+r** to apply simultaneously to both beginning and end. In this context, left
+and right refer to the side of the vector line when viewed from the beginning
+point to the end point of a line segment. The angle of the vector head apex can
+be set using **+a**\ *angle* (default is 30). The shape of the vector head can
+be adjusted using **+h**\ *shape* (e.g. ``"+h0.5"``).
 
-For further modifiers see :gmt-docs:`plot.html#vector-attributes`.
-
-In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
+In the following, we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
 the vector type, here ``"v"`` for Cartesian vector, see also the
-:doc:`Vector types example </gallery/lines/vector_styles>`)
-by passing the corresponding shortcuts to the ``style`` parameter.
+:doc:`Vector types example </gallery/lines/vector_styles>`) by passing the
+corresponding shortcuts to the ``style`` parameter.
 
+For further modifiers see :gmt-docs:`plot.html#vector-attributes`. Please note
+that vectors were completely redesigned for GMT 5 which separated the vector
+head (a polygon) from the vector stem (a line). In GMT 4, the entire vector was
+a polygon. Thus, to fill the entire vector with a color users have to follow the
+GMT 4 synthax, which can be found on the webpage mentioned above.
 """
 
 # %%
 import pygmt
+from pygmt.params import Frame
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 10, 0, 15], projection="X15c/10c", frame="+tVector heads and tails"
+    region=[0, 10, 0, 15],
+    projection="X15c/10c",
+    frame=Frame(title="Vector heads and tails"),
 )
 
 x = 1
@@ -77,7 +82,7 @@ for vecstyle in [
         x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", fill="red3"
     )
     fig.text(
-        x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c"
+        x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset=(0.2, 0)
     )
     y -= 1  # move the next vector down
 
