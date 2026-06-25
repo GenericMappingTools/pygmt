@@ -3,11 +3,10 @@ The Perspective class for setting perspective view.
 """
 
 import dataclasses
-from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.params.base import BaseParam
 
 
@@ -31,7 +30,7 @@ class Perspective(BaseParam):
     >>> fig.show()
     """
 
-    #: Azimuth of the viewpoint in degress. Default is 180.0 (looking from south to
+    #: Azimuth of the viewpoint in degrees. Default is 180.0 (looking from south to
     #: north).
     azimuth: float | None = None
 
@@ -39,34 +38,20 @@ class Perspective(BaseParam):
     #: down at nadir).
     elevation: float | None = None
 
-    #: The z-level at which all 2-D material, like the plot frame, is plotted (only
-    #: valid when used in consort with parameters ``zsize``/``zscale``. Default is at
+    #: The z-level at which all 2-D material, like the plot frame, is plotted. Only
+    #: valid when used together with parameters ``zsize``/``zscale``. Default is at
     #: the bottom of the z-axis.
     zlevel: float | None = None
 
-    #: The plane to plot against the "wall" x = level (using x) or y = level (using y)
-    #: or the horizontal plain (using z). Default is the z-plane.
+    #: Set which constant-coordinate plane is used as the plotting plane. Use ``"x"``
+    #: for the x-plane, ``"y"`` for the y-plane, or ``"z"`` for the horizontal z-plane
+    # [Default is ``"z"``].
     plane: Literal["x", "y", "z"] | None = None
-
-    #: For frames used for animation, the center of the data domain is fixed. Specify
-    #: another center using either parameters ``center`` or ``viewpoint``.
-    #:
-    #: Project the coordinate (*lon0*, *lat0*) or (*lon0*, *lat0*, *z0*) to the center
-    #: of the page size.
-    center: Sequence[float] | None = None
-
-    #: Specify the coordinates (*x0*, *y0*) of the projected 2-D view point.
-    viewpoint: Sequence[float] | None = None
 
     def __post_init__(self):
         """
         Post-initialization processing to validate parameters.
         """
-        # Ensure that center and viewpoint are mutually exclusive.
-        if self.center is not None and self.viewpoint is not None:
-            msg = "Parameters 'center' and 'viewpoint' are mutually exclusive."
-            raise GMTInvalidInput(msg)
-
         # azimuth is required, so it must be set to the default if not specified.
         if self.azimuth is None:
             self.azimuth = 180.0  # Default azimuth is 180.0
@@ -74,6 +59,11 @@ class Perspective(BaseParam):
         # Set default elevation if zlevel is set but elevation is not.
         if self.zlevel is not None and self.elevation is None:
             self.elevation = 90.0  # Default elevation is 90.0
+
+        if self.plane is not None and self.plane not in {"x", "y", "z"}:
+            raise GMTValueError(
+                self.plane, description="plane", choices=["x", "y", "z"]
+            )
 
     @property
     def _aliases(self):
@@ -85,6 +75,4 @@ class Perspective(BaseParam):
             Alias(self.azimuth, name="azimuth"),
             Alias(self.elevation, name="elevation", prefix="/"),
             Alias(self.zlevel, name="zlevel", prefix="/"),
-            Alias(self.center, name="center", prefix="+w", sep="/", size={2, 3}),
-            Alias(self.viewpoint, name="viewpoint", prefix="+v", sep="/", size=2),
         ]
