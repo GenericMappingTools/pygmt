@@ -40,6 +40,24 @@ def choropleth(  # noqa: PLR0913
     (e.g. a :class:`geopandas.GeoDataFrame`), or an OGR_GMT file containing the
     geometry and data to plot.
 
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - B = frame
+       - C = cmap
+       - I = intensity
+       - J = projection
+       - R = region
+       - N = no_clip
+       - W = pen
+       - V = verbose
+       - a = column
+       - c = panel
+       - p = perspective
+       - t = transparency
+
     Parameters
     ----------
     data
