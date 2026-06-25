@@ -190,7 +190,7 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
 
     See Also
     --------
-    pygmt.Figure.paragarph
+    pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
     """
     self._activate_figure()
