@@ -82,15 +82,15 @@ def grdproject(  # noqa: PLR0913
         When set to ``True``, do the inverse transformation, from rectangular to
         geographical [Default is ``False``].
     unit
-        Set the projected measure unit. See :ref:`plot-units` for
-        supported units [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used
-        with ``scaling``.
+        Set the projected measure unit. Valid values are ``"c"``, ``"i"``, and ``"p"``.
+        [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with
+        ``scaling``. See :ref:`dimension-units` for meanings of the units.
     scaling
         Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual
-        projected meters. To specify other units, set it to one of the supported
-        plot-unit codes (e.g., ``c``, ``i``, ``p``, ``e``, ``f``, ``k``, ``M``, ``n``,
-        ``u``; see :ref:`plot-units`). Without ``scaling``, the output
-        (or input, see ``inverse``) is in the units specified by
+        projected meters. To specify other units, set it to one of the supported units:
+        **c**, **i**, **p**, **f**, **k**, **M**, **n**, and **u**. See
+        :docs:`/techref/units` for meanings of the units. Without ``scaling``, the
+        output (or input, see ``inverse``) is in the units specified by
         :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
     $projection
     $region
