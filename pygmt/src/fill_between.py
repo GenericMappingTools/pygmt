@@ -28,6 +28,7 @@ def fill_between(  # noqa: PLR0913
     fill2: str | None = None,
     pen2: str | None = None,
     label2: str | None = None,
+    legend_pen: bool | str = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -72,6 +73,18 @@ def fill_between(  # noqa: PLR0913
         Label for the primary curve, to be displayed in the legend.
     label2
         Label for the secondary curve, to be displayed in the legend.
+    legend_pen
+        Draw legend entries as colored lines instead of filled boxes. By default, legend
+        entries use ``fill`` and ``fill2`` for the box fills and ``pen`` and ``pen2``
+        for the box outlines. Set ``legend_pen=True`` to switch to colored lines that
+        use the fill colors. Pass a pen thickness to control the legend line thickness.
+
+        .. note::
+
+            Due to an upstream GMT bug (https://github.com/GenericMappingTools/gmt/pull/9070),
+            GMT <= 6.6.0 always uses a ``2.5p`` pen thickness for these legend lines,
+            regardless of the value passed to ``legend_pen``.
+
     no_clip
         Do **not** clip curves that fall outside the frame boundaries.
     $projection
@@ -149,6 +162,7 @@ def fill_between(  # noqa: PLR0913
             Alias(pen2, name="pen2", prefix="+p"),
             Alias(label2, name="label2", prefix="+l"),
             Alias(y2 if y2_is_scalar else None, name="y2", prefix="+y"),
+            Alias(legend_pen, name="legend_pen", prefix="+r"),
         ],
         N=Alias(no_clip, name="no_clip"),
         W=Alias(pen, name="pen"),
