@@ -18,8 +18,7 @@ from pygmt.helpers import (
     is_given,
     use_alias,
 )
-from pygmt.params import Perspective
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]

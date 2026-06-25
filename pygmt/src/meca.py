@@ -18,8 +18,7 @@ from pygmt.helpers import (
     fmt_docstring,
     use_alias,
 )
-from pygmt.params import Perspective
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 from pygmt.src._common import _FocalMechanismConvention
 
 

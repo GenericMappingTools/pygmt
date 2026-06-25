@@ -19,8 +19,7 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
-from pygmt.params import Perspective
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 
 @fmt_docstring
