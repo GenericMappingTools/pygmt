@@ -27,7 +27,7 @@ y2 = np.sin(x / 2)
 # Partly Segmentation fault problem (at least on Windows)
 # x3 = np.sort((np.random.rand(20) - 0.5) * 20)
 # Line limit still applies
-x3 = np.array([-10, -8.21, -7.4, -6.63, -5.89, -4.18, -3.45, -2.69, -1.96, 0.26, 1.61, 2.23, 3.49, 4.0, 5.28, 6.79, 7.12, 8.25, 9.13, 10])  # noqa: E501
+x3 = np.array([-10, -8.2, -7.4, -6.6, -5.8, -4.1, -3.4, -2.6, -1.9, 0.2, 1.6, 2.2, 3.4, 4.0, 5.2, 6.7, 7.1, 8.2, 9.1, 10])  # noqa: E501
 y3 = np.sin(x3 / 2)
 
 
