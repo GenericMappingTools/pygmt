@@ -123,9 +123,9 @@ COMMON_DOCSTRINGS = {
 
             - For geographic data (**x**\|\ **y**\|\ **d**), valid units are **d**,
               **m**, **s**, **e**, **f**, **k**, **M**, and **n** [Default is **e**].
-              See :ref:`distance-units` for meaning of the units.
+              See :ref:`distance-units` for meanings of the units.
             - For projected data (**X**\|\ **Y**\|\ **D**), valid units are **c**,
-              **i**, and **p**. See :ref:`dimension-units` for meaning of the units.
+              **i**, and **p**. See :ref:`dimension-units` for meanings of the units.
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].

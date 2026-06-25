@@ -95,8 +95,8 @@ def histogram(  # noqa: PLR0913
     bar_width
         Use an alternative histogram bar width than the default set via
         ``series``. Give either an alternative width in data units, or the user
-        may append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
-        fixed dimension instead.
+        may append a :ref:`dimension unit <dimension-units>` for a fixed dimension
+        instead.
     bar_offset
         Shift all bars along the axis by *offset*. It may be given in data units
         of plot dimension units by appending the relevant unit.

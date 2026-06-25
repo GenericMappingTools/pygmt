@@ -128,10 +128,10 @@ def grdtrack(
         either a "west-to-east" or "south-to-north" view. By default the entire
         profiles are output. Choose to only output the left or right halves
         of the profiles by appending **+l** or **+r**, respectively.  Append
-        suitable units to *length*; it sets the unit used for *ds* [and
-        *spacing*] (See :gmt-docs:`Units <grdtrack.html#units>`). The default
-        unit for geographic grids is meters while Cartesian grids implies the
-        user unit. The output columns will be *lon*, *lat*, *dist*, *azimuth*,
+        suitable :ref:`distance units <distance-units>` to *length*; it sets the unit
+        used for *ds* [and *spacing*]. The default unit for geographic grids is meters
+        while Cartesian grids implies the user unit. The output columns will be
+        *lon*, *lat*, *dist*, *azimuth*,
         *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
         *n* grids).
     dfile : str
