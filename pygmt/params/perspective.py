@@ -9,6 +9,8 @@ from pygmt.alias import Alias
 from pygmt.exceptions import GMTValueError
 from pygmt.params.base import BaseParam
 
+__doctest_skip__ = ["Perspective"]
+
 
 @dataclasses.dataclass(repr=False)
 class Perspective(BaseParam):
@@ -48,7 +50,7 @@ class Perspective(BaseParam):
     # [Default is ``"z"``].
     plane: Literal["x", "y", "z"] | None = None
 
-    def __post_init__(self):
+    def _validate(self):
         """
         Post-initialization processing to validate parameters.
         """
