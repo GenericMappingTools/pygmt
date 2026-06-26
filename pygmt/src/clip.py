@@ -3,128 +3,51 @@ clip - Clip a path and only plot data inside or outside.
 """
 
 from collections.abc import Sequence
+from contextlib import contextmanager
+from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, is_nonstr_iter
+from pygmt.exceptions import GMTParameterError
+from pygmt.helpers import (
+    _validate_data_input,
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+)
+from pygmt.params import Axis, Frame
 
 
-class _ClipContext:
+def _call_module(module, kwargs=None, *, data=None, x=None, y=None):
     """
-    Base class for the clip context manager.
+    Call a GMT module with optional tabular input.
     """
-
-    def __init__(self, figure, data=None, x=None, y=None, **kwargs):
-        self._figure = figure  # The parent Figure object.
-        self._data = data
-        self._x = x
-        self._y = y
-        self._kwargs = kwargs
-
-    def __enter__(self):
-        self._figure._activate_figure()
-        self._activate()
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self._figure._activate_figure()
-        self._deactivate()
-
-    def _activate(self):
-        """
-        Activate clipping.
-        """
-        raise NotImplementedError
-
-    def _deactivate(self):
-        """
-        Deactivate clipping.
-        """
-        raise NotImplementedError
-
-
-class _ClipLand(_ClipContext):
-    """
-    Clip the land area (i.e., "dry" areas).
-    """
-
-    def _activate(self):
-        self._figure.coast(land=True, **self._kwargs)
-
-    def _deactivate(self):
-        self._figure.coast(Q=True)
-
-
-class _ClipWater(_ClipContext):
-    """
-    Clip the water areas (i.e., "wet" areas such as oceans and lakes).
-    """
-
-    def _activate(self):
-        self._figure.coast(water=True, **self._kwargs)
-
-    def _deactivate(self):
-        self._figure.coast(Q=True)
-
-
-class _ClipDcw(_ClipContext):
-    """
-    Clip based on the Digital Chart of the World.
-    """
-
-    def _activate(self):
-        self._figure.coast(**self._kwargs)
-
-    def _deactivate(self):
-        self._figure.coast(Q=True)
-
-
-class _ClipSolar(_ClipContext):
-    """
-    Clip the data to the solar terminator.
-    """
-
-    def _activate(self):
-        self._figure.solar(fill=True, **self._kwargs)
-
-    def _deactivate(self):
-        with Session() as lib:
-            lib.call_module(module="clip", args=build_arg_list({"C": True}))
-
-
-class _ClipPolygon(_ClipContext):
-    """
-    Clip polygonal paths.
-    """
-
-    def _activate(self):
-        with Session() as lib:
-            with lib.virtualfile_in(data=self._data, x=self._x, y=self._y) as vintbl:
+    with Session() as lib:
+        if data is not None or (x is not None and y is not None):
+            with lib.virtualfile_in(data=data, x=x, y=y) as vintbl:
                 lib.call_module(
-                    module="clip",
-                    args=build_arg_list(self._kwargs, infile=vintbl),
+                    module=module,
+                    args=build_arg_list(kwargs, infile=vintbl),
                 )
-
-    def _deactivate(self):
-        with Session() as lib:
-            lib.call_module(module="clip", args=build_arg_list({"C": True}))
+        else:
+            lib.call_module(module=module, args=build_arg_list(kwargs))
 
 
-class _ClipMask(_ClipContext):
+@contextmanager
+def _clip_context(figure, activate, deactivate):
     """
-    Clip the data to a mask.
+    Context manager to activate and deactivate clipping for a figure.
     """
+    # Activate the clipping context.
+    figure._activate_figure()
+    activate()
 
-    def _activate(self):
-        with Session() as lib:
-            with lib.virtualfile_in(data=self._data) as vintbl:
-                lib.call_module(
-                    module="mask",
-                    args=build_arg_list(self._kwargs, infile=vintbl),
-                )
-
-    def _deactivate(self):
-        with Session() as lib:
-            lib.call_module(module="mask", args=build_arg_list({"C": True}))
+    try:
+        yield
+    finally:
+        # Deactivate the clipping context.
+        figure._activate_figure()
+        deactivate()
 
 
 class ClipAccessor:
@@ -138,249 +61,313 @@ class ClipAccessor:
         """
         self._figure = figure  # The parent Figure object.
 
-    def land(self, **kwargs):
-        """
-        Clip the land area (i.e., "dry" areas) and only plot data inside.
+    # @staticmethod
+    # def _validate_disallowed_parameters(parameters, kwargs, *, aliases=()):
+    #     """
+    #     Reject parameters that are incompatible with a clipping accessor method.
+    #     """
+    #     disallowed_parameters = set(parameters) | set(aliases)
+    #     disallowed = [
+    #         parameter for parameter in kwargs if parameter in disallowed_parameters
+    #     ]
+    #     if disallowed:
+    #         names = ", ".join(repr(parameter) for parameter in disallowed)
+    #         raise GMTParameterError(
+    #             reason=f"Figure.clip does not support the parameter(s) {names} here."
+    #         )
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the land areas.
+    # def land(self, **kwargs):
+    #     """
+    #     Clip the land area (i.e., "dry" areas) and only plot data inside.
 
-        Parameters
-        ----------
-        kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
-            parameters make sense in this context.
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the land areas.
 
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.land():
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        return _ClipLand(self._figure, **kwargs)
+    #     Parameters
+    #     ----------
+    #     kwargs
+    #         Additional keyword arguments passed to :meth:`pygmt.Figure.coast`.
+    #         See :meth:`pygmt.Figure.coast` for the full parameter documentation.
 
-    def water(self, **kwargs):
-        """
-        Clip the water areas (i.e., "wet" areas such as oceans and lakes) and only plot
-        data inside.
+    #     Examples
+    #     --------
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="W15c", frame=True)
+    #     >>> with fig.clip.land():
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: self._figure.coast(land=True, **kwargs),
+    #         deactivate=lambda: self._figure.coast(Q=True),
+    #     )
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the water areas.
+    # def water(self, **kwargs):
+    #     """
+    #     Clip the water areas (i.e., "wet" areas such as oceans and lakes) and only plot
+    #     data inside.
 
-        Parameters
-        ----------
-        kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
-            parameters make sense in this context.
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the water areas.
 
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.water():
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        return _ClipWater(self._figure, **kwargs)
+    #     Parameters
+    #     ----------
+    #     kwargs
+    #         Additional keyword arguments passed to :meth:`pygmt.Figure.coast`.
+    #         See :meth:`pygmt.Figure.coast` for the full parameter documentation.
 
-    def dcw(self, code: str | Sequence[str], **kwargs):
-        """
-        Clip based on the Digital Chart of the World.
+    #     Examples
+    #     --------
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="W15c", frame=True)
+    #     >>> with fig.clip.water():
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: self._figure.coast(water=True, **kwargs),
+    #         deactivate=lambda: self._figure.coast(Q=True),
+    #     )
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the region defined by the codes.
+    # def dcw(self, code: str | Sequence[str], **kwargs):
+    #     """
+    #     Clip based on the Digital Chart of the World.
 
-        Parameters
-        ----------
-        code
-            The codes of the region to clip to.
-        kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.coast`. Not all
-            parameters make sense in this context.
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the region defined by the codes.
 
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.dcw(code="JP"):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        _code = ",".join(code) if is_nonstr_iter(code) else code
-        return _ClipDcw(self._figure, dcw=f"{_code}+c", **kwargs)
+    #     Parameters
+    #     ----------
+    #     code
+    #         The Digital Chart of the World codes of the region to clip to.
+    #     kwargs
+    #         Additional keyword arguments passed to :meth:`pygmt.Figure.coast`.
+    #         See :meth:`pygmt.Figure.coast` for the full parameter documentation.
 
-    def solar(self, invert: bool = False, **kwargs):
-        """
-        Clip the data to the solar terminator.
+    #     Examples
+    #     --------
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="W15c", frame=True)
+    #     >>> with fig.clip.dcw(code="JP"):
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     self._validate_disallowed_parameters({"dcw"}, kwargs, aliases=("E",))
+    #     _code = ",".join(code) if is_nonstr_iter(code) else code
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: self._figure.coast(dcw=f"{_code}+c", **kwargs),
+    #         deactivate=lambda: self._figure.coast(Q=True),
+    #     )
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the solar terminator.
+    # def solar(self, invert: bool = False, **kwargs):
+    #     """
+    #     Clip the data to the solar terminator.
 
-        Parameters
-        ----------
-        invert
-            Invert the sense of what is inside and outside the terminator.
-        kwargs
-            Additional keyword arguments passed to :meth:`pygmt.Figure.solar`.
-            Parameters ``frame`` and ``fill`` are not allowed here.
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the solar terminator.
 
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.solar(terminator="civil"):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        aliasdict = AliasSystem(
-            N=Alias(invert, name="invert"),
-        )
-        aliasdict.merge(kwargs)
-        return _ClipSolar(self._figure, **aliasdict)
+    #     Parameters
+    #     ----------
+    #     invert
+    #         Invert the sense of what is inside and outside the terminator.
+    #     kwargs
+    #         Additional keyword arguments passed to :meth:`pygmt.Figure.solar`.
+    #         Parameters ``frame`` and ``fill`` are not allowed here. See
+    #         :meth:`pygmt.Figure.solar` for the full parameter documentation.
 
-    @fmt_docstring
-    def polygon(self, data=None, x=None, y=None, **kwargs):
-        """
-        Clip polygonal paths.
+    #     Examples
+    #     --------
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="W15c", frame=True)
+    #     >>> with fig.clip.solar(terminator="civil"):
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     self._validate_disallowed_parameters(
+    #         {"fill", "frame"}, kwargs, aliases=("B", "G")
+    #     )
+    #     solar_kwargs = kwargs.copy()
+    #     if invert:
+    #         solar_kwargs["N"] = True
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: self._figure.solar(fill=True, **solar_kwargs),
+    #         deactivate=lambda: _call_module("clip", {"C": True}),
+    #     )
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the polygons.
+    # @fmt_docstring
+    # def polygon(
+    #     self,
+    #     data=None,
+    #     x=None,
+    #     y=None,
+    #     region: Sequence[float | str] | str | None = None,
+    #     projection: str | None = None,
+    #     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
+    #     verbose: Literal[
+    #         "quiet", "error", "warning", "timing", "info", "compat", "debug"
+    #     ]
+    #     | bool = False,
+    #     straight_line: bool | Literal["x", "y"] = False,
+    #     invert: bool = False,
+    #     pen: str | None = None,
+    #     **kwargs,
+    # ):
+    #     """
+    #     Clip polygonal paths.
 
-        {aliases}
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the polygons.
 
-        Parameters
-        ----------
-        data
-            Either a file name to an ASCII data table, a 2-D {table-classes}.
-        x/y
-            X and Y coordinates of the polygon.
-        {frame}
-        {region}
-        {projection}
-        {verbose}
-        straight_line
-            By default, line segments are connected as straight lines in the Cartesian
-            and polar coordinate systems, and as great circle arcs (by resampling coarse
-            input data along such arcs) in the geographic coordinate system. The
-            ``straight_line`` parameter can control the connection of line segments.
-            Valid values are:
+    #     **Aliases**
+    #     .. hlist::
+    #        :columns: 3
 
-            - ``True``: Draw line segments as straight lines in geographic coordinate
-              systems.
-            - ``"x"``: Draw line segments by first along *x*, then along *y*.
-            - ``"y"``: Draw line segments by first along *y*, then along *x*.
+    #        - A = straight_line
+    #        - B = frame
+    #        - J = projection
+    #        - N = invert
+    #        - R = region
+    #        - V = verbose
+    #        - W = pen
 
-            Here, *x* and *y* have different meanings depending on the coordinate system
+    #     Parameters
+    #     ----------
+    #     data
+    #         Either a file name to an ASCII data table, a 2-D {table-classes}.
+    #     x/y
+    #         X and Y coordinates of the polygon.
+    #     straight_line
+    #         Control how line segments are connected.
+    #     invert
+    #         Invert the sense of what is inside and outside.
+    #     pen
+    #         Draw outline of clip path using given pen attributes before clipping is
+    #         initiated.
+    #     kwargs
+    #         Additional keyword arguments passed to the GMT ``clip`` module.
+    #         See :gmt-docs:`clip.html` for the full parameter documentation.
 
-            - **Cartesian** coordinate system: *x* and *y* are the X- and Y-axes.
-            - **Polar** coordinate system: *x* and *y* are theta and radius.
-            - **Geographic** coordinate system: *x* and *y* are parallels and meridians.
+    #     Examples
+    #     --------
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="W15c", frame=True)
+    #     >>> with fig.clip.polygon(x=[-10, 10, 10, -10], y=[-10, -10, 10, 10]):
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     aliasdict = AliasSystem(
+    #         A=Alias(straight_line, name="straight_line"),
+    #         N=Alias(invert, name="invert"),
+    #         W=Alias(pen, name="pen"),
+    #     ).add_common(
+    #         B=frame,
+    #         J=projection,
+    #         R=region,
+    #         V=verbose,
+    #     )
+    #     aliasdict.merge(kwargs)
+    #     _validate_data_input(data=data, x=x, y=y)
 
-            .. attention::
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: _call_module("clip", aliasdict, data=data, x=x, y=y),
+    #         deactivate=lambda: _call_module("clip", {"C": True}),
+    #     )
 
-                There exits a bug in GMT<=6.5.0 that, in geographic coordinate systems,
-                the meaning of *x* and *y* is reversed, i.e., *x* means meridians and
-                *y* means parallels. The bug is fixed by upstream
-                `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-        invert
-            Invert the sense of what is inside and outside. For example, when using a
-            single path, this means that only points outside that path will be shown.
-            Cannot be used together with ``frame``.
-        pen
-            Draw outline of clip path using given pen attributes before clipping is
-            initiated [Default is no outline].
+    # @fmt_docstring
+    # def mask(
+    #     self,
+    #     data=None,
+    #     x=None,
+    #     y=None,
+    #     region=None,
+    #     spacing=None,
+    #     invert: bool = False,
+    #     radius=None,
+    #     **kwargs,
+    # ):
+    #     """
+    #     Clip the data to a mask.
 
-        Examples
-        --------
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="W15c", frame=True)
-        >>> with fig.clip.polygon(x=[-10, 10, 10, -10], y=[-10, -10, 10, 10]):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        return _ClipPolygon(self._figure, data=data, x=x, y=y, **kwargs)
+    #     Must be used as a context manager. Any plotting operations within the context
+    #     manager will be clipped to the mask.
 
-    @fmt_docstring
-    def mask(
-        self,
-        data=None,
-        x=None,
-        y=None,
-        region=None,
-        spacing=None,
-        invert: bool = False,
-        radius=None,
-        **kwargs,
-    ):
-        """
-        Clip the data to a mask.
+    #     **Aliases**
+    #     .. hlist::
+    #        :columns: 3
 
-        Must be used as a context manager. Any plotting operations within the context
-        manager will be clipped to the mask.
+    #        - I = spacing
+    #        - N = invert
+    #        - R = region
+    #        - S = radius
 
-        **Aliases**
-        .. hlist::
-           :columns: 3
+    #     Parameters
+    #     ----------
+    #     data
+    #         Either a file name to an ASCII data table, a 2-D {table-classes}.
+    #     x/y
+    #         X and Y coordinates of the mask.
+    #     spacing
+    #         The mask spacing passed to the GMT ``mask`` module.
+    #     invert
+    #         Invert the sense of what is inside and outside.
+    #     radius
+    #         Set the search radius passed to the GMT ``mask`` module.
+    #     kwargs
+    #         Additional keyword arguments passed to the GMT ``mask`` module.
+    #         See :gmt-docs:`mask.html` for the full parameter documentation.
 
-           - I = spacing
-           - N = invert
-           - R = region
-           - S = radius
+    #     Examples
+    #     --------
+    #     >>> import numpy as np
+    #     >>> from pygmt import Figure
+    #     >>> from pygmt.datasets import load_earth_relief
+    #     >>>
+    #     >>> grid = load_earth_relief()
+    #     >>> fig = Figure()
+    #     >>> fig.basemap(region="g", projection="Q15c", frame=True)
+    #     >>> with fig.clip.mask(
+    #     ...     x=[180] * 16, y=np.arange(-80, 80, 10), spacing="30m", radius="5d"
+    #     ... ):
+    #     ...     fig.grdimage(grid, cmap="geo")
+    #     >>> fig.show()
+    #     """
+    #     aliasdict = AliasSystem(
+    #         I=Alias(spacing, name="spacing"),
+    #         N=Alias(invert, name="invert"),
+    #         S=Alias(radius, name="radius"),
+    #     ).add_common(
+    #         R=region,
+    #     )
+    #     aliasdict.merge(kwargs)
+    #     _validate_data_input(data=data, x=x, y=y)
 
-        Parameters
-        ----------
-        data
-            Either a file name to an ASCII data table, a 2-D {table-classes}.
-        x/y
-            X and Y coordinates of the mask.
-        {spacing}
-        invert
-            Invert the sense of what is inside and outside.
-
-        Examples
-        --------
-        >>> import numpy as np
-        >>> from pygmt import Figure
-        >>> from pygmt.datasets import load_earth_relief
-        >>>
-        >>> grid = load_earth_relief()
-        >>> fig = Figure()
-        >>> fig.basemap(region="g", projection="Q15c", frame=True)
-        >>> with fig.clip.mask(
-        ...     x=[180] * 16, y=np.arange(-80, 80, 10), spacing="30m", radius="5d"
-        ... ):
-        ...     fig.grdimage(grid, cmap="geo")
-        >>> fig.show()
-        """
-        aliasdict = AliasSystem(
-            I=Alias(spacing, name="spacing"),
-            N=Alias(invert, name="invert"),
-            S=Alias(radius, name="radius"),
-        ).add_common(
-            R=region,
-        )
-        aliasdict.merge(kwargs)
-
-        return _ClipMask(self._figure, data=data, x=x, y=y, **aliasdict)
+    #     return _clip_context(
+    #         self._figure,
+    #         activate=lambda: _call_module("mask", aliasdict, data=data, x=x, y=y),
+    #         deactivate=lambda: _call_module("mask", {"C": True}),
+    #     )
