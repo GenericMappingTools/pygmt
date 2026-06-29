@@ -6,7 +6,6 @@ Source code for PyGMT methods.
 # Figure plotting methods are attached in pygmt/figure.py and are not exported here.
 from pygmt.src.binstats import binstats
 from pygmt.src.blockm import blockmean, blockmedian, blockmode
-from pygmt.src.clip import ClipAccessor
 from pygmt.src.config import config
 from pygmt.src.dimfilter import dimfilter
 from pygmt.src.filter1d import filter1d

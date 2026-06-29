@@ -76,13 +76,12 @@ Clipping
 .. autosummary::
     :toctree: generated
 
-    Figure.clip
-    Figure.clip.land
-    Figure.clip.water
-    Figure.clip.dcw
-    Figure.clip.solar
-    Figure.clip.polygon
-    Figure.clip.mask
+    Figure.clip_land
+    Figure.clip_water
+    Figure.clip_dcw
+    Figure.clip_solar
+    Figure.clip_polygon
+    Figure.clip_mask
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
