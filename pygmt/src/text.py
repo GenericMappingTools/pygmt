@@ -187,6 +187,11 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
         but this option is only valid if using ``x``/``y`` and ``text``.
     $wrap
+
+    See Also
+    --------
+    pygmt.Figure.paragraph
+        Typeset one or multiple paragraphs.
     """
     self._activate_figure()
 
