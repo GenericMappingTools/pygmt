@@ -1,5 +1,5 @@
 outs:
-- md5: c1c167a826132bcdabc3b032438db01e
-  size: 8319
+- md5: 10663a14391589a1854a0ea0285d1ac3
+  size: 8372
   hash: md5
   path: test_directional_rose.png
