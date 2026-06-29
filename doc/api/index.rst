@@ -18,22 +18,6 @@ All plotting is handled through the :class:`pygmt.Figure` class and its methods.
 
     Figure
 
-Clipping
-~~~~~~~~
-
-Use :attr:`pygmt.Figure.clip` to define clipping paths within a ``with`` block.
-
-.. autosummary::
-    :toctree: generated
-
-    Figure.clip
-    Figure.clip.land
-    Figure.clip.water
-    Figure.clip.dcw
-    Figure.clip.solar
-    Figure.clip.polygon
-    Figure.clip.mask
-
 Plotting figure elements
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -85,6 +69,20 @@ Plotting raster data
     Figure.grdview
     Figure.image
     Figure.tilemap
+
+Clipping
+~~~~~~~~
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.clip
+    Figure.clip.land
+    Figure.clip.water
+    Figure.clip.dcw
+    Figure.clip.solar
+    Figure.clip.polygon
+    Figure.clip.mask
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
