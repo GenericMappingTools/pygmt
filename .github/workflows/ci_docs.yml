@@ -24,7 +24,6 @@ on:
       - 'examples/**'
       - 'README.md'
       - '.github/workflows/ci_docs.yml'
-      - '.github/workflows/actions/build_docs/action.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
@@ -34,7 +33,6 @@ on:
       - 'examples/**'
       - 'README.md'
       - '.github/workflows/ci_docs.yml'
-      - '.github/workflows/actions/build_docs/action.yml'
   workflow_dispatch:
   release:
     types:
@@ -45,17 +43,26 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
-  actions: read
-  contents: read
+  contents: write
 
 jobs:
-  build-docs-linux:
-    name: ubuntu-latest
-    runs-on: ubuntu-latest
+  docs:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     if: github.repository == 'GenericMappingTools/pygmt'
-    permissions:
-      actions: read
-      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run jobs on Ubuntu for draft PRs
+        exclude:
+          - os: macos-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
     timeout-minutes: 30
     defaults:
       run:
@@ -70,7 +77,87 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: ./.github/workflows/actions/build_docs
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
+
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        with:
+          environment-name: pygmt
+          cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
+          create-args: >-
+            python=3.14
+            gmt=6.6.0
+            ghostscript=10.07.1
+            numpy
+            pandas
+            xarray
+            packaging
+            contextily
+            geopandas
+            ipython
+            pyarrow-core
+            rioxarray
+            make
+            pip
+            python-build
+            myst-nb
+            panel
+            sphinx>=6.2
+            sphinx-autodoc-typehints
+            sphinx-copybutton
+            sphinx-design
+            sphinx-gallery
+            sphinx_rtd_theme
+            cairosvg
+            sphinxcontrib-svg2pdfconverter
+            tectonic=0.15
+
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        run: |
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python -m build --sdist
+          python -m pip install dist/*
+
+      - name: Build the HTML documentation
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
+        run: |
+          log_file="${RUNNER_TEMP}/sphinx-html.log"
+          make -C doc clean html 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Sphinx HTML build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
+          exit "${exit_code}"
+
+      - name: Build the PDF documentation
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
+        run: |
+          log_file="${RUNNER_TEMP}/sphinx-pdf.log"
+          make -C doc pdf 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Sphinx PDF build exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
 
       - name: Create the HTML ZIP archive and rename the PDF file
         run: |
@@ -82,73 +169,21 @@ jobs:
 
       - name: Upload PDF as artifact for previewing on pull requests
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
           name: artifact-pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
 
       - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
         run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
 
       - name: Upload the HTML ZIP archive and PDF as release assets
         run: gh release upload ${REF_NAME} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && matrix.os == 'ubuntu-latest'
         env:
           GH_TOKEN: ${{ github.token }}
           REF_NAME: ${{ github.ref_name }}
-
-      - name: Upload HTML documentation artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: github.event_name == 'push' || github.event_name == 'release'
-        with:
-          name: pygmt-docs-html
-          path: doc/_build/html/
-
-  build-docs-other:
-    name: ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    if: github.repository == 'GenericMappingTools/pygmt' && (github.event_name != 'pull_request' || !github.event.pull_request.draft)
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, windows-latest]
-    timeout-minutes: 30
-    defaults:
-      run:
-        shell: bash -l {0}
-
-    steps:
-      # Checkout current git repository
-      - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
-          persist-credentials: false
-
-      - uses: ./.github/workflows/actions/build_docs
-
-  deploy-docs:
-    name: Deploy documentation
-    needs: build-docs-linux
-    runs-on: ubuntu-latest
-    if: (github.event_name == 'release' || github.event_name == 'push') && github.repository == 'GenericMappingTools/pygmt'
-    permissions:
-      actions: read
-      contents: write
-    defaults:
-      run:
-        shell: bash -l {0}
-
-    steps:
-      # Checkout current git repository
-      - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
-          persist-credentials: false
 
       - name: Checkout the gh-pages branch
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -159,12 +194,7 @@ jobs:
           # Download the entire history
           fetch-depth: 0
           persist-credentials: true
-
-      - name: Download HTML documentation artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: pygmt-docs-html
-          path: pygmt-docs-html
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
 
       - name: Push the built HTML to gh-pages
         run: |
@@ -191,7 +221,7 @@ jobs:
           echo -e "\nRemoving old files from previous builds of ${version}:"
           rm -rvf ${version}
           echo -e "\nCopying HTML files to ${version}:"
-          cp -Rvf ../pygmt-docs-html/ ${version}/
+          cp -Rvf ../doc/_build/html/ ${version}/
           # If this is a new release, update the link from /latest to it
           if [[ "${version}" != "dev" ]]; then
               echo -e "\nSetup link from ${version} to 'latest'."
@@ -220,3 +250,4 @@ jobs:
           echo -e "\nPushing changes to gh-pages."
           git push -fq origin gh-pages 2>&1 >/dev/null
           echo -e "\nFinished uploading generated files."
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
