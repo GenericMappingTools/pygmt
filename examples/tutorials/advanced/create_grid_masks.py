@@ -5,7 +5,7 @@ Create grid masks from spatial shapes
 The functionn :func:`pygmt.grdmask` allows to create a grid mask based on spatial shapes
 given as closed polygons. These polygons can be provided as :class:`numpy.ndarray` or
 :class:`geopandas.GeoDataFrame`. For the nodes falling inside, outside, and on the
-edges, different values can be defined, The created mask can then be applied to a
+edges, different values can be defined. The created mask can then be applied to a
 desired grid.
 
 This value can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN. The
@@ -14,11 +14,11 @@ treat edges as inside, use the same value as for ``inside``. When setting these 
 keep in mind you are creating the mask grid first which is thought to be applied to a
 real grid in a second step.
 
-As the focus of this tutorial is on creating a grid mask and a related masked grid, no
-colorbars for the elevation grids are added to the maps. To create a land-water mask
-based on the GMT built-in shoreline data you can directly use the function
-:func:`pygmt.grdlandmask` explained in the gallery example
-:doc:`Create 'wet-dry' mask grid </gallery/images/grdlandmask>`.
+To create a land-water mask based on the GMT built-in shoreline data you can directly
+use the function :func:`pygmt.grdlandmask` explained in the gallery example
+:doc:`Create 'wet-dry' mask grid </gallery/images/grdlandmask>`. As the focus of this
+tutorial is on creating a mask grid and the related masked grid, no colorbars for the
+elevation grids are added to the maps.
 """
 
 # %%
