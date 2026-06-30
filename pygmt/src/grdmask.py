@@ -175,7 +175,7 @@ def grdmask(
           ``-Lheader``, or via ``-aZ=name``).
         - ``"id"``: Use a running polygon ID number.
 
-        To treat edges as inside, use the same value as ``inside``.
+        To treat edges as inside, use the same value as for ``inside``.
     id_start
         The starting number for polygon IDs when ``inside="id"`` [Default is ``0``].
         Only valid when ``inside="id"``.
