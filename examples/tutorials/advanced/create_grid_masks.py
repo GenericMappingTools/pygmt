@@ -125,6 +125,8 @@ fig.show()
 # %%
 # Circle based on GeoPandas polygon geometry
 # ------------------------------------------
+#
+# Note the distortion of the circle due the projection making it appear as an ellipse.
 
 region = [125, 135, 25, 36]
 
@@ -132,6 +134,7 @@ region = [125, 135, 25, 36]
 point = geopandas.GeoSeries([Point(126.5, 33.5)])
 circle = point.buffer(0.6)  # 0.6 is the radius
 
+# Create masked grid
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="30s")
 mask = pygmt.grdmask(region=region, data=circle, spacing="30s", outside="NaN")
 mask_lonlat = mask.rename(new_name_or_name_dict={"x": "lon", "y": "lat"})
