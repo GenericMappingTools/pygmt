@@ -19,8 +19,8 @@ import pygmt
 from shapely.geometry import Point
 
 # %%
-# Polygons based on :class:`numpy.array`s
-# ---------------------------------------
+# Polygons based on a :class:`numpy.ndarray`
+# ------------------------------------------
 
 # Define a study region
 region = [125, 135, 25, 36]
