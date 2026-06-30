@@ -183,7 +183,7 @@ def ternary(  # noqa: PLR0913
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
     pen
-        Set pen attributes for the outlines of symbols.
+        Set pen attributes for the outlines of symbols or lines.
     fill
         Set color or pattern for filling of symbols [Default is no fill].
     no_clip
