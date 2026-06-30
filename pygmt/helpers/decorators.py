@@ -277,22 +277,22 @@ COMMON_DOCSTRINGS = {
         perspective
             Select perspective view and set the azimuth and elevation of the viewpoint.
 
-            Accepts a single value or a sequence of two or three values: *azimuth*,
-            (*azimuth*, *elevation*), or (*azimuth*, *elevation*, *zlevel*).
+            Accepts a :class:`pygmt.params.Perspective` object, a single value
+            *azimuth*, a sequence of two values (*azimuth*, *elevation*), a sequence of
+            three values (*azimuth*, *elevation*, *level*).
 
             - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *zlevel*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
+            - *level*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
               at the bottom of the z-axis].
+            - :class:`pygmt.params.Perspective`: A class-style way for more control over
+              the perspective parameters.
 
             Alternatively, set ``perspective=True`` to reuse the perspective setting
-            from the previous plotting method, or pass a string following the full
-            GMT syntax for finer control (e.g., adding ``+w`` or ``+v`` modifiers to
-            select an axis location other than the plot origin). See
-            :gmt-docs:`gmt.html#perspective-full` for details.""",
+            from the previous plotting method.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.

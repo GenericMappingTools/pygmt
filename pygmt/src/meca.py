@@ -18,7 +18,7 @@ from pygmt.helpers import (
     fmt_docstring,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 from pygmt.src._common import _FocalMechanismConvention
 
 
@@ -155,7 +155,7 @@ def meca(  # noqa: PLR0913
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     transparency: float | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     **kwargs,
 ):
     r"""

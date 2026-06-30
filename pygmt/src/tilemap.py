@@ -10,7 +10,7 @@ from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.enums import GridType
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 try:
     from xyzservices import TileProvider
@@ -36,7 +36,7 @@ def tilemap(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
