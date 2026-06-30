@@ -116,6 +116,7 @@ def ternary(  # noqa: PLR0913
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    no_clip: bool = False,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -142,6 +143,7 @@ def ternary(  # noqa: PLR0913
        - B = frame
        - JX = width
        - L = alabel/blabel/clabel
+       - N = no_clip
        - R = region
        - V = verbose
        - c = panel
@@ -178,6 +180,9 @@ def ternary(  # noqa: PLR0913
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
     $pen
+    no_clip
+        Do not clip symbols to the ternary diagram [Default plot points whose
+        coordinates are strictly inside the map border].
     $verbose
     $panel
     $perspective
@@ -191,6 +196,7 @@ def ternary(  # noqa: PLR0913
     aliasdict = AliasSystem(
         JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
+        N=Alias(no_clip, name="no_clip"),
     ).add_common(
         B=_ternary_frame(frame),
         R=region,
