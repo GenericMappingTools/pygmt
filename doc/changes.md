@@ -1,8 +1,8 @@
 # Changelog
 
-## Release v0.19.0 (20YY/MM/DD)
+## Release v0.19.0 (2026/07/05)
 
-[![Digital Object Identifier for PyGMT v0.19.0](https://img.shields.io/badge/DOI-10.5281/zenodo.3781524-blue)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.19.0](https://img.shields.io/badge/DOI-10.5281/zenodo.19398871-blue)](https://doi.org/10.5281/zenodo.19398871)
 
 ### Highlights
 
@@ -101,7 +101,14 @@
 
 ### Contributors
 
-[@Bingtagui404](https://github.com/Bingtagui404), [@Chuan1937](https://github.com/Chuan1937), [Max Jones](https://github.com/maxrjones), [Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14), [Will Schlitzer](https://github.com/willschlitzer), [Yvonne Fröhlich](https://github.com/yvonnefroehlich), Xingchen He and [copilot-swe-agent[bot]](https://github.com/apps/copilot-swe-agent)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Xingchen He](https://github.com/Chuan1937)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [@Bingtagui404](https://github.com/Bingtagui404)
+* [Max Jones](https://github.com/maxrjones)
 
 ---
 
