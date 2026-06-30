@@ -119,7 +119,6 @@ fig.basemap(projection="M10c", region=[-96.5, -88.5, 35.8, 41], frame=True)
 fig.grdimage(grid=grid_masked, cmap=True)
 fig.plot(data=missouri, pen="1p,cyan")
 
-fig.colorbar(frame=True)
 fig.show()
 
 
@@ -157,7 +156,6 @@ fig.basemap(region=[125.5, 127.5, 32.5, 34.5], projection="M12c", frame=True)
 fig.grdimage(grid=grid_masked, cmap=True)
 fig.plot(data=circle, pen="2p,cyan")
 
-fig.colorbar(frame=True)
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 1
