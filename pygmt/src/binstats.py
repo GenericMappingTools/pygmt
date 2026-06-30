@@ -110,7 +110,7 @@ def binstats(
         search *radius* [Default is no normalization].
     search_radius : float or str
         Set the *search_radius* that determines which data points are
-        considered close to a node. Append the distance unit.
+        considered close to a node. Append a :ref:`distance unit <distance-units>`.
         Not compatible with ``tiling``.
     weight : str
         Input data have an extra column containing observation point weight.

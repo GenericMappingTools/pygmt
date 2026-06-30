@@ -76,8 +76,8 @@ def grd2xyz(
         this is simply the product of the *x* and *y* increments (except for
         gridline-registered grids at all sides [half] and corners [quarter]).
         For geographic grids we default to a length unit of **k**. Change
-        this by appending **+u**\ *unit*. For such grids, the area
-        varies with latitude and also sees special cases for
+        this by appending **+u**\ *unit* (see :ref:`distance-units`). For such grids,
+        the area varies with latitude and also sees special cases for
         gridline-registered layouts at sides, corners, and poles.
     convention : str
         [*flags*].

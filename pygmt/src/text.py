@@ -144,10 +144,10 @@ def text(  # noqa: PLR0912, PLR0913, PLR0915
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (**c** for centimeters,
-        **i** for inches, or **p** for points; if not given we consult
-        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
-        size. Optionally, use modifier **+t** to set the shape of the text
+        are specified. Append a :ref:`dimension unit <dimension-units>`; if not given
+        we consult :gmt-term:`PROJ_LENGTH_UNIT`. Alternatively, append *%* for a
+        percentage of the font size. Optionally, use modifier **+t** to set the shape
+        of the text
         box when using ``fill`` and/or ``pen``. Append lowercase **o**
         to get a straight rectangle [Default is **o**]. Append uppercase
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)

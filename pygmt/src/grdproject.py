@@ -82,16 +82,16 @@ def grdproject(  # noqa: PLR0913
         When set to ``True``, do the inverse transformation, from rectangular to
         geographical [Default is ``False``].
     unit
-        Set the projected measure unit. Valid values are ``"c"`` (centimeters),
-        ``"i"`` (inches), and ``"p"`` (points) [Default is set by
-        :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with ``scaling``.
+        Set the projected measure unit. Valid values are ``"c"``, ``"i"``, and ``"p"``.
+        [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with
+        ``scaling``. See :ref:`dimension-units` for meanings of the units.
     scaling
         Force 1:1 scaling, i.e., output (or input, see ``inverse``) data are in actual
-        projected meters. To specify other units, set it to ``"f"`` (feet),
-        ``"k"`` (kilometers), ``"M"`` (statute miles), ``"n"`` (nautical miles),
-        ``"u"`` (US survey feet), ``"i"`` (inches), ``"c"`` (centimeters), or
-        ``"p"`` (points). Without ``scaling``, the output (or input, see ``inverse``) is
-        in the units specified by :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
+        projected meters. To specify other units, set it to one of the supported units:
+        **c**, **i**, **p**, **f**, **k**, **M**, **n**, and **u**. See
+        :ref:`dimension-units` and :ref:`distance-units` for meanings of the units.
+        Without ``scaling``, the output (or input, see ``inverse``) is in the units
+        specified by :gmt-term:`PROJ_LENGTH_UNIT` (but see ``unit``).
     $projection
     $region
     $verbose

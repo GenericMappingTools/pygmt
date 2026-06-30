@@ -152,9 +152,9 @@ def ternary(  # noqa: PLR0913
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     width : str
-        Set the width of the figure by passing a number, followed by
-        a unit (**i** for inches, **c** for centimeters). Use a negative width
-        to indicate that positive axes directions be clock-wise
+        Set the width of the figure by passing a number followed by a
+        :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
+        positive axes directions be clock-wise
         [Default lets the a, b, c axes be positive in a
         counter-clockwise direction].
     region : str or list
