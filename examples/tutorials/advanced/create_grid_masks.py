@@ -11,8 +11,8 @@ desired grid.
 This value can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN. The
 defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for ``inside``. To
 treat edges as inside, use the same value as ``inside``. When setting these values, keep
-in mind you are creating the grid mask which is thought to be applied to a real grid in
-a second step.
+in mind you are creating the mask grid first which is thought to be applied to a real
+grid in a second step.
 
 As the focus of this tutorial is on creating a grid mask and a related masked grid, no
 colorbars for the elevation grids are added to the maps. To create a land-water mask
