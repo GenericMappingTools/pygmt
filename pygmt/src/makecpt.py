@@ -14,7 +14,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 @fmt_docstring
 @use_alias(
     A="transparency",
-    C="cmap",
     D="background",
     F="color_model",
     H="output",
@@ -25,6 +24,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
 )
 @kwargs_to_strings(T="sequence")
 def makecpt(
+    cmap: str | None = None,
     truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
@@ -74,6 +74,7 @@ def makecpt(
     Full GMT docs at :gmt-docs:`makecpt.html`.
 
     $aliases
+       - C = cmap
        - G = truncate
        - M = overrule_bg
        - N = no_bg
@@ -175,6 +176,7 @@ def makecpt(
         kwargs["H"] = True
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         M=Alias(overrule_bg, name="overrule_bg"),
         N=Alias(no_bg, name="no_bg"),

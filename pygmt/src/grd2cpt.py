@@ -18,7 +18,6 @@ __doctest_skip__ = ["grd2cpt"]
 @fmt_docstring
 @use_alias(
     A="transparency",
-    C="cmap",
     D="background",
     F="color_model",
     E="nlevels",
@@ -32,6 +31,7 @@ __doctest_skip__ = ["grd2cpt"]
 @kwargs_to_strings(L="sequence", T="sequence")
 def grd2cpt(
     grid: PathLike | xr.DataArray,
+    cmap: str | None = None,
     truncate: Sequence[float] | None = None,
     overrule_bg: bool = False,
     no_bg: bool = False,
@@ -86,6 +86,7 @@ def grd2cpt(
     Full GMT docs at :gmt-docs:`grd2cpt.html`.
 
     $aliases
+       - C = cmap
        - G = truncate
        - M = overrule_bg
        - N = no_bg
@@ -206,6 +207,7 @@ def grd2cpt(
         kwargs["H"] = True
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
         M=Alias(overrule_bg, name="overrule_bg"),
         N=Alias(no_bg, name="no_bg"),

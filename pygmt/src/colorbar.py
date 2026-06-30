@@ -241,9 +241,10 @@ def _alias_option_N(dpi=None):  # noqa: N802
 
 
 @fmt_docstring
-@use_alias(C="cmap", L="equalsize", Z="zfile")
+@use_alias(L="equalsize", Z="zfile")
 def colorbar(  # noqa: PLR0913
     self,
+    cmap: str | bool | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
     width: float | str | None = None,
@@ -324,6 +325,7 @@ def colorbar(  # noqa: PLR0913
        :columns: 1
 
        - B = label, unit, annot, tick, grid, annot_angle, annot_prefix, annot_unit
+       - C = cmap
        - D = position, **+w**: length/width, **+h**/**+v**: orientation,
          **+r**: reverse, **+n**: nan/nan_position,
          **+e**: fg_triangle/bg_triangle/triangle_height,
@@ -501,6 +503,7 @@ def colorbar(  # noqa: PLR0913
     )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         D=_alias_option_D(
             position=position,
             length=length,

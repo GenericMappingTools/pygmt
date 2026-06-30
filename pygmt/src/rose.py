@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
@@ -15,7 +15,6 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     A="sector",
-    C="cmap",
     D="shift",
     Em="vectors",
     F="no_scale",
@@ -38,6 +37,7 @@ from pygmt.params import Axis, Frame
 def rose(  # noqa: PLR0913
     self,
     data: PathLike | TableLike | None = None,
+    cmap: str | bool | None = None,
     length=None,
     azimuth=None,
     region: Sequence[float | str] | str | None = None,
@@ -67,6 +67,7 @@ def rose(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - R = region
        - V = verbose
        - c = panel
@@ -211,7 +212,9 @@ def rose(  # noqa: PLR0913
     """
     self._activate_figure()
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
+    ).add_common(
         B=frame,
         R=region,
         V=verbose,

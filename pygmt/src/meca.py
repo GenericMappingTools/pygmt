@@ -127,7 +127,6 @@ def _auto_offset(spec) -> bool:
 )
 @use_alias(
     A="offset",
-    C="cmap",
     E="extension_fill",
     Fr="label_box",
     G="compression_fill",
@@ -139,6 +138,7 @@ def meca(  # noqa: PLR0913
     self,
     spec: PathLike | TableLike,
     scale,
+    cmap: str | bool | None = None,
     convention: Literal["aki", "gcmt", "mt", "partial", "principal_axis"] | None = None,
     component: Literal["full", "dc", "deviatoric"] = "full",
     longitude: float | Sequence[float] | None = None,
@@ -211,6 +211,7 @@ def meca(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - N = no_clip
        - R = region
@@ -382,6 +383,7 @@ def meca(  # noqa: PLR0913
     kwargs["S"] = f"{_convention.code}{scale}"
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         B=frame,
