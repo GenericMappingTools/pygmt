@@ -130,7 +130,7 @@ region = [125, 135, 25, 36]
 
 # Create a point and buffer it
 point = geopandas.GeoSeries([Point(126.5, 33.5)])
-circle = point.buffer(0.6)  # 10 is the radius
+circle = point.buffer(0.6)  # 0.6 is the radius
 
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="30s")
 mask = pygmt.grdmask(region=region, data=circle, spacing="30s", outside="NaN")
