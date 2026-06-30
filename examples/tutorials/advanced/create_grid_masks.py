@@ -19,8 +19,8 @@ import pygmt
 from shapely.geometry import Point
 
 # %%
-# Polygons based on NumPy arrays
-# ------------------------------
+# Polygons based on :class:`numpy` arrays
+# ---------------------------------------
 
 # Define a study region
 region = [125, 135, 25, 36]
@@ -85,8 +85,8 @@ fig.show()
 
 
 # %%
-# US state Missouri based on GeoPandas polygon geometry
-# -----------------------------------------------------
+# US state Missouri based on a :class:`geopandas.GeoDataFrame` polygon geometry
+# -----------------------------------------------------------------------------
 
 region = [-126, -66, 25, 49]
 
