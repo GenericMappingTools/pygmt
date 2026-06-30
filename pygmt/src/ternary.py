@@ -108,10 +108,11 @@ def _ternary_frame(frame):
 
 
 @fmt_docstring
-@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
+@use_alias(C="cmap", G="fill", S="style", W="pen")
 def ternary(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
+    width: float | str | None = None,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
@@ -139,6 +140,7 @@ def ternary(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - JX = width
        - L = alabel/blabel/clabel
        - R = region
        - V = verbose
@@ -151,12 +153,10 @@ def ternary(  # noqa: PLR0913
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    width : str
-        Set the width of the figure by passing a number, followed by
-        a unit (**i** for inches, **c** for centimeters). Use a negative width
-        to indicate that positive axes directions be clock-wise
-        [Default lets the a, b, c axes be positive in a
-        counter-clockwise direction].
+    width
+        Width of the ternary diagram. Use a negative width to indicate that positive
+        axes directions be clock-wise [Default lets the **a**, **b**, **c** axes be
+        positive in a counter-clockwise direction].
     region : str or list
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
@@ -189,6 +189,7 @@ def ternary(  # noqa: PLR0913
     labels = _labels if any(v != "-" for v in _labels) else None
 
     aliasdict = AliasSystem(
+        JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
     ).add_common(
         B=_ternary_frame(frame),
