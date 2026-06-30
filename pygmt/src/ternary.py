@@ -108,11 +108,13 @@ def _ternary_frame(frame):
 
 
 @fmt_docstring
-@use_alias(C="cmap", G="fill", S="style", W="pen")
+@use_alias(C="cmap", S="style")
 def ternary(  # noqa: PLR0913
     self,
     data: PathLike | TableLike,
+    fill: str | None = None,
     width: float | str | None = None,
+    pen: str | None = None,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
@@ -141,11 +143,13 @@ def ternary(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - G = fill
        - JX = width
        - L = alabel/blabel/clabel
        - N = no_clip
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -167,7 +171,6 @@ def ternary(  # noqa: PLR0913
         For ternary diagrams, use :class:`pygmt.params.Frame` ``xaxis``, ``yaxis``, and
         ``zaxis`` attributes to set the **a**, **b**, and **c** axes, respectively.
     $cmap
-    $fill
     alabel
         Set the label for the *a* vertex where the component is 100%. The label is
         placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
@@ -179,7 +182,10 @@ def ternary(  # noqa: PLR0913
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    $pen
+    pen
+        Set pen attributes for the outlines of symbols.
+    fill
+        Set color or pattern for filling of symbols [Default is no fill].
     no_clip
         Do not clip symbols to the ternary diagram [Default plot points whose
         coordinates are strictly inside the map border].
@@ -194,9 +200,11 @@ def ternary(  # noqa: PLR0913
     labels = _labels if any(v != "-" for v in _labels) else None
 
     aliasdict = AliasSystem(
+        G=Alias(fill, name="fill"),
         JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
         N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=_ternary_frame(frame),
         R=region,
