@@ -47,16 +47,16 @@ grid = pygmt.datasets.load_earth_relief(region=region, resolution="01m")
 
 # Create a grid mask based on the two polygons defined above
 # Set all grid nodes outside the polygons to NaN
-mask_out = pygmt.grdmask(region=region, data=polygon, spacing="01m", outside="NaN")
+mask_outside = pygmt.grdmask(region=region, data=polygon, spacing="01m", outside="NaN")
 # Set all grid nodes inside the polygons to NaN
 # Set the outside parameter to a value larger 0 to keep the nodes outside unchanged
-mask_in = pygmt.grdmask(
+mask_inside = pygmt.grdmask(
     region=region, data=polygon, spacing="01m", inside="NaN", outside=1
 )
 
 # Apply the grid mask to the downloaded elevation grid by multiplying the two grids
-grid_mask_out = grid * mask_out
-grid_mask_in = grid * mask_in
+grid_masked_outside = grid * mask_outside
+grid_masked_inside = grid * mask_inside
 
 
 fig = pygmt.Figure()
@@ -71,14 +71,14 @@ fig.shift_origin(xshift="+w+2c")
 
 # Plot the masked elevation grid outside
 fig.basemap(region=region, projection="M10c", frame=True)
-fig.grdimage(grid=grid_mask_out, cmap=True)
+fig.grdimage(grid=grid_masked_outside, cmap=True)
 fig.plot(data=polygon, pen="2p,cyan")
 
 fig.shift_origin(xshift="+w+2c")
 
 # Plot the masked elevation grid inside
 fig.basemap(region=region, projection="M10c", frame=True)
-fig.grdimage(grid=grid_mask_in, cmap=True)
+fig.grdimage(grid=grid_masked_inside, cmap=True)
 fig.plot(data=polygon, pen="2p,cyan")
 
 fig.show()
@@ -99,7 +99,7 @@ missouri = states[states["name"] == "Missouri"]
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="01m")
 mask = pygmt.grdmask(region=region, data=missouri, spacing="01m", outside="NaN")
 mask_lonlat = mask.rename(new_name_or_name_dict={"x": "lon", "y": "lat"})
-grid_mask = grid * mask_lonlat
+grid_masked = grid * mask_lonlat
 
 
 fig = pygmt.Figure()
@@ -115,7 +115,7 @@ fig.shift_origin(xshift="+w+1c")
 # Plot the masked elevation grid
 # fig.basemap(projection="L-96/35/33/41/12c", region=region, frame=True)
 fig.basemap(projection="M10c", region=[-96.5, -88.5, 35.8, 41], frame=True)
-fig.grdimage(grid=grid_mask, cmap=True)
+fig.grdimage(grid=grid_masked, cmap=True)
 fig.plot(data=missouri, pen="1p,cyan")
 
 fig.colorbar(frame=True)
@@ -138,7 +138,7 @@ circle = point.buffer(0.6)  # 0.6 is the radius
 grid = pygmt.datasets.load_earth_relief(region=region, resolution="30s")
 mask = pygmt.grdmask(region=region, data=circle, spacing="30s", outside="NaN")
 mask_lonlat = mask.rename(new_name_or_name_dict={"x": "lon", "y": "lat"})
-grid_mask = grid * mask_lonlat
+grid_masked = grid * mask_lonlat
 
 
 fig = pygmt.Figure()
@@ -153,7 +153,7 @@ fig.shift_origin(xshift="+w+2c")
 
 # Plot the masked elevation grid
 fig.basemap(region=[125.5, 127.5, 32.5, 34.5], projection="M12c", frame=True)
-fig.grdimage(grid=grid_mask, cmap=True)
+fig.grdimage(grid=grid_masked, cmap=True)
 fig.plot(data=circle, pen="2p,cyan")
 
 fig.colorbar(frame=True)
