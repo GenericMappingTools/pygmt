@@ -7,11 +7,11 @@ shapes given as closed polygons. These polygons can be provided as
 :class:`numpy.ndarray` or :class:`geopandas.GeoDataFrame`. For the nodes falling inside,
 outside, and on the edges, different values can be defined. The created mask can then be
 applied to a desired grid.
-As the focus of this tutorial is on creating a grid mask and a related masked grid, no
-colorbars for the elevation grids are added to the maps.
 
-To create a land-water mask based on the GMT built-in shoreline data you can directly
-use the function :func:`pygmt.grdlandmask` explained in the gallery example
+As the focus of this tutorial is on creating a grid mask and a related masked grid, no
+colorbars for the elevation grids are added to the maps. To create a land-water mask
+based on the GMT built-in shoreline data you can directly use the function
+:func:`pygmt.grdlandmask` explained in the gallery example
 :doc:`Create 'wet-dry' mask grid </gallery/images/grdlandmask>`.
 """
 
