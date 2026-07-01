@@ -10,15 +10,15 @@
 
 ### New Features
 
-* Add Figure.choropleth to plot choropleth maps ([#2798](https://github.com/GenericMappingTools/pygmt/pull/2798))
-* Add Figure.directional_rose to plot a directional rose on map ([#4025](https://github.com/GenericMappingTools/pygmt/pull/4025))
-* Add Figure.fill_between to fill between two curves ([#4679](https://github.com/GenericMappingTools/pygmt/pull/4679))
-* Add Figure.magnetic_rose to plot a magnetic rose on map ([#4051](https://github.com/GenericMappingTools/pygmt/pull/4051))
-* Add Figure.paragraph to typeset one or multiple paragraph of text strings ([#3709](https://github.com/GenericMappingTools/pygmt/pull/3709))
-* Add Figure.scalebar to plot a scale bar on maps ([#4015](https://github.com/GenericMappingTools/pygmt/pull/4015))
+* Add Figure.choropleth for plotting choropleth maps ([#2798](https://github.com/GenericMappingTools/pygmt/pull/2798))
+* Add Figure.directional_rose for plotting a directional rose on map ([#4025](https://github.com/GenericMappingTools/pygmt/pull/4025), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
+* Add Figure.fill_between for filling between two curves ([#4679](https://github.com/GenericMappingTools/pygmt/pull/4679), [#4698](https://github.com/GenericMappingTools/pygmt/pull/4698), [#4696](https://github.com/GenericMappingTools/pygmt/pull/4696), [#4692](https://github.com/GenericMappingTools/pygmt/pull/4692))
+* Add Figure.magnetic_rose for plotting a magnetic rose on map ([#4051](https://github.com/GenericMappingTools/pygmt/pull/4051), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
+* Add Figure.paragraph for typesetting one or multiple paragraphs of text strings ([#3709](https://github.com/GenericMappingTools/pygmt/pull/3709))
+* Add Figure.scalebar for plotting a scale bar on maps ([#4015](https://github.com/GenericMappingTools/pygmt/pull/4015))
 * Add the Frame/Axis class for setting frame and axes ([#4406](https://github.com/GenericMappingTools/pygmt/pull/4406))
-* Wrap grdmask for creating mask grid from polygons or point coverage ([#4463](https://github.com/GenericMappingTools/pygmt/pull/4463))
-* Wrap grdpaste for joining two grids along their common edge ([#4399](https://github.com/GenericMappingTools/pygmt/pull/4399))
+* Add pygmt.grdmask for creating mask grid from polygons or point coverage ([#4463](https://github.com/GenericMappingTools/pygmt/pull/4463))
+* Add pygmt.grdpaste for joining two grids along their common edge ([#4399](https://github.com/GenericMappingTools/pygmt/pull/4399))
 
 ### Enhancements
 
@@ -28,9 +28,6 @@
 * Figure.colorbar: Add alias 'dpi' for the -N option ([#4501](https://github.com/GenericMappingTools/pygmt/pull/4501))
 * Figure.colorbar: Add alias 'monochrome' for option '-M' ([#4499](https://github.com/GenericMappingTools/pygmt/pull/4499))
 * Figure.colorbar: Add parameters label/unit/annot/tick/grid and more to set colorbar annotations/labels ([#4407](https://github.com/GenericMappingTools/pygmt/pull/4407))
-* Figure.fill_between: Add parameter 'legend_pen' to draw legend entries as lines ([#4698](https://github.com/GenericMappingTools/pygmt/pull/4698))
-* Figure.fill_between: Add parameter 'no_clip' to not clip curves outside the border ([#4696](https://github.com/GenericMappingTools/pygmt/pull/4696))
-* Figure.fill_between: Support for non-coregistered curves ([#4692](https://github.com/GenericMappingTools/pygmt/pull/4692))
 * Figure.grdview: Add alias "smooth" for the -S option ([#4444](https://github.com/GenericMappingTools/pygmt/pull/4444))
 * Figure.grdview: Add parameters surftype/dpi/mesh_fill/nan_transparent/monochrome to control surface types ([#4234](https://github.com/GenericMappingTools/pygmt/pull/4234))
 * Figure.subplot: Add parameters tag/tag_box/tag_position/tag_orientation/tag_number_style/tag_font for controlling subplot tagging ([#4313](https://github.com/GenericMappingTools/pygmt/pull/4313))
@@ -91,7 +88,6 @@
 * CI: Test NumPy 2.5 in the GMT Tests workflow ([#4693](https://github.com/GenericMappingTools/pygmt/pull/4693))
 * Clarify human-only authorship and exclude bot contributors ([#4640](https://github.com/GenericMappingTools/pygmt/pull/4640))
 * Figure.basemap: Raise a warning on deprecated parameters "map_scale", "rose", and "compass" ([#4477](https://github.com/GenericMappingTools/pygmt/pull/4477))
-* Figure.directional_rose/Figure.magnetic_rose: Set the default position to the top right ([#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
 * Figure: Refactor how plotting methods are attached to the Figure class ([#4612](https://github.com/GenericMappingTools/pygmt/pull/4612))
 * SPEC 0: Bump minimum supported version to NumPy 2.1, pandas 2.3 and xarray 2024.7 ([#4650](https://github.com/GenericMappingTools/pygmt/pull/4650))
 * Simplify AUTHORS.md and add authorship links ([#4642](https://github.com/GenericMappingTools/pygmt/pull/4642))
