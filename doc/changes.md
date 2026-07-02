@@ -6,7 +6,17 @@
 
 ### Highlights
 
-*
+* A PyGMT paper has been accepted for publication in *Geochemistry, Geophysics, Geosystems*.
+  The citation is as follows:
+  > Tian, D., Fröhlich, Y., Leong, W. J., Grund, M., Schlitzer, W., Jones, M., Uieda, L., Luis, J. M. F.  (2026).
+  > PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis.
+  > Geochemistry, Geophysics, Geosystems, 27, e2026GC013105. https://doi.org/10.1029/2026GC013105
+
+  Feel free to cite this paper when using PyGMT in your research.
+* 🎉 Nineteenth minor release of PyGMT 🎉
+* Six new plotting methods and two new grid modules have been added to PyGMT
+* New `Frame`/`Axis` classes for setting frame and axes
+* Eight new gallery examples
 
 ### New Features
 
