@@ -11,26 +11,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/text.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../../_static/documentation_options.js?v=bba8e61a"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -163,7 +164,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnchorCode</span><span class="p">,</span> <span class="n">PathLike</span><span class="p">,</span> <span class="n">StringArrayTypes</span><span class="p">,</span> <span class="n">TableLike</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.alias</span><span class="w"> </span><span class="kn">import</span> <span class="n">Alias</span><span class="p">,</span> <span class="n">AliasSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span><span class="p">,</span> <span class="n">GMTTypeError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span><span class="p">,</span> <span class="n">GMTTypeError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_check_encoding</span><span class="p">,</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
@@ -173,14 +174,12 @@
     <span class="n">non_ascii_to_octal</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axis</span><span class="p">,</span> <span class="n">Frame</span>
 
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span>
-    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
-    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">a</span><span class="o">=</span><span class="s2">&quot;aspatial&quot;</span><span class="p">,</span>
     <span class="n">e</span><span class="o">=</span><span class="s2">&quot;find&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
@@ -188,25 +187,28 @@
     <span class="n">it</span><span class="o">=</span><span class="s2">&quot;use_word&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">text_</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912, PLR0913, PLR0915</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">text</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912, PLR0913, PLR0915</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">textfiles</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">TableLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">position</span><span class="p">:</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">StringArrayTypes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">angle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">font</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">font</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">StringArrayTypes</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">fill</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">justify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">AnchorCode</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_clip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span> <span class="o">|</span> <span class="n">Axis</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -223,15 +225,21 @@
 <span class="sd">    ZapfDingbats and ISO-8859-x (x can be 1-11, 13-16) encodings. Refer to</span>
 <span class="sd">    :doc:`/techref/encodings` for the full list of supported non-ASCII characters.</span>
 
+<span class="sd">    For typesetting one or more paragraphs of text, see</span>
+<span class="sd">    :meth:`pygmt.Figure.paragraph`.</span>
+
 <span class="sd">    Full GMT docs at :gmt-docs:`text.html`.</span>
 
 <span class="sd">    $aliases</span>
 <span class="sd">       - B = frame</span>
+<span class="sd">       - D = offset</span>
 <span class="sd">       - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font</span>
+<span class="sd">       - G = fill</span>
 <span class="sd">       - J = projection</span>
 <span class="sd">       - N = no_clip</span>
 <span class="sd">       - R = region</span>
 <span class="sd">       - V = verbose</span>
+<span class="sd">       - W = pen</span>
 <span class="sd">       - c = panel</span>
 <span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
@@ -259,20 +267,20 @@
 <span class="sd">        The x and y coordinates, or an array of x and y coordinates to plot</span>
 <span class="sd">        the text.</span>
 <span class="sd">    position</span>
-<span class="sd">        Set reference point on the map for the text by using x, y</span>
+<span class="sd">        Set reference point on the plot for the text by using x, y</span>
 <span class="sd">        coordinates extracted from ``region`` instead of providing them</span>
 <span class="sd">        through ``x``/``y``. Specify with a</span>
 <span class="sd">        :doc:`2-character justification code &lt;/techref/justification_codes&gt;`.</span>
 <span class="sd">        For example, ``position=&quot;TL&quot;`` plots the text at the Top Left corner</span>
-<span class="sd">        of the map.</span>
+<span class="sd">        of the plot.</span>
 <span class="sd">    text</span>
 <span class="sd">        The text string, or an array of strings to plot on the figure.</span>
-<span class="sd">    angle: float, str, bool or list</span>
+<span class="sd">    angle</span>
 <span class="sd">        Set the angle measured in degrees counter-clockwise from</span>
 <span class="sd">        horizontal (e.g. 30 sets the text at 30 degrees). If no angle is</span>
 <span class="sd">        explicitly given (i.e. ``angle=True``) then the input to ``textfiles``</span>
 <span class="sd">        must have this as a column.</span>
-<span class="sd">    font : str, bool or list of str</span>
+<span class="sd">    font</span>
 <span class="sd">        Set the font specification with format *size*\ ,\ *font*\ ,\ *color*</span>
 <span class="sd">        where *size* is text size in points, *font* is the font to use, and</span>
 <span class="sd">        *color* sets the font color. For example,</span>
@@ -287,9 +295,6 @@
 <span class="sd">        e.g., **BL** for Bottom Left. If no justification is explicitly given</span>
 <span class="sd">        (i.e. ``justify=True``), then the input to ``textfiles`` must have</span>
 <span class="sd">        this as a column.</span>
-<span class="sd">    $projection</span>
-<span class="sd">    $region</span>
-<span class="sd">        *Required if this is the first plot command.*</span>
 <span class="sd">    clearance : str</span>
 <span class="sd">        [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].</span>
 <span class="sd">        Adjust the clearance between the text and the surrounding box</span>
@@ -303,24 +308,25 @@
 <span class="sd">        **O** to get a rounded rectangle. In paragraph mode (*paragraph*)</span>
 <span class="sd">        you can also append lowercase **c** to get a concave rectangle or</span>
 <span class="sd">        append uppercase **C** to get a convex rectangle.</span>
-<span class="sd">    fill : str</span>
+<span class="sd">    fill</span>
 <span class="sd">        Set color for filling text boxes [Default is no fill].</span>
-<span class="sd">    offset : str</span>
-<span class="sd">        [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].</span>
-<span class="sd">        Offset the text from the projected (x, y) point by *dx*/\ *dy*</span>
-<span class="sd">        [Default is ``&quot;0/0&quot;``].</span>
-<span class="sd">        If *dy* is not specified then it is set equal to *dx*. Use **j** to</span>
-<span class="sd">        offset the text away from the point instead (i.e., the text</span>
-<span class="sd">        justification will determine the direction of the shift). Using</span>
-<span class="sd">        **J** will shorten diagonal offsets at corners by sqrt(2).</span>
-<span class="sd">        Optionally, append **+v** which will draw a line from the original</span>
-<span class="sd">        point to the shifted point; append a pen to change the attributes</span>
+<span class="sd">    pen</span>
+<span class="sd">        Set the pen used to draw a rectangle around the text string (see ``clearance``)</span>
+<span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``].</span>
+<span class="sd">    offset</span>
+<span class="sd">        (*dx*, *dy*) or [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].</span>
+<span class="sd">        Offset the text from the projected (x, y) point by (*dx*, *dy*) [Default is</span>
+<span class="sd">        (0, 0)]. If *dy* is not specified then it is set equal to *dx*. Use **j** to</span>
+<span class="sd">        offset the text away from the point instead (i.e., the text justification will</span>
+<span class="sd">        determine the direction of the shift). Using **J** will shorten diagonal offsets</span>
+<span class="sd">        at corners by sqrt(2). Optionally, append **+v** which will draw a line from</span>
+<span class="sd">        the original point to the shifted point; append a pen to change the attributes</span>
 <span class="sd">        for this line.</span>
-<span class="sd">    pen : str</span>
-<span class="sd">        Set the pen used to draw a rectangle around the text string</span>
-<span class="sd">        (see ``clearance``) [Default is ``&quot;0.25p,black,solid&quot;``].</span>
 <span class="sd">    no_clip</span>
 <span class="sd">        Do **not** clip text at the frame boundaries [Default is ``False``].</span>
+<span class="sd">    $projection</span>
+<span class="sd">    $region</span>
+<span class="sd">        *Required if this is the first plot command.*</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    $aspatial</span>
 <span class="sd">    $panel</span>
@@ -336,6 +342,11 @@
 <span class="sd">        ``transparency`` can also be a 1-D array to set varying transparency for texts,</span>
 <span class="sd">        but this option is only valid if using ``x``/``y`` and ``text``.</span>
 <span class="sd">    $wrap</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    pygmt.Figure.paragraph</span>
+<span class="sd">        Typeset one or multiple paragraphs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
@@ -345,16 +356,16 @@
         <span class="o">+</span> <span class="p">(</span><span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
         <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
     <span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Provide either &#39;textfiles&#39;, &#39;x&#39;/&#39;y&#39;/&#39;text&#39;, or &#39;position&#39;/&#39;text&#39;.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">at_most_one</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;textfiles&quot;</span><span class="p">,</span> <span class="s2">&quot;position/text&quot;</span><span class="p">,</span> <span class="s2">&quot;x/y/text&quot;</span><span class="p">])</span>
 
     <span class="n">data_is_required</span> <span class="o">=</span> <span class="n">position</span> <span class="ow">is</span> <span class="kc">None</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">textfiles</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="n">data_is_required</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;text&#39; can&#39;t be None when &#39;position&#39; is given.&quot;</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+                <span class="n">required</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Required when &#39;position&#39; is set.&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTTypeError</span><span class="p">(</span>
                 <span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">),</span>
@@ -362,11 +373,11 @@
             <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">textfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;text&#39; can&#39;t be specified when &#39;textfiles&#39; is given.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">at_most_one</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;textfiles&quot;</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;empty&quot;</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Must provide text with x/y pairs.&quot;</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
+            <span class="n">required</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Required when &#39;x&#39; and &#39;y&#39; are set.&quot;</span>
+        <span class="p">)</span>
 
     <span class="c1"># Arguments that can accept arrays.</span>
     <span class="n">array_args</span> <span class="o">=</span> <span class="p">[</span>
@@ -377,13 +388,15 @@
 
     <span class="c1"># Build the -F option.</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
-        <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">justify</span><span class="p">)</span>
+        <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">justify</span><span class="p">)</span>
     <span class="p">):</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
 
     <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">array_args</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">flag</span>
+        <span class="k">elif</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">pass</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">flag</span><span class="si">}{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span>
 
@@ -427,7 +440,10 @@
                 <span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
+        <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">no_clip</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">),</span>
+        <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
@@ -458,9 +474,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/ff4559430">ff455943</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 01, 2026.
       </span></p>
   </div>
 

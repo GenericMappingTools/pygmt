@@ -25,7 +25,7 @@ The :meth:`pygmt.Figure.inset` method adds an inset figure inside a larger figur
 method is called using a ``with`` statement. Plotting methods called within the ``with``
 statement plot into the inset figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-46
+.. GENERATED FROM PYTHON SOURCE LINES 11-50
 
 
 
@@ -41,7 +41,7 @@ statement plot into the inset figure.
 .. code-block:: Python
 
     import pygmt
-    from pygmt.params import Box, Position
+    from pygmt.params import Axis, Box, Frame, Position
 
     # Set the region of the main figure
     region = [137.5, 141, 34, 37]
@@ -49,7 +49,11 @@ statement plot into the inset figure.
     fig = pygmt.Figure()
     # Plot the base map of the main figure. Universal Transverse Mercator (UTM) projection
     # is used and the UTM zone is set to be "54S".
-    fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
+    fig.basemap(
+        region=region,
+        projection="U54S/12c",
+        frame=Frame(axes="WSne", axis=Axis(annot=True, tick=True)),
+    )
 
     # Set the land color to "lightbrown", the water color to "azure1", the shoreline width
     # to "2p", and the area threshold to 1000 km^2 for the main figure.
@@ -79,7 +83,7 @@ statement plot into the inset figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.346 seconds)
+   **Total running time of the script:** (0 minutes 0.348 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_inset_rectangle_region.py:

@@ -24,12 +24,13 @@ Tile maps
 The :meth:`pygmt.Figure.tilemap` method allows to plot
 tiles from a tile server or local file as a basemap or overlay.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-30
+.. GENERATED FROM PYTHON SOURCE LINES 10-31
 
 .. code-block:: Python
 
     import contextily
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.tilemap(
@@ -43,7 +44,7 @@ tiles from a tile server or local file as a basemap or overlay.
         zoom=14,
         # Use tiles from OpenStreetMap tile server
         source="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
     )
 
     fig.show()
@@ -60,14 +61,14 @@ tiles from a tile server or local file as a basemap or overlay.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 32-36
 
 It's also possible to use tiles provided via the
 `contextily <https://github.com/geopandas/contextily>`__
 library. See :doc:`Contextily providers <contextily:providers_deepdive>`
 for a list of possible tilemap options.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-46
+.. GENERATED FROM PYTHON SOURCE LINES 36-47
 
 .. code-block:: Python
 
@@ -78,7 +79,7 @@ for a list of possible tilemap options.
         projection="M12c",
         # Use the CartoDB Positron option from contextily
         source=contextily.providers.CartoDB.Positron,
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
     )
 
     fig.show()
@@ -97,7 +98,7 @@ for a list of possible tilemap options.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.653 seconds)
+   **Total running time of the script:** (0 minutes 1.491 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_tilemaps.py:

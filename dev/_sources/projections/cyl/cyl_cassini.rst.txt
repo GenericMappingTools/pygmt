@@ -36,7 +36,7 @@ curves.
 The projection is set with **c** or **C**. The projection center is set by
 *lon0/lat0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-34
+.. GENERATED FROM PYTHON SOURCE LINES 22-35
 
 
 
@@ -52,13 +52,14 @@ The projection is set with **c** or **C**. The projection center is set by
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     # Use the ISO code for Madagascar (MG) and pad it by 2 degrees (+R2)
     fig.coast(
         region="MG+R2",
         projection="C47/-19/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="gray80",
         water="steelblue",
     )
@@ -67,7 +68,7 @@ The projection is set with **c** or **C**. The projection center is set by
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.297 seconds)
+   **Total running time of the script:** (0 minutes 0.301 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_cassini.py:

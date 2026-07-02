@@ -1,0 +1,13 @@
+pygmt.Figure.scalebar
+=====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.scalebar
+
+.. minigallery:: pygmt.Figure.scalebar
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

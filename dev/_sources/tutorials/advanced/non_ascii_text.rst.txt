@@ -38,17 +38,23 @@ They can also be used in the arguments of other plotting functions (e.g., in the
 
 In this example, we demonstrate how to typeset non-ASCII characters in PyGMT.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-57
+.. GENERATED FROM PYTHON SOURCE LINES 25-63
 
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis, Frame
 
     fig = pygmt.Figure()
     fig.basemap(
         region=[0, 5, 0, 6],
         projection="X14c/7c",
-        frame=["xaf+lDistance (°)", "yaf+lValue (‰)", "WSen+tTitle: α² ± β²"],
+        frame=Frame(
+            axes="WSen",
+            title="Title: α² ± β²",
+            xaxis=Axis(annot=True, tick=True, label="Distance (°)"),
+            yaxis=Axis(annot=True, tick=True, label="Value (‰)"),
+        ),
     )
 
     fig.text(
@@ -86,7 +92,7 @@ In this example, we demonstrate how to typeset non-ASCII characters in PyGMT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-76
+.. GENERATED FROM PYTHON SOURCE LINES 64-82
 
 Here are some important tips when using non-ASCII characters:
 
@@ -110,7 +116,7 @@ Here are some important tips when using non-ASCII characters:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.170 seconds)
+   **Total running time of the script:** (0 minutes 0.182 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_non_ascii_text.py:

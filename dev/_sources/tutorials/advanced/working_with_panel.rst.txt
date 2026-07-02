@@ -42,13 +42,14 @@ This tutorial is split into three parts:
 
 Import the required packages
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-32
+.. GENERATED FROM PYTHON SOURCE LINES 25-33
 
 .. code-block:: Python
 
     import numpy as np
     import panel as pn
     import pygmt
+    from pygmt.params import Axis
 
     pn.extension()
 
@@ -60,7 +61,7 @@ Import the required packages
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-42
+.. GENERATED FROM PYTHON SOURCE LINES 34-43
 
 Make a static map
 -----------------
@@ -72,7 +73,7 @@ filled with colors via the ``land`` and  ``water`` parameters of
 :meth:`pygmt.Figure.coast`, respectively. Coastlines are added using the
 ``shorelines`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-59
+.. GENERATED FROM PYTHON SOURCE LINES 43-60
 
 .. code-block:: Python
 
@@ -84,7 +85,7 @@ filled with colors via the ``land`` and  ``water`` parameters of
         # 15° North and a width of 12 centimeters
         projection="G0/15/12c",
         region="g",  # global
-        frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
+        frame=Axis(grid=30),  # Add gridlines in steps of 30 degrees on top
         land="gray",  # Color land masses in "gray"
         water="lightblue",  # Color water masses in "lightblue"
         # Add coastlines with a 0.25-point thick pen in "gray50"
@@ -105,7 +106,7 @@ filled with colors via the ``land`` and  ``water`` parameters of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-67
+.. GENERATED FROM PYTHON SOURCE LINES 61-68
 
 Make an interactive map
 -----------------------
@@ -115,7 +116,7 @@ longitude of the Orthographic projection is varied iteratively in steps of
 10 degrees. The library ``Panel`` is used to create an interactive dashboard
 with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-99
+.. GENERATED FROM PYTHON SOURCE LINES 68-100
 
 .. code-block:: Python
 
@@ -139,7 +140,7 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).
             # Vary the central longitude used for the Orthographic projection
             projection=f"G{central_lon}/15/12c",
             region="g",
-            frame="g30",
+            frame=Axis(grid=30),
             land="gray",
             water="lightblue",
             shorelines="1/0.25p,gray50",
@@ -161,12 +162,12 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
 
     Column
-        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[np.int64(0), ...], value=0)
+        [0] DiscreteSlider(formatter='%d', label='Central longitude', name='Central longitude', options=[np.int64(0), ...], value=0)
         [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-105
+.. GENERATED FROM PYTHON SOURCE LINES 101-106
 
 Add a grid for Earth relief
 ---------------------------
@@ -174,7 +175,7 @@ Add a grid for Earth relief
 Instead of using colors as fill for the land and water masses a grid can be
 displayed. Here, the Earth relief is shown by color-coding the elevation.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-148
+.. GENERATED FROM PYTHON SOURCE LINES 106-147
 
 .. code-block:: Python
 
@@ -209,12 +210,10 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
             region="g",
             grid=grd_relief,  # Use grid downloaded above
             cmap=True,  # Use colormap defined above
-            frame="g30",
+            frame=Axis(grid=30),
         )
-        # Add a horizontal colorbar for the elevation
-        # with annotations (a) in steps of 2000 and ticks (f) in steps of 1000
-        # and labels (+l) at the x-axis "Elevation" and y-axis "m" (meters)
-        fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
+        # Add a horizontal colorbar for the elevation.
+        fig.colorbar(annot=2000, tick=1000, label="Elevation", unit="m")
         return fig
 
 
@@ -231,7 +230,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 
     Column
-        [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[np.int64(0), ...], value=0)
+        [0] DiscreteSlider(formatter='%d', label='Central longitude', name='Central longitude', options=[np.int64(0), ...], value=0)
         [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
@@ -239,7 +238,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.634 seconds)
+   **Total running time of the script:** (0 minutes 1.655 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_working_with_panel.py:

@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/embellishments/inset.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=bba8e61a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -102,10 +103,12 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="colorbar.html">Colorbar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="solar.html">Day-night terminator and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="directional_roses.html">Directional map rose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gmt_logo.html">GMT logo</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Inset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="magnetic_rose.html">Magnetic rose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="text_formatting.html">Text formatting</a></li>
@@ -200,14 +203,17 @@ to download the full example code.</p>
 method is called using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. Plotting methods called within the <code class="docutils literal notranslate"><span class="pre">with</span></code>
 statement are applied to the inset figure.</p>
 <img src="../../_images/sphx_glr_inset_001.png" srcset="../../_images/sphx_glr_inset_001.png" alt="inset" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
-<span class="c1"># Create the primary figure, setting the region to Madagascar, the land color to</span>
-<span class="c1"># &quot;brown&quot;, the water to &quot;lightblue&quot;, the shorelines width to &quot;thin&quot;, and adding a frame</span>
-<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;MG+r2&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-<span class="c1"># Create an inset, placing it in the Top Left (TL) corner with a width of 3.5 cm and</span>
-<span class="c1"># x- and y-offsets of 0.2 cm. The clearance is set to 0, and the border is &quot;gold&quot; with a</span>
+<span class="c1"># Create the primary figure, setting the region to Madagascar</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;MG+r2&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="c1"># Set the land color to &quot;brown&quot;, the water color to &quot;lightblue&quot;, and the shorelines</span>
+<span class="c1"># width to &quot;thin&quot;</span>
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create an inset, placing it in the Top Left (TL) corner with a width of 3.5 cm and x-</span>
+<span class="c1"># and y-offsets of 0.2 cm. The clearance is set to 0, and the border is &quot;gold&quot; with a</span>
 <span class="c1"># pen thickness of 1.5 points.</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
@@ -215,16 +221,16 @@ statement are applied to the inset figure.</p>
     <span class="n">clearance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1.5p,gold&quot;</span><span class="p">),</span>
 <span class="p">):</span>
-    <span class="c1"># Create a figure in the inset using coast. This example uses the azimuthal</span>
-    <span class="c1"># orthogonal projection centered at 47E, 20S. The land color is set to &quot;gray&quot; and</span>
-    <span class="c1"># Madagascar is highlighted in &quot;red3&quot;.</span>
-    <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-        <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G47/-20/?&quot;</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;MG+gred3&quot;</span>
-    <span class="p">)</span>
+    <span class="c1"># Create a map within the inset. This example uses the azimuthal orthogonal</span>
+    <span class="c1"># projection centered at 47 E, 20 S. The question mark is required for the</span>
+    <span class="c1"># automatic size determination by PyGMT</span>
+    <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G47/-20/?&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Madagascar is highlighted in &quot;red3&quot;</span>
+    <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;MG+gred3&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.529 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.680 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-inset-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/44f2f8886e62c9f3304375fbaf60a56f/inset.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">inset.ipynb</span></code></a></p>
@@ -252,9 +258,9 @@ statement are applied to the inset figure.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/ff4559430">ff455943</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 01, 2026.
       </span></p>
   </div>
 

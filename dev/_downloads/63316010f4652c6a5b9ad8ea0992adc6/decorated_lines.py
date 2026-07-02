@@ -18,13 +18,16 @@ or weather fronts; for details see the
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([1, 4])
 y = np.array([24, 24])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 24], projection="X15c", frame="+tDecorated Lines")
+fig.basemap(
+    region=[0, 10, 0, 24], projection="X15c", frame=Frame(title="Decorated Lines")
+)
 
 # Plot different decorated lines
 for decoline in [
@@ -77,7 +80,7 @@ for decoline in [
         text=decoline,
         font="Courier-Bold",
         justify="ML",
-        offset="0.75c/0c",
+        offset=(0.75, 0),
     )
 
 fig.show()

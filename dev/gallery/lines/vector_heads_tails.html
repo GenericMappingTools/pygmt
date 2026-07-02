@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/lines/vector_heads_tails.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=bba8e61a"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -97,6 +98,7 @@
 <li class="toctree-l3"><a class="reference internal" href="connection_lines.html">Connection lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="decorated_lines.html">Decorated lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fill_areas_between_curves.html">Fill area between curves</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestrings.html">GeoPandas: Plotting lines with LineString or MultiLineString geometry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hlines_vlines.html">Horizontal and vertical lines</a></li>
@@ -200,33 +202,39 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="vector-heads-and-tails">
 <span id="sphx-glr-gallery-lines-vector-heads-tails-py"></span><h1>Vector heads and tails<a class="headerlink" href="#vector-heads-and-tails" title="Link to this heading"></a></h1>
-<p>Many methods in PyGMT allow plotting vectors with individual
-heads and tails. For this purpose, several modifiers may be appended to
-the corresponding vector-producing parameters for specifying the placement
-of vector heads and tails, their shapes, and the justification of the vector.</p>
-<p>To place a vector head at the beginning of the vector path
-simply append <strong>+b</strong> to the vector-producing option (use <strong>+e</strong> to place
-one at the end). Optionally, append <strong>t</strong> for a terminal line, <strong>c</strong> for a
-circle, <strong>a</strong> for arrow (default), <strong>i</strong> for tail, <strong>A</strong> for plain open
-arrow, and <strong>I</strong> for plain open tail. Further append <strong>l</strong> or <strong>r</strong> (e.g.
-<code class="docutils literal notranslate"><span class="pre">&quot;+bar&quot;</span></code>) to only draw the left or right half-sides of the selected head/tail
-(default is both sides) or use <strong>+l</strong> or <strong>+r</strong> to apply simultaneously to both
-beginning and end. In this context, left and right refer to the side of the
-vector line when viewed from the beginning point to the end point of a line
-segment. The angle of the vector head apex can be set using <strong>+a</strong><em>angle</em>
-(default is 30). The shape of the vector head can be adjusted using
-<strong>+h</strong><em>shape</em> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;+h0.5&quot;</span></code>).</p>
-<p>For further modifiers see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/plot.html#vector-attributes">https://docs.generic-mapping-tools.org/6.6/plot.html#vector-attributes</a>.</p>
+<p>Many methods in PyGMT allow plotting vectors with individual heads and tails.
+For this purpose, several modifiers may be appended to the corresponding
+vector-producing parameters for specifying the placement of vector heads and
+tails, their shapes, and the justification of the vector.</p>
+<p>To place a vector head at the beginning of the vector path simply append <strong>+b</strong>
+to the vector-producing option (use <strong>+e</strong> to place one at the end). Optionally,
+append <strong>t</strong> for a terminal line, <strong>c</strong> for a circle, <strong>a</strong> for arrow (default),
+<strong>i</strong> for tail, <strong>A</strong> for plain open arrow, and <strong>I</strong> for plain open tail.
+Further append <strong>l</strong> or <strong>r</strong> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;+bar&quot;</span></code>) to only draw the left or right
+half-sides of the selected head/tail (default is both sides) or use <strong>+l</strong> or
+<strong>+r</strong> to apply simultaneously to both beginning and end. In this context, left
+and right refer to the side of the vector line when viewed from the beginning
+point to the end point of a line segment. The angle of the vector head apex can
+be set using <strong>+a</strong><em>angle</em> (default is 30). The shape of the vector head can
+be adjusted using <strong>+h</strong><em>shape</em> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;+h0.5&quot;</span></code>).</p>
 <p>In the following, we use the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
 the vector type, here <code class="docutils literal notranslate"><span class="pre">&quot;v&quot;</span></code> for Cartesian vector, see also the
-<a class="reference internal" href="vector_styles.html"><span class="doc">Vector types example</span></a>)
-by passing the corresponding shortcuts to the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
+<a class="reference internal" href="vector_styles.html"><span class="doc">Vector types example</span></a>) by passing the
+corresponding shortcuts to the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter.</p>
+<p>For further modifiers see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/plot.html#vector-attributes">https://docs.generic-mapping-tools.org/6.6/plot.html#vector-attributes</a>. Please note
+that vectors were completely redesigned for GMT 5 which separated the vector
+head (a polygon) from the vector stem (a line). In GMT 4, the entire vector was
+a polygon. Thus, to fill the entire vector with a color users have to follow the
+GMT 4 synthax, which can be found on the webpage mentioned above.</p>
 <img src="../../_images/sphx_glr_vector_heads_tails_001.png" srcset="../../_images/sphx_glr_vector_heads_tails_001.png" alt="vector heads tails" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
-    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X15c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;+tVector heads and tails&quot;</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X15c/10c&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Vector heads and tails&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <span class="mi">1</span>
@@ -268,14 +276,14 @@ by passing the corresponding shortcuts to the <code class="docutils literal notr
         <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vecstyle</span></a><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="p">([</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">angle</span></a><span class="p">],</span> <span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">length</span></a><span class="p">]),</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;red3&quot;</span>
     <span class="p">)</span>
     <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
-        <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vecstyle</span></a><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Courier-Bold&quot;</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;ML&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;0.2c/0c&quot;</span>
+        <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vecstyle</span></a><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Courier-Bold&quot;</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;ML&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="p">)</span>
     <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">-=</span> <span class="mi">1</span>  <span class="c1"># move the next vector down</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.255 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.272 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-vector-heads-tails-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0c945e86732f528ab720eb6eb270ec15/vector_heads_tails.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">vector_heads_tails.ipynb</span></code></a></p>
@@ -303,9 +311,9 @@ by passing the corresponding shortcuts to the <code class="docutils literal notr
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/ff4559430">ff455943</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 01, 2026.
       </span></p>
   </div>
 

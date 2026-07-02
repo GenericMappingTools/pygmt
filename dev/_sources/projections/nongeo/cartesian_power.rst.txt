@@ -30,7 +30,7 @@ an *x-scale* and an optional *y-scale*.
 Each axis with a power transformation requires **p** and the exponent
 for that axis after its size argument.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-43
+.. GENERATED FROM PYTHON SOURCE LINES 16-49
 
 
 
@@ -47,6 +47,7 @@ for that axis after its size argument.
 
     import numpy as np
     import pygmt
+    from pygmt.params import Axis, Frame
 
     # Create a list of y-values 0-10
     yvalues = np.arange(0, 11)
@@ -60,7 +61,12 @@ for that axis after its size argument.
         projection="X15cp0.5/10c",
         # Set the figures frame as well as annotations and ticks
         # The "p" forces to show only square numbers as annotations of the x-axis
-        frame=["WSne+gbisque", "xfga1p", "ya2f1g"],
+        frame=Frame(
+            axes="WSne",
+            fill="bisque",
+            xaxis=Axis(annot="1p", tick=True, grid=True),
+            yaxis=Axis(annot=2, tick=1, grid=True),
+        ),
     )
 
     # Set the line thickness to "thick" (equals "1p", i.e. 1 point)
@@ -76,7 +82,7 @@ for that axis after its size argument.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.141 seconds)
+   **Total running time of the script:** (0 minutes 0.150 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_power.py:

@@ -24,11 +24,12 @@ Creating a 3-D perspective image
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-15
+.. GENERATED FROM PYTHON SOURCE LINES 10-16
 
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis, Frame
 
     # Load sample earth relief data
     grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
@@ -40,7 +41,7 @@ using :meth:`pygmt.Figure.grdview`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-23
+.. GENERATED FROM PYTHON SOURCE LINES 17-24
 
 The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
 The ``perspective`` parameter changes the azimuth and elevation of the
@@ -50,7 +51,7 @@ three-dimensional portion appears.
 
 The default grid surface type is *mesh plot*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-39
+.. GENERATED FROM PYTHON SOURCE LINES 24-40
 
 .. code-block:: Python
 
@@ -62,7 +63,7 @@ The default grid surface type is *mesh plot*.
         # degrees
         perspective=[130, 30],
         # Sets the x- and y-axis labels, and annotates the west, south, and east axes
-        frame=["xa", "ya", "WSnE"],
+        frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
         # Sets a Mercator projection on a 15-centimeter figure
         projection="M15c",
         # Sets the height of the three-dimensional relief at 1.5 centimeters
@@ -82,12 +83,12 @@ The default grid surface type is *mesh plot*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-42
+.. GENERATED FROM PYTHON SOURCE LINES 41-43
 
 The grid surface type can be set with the ``surftype`` parameter.
 The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-57
+.. GENERATED FROM PYTHON SOURCE LINES 43-56
 
 .. code-block:: Python
 
@@ -96,13 +97,11 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
     fig.grdview(
         grid=grid,
         perspective=[130, 30],
-        frame=["xa", "yaf", "WSnE"],
+        frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True, tick=True)),
         projection="M15c",
         zsize="1.5c",
-        # Set the surftype to "surface"
-        surftype="s",
-        # Set the CPT to "geo"
-        cmap="gmt/geo",
+        surftype="surface",
+        cmap="gmt/geo",  # Set the CPT to "geo"
     )
     fig.show()
 
@@ -118,12 +117,12 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-60
+.. GENERATED FROM PYTHON SOURCE LINES 57-59
 
 The ``plane`` parameter sets the elevation and color of a plane that provides a fill
 below the surface relief.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-75
+.. GENERATED FROM PYTHON SOURCE LINES 59-74
 
 .. code-block:: Python
 
@@ -132,10 +131,10 @@ below the surface relief.
     fig.grdview(
         grid=grid,
         perspective=[130, 30],
-        frame=["xa", "yaf", "WSnE"],
+        frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True, tick=True)),
         projection="M15c",
         zsize="1.5c",
-        surftype="s",
+        surftype="surface",
         cmap="gmt/geo",
         plane=1000,  # Set the plane elevation to 1,000 meters
         facade_fill="gray",  # Color the facade in "gray"
@@ -154,7 +153,7 @@ below the surface relief.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-82
+.. GENERATED FROM PYTHON SOURCE LINES 75-81
 
 The ``perspective`` azimuth can be changed to set the direction that is "up"
 in the figure. The ``contour_pen`` parameter sets the pen used to draw contour
@@ -163,7 +162,7 @@ colorbar to the figure. The ``cmap`` parameter does not need to be passed
 again. To keep the colorbar's alignment similar to the figure, use ``True``
 as argument for the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-101
+.. GENERATED FROM PYTHON SOURCE LINES 81-104
 
 .. code-block:: Python
 
@@ -173,17 +172,21 @@ as argument for the ``perspective`` parameter.
         grid=grid,
         # Set the azimuth to -130 (230) degrees and the elevation to 30 degrees
         perspective=[-130, 30],
-        frame=["xaf", "yaf", "WSnE"],
+        frame=Frame(
+            axes="WSnE",
+            xaxis=Axis(annot=True, tick=True),
+            yaxis=Axis(annot=True, tick=True),
+        ),
         projection="M15c",
         zsize="1.5c",
-        surftype="s",
+        surftype="surface",
         cmap="gmt/geo",
         plane=1000,
         facade_fill="gray",
         # Set the contour pen thickness to 0.1 points
         contour_pen="0.1p",
     )
-    fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
+    fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
     fig.show()
 
 
@@ -201,7 +204,7 @@ as argument for the ``perspective`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.960 seconds)
+   **Total running time of the script:** (0 minutes 0.985 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_3d_perspective_image.py:

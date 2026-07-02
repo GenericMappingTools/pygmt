@@ -33,7 +33,7 @@ occasionally referenced under the name homalographic projection.
 The projection is set with **w** or **W**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-25
+.. GENERATED FROM PYTHON SOURCE LINES 19-33
 
 
 
@@ -49,16 +49,29 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     # Use region "d" to specify global region (-180/180/-90/90)
-    fig.coast(region="d", projection="W12c", frame="afg", land="ivory", water="bisque4")
+    fig.coast(
+        region="d",
+        projection="W12c",
+        frame=Axis(annot=True, tick=True, grid=True),
+        land="ivory",
+        water="bisque4",
+    )
     fig.show()
+
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.216 seconds)
+   **Total running time of the script:** (0 minutes 0.208 seconds)
+
+
+.. rst-class:: sphx-glr-example-tags
+
+   🏷 Tags: equal-area
 
 
 .. _sphx_glr_download_projections_misc_misc_mollweide.py:

@@ -27,7 +27,7 @@ scatter plot per item to appear in the legend and set the label accordingly.
 Modified from the matplotlib example:
 https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend.html
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-47
+.. GENERATED FROM PYTHON SOURCE LINES 13-52
 
 
 
@@ -44,6 +44,7 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
 
     import numpy as np
     import pygmt
+    from pygmt.params import Axis, Frame
 
     rng = np.random.default_rng(seed=19680801)
     n = 200  # number of random data points
@@ -52,7 +53,11 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
     fig.basemap(
         region=[-1, 1, -1, 1],
         projection="X10c/10c",
-        frame=["xa0.5fg", "ya0.5fg", "WSrt"],
+        frame=Frame(
+            axes="WSrt",
+            xaxis=Axis(annot=0.5, tick=True, grid=True),
+            yaxis=Axis(annot=0.5, tick=True, grid=True),
+        ),
     )
     for fill in ["gray73", "darkorange", "slateblue"]:
         # Generate standard normal distributions centered on 0
@@ -80,7 +85,7 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.224 seconds)
+   **Total running time of the script:** (0 minutes 0.237 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_scatter.py:

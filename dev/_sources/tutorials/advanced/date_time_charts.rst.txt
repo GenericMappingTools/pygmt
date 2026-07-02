@@ -30,7 +30,7 @@ parameter to create a range of the data on an axis.
 The following examples will demonstrate how to create plots using these different
 datetime objects.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-23
+.. GENERATED FROM PYTHON SOURCE LINES 16-24
 
 .. code-block:: Python
 
@@ -40,6 +40,7 @@ datetime objects.
     import pandas as pd
     import pygmt
     import xarray as xr
+    from pygmt.params import Axis, Frame
 
 
 
@@ -48,7 +49,7 @@ datetime objects.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-32
+.. GENERATED FROM PYTHON SOURCE LINES 25-33
 
 Using Python's ``datetime``
 ---------------------------
@@ -59,7 +60,7 @@ in the format ``[x_start, x_end, y_start, y_end]``, where the date range is plot
 the x-axis. An additional notable parameter is ``style``, where it's specified that
 data points are plotted as circles with a diameter of 0.3 centimeters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-53
+.. GENERATED FROM PYTHON SOURCE LINES 33-54
 
 .. code-block:: Python
 
@@ -76,7 +77,7 @@ data points are plotted as circles with a diameter of 0.3 centimeters.
     fig.plot(
         projection="X10c/5c",
         region=[datetime.date(2010, 1, 1), datetime.date(2014, 12, 1), 0, 6],
-        frame=["WSen", "afg"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
         x=x,
         y=y,
         style="c0.3c",
@@ -96,7 +97,7 @@ data points are plotted as circles with a diameter of 0.3 centimeters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-64
+.. GENERATED FROM PYTHON SOURCE LINES 55-65
 
 In addition to specifying the date, ``datetime`` supports the time at which the data
 points were recorded. Using :meth:`datetime.datetime` the ``region`` parameter as well
@@ -109,7 +110,7 @@ Some notable differences to the previous example include:
 - Using circles to plot data points defined by ``c`` in the argument passed through
   the ``style`` parameter
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-92
+.. GENERATED FROM PYTHON SOURCE LINES 65-93
 
 .. code-block:: Python
 
@@ -131,7 +132,7 @@ Some notable differences to the previous example include:
             0,
             6,
         ],
-        frame=["WS", "af"],
+        frame=Frame(axes="WS", axis=Axis(annot=True, tick=True)),
         x=x,
         y=y,
         style="c0.4c",
@@ -153,7 +154,7 @@ Some notable differences to the previous example include:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-107
+.. GENERATED FROM PYTHON SOURCE LINES 94-108
 
 Using ISO Format
 ----------------
@@ -170,7 +171,7 @@ hour value, two-digit minute value, and two-digit second value, respectively. Th
 figure in the following example is plotted over a horizontal range of one year from
 2016-01-01 to 2017-01-01.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-124
+.. GENERATED FROM PYTHON SOURCE LINES 108-125
 
 .. code-block:: Python
 
@@ -182,7 +183,7 @@ figure in the following example is plotted over a horizontal range of one year f
     fig.plot(
         projection="X10c/5c",
         region=["2016-01-01", "2017-01-01", 0, 6],
-        frame=["WSen", "afg"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
         x=x,
         y=y,
         style="a0.45c",
@@ -203,7 +204,7 @@ figure in the following example is plotted over a horizontal range of one year f
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-130
+.. GENERATED FROM PYTHON SOURCE LINES 126-131
 
 .. note::
 
@@ -211,7 +212,7 @@ figure in the following example is plotted over a horizontal range of one year f
     contain non-ISO datetime strings, you can convert them to a recognized format
     using :func:`pandas.to_datetime` and then pass it to PyGMT.
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-140
+.. GENERATED FROM PYTHON SOURCE LINES 134-141
 
 Mixing and matching Python ``datetime`` and ISO dates
 -----------------------------------------------------
@@ -221,7 +222,7 @@ be plotted using PyGMT. This can be helpful when dates and times are coming from
 different sources, meaning conversions do not need to take place between ISO and
 datetime in order to create valid plots.
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-158
+.. GENERATED FROM PYTHON SOURCE LINES 141-159
 
 .. code-block:: Python
 
@@ -233,7 +234,7 @@ datetime in order to create valid plots.
     fig.plot(
         projection="X10c/5c",
         region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 3, 1), 0, 6],
-        frame=["WSen", "afg"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
         x=x,
         y=y,
         style="i0.4c",
@@ -255,7 +256,7 @@ datetime in order to create valid plots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-170
+.. GENERATED FROM PYTHON SOURCE LINES 160-171
 
 Using :meth:`pandas.date_range`
 -------------------------------
@@ -269,7 +270,7 @@ parameter. The initial date is the first argument that is passed to
 :func:`pandas.date_range` and it marks the first data point in the list ``x`` that
 will be plotted.
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-188
+.. GENERATED FROM PYTHON SOURCE LINES 171-189
 
 .. code-block:: Python
 
@@ -281,7 +282,7 @@ will be plotted.
     fig.plot(
         projection="X10c/10c",
         region=[datetime.datetime(2017, 12, 31), datetime.datetime(2019, 12, 31), 0, 10],
-        frame=["WSen", "ag"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
         x=x,
         y=y,
         style="i0.4c",
@@ -303,7 +304,7 @@ will be plotted.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-198
+.. GENERATED FROM PYTHON SOURCE LINES 190-199
 
 Using :class:`xarray.DataArray`
 -------------------------------
@@ -315,7 +316,7 @@ while supporting operations that use various pieces of metadata. The following c
 uses :func:`pandas.date_range` to fill the DataArray with data, but this is not
 essential for the creation of a valid DataArray.
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-216
+.. GENERATED FROM PYTHON SOURCE LINES 199-217
 
 .. code-block:: Python
 
@@ -327,7 +328,7 @@ essential for the creation of a valid DataArray.
     fig.plot(
         projection="X10c/10c",
         region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
-        frame=["WSen", "ag"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
         x=x,
         y=y,
         style="n0.4c",
@@ -349,7 +350,7 @@ essential for the creation of a valid DataArray.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 217-224
+.. GENERATED FROM PYTHON SOURCE LINES 218-225
 
 Using :class:`numpy.datetime64`
 -------------------------------
@@ -359,7 +360,7 @@ In this example, instead of using :func:`pd.date_range`, ``x`` is initialized as
 before passing it as an argument. However, ``np.array`` objects use less memory and
 allow developers to specify data types.
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-244
+.. GENERATED FROM PYTHON SOURCE LINES 225-245
 
 .. code-block:: Python
 
@@ -373,7 +374,7 @@ allow developers to specify data types.
     fig.plot(
         projection="X10c/10c",
         region=[datetime.datetime(2010, 1, 1), datetime.datetime(2012, 6, 1), 0, 10],
-        frame=["WS", "ag"],
+        frame=Frame(axes="WS", axis=Axis(annot=True, grid=True)),
         x=x,
         y=y,
         style="s0.5c",
@@ -395,7 +396,7 @@ allow developers to specify data types.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-253
+.. GENERATED FROM PYTHON SOURCE LINES 246-254
 
 Generating an automatic region
 ------------------------------
@@ -406,7 +407,7 @@ generating the region of the plot. This can be done by passing the DataFrame to
 create a list that could be passed as region. Additionally, the ``spacing`` parameter
 can be used to increase the range past the maximum and minimum data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-283
+.. GENERATED FROM PYTHON SOURCE LINES 254-284
 
 .. code-block:: Python
 
@@ -430,7 +431,7 @@ can be used to increase the range past the maximum and minimum data points.
     fig.plot(
         region=region,
         projection="X15c/10c",
-        frame=["WSen", "afg"],
+        frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
         x=df.Date,
         y=df.Score,
         style="c0.4c",
@@ -452,29 +453,28 @@ can be used to increase the range past the maximum and minimum data points.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 284-303
+.. GENERATED FROM PYTHON SOURCE LINES 285-303
 
 Setting Primary and Secondary Time Axes
 ---------------------------------------
 
 This example focuses on annotating the axes and setting the interval in which the
 annotations should appear. All of these modifications are passed to the ``frame``
-parameter and each item in that list modifies a specific aspect of the frame.
+parameter via a :class:`pygmt.params.Frame` object.
 
-Adding ``"WS"`` means that only the Western/Left (**W**) and Southern/Bottom (**S**)
-borders of the plot are annotated. For more information on this, please refer to the
+Setting ``axes="WS"`` in :class:`pygmt.params.Frame` means that only the
+Western/Left (**W**) and Southern/Bottom (**S**) borders of the plot are annotated.
+For more information on this, please refer to the
 :doc:`Frames, ticks, titles, and labels tutorial </tutorials/basics/frames>`.
 
-Another important item in the list passed to ``frame`` is ``"sxa1Of1D"``. This string
-modifies the secondary annotation (**s**) of the x-axis (**x**). Specifically, it sets
-the main annotation and major tick spacing interval to one month (**a1O**) (capital
-letter O, not zero). Additionally, it sets the minor tick spacing interval to 1 day
-(**f1D**). To use the month name instead of its number set :gmt-term:`FORMAT_DATE_MAP`
-to **o**. More information on configuring date formats can be found at
-:gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
-:gmt-term:`FORMAT_DATE_OUT`.
+Setting ``xaxis2=Axis(annot="1O", tick="1D")`` modifies the secondary x-axis
+annotation interval to one month (**1O**) (capital letter O, not zero), and sets the
+minor tick spacing interval to 1 day (**1D**). To use the month name instead of its
+number set :gmt-term:`FORMAT_DATE_MAP` to **o**. More information on configuring
+date formats can be found at :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`,
+and :gmt-term:`FORMAT_DATE_OUT`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 303-321
+.. GENERATED FROM PYTHON SOURCE LINES 303-327
 
 .. code-block:: Python
 
@@ -487,7 +487,13 @@ to **o**. More information on configuring date formats can be found at
         fig.plot(
             projection="X15c/10c",
             region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
-            frame=["WS", "sxa1Of1D", "pxa5d", "sy+lLength", "pya1+ucm"],
+            frame=Frame(
+                axes="WS",
+                xaxis=Axis(annot="5d"),
+                yaxis=Axis(annot=1, unit="cm"),
+                xaxis2=Axis(annot="1O", tick="1D"),
+                yaxis2=Axis(label="Length"),
+            ),
             x=x,
             y=y,
             style="c0.4c",
@@ -508,7 +514,7 @@ to **o**. More information on configuring date formats can be found at
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 322-333
+.. GENERATED FROM PYTHON SOURCE LINES 328-339
 
 The same concept shown above can be applied to smaller as well as larger intervals. In
 this example, data are plotted for different times throughout two days. The primary
@@ -522,7 +528,7 @@ used instead of a 24-hour system. More information on configuring time formats c
 found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
 :gmt-term:`FORMAT_CLOCK_OUT`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 333-356
+.. GENERATED FROM PYTHON SOURCE LINES 339-368
 
 .. code-block:: Python
 
@@ -540,7 +546,13 @@ found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
                 0,
                 10,
             ],
-            frame=["WS", "sxa1K", "pxa6H", "sy+lSpeed", "pya1+ukm/h"],
+            frame=Frame(
+                axes="WS",
+                xaxis=Axis(annot="6H"),
+                yaxis=Axis(annot=1, unit="km/h"),
+                xaxis2=Axis(annot="1K"),
+                yaxis2=Axis(label="Speed"),
+            ),
             x=x,
             y=y,
             style="n0.4c",
@@ -564,7 +576,7 @@ found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.190 seconds)
+   **Total running time of the script:** (0 minutes 1.251 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_date_time_charts.py:

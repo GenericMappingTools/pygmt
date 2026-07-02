@@ -17,6 +17,10 @@ later tutorials will use concepts explained in previous ones. It will not cover 
 PyGMT functions and methods.
 
 
+.. raw:: html
+
+  <div id='sg-tag-list' class='sphx-glr-tag-list'></div>
+
 
 .. raw:: html
 

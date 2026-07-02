@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=7130b5af" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/maintenance.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="_static/documentation_options.js?v=bba8e61a"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=ccdb6887"></script>
+      <script src="_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -424,7 +425,7 @@ automatically drafted release notes under the ‘Write’ tab to
 changelog sections.</p></li>
 <li><p>Update the DOI badge in the changelog. Remember to replace the DOI number
 inside the badge url.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;.svg)](https://doi.org/10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[![Digital Object Identifier for PyGMT vX.Y.Z](https://img.shields.io/badge/DOI-10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;-blue)](https://doi.org/10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;)
 </pre></div>
 </div>
 </li>
@@ -444,7 +445,7 @@ reviews) made since the last release (e.g., use
 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">vX.Y.Z..HEAD</span> <span class="pre">-sne</span> <span class="pre">--group=author</span> <span class="pre">--group=trailer:co-authored-by</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">doc/minversions.md</span></code> with new information on the new release version,
 including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-and core package dependencies (NumPy, pandas, Xarray). Follow
+and core package dependencies (NumPy, pandas, xarray). Follow
 <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> for updates.</p></li>
 <li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and
 <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes, including the
@@ -503,9 +504,9 @@ from the <a class="reference external" href="https://pypi.org/project/pygmt/#fil
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/ff4559430">ff455943</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 01, 2026.
       </span></p>
   </div>
 
