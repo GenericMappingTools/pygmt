@@ -14,7 +14,7 @@
 * Add Figure.directional_rose for plotting a directional rose on map ([#4025](https://github.com/GenericMappingTools/pygmt/pull/4025), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
 * Add Figure.fill_between for filling between two curves ([#4679](https://github.com/GenericMappingTools/pygmt/pull/4679), [#4698](https://github.com/GenericMappingTools/pygmt/pull/4698), [#4696](https://github.com/GenericMappingTools/pygmt/pull/4696), [#4692](https://github.com/GenericMappingTools/pygmt/pull/4692))
 * Add Figure.magnetic_rose for plotting a magnetic rose on map ([#4051](https://github.com/GenericMappingTools/pygmt/pull/4051), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
-* Add Figure.paragraph for typesetting one or multiple paragraphs of text strings ([#3709](https://github.com/GenericMappingTools/pygmt/pull/3709))
+* Add Figure.paragraph for typesetting one or multiple paragraphs of text strings ([#3709](https://github.com/GenericMappingTools/pygmt/pull/3709), [#4605](https://github.com/GenericMappingTools/pygmt/pull/4605))
 * Add Figure.scalebar for plotting a scale bar on maps ([#4015](https://github.com/GenericMappingTools/pygmt/pull/4015))
 * Add the Frame/Axis class for setting frame and axes ([#4406](https://github.com/GenericMappingTools/pygmt/pull/4406), [#4593](https://github.com/GenericMappingTools/pygmt/pull/4593), [#4589](https://github.com/GenericMappingTools/pygmt/pull/4589), [#4520](https://github.com/GenericMappingTools/pygmt/pull/4520), [#4591](https://github.com/GenericMappingTools/pygmt/pull/4591))
 * Add pygmt.grdmask for creating mask grid from polygons or point coverage ([#4463](https://github.com/GenericMappingTools/pygmt/pull/4463))
