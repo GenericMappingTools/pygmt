@@ -149,7 +149,7 @@ The BibTeX entry for the PyGMT paper is:
                   Schlitzer, William and
                   Jones, Max and
                   Uieda, Leonardo and
-                  Luis, Joaquim F.},
+                  Luis, Joaquim M. F.},
   title        = {{PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis}},
   journal      = {Geochemistry, Geophysics, Geosystems},
   year         = 2026,
