@@ -24,7 +24,6 @@
 
 * Add a note/warning that PS_CONVERT is not supported ([#4342](https://github.com/GenericMappingTools/pygmt/pull/4342))
 * Add filtering tags for gallery examples of projections ([#4643](https://github.com/GenericMappingTools/pygmt/pull/4643))
-* AliasSystem: Support adding a suffix to a value and simplify Figure.wiggle ([#4259](https://github.com/GenericMappingTools/pygmt/pull/4259))
 * Figure.colorbar: Add parameters dpi/monochrome ([#4501](https://github.com/GenericMappingTools/pygmt/pull/4501), [#4499](https://github.com/GenericMappingTools/pygmt/pull/4499))
 * Figure.colorbar: Add parameters label/unit/annot/tick/grid and more to set colorbar annotations/labels ([#4407](https://github.com/GenericMappingTools/pygmt/pull/4407))
 * Figure.grdview: Add parameters smooth and surftype/dpi/mesh_fill/nan_transparent/monochrome to control surface types ([#4234](https://github.com/GenericMappingTools/pygmt/pull/4234), [#4444](https://github.com/GenericMappingTools/pygmt/pull/4444))
@@ -34,9 +33,9 @@
 * Implement the frame='none' syntax for no frames ([#4404](https://github.com/GenericMappingTools/pygmt/pull/4404))
 * Support passing np.timedelta64 to parameters that expect a sequence (e.g., 'region') ([#4358](https://github.com/GenericMappingTools/pygmt/pull/4358))
 * **BREAKING** Raise GMTTypeError exception for unsupported image dtypes ([#4673](https://github.com/GenericMappingTools/pygmt/pull/4673))
-* pygmt.grdfilter: Add parameters filter/width/highpass to set the filter and support Pythonic arguments for 'distance' ([#4401](https://github.com/GenericMappingTools/pygmt/pull/4401), [#4405](https://github.com/GenericMappingTools/pygmt/pull/4405))
+* pygmt.grdfilter: Add parameters filter/width/highpass to set the filter and support Pythonic arguments for distance ([#4401](https://github.com/GenericMappingTools/pygmt/pull/4401), [#4405](https://github.com/GenericMappingTools/pygmt/pull/4405))
 * pygmt.grdgradient: Add parameters normalize/norm_ambient/norm_amp/norm_sigma/norm_offset for normalization ([#4365](https://github.com/GenericMappingTools/pygmt/pull/4365))
-* pygmt.which: Support long-form arguments for the 'download' parameter ([#4429](https://github.com/GenericMappingTools/pygmt/pull/4429))
+* pygmt.which: Support long-form arguments for the download parameter ([#4429](https://github.com/GenericMappingTools/pygmt/pull/4429))
 
 ### Deprecations
 
