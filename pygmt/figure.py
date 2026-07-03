@@ -15,6 +15,7 @@ from pygmt.src.coast import coast as _coast
 from pygmt.src.colorbar import colorbar as _colorbar
 from pygmt.src.contour import contour as _contour
 from pygmt.src.directional_rose import directional_rose as _directional_rose
+from pygmt.src.fill_between import fill_between as _fill_between
 from pygmt.src.grdcontour import grdcontour as _grdcontour
 from pygmt.src.grdimage import grdimage as _grdimage
 from pygmt.src.grdview import grdview as _grdview
@@ -93,7 +94,7 @@ def _get_default_display_method() -> Literal["external", "notebook", "none"]:
 
 # A registry of all figures that have had "show" called in this session.
 # This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py
-SHOWED_FIGURES = []
+SHOWED_FIGURES: list["Figure"] = []
 # Configurations for figure display.
 SHOW_CONFIG = {
     "method": _get_default_display_method(),  # The image preview display method.
@@ -206,7 +207,7 @@ class Figure:
             supported formats and their extensions above.
         transparent
             Use a transparent background for the figure. Only valid for PNG format and
-            the PNG file asscoiated with KML format.
+            the PNG file associated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
@@ -449,6 +450,7 @@ class Figure:
     colorbar = _colorbar
     contour = _contour
     directional_rose = _directional_rose
+    fill_between = _fill_between
     grdcontour = _grdcontour
     grdimage = _grdimage
     grdview = _grdview

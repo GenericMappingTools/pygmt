@@ -110,7 +110,7 @@ DTYPES_TEXT = {
 DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
 
 # Dictionary for storing the values of GMT constants.
-GMT_CONSTANTS = {}
+GMT_CONSTANTS: dict[str, int] = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
@@ -1895,13 +1895,15 @@ class Session:
         _data = data
         match kind:
             case "image" if data.dtype != "uint8":
-                msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, and "
-                    "may result in an incorrect output. Please recast image to a uint8 "
-                    "dtype and/or scale to 0-255 range, e.g. using a histogram "
-                    "equalization function like skimage.exposure.equalize_hist."
+                raise GMTTypeError(
+                    data.dtype,
+                    reason=(
+                        "Only uint8 images are supported. Please recast image to a "
+                        "uint8 dtype and/or scale to 0-255 range, e.g. using a "
+                        "histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    ),
                 )
-                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             case "empty":  # data is None, so data must be given via x/y/z.
                 _data = [x, y]
                 if z is not None:
