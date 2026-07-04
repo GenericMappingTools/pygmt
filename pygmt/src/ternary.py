@@ -187,7 +187,7 @@ def ternary(  # noqa: PLR0913
     fill
         Set color or pattern for filling of symbols [Default is no fill].
     no_clip
-        Do not clip symbols to the ternary diagram [Default plot points whose
+        Do not clip symbols to the ternary diagram [Default plots points whose
         coordinates are strictly inside the map border].
     $verbose
     $panel
