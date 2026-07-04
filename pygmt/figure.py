@@ -31,6 +31,7 @@ from pygmt.src.paragraph import paragraph as _paragraph
 from pygmt.src.plot import plot as _plot
 from pygmt.src.plot3d import plot3d as _plot3d
 from pygmt.src.psconvert import psconvert as _psconvert
+from pygmt.src.pygmtlogo import pygmtlogo as _pygmtlogo
 from pygmt.src.rose import rose as _rose
 from pygmt.src.scalebar import scalebar as _scalebar
 from pygmt.src.shift_origin import shift_origin as _shift_origin
@@ -207,7 +208,7 @@ class Figure:
             supported formats and their extensions above.
         transparent
             Use a transparent background for the figure. Only valid for PNG format and
-            the PNG file asscoiated with KML format.
+            the PNG file associated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
@@ -466,6 +467,7 @@ class Figure:
     plot = _plot
     plot3d = _plot3d
     psconvert = _psconvert
+    pygmtlogo = _pygmtlogo
     rose = _rose
     scalebar = _scalebar
     set_panel = _set_panel

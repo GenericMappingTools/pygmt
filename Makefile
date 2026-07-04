@@ -16,7 +16,7 @@ help:
 	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
 	@echo "  format         run Ruff to automatically format the code"
 	@echo "  check          run Ruff to check code style and quality"
-	@echo "  codespell      run codespell to check common misspellings"
+	@echo "  spellcheck     run codespell and typos to check common misspellings"
 	@echo "  typecheck      run mypy for static type check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
@@ -67,8 +67,11 @@ check:
 	ruff check $(FORMAT_FILES)
 	ruff format --check $(FORMAT_FILES)
 
-codespell:
-	@codespell
+spellcheck:
+	@status=0; \
+	codespell || status=1; \
+	typos || status=1; \
+	exit $$status
 
 typecheck:
 	mypy ${PROJECT}
