@@ -47,9 +47,9 @@ fig.show()
 fig = pygmt.Figure()
 fig.basemap(region=[-1, 1, -1, 1], projection="X10c/5c", frame="+ggray60")
 
-fig.pygmtlogo(wordmark="horizontal", position="TC")
+fig.pygmtlogo(wordmark="horizontal", position="TC", width="6c")
 
-fig.pygmtlogo(theme="dark", wordmark="vertical", position="BC")
+fig.pygmtlogo(theme="dark", wordmark="vertical", position="BC", height="3c")
 
 fig.show()
 
