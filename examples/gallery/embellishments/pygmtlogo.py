@@ -54,4 +54,4 @@ fig.pygmtlogo(theme="dark", wordmark="vertical", position="BC", height="3c")
 fig.show()
 
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_number = 3
