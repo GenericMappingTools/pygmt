@@ -6,12 +6,12 @@ The functionn :func:`pygmt.grdmask` allows to create a grid mask based on spatia
 given as closed polygons. These polygons can be provided as :class:`numpy.ndarray` or
 :class:`geopandas.GeoDataFrame`. The created mask can then be applied to a desired grid.
 
-For the nodes falling inside, outside, and on the edges, different values can be defined.
-This value can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN. The
-defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for ``inside``. To
-treat the edges as inside, use the same value as for ``inside``. By setting these values,
-keep in mind you are creating the mask grid first which is thought to be applied to a
-real grid in a second step.
+For the nodes falling inside, outside, and on the edges, different values can be
+defined. This value can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for
+NaN. The defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for
+``inside``. To treat the edges as inside, use the same value as for ``inside``. By
+setting these values, keep in mind you are creating the mask grid first which is thought
+to be applied to a real grid in a second step.
 
 To create a land-water mask based on the GMT built-in shoreline data you can directly
 use the function :func:`pygmt.grdlandmask` explained in the gallery example
