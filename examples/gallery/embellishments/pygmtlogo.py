@@ -19,7 +19,7 @@ import pygmt
 from pygmt.params import Frame
 
 # %%
-# Plot the PyGMT logo without any arguments:
+# Plot the PyGMT logo without any arguments.
 
 fig = pygmt.Figure()
 fig.pygmtlogo()
@@ -28,7 +28,7 @@ fig.show()
 
 # %%
 # Via the ``color``, ``theme``, ``shape`` parameters the appereance of the logo can be
-# changed:
+# changed.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-1, 1] * 2, projection="X5c/5c", frame=Frame(fill="180/199/231"))
@@ -45,8 +45,9 @@ fig.show()
 
 
 # %%
-# Via the ``wordamrk`` parameter the text "PyGMT" can be added on the right side
-# or at the bottom of the visual:
+# Via the ``wordamrk`` parameter the text "PyGMT" can be added on the right side or at
+# the bottom of the visual. Use the ``width`` and ```height`` parameters to adjust the
+# size of the logo.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-1, 1] * 2, projection="X7c/5c", frame=Frame(fill="180/199/231"))
