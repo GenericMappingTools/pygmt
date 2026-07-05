@@ -3,14 +3,15 @@ PyGMT logo
 ==========
 Beside the GMT logo, there is a separate PyGMT logo which can be plotted and added to a
 figure using :meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is kindly
-provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of a visual and the
-wordmark "PyGMT".
+provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of an icon and the
+wordmark "PyGMT". The outer shape represents the Earth, with compaslines surronding the
+letters "GMT".
 
 The visual logo is available in circle and hexagon shapes. It supports both colored and
 monochrome black-and-white palettes, alongside light and dark theme modes, combining to
-yield 8 distinct standalone icon variants. Additionally, the visual logo can optionally
-include the wordmark "PyGMT"; if enabled, the wordmark can be positioned either to the
-right of the icon or beneath it.
+yield eight distinct standalone icon variants. Additionally, the visual logo can
+optionally include the wordmark "PyGMT"; if enabled, the wordmark can be positioned
+either to the right of the icon or beneath it.
 """
 
 # %%
