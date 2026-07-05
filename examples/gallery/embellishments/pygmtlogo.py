@@ -29,9 +29,7 @@ fig.show()
 # changed:
 
 fig = pygmt.Figure()
-fig.basemap(
-    region=[-1, 1, -1, 1], projection="X4.5c/4.5c", frame=Frame(fill="180/199/231")
-)
+fig.basemap(region=[-1, 1] * 2, projection="X5c/5c", frame=Frame(fill="180/199/231"))
 
 fig.pygmtlogo(color=False, position="TL")
 
@@ -49,7 +47,7 @@ fig.show()
 # or at the bottom of the visual:
 
 fig = pygmt.Figure()
-fig.basemap(region=[-1, 1, -1, 1], projection="X7c/5c", frame=Frame(fill="180/199/231"))
+fig.basemap(region=[-1, 1] * 2, projection="X7c/5c", frame=Frame(fill="180/199/231"))
 
 fig.pygmtlogo(wordmark="horizontal", position="TC", width="6c")
 
