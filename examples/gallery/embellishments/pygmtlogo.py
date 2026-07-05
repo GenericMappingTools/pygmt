@@ -6,9 +6,10 @@ figure using :meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is ki
 provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of a visual and the
 wordmark "PyGMT".
 
-The PyGMT logo is available in circle and hexagon shapes. It can be plotted using colors
-of Python (blue and yellow) and GMT (red) or in black and white as well as in light or
-dark mode. The wordmark can be added on the right side or at the bottom of the visual.
+The visual is available in circle and hexagon shapes. It can be plotted using colors
+of Python (blue Earth and yellow compass lines) and GMT (red letters GMT) or in black
+and white as well as in light or dark mode. The wordmark can be added on the right
+side or at the bottom of the visual.
 """
 
 # %%
