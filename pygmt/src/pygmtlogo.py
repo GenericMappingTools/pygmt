@@ -291,7 +291,7 @@ def pygmtlogo(  # noqa: PLR0913
     """
     Plot the PyGMT logo.
 
-    .. figure:: https://github.com/GenericMappingTools/pygmt/blob/main/doc/_static/pygmtlogo.png
+    .. figure:: https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo.png
        :alt: PyGMT logo
        :align: center
        :width: 300px
