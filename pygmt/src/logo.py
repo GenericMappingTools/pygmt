@@ -43,7 +43,7 @@ def logo(  # noqa: PLR0913
 
     By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
     relative to the current plot origin. Besides this logo, there is a specific logo for
-    PyGMT :meth:`Figure.pygmt.pygmtlogo`.
+    PyGMT :meth:`pygmt.Figure.pygmtlogo`.
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
