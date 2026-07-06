@@ -1,8 +1,9 @@
 """
 PyGMT logo
 ==========
-Beside the GMT logo, there is a separate PyGMT logo which can be plotted and added to a
-figure using :meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is kindly
+Beside the GMT logo (see :doc:`GMT logo </gallery/embellishments/gmt_logo>`.), there is
+a specific logo for PyGMT which can be plotted and added to a figure using
+:meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is kindly
 provided by `@sfrooti <https://github.com/sfrooti>`_ and consists of an icon and the
 wordmark "PyGMT".
 
