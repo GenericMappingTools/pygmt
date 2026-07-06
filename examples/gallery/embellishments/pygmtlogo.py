@@ -46,7 +46,7 @@ fig.show()
 
 # %%
 # Via the ``wordamrk`` parameter the text "PyGMT" can be added on the right side or at
-# the bottom of the visual. Use the ``width`` and ```height`` parameters to adjust the
+# the bottom of the visual. Use the ``width`` and ``height`` parameters to adjust the
 # size of the logo.
 
 fig = pygmt.Figure()
