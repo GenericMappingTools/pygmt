@@ -66,6 +66,11 @@ p {
     background: #b4c7e7;
 }
 
+/* Change border of the search bar */
+.wy-side-nav-search input[type="text"] {
+    border: solid 2px #b4c7e7;
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
