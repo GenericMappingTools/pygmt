@@ -9,7 +9,7 @@ letters "GMT".
 
 The visual logo is available in circle and hexagon shapes. It supports both colored and
 monochrome black-and-white palettes, alongside light and dark theme modes, combining to
-yield eight distinct standalone icon variants. Additionally, the visual logo can
+yield eight distinct standalone logo variants. Additionally, the visual logo can
 optionally include the wordmark "PyGMT"; if enabled, the wordmark can be positioned
 either to the right of the icon or beneath it.
 """
