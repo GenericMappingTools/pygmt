@@ -38,6 +38,7 @@
 * Figure.grdview: Add parameters smooth and surftype/dpi/mesh_fill/nan_transparent/monochrome to control surface types ([#4234](https://github.com/GenericMappingTools/pygmt/pull/4234), [#4444](https://github.com/GenericMappingTools/pygmt/pull/4444))
 * Figure.subplot: Add parameters tag/tag_box/tag_position/tag_orientation/tag_number_style/tag_font for controlling subplot tagging ([#4313](https://github.com/GenericMappingTools/pygmt/pull/4313))
 * Figure.ternary: Support Frame's xaxis/yaxis/zaxis attributes to set axis settings for a/b/c axes ([#4517](https://github.com/GenericMappingTools/pygmt/pull/4517))
+* Figure.ternary: Add the 'no_clip' parameter for plotting symbols outside the ternary diagram ([#4707](https://github.com/GenericMappingTools/pygmt/pull/4707))
 * Figure.text: Allow passing a sequence of offset to the 'offset' parameter ([#4652](https://github.com/GenericMappingTools/pygmt/pull/4652))
 * Implement the frame='none' syntax for no frames ([#4404](https://github.com/GenericMappingTools/pygmt/pull/4404))
 * Support passing np.timedelta64 to parameters that expect a sequence (e.g., 'region') ([#4358](https://github.com/GenericMappingTools/pygmt/pull/4358))
