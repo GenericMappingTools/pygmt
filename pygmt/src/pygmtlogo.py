@@ -294,7 +294,7 @@ def pygmtlogo(  # noqa: PLR0913
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
     and consists of a visual and the wordmark "PyGMT".
 
-    The outer shape represents the Earth, with compaslines surronding the letters "GMT".
+    The outer shape represents the Earth, with compass lines surrounding the letters "GMT".
 
     Parameters
     ----------
