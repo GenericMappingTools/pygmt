@@ -291,6 +291,11 @@ def pygmtlogo(  # noqa: PLR0913
     """
     Plot the PyGMT logo.
 
+    .. figure:: https://github.com/GenericMappingTools/pygmt/blob/main/doc/_static/pygmtlogo.png
+       :alt: PyGMT logo
+       :align: center
+       :width: 300px
+
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
     and consists of a visual and the wordmark "PyGMT".
 
