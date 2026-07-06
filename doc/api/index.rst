@@ -35,6 +35,7 @@ Plotting figure elements
     Figure.logo
     Figure.magnetic_rose
     Figure.paragraph
+    Figure.pygmtlogo
     Figure.scalebar
     Figure.solar
     Figure.text
