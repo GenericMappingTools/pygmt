@@ -299,7 +299,9 @@ def pygmtlogo(  # noqa: PLR0913
     The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
     and consists of a visual and the wordmark "PyGMT".
 
-    The outer shape represents the Earth, with compass lines surrounding the letters "GMT".
+    The outer shape (in Python blue) represents the Earth, with compass lines (in Python yellow)
+    surrounding the letters "GMT" (written in the red used for the GMT logo). The letter "T"
+    is the needle of the compass.
 
     Parameters
     ----------
