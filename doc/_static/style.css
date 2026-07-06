@@ -61,6 +61,11 @@ p {
     color: hsla(0, 0%, 100%, .3);
 }
 
+/* Change background color of sidebar top box with logo, version and search bar */
+.wy-side-nav-search {
+    background: #b4c7e7;
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
