@@ -6,9 +6,10 @@ import contextlib
 from collections.abc import Sequence
 from typing import Literal
 
+from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
@@ -45,7 +46,6 @@ def inset(
     r"""
     Manage figure inset setup and completion.
 
-
     This method carves out a sub-region of the current plot canvas and restrict further
     plotting to that section of the canvas. Plotting methods that are called within the
     context manager are added to the inset figure.
@@ -72,7 +72,8 @@ def inset(
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the Bottom Left corner of the plot.
+        If not specified, defaults to ``Position((0, 0), cstype="plotcoords")``, but to
+        the Top Right corner of the plot for GMT > 6.6.0.
     width
     height
         Width and height of the inset. Width must be specified unless ``projection`` and
@@ -127,9 +128,14 @@ def inset(
     """
     self._activate_figure()
 
+    # The default position is set to "TR" since GMT 6.7.0, which has no default value
+    # in GMT 6.6.0 and earlier versions, but (0,0) in plotcoords as default in PyGMT
+    # TODO(GMT>6.6.0): Set 'default=None' after GMT 6.7.0.
     position = _parse_position(
         position,
-        default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
+        default=None
+        if Version(__gmt_version__) > Version("6.6.0")
+        else Position((0, 0), cstype="plotcoords"),  # old PyGMT default
         kwdict={"width": width, "height": height},
     )
 
