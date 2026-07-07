@@ -15,7 +15,8 @@
   Feel free to cite this paper when using PyGMT in your research.
 * PyGMT now has an official logo, which is available via the Figure.pygmtlogo method ([#4616](https://github.com/GenericMappingTools/pygmt/pull/4616))
 * 🎉 Nineteenth minor release of PyGMT 🎉
-* Six new plotting methods, two new grid modules, and eight new gallery examples 
+* Six new high-level plotting methods and two new grid processing functions
+* Eight new gallery examples and tutorials
 * New `Frame`/`Axis` classes for setting frame and axes
 
 ### New Features
@@ -61,11 +62,11 @@
 
 ### Documentation
 
-* Add a tutorial for plotting features on a 3-D surface ([#4466](https://github.com/GenericMappingTools/pygmt/pull/4466))
-* Add basic tutorial "Plotting single-parameter symbols" ([#3598](https://github.com/GenericMappingTools/pygmt/pull/3598))
-* Add gallery example for 3-D bar plot ([#4315](https://github.com/GenericMappingTools/pygmt/pull/4315))
-* Add gallery example for directional roses ([#4010](https://github.com/GenericMappingTools/pygmt/pull/4010))
-* Add gallery example for magnetic rose ([#4381](https://github.com/GenericMappingTools/pygmt/pull/4381))
+* Add advanced tutorial for plotting features on a 3-D surface ([#4466](https://github.com/GenericMappingTools/pygmt/pull/4466))
+* Add basic tutorial for plotting single-parameter symbols ([#3598](https://github.com/GenericMappingTools/pygmt/pull/3598))
+* Add gallery example for creating a 3-D bar plot ([#4315](https://github.com/GenericMappingTools/pygmt/pull/4315))
+* Add gallery example for plotting directional roses ([#4010](https://github.com/GenericMappingTools/pygmt/pull/4010))
+* Add gallery example for plotting magnetic roses ([#4381](https://github.com/GenericMappingTools/pygmt/pull/4381))
 * Add gallery example showing how to fill the area between two curves ([#3168](https://github.com/GenericMappingTools/pygmt/pull/3168))
 * Add the Spilhaus projection to the supported GMT projections ([#4657](https://github.com/GenericMappingTools/pygmt/pull/4657))
 * Update scalebar gallery example using the high-level Figure.scalebar method ([#4382](https://github.com/GenericMappingTools/pygmt/pull/4382))
