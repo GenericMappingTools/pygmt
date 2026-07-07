@@ -10,7 +10,7 @@
   The citation is as follows:
   > Tian, D., Fröhlich, Y., Leong, W. J., Grund, M., Schlitzer, W., Jones, M., Uieda, L., Luis, J. M. F.  (2026).
   > PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis.
-  > Geochemistry, Geophysics, Geosystems, 27, e2026GC013105. https://doi.org/10.1029/2026GC013105
+  > Geochemistry, Geophysics, Geosystems, 27, e2026GC013105. <https://doi.org/10.1029/2026GC013105>
 
   Feel free to cite this paper when using PyGMT in your research.
 * PyGMT now has an official logo, which is available via Figure.pygmtlogo method ([#4616](https://github.com/GenericMappingTools/pygmt/pull/4616))
