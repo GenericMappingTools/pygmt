@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/insets.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=c850472e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -66,7 +67,8 @@
    
    
    <a href="../../index.html">
-     <h2 class="sidebar-title">PyGMT</h2>
+     
+       <img src="../../_static/pygmtlogo.png" class="logo" alt="Logo"/>
    </a>
      <div class="version">
        dev
@@ -104,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features_on_3d_surface.html">Plotting features on a 3-D surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="non_ascii_text.html">Typesetting non-ASCII text</a></li>
@@ -199,7 +202,7 @@ to download the full example code.</p>
 using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, and new plot elements will be added to the inset figure
 instead of the larger figure.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a>
 </pre></div>
 </div>
 <p>Prior to creating an inset figure, a larger figure must first be plotted. In the
@@ -213,7 +216,7 @@ Massachusetts.</p>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>  <span class="c1"># Set Mercator projection and size of 15 centimeter</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightyellow&quot;</span><span class="p">,</span>  <span class="c1"># Color land areas light yellow</span>
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>  <span class="c1"># Color water areas light blue</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>  <span class="c1"># Set frame with annotation and major tick spacing</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>  <span class="c1"># Set frame with annotations</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -231,7 +234,7 @@ inset.</p>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightyellow&quot;</span><span class="p">,</span>
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BL&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Box.html#pygmt.params.Box" title="pygmt.params.Box" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Box</span></a><span class="p">(</span><span class="n">pen</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;lightred&quot;</span><span class="p">)):</span>
     <span class="c1"># pass is used to exit the with statement as no plotting methods are called</span>
@@ -252,7 +255,7 @@ the inset is shifted 0.5 centimeters on the x-axis and 0.2 centimeters on the y-
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightyellow&quot;</span><span class="p">,</span>
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Position.html#pygmt.params.Position" title="pygmt.params.Position" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Position</span></a><span class="p">(</span><span class="s2">&quot;BL&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)),</span>
@@ -275,7 +278,7 @@ states.</p>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightyellow&quot;</span><span class="p">,</span>
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="c1"># This does not include an inset fill as it is covered by the inset figure. Inset</span>
 <span class="c1"># width/height are determined by the ``region`` and ``projection`` parameters.</span>
@@ -296,7 +299,7 @@ states.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.041 seconds)</p>
+<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.974 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-insets-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/44695c4bfbe70aea7b6e46202873909b/insets.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">insets.ipynb</span></code></a></p>
@@ -324,9 +327,9 @@ states.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/fb1ec7d2e">fb1ec7d2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 07, 2026.
       </span></p>
   </div>
 

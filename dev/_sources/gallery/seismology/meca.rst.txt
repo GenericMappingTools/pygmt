@@ -29,7 +29,7 @@ compressive and extensive quadrants can be filled either with a color or a patte
 the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use the
 ``pen`` parameter to adjust the outline of the beachballs.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-53
+.. GENERATED FROM PYTHON SOURCE LINES 15-54
 
 
 
@@ -45,6 +45,7 @@ the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use th
 .. code-block:: Python
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
 
@@ -55,7 +56,7 @@ the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use th
         land="grey",
         water="lightblue",
         shorelines=True,
-        frame="a",
+        frame=Axis(annot=True),
     )
 
     # Store focal mechanism parameters in a dictionary based on the Aki & Richards
@@ -86,7 +87,7 @@ the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use th
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.152 seconds)
+   **Total running time of the script:** (0 minutes 0.148 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_meca.py:

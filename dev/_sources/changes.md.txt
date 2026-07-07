@@ -1,8 +1,114 @@
 # Changelog
 
+## Release v0.19.0 (2026/07/07)
+
+[![Digital Object Identifier for PyGMT v0.19.0](https://img.shields.io/badge/DOI-10.5281/zenodo.19398871-blue)](https://doi.org/10.5281/zenodo.19398871)
+
+### Highlights
+
+* A PyGMT paper has been accepted for publication in *Geochemistry, Geophysics, Geosystems*.
+  The citation is as follows:
+  > Tian, D., Fröhlich, Y., Leong, W. J., Grund, M., Schlitzer, W., Jones, M., Uieda, L., Luis, J. M. F.  (2026).
+  > PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis.
+  > Geochemistry, Geophysics, Geosystems, 27, e2026GC013105. <https://doi.org/10.1029/2026GC013105>
+
+  Feel free to cite this paper when using PyGMT in your research.
+* PyGMT now has an official logo, which is available via the Figure.pygmtlogo method ([#4616](https://github.com/GenericMappingTools/pygmt/pull/4616))
+* 🎉 Nineteenth minor release of PyGMT 🎉
+* Six new high-level plotting methods and two new grid processing functions
+* Eight new gallery examples and tutorials
+* New `Frame`/`Axis` classes for setting frame and axes
+
+### New Features
+
+* Add Figure.choropleth for plotting choropleth maps ([#2798](https://github.com/GenericMappingTools/pygmt/pull/2798))
+* Add Figure.directional_rose for plotting a directional rose on map ([#4025](https://github.com/GenericMappingTools/pygmt/pull/4025), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
+* Add Figure.fill_between for filling between two curves ([#4679](https://github.com/GenericMappingTools/pygmt/pull/4679), [#4698](https://github.com/GenericMappingTools/pygmt/pull/4698), [#4696](https://github.com/GenericMappingTools/pygmt/pull/4696), [#4692](https://github.com/GenericMappingTools/pygmt/pull/4692))
+* Add Figure.magnetic_rose for plotting a magnetic rose on map ([#4051](https://github.com/GenericMappingTools/pygmt/pull/4051), [#4702](https://github.com/GenericMappingTools/pygmt/pull/4702))
+* Add Figure.paragraph for typesetting one or multiple paragraphs of text strings ([#3709](https://github.com/GenericMappingTools/pygmt/pull/3709), [#4605](https://github.com/GenericMappingTools/pygmt/pull/4605))
+* Add Figure.scalebar for plotting a scale bar on maps ([#4015](https://github.com/GenericMappingTools/pygmt/pull/4015))
+* Add the Frame/Axis class for setting frame and axes ([#4406](https://github.com/GenericMappingTools/pygmt/pull/4406), [#4593](https://github.com/GenericMappingTools/pygmt/pull/4593), [#4589](https://github.com/GenericMappingTools/pygmt/pull/4589), [#4520](https://github.com/GenericMappingTools/pygmt/pull/4520), [#4591](https://github.com/GenericMappingTools/pygmt/pull/4591))
+* Add pygmt.grdmask for creating mask grid from polygons or point coverage ([#4463](https://github.com/GenericMappingTools/pygmt/pull/4463))
+* Add pygmt.grdpaste for joining two grids along their common edge ([#4399](https://github.com/GenericMappingTools/pygmt/pull/4399))
+
+### Enhancements
+
+* Add a note/warning that PS_CONVERT is not supported ([#4342](https://github.com/GenericMappingTools/pygmt/pull/4342))
+* Add filtering tags for gallery examples of projections ([#4643](https://github.com/GenericMappingTools/pygmt/pull/4643))
+* Figure.colorbar: Add parameters dpi/monochrome ([#4501](https://github.com/GenericMappingTools/pygmt/pull/4501), [#4499](https://github.com/GenericMappingTools/pygmt/pull/4499))
+* Figure.colorbar: Add parameters label/unit/annot/tick/grid and more to set colorbar annotations/labels ([#4407](https://github.com/GenericMappingTools/pygmt/pull/4407))
+* Figure.grdview: Add parameters smooth and surftype/dpi/mesh_fill/nan_transparent/monochrome to control surface types ([#4234](https://github.com/GenericMappingTools/pygmt/pull/4234), [#4444](https://github.com/GenericMappingTools/pygmt/pull/4444))
+* Figure.subplot: Add parameters tag/tag_box/tag_position/tag_orientation/tag_number_style/tag_font for controlling subplot tagging ([#4313](https://github.com/GenericMappingTools/pygmt/pull/4313))
+* Figure.ternary: Support Frame's xaxis/yaxis/zaxis attributes to set axis settings for a/b/c axes ([#4517](https://github.com/GenericMappingTools/pygmt/pull/4517))
+* Figure.ternary: Add the 'no_clip' parameter for plotting symbols outside the ternary diagram ([#4707](https://github.com/GenericMappingTools/pygmt/pull/4707))
+* Figure.text: Allow passing a sequence of offset to the 'offset' parameter ([#4652](https://github.com/GenericMappingTools/pygmt/pull/4652))
+* Implement the frame='none' syntax for no frames ([#4404](https://github.com/GenericMappingTools/pygmt/pull/4404))
+* Support passing np.timedelta64 to parameters that expect a sequence (e.g., 'region') ([#4358](https://github.com/GenericMappingTools/pygmt/pull/4358))
+* **BREAKING** Raise GMTTypeError exception for unsupported image dtypes ([#4673](https://github.com/GenericMappingTools/pygmt/pull/4673))
+* pygmt.grdfilter: Add parameters filter/width/highpass to set the filter and support Pythonic arguments for distance ([#4401](https://github.com/GenericMappingTools/pygmt/pull/4401), [#4405](https://github.com/GenericMappingTools/pygmt/pull/4405))
+* pygmt.grdgradient: Add parameters normalize/norm_ambient/norm_amp/norm_sigma/norm_offset for normalization ([#4365](https://github.com/GenericMappingTools/pygmt/pull/4365))
+* pygmt.which: Support long-form arguments for the download parameter ([#4429](https://github.com/GenericMappingTools/pygmt/pull/4429))
+
+### Deprecations
+
+* Figure.set_panel: Deprecate parameter 'fixedlabel' to 'tag' (Will be removed in v0.23.0) ([#4393](https://github.com/GenericMappingTools/pygmt/pull/4393))
+* pygmt.grdclip: Remove parameter 'new' (Deprecated since v0.15.0) ([#4343](https://github.com/GenericMappingTools/pygmt/pull/4343))
+* pygmt.grdfill: Remove parameter 'mode'/'no_data' (Deprecated since v0.15.0) ([#4345](https://github.com/GenericMappingTools/pygmt/pull/4345), [#4344](https://github.com/GenericMappingTools/pygmt/pull/4344))
+* utils.sequence_join: Remove parameter 'separator' (Deprecated since v0.17.0) ([#4346](https://github.com/GenericMappingTools/pygmt/pull/4346))
+
+### Bug Fixes
+
+* Figure.set_panel: Fix the bug when panel is not set ([#4628](https://github.com/GenericMappingTools/pygmt/pull/4628))
+
+### Documentation
+
+* Add advanced tutorial for plotting features on a 3-D surface ([#4466](https://github.com/GenericMappingTools/pygmt/pull/4466))
+* Add basic tutorial for plotting single-parameter symbols ([#3598](https://github.com/GenericMappingTools/pygmt/pull/3598))
+* Add gallery example for creating a 3-D bar plot ([#4315](https://github.com/GenericMappingTools/pygmt/pull/4315))
+* Add gallery example for plotting the PyGMT logo ([#4715](https://github.com/GenericMappingTools/pygmt/pull/4715))
+* Add gallery example for plotting directional roses ([#4010](https://github.com/GenericMappingTools/pygmt/pull/4010))
+* Add gallery example for plotting magnetic roses ([#4381](https://github.com/GenericMappingTools/pygmt/pull/4381))
+* Add gallery example showing how to fill the area between two curves ([#3168](https://github.com/GenericMappingTools/pygmt/pull/3168))
+* Add the Spilhaus projection to the supported GMT projections ([#4657](https://github.com/GenericMappingTools/pygmt/pull/4657))
+* Update scalebar gallery example using the high-level Figure.scalebar method ([#4382](https://github.com/GenericMappingTools/pygmt/pull/4382))
+* Add contributing guides for wrapping a GMT module ([#1687](https://github.com/GenericMappingTools/pygmt/pull/1687))
+
+### Maintenance
+
+* Add typos for source code spelling check ([#4690](https://github.com/GenericMappingTools/pygmt/pull/4690))
+* **BREAKING**: Figure: Raise GMTParameterError for deprecated parameters U/X/Y/timestamp/xshift/yshift. Previously raise GMTInvalidInput ([#4400](https://github.com/GenericMappingTools/pygmt/pull/4400))
+* **BREAKING**: Raise GMTParameterError exception for as_most_one parameters. Previously raise GMTInvalidInput ([#4383](https://github.com/GenericMappingTools/pygmt/pull/4383))
+* **BREAKING**: Raise GMTParameterError exception for as_most_one parameters. Previously raise GMTInvalidInput. Part 2 ([#4388](https://github.com/GenericMappingTools/pygmt/pull/4388))
+* **BREAKING**: Raise GMTParameterError exception for at_least_one parameters. Previously raise GMTInvalidInput ([#4380](https://github.com/GenericMappingTools/pygmt/pull/4380))
+* **BREAKING**: Raise GMTParameterError exception for conflicts_with parameters. Previously raise GMTInvalidInput ([#4387](https://github.com/GenericMappingTools/pygmt/pull/4387))
+* **BREAKING**: Raise GMTParameterError exception for missing required parameters. Previously raise GMTInvalidInput ([#4374](https://github.com/GenericMappingTools/pygmt/pull/4374))
+* **BREAKING**: Raise GMTValueError if input arrays don't have the same size ([#4377](https://github.com/GenericMappingTools/pygmt/pull/4377))
+* Figure.basemap: Raise a warning on deprecated parameters "map_scale", "rose", and "compass" ([#4477](https://github.com/GenericMappingTools/pygmt/pull/4477))
+* Figure: Refactor how plotting methods are attached to the Figure class ([#4612](https://github.com/GenericMappingTools/pygmt/pull/4612))
+* CI: Bump ghostscript to 10.07.0 ([#4476](https://github.com/GenericMappingTools/pygmt/pull/4476))
+* CI: Test NumPy 2.5 in the GMT Tests workflow ([#4693](https://github.com/GenericMappingTools/pygmt/pull/4693))
+* Clarify human-only authorship and exclude bot contributors ([#4640](https://github.com/GenericMappingTools/pygmt/pull/4640))
+* SPEC 0: Bump minimum supported version to NumPy 2.1, pandas 2.3 and xarray 2024.7 ([#4650](https://github.com/GenericMappingTools/pygmt/pull/4650))
+* Update .pre-commit-config.yaml hooks using dependabot ([#4435](https://github.com/GenericMappingTools/pygmt/pull/4435))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.18.0...v0.19.0>
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Xingchen He](https://github.com/Chuan1937)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [@Bingtagui404](https://github.com/Bingtagui404)
+* [Max Jones](https://github.com/maxrjones)
+
+---
+
 ## Release v0.18.0 (2026/01/12)
 
-[![Digital Object Identifier for PyGMT v0.18.0](https://zenodo.org/badge/DOI/10.5281/zenodo.18080259.svg)](https://doi.org/10.5281/zenodo.18080259)
+[![Digital Object Identifier for PyGMT v0.18.0](https://img.shields.io/badge/DOI-10.5281/zenodo.18080259-blue)](https://doi.org/10.5281/zenodo.18080259)
 
 ### Highlights
 
@@ -63,7 +169,7 @@
 ### Maintenance
 
 * Add support for Python 3.14 ([#4150](https://github.com/GenericMappingTools/pygmt/pull/4150))
-* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and Xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
+* SPEC 0: Bump minimum supported version to Python 3.12, NumPy 2.0, and xarray 2024.5 ([#4248](https://github.com/GenericMappingTools/pygmt/pull/4248), [#4090](https://github.com/GenericMappingTools/pygmt/pull/4090))
 * DOC: Update naming convention in contributors guide: Separate words in parameter names by underscores ([#4284](https://github.com/GenericMappingTools/pygmt/pull/4284))
 * fmt_docstrings: Use string template syntax for docstring placeholders and support curly braces in docstrings ([#4210](https://github.com/GenericMappingTools/pygmt/pull/4210))
 * Remove dev dependency on "geodatasets" ([#4230](https://github.com/GenericMappingTools/pygmt/pull/4230))
@@ -87,7 +193,7 @@
 
 ## Release v0.17.0 (2025/10/03)
 
-[![Digital Object Identifier for PyGMT v0.17.0](https://zenodo.org/badge/DOI/10.5281/zenodo.17156962.svg)](https://doi.org/10.5281/zenodo.17156962)
+[![Digital Object Identifier for PyGMT v0.17.0](https://img.shields.io/badge/DOI-10.5281/zenodo.17156962-blue)](https://doi.org/10.5281/zenodo.17156962)
 
 ### Highlights
 
@@ -136,7 +242,7 @@
 
 * **BREAKING** Figure.text: Raise GMTTypeError if text is a sequence when position is given ([#4065](https://github.com/GenericMappingTools/pygmt/pull/4065))
 * Switch from pre-commit to prek ([#4082](https://github.com/GenericMappingTools/pygmt/pull/4082))
-* SPEC 0: Bump minimum supported version to pandas 2.2 and Xarray 2023.10 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092), [#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
+* SPEC 0: Bump minimum supported version to pandas 2.2 and xarray 2023.10 ([#4092](https://github.com/GenericMappingTools/pygmt/pull/4092), [#4091](https://github.com/GenericMappingTools/pygmt/pull/4091))
 * Remove the support of non-aliased aliases in use_alias/fmt_docstrings ([#4042](https://github.com/GenericMappingTools/pygmt/pull/4042))
 * CI: Bump to macOS 26 in the GMT Dev Tests workflow ([#4084](https://github.com/GenericMappingTools/pygmt/pull/4084))
 * CI: Bump to macOS 14 in the GMT Legacy Tests workflow ([#3996](https://github.com/GenericMappingTools/pygmt/pull/3996))
@@ -157,7 +263,7 @@
 
 ## Release v0.16.0 (2025/06/18)
 
-[![Digital Object Identifier for PyGMT v0.16.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15628725.svg)](https://doi.org/10.5281/zenodo.15628725)
+[![Digital Object Identifier for PyGMT v0.16.0](https://img.shields.io/badge/DOI-10.5281/zenodo.15628725-blue)](https://doi.org/10.5281/zenodo.15628725)
 
 ### Highlights
 
@@ -199,7 +305,7 @@
 * Set registration and gtype properly as enums on gmt accessor init ([#3942](https://github.com/GenericMappingTools/pygmt/pull/3942))
 * Set license and license-files key in project metadata to follow PEP639 ([#3699](https://github.com/GenericMappingTools/pygmt/pull/3699))
 * CI: Test NumPy 2.3 in the GMT Tests workflow ([#3968](https://github.com/GenericMappingTools/pygmt/pull/3968))
-* Bump to ruff>=0.12.0 and fix violations ([#3980](https://github.com/GenericMappingTools/pygmt/pull/3980))
+* Bump to Ruff>=0.12.0 and fix violations ([#3980](https://github.com/GenericMappingTools/pygmt/pull/3980))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.15.0...v0.16.0>
 
@@ -215,7 +321,7 @@
 
 ## Release v0.15.0 (2025/03/31)
 
-[![Digital Object Identifier for PyGMT v0.15.0](https://zenodo.org/badge/DOI/10.5281/zenodo.15071586.svg)](https://doi.org/10.5281/zenodo.15071586)
+[![Digital Object Identifier for PyGMT v0.15.0](https://img.shields.io/badge/DOI-10.5281/zenodo.15071586-blue)](https://doi.org/10.5281/zenodo.15071586)
 
 ### Highlights
 
@@ -251,7 +357,7 @@
 
 * Use the 'release-branch-semver' version scheme for setuptools_scm ([#3828](https://github.com/GenericMappingTools/pygmt/pull/3828))
 * Rename _GMT_DATASET.to_dataframe to .to_pandas and _GMT_GRID.to_dataarray/_GMT_IMAGE.to_dataarray to .to_xarray ([#3798](https://github.com/GenericMappingTools/pygmt/pull/3798))
-* Bump to ruff 0.9.0, apply ruff 2025 style, and ignore A005 (stdlib-module-shadowing) violations ([#3763](https://github.com/GenericMappingTools/pygmt/pull/3763))
+* Bump to Ruff 0.9.0, apply Ruff 2025 style, and ignore A005 (stdlib-module-shadowing) violations ([#3763](https://github.com/GenericMappingTools/pygmt/pull/3763))
 * Use well-known labels in project URLs following PEP753 ([#3743](https://github.com/GenericMappingTools/pygmt/pull/3743))
 * clib.conversion: Remove the unused array_to_datetime function ([#3507](https://github.com/GenericMappingTools/pygmt/pull/3507))
 * CI: Test on Linux arm64 runners ([#3778](https://github.com/GenericMappingTools/pygmt/pull/3778))
@@ -270,7 +376,7 @@
 
 ## Release v0.14.2 (2025/02/15)
 
-[![Digital Object Identifier for PyGMT v0.14.2](https://zenodo.org/badge/DOI/10.5281/zenodo.14868324.svg)](https://doi.org/10.5281/zenodo.14868324)
+[![Digital Object Identifier for PyGMT v0.14.2](https://img.shields.io/badge/DOI-10.5281/zenodo.14868324-blue)](https://doi.org/10.5281/zenodo.14868324)
 
 
 ### Bug Fixes
@@ -288,7 +394,7 @@
 
 ## Release v0.14.1 (2025/02/01)
 
-[![Digital Object Identifier for PyGMT v0.14.1](https://zenodo.org/badge/DOI/10.5281/zenodo.14742338.svg)](https://doi.org/10.5281/zenodo.14742338)
+[![Digital Object Identifier for PyGMT v0.14.1](https://img.shields.io/badge/DOI-10.5281/zenodo.14742338-blue)](https://doi.org/10.5281/zenodo.14742338)
 
 ### Highlights
 
@@ -314,7 +420,7 @@
 
 ## Release v0.14.0 (2024/12/31)
 
-[![Digital Object Identifier for PyGMT v0.14.0](https://zenodo.org/badge/DOI/10.5281/zenodo.14535921.svg)](https://doi.org/10.5281/zenodo.14535921)
+[![Digital Object Identifier for PyGMT v0.14.0](https://img.shields.io/badge/DOI-10.5281/zenodo.14535921-blue)](https://doi.org/10.5281/zenodo.14535921)
 
 ### Highlights
 
@@ -396,10 +502,10 @@
 * Use TODO comments to track deprecations and workarounds ([#3722](https://github.com/GenericMappingTools/pygmt/pull/3722))
 * Move Figure.psconvert into a separate file ([#3553](https://github.com/GenericMappingTools/pygmt/pull/3553))
 * Improve the data type checking for 2-D arrays passed to the GMT C API ([#3563](https://github.com/GenericMappingTools/pygmt/pull/3563))
-* Enable ruff's TD (flake8-todos), COM (flake8-commas), TRY (tryceratops), and EM (flake8-errmsg) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723), [#3531](https://github.com/GenericMappingTools/pygmt/pull/3531), [#3665](https://github.com/GenericMappingTools/pygmt/pull/3665), [#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
+* Enable Ruff's TD (flake8-todos), COM (flake8-commas), TRY (tryceratops), and EM (flake8-errmsg) rules ([#3723](https://github.com/GenericMappingTools/pygmt/pull/3723), [#3531](https://github.com/GenericMappingTools/pygmt/pull/3531), [#3665](https://github.com/GenericMappingTools/pygmt/pull/3665), [#3661](https://github.com/GenericMappingTools/pygmt/pull/3661))
 * CI: Install pyarrow-core instead of pyarrow from conda-forge ([#3698](https://github.com/GenericMappingTools/pygmt/pull/3698))
 * CI: Ensure no hyphens in Python file and directory names in the "Style Checks" workflow ([#3703](https://github.com/GenericMappingTools/pygmt/pull/3703))
-* Bump to ruff>=0.8.0 and rename rule TCH to TC ([#3662](https://github.com/GenericMappingTools/pygmt/pull/3662))
+* Bump to Ruff>=0.8.0 and rename rule TCH to TC ([#3662](https://github.com/GenericMappingTools/pygmt/pull/3662))
 * Bump to Ghostscript 10.04.0 ([#3443](https://github.com/GenericMappingTools/pygmt/pull/3443))
 * Add enums GridFormat for GMT grid format ID ([#3449](https://github.com/GenericMappingTools/pygmt/pull/3449))
 
@@ -418,7 +524,7 @@
 
 ## Release v0.13.0 (2024/09/05)
 
-[![Digital Object Identifier for PyGMT v0.13.0](https://zenodo.org/badge/DOI/10.5281/zenodo.13679420.svg)](https://doi.org/10.5281/zenodo.13679420)
+[![Digital Object Identifier for PyGMT v0.13.0](https://img.shields.io/badge/DOI-10.5281/zenodo.13679420-blue)](https://doi.org/10.5281/zenodo.13679420)
 
 ### Highlights
 
@@ -479,8 +585,8 @@
 * Run pytest with `--color=yes` to force GitHub Actions logs to have color ([#3330](https://github.com/GenericMappingTools/pygmt/pull/3330))
 * Patch the callback print function to suppress the UnicodeDecodeError ([#3367](https://github.com/GenericMappingTools/pygmt/pull/3367))
 * Move Will from Active Maintainers to Distinguished Contributors ([#3388](https://github.com/GenericMappingTools/pygmt/pull/3388))
-* Enable ruff's unspecified-encoding (PLW1514) rule and fix violations ([#3319](https://github.com/GenericMappingTools/pygmt/pull/3319))
-* Enable ruff's literal-membership (PLR6201) rule and fix violations ([#3317](https://github.com/GenericMappingTools/pygmt/pull/3317))
+* Enable Ruff's unspecified-encoding (PLW1514) rule and fix violations ([#3319](https://github.com/GenericMappingTools/pygmt/pull/3319))
+* Enable Ruff's literal-membership (PLR6201) rule and fix violations ([#3317](https://github.com/GenericMappingTools/pygmt/pull/3317))
 * Determine the minimum required versions of dependencies from package metadata for docs ([#3380](https://github.com/GenericMappingTools/pygmt/pull/3380))
 * CI: Use OIDC token for codecov uploading ([#3163](https://github.com/GenericMappingTools/pygmt/pull/3163))
 * CI: Test NumPy 2.1 in the GMT Tests workflow ([#3401](https://github.com/GenericMappingTools/pygmt/pull/3401))
@@ -506,7 +612,7 @@
 
 ## Release v0.12.0 (2024/05/01)
 
-[![Digital Object Identifier for PyGMT v0.12.0](https://zenodo.org/badge/DOI/10.5281/zenodo.11062720.svg)](https://doi.org/10.5281/zenodo.11062720)
+[![Digital Object Identifier for PyGMT v0.12.0](https://img.shields.io/badge/DOI-10.5281/zenodo.11062720-blue)](https://doi.org/10.5281/zenodo.11062720)
 
 ### Highlights
 
@@ -575,9 +681,9 @@
 * Remote Datasets: Adjust attributes - remove "title", use default of "name" and "long_name", introduce "description" ([#3048](https://github.com/GenericMappingTools/pygmt/pull/3048))
 * Adopt SPEC 0 policy and drop NEP 29 policy ([#3037](https://github.com/GenericMappingTools/pygmt/pull/3037))
 * Document the support policy for minimum required GMT versions ([#3070](https://github.com/GenericMappingTools/pygmt/pull/3070))
-* Bump to ghostscript 10.03.0 ([#3112](https://github.com/GenericMappingTools/pygmt/pull/3112))
-* Bump to ruff 0.3.0 ([#3081](https://github.com/GenericMappingTools/pygmt/pull/3081))
-* Enable ruff's PTH (flake8-use-pathlib) rules and fix violations ([#3129](https://github.com/GenericMappingTools/pygmt/pull/3129))
+* Bump to Ghostscript 10.03.0 ([#3112](https://github.com/GenericMappingTools/pygmt/pull/3112))
+* Bump to Ruff 0.3.0 ([#3081](https://github.com/GenericMappingTools/pygmt/pull/3081))
+* Enable Ruff's PTH (flake8-use-pathlib) rules and fix violations ([#3129](https://github.com/GenericMappingTools/pygmt/pull/3129))
 * Change the dev dependency "matplotlib" to "matplotlib-base" to reduce environment size ([#3158](https://github.com/GenericMappingTools/pygmt/pull/3158))
 * Migrate from os.path to pathlib ([#3119](https://github.com/GenericMappingTools/pygmt/pull/3119))
 * CI: Use "gh release" to upload assets to release ([#3187](https://github.com/GenericMappingTools/pygmt/pull/3187))
@@ -598,7 +704,7 @@
 
 ## Release v0.11.0 (2024/02/01)
 
-[![Digital Object Identifier for PyGMT v0.11.0](https://zenodo.org/badge/DOI/10.5281/zenodo.10578540.svg)](https://doi.org/10.5281/zenodo.10578540)
+[![Digital Object Identifier for PyGMT v0.11.0](https://img.shields.io/badge/DOI-10.5281/zenodo.10578540-blue)](https://doi.org/10.5281/zenodo.10578540)
 
 ### Highlights
 
@@ -668,7 +774,7 @@
 * Setup Continuous Benchmarking workflow with pytest-codspeed ([#2908](https://github.com/GenericMappingTools/pygmt/pull/2908))
 * Update output shape and mean values from some x2sys_cross tests ([#2986](https://github.com/GenericMappingTools/pygmt/pull/2986))
 * Bump the GMT version in CI to 6.5.0 ([#2962](https://github.com/GenericMappingTools/pygmt/pull/2962))
-* Bump ghostscript to 10.02.1 ([#2694](https://github.com/GenericMappingTools/pygmt/pull/2694))
+* Bump Ghostscript to 10.02.1 ([#2694](https://github.com/GenericMappingTools/pygmt/pull/2694))
 * Add support for Python 3.12 ([#2711](https://github.com/GenericMappingTools/pygmt/pull/2711))
 * NEP29: Test PyGMT on NumPy 1.26 ([#2692](https://github.com/GenericMappingTools/pygmt/pull/2692))
 * CI: Trigger the cache_data workflow in PRs if cache files are added/deleted/updated ([#2939](https://github.com/GenericMappingTools/pygmt/pull/2939))
@@ -694,7 +800,7 @@
 * Release Drafter: Automatically replace GitHub handles with names and links ([#2777](https://github.com/GenericMappingTools/pygmt/pull/2777))
 * Exclude CODE_OF_CONDUCT.md, AUTHORSHIP.md and pygmt/tests directory from distributions ([#2957](https://github.com/GenericMappingTools/pygmt/pull/2957))
 * Add Zenodo's GMT community to the maintainer's onboarding list ([#2761](https://github.com/GenericMappingTools/pygmt/pull/2761))
-* Use ruff to lint and format codes, and remove flakeheaven/isort/black/blackdoc ([#2741](https://github.com/GenericMappingTools/pygmt/issues/2741))
+* Use Ruff to lint and format codes, and remove flakeheaven/isort/black/blackdoc ([#2741](https://github.com/GenericMappingTools/pygmt/issues/2741))
 * Use codespell to check common misspellings ([#2673](https://github.com/GenericMappingTools/pygmt/pull/2673))
 * Use "# %%" as code block separators in examples ([#2662](https://github.com/GenericMappingTools/pygmt/pull/2662))
 
@@ -712,7 +818,7 @@
 
 ## Release v0.10.0 (2023/09/02)
 
-[![Digital Object Identifier for PyGMT v0.10.0](https://zenodo.org/badge/DOI/10.5281/zenodo.8303186.svg)](https://doi.org/10.5281/zenodo.8303186)
+[![Digital Object Identifier for PyGMT v0.10.0](https://img.shields.io/badge/DOI-10.5281/zenodo.8303186-blue)](https://doi.org/10.5281/zenodo.8303186)
 
 ### Highlights
 
@@ -799,7 +905,7 @@
 
 ## Release v0.9.0 (2023/03/31)
 
-[![Digital Object Identifier for PyGMT v0.9.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7772533.svg)](https://doi.org/10.5281/zenodo.7772533)
+[![Digital Object Identifier for PyGMT v0.9.0](https://img.shields.io/badge/DOI-10.5281/zenodo.7772533-blue)](https://doi.org/10.5281/zenodo.7772533)
 
 ### Highlights
 
@@ -885,7 +991,7 @@
 
 ## Release v0.8.0 (2022/12/30)
 
-[![Digital Object Identifier for PyGMT v0.8.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7481934.svg)](https://doi.org/10.5281/zenodo.7481934)
+[![Digital Object Identifier for PyGMT v0.8.0](https://img.shields.io/badge/DOI-10.5281/zenodo.7481934-blue)](https://doi.org/10.5281/zenodo.7481934)
 
 ### Highlights
 
@@ -988,7 +1094,7 @@
 
 ## Release v0.7.0 (2022/07/01)
 
-[![Digital Object Identifier for PyGMT v0.7.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6702566.svg)](https://doi.org/10.5281/zenodo.6702566)
+[![Digital Object Identifier for PyGMT v0.7.0](https://img.shields.io/badge/DOI-10.5281/zenodo.6702566-blue)](https://doi.org/10.5281/zenodo.6702566)
 
 ### Highlights
 
@@ -1061,7 +1167,7 @@
 
 ## Release v0.6.1 (2022/04/11)
 
-[![Digital Object Identifier for PyGMT v0.6.1](https://zenodo.org/badge/DOI/10.5281/zenodo.6426493.svg)](https://doi.org/10.5281/zenodo.6426493)
+[![Digital Object Identifier for PyGMT v0.6.1](https://img.shields.io/badge/DOI-10.5281/zenodo.6426493-blue)](https://doi.org/10.5281/zenodo.6426493)
 
 ### Highlights
 
@@ -1098,7 +1204,7 @@
 
 ## Release v0.6.0 (2022/03/14)
 
-[![Digital Object Identifier for PyGMT v0.6.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6349217.svg)](https://doi.org/10.5281/zenodo.6349217)
+[![Digital Object Identifier for PyGMT v0.6.0](https://img.shields.io/badge/DOI-10.5281/zenodo.6349217-blue)](https://doi.org/10.5281/zenodo.6349217)
 
 ### Highlights
 
@@ -1191,7 +1297,7 @@
 
 ## Release v0.5.0 (2021/10/29)
 
-[![Digital Object Identifier for PyGMT v0.5.0](https://zenodo.org/badge/DOI/10.5281/zenodo.5607255.svg)](https://doi.org/10.5281/zenodo.5607255)
+[![Digital Object Identifier for PyGMT v0.5.0](https://img.shields.io/badge/DOI-10.5281/zenodo.5607255-blue)](https://doi.org/10.5281/zenodo.5607255)
 
 ### Highlights
 
@@ -1309,7 +1415,7 @@
 
 ## Release v0.4.1 (2021/08/07)
 
-[![Digital Object Identifier for PyGMT v0.4.1](https://zenodo.org/badge/DOI/10.5281/zenodo.5162003.svg)](https://doi.org/10.5281/zenodo.5162003)
+[![Digital Object Identifier for PyGMT v0.4.1](https://img.shields.io/badge/DOI-10.5281/zenodo.5162003-blue)](https://doi.org/10.5281/zenodo.5162003)
 
 ### Highlights
 
@@ -1351,7 +1457,7 @@
 * [Yohai Magen](https://github.com/yohaimagen)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Dongdong Tian](https://github.com/seisman)
-* [Kadatatlu Kishore](https://github.com/K-OS-Dev)
+* [Kadatatlu Kishore](https://github.com/osdev-in)
 * [@sean0921](https://github.com/sean0921)
 * [Soham Banerjee](https://github.com/soham4abc)
 
@@ -1359,7 +1465,7 @@
 
 ## Release v0.4.0 (2021/06/20)
 
-[![Digital Object Identifier for PyGMT v0.4.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4978645.svg)](https://doi.org/10.5281/zenodo.4978645)
+[![Digital Object Identifier for PyGMT v0.4.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4978645-blue)](https://doi.org/10.5281/zenodo.4978645)
 
 ### Highlights
 
@@ -1486,7 +1592,7 @@
 
 ## Release v0.3.1 (2021/03/14)
 
-[![Digital Object Identifier for PyGMT v0.3.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4592991.svg)](https://doi.org/10.5281/zenodo.4592991)
+[![Digital Object Identifier for PyGMT v0.3.1](https://img.shields.io/badge/DOI-10.5281/zenodo.4592991-blue)](https://doi.org/10.5281/zenodo.4592991)
 
 ### Highlights
 
@@ -1555,7 +1661,7 @@
 
 ## Release v0.3.0 (2021/02/15)
 
-[![Digital Object Identifier for PyGMT v0.3.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4522136.svg)](https://doi.org/10.5281/zenodo.4522136)
+[![Digital Object Identifier for PyGMT v0.3.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4522136-blue)](https://doi.org/10.5281/zenodo.4522136)
 
 ### Highlights
 
@@ -1659,7 +1765,7 @@
 
 ## Release v0.2.1 (2020/11/14)
 
-[![Digital Object Identifier for PyGMT v0.2.1](https://zenodo.org/badge/DOI/10.5281/zenodo.4253459.svg)](https://doi.org/10.5281/zenodo.4253459)
+[![Digital Object Identifier for PyGMT v0.2.1](https://img.shields.io/badge/DOI-10.5281/zenodo.4253459-blue)](https://doi.org/10.5281/zenodo.4253459)
 
 ### Highlights
 
@@ -1733,7 +1839,7 @@
 
 ## Release v0.2.0 (2020/09/12)
 
-[![Digital Object Identifier for PyGMT v0.2.0](https://zenodo.org/badge/DOI/10.5281/zenodo.4025418.svg)](https://doi.org/10.5281/zenodo.4025418)
+[![Digital Object Identifier for PyGMT v0.2.0](https://img.shields.io/badge/DOI-10.5281/zenodo.4025418-blue)](https://doi.org/10.5281/zenodo.4025418)
 
 ### Highlights
 
@@ -1802,7 +1908,7 @@
 
 ## Release v0.1.2 (2020/07/07)
 
-[![Digital Object Identifier for PyGMT v0.1.2](https://zenodo.org/badge/DOI/10.5281/zenodo.3930577.svg)](https://doi.org/10.5281/zenodo.3930577)
+[![Digital Object Identifier for PyGMT v0.1.2](https://img.shields.io/badge/DOI-10.5281/zenodo.3930577-blue)](https://doi.org/10.5281/zenodo.3930577)
 
 ### Highlights
 
@@ -1851,7 +1957,7 @@
 
 ## Release v0.1.1 (2020/05/22)
 
-[![Digital Object Identifier for PyGMT v0.1.1](https://zenodo.org/badge/DOI/10.5281/zenodo.3837197.svg)](https://doi.org/10.5281/zenodo.3837197)
+[![Digital Object Identifier for PyGMT v0.1.1](https://img.shields.io/badge/DOI-10.5281/zenodo.3837197-blue)](https://doi.org/10.5281/zenodo.3837197)
 
 ### Highlights
 
@@ -1888,7 +1994,7 @@
 
 ## Release v0.1.0 (2020/05/03)
 
-[![Digital Object Identifier for PyGMT v0.1.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3782862.svg)](https://doi.org/10.5281/zenodo.3782862)
+[![Digital Object Identifier for PyGMT v0.1.0](https://img.shields.io/badge/DOI-10.5281/zenodo.3782862-blue)](https://doi.org/10.5281/zenodo.3782862)
 
 ### Highlights
 

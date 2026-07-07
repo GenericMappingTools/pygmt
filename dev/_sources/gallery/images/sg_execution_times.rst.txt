@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:11.715** total execution time for 9 files **from gallery/images**:
+**00:11.911** total execution time for 9 files **from gallery/images**:
 
 .. container::
 
@@ -32,30 +32,30 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
+   * - :ref:`sphx_glr_gallery_images_rgb_image.py` (``rgb_image.py``)
+     - 00:05.326
+     - 0.0
    * - :ref:`sphx_glr_gallery_images_grdgradient_shading.py` (``grdgradient_shading.py``)
-     - 00:04.245
+     - 00:02.684
      - 0.0
    * - :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)
-     - 00:03.293
-     - 0.0
-   * - :ref:`sphx_glr_gallery_images_rgb_image.py` (``rgb_image.py``)
-     - 00:01.504
+     - 00:01.795
      - 0.0
    * - :ref:`sphx_glr_gallery_images_image.py` (``image.py``)
-     - 00:01.109
+     - 00:00.565
      - 0.0
    * - :ref:`sphx_glr_gallery_images_grdgradient.py` (``grdgradient.py``)
-     - 00:00.474
+     - 00:00.462
      - 0.0
    * - :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``)
-     - 00:00.378
+     - 00:00.363
      - 0.0
    * - :ref:`sphx_glr_gallery_images_cross_section.py` (``cross_section.py``)
-     - 00:00.326
+     - 00:00.312
      - 0.0
    * - :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)
-     - 00:00.209
+     - 00:00.221
      - 0.0
    * - :ref:`sphx_glr_gallery_images_grdlandmask.py` (``grdlandmask.py``)
-     - 00:00.177
+     - 00:00.183
      - 0.0

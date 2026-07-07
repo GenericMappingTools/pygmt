@@ -23,12 +23,13 @@ Plotting vectors
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-12
+.. GENERATED FROM PYTHON SOURCE LINES 9-13
 
 .. code-block:: Python
 
     import numpy as np
     import pygmt
+    from pygmt.params import Axis
 
 
 
@@ -37,7 +38,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-33
+.. GENERATED FROM PYTHON SOURCE LINES 14-34
 
 Plot Cartesian Vectors
 ----------------------
@@ -60,7 +61,7 @@ different customization. ``0c`` is used to specify the size
 of the arrow head which explains why there is no arrow on either
 side of the vector.
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-46
+.. GENERATED FROM PYTHON SOURCE LINES 34-47
 
 .. code-block:: Python
 
@@ -69,7 +70,7 @@ side of the vector.
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X10c/10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         x=2,
         y=8,
         style="v0c",
@@ -89,7 +90,7 @@ side of the vector.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-57
+.. GENERATED FROM PYTHON SOURCE LINES 48-58
 
 In this example, we apply the same concept shown previously to plot multiple
 vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
@@ -102,7 +103,7 @@ thickness (``pen="2p"``) of the vector stem. A list of different
 styling attributes can be found in
 :doc:`Vector heads and tails </gallery/lines/vector_heads_tails>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-72
+.. GENERATED FROM PYTHON SOURCE LINES 58-73
 
 .. code-block:: Python
 
@@ -111,7 +112,7 @@ styling attributes can be found in
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X10c/10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         x=[2, 4],
         y=[8, 1],
         style="v0.6c+e",
@@ -133,7 +134,7 @@ styling attributes can be found in
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-81
+.. GENERATED FROM PYTHON SOURCE LINES 74-82
 
 The default unit of vector length is centimeters,
 however, this can be changed to inches or points. Note that, in PyGMT,
@@ -144,7 +145,7 @@ the length of the first vector is still graphed in centimeters.
 Using ``pygmt.config(PROJ_LENGTH_UNIT="i")``, the default unit
 can be changed to inches in the second plotted vector.
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-107
+.. GENERATED FROM PYTHON SOURCE LINES 82-108
 
 .. code-block:: Python
 
@@ -154,7 +155,7 @@ can be changed to inches in the second plotted vector.
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X5i/5i",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         x=2,
         y=8,
         style="v1c+e",
@@ -186,7 +187,7 @@ can be changed to inches in the second plotted vector.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-116
+.. GENERATED FROM PYTHON SOURCE LINES 109-117
 
 Vectors can also be plotted by including all the information
 about a vector in a single list. However, this requires creating
@@ -197,7 +198,7 @@ Each vector list contains the information structured as:
 If this approach is chosen, the ``data`` parameter must be
 used instead of ``x``, ``y``, and ``direction``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-132
+.. GENERATED FROM PYTHON SOURCE LINES 117-133
 
 .. code-block:: Python
 
@@ -209,7 +210,7 @@ used instead of ``x``, ``y``, and ``direction``.
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X10c/10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         data=vectors,
         style="v0.6c+e",
         pen="2p",
@@ -229,14 +230,14 @@ used instead of ``x``, ``y``, and ``direction``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-137
+.. GENERATED FROM PYTHON SOURCE LINES 134-138
 
 Using the functionality mentioned in the previous example,
 multiple vectors can be plotted at the same time. Another
 vector could be simply added to the 2-D list or numpy
 array object and passed using ``data`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-158
+.. GENERATED FROM PYTHON SOURCE LINES 138-159
 
 .. code-block:: Python
 
@@ -253,7 +254,7 @@ array object and passed using ``data`` parameter.
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X10c/10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         data=vectors,
         style="v0.6c+e",
         pen="2p",
@@ -273,7 +274,7 @@ array object and passed using ``data`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-170
+.. GENERATED FROM PYTHON SOURCE LINES 160-171
 
 In this example, Cartesian vectors are plotted over a Mercator
 projection of the continental US. The x-values represent the
@@ -287,7 +288,7 @@ point of the vector (**+e**) should have an arrow shape (**a**)
 specifies the angle of the vector head apex (30 degrees in
 this example).
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-211
+.. GENERATED FROM PYTHON SOURCE LINES 171-212
 
 .. code-block:: Python
 
@@ -297,7 +298,7 @@ this example).
     fig.coast(
         region=[-127, -64, 24, 53],
         projection="M10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         borders=1,
         shorelines="0.25p,black",
         area_thresh=4000,
@@ -344,13 +345,13 @@ this example).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-215
+.. GENERATED FROM PYTHON SOURCE LINES 213-216
 
 Another example of plotting Cartesian vectors over a coast plot. This time a
 Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 is used to create 5 vectors with equal stops.
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-247
+.. GENERATED FROM PYTHON SOURCE LINES 216-248
 
 .. code-block:: Python
 
@@ -398,7 +399,7 @@ is used to create 5 vectors with equal stops.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 248-262
+.. GENERATED FROM PYTHON SOURCE LINES 249-263
 
 Plot Circular Vectors
 ---------------------
@@ -415,7 +416,7 @@ horizontal axis. In this example, the result shown is the left half of a
 circle as the plot starts at 90 degrees and goes until 270. Notice that the
 ``m`` in the ``style`` parameter stands for circular vectors.
 
-.. GENERATED FROM PYTHON SOURCE LINES 262-289
+.. GENERATED FROM PYTHON SOURCE LINES 263-290
 
 .. code-block:: Python
 
@@ -427,7 +428,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
     fig.plot(
         region=[-5, 5, -5, 5],
         projection="X10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         data=data,
         style="m0.5c+ea",
         pen="2p",
@@ -458,7 +459,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-297
+.. GENERATED FROM PYTHON SOURCE LINES 291-298
 
 When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the ``data`` parameter. In this example,
@@ -468,7 +469,7 @@ parameter and random values for the ``degree_stop`` parameter discussed in
 the previous example. This is the reason in which each vector has a different
 appearance on the projection.
 
-.. GENERATED FROM PYTHON SOURCE LINES 297-318
+.. GENERATED FROM PYTHON SOURCE LINES 298-319
 
 .. code-block:: Python
 
@@ -485,7 +486,7 @@ appearance on the projection.
     fig.plot(
         region=[-5, 5, -5, 5],
         projection="X10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         data=data,
         style="m0.5c+ea",
         pen="2p",
@@ -505,7 +506,7 @@ appearance on the projection.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 319-325
+.. GENERATED FROM PYTHON SOURCE LINES 320-326
 
 Much like when plotting Cartesian vectors, the default unit used is
 centimeters. When this is changed to inches, the size of the plot appears
@@ -514,7 +515,7 @@ circular vectors. One is plotted using the default unit, and the second is
 plotted using inches. Despite using the same list to plot the vectors, a
 different measurement unit causes one to be larger than the other.
 
-.. GENERATED FROM PYTHON SOURCE LINES 325-349
+.. GENERATED FROM PYTHON SOURCE LINES 326-350
 
 .. code-block:: Python
 
@@ -525,7 +526,7 @@ different measurement unit causes one to be larger than the other.
     fig.plot(
         region=[0, 10, 0, 10],
         projection="X10c",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
         data=[circular_vector],
         style="m0.5c+ea",
         pen="2p",
@@ -554,7 +555,7 @@ different measurement unit causes one to be larger than the other.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 350-364
+.. GENERATED FROM PYTHON SOURCE LINES 351-365
 
 Plot Geographic Vectors
 -----------------------
@@ -571,7 +572,7 @@ can be passed into the ``pen`` and ``fill`` parameters.
 Note that the **+s** is added to use a start point and an end point
 to represent the vector instead of input angle and length.
 
-.. GENERATED FROM PYTHON SOURCE LINES 364-386
+.. GENERATED FROM PYTHON SOURCE LINES 365-387
 
 .. code-block:: Python
 
@@ -609,7 +610,7 @@ to represent the vector instead of input angle and length.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 387-394
+.. GENERATED FROM PYTHON SOURCE LINES 388-395
 
 Using the same technique shown in the previous example,
 multiple vectors can be plotted in a chain where the end point
@@ -619,7 +620,7 @@ by adding the coordinate lists together to create this structure:
 Each list within the 2-D list contains the start and end information
 for each vector.
 
-.. GENERATED FROM PYTHON SOURCE LINES 394-423
+.. GENERATED FROM PYTHON SOURCE LINES 395-424
 
 .. code-block:: Python
 
@@ -664,13 +665,13 @@ for each vector.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 424-427
+.. GENERATED FROM PYTHON SOURCE LINES 425-428
 
 This example plots vectors over a Mercator projection. The start points
 are located at SA which is South Africa and going to four different
 locations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 427-451
+.. GENERATED FROM PYTHON SOURCE LINES 428-452
 
 .. code-block:: Python
 
@@ -686,7 +687,7 @@ locations.
     fig.coast(
         region=[-180, 180, -80, 80],
         projection="M0/0/12c",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         land="lightbrown",
         water="lightblue",
     )
@@ -713,7 +714,7 @@ locations.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.415 seconds)
+   **Total running time of the script:** (0 minutes 2.401 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_vectors.py:

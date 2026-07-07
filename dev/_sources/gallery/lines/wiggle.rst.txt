@@ -27,7 +27,7 @@ The :meth:`pygmt.Figure.wiggle` method can plot z = f(x,y) anomalies along track
 The positive and/or negative areas can be filled with color by setting the
 ``positive_fill`` and/or ``negative_fill`` parameters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-38
+.. GENERATED FROM PYTHON SOURCE LINES 13-42
 
 
 
@@ -44,7 +44,7 @@ The positive and/or negative areas can be filled with color by setting the
 
     import numpy as np
     import pygmt
-    from pygmt.params import Position
+    from pygmt.params import Axis, Frame, Position
 
     # Create (x, y, z) triplets
     x = np.arange(-7, 7, 0.1)
@@ -52,7 +52,11 @@ The positive and/or negative areas can be filled with color by setting the
     z = 50 * np.exp(-((x / 3) ** 2)) * np.cos(2 * np.pi * x)
 
     fig = pygmt.Figure()
-    fig.basemap(region=[-8, 12, -1, 1], projection="X10c", frame=["Snlr", "xa2f1"])
+    fig.basemap(
+        region=[-8, 12, -1, 1],
+        projection="X10c",
+        frame=Frame(axes="Snlr", xaxis=Axis(annot=2, tick=1)),
+    )
     fig.wiggle(
         x=x,
         y=y,
@@ -71,7 +75,7 @@ The positive and/or negative areas can be filled with color by setting the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.117 seconds)
+   **Total running time of the script:** (0 minutes 0.122 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_wiggle.py:

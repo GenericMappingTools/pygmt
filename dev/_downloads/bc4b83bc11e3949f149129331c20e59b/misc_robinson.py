@@ -27,8 +27,15 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="N12c", frame="afg", land="ivory", water="bisque4")
+fig.coast(
+    region="d",
+    projection="N12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="ivory",
+    water="bisque4",
+)
 fig.show()

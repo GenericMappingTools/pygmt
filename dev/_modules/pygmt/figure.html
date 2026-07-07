@@ -11,26 +11,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/figure.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=c850472e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -63,7 +64,8 @@
    
    
    <a href="../../index.html">
-     <h2 class="sidebar-title">PyGMT</h2>
+     
+       <img src="../../_static/pygmtlogo.png" class="logo" alt="Logo"/>
    </a>
      <div class="version">
        dev
@@ -163,6 +165,42 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.basemap</span><span class="w"> </span><span class="kn">import</span> <span class="n">basemap</span> <span class="k">as</span> <span class="n">_basemap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.choropleth</span><span class="w"> </span><span class="kn">import</span> <span class="n">choropleth</span> <span class="k">as</span> <span class="n">_choropleth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.coast</span><span class="w"> </span><span class="kn">import</span> <span class="n">coast</span> <span class="k">as</span> <span class="n">_coast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.colorbar</span><span class="w"> </span><span class="kn">import</span> <span class="n">colorbar</span> <span class="k">as</span> <span class="n">_colorbar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.contour</span><span class="w"> </span><span class="kn">import</span> <span class="n">contour</span> <span class="k">as</span> <span class="n">_contour</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.directional_rose</span><span class="w"> </span><span class="kn">import</span> <span class="n">directional_rose</span> <span class="k">as</span> <span class="n">_directional_rose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.fill_between</span><span class="w"> </span><span class="kn">import</span> <span class="n">fill_between</span> <span class="k">as</span> <span class="n">_fill_between</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdcontour</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdcontour</span> <span class="k">as</span> <span class="n">_grdcontour</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdimage</span> <span class="k">as</span> <span class="n">_grdimage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdview</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdview</span> <span class="k">as</span> <span class="n">_grdview</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.histogram</span><span class="w"> </span><span class="kn">import</span> <span class="n">histogram</span> <span class="k">as</span> <span class="n">_histogram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.hlines</span><span class="w"> </span><span class="kn">import</span> <span class="n">hlines</span> <span class="k">as</span> <span class="n">_hlines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span> <span class="k">as</span> <span class="n">_image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.inset</span><span class="w"> </span><span class="kn">import</span> <span class="n">inset</span> <span class="k">as</span> <span class="n">_inset</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.legend</span><span class="w"> </span><span class="kn">import</span> <span class="n">legend</span> <span class="k">as</span> <span class="n">_legend</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.logo</span><span class="w"> </span><span class="kn">import</span> <span class="n">logo</span> <span class="k">as</span> <span class="n">_logo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.magnetic_rose</span><span class="w"> </span><span class="kn">import</span> <span class="n">magnetic_rose</span> <span class="k">as</span> <span class="n">_magnetic_rose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.meca</span><span class="w"> </span><span class="kn">import</span> <span class="n">meca</span> <span class="k">as</span> <span class="n">_meca</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.paragraph</span><span class="w"> </span><span class="kn">import</span> <span class="n">paragraph</span> <span class="k">as</span> <span class="n">_paragraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.plot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span> <span class="k">as</span> <span class="n">_plot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.plot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot3d</span> <span class="k">as</span> <span class="n">_plot3d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.psconvert</span><span class="w"> </span><span class="kn">import</span> <span class="n">psconvert</span> <span class="k">as</span> <span class="n">_psconvert</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.pygmtlogo</span><span class="w"> </span><span class="kn">import</span> <span class="n">pygmtlogo</span> <span class="k">as</span> <span class="n">_pygmtlogo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.rose</span><span class="w"> </span><span class="kn">import</span> <span class="n">rose</span> <span class="k">as</span> <span class="n">_rose</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.scalebar</span><span class="w"> </span><span class="kn">import</span> <span class="n">scalebar</span> <span class="k">as</span> <span class="n">_scalebar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.shift_origin</span><span class="w"> </span><span class="kn">import</span> <span class="n">shift_origin</span> <span class="k">as</span> <span class="n">_shift_origin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.solar</span><span class="w"> </span><span class="kn">import</span> <span class="n">solar</span> <span class="k">as</span> <span class="n">_solar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.subplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_panel</span> <span class="k">as</span> <span class="n">_set_panel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.subplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">subplot</span> <span class="k">as</span> <span class="n">_subplot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.ternary</span><span class="w"> </span><span class="kn">import</span> <span class="n">ternary</span> <span class="k">as</span> <span class="n">_ternary</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span> <span class="k">as</span> <span class="n">_text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.tilemap</span><span class="w"> </span><span class="kn">import</span> <span class="n">tilemap</span> <span class="k">as</span> <span class="n">_tilemap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.timestamp</span><span class="w"> </span><span class="kn">import</span> <span class="n">timestamp</span> <span class="k">as</span> <span class="n">_timestamp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.velo</span><span class="w"> </span><span class="kn">import</span> <span class="n">velo</span> <span class="k">as</span> <span class="n">_velo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.vlines</span><span class="w"> </span><span class="kn">import</span> <span class="n">vlines</span> <span class="k">as</span> <span class="n">_vlines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.wiggle</span><span class="w"> </span><span class="kn">import</span> <span class="n">wiggle</span> <span class="k">as</span> <span class="n">_wiggle</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">IPython</span>
@@ -213,7 +251,7 @@
 
 <span class="c1"># A registry of all figures that have had &quot;show&quot; called in this session.</span>
 <span class="c1"># This is needed for the sphinx-gallery scraper in pygmt/sphinx_gallery.py</span>
-<span class="n">SHOWED_FIGURES</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">SHOWED_FIGURES</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;Figure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="c1"># Configurations for figure display.</span>
 <span class="n">SHOW_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">_get_default_display_method</span><span class="p">(),</span>  <span class="c1"># The image preview display method.</span>
@@ -330,7 +368,7 @@
 <span class="sd">            supported formats and their extensions above.</span>
 <span class="sd">        transparent</span>
 <span class="sd">            Use a transparent background for the figure. Only valid for PNG format and</span>
-<span class="sd">            the PNG file asscoiated with KML format.</span>
+<span class="sd">            the PNG file associated with KML format.</span>
 <span class="sd">        crop</span>
 <span class="sd">            Crop the figure canvas (page) to the plot area.</span>
 <span class="sd">        anti_alias</span>
@@ -390,7 +428,7 @@
             <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
                 <span class="n">transparent</span><span class="p">,</span>
                 <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;transparent&#39;&quot;</span><span class="p">,</span>
-                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Transparency unavailable for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39;, only for png and kml.&quot;</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Transparency unavailable for </span><span class="si">{</span><span class="n">ext</span><span class="si">!r}</span><span class="s2">, only for png and kml.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">anti_alias</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -570,37 +608,43 @@
         <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;img src=&quot;data:image/png;base64,</span><span class="si">{image}</span><span class="s1">&quot; width=&quot;</span><span class="si">{width}</span><span class="s1">px&quot;&gt;&#39;</span>
         <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">base64_png</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type: ignore[misc] # noqa: PLC0415</span>
-        <span class="n">basemap</span><span class="p">,</span>
-        <span class="n">coast</span><span class="p">,</span>
-        <span class="n">colorbar</span><span class="p">,</span>
-        <span class="n">contour</span><span class="p">,</span>
-        <span class="n">grdcontour</span><span class="p">,</span>
-        <span class="n">grdimage</span><span class="p">,</span>
-        <span class="n">grdview</span><span class="p">,</span>
-        <span class="n">histogram</span><span class="p">,</span>
-        <span class="n">hlines</span><span class="p">,</span>
-        <span class="n">image</span><span class="p">,</span>
-        <span class="n">inset</span><span class="p">,</span>
-        <span class="n">legend</span><span class="p">,</span>
-        <span class="n">logo</span><span class="p">,</span>
-        <span class="n">meca</span><span class="p">,</span>
-        <span class="n">plot</span><span class="p">,</span>
-        <span class="n">plot3d</span><span class="p">,</span>
-        <span class="n">psconvert</span><span class="p">,</span>
-        <span class="n">rose</span><span class="p">,</span>
-        <span class="n">set_panel</span><span class="p">,</span>
-        <span class="n">shift_origin</span><span class="p">,</span>
-        <span class="n">solar</span><span class="p">,</span>
-        <span class="n">subplot</span><span class="p">,</span>
-        <span class="n">ternary</span><span class="p">,</span>
-        <span class="n">text</span><span class="p">,</span>
-        <span class="n">tilemap</span><span class="p">,</span>
-        <span class="n">timestamp</span><span class="p">,</span>
-        <span class="n">velo</span><span class="p">,</span>
-        <span class="n">vlines</span><span class="p">,</span>
-        <span class="n">wiggle</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="c1"># Attach plotting functions implemented in pygmt/src as Figure methods.</span>
+    <span class="n">basemap</span> <span class="o">=</span> <span class="n">_basemap</span>
+    <span class="n">choropleth</span> <span class="o">=</span> <span class="n">_choropleth</span>
+    <span class="n">coast</span> <span class="o">=</span> <span class="n">_coast</span>
+    <span class="n">colorbar</span> <span class="o">=</span> <span class="n">_colorbar</span>
+    <span class="n">contour</span> <span class="o">=</span> <span class="n">_contour</span>
+    <span class="n">directional_rose</span> <span class="o">=</span> <span class="n">_directional_rose</span>
+    <span class="n">fill_between</span> <span class="o">=</span> <span class="n">_fill_between</span>
+    <span class="n">grdcontour</span> <span class="o">=</span> <span class="n">_grdcontour</span>
+    <span class="n">grdimage</span> <span class="o">=</span> <span class="n">_grdimage</span>
+    <span class="n">grdview</span> <span class="o">=</span> <span class="n">_grdview</span>
+    <span class="n">histogram</span> <span class="o">=</span> <span class="n">_histogram</span>
+    <span class="n">hlines</span> <span class="o">=</span> <span class="n">_hlines</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">_image</span>
+    <span class="n">inset</span> <span class="o">=</span> <span class="n">_inset</span>
+    <span class="n">legend</span> <span class="o">=</span> <span class="n">_legend</span>
+    <span class="n">logo</span> <span class="o">=</span> <span class="n">_logo</span>
+    <span class="n">magnetic_rose</span> <span class="o">=</span> <span class="n">_magnetic_rose</span>
+    <span class="n">meca</span> <span class="o">=</span> <span class="n">_meca</span>
+    <span class="n">paragraph</span> <span class="o">=</span> <span class="n">_paragraph</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="n">_plot</span>
+    <span class="n">plot3d</span> <span class="o">=</span> <span class="n">_plot3d</span>
+    <span class="n">psconvert</span> <span class="o">=</span> <span class="n">_psconvert</span>
+    <span class="n">pygmtlogo</span> <span class="o">=</span> <span class="n">_pygmtlogo</span>
+    <span class="n">rose</span> <span class="o">=</span> <span class="n">_rose</span>
+    <span class="n">scalebar</span> <span class="o">=</span> <span class="n">_scalebar</span>
+    <span class="n">set_panel</span> <span class="o">=</span> <span class="n">_set_panel</span>
+    <span class="n">shift_origin</span> <span class="o">=</span> <span class="n">_shift_origin</span>
+    <span class="n">solar</span> <span class="o">=</span> <span class="n">_solar</span>
+    <span class="n">subplot</span> <span class="o">=</span> <span class="n">_subplot</span>
+    <span class="n">ternary</span> <span class="o">=</span> <span class="n">_ternary</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">_text</span>
+    <span class="n">tilemap</span> <span class="o">=</span> <span class="n">_tilemap</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">_timestamp</span>
+    <span class="n">velo</span> <span class="o">=</span> <span class="n">_velo</span>
+    <span class="n">vlines</span> <span class="o">=</span> <span class="n">_vlines</span>
+    <span class="n">wiggle</span> <span class="o">=</span> <span class="n">_wiggle</span></div>
 
 
 
@@ -665,9 +709,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/fb1ec7d2e">fb1ec7d2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 07, 2026.
       </span></p>
   </div>
 

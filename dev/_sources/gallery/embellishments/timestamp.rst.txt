@@ -26,13 +26,14 @@ The timestamp will always be shown relative to the Bottom Left (BL) corner of th
 By default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54p")``
 (x-, y-directions) and ``"BL"`` (Bottom Left), respectively.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-21
+.. GENERATED FROM PYTHON SOURCE LINES 12-22
 
 .. code-block:: Python
 
     import os
 
     import pygmt
+    from pygmt.params import Axis
 
     fig = pygmt.Figure()
     fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c", frame=True)
@@ -51,12 +52,12 @@ By default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-24
+.. GENERATED FROM PYTHON SOURCE LINES 23-25
 
 Additionally, a custom label can be added via the ``label`` parameter. The font can be
 defined via the ``font`` parameter and the timestamp string format via ``timefmt``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-37
+.. GENERATED FROM PYTHON SOURCE LINES 25-44
 
 .. code-block:: Python
 
@@ -64,7 +65,13 @@ defined via the ``font`` parameter and the timestamp string format via ``timefmt
     os.environ["TZ"] = "Pacific/Honolulu"  # optionally set the time zone
 
     fig = pygmt.Figure()
-    fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
+    fig.coast(
+        region="d",
+        projection="H10c",
+        land="black",
+        water="cornsilk",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     fig.timestamp(
         label="Powered by PyGMT",
         justify="TL",
@@ -88,7 +95,7 @@ defined via the ``font`` parameter and the timestamp string format via ``timefmt
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.331 seconds)
+   **Total running time of the script:** (0 minutes 0.325 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_timestamp.py:

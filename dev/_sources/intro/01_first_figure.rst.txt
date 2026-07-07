@@ -34,12 +34,13 @@ Loading the library
 The first step is to import :mod:`pygmt`. All methods and figure generation
 are accessible from the :mod:`pygmt` top level package.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-20
+.. GENERATED FROM PYTHON SOURCE LINES 17-21
 
 .. code-block:: Python
 
 
     import pygmt
+    from pygmt.params import Frame
 
 
 
@@ -48,7 +49,7 @@ are accessible from the :mod:`pygmt` top level package.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-26
+.. GENERATED FROM PYTHON SOURCE LINES 22-27
 
 Creating a figure
 -----------------
@@ -56,7 +57,7 @@ Creating a figure
 All figure generation in PyGMT is handled by the :class:`pygmt.Figure` class.
 Start a new figure by creating an instance of this class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-29
+.. GENERATED FROM PYTHON SOURCE LINES 27-30
 
 .. code-block:: Python
 
@@ -70,7 +71,7 @@ Start a new figure by creating an instance of this class:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-51
+.. GENERATED FROM PYTHON SOURCE LINES 31-52
 
 To add elements to the figure instance or object (``fig`` in this example)
 different methods can be called on it. This example will use the
@@ -94,7 +95,7 @@ Boolean value ``True`` to the ``shorelines`` parameter. The ``shorelines``
 parameter has other options for finer control, but setting it to ``True``
 uses the default values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-54
+.. GENERATED FROM PYTHON SOURCE LINES 52-55
 
 .. code-block:: Python
 
@@ -108,11 +109,11 @@ uses the default values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
 
 To see the figure, call :meth:`pygmt.Figure.show`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-60
+.. GENERATED FROM PYTHON SOURCE LINES 57-61
 
 .. code-block:: Python
 
@@ -132,7 +133,7 @@ To see the figure, call :meth:`pygmt.Figure.show`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-73
+.. GENERATED FROM PYTHON SOURCE LINES 62-74
 
 Color the land and water
 ------------------------
@@ -147,7 +148,7 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
 ``"0/0/255"``), a hex value (like ``"#333333"``), or a gray level (like
 ``"gray50"``). For this example, GMT color names are used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-84
+.. GENERATED FROM PYTHON SOURCE LINES 74-85
 
 .. code-block:: Python
 
@@ -174,7 +175,7 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-101
+.. GENERATED FROM PYTHON SOURCE LINES 86-102
 
 Set the projection
 ------------------
@@ -193,7 +194,7 @@ The width of the figure will be 10 centimeters, as set by ``"10c"``.
 The map size can also be set in inches using "i" (e.g. a 5-inch wide
 Mercator projection would use ``"M5i"``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-113
+.. GENERATED FROM PYTHON SOURCE LINES 102-114
 
 .. code-block:: Python
 
@@ -221,7 +222,7 @@ Mercator projection would use ``"M5i"``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-123
+.. GENERATED FROM PYTHON SOURCE LINES 115-124
 
 Add a frame
 -----------
@@ -231,9 +232,9 @@ that is being displayed is not apparent. A frame can be added to
 annotate the latitude and longitude of the region.
 
 The ``frame`` parameter is used to add a frame to the figure. For now, it
-will be set to ``"a"`` to **a**\ nnotate the axes automatically.
+will be set to ``True`` to annotate the axes automatically.
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-136
+.. GENERATED FROM PYTHON SOURCE LINES 124-137
 
 .. code-block:: Python
 
@@ -245,7 +246,7 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
         land="lightgreen",
         water="lightblue",
         projection="M10c",
-        frame="a",
+        frame=True,
     )
     fig.show()
 
@@ -262,20 +263,15 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-147
+.. GENERATED FROM PYTHON SOURCE LINES 138-143
 
 Add a title
 -----------
 
-The ``frame`` parameter can be used to add a title to the figure. The title
-is set by passing ``"+t"`` followed by the title (e.g. setting the map
-title to "Title" would be ``"+tTitle"``).
+The ``frame`` parameter can also be used to add a title to the figure. Here,
+:class:`pygmt.params.Frame` sets the map title.
 
-To pass multiple arguments to ``frame``, a list can be used, as shown in the
-example below. This format uses ``frame`` to set both the axes annotations
-and the figure title.
-
-.. GENERATED FROM PYTHON SOURCE LINES 147-160
+.. GENERATED FROM PYTHON SOURCE LINES 143-156
 
 .. code-block:: Python
 
@@ -287,7 +283,7 @@ and the figure title.
         land="lightgreen",
         water="lightblue",
         projection="M10c",
-        frame=["a", "+tMaine"],
+        frame=Frame(title="Maine"),
     )
     fig.show()
 
@@ -304,7 +300,7 @@ and the figure title.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-179
+.. GENERATED FROM PYTHON SOURCE LINES 157-175
 
 Additional exercises
 --------------------
@@ -328,7 +324,7 @@ for the concepts that were discussed:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.023 seconds)
+   **Total running time of the script:** (0 minutes 0.982 seconds)
 
 
 .. _sphx_glr_download_intro_01_first_figure.py:

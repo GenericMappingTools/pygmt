@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/3d_perspective_image.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=c850472e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -66,7 +67,8 @@
    
    
    <a href="../../index.html">
-     <h2 class="sidebar-title">PyGMT</h2>
+     
+       <img src="../../_static/pygmtlogo.png" class="logo" alt="Logo"/>
    </a>
      <div class="version">
        dev
@@ -104,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features_on_3d_surface.html">Plotting features on a 3-D surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="non_ascii_text.html">Typesetting non-ASCII text</a></li>
@@ -197,6 +200,7 @@ to download the full example code.</p>
 <p>Create 3-D perspective image or surface mesh from a grid
 using <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a>
 
 <span class="c1"># Load sample earth relief data</span>
 <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;10m&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">108</span><span class="p">,</span> <span class="o">-</span><span class="mi">103</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
@@ -215,7 +219,7 @@ three-dimensional portion appears.</p>
     <span class="c1"># degrees</span>
     <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
     <span class="c1"># Sets the x- and y-axis labels, and annotates the west, south, and east axes</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa&quot;</span><span class="p">,</span> <span class="s2">&quot;ya&quot;</span><span class="p">,</span> <span class="s2">&quot;WSnE&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSnE&quot;</span><span class="p">,</span> <span class="n">xaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">yaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
     <span class="c1"># Sets a Mercator projection on a 15-centimeter figure</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="c1"># Sets the height of the three-dimensional relief at 1.5 centimeters</span>
@@ -230,13 +234,11 @@ The default CPT is <em>turbo</em> and can be customized with the <code class="do
 <a href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span></a><span class="p">(</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span>
     <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa&quot;</span><span class="p">,</span> <span class="s2">&quot;yaf&quot;</span><span class="p">,</span> <span class="s2">&quot;WSnE&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSnE&quot;</span><span class="p">,</span> <span class="n">xaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">yaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">zsize</span><span class="o">=</span><span class="s2">&quot;1.5c&quot;</span><span class="p">,</span>
-    <span class="c1"># Set the surftype to &quot;surface&quot;</span>
-    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
-    <span class="c1"># Set the CPT to &quot;geo&quot;</span>
-    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span>
+    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;surface&quot;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span>  <span class="c1"># Set the CPT to &quot;geo&quot;</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -247,10 +249,10 @@ below the surface relief.</p>
 <a href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdview</span></a><span class="p">(</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span>
     <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="mi">130</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa&quot;</span><span class="p">,</span> <span class="s2">&quot;yaf&quot;</span><span class="p">,</span> <span class="s2">&quot;WSnE&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSnE&quot;</span><span class="p">,</span> <span class="n">xaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">yaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">zsize</span><span class="o">=</span><span class="s2">&quot;1.5c&quot;</span><span class="p">,</span>
-    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;surface&quot;</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span>
     <span class="n">plane</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>  <span class="c1"># Set the plane elevation to 1,000 meters</span>
     <span class="n">facade_fill</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>  <span class="c1"># Color the facade in &quot;gray&quot;</span>
@@ -269,21 +271,25 @@ as argument for the <code class="docutils literal notranslate"><span class="pre"
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span>
     <span class="c1"># Set the azimuth to -130 (230) degrees and the elevation to 30 degrees</span>
     <span class="n">perspective</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">130</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
-    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xaf&quot;</span><span class="p">,</span> <span class="s2">&quot;yaf&quot;</span><span class="p">,</span> <span class="s2">&quot;WSnE&quot;</span><span class="p">],</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span>
+        <span class="n">axes</span><span class="o">=</span><span class="s2">&quot;WSnE&quot;</span><span class="p">,</span>
+        <span class="n">xaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">yaxis</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">),</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
     <span class="n">zsize</span><span class="o">=</span><span class="s2">&quot;1.5c&quot;</span><span class="p">,</span>
-    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span>
+    <span class="n">surftype</span><span class="o">=</span><span class="s2">&quot;surface&quot;</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">,</span>
     <span class="n">plane</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">facade_fill</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
     <span class="c1"># Set the contour pen thickness to 0.1 points</span>
     <span class="n">contour_pen</span><span class="o">=</span><span class="s2">&quot;0.1p&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">perspective</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a500&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">])</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">perspective</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Elevation&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_3d_perspective_image_004.png" srcset="../../_images/sphx_glr_3d_perspective_image_004.png" alt="3d perspective image" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.960 seconds)</p>
+<img src="../../_images/sphx_glr_3d_perspective_image_004.png" srcset="../../_images/sphx_glr_3d_perspective_image_004.png" alt="3d perspective image" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.975 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-3d-perspective-image-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e54c4af3c9e8dea26183210794026896/3d_perspective_image.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">3d_perspective_image.ipynb</span></code></a></p>
@@ -311,9 +317,9 @@ as argument for the <code class="docutils literal notranslate"><span class="pre"
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/fb1ec7d2e">fb1ec7d2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 07, 2026.
       </span></p>
   </div>
 

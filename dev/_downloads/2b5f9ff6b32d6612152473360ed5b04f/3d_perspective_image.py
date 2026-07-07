@@ -8,6 +8,7 @@ using :meth:`pygmt.Figure.grdview`.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
@@ -28,7 +29,7 @@ fig.grdview(
     # degrees
     perspective=[130, 30],
     # Sets the x- and y-axis labels, and annotates the west, south, and east axes
-    frame=["xa", "ya", "WSnE"],
+    frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
     # Sets a Mercator projection on a 15-centimeter figure
     projection="M15c",
     # Sets the height of the three-dimensional relief at 1.5 centimeters
@@ -44,13 +45,11 @@ fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
     perspective=[130, 30],
-    frame=["xa", "yaf", "WSnE"],
+    frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True, tick=True)),
     projection="M15c",
     zsize="1.5c",
-    # Set the surftype to "surface"
-    surftype="s",
-    # Set the CPT to "geo"
-    cmap="gmt/geo",
+    surftype="surface",
+    cmap="gmt/geo",  # Set the CPT to "geo"
 )
 fig.show()
 
@@ -62,10 +61,10 @@ fig = pygmt.Figure()
 fig.grdview(
     grid=grid,
     perspective=[130, 30],
-    frame=["xa", "yaf", "WSnE"],
+    frame=Frame(axes="WSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True, tick=True)),
     projection="M15c",
     zsize="1.5c",
-    surftype="s",
+    surftype="surface",
     cmap="gmt/geo",
     plane=1000,  # Set the plane elevation to 1,000 meters
     facade_fill="gray",  # Color the facade in "gray"
@@ -85,17 +84,21 @@ fig.grdview(
     grid=grid,
     # Set the azimuth to -130 (230) degrees and the elevation to 30 degrees
     perspective=[-130, 30],
-    frame=["xaf", "yaf", "WSnE"],
+    frame=Frame(
+        axes="WSnE",
+        xaxis=Axis(annot=True, tick=True),
+        yaxis=Axis(annot=True, tick=True),
+    ),
     projection="M15c",
     zsize="1.5c",
-    surftype="s",
+    surftype="surface",
     cmap="gmt/geo",
     plane=1000,
     facade_fill="gray",
     # Set the contour pen thickness to 0.1 points
     contour_pen="0.1p",
 )
-fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
+fig.colorbar(perspective=True, annot=500, label="Elevation", unit="m")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 4

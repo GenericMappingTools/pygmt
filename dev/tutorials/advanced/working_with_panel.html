@@ -12,26 +12,27 @@
     
 
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=2ba370f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/working_with_panel.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=ce5548fe"></script>
+      <script src="../../_static/documentation_options.js?v=c850472e"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -66,7 +67,8 @@
    
    
    <a href="../../index.html">
-     <h2 class="sidebar-title">PyGMT</h2>
+     
+       <img src="../../_static/pygmtlogo.png" class="logo" alt="Logo"/>
    </a>
      <div class="version">
        dev
@@ -109,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="features_on_3d_surface.html">Plotting features on a 3-D surface</a></li>
 <li class="toctree-l3"><a class="reference internal" href="focal_mechanisms.html">Plotting focal mechanisms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="non_ascii_text.html">Typesetting non-ASCII text</a></li>
@@ -219,8 +222,9 @@ create interactive dashboards by connecting user-defined widgets to plots.
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">panel</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a>
 
-<span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">()</span>
+<a href="https://docs.python.org/3/library/typing.html#typing.Generic" title="typing.Generic" class="sphx-glr-backref-module-typing sphx-glr-backref-type-py-class"><span class="n">pn</span><span class="o">.</span><span class="n">extension</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <section id="make-a-static-map">
@@ -237,7 +241,7 @@ filled with colors via the <code class="docutils literal notranslate"><span clas
     <span class="c1"># 15° North and a width of 12 centimeters</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G0/15/12c&quot;</span><span class="p">,</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>  <span class="c1"># global</span>
-    <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;g30&quot;</span><span class="p">,</span>  <span class="c1"># Add frame and gridlines in steps of 30 degrees on top</span>
+    <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>  <span class="c1"># Add gridlines in steps of 30 degrees on top</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>  <span class="c1"># Color land masses in &quot;gray&quot;</span>
     <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>  <span class="c1"># Color water masses in &quot;lightblue&quot;</span>
     <span class="c1"># Add coastlines with a 0.25-point thick pen in &quot;gray50&quot;</span>
@@ -272,7 +276,7 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).</p
         <span class="c1"># Vary the central longitude used for the Orthographic projection</span>
         <span class="n">projection</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;G</span><span class="si">{</span><span class="n">central_lon</span><span class="si">}</span><span class="s2">/15/12c&quot;</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
-        <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;g30&quot;</span><span class="p">,</span>
+        <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
         <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
         <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span>
         <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.25p,gray50&quot;</span><span class="p">,</span>
@@ -285,7 +289,7 @@ with a slider (works only in a notebook environment, e.g., Jupyter notebook).</p
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Column
-    [0] DiscreteSlider(formatter=&#39;%d&#39;, name=&#39;Central longitude&#39;, options=[np.int64(0), ...], value=0)
+    [0] DiscreteSlider(formatter=&#39;%d&#39;, label=&#39;Central longitude&#39;, name=&#39;Central longitude&#39;, options=[np.int64(0), ...], value=0)
     [1] ParamFunction(function, _pane=PNG, defer_load=False)
 </pre></div>
 </div>
@@ -324,12 +328,10 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
         <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
         <span class="n">grid</span><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grd_relief</span></a><span class="p">,</span>  <span class="c1"># Use grid downloaded above</span>
         <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use colormap defined above</span>
-        <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;g30&quot;</span><span class="p">,</span>
+        <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="c1"># Add a horizontal colorbar for the elevation</span>
-    <span class="c1"># with annotations (a) in steps of 2000 and ticks (f) in steps of 1000</span>
-    <span class="c1"># and labels (+l) at the x-axis &quot;Elevation&quot; and y-axis &quot;m&quot; (meters)</span>
-    <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a2000f1000&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">])</span>
+    <span class="c1"># Add a horizontal colorbar for the elevation.</span>
+    <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Elevation&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">)</span>
     <span class="k">return</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a>
 
 
@@ -338,11 +340,11 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Column
-    [0] DiscreteSlider(formatter=&#39;%d&#39;, name=&#39;Central longitude&#39;, options=[np.int64(0), ...], value=0)
+    [0] DiscreteSlider(formatter=&#39;%d&#39;, label=&#39;Central longitude&#39;, name=&#39;Central longitude&#39;, options=[np.int64(0), ...], value=0)
     [1] ParamFunction(function, _pane=PNG, defer_load=False)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.634 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.616 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-working-with-panel-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9607cce8c2a328be63cfb98745cd1baf/working_with_panel.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">working_with_panel.ipynb</span></code></a></p>
@@ -371,9 +373,9 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/b1d4bd7e8">b1d4bd7e</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/fb1ec7d2e">fb1ec7d2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jan 11, 2026.
+      <span class="lastupdated">Last updated on Jul 07, 2026.
       </span></p>
   </div>
 

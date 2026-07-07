@@ -30,7 +30,7 @@ the specified labeling defined via ``alabel``, ``blabel``, and ``clabel``.
 Points are colored based on the values given in the fourth column of the
 sample dataset via ``cmap=True``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-49
+.. GENERATED FROM PYTHON SOURCE LINES 16-51
 
 
 
@@ -46,7 +46,7 @@ sample dataset via ``cmap=True``.
 .. code-block:: Python
 
     import pygmt
-    from pygmt.params import Position
+    from pygmt.params import Axis, Frame, Position
 
     fig = pygmt.Figure()
 
@@ -66,23 +66,25 @@ sample dataset via ``cmap=True``.
         blabel="Water",
         clabel="Air",
         cmap=True,
-        frame=[
-            "aafg+lLimestone component+u %",
-            "bafg+lWater component+u %",
-            "cafg+lAir component+u %",
-        ],
+        frame=Frame(
+            xaxis=Axis(
+                annot=True, tick=True, grid=True, label="Limestone component", unit="%"
+            ),
+            yaxis=Axis(annot=True, tick=True, grid=True, label="Water component", unit="%"),
+            zaxis=Axis(annot=True, tick=True, grid=True, label="Air component", unit="%"),
+        ),
     )
 
     # Add a colorbar indicating the values given in the fourth column of the input dataset
     fig.colorbar(
-        position=Position("BC", cstype="outside", offset=(0, 1.5)), frame="x+lPermittivity"
+        position=Position("BC", cstype="outside", offset=(0, 1.5)), label="Permittivity"
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.188 seconds)
+   **Total running time of the script:** (0 minutes 0.198 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_ternary.py:

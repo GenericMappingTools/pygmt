@@ -31,7 +31,7 @@ manually created legends are supported.
     import io
 
     import pygmt
-    from pygmt.params import Box, Position
+    from pygmt.params import Box, Frame, Position
 
 
 
@@ -103,7 +103,7 @@ drawn by default if ``position`` is used
 
 
     fig = pygmt.Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb"))
 
     fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
     fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -114,7 +114,7 @@ drawn by default if ``position`` is used
     fig.legend(position=Position("TL", offset=(0.3, 0.2)))
 
     fig.shift_origin(xshift="w+1c")
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb")
+    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb"))
 
     fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
     fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -143,7 +143,7 @@ drawn by default if ``position`` is used
 Add a box
 ---------
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-108
+.. GENERATED FROM PYTHON SOURCE LINES 80-112
 
 .. code-block:: Python
 
@@ -151,7 +151,9 @@ Add a box
     # Use the ``box`` parameter for adjusting the box around the legend.
 
     fig = pygmt.Figure()
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
+    fig.basemap(
+        region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb", fill="lightgray")
+    )
 
     fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
     fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -160,7 +162,9 @@ Add a box
     fig.legend(position=Position("TL", offset=(0.3, 0.2)), box=True)
 
     fig.shift_origin(xshift="w+1c")
-    fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rltb+glightgray")
+    fig.basemap(
+        region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rltb", fill="lightgray")
+    )
 
     fig.plot(x=0, y=0, style="c0.25c", fill="orange", label="orange circle")
     fig.plot(x=1, y=0, style="t0.3c", fill="pink", pen="black", label="pink triangle")
@@ -187,7 +191,7 @@ Add a box
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-125
+.. GENERATED FROM PYTHON SOURCE LINES 113-129
 
 Create a manual legend
 ----------------------
@@ -206,7 +210,7 @@ The following example is orientated on the related GMT example at
 
 We start with setting up the :class:`io.StringIO` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-156
+.. GENERATED FROM PYTHON SOURCE LINES 129-160
 
 .. code-block:: Python
 
@@ -248,12 +252,12 @@ We start with setting up the :class:`io.StringIO` object.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-159
+.. GENERATED FROM PYTHON SOURCE LINES 161-163
 
 Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
 legends, the width must be specified.
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-168
+.. GENERATED FROM PYTHON SOURCE LINES 163-172
 
 .. code-block:: Python
 
@@ -281,7 +285,7 @@ legends, the width must be specified.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.666 seconds)
+   **Total running time of the script:** (0 minutes 0.683 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_legends.py:

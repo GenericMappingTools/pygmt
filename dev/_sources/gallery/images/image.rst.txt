@@ -54,7 +54,7 @@ us to place the image at a specific location on the plot.
     # the current plot, scale it to a width of 8 centimeters and draw a rectangular border
     # around it.
     fig.image(
-        imagefile="https://oceania.generic-mapping-tools.org/cache/needle.jpg",
+        imagefile="https://github.com/GenericMappingTools/gmtserver-admin/raw/master/cache/needle.jpg",
         position=Position((1, 1), cstype="mapcoords", anchor="MC"),
         width="8c",
         box=True,
@@ -68,7 +68,7 @@ us to place the image at a specific location on the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.109 seconds)
+   **Total running time of the script:** (0 minutes 0.565 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:
