@@ -97,6 +97,11 @@ def logo(  # noqa: PLR0913
     $perspective
     $transparency
 
+    See Also
+    --------
+    pygmt.Figure.pygmtlogo
+        Plot the PyGMT logo.
+
     Examples
     --------
     >>> import pygmt
