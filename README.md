@@ -159,7 +159,7 @@ The BibTeX entry for the PyGMT paper is:
 The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
 ```
 @software{
-  pygmt_2026_18080259,
+  pygmt_2026_19398871,
   author       = {Tian, Dongdong and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
@@ -180,12 +180,12 @@ The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = jan,
+  month        = jul,
   year         = 2026,
   publisher    = {Zenodo},
-  version      = {0.18.0},
-  doi          = {10.5281/zenodo.18080259},
-  url          = {https://doi.org/10.5281/zenodo.18080259}
+  version      = {0.19.0},
+  doi          = {10.5281/zenodo.19398871},
+  url          = {https://doi.org/10.5281/zenodo.19398871}
 }
 ```
 
