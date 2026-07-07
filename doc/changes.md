@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v0.19.0 (2026/07/05)
+## Release v0.19.0 (2026/07/08)
 
 [![Digital Object Identifier for PyGMT v0.19.0](https://img.shields.io/badge/DOI-10.5281/zenodo.19398871-blue)](https://doi.org/10.5281/zenodo.19398871)
 
