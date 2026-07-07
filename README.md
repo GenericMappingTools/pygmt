@@ -1,6 +1,4 @@
-# PyGMT
-
-> A Python interface for the Generic Mapping Tools
+<img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png"/>
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
@@ -135,8 +133,30 @@ happy to help others learn.
 PyGMT is a community developed project. See the
 [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
-Feel free to cite our work in your research using the following BibTeX:
 
+Feel free to cite our work in your research. You can either cite the PyGMT paper published
+in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
+
+The BibTeX entry for the PyGMT paper is:
+```
+@article{pygmt_2026_2026GC013105,
+  author       = {Tian, Dongdong and
+                  Fröhlich, Yvonne and
+                  Leong, Wei Ji and
+                  Grund, Michael and
+                  Schlitzer, William and
+                  Jones, Max and
+                  Uieda, Leonardo and
+                  Luis, Joaquim M. F.},
+  title        = {{PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis}},
+  journal      = {Geochemistry, Geophysics, Geosystems},
+  year         = 2026,
+  volume       = {27},
+  pages        = {e2019GC008515},
+  doi          = {10.1029/2019GC008515},
+}
+```
+The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
 ```
 @software{
   pygmt_2026_19398871,

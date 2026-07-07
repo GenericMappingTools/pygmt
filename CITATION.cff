@@ -88,3 +88,44 @@ repository-code: 'https://github.com/GenericMappingTools/pygmt'
 license: BSD-3-Clause
 version: 0.19.0
 date-released: '2026-07-05'
+preferred-citation:
+  type: article
+  authors:
+    - given-names: Dongdong
+      family-names: Tian
+      affiliation: 'China University of Geosciences, China'
+      orcid: 'https://orcid.org/0000-0001-7967-1197'
+    - given-names: Yvonne
+      family-names: Fröhlich
+      affiliation: 'Karlsruhe Institute of Technology, Germany'
+      orcid: 'https://orcid.org/0000-0002-8566-0619'
+    - given-names: Wei Ji
+      family-names: Leong
+      affiliation: 'Development Seed, USA'
+      orcid: 'https://orcid.org/0000-0003-2354-1988'
+    - given-names: Michael
+      family-names: Grund
+      affiliation: 'SNP Innovation Lab GmbH, Germany'
+      orcid: 'https://orcid.org/0000-0001-8759-2018'
+    - given-names: William
+      family-names: Schlitzer
+      affiliation: Unaffiliated
+      orcid: 'https://orcid.org/0000-0002-5843-2282'
+    - given-names: Max
+      family-names: Jones
+      affiliation: 'Development Seed, USA'
+      orcid: 'https://orcid.org/0000-0003-0180-8928'
+    - given-names: Leonardo
+      family-names: Uieda
+      affiliation: 'Universidade de São Paulo, Brazil'
+      orcid: 'https://orcid.org/0000-0001-6123-9515'
+    - given-names: Joaquim Manuel Freire
+      family-names: Luis
+      affiliation: 'University of Algarve, Portugal'
+      orcid: 'https://orcid.org/0000-0002-9035-4069'
+  title: 'PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis'
+  journal: 'Geochemistry, Geophysics, Geosystems'
+  volume: 27
+  article-number: e2026GC013105
+  year: 2026
+  doi: 10.1029/2026GC013105
