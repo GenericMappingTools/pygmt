@@ -15,7 +15,8 @@
   Feel free to cite this paper when using PyGMT in your research.
 * PyGMT now has an official logo, which is available via Figure.pygmtlogo method ([#4616](https://github.com/GenericMappingTools/pygmt/pull/4616))
 * 🎉 Nineteenth minor release of PyGMT 🎉
-* Six new plotting methods, two new grid modules, and eight new gallery examples * New `Frame`/`Axis` classes for setting frame and axes
+* Six new plotting methods, two new grid modules, and eight new gallery examples 
+* New `Frame`/`Axis` classes for setting frame and axes
 
 ### New Features
 
