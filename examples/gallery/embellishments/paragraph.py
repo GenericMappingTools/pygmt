@@ -69,3 +69,30 @@ fig.paragraph(
 )
 
 fig.show()
+
+
+# %%
+text = [
+    "  Paragraph 1: Two leading whitespaces. Three inline   whitespaces. Two trailing whitespaces.  ",
+    "	Paragraph 2: One leading tab results in one indentation (four whitespaces by default).",
+    "		Paragraph 3: Two leading tabs results in two indentation (eight whitespaces by default).",
+    "Paragraph 4: Multiple inline			tabs are converted to multiple spaces. Trailing tabs have not effects.		",
+    "Paragraph 5: Mixing tabs and spaces. 2T3STST(		   	 	).",
+    "\nParagraph 6: Leading newline is converted to a space. Trailing newlines are converted to spaces.\n\n",
+    "\n\nParagraph 7: Multiple leading newline are converted to multiple spaces. xxx yyy zzz.",
+    "Paragraph 8: Newlines insiden a paragraph\nare converted to spaces.",
+    "Paragraph 9: This is the last paragraph.",
+]
+
+fig = pygmt.Figure()
+fig.basemap(region=[-5, 5, -5, 5], projection="X15c/15c", frame=True)
+
+fig.paragraph(
+    text=text,
+    x=0,
+    y=0,
+    parwidth="12c",
+    linespacing="18p",
+)
+
+fig.show()
