@@ -27,7 +27,7 @@ fig.show()
 
 
 # %%
-# Via the ``color``, ``theme``, ``shape`` parameters the appereance of the logo can be
+# Via the ``color``, ``theme``, ``shape`` parameters the appearance of the logo can be
 # changed.
 
 fig = pygmt.Figure()
