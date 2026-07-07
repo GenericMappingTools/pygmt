@@ -1,0 +1,184 @@
+pygmt.Figure
+============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: Figure
+
+
+.. rubric:: Attributes
+
+
+.. autoattribute::
+    Figure.region
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    :toctree:
+    
+    
+    
+    
+    Figure.basemap
+    
+    
+    
+    Figure.choropleth
+    
+    
+    
+    Figure.coast
+    
+    
+    
+    Figure.colorbar
+    
+    
+    
+    Figure.contour
+    
+    
+    
+    Figure.directional_rose
+    
+    
+    
+    Figure.fill_between
+    
+    
+    
+    Figure.grdcontour
+    
+    
+    
+    Figure.grdimage
+    
+    
+    
+    Figure.grdview
+    
+    
+    
+    Figure.histogram
+    
+    
+    
+    Figure.hlines
+    
+    
+    
+    Figure.image
+    
+    
+    
+    Figure.inset
+    
+    
+    
+    Figure.legend
+    
+    
+    
+    Figure.logo
+    
+    
+    
+    Figure.magnetic_rose
+    
+    
+    
+    Figure.meca
+    
+    
+    
+    Figure.paragraph
+    
+    
+    
+    Figure.plot
+    
+    
+    
+    Figure.plot3d
+    
+    
+    
+    Figure.psconvert
+    
+    
+    
+    Figure.pygmtlogo
+    
+    
+    
+    Figure.rose
+    
+    
+    
+    Figure.savefig
+    
+    
+    
+    Figure.scalebar
+    
+    
+    
+    Figure.set_panel
+    
+    
+    
+    Figure.shift_origin
+    
+    
+    
+    Figure.show
+    
+    
+    
+    Figure.solar
+    
+    
+    
+    Figure.subplot
+    
+    
+    
+    Figure.ternary
+    
+    
+    
+    Figure.text
+    
+    
+    
+    Figure.tilemap
+    
+    
+    
+    Figure.timestamp
+    
+    
+    
+    Figure.velo
+    
+    
+    
+    Figure.vlines
+    
+    
+    
+    Figure.wiggle
+    
+    
+
+
+.. minigallery:: pygmt.Figure
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

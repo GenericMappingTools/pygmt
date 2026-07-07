@@ -1,0 +1,13 @@
+pygmt.datasets.load\_earth\_mean\_sea\_surface
+==============================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_mean_sea_surface
+
+.. minigallery:: pygmt.datasets.load_earth_mean_sea_surface
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

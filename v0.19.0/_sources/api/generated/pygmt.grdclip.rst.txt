@@ -1,0 +1,13 @@
+pygmt.grdclip
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdclip
+
+.. minigallery:: pygmt.grdclip
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

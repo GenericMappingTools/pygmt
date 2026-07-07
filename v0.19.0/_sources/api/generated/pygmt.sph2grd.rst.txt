@@ -1,0 +1,13 @@
+pygmt.sph2grd
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: sph2grd
+
+.. minigallery:: pygmt.sph2grd
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.GMTDataArrayAccessor.clip
+===============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTDataArrayAccessor.clip
+
+.. minigallery:: pygmt.GMTDataArrayAccessor.clip
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

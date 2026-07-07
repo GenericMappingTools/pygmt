@@ -1,0 +1,13 @@
+pygmt.Figure.grdcontour
+=======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdcontour
+
+.. minigallery:: pygmt.Figure.grdcontour
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

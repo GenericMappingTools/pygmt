@@ -1,0 +1,13 @@
+pygmt.grdlandmask
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdlandmask
+
+.. minigallery:: pygmt.grdlandmask
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

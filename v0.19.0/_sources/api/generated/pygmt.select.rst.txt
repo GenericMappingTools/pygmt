@@ -1,0 +1,13 @@
+pygmt.select
+============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: select
+
+.. minigallery:: pygmt.select
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

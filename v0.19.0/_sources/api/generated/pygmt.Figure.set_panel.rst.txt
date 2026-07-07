@@ -1,0 +1,13 @@
+pygmt.Figure.set\_panel
+=======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.set_panel
+
+.. minigallery:: pygmt.Figure.set_panel
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

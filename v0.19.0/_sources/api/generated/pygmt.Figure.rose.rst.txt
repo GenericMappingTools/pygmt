@@ -1,0 +1,13 @@
+pygmt.Figure.rose
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.rose
+
+.. minigallery:: pygmt.Figure.rose
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
