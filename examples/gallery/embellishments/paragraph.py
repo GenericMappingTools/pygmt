@@ -72,6 +72,7 @@ fig.show()
 
 
 # %%
+# taken from pygmt/tests/test_paragraph.py
 text = [
     "  Paragraph 1: Two leading whitespaces. Three inline   whitespaces. Two trailing whitespaces.  ",
     "	Paragraph 2: One leading tab results in one indentation (four whitespaces by default).",
