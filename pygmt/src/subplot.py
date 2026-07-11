@@ -14,6 +14,7 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
+    is_given,
     kwargs_to_strings,
     use_alias,
 )
@@ -62,7 +63,7 @@ def _alias_option_A(  # noqa: N802
     # Check conflicts with deprecated 'autolabel' parameter.
     if autolabel:
         if any(
-            v is not None and v is not False
+            is_given(v)
             for v in [tag, tag_position, tag_box, tag_number_style, tag_orientation]
         ):
             raise GMTParameterError(
@@ -83,8 +84,7 @@ def _alias_option_A(  # noqa: N802
     # Validate tag_box if provided.
     if tag_box:
         if any(
-            v is not None and v is not False
-            for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
+            is_given(v) for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
         ):
             raise GMTValueError(
                 tag_box,
@@ -419,13 +419,11 @@ def set_panel(
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
+    args = ["set"]
+    if panel is not None:
+        args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
+    args.extend(build_arg_list(aliasdict))
+
     with Session() as lib:
-        lib.call_module(
-            module="subplot",
-            args=[
-                "set",
-                Alias(panel, name="panel", sep=",", size=2)._value,
-                *build_arg_list(aliasdict),
-            ],
-        )
+        lib.call_module(module="subplot", args=args)
         yield

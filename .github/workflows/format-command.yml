@@ -18,14 +18,15 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3.0.0
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: generate-token
         with:
-          app-id: ${{ secrets.APP_ID }}
+          client-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
 
       # Checkout the pull request branch
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
