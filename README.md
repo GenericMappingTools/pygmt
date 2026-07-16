@@ -134,8 +134,8 @@ PyGMT is a community developed project. See the
 [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
 
-Feel free to cite our work in your research. You can either cite the PyGMT paper published
-in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
+Feel free to cite our work in your research. You can either cite the [PyGMT paper](https://doi.org/10.1029/2026GC013105)
+published in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
 
 The BibTeX entry for the PyGMT paper is:
 ```
@@ -152,8 +152,10 @@ The BibTeX entry for the PyGMT paper is:
   journal      = {Geochemistry, Geophysics, Geosystems},
   year         = 2026,
   volume       = {27},
-  pages        = {e2019GC008515},
-  doi          = {10.1029/2019GC008515},
+  number       = {7},
+  pages        = {e2026GC013105},
+  doi          = {10.1029/2026GC013105},
+  url          = {https://doi.org/10.1029/2026GC013105},
 }
 ```
 The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
