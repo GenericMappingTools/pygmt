@@ -53,7 +53,7 @@ For plotting the PyGMT logo, see :doc:`PyGMT logo </gallery/embellishments/pygmt
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.206 seconds)
+   **Total running time of the script:** (0 minutes 0.204 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_gmt_logo.py:

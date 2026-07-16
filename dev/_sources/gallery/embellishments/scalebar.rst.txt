@@ -146,7 +146,7 @@ a scale bar to a colorful map to improve contrast and readability.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.332 seconds)
+   **Total running time of the script:** (0 minutes 0.333 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_scalebar.py:

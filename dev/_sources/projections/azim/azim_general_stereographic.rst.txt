@@ -68,7 +68,7 @@ distance from projection center (in degrees, < 180, default 90), and the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.185 seconds)
+   **Total running time of the script:** (0 minutes 0.186 seconds)
 
 
 .. rst-class:: sphx-glr-example-tags

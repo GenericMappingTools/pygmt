@@ -123,7 +123,7 @@ GMT 4 synthax, which can be found on the webpage mentioned above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.264 seconds)
+   **Total running time of the script:** (0 minutes 0.269 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_heads_tails.py:

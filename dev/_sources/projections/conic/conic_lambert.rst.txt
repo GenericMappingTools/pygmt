@@ -68,7 +68,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.182 seconds)
+   **Total running time of the script:** (0 minutes 0.178 seconds)
 
 
 .. rst-class:: sphx-glr-example-tags
