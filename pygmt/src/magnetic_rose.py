@@ -111,10 +111,10 @@ def magnetic_rose(  # noqa: PLR0913
 
     # The default position is set to "TR" since GMT 6.7.0, which has no default value
     # in GMT 6.6.0 and earlier versions.
-    # TODO(GMT>6.6.0): Set 'default=None' after GMT 6.7.0.
+    # TODO(GMT>6.6.0): Set 'default=True' after GMT 6.7.0.
     position = _parse_position(
         position,
-        default=None
+        default=True  # Use GMT default position but need to set to True to activate -Tm
         if Version(__gmt_version__) > Version("6.6.0")
         else Position("TR", cstype="inside"),
     )
