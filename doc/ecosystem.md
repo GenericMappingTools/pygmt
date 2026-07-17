@@ -10,6 +10,8 @@ raster grids/images/cubes I/O.
 In addition to these core dependencies, PyGMT also relies on several optional packages to
 provide additional functionality for users.
 
+![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
+
 *This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
 
 ## PyGMT dependencies
