@@ -10,6 +10,10 @@ relies on several optional packages to provide additional functionality for user
 
 ![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
+_The PyGMT ecosystem. This figure was originally published in the
+[PyGMT paper](https://doi.org/10.1029/2026GC013105) in G-Cubed. The full publication is
+released under CC BY-NC 4.0. No modifications were made._
+
 
 ## PyGMT dependencies
 
