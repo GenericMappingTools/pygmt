@@ -12,7 +12,6 @@ provide additional functionality for users.
 
 ![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
-*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
 
 ## PyGMT dependencies
 
@@ -115,6 +114,9 @@ If your package relies on PyGMT, please
 [let us know](https://github.com/GenericMappingTools/pygmt/issues/new) or
 [add it by yourself](contributing.md).
 ```
+
+*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
+
 
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
