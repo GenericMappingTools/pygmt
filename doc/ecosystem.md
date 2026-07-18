@@ -105,7 +105,7 @@ more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
 
-## PyGMT ecosystem
+## PyGMT-related ecosystem
 
 Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
 Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
