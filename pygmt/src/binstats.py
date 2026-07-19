@@ -109,9 +109,9 @@ def binstats(
         Normalize the resulting grid values by the area represented by the
         search *radius* [Default is no normalization].
     search_radius : float or str
-        Set the *search_radius* that determines which data points are
-        considered close to a node. Append a :ref:`distance unit <distance-units>`.
-        Not compatible with ``tiling``.
+        Set the *search_radius* that determines which data points are considered close
+        to a node. Append a :ref:`distance unit <distance-units>`. Not compatible with
+        ``tiling``.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be

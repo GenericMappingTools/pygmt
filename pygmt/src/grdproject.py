@@ -82,7 +82,7 @@ def grdproject(  # noqa: PLR0913
         When set to ``True``, do the inverse transformation, from rectangular to
         geographical [Default is ``False``].
     unit
-        Set the projected measure unit. Valid values are ``"c"``, ``"i"``, and ``"p"``.
+        Set the projected measure unit. Valid values are **c**, **i**, and **p**.
         [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Cannot be used with
         ``scaling``. See :ref:`dimension-units` for meanings of the units.
     scaling

@@ -162,9 +162,8 @@ def ternary(  # noqa: PLR0913
     width
         Set the width of the figure by passing a number followed by a
         :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
-        positive axes directions be clock-wise
-        [Default lets the a, b, c axes be positive in a
-        counter-clockwise direction].
+        positive axes directions be clock-wise [Default lets the a, b, c axes be
+        positive in a counter-clockwise direction].
     region : str or list
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,

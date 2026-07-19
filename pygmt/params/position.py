@@ -54,7 +54,7 @@ class Position(BaseParam):
 
     ``cstype="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
-        ``refpoint`` as (*x*, *y*) with :ref:`dimension units <dimension-units>`.
+        ``refpoint`` as (*x*, *y*) with a :ref:`dimension unit <dimension-units>`.
         Useful for precise layout control.
 
         **Example:** ``refpoint=("2c", "2.5c"), cstype="plotcoords"``

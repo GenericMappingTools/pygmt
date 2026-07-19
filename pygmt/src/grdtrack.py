@@ -127,13 +127,12 @@ def grdtrack(
         to alternate the direction of cross-profiles, or **v** to enforce
         either a "west-to-east" or "south-to-north" view. By default the entire
         profiles are output. Choose to only output the left or right halves
-        of the profiles by appending **+l** or **+r**, respectively.  Append
-        suitable :ref:`distance units <distance-units>` to *length*; it sets the unit
+        of the profiles by appending **+l** or **+r**, respectively. Append
+        a suitable :ref:`distance unit <distance-units>` to *length*; it sets the unit
         used for *ds* [and *spacing*]. The default unit for geographic grids is meters
         while Cartesian grids implies the user unit. The output columns will be
-        *lon*, *lat*, *dist*, *azimuth*,
-        *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
-        *n* grids).
+        *lon*, *lat*, *dist*, *azimuth*, *z1*, *z2*, ..., *zn* (The *zi* are the sampled
+        values for each of the *n* grids).
     dfile : str
         In concert with ``crossprofile`` we can save the (possibly resampled)
         original lines to *dfile* [Default only saves the cross-profiles]. The
