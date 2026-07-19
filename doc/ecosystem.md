@@ -1,4 +1,4 @@
-# Ecosystem
+# PyGMT Ecosystem
 
 PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
 line program that provides a wide range of tools for manipulating geospatial data and
@@ -105,11 +105,10 @@ more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
 
-## PyGMT-related ecosystem
+## Packages depending on PyGMT
 
 Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
-Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
-ecosystem.
+Below is an incomplete list (in no particular order) of this tools.
 
 ```{note}
 If your package relies on PyGMT, please
