@@ -20,6 +20,7 @@ assignees: ''
 
 **Before release**:
 
+- [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy, pandas, xarray)
 - [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] README looks good on TestPyPI. Visit [TestPyPI](https://test.pypi.org/project/pygmt/#history), click the latest pre-release, and check the homepage.
@@ -31,7 +32,6 @@ assignees: ''
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
   - [ ] All links work in the ["Check Links" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/check-links.yml)
 - [ ] Update warnings in `pygmt/_show_versions.py` as well as notes in [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency) regarding GMT-Ghostscript incompatibility
-- [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up the "Changelog entry for v0.x.x" Pull Request (Use the previous changelog PR as a reference)
 - [ ] Run `make spellcheck` to check common misspellings. If there are any, either fix them or add them to the relevant spelling configuration in `pyproject.toml`
 - [ ] Draft the announcement on https://hackmd.io/@pygmt
@@ -46,7 +46,10 @@ assignees: ''
   - [ ] The latest version is correct on [PyPI](https://pypi.org/project/pygmt/)
   - [ ] The latest version is correct on https://www.pygmt.org/latest/
   - [ ] The [release page](https://github.com/GenericMappingTools/pygmt/releases) has five assets, including `baseline-images.zip`, `pygmt-docs.zip` and `pygmt-docs.pdf`
-- [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit, ensure that they are filed under the correct reserved DOI
+- [ ] Upload to Zenodo:
+  - [ ] Download pygmt-X.Y.Z.zip (listed as Source code (zip); rename it to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit
+  - [ ] Ensure they are filed under the correct reserved DOI
+  - [ ] Update authorship information based on `CITATION.cff`
 
 **After release**:
 

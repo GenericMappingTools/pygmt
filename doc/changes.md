@@ -16,7 +16,7 @@
 * PyGMT now has an official logo, which is available via the Figure.pygmtlogo method ([#4616](https://github.com/GenericMappingTools/pygmt/pull/4616))
 * 🎉 Nineteenth minor release of PyGMT 🎉
 * Six new high-level plotting methods and two new grid processing functions
-* Eight new gallery examples and tutorials
+* Ten new gallery examples and tutorials
 * New `Frame`/`Axis` classes for setting frame and axes
 
 ### New Features
@@ -64,13 +64,15 @@
 
 * Add advanced tutorial for plotting features on a 3-D surface ([#4466](https://github.com/GenericMappingTools/pygmt/pull/4466))
 * Add basic tutorial for plotting single-parameter symbols ([#3598](https://github.com/GenericMappingTools/pygmt/pull/3598))
+* Update basic tutorial for adjusting the map frame using the Axis and Frame parameter classes ([#4596](https://github.com/GenericMappingTools/pygmt/pull/4596))
 * Add gallery example for creating a 3-D bar plot ([#4315](https://github.com/GenericMappingTools/pygmt/pull/4315))
 * Add gallery example for plotting the PyGMT logo ([#4715](https://github.com/GenericMappingTools/pygmt/pull/4715))
 * Add gallery example for plotting directional roses ([#4010](https://github.com/GenericMappingTools/pygmt/pull/4010))
 * Add gallery example for plotting magnetic roses ([#4381](https://github.com/GenericMappingTools/pygmt/pull/4381))
 * Add gallery example showing how to fill the area between two curves ([#3168](https://github.com/GenericMappingTools/pygmt/pull/3168))
-* Add the Spilhaus projection to the supported GMT projections ([#4657](https://github.com/GenericMappingTools/pygmt/pull/4657))
-* Update scalebar gallery example using the high-level Figure.scalebar method ([#4382](https://github.com/GenericMappingTools/pygmt/pull/4382))
+* Update gallery example for creating a choropleth map using the high-level Figure.choropleth method ([#2798](https://github.com/GenericMappingTools/pygmt/pull/2798))
+* Update gallery example for plotting scalebars using the high-level Figure.scalebar method ([#4382](https://github.com/GenericMappingTools/pygmt/pull/4382))
+* Add Spilhaus projection to supported GMT projections ([#4657](https://github.com/GenericMappingTools/pygmt/pull/4657))
 * Add contributing guides for wrapping a GMT module ([#1687](https://github.com/GenericMappingTools/pygmt/pull/1687))
 
 ### Maintenance
