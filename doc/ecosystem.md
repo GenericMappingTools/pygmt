@@ -108,7 +108,7 @@ more details, see
 ## Packages depending on PyGMT
 
 Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
-Below is an incomplete list (in no particular order) of this tools.
+Below is an incomplete list (in no particular order) of these tools.
 
 ```{note}
 If your package relies on PyGMT, please
