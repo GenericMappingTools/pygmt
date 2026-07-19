@@ -29,7 +29,7 @@ class config:  # noqa: N801
         Currently, :class:`pygmt.config` needs to be called **after** setting
         up the :class:`pygmt.Figure` instance to affect the figure appearance.
         This is relevant for both, global and local changes. For details see the
-        `GitHub issue comment <https://github.com/GenericMappingTools/pygmt/issues/733#issuecomment-744698150>`__
+        `GitHub issue comment <https://github.com/GenericMappingTools/pygmt/issues/733#issuecomment-744698150>`__.
 
     .. note::
 
