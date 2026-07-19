@@ -5,8 +5,8 @@ line program that provides a wide range of tools for manipulating geospatial dat
 making publication-quality maps and figures. It integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
 fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
-raster grids/images/cubes I/O. In addition to these core dependencies, it also
-relies on several optional packages to provide additional functionality for users.
+raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
+several optional packages to provide additional functionality for users.
 
 ![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
