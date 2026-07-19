@@ -26,6 +26,13 @@ class config:  # noqa: N801
 
     .. note::
 
+        Currently, `pygmt.config` needs to be called **_after_** setting up
+        the `pygmt.Figure()` instance to affect the figure appearance. This
+        is relevant for both, global and local changes. For details see the
+        [GitHub issue comment](https://github.com/GenericMappingTools/pygmt/issues/733#issuecomment-744698150)
+
+    .. note::
+
         :gmt-term:`PS_CONVERT` is not supported.
         To configure conversion options, please pass parameters to
         :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
