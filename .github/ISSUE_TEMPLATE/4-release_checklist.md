@@ -47,7 +47,7 @@ assignees: ''
   - [ ] The latest version is correct on https://www.pygmt.org/latest/
   - [ ] The [release page](https://github.com/GenericMappingTools/pygmt/releases) has five assets, including `baseline-images.zip`, `pygmt-docs.zip` and `pygmt-docs.pdf`
 - [ ] Upload to Zenodo:
-  - [ ] Download pygmt-X.Y.Z.zip (rename to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit
+  - [ ] Download pygmt-X.Y.Z.zip (listed as Source code (zip); rename it to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit
   - [ ] Ensure they are filed under the correct reserved DOI
   - [ ] Update authorship information based on `CITATION.cff`
 
