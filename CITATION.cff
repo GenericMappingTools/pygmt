@@ -126,6 +126,7 @@ preferred-citation:
   title: 'PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis'
   journal: 'Geochemistry, Geophysics, Geosystems'
   volume: 27
+  issue: 7
   article-number: e2026GC013105
   year: 2026
   doi: 10.1029/2026GC013105
