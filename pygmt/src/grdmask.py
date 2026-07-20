@@ -167,7 +167,7 @@ def grdmask(
         Can be any number, or one of ``None``, ``"NaN"``, and ``np.nan`` for NaN.
         Defaults are ``0`` for ``outside``, ``0`` for ``edge``, and ``1`` for
         ``inside``. When setting these values, keep in mind you are creating a mask grid
-        which is thought to be applied to a real grid in a second step.
+        here which is thought to be applied to a real grid in a second step.
 
         ``edge`` and ``inside`` can also be set to one of the following values:
 
@@ -175,7 +175,7 @@ def grdmask(
           ``-Lheader``, or via ``-aZ=name``).
         - ``"id"``: Use a running polygon ID number.
 
-        To treat edges as inside, use the same value as ``inside``.
+        To treat edges as inside, use the same value as for ``inside``.
     id_start
         The starting number for polygon IDs when ``inside="id"`` [Default is ``0``].
         Only valid when ``inside="id"``.
