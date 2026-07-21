@@ -14,7 +14,7 @@ or **G**\ *lon0/lat0*\ [*/horizon*]\ */width*
 - **g** or **G**: Sets the projection type.
 - *lon0/lat0*: Sets the projection center.
 - *horizon*: Sets the maximum distance from the projection center in degrees
-  (<= 90°) [default is 90°]. [Optional]
+  (<= 90°) [Optional, default is 90°].
 - *scale* or *width*: Sets the figure size.
 """
 
