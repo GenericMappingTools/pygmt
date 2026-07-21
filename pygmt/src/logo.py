@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Box, Position
+from pygmt.params import Box, Perspective, Position
 from pygmt.src._common import _parse_position
 
 __doctest_skip__ = ["logo"]
@@ -29,7 +29,7 @@ def logo(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

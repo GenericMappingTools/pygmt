@@ -11,7 +11,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
-from pygmt.params import Axis, Box, Frame, Position
+from pygmt.params import Axis, Box, Frame, Perspective, Position
 from pygmt.src._common import _parse_position
 
 
@@ -31,7 +31,7 @@ def legend(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

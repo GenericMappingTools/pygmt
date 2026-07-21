@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 __doctest_skip__ = ["solar"]
 
@@ -28,7 +28,7 @@ def solar(  # noqa: PLR0913
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
