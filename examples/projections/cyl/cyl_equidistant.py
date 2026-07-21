@@ -11,8 +11,8 @@ are straight lines.
 
 - **q** or **Q**: Sets the projection type.
 - *lon0*: Sets the central meridian [Optional, default is the middle of the map].
-- *lat0*: Sets the standard parallel. When supplied, *lon0* must be supplied as
-  well. [Optional, default is the equator].
+- *lat0*: Sets the standard parallel [Optional, default is the equator]. When
+  supplied, *lon0* must be supplied as well.
 - *scale* or *width*: Sets the figure size.
 """
 
