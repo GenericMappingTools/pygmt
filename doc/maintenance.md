@@ -16,7 +16,6 @@ communication tools we use.
 ### As a Contributor
 
 - Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
 - Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
@@ -30,7 +29,6 @@ communication tools we use.
 ### As an Administrator
 
 - Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Add as an admin on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt)
 - Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
