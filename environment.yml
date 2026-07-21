@@ -18,7 +18,6 @@ dependencies:
     - pyarrow-core>=16
     - rioxarray
     # Development dependencies (general)
-    - dvc
     - jupyter
     - make
     - pip
