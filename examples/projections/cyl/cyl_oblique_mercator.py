@@ -10,7 +10,7 @@ developed in the early 1900s by several workers.
 The projection is set with **o** or **O**. There are three different specification
 ways (**a**\|\ **A**, **b**\|\ **B**, **c**\|\ **C**) available. For all three
 definitions, the uppercase letter means the projection pole is set in the
-southern hemisphere [default is northern hemisphere].
+southern hemisphere [Default is northern hemisphere].
 """
 
 # %%
