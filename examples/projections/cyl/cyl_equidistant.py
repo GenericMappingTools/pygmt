@@ -13,7 +13,7 @@ are straight lines.
 - *lon0*: Sets the central meridian [Optional, default is the middle of the map].
 - *lat0*: Sets the standard parallel [Optional, default is the equator]. When
   supplied, *lon0* must be supplied as well.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

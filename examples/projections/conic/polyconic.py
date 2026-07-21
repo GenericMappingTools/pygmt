@@ -22,7 +22,7 @@ is lost with the lengthening of the meridians.
 **Poly**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
 - **poly** or **Poly**: Sets the projection type.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

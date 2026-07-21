@@ -19,7 +19,7 @@ rather large.
 - *lon0*: Sets the central meridian. [Optional]
 - *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
   supplied as well.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

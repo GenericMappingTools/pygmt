@@ -13,7 +13,7 @@ or **D**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*
 - **d** or **D**: Sets the projection type.
 - *lon0/lat0*: Sets the projection center.
 - *lat1/lat2*: Sets the two standard parallels.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

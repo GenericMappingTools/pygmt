@@ -16,7 +16,7 @@ curves.
 
 - **c** or **C**: Sets the projection type.
 - *lon0/lat0*: Sets the projection center.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

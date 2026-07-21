@@ -13,7 +13,7 @@ meridian).
 
 - **i** or **I**: Sets the projection type.
 - *lon0*: Sets the central meridian. [Optional]
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

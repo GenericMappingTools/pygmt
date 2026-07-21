@@ -6,8 +6,8 @@ Cartesian logarithmic
 **x**\ *x-scale*\ [**l**][/*y-scale*\ [**l**]]
 
 - **X** or **x**: Sets the projection type.
-- *width* or *x-scale*: Sets the figure size.
-- *height* or *y-scale*: Sets the figure height. [Optional]
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height. [Optional]
 - **l**: Applies a logarithmic transformation to an axis. Append it after the
   corresponding size argument. [Optional]
 """

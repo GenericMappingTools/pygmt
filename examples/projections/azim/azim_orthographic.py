@@ -15,7 +15,7 @@ or **G**\ *lon0/lat0*\ [*/horizon*]\ */width*
 - *lon0/lat0*: Sets the projection center.
 - *horizon*: Sets the maximum distance from the projection center in degrees
   (<= 90°) [Optional, default is 90°].
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

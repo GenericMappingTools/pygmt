@@ -14,7 +14,7 @@ be seen.
 
 - **g** or **G**: Sets the projection type.
 - *lon0/lat0*: Sets the projection center.
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 - **+a**\ *azimuth*: The direction in which you are looking, measured clockwise
   from north in degrees. [Optional]
 - **+t**\ *tilt*: The viewing angle relative to zenith in degrees. A tilt of 0°
