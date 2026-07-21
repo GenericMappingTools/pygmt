@@ -8,7 +8,7 @@ developed by Athelstan Spilhaus and is useful for oceanographic studies.
 
 **+proj=spilhaus+width=**\ *width*
 
-- ``+proj=spilhaus``: Sets the projection type.
+- **+proj=spilhaus**: Sets the projection type.
 - *width*: Sets the figure width.
 
 .. note::
