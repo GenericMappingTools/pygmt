@@ -5,11 +5,11 @@ Cartesian power
 **X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]] or
 **x**\ *x-scale*\ [**p**\ *pvalue*][/*y-scale*\ [**p**\ *pvalue*]]
 
-Give the *width* of the figure and the optional argument *height*.
-The lowercase version **x** is similar to **X** but expects
-an *x-scale* and an optional *y-scale*.
-Each axis with a power transformation requires **p** and the exponent
-for that axis after its size argument.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the figure size.
+- *height* or *y-scale*: Sets the figure height. [Optional]
+- **p**\ *pvalue*: Applies a power transformation with exponent *pvalue* to an
+  axis. Append it after the corresponding size argument. [Optional]
 """
 
 # %%

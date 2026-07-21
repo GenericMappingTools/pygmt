@@ -12,8 +12,9 @@ by 0.8.
 
 **j**\ [*lon0/*]\ */scale* or **J**\ [*lon0/*]\ */width*
 
-The projection is set with **j** or **J**. The central meridian is set by the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **j** or **J**: Sets the projection type.
+- *lon0*: Sets the central meridian. [Optional]
+- *scale* or *width*: Sets the figure size.
 """
 
 # %%

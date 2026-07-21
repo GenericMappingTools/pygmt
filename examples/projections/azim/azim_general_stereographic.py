@@ -10,12 +10,13 @@ proportions. It is often used as a hemisphere map like the Lambert Azimuthal
 Equal Area projection.
 
 **s**\ *lon0/lat0*\ [*/horizon*]\ */scale*
-or **S**\ *lon0/lat0*\ [*/horizon*\]\ */width*
+or **S**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-The projection type is set with **s** or **S**. *lon0/lat0* specifies the
-projection center, the optional *horizon* parameter specifies the maximum
-distance from projection center (in degrees, < 180, default 90), and the
-*scale* or *width* sets the size of the figure.
+- **s** or **S**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: Sets the maximum distance from the projection center in degrees
+  (< 180°) [default is 90°]. [Optional]
+- *scale* or *width*: Sets the figure size.
 """
 
 # %%

@@ -10,8 +10,9 @@ complex curves.
 
 **h**\ [*lon0/*]\ *scale* or **H**\ [*lon0/*]\ *width*
 
-The projection is set with **h** or **H**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **h** or **H**: Sets the projection type.
+- *lon0*: Sets the central meridian. [Optional]
+- *scale* or *width*: Sets the figure size.
 """
 
 # %%

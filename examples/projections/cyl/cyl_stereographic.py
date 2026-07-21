@@ -14,9 +14,9 @@ equator.
 **cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *scale* or
 **Cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **cyl_stere** or **Cyl_stere**. The central meridian
-is set by the optional *lon0*, and the figure size is set with *scale* or
-*width*.
+- **cyl_stere** or **Cyl_stere**: Sets the projection type.
+- *lon0*: Sets the central meridian. [Optional]
+- *scale* or *width*: Sets the figure size.
 
 The standard parallel is typically one of these (but can be any value):
 

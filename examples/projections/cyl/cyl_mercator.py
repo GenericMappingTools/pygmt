@@ -15,9 +15,11 @@ rather large.
 
 **m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **m** or **M**. The central meridian is set with the
-optional *lon0* and the standard parallel is set with the optional *lat0*.
-The figure size is set with *scale* or *width*.
+- **m** or **M**: Sets the projection type.
+- *lon0*: Sets the central meridian. [Optional]
+- *lat0*: Sets the standard parallel. When supplied, *lon0* must be supplied as
+  well. [Optional]
+- *scale* or *width*: Sets the figure size.
 """
 
 # %%

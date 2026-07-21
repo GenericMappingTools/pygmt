@@ -20,17 +20,17 @@ The following customizing modifiers are available:
 - **+a**: by default, :math:`\theta` refers to the angle that is equivalent to a
   counterclockwise rotation with respect to the east direction (standard definition);
   **+a** indicates that the input data are rotated clockwise relative to the north
-  direction (geographical azimuth angle).
+  direction (geographical azimuth angle). [Optional]
 
 - **+r**\ *offset*: represents the offset of the r-axis. This modifier allows you to
-  offset the center of the circle from r=0.
+  offset the center of the circle from r=0. [Optional]
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
   equivalent to rotating the entire coordinate axis clockwise; if the **+a** modifier
   is used, setting the angle corresponding to the north direction is equivalent to
-  rotating the entire coordinate axis counterclockwise.
+  rotating the entire coordinate axis counterclockwise. [Optional]
 
-- **+f**: reverses the radial direction.
+- **+f**: reverses the radial direction. [Optional]
 
   - Append **e** to indicate that the r-axis is an elevation angle, and the range of the
     r-axis should be between 0° and 90°.
@@ -40,7 +40,7 @@ The following customizing modifiers are available:
   - Append *radius* to set the maximum value of the r-axis.
 
 - **+z**: indicates that the r-axis is marked as depth instead of radius (e.g.,
-  *r = radius - z*).
+  *r = radius - z*). [Optional]
 
   - Append **p** to set radius to the current Earth's radius.
   - Append *radius* to set the value of the radius.

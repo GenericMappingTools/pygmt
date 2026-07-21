@@ -32,8 +32,9 @@ conformal latitude in the general spherical formulae instead.
 
 **u**\ *zone/scale* or **U**\ *zone/width*
 
-The projection is set with **u** or **U**. *zone* sets the zone for the figure,
-and the figure size is set with *scale* or *width*.
+- **u** or **U**: Sets the projection type.
+- *zone*: Sets the UTM zone.
+- *scale* or *width*: Sets the figure size.
 """
 
 # %%
