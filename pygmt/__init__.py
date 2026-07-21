@@ -35,6 +35,7 @@ from pygmt.src import (
     config,
     dimfilter,
     filter1d,
+    fitcircle,
     grd2cpt,
     grd2xyz,
     grdclip,
