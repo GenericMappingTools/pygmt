@@ -16,7 +16,7 @@ locations relative to the projection center.
 - *horizon*: The maximum distance from the projection center to the edge of the
   map (i.e. the visible portion of the rest of the world map) in degrees
   (<= 180°) [Optional, default is 180°].
-- *scale* or *width*: Sets the figure size.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
