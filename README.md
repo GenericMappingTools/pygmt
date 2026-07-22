@@ -1,6 +1,4 @@
-# PyGMT
-
-> A Python interface for the Generic Mapping Tools
+<img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png"/>
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
@@ -136,8 +134,8 @@ PyGMT is a community developed project. See the
 [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
 
-Feel free to cite our work in your research. You can either cite the PyGMT paper published
-in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
+Feel free to cite our work in your research. You can either cite the [PyGMT paper](https://doi.org/10.1029/2026GC013105)
+published in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
 
 The BibTeX entry for the PyGMT paper is:
 ```
@@ -154,14 +152,16 @@ The BibTeX entry for the PyGMT paper is:
   journal      = {Geochemistry, Geophysics, Geosystems},
   year         = 2026,
   volume       = {27},
-  pages        = {e2019GC008515},
-  doi          = {10.1029/2019GC008515},
+  number       = {7},
+  pages        = {e2026GC013105},
+  doi          = {10.1029/2026GC013105},
+  url          = {https://doi.org/10.1029/2026GC013105},
 }
 ```
 The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
 ```
 @software{
-  pygmt_2026_18080259,
+  pygmt_2026_19398871,
   author       = {Tian, Dongdong and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
@@ -182,12 +182,12 @@ The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = jan,
+  month        = jul,
   year         = 2026,
   publisher    = {Zenodo},
-  version      = {0.18.0},
-  doi          = {10.5281/zenodo.18080259},
-  url          = {https://doi.org/10.5281/zenodo.18080259}
+  version      = {0.19.0},
+  doi          = {10.5281/zenodo.19398871},
+  url          = {https://doi.org/10.5281/zenodo.19398871}
 }
 ```
 

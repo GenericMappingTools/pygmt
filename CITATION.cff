@@ -83,11 +83,11 @@ authors:
     orcid: 'https://orcid.org/0000-0001-5708-7336'
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.18080259
+    value: 10.5281/zenodo.19398871
 repository-code: 'https://github.com/GenericMappingTools/pygmt'
 license: BSD-3-Clause
-version: 0.18.0
-date-released: '2026-01-12'
+version: 0.19.0
+date-released: '2026-07-07'
 preferred-citation:
   type: article
   authors:
@@ -126,6 +126,7 @@ preferred-citation:
   title: 'PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis'
   journal: 'Geochemistry, Geophysics, Geosystems'
   volume: 27
+  issue: 7
   article-number: e2026GC013105
   year: 2026
   doi: 10.1029/2026GC013105

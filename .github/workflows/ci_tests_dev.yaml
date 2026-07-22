@@ -56,6 +56,7 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
+          lfs: true
 
       - name: Get current week number of year
         id: date
@@ -140,32 +141,13 @@ jobs:
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray packaging \
-                        build contextily dvc geopandas ipython pyarrow rioxarray \
+                        build contextily geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
                         netCDF4 sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
         run: micromamba list
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        id: dvc-pull
-        continue-on-error: true
-        run: |
-          dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-        env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Download DVC cache as artifacts from GitHub
-        if: steps.dvc-pull.outcome == 'failure'
-        run: |
-          rm -rvf .dvc/cache/
-          gh run download --name dvc-cache --dir .dvc/cache/
-          dvc checkout --verbose
-        env:
-          GH_TOKEN: ${{ github.token }}
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
