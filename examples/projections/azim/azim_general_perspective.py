@@ -16,7 +16,7 @@ be seen.
 - *lon0/lat0*: Sets the projection center.
 - *scale* or *width*: Sets the map size.
 - **+a**\ *azimuth*: The direction in which you are looking, measured clockwise
-  from north in degrees. [Optional]
+  from north in degrees [Optional].
 - **+t**\ *tilt*: The viewing angle relative to zenith in degrees. A tilt of 0°
   is looking straight down, 60° is looking 30° above horizon. [Optional]
 - **+v**\ *vwidth/vheight*: The viewport angle in degrees. [Optional]
