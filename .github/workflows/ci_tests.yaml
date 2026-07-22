@@ -112,6 +112,7 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
+          lfs: true
 
       - name: Get current week number of year
         id: date
@@ -150,38 +151,6 @@ jobs:
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@f98e06938123ccabd21905ea5d0069192241f9f1 # v8.3.1
-        with:
-          activate-environment: true
-          python-version: ${{ matrix.python-version }}
-          # only enable the cache if the ref is not a tag
-          enable-cache: ${{ !startsWith(github.ref, 'refs/tags/') }}
-
-      - name: Install dvc
-        run: |
-          uv pip install dvc
-          uv pip list
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        id: dvc-pull
-        continue-on-error: true
-        run: |
-          uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-        env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Download DVC cache as artifacts from GitHub
-        if: steps.dvc-pull.outcome == 'failure'
-        run: |
-          rm -rvf .dvc/cache/
-          gh run download --name dvc-cache --dir .dvc/cache/
-          uv run dvc checkout --verbose
         env:
           GH_TOKEN: ${{ github.token }}
 
