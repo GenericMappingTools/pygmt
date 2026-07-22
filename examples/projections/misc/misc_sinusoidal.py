@@ -12,7 +12,7 @@ meridian).
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
 - **i** or **I**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

@@ -11,7 +11,7 @@ complex curves.
 **h**\ [*lon0/*]\ *scale* or **H**\ [*lon0/*]\ *width*
 
 - **h** or **H**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

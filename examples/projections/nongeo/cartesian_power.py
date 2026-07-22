@@ -7,9 +7,9 @@ Cartesian power
 
 - **X** or **x**: Sets the projection type.
 - *width* or *x-scale*: Sets the plot size.
-- *height* or *y-scale*: Sets the plot height. [Optional]
+- *height* or *y-scale*: Sets the plot height [Optional].
 - **p**\ *pvalue*: Applies a power transformation with exponent *pvalue* to an
-  axis. Append it after the corresponding size argument. [Optional]
+  axis. Append it after the corresponding size argument [Optional].
 """
 
 # %%

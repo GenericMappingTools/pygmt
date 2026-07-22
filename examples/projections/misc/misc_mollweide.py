@@ -12,7 +12,7 @@ occasionally referenced under the name homalographic projection.
 **w**\ [*lon0/*]\ *scale* or **W**\ [*lon0/*]\ *width*
 
 - **w** or **W**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

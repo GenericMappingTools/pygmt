@@ -13,7 +13,7 @@ complex curves.
 
 - **t** or **T**: Sets the projection type.
 - *lon0*: Sets the central meridian.
-- *lat0*: Sets the latitude of origin. [Optional]
+- *lat0*: Sets the latitude of origin [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

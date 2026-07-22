@@ -18,12 +18,12 @@ be seen.
 - **+a**\ *azimuth*: The direction in which you are looking, measured clockwise
   from north in degrees [Optional].
 - **+t**\ *tilt*: The viewing angle relative to zenith in degrees. A tilt of 0°
-  is looking straight down, 60° is looking 30° above horizon. [Optional]
-- **+v**\ *vwidth/vheight*: The viewport angle in degrees. [Optional]
-- **+w**\ *twist*: The clockwise rotation of the image in degrees. [Optional]
+  is looking straight down, 60° is looking 30° above horizon [Optional].
+- **+v**\ *vwidth/vheight*: The viewport angle in degrees [Optional].
+- **+w**\ *twist*: The clockwise rotation of the image in degrees [Optional].
 - **+z**\ *altitude*: The height of the viewpoint above local sea level in km.
   If altitude is less than 10, it is the distance from the center of the earth
-  to the viewpoint in earth radii. [Optional]
+  to the viewpoint in earth radii [Optional].
 
 The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the

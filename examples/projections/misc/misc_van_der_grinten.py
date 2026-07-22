@@ -11,7 +11,7 @@ circle.
 **v**\ [*lon0/*]\ *scale* or **V**\ [*lon0/*]\ *width*
 
 - **v** or **V**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

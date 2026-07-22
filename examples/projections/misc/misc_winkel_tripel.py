@@ -20,7 +20,7 @@ map into straight lines 0.4 times the length of equator.
 **r**\ [*lon0/*]\ *scale* or **R**\ [*lon0/*]\ *width*
 
 - **r** or **R**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

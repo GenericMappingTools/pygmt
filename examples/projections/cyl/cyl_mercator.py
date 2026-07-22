@@ -16,7 +16,7 @@ rather large.
 **m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
 - **m** or **M**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
   supplied as well.
 - *scale* or *width*: Sets the map size.

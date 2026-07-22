@@ -13,7 +13,7 @@ by 0.8.
 **j**\ [*lon0/*]\ */scale* or **J**\ [*lon0/*]\ */width*
 
 - **j** or **J**: Sets the projection type.
-- *lon0*: Sets the central meridian. [Optional]
+- *lon0*: Sets the central meridian [Optional].
 - *scale* or *width*: Sets the map size.
 """
 

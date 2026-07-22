@@ -23,7 +23,7 @@ southern hemisphere [Default is northern hemisphere].
 # - *lon0/lat0*: Sets the projection center.
 # - *azimuth*: Sets the azimuth of the oblique equator.
 # - *scale* or *width*: Sets the map size.
-# - **+v**: Aligns the oblique equator with the y-axis. [Optional]
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 import pygmt
 from pygmt.params import Axis
@@ -50,7 +50,7 @@ fig.show()
 # - *lon0/lat0*: Sets the projection center.
 # - *lon1/lat1*: Sets a second point on the oblique equator.
 # - *scale* or *width*: Sets the map size.
-# - **+v**: Aligns the oblique equator with the y-axis. [Optional]
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 fig = pygmt.Figure()
 fig.coast(
@@ -73,7 +73,7 @@ fig.show()
 # - *lon0/lat0*: Sets the projection center.
 # - *lonp/latp*: Sets the projection pole.
 # - *scale* or *width*: Sets the map size.
-# - **+v**: Aligns the oblique equator with the y-axis. [Optional]
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 fig = pygmt.Figure()
 fig.coast(
