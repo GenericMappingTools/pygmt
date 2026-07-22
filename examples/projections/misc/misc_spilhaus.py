@@ -6,10 +6,11 @@ The Spilhaus projection is a world map projection that presents the world's
 oceans as one contiguous body of water, with Antarctica at the top. It was
 developed by Athelstan Spilhaus and is useful for oceanographic studies.
 
+**+proj=spilhaus+scale=**\ *scale* or
 **+proj=spilhaus+width=**\ *width*
 
 - **+proj=spilhaus**: Sets the projection type.
-- *width*: Sets the map width.
+- *scale* or *width*: Sets the map size.
 
 .. note::
 

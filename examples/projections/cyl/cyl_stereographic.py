@@ -16,6 +16,8 @@ equator.
 
 - **cyl_stere** or **Cyl_stere**: Sets the projection type.
 - *lon0*: Sets the central meridian [Optional].
+- *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
+  supplied as well.
 - *scale* or *width*: Sets the map size.
 
 The standard parallel is typically one of these (but can be any value):

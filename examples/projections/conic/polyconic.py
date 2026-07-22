@@ -22,6 +22,9 @@ is lost with the lengthening of the meridians.
 **Poly**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
 - **poly** or **Poly**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *lat0*: Sets the reference parallel [Optional]. When supplied, *lon0* must be
+  supplied as well.
 - *scale* or *width*: Sets the map size.
 """
 
