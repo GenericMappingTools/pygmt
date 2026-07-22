@@ -20,7 +20,7 @@ except ImportError:
 
 @fmt_docstring
 @use_alias(E="dpi", I="shading", Q="nan_transparent")
-def tilemap(  # noqa: PLR0913
+def tilemap(
     self,
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",

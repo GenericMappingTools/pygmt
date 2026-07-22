@@ -59,7 +59,7 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    def regular_grid(  # noqa: PLR0913
+    def regular_grid(
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
@@ -186,7 +186,7 @@ class triangulate:  # noqa: N801
         s="skiprows",
         w="wrap",
     )
-    def delaunay_triples(  # noqa: PLR0913
+    def delaunay_triples(
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,

@@ -92,7 +92,7 @@ def _build_frame(
     return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
-def _alias_option_D(  # noqa: N802, PLR0913
+def _alias_option_D(  # noqa: N802
     position=None,
     length=None,
     width=None,
@@ -242,7 +242,7 @@ def _alias_option_N(dpi=None):  # noqa: N802
 
 @fmt_docstring
 @use_alias(C="cmap", L="equalsize", Z="zfile")
-def colorbar(  # noqa: PLR0913
+def colorbar(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,

@@ -17,7 +17,7 @@ __doctest_skip__ = ["grdproject"]
 
 @fmt_docstring
 @use_alias(n="interpolation")
-def grdproject(  # noqa: PLR0913
+def grdproject(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     center: Sequence[float | str] | bool = False,

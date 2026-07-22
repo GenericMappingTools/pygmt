@@ -14,7 +14,7 @@ from pygmt.params import Axis, Box, Frame
 
 @fmt_docstring
 @use_alias(f="coltypes")
-def basemap(  # noqa: PLR0913
+def basemap(
     self,
     projection: str | None = None,
     zscale: float | str | None = None,

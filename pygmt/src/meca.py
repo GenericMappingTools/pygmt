@@ -135,7 +135,7 @@ def _auto_offset(spec) -> bool:
     T="nodal",
     W="pen",
 )
-def meca(  # noqa: PLR0913
+def meca(
     self,
     spec: PathLike | TableLike,
     scale,

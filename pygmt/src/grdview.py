@@ -121,7 +121,7 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(I="shading", f="coltypes", n="interpolation")
-def grdview(  # noqa: PLR0913
+def grdview(
     self,
     grid: PathLike | xr.DataArray,
     cmap: str | None = None,
