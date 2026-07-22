@@ -198,7 +198,7 @@ In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:
 
 - git (for cloning the repo and tracking changes in code)
-- dvc (for downloading baseline images used in tests)
+- [Git LFS](https://git-lfs.com) (for downloading baseline images used in tests)
 - pytest-mpl (for checking that generated plots match the baseline)
 - sphinx-gallery (for building the gallery example page)
 
@@ -609,10 +609,10 @@ If you're not sure how to do this or are having trouble, submit your pull reques
 anyway.
 We will help you create the tests and sort out any kind of problem during code review.
 
-Pull the baseline images, run the tests, and calculate test coverage using:
+Pull the latest changes (including baseline images), run the tests, and calculate
+test coverage using:
 
-    dvc status  # should report any files 'not_in_cache'
-    dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+    git pull
     make test
 
 The coverage report will let you know which lines of code are touched by the tests.
@@ -677,75 +677,37 @@ If it's correct, copy it (and only it) to `pygmt/tests/baseline`.
 When you run `make test` the next time, your test should be executed and
 passing.
 
-Don't forget to commit the baseline image as well!
-The images should be pushed up into a remote repository using `dvc` (instead of
-`git`) as will be explained in the next section.
+Don't forget to commit the baseline image as well! Baseline images are tracked with
+Git LFS, as explained in the next section.
 
-#### Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images
+#### Using [Git LFS](https://git-lfs.com) to Manage Test Images
 
-As the baseline images are quite large blob files that can change often (e.g.
-with new GMT versions), it is not ideal to store them in `git` (which is meant
-for tracking plain text files). Instead, we will use [`dvc`](https://dvc.org)
-which is like `git` but for data. What `dvc` does is to store the hash (md5sum)
-of a file. For example, given an image file like `test_logo.png`, `dvc` will
-generate a `test_logo.png.dvc` plain text file containing the hash of the
-image. This `test_logo.png.dvc` file can be stored as usual on GitHub, while
-the `test_logo.png` file can be stored separately on our `dvc` remote at
-[https://dagshub.com/GenericMappingTools/pygmt](https://dagshub.com/GenericMappingTools/pygmt).
+As the baseline images are quite large blob files that can change often (e.g., with new
+GMT versions), they are managed with Git LFS rather than regular Git objects. Install
+Git LFS and enable it once on your machine:
 
-To **pull** or sync files from the `dvc` remote to your local repository, use
-the commands below. Note how `dvc` commands are very similar to `git`.
+    git lfs install
 
-    dvc status  # should report any files 'not_in_cache'
-    dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+Once Git LFS is installed, `git clone` and `git pull` download the baseline images
+automatically. If LFS downloads were deliberately skipped, run `git lfs pull` to
+download the missing images. The images in `pygmt/tests/baseline` can then be used by
+the image-comparison tests as usual.
 
-Once the sync/download is complete, you should notice two things. There will be
-images stored in the `pygmt/tests/baseline` folder (e.g. `test_logo.png`) and
-these images are technically reflinks/symlinks/copies of the files under the
-`.dvc/cache` folder. You can now run the image comparison test suite as per
-usual.
+The entire workflow for generating or modifying baseline test images can be summarized
+as follows:
 
-    pytest pygmt/tests/test_logo.py  # run only one test
-    make test  # run the entire test suite
-
-To **push** or sync changes from your local repository up to the `dvc` remote
-at DAGsHub, you will first need to set up authentication using the commands
-below. This only needs to be done once, i.e. the first time you contribute a
-test image to the PyGMT project.
-
-    dvc remote modify upstream --local auth basic
-    dvc remote modify upstream --local user "$DAGSHUB_USER"
-    dvc remote modify upstream --local password "$DAGSHUB_PASS"
-
-The configuration will be stored inside your `.dvc/config.local` file. Note
-that the $DAGSHUB_PASS token can be generated at
-[https://dagshub.com/user/settings/tokens](https://dagshub.com/user/settings/tokens)
-after creating a DAGsHub account (can be linked to your GitHub account). Once
-you have an account set up, please ask one of the PyGMT maintainers to add you
-as a collaborator at
-[https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
-before proceeding with the next steps.
-
-The entire workflow for generating or modifying baseline test images can be
-summarized as follows:
-
-    # Sync with both git and dvc remotes
+    # Sync Git; Git LFS objects are downloaded automatically
     git pull
-    dvc pull
 
     # Generate new baseline images
     pytest --mpl-generate-path=baseline pygmt/tests/test_logo.py
     mv baseline/*.png pygmt/tests/baseline/
 
-    # Generate hash for baseline image and stage the *.dvc file in git
-    dvc status  # Check which files need to be added to dvc
-    dvc add pygmt/tests/baseline/test_logo.png
-    git add pygmt/tests/baseline/test_logo.png.dvc
+    # Stage the Git LFS-tracked baseline image
+    git add pygmt/tests/baseline/test_logo.png
 
-    # Commit changes and push to both the git and dvc remotes
-    git commit -m "Add test_logo.png into DVC"
-    dvc status --remote upstream  # Report which files will be pushed to the dvc remote
-    dvc push  # Run before git push to enable automated testing with the new images
+    # Commit and push; Git LFS uploads the image automatically
+    git commit -m "Add test_logo.png baseline image"
     git push
 
 #### Using `check_figures_equal`
