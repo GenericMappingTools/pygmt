@@ -110,7 +110,7 @@ def dimfilter(
         *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default is same
         as the input.]
-    region : str or list
+    region
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Define the region of the output points [Default is the same as the input].
     $verbose
