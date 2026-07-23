@@ -125,8 +125,6 @@ def inset(
     >>> fig.logo(position=Position("BR", offset=0.2), width="3c")
     >>> fig.show()
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
@@ -159,6 +157,7 @@ def inset(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         try:
             lib.call_module(module="inset", args=["begin", *build_arg_list(aliasdict)])

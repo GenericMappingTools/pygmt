@@ -209,8 +209,6 @@ def rose(
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem().add_common(
         B=frame,
         R=region,
@@ -222,6 +220,7 @@ def rose(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth

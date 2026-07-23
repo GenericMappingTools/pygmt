@@ -101,8 +101,6 @@ def choropleth(
     >>> fig.colorbar(frame=True)
     >>> fig.show()
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem(
         C=Alias(cmap, name="cmap"),
         I=Alias(intensity, name="intensity"),
@@ -121,6 +119,7 @@ def choropleth(
     # Force -G+z and -L to be set for choropleth
     aliasdict.update({"G": "+z", "L": True})
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

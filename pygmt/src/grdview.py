@@ -291,8 +291,6 @@ def grdview(
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
         plane = True
@@ -339,6 +337,7 @@ def grdview(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

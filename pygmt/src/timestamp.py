@@ -74,8 +74,6 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._activate_figure()
-
     if text is not None and len(str(text)) > 64:
         msg = (
             "Parameter 'text' expects a string no longer than 64 characters. "
@@ -94,6 +92,7 @@ def timestamp(
     )
     aliasdict["T"] = ""  # Add '-T' to the "plot" module.
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(
             module="plot",
