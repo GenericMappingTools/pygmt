@@ -93,9 +93,11 @@ def legend(
         width. If height is given as percentage then height is recomputed as that
         fraction of the legend width (not plot height).
 
-        **Note:** Currently, the automatic height calculation only works when legend
+        **Note:** Currently, the automatic width calculation only works when legend
         codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
-        symbol columns (**N**) is 1.
+        symbol columns (**N**) is 1. If height is zero or is not given, GMT estimates it
+        based the expected vertical extent of the items to be placed. Legends containing
+        paragraph text may require an explicit height.
     line_spacing
         The line-spacing factor between legend entries in units of the current font size
         [Default is 1.1].
