@@ -683,15 +683,16 @@ Git LFS, as explained in the next section.
 #### Using [Git Large File Storage (LFS)](https://git-lfs.com) to Manage Test Images
 
 As the baseline images are quite large blob files that can change often (e.g., with new
-GMT versions), they are managed with Git LFS rather than regular Git objects. Install
-Git LFS and enable it once on your machine:
+GMT versions), they are managed with Git LFS rather than regular Git objects.
+
+You need to run the following command once to set up Git LFS on your machine:
 
     git lfs install
 
-Once Git LFS is installed, `git clone` and `git pull` download the baseline images
-automatically. If LFS downloads were deliberately skipped, run `git lfs pull` to
-download the missing images. The images in `pygmt/tests/baseline` can then be used by
-the image-comparison tests as usual.
+After that, `git clone` and `git pull` download the baseline images automatically. If
+Git LFS downloads were deliberately skipped, run `git lfs pull` to download the missing
+images. The images in `pygmt/tests/baseline` can then be used by the image-comparison
+tests as usual.
 
 The entire workflow for generating or modifying baseline test images can be summarized
 as follows:
