@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -61,9 +61,9 @@ jobs:
             python=3.12
             gmt=${{ matrix.gmt_version }}
             ghostscript
-            numpy=2.0
-            pandas=2.2
-            xarray=2024.5
+            numpy=2.1
+            pandas=2.3
+            xarray=2024.7
             packaging=24.2
             contextily=1.5
             geopandas=1.0
@@ -95,4 +95,6 @@ jobs:
 
       # Run the tests but skip images
       - name: Run tests
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         run: make test_no_images PYTEST_EXTRA="-r P"

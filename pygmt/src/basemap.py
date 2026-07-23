@@ -8,13 +8,13 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.params import Axis, Box, Frame
 
 
 @fmt_docstring
 @use_alias(f="coltypes")
-def basemap(  # noqa: PLR0913
+def basemap(
     self,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -123,6 +123,22 @@ def basemap(  # noqa: PLR0913
     $coltypes
     $perspective
     $transparency
+
+    See Also
+    --------
+    pygmt.Figure.directional_rose
+        Add a map directional rose.
+    pygmt.Figure.magnetic_rose
+        Add a map magnetic rose.
+    pygmt.Figure.scalebar
+        Add a scale bar.
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region="g", projection="H15c", frame=True)
+    >>> fig.show()
     """
     self._activate_figure()
 
@@ -131,7 +147,7 @@ def basemap(  # noqa: PLR0913
         ("compass", compass, "Figure.magnetic_rose"),
         ("rose", rose, "Figure.directional_rose"),
     ):
-        if value is not None and value is not False:
+        if is_given(value):
             warnings.warn(
                 f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
                 category=FutureWarning,

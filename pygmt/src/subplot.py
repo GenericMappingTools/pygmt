@@ -14,6 +14,7 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
+    is_given,
     kwargs_to_strings,
     use_alias,
 )
@@ -62,7 +63,7 @@ def _alias_option_A(  # noqa: N802
     # Check conflicts with deprecated 'autolabel' parameter.
     if autolabel:
         if any(
-            v is not None and v is not False
+            is_given(v)
             for v in [tag, tag_position, tag_box, tag_number_style, tag_orientation]
         ):
             raise GMTParameterError(
@@ -83,8 +84,7 @@ def _alias_option_A(  # noqa: N802
     # Validate tag_box if provided.
     if tag_box:
         if any(
-            v is not None and v is not False
-            for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
+            is_given(v) for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
         ):
             raise GMTValueError(
                 tag_box,
@@ -131,7 +131,7 @@ def _alias_option_A(  # noqa: N802
 @contextlib.contextmanager
 @use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(  # noqa: PLR0913
+def subplot(
     self,
     nrows: int = 1,
     ncols: int = 1,

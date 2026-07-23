@@ -35,6 +35,7 @@ Plotting figure elements
     Figure.logo
     Figure.magnetic_rose
     Figure.paragraph
+    Figure.pygmtlogo
     Figure.scalebar
     Figure.solar
     Figure.text
@@ -48,6 +49,7 @@ Plotting tabular data
     :toctree: generated
 
     Figure.contour
+    Figure.fill_between
     Figure.histogram
     Figure.meca
     Figure.plot

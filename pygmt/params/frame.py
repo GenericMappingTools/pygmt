@@ -23,6 +23,7 @@ class Axis(BaseParam):
     annotations, 2 for ticks, and 1 for gridlines:
 
     >>> import pygmt
+    >>> from pygmt.params import Axis
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
     ...     region=[0, 10, 0, 20],
@@ -127,6 +128,7 @@ class Frame(BaseParam):
     and north axes with ticks but without annotations:
 
     >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
     ...     region=[0, 10, 0, 20], projection="X10c/10c", frame=Frame(axes="WSen")

@@ -11,7 +11,13 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    is_given,
+    use_alias,
+)
 from pygmt.params import Axis, Frame
 from pygmt.src.grdinfo import grdinfo
 
@@ -69,8 +75,7 @@ def _alias_option_Q(  # noqa: N802
     _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
 
     if _old_surftype_syntax and any(
-        v is not None and v is not False
-        for v in (dpi, mesh_fill, monochrome, nan_transparent)
+        is_given(v) for v in (dpi, mesh_fill, monochrome, nan_transparent)
     ):
         raise GMTParameterError(
             conflicts_with=(
@@ -116,7 +121,7 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(I="shading", f="coltypes", n="interpolation")
-def grdview(  # noqa: PLR0913
+def grdview(
     self,
     grid: PathLike | xr.DataArray,
     cmap: str | None = None,

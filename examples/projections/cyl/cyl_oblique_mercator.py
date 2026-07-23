@@ -9,9 +9,8 @@ developed in the early 1900s by several workers.
 
 The projection is set with **o** or **O**. There are three different specification
 ways (**a**\|\ **A**, **b**\|\ **B**, **c**\|\ **C**) available. For all three
-definitions, the uppercase letter mean the projection pole is set in the southern
-hemisphere [Default is northern hemisphere]. Align the y-axis with the optional
-modifier **+v**. The figure size is set with *scale* or *width*.
+definitions, the uppercase letter means the projection pole is set in the
+southern hemisphere [Default is northern hemisphere].
 """
 
 # %%
@@ -21,7 +20,10 @@ modifier **+v**. The figure size is set with *scale* or *width*.
 # **oa**\|\ **oA**\ *lon0/lat0/azimuth/scale*\[**+v**] or
 # **Oa**\|\ **OA**\ *lon0/lat0/azimuth/width*\[**+v**]
 #
-# The central meridian is set by *lon0/lat0*. The oblique equator is set by *azimuth*.
+# - *lon0/lat0*: Sets the projection center.
+# - *azimuth*: Sets the azimuth of the oblique equator.
+# - *scale* or *width*: Sets the map size.
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 import pygmt
 from pygmt.params import Axis
@@ -45,7 +47,10 @@ fig.show()
 # **ob**\|\ **oB**\ *lon0/lat0/lon1/lat1/scale*\ [**+v**] or
 # **Ob**\|\ **OB**\ *lon0/lat0/lon1/lat1/width*\ [**+v**]
 #
-# The central meridian is set by *lon0/lat0*. The oblique equator is set by *lon1/lat1*.
+# - *lon0/lat0*: Sets the projection center.
+# - *lon1/lat1*: Sets a second point on the oblique equator.
+# - *scale* or *width*: Sets the map size.
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 fig = pygmt.Figure()
 fig.coast(
@@ -65,7 +70,10 @@ fig.show()
 # **oc**\|\ **oC**\ *lon0/lat0/lonp/latp/scale*\ [**+v**] or
 # **Oc**\|\ **OC**\ *lon0/lat0/lonp/latp/width*\ [**+v**]
 #
-# The central meridian is set by *lon0/lat0*. The projection pole is set by *lonp/latp*.
+# - *lon0/lat0*: Sets the projection center.
+# - *lonp/latp*: Sets the projection pole.
+# - *scale* or *width*: Sets the map size.
+# - **+v**: Aligns the oblique equator with the y-axis [Optional].
 
 fig = pygmt.Figure()
 fig.coast(
@@ -78,3 +86,4 @@ fig.coast(
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_tags = ["conformal"]

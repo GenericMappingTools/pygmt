@@ -15,7 +15,7 @@ from pygmt.src._common import _parse_position
 
 @fmt_docstring
 @use_alias(G="bitcolor")
-def image(  # noqa: PLR0913
+def image(
     self,
     imagefile: PathLike,
     position: Position | Sequence[float | str] | AnchorCode | None = None,

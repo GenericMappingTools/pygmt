@@ -30,7 +30,6 @@ from pygmt.src._common import _data_geometry_is_point
     I="intensity",
     L="close",
     N="no_clip",
-    M="fill_between",
     S="style",
     W="pen",
     Z="zvalue",
@@ -44,7 +43,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot(  # noqa: PLR0912, PLR0913
+def plot(  # noqa: PLR0912
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -180,10 +179,6 @@ def plot(  # noqa: PLR0912, PLR0913
     $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    fill_between : str
-        [**c**\|\ **s**][**+l**\ *seclabel*][**+g**\ *fill*][**p**\ *pen*]
-        [**+r**\ *pen*][**+y**\ [*level*]].
-        Fill the middle area between two curves :math:`y_0(x)` and :math:`y_1(x)`.
     intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
@@ -241,6 +236,17 @@ def plot(  # noqa: PLR0912, PLR0913
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``.
     $wrap
+
+    See Also
+    --------
+    pygmt.Figure.choropleth
+        Plot a choropleth map.
+    pygmt.Figure.fill_between
+        Fill the area between two curves.
+    pygmt.Figure.hlines
+        Plot horizontal lines.
+    pygmt.Figure.vlines
+        Plot vertical lines.
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.

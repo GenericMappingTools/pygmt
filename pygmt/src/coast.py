@@ -65,7 +65,7 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
 
 @fmt_docstring
 @use_alias(A="area_thresh", E="dcw")
-def coast(  # noqa: PLR0913
+def coast(
     self,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
@@ -257,6 +257,15 @@ def coast(  # noqa: PLR0913
     $panel
     $perspective
     $transparency
+
+    See Also
+    --------
+    pygmt.Figure.directional_rose
+        Add a map directional rose.
+    pygmt.Figure.magnetic_rose
+        Add a map magnetic rose.
+    pygmt.Figure.scalebar
+        Add a scale bar.
 
     Example
     -------

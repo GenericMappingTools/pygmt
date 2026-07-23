@@ -17,7 +17,7 @@ __doctest_skip__ = ["logo"]
 
 
 @fmt_docstring
-def logo(  # noqa: PLR0913
+def logo(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
@@ -96,6 +96,11 @@ def logo(  # noqa: PLR0913
     $panel
     $perspective
     $transparency
+
+    See Also
+    --------
+    pygmt.Figure.pygmtlogo
+        Plot the PyGMT logo.
 
     Examples
     --------

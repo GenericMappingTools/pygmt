@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
@@ -63,11 +63,11 @@ def _build_frame(
     >>> _build_frame()  # Passing no parameters returns None
     """
     # Using the old 'frame' parameter.
-    if frame is not None and frame is not False:
+    if is_given(frame):
         return frame
 
     _xaxis_is_set = any(
-        v is not None and v is not False
+        is_given(v)
         for v in {annot, tick, grid, annot_angle, annot_prefix, annot_unit, label}
     )
     _yaxis_is_set = unit is not None
@@ -92,7 +92,7 @@ def _build_frame(
     return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
-def _alias_option_D(  # noqa: N802, PLR0913
+def _alias_option_D(  # noqa: N802
     position=None,
     length=None,
     width=None,
@@ -242,7 +242,7 @@ def _alias_option_N(dpi=None):  # noqa: N802
 
 @fmt_docstring
 @use_alias(C="cmap", L="equalsize", Z="zfile")
-def colorbar(  # noqa: PLR0913
+def colorbar(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,

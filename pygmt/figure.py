@@ -15,6 +15,7 @@ from pygmt.src.coast import coast as _coast
 from pygmt.src.colorbar import colorbar as _colorbar
 from pygmt.src.contour import contour as _contour
 from pygmt.src.directional_rose import directional_rose as _directional_rose
+from pygmt.src.fill_between import fill_between as _fill_between
 from pygmt.src.grdcontour import grdcontour as _grdcontour
 from pygmt.src.grdimage import grdimage as _grdimage
 from pygmt.src.grdview import grdview as _grdview
@@ -30,6 +31,7 @@ from pygmt.src.paragraph import paragraph as _paragraph
 from pygmt.src.plot import plot as _plot
 from pygmt.src.plot3d import plot3d as _plot3d
 from pygmt.src.psconvert import psconvert as _psconvert
+from pygmt.src.pygmtlogo import pygmtlogo as _pygmtlogo
 from pygmt.src.rose import rose as _rose
 from pygmt.src.scalebar import scalebar as _scalebar
 from pygmt.src.shift_origin import shift_origin as _shift_origin
@@ -206,7 +208,7 @@ class Figure:
             supported formats and their extensions above.
         transparent
             Use a transparent background for the figure. Only valid for PNG format and
-            the PNG file asscoiated with KML format.
+            the PNG file associated with KML format.
         crop
             Crop the figure canvas (page) to the plot area.
         anti_alias
@@ -449,6 +451,7 @@ class Figure:
     colorbar = _colorbar
     contour = _contour
     directional_rose = _directional_rose
+    fill_between = _fill_between
     grdcontour = _grdcontour
     grdimage = _grdimage
     grdview = _grdview
@@ -464,6 +467,7 @@ class Figure:
     plot = _plot
     plot3d = _plot3d
     psconvert = _psconvert
+    pygmtlogo = _pygmtlogo
     rose = _rose
     scalebar = _scalebar
     set_panel = _set_panel

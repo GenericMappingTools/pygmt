@@ -26,7 +26,7 @@ __doctest_skip__ = ["grdimage"]
     n="interpolation",
     f="coltypes",
 )
-def grdimage(  # noqa: PLR0913
+def grdimage(
     self,
     grid: PathLike | xr.DataArray,
     monochrome: bool = False,
