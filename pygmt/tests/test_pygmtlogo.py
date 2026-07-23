@@ -116,7 +116,7 @@ def test_pygmtlogo_wordmark_vertical(shape):
 )
 def test_pygmtlogo_invalid_options(parameter, value):
     """
-    Test that invalid shape, theme, and wordmark options raise an error.
+    Test that invalid arguments passed to shape, theme, and wordmark raise an error.
     """
     fig = Figure()
     with pytest.raises(GMTValueError):
