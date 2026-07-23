@@ -15,7 +15,7 @@ __doctest_skip__ = ["choropleth"]
 
 
 @fmt_docstring
-def choropleth(  # noqa: PLR0913
+def choropleth(
     self,
     data: GeoLike | PathLike,
     column: str,

@@ -36,7 +36,7 @@ from pygmt.params import Axis, Frame
     e="find",
     h="header",
 )
-def velo(  # noqa : PLR0913
+def velo(
     self,
     data: PathLike | TableLike | None = None,
     no_clip: bool = False,

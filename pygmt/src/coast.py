@@ -16,7 +16,7 @@ __doctest_skip__ = ["coast"]
 
 @fmt_docstring
 @use_alias(A="area_thresh", C="lakes", E="dcw")
-def coast(  # noqa: PLR0913
+def coast(
     self,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None

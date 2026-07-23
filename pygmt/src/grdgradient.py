@@ -71,7 +71,7 @@ def _alias_option_N(  # noqa: N802
 
 @fmt_docstring
 @use_alias(D="direction", Q="tiles", S="slope_file", f="coltypes", n="interpolation")
-def grdgradient(  # noqa: PLR0913
+def grdgradient(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     azimuth: float | Sequence[float] | None = None,

@@ -67,7 +67,7 @@ def _alias_option_F(  # noqa: N802
 
 @fmt_docstring
 @use_alias(f="coltypes")
-def grdfilter(  # noqa: PLR0913
+def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     filter: Literal[  # noqa: A002
