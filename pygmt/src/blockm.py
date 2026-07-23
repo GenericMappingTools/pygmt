@@ -81,7 +81,7 @@ def _blockm(
     h="header",
     w="wrap",
 )
-def blockmean(  # noqa: PLR0913
+def blockmean(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -196,7 +196,7 @@ def blockmean(  # noqa: PLR0913
 @use_alias(
     a="aspatial", b="binary", d="nodata", e="find", f="coltypes", h="header", w="wrap"
 )
-def blockmedian(  # noqa: PLR0913
+def blockmedian(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -311,7 +311,7 @@ def blockmedian(  # noqa: PLR0913
     h="header",
     w="wrap",
 )
-def blockmode(  # noqa: PLR0913
+def blockmode(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,

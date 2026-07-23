@@ -17,7 +17,7 @@ __doctest_skip__ = ["magnetic_rose"]
 
 
 @fmt_docstring
-def magnetic_rose(  # noqa: PLR0913
+def magnetic_rose(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,

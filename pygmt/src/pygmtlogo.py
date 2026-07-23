@@ -272,7 +272,7 @@ def _create_logo(  # noqa: PLR0915
 
 
 @fmt_docstring
-def pygmtlogo(  # noqa: PLR0913
+def pygmtlogo(
     self,
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",

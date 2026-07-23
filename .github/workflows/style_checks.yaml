@@ -31,7 +31,7 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python and install dependencies
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.14'
           pip-install: ruff prek # zizmor: ignore[misfeature]
@@ -62,17 +62,6 @@ jobs:
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Following directories/files use hyphens in file names:"
-            cat output.txt
-            rm output.txt
-            exit $nfiles
-          fi
-
-      - name: Ensure baseline PNG DVC metadata does not mark files executable
-        run: |
-          grep -l '^[[:space:]]*isexec:[[:space:]]*true$' pygmt/tests/baseline/*.png.dvc > output.txt || true
-          nfiles=$(wc --lines output.txt | awk '{print $1}')
-          if [[ $nfiles > 0 ]]; then
-            echo "The following baseline PNG DVC files mark images as executable:"
             cat output.txt
             rm output.txt
             exit $nfiles

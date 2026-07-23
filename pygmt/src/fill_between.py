@@ -16,7 +16,7 @@ __doctest_skip__ = ["fill_between"]
 
 
 @fmt_docstring
-def fill_between(  # noqa: PLR0913
+def fill_between(
     self,
     x: Sequence[float],
     y: Sequence[float],
