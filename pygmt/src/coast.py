@@ -7,7 +7,7 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_list,
@@ -48,13 +48,15 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
     >>> parse(lakes=["blue+l", "cyan+r"], river_lakes="cyan")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Parameter 'lakes' is given with a list; ...
+    pygmt.exceptions.GMTParameterError: Conflicting parameters: 'river_lakes' ...
     """
     # Check for backward compatibility.
     if is_nonstr_iter(lakes):  # Old syntax: lakes is a list of strings.
         if river_lakes is not None:
-            msg = "Parameter 'lakes' is given with a list; 'river_lakes' must be None."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(
+                conflicts_with=("river_lakes", ["lakes"]),
+                reason="A sequence passed to 'lakes' uses the legacy -C syntax.",
+            )
         return Alias(lakes, name="lakes")  # Return as is.
 
     return [
