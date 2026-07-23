@@ -50,17 +50,19 @@ def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
         ...
     pygmt.exceptions.GMTParameterError: Conflicting parameters: 'river_lakes' ...
     """
-    # Check for backward compatibility.
-    if is_nonstr_iter(lakes):  # Old syntax: lakes is a list of strings.
+    # A list of strings or lakes contains "+l" or "+r" is considered the old syntax.
+    _old_syntax = is_nonstr_iter(lakes) or "+l" in str(lakes) or "+r" in str(lakes)
+    if _old_syntax:
         if river_lakes is not None:
             raise GMTParameterError(
                 conflicts_with=("river_lakes", ["lakes"]),
-                reason="A sequence passed to 'lakes' uses the legacy -C syntax.",
+                reason="'lakes' is using the legacy syntax.",
             )
         return Alias(lakes, name="lakes")  # Return as is.
 
+    # The new sytax.
     return [
-        Alias(lakes, name="lakes", suffix="+l" if "+" not in str(lakes) else ""),
+        Alias(lakes, name="lakes", suffix="+l"),
         Alias(river_lakes, name="river_lakes", suffix="+r"),
     ]
 
@@ -140,10 +142,11 @@ def coast(
     water
         Select filling of "wet" areas.
     lakes
+        Select filling of lakes. If not specified, will use the fill for "wet" areas set
+        by the ``water`` parameter.
     river_lakes
-        Select filling of lakes or river-lakes, respectively. If not specified, will use
-        the fill for "wet" areas set by the ``water`` parameter. If only one of the two
-        parameters is specified, the other will be set to unfilled (transparent).
+        Select filling of river-lakes. If not specified, will use the fill for "wet"
+        areas set by the ``water`` parameter.
     rivers
         Draw rivers. Specify the type of rivers to draw, and optionally append a pen
         attribute, in the format *river*\ /*pen* [Default pen is
