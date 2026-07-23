@@ -11,6 +11,7 @@ from typing import Literal, overload
 from pygmt._typing import PathLike
 from pygmt.src.basemap import basemap as _basemap
 from pygmt.src.choropleth import choropleth as _choropleth
+from pygmt.src.clip import ClipAccessor
 from pygmt.src.coast import coast as _coast
 from pygmt.src.colorbar import colorbar as _colorbar
 from pygmt.src.contour import contour as _contour
@@ -164,6 +165,16 @@ class Figure:
         with Session() as lib:
             wesn = lib.extract_region()
         return wesn
+
+    @property
+    def clip(self) -> ClipAccessor:
+        """
+        Access clipping helpers for plotting inside or outside a path.
+
+        Use methods of this accessor as context managers, for example
+        ``with fig.clip.land():``.
+        """
+        return ClipAccessor(self)
 
     def savefig(
         self,
