@@ -109,7 +109,7 @@ def _ternary_frame(frame):
 
 @fmt_docstring
 @use_alias(C="cmap", S="style")
-def ternary(  # noqa: PLR0913
+def ternary(
     self,
     data: PathLike | TableLike,
     fill: str | None = None,

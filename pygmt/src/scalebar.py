@@ -16,7 +16,7 @@ __doctest_skip__ = ["scalebar"]
 
 
 @fmt_docstring
-def scalebar(  # noqa: PLR0913
+def scalebar(
     self,
     length: float | str,
     height: float | str | None = None,
@@ -44,7 +44,7 @@ def scalebar(  # noqa: PLR0913
         Supported units are: **e**, **f**, **k**, **M**, **n**, and **u**. See
         :ref:`distance-units` for meanings of the units.
     height
-        Height of the scale bar [Default is ``"5p"``]. Only works when ``fancy=True``.
+        Height of the scale bar [Default is ``"5p"``].
     position
         Position of the scale bar on the plot. It can be specified in multiple ways:
 

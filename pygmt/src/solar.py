@@ -16,7 +16,7 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-def solar(  # noqa: PLR0913
+def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,

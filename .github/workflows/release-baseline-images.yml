@@ -27,16 +27,7 @@ jobs:
       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         persist-credentials: false
-
-    - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@6c05772f52d19792ed73aedb6c2bf65ec92adebb # v3.0.0
-
-    - name: Pull baseline image data from dvc remote
-      run: |
-        dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-        dvc pull && ls -lhR pygmt/tests/baseline/
-      env:
-        DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        lfs: true
 
     - name: Create the baseline image asset in zip format
       run: |

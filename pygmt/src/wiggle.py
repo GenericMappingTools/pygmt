@@ -34,7 +34,7 @@ from pygmt.src._common import _parse_position
     h="header",
     w="wrap",
 )
-def wiggle(  # noqa: PLR0913
+def wiggle(
     self,
     data: PathLike | TableLike | None = None,
     x=None,

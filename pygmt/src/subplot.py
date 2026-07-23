@@ -131,7 +131,7 @@ def _alias_option_A(  # noqa: N802
 @contextlib.contextmanager
 @use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(  # noqa: PLR0913
+def subplot(
     self,
     nrows: int = 1,
     ncols: int = 1,

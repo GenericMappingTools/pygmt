@@ -43,7 +43,7 @@ from pygmt.params import Axis, Frame
     w="wrap",
 )
 @kwargs_to_strings(T="sequence")
-def histogram(  # noqa: PLR0913
+def histogram(
     self,
     data: PathLike | TableLike,
     bar_width: float | str | None = None,
