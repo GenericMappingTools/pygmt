@@ -17,7 +17,7 @@ __doctest_skip__ = ["logo"]
 
 
 @fmt_docstring
-def logo(  # noqa: PLR0913
+def logo(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,

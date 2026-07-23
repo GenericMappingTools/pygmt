@@ -29,7 +29,7 @@ from pygmt.helpers import (
     Z="ellipse",
     f="coltypes",
 )
-def project(  # noqa: PLR0913
+def project(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,

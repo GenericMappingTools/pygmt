@@ -23,7 +23,7 @@ __doctest_skip__ = ["paragraph"]
 
 
 @fmt_docstring
-def paragraph(  # noqa: PLR0913
+def paragraph(
     self,
     x: float | str,
     y: float | str,

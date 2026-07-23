@@ -43,7 +43,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot(  # noqa: PLR0912, PLR0913
+def plot(  # noqa: PLR0912
     self,
     data: PathLike | TableLike | None = None,
     x=None,

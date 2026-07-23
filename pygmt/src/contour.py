@@ -32,7 +32,7 @@ from pygmt.params import Axis, Frame
     h="header",
     l="label",
 )
-def contour(  # noqa: PLR0913
+def contour(
     self,
     data: PathLike | TableLike | None = None,
     x=None,

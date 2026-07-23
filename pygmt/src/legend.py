@@ -16,7 +16,7 @@ from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-def legend(  # noqa: PLR0913
+def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,

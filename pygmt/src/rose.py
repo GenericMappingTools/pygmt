@@ -35,7 +35,7 @@ from pygmt.params import Axis, Frame
     h="header",
     w="wrap",
 )
-def rose(  # noqa: PLR0913
+def rose(
     self,
     data: PathLike | TableLike | None = None,
     length=None,
