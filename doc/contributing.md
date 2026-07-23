@@ -680,7 +680,7 @@ passing.
 Don't forget to commit the baseline image as well! Baseline images are tracked with
 Git LFS, as explained in the next section.
 
-#### Using [Git LFS](https://git-lfs.com) to Manage Test Images
+#### Using [Git Large File Storage (LFS)](https://git-lfs.com) to Manage Test Images
 
 As the baseline images are quite large blob files that can change often (e.g., with new
 GMT versions), they are managed with Git LFS rather than regular Git objects. Install
