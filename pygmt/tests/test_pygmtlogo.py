@@ -4,6 +4,7 @@ Test Figure.pygmtlogo.
 
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTValueError
 from pygmt.params import Axis, Frame, Position
 from pygmt.src.pygmtlogo import _create_logo
 
@@ -107,3 +108,16 @@ def test_pygmtlogo_wordmark_vertical(shape):
             wordmark="vertical",
         )
     return fig
+
+
+@pytest.mark.parametrize(
+    ("parameter", "value"),
+    [("shape", "square"), ("theme", "blue"), ("wordmark", "diagonal")],
+)
+def test_pygmtlogo_invalid_options(parameter, value):
+    """
+    Test that invalid shape, theme, and wordmark options raise an error.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError):
+        fig.pygmtlogo(**{parameter: value})
