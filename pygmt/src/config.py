@@ -26,6 +26,14 @@ class config:  # noqa: N801
 
     .. note::
 
+        For GMT defaults to adjust the figure appearance, e.g., the font size,
+        :class:`pygmt.config` needs to be called **after** setting up the
+        :class:`pygmt.Figure` instance to have an effect. This is relevant for
+        both, global and local changes. For details see the
+        `GitHub issue comment <https://github.com/GenericMappingTools/pygmt/issues/733#issuecomment-744698150>`__.
+
+    .. note::
+
         :gmt-term:`PS_CONVERT` is not supported.
         To configure conversion options, please pass parameters to
         :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
