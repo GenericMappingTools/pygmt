@@ -10,21 +10,34 @@ contributors for their work. To do so, we will attempt to define:
 
 The following are the ways in which individuals who have contributed will be recognized.
 
-> **Note**: These policies are not set in stone and may be changed to accommodate the
-> growth of the project or the preferences of the community.
+> **Notes**:
+>
+> 1. These policies are not set in stone and may be changed to accommodate the growth of
+>    the project or the preferences of the community.
+> 2. Authorship and contributor recognition apply to human contributors. Bots, automated
+>    accounts, and AI tools are not considered as authors. If these tools assist with a
+>    contribution, the recognized author is the human who reviews and submits the work.
 
 ## The `AUTHORS.md` file
 
-Anyone who has contributed a pull request to the project is welcome to add themselves to
-the `AUTHORS.md` file. This file lives in the repository and is packaged with
-distributions. This is an optional process.
+The `AUTHORS.md` file lists PyGMT Developers. Anyone who has contributed a pull request
+to the project is welcome to add themselves to the file. This file lives in the
+repository and is packaged with distributions. This is an optional process.
+
+## The PyGMT Team
+
+[The PyGMT Team](https://github.com/GenericMappingTools/pygmt/blob/main/doc/team.md) is
+a group of individuals who maintain the PyGMT project, make decisions about the
+direction of the project, and manage release cycles. The team also includes
+distinguished contributors who have made significant contributions to the project in
+many ways in the project's history.
 
 ## Changelog for each release
 
-Every time we make a release, everyone who has made a commit to the repository since the
-previous release will be mentioned in the changelog entry. If their full name is
-available on GitHub, we will use it. Otherwise, we will use the GitHub handle. This is a
-way of saying "Thank you".
+Every time we make a release, everyone who has made a contribution (commits or PR
+reviews) to the repository since the previous release will be mentioned in the changelog.
+If their full name is available on GitHub, we will use it. Otherwise, we will use the
+GitHub handle. This is a way of saying "Thank you".
 
 ## Authorship on Zenodo archives of releases
 
@@ -38,13 +51,15 @@ the repository:
 2. [ORCID](https://orcid.org) (optional)
 3. Affiliation (if omitted, we will use "Unaffiliated")
 
-The order of authors will be defined by the number of commits to the repository
-(`git shortlog -sne`). The order can also be changed on a case-by-case basis. The most
-common reasons for case-by-case changes are contributions to the PyGMT project that due
-not relate to commit numbers, including developing PyGMT lessons such as the
+The order of authors will be defined by the number of contributions (including commits
+and PR reviews) to the repository
+(`git shortlog -sne --group=author --group=trailer:co-authored-by`).
+The order can also be changed on a case-by-case basis. The most common reasons for
+case-by-case changes are contributions to the PyGMT project that do not relate to
+commit numbers, including developing PyGMT lessons such as the
 [ROSES unit](https://www.youtube.com/watch?v=SSIGJEe0BIk), organizing workshops/sprints
-such as the [FOSS4G Workshop](https://github.com/GenericMappingTools/foss4g2019oceania),
-the 2020 and 2021 SciPy sprints, writing grants/proposals to support PyGMT, and team
+such as the [AGU24 Workshop](https://github.com/GenericMappingTools/agu24workshop) or
+2020 and 2021 SciPy sprints, writing grants/proposals to support PyGMT, and team
 programming efforts (including reviewing PRs).
 
 If you have contributed and do not wish to be included in Zenodo archives, there are a
@@ -78,6 +93,7 @@ To be included as an author on the paper, you *must* satisfy the following crite
    on the paper (even if it's just an "OK", but preferably more).
 
 The order of authors will be defined by the number of commits made since the previous
-major release that has an associated paper (`git shortlog vX.0.0...HEAD -sne`). The order
-of any author who hasn't made any commits will be decided by all authors. The order can
-also be changed on a case-by-case basis.
+major release that has an associated paper
+(`git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
+The order of any author who hasn't made any commits will be decided by all authors. The
+order can also be changed on a case-by-case basis.

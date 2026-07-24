@@ -13,21 +13,24 @@ the two standard parallels that are distortion-free.
 **l**\ *lon0/lat0*\ /\ *lat1/lat2*\ */scale*
 or **L**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*
 
-The projection is set with **l** or **L**. The projection center is set by
-*lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
-The figure size is set with *scale* or *width*.
+- **l** or **L**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *lat1/lat2*: Sets the two standard parallels.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[-130, -70, 24, 52],
     projection="L-100/35/33/45/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="seagreen",
     water="gray90",
 )
-
 fig.show()
+
+# sphinx_gallery_tags = ["conformal"]

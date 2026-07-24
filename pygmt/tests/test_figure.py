@@ -12,9 +12,10 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import Figure, set_display
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.figure import SHOW_CONFIG, _get_default_display_method
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis
 
 _HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
 _HAS_RIOXARRAY = bool(importlib.util.find_spec("rioxarray"))
@@ -81,7 +82,11 @@ def test_figure_savefig_exists():
     Make sure the saved figure has the right name.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     prefix = "test_figure_savefig_exists"
     for fmt in [
         "bmp",
@@ -124,9 +129,9 @@ def test_figure_savefig_geotiff():
 
     # Check if a TIFF is georeferenced or not
     if _HAS_RIOXARRAY:
-        import rioxarray
-        from rasterio.errors import NotGeoreferencedWarning
-        from rasterio.transform import Affine
+        import rioxarray  # noqa: PLC0415
+        from rasterio.errors import NotGeoreferencedWarning  # noqa: PLC0415
+        from rasterio.transform import Affine  # noqa: PLC0415
 
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:
@@ -152,15 +157,17 @@ def test_figure_savefig_geotiff():
         # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
-                assert xds.rio.crs is None
-                npt.assert_allclose(
-                    actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
-                )
-                assert xds.rio.shape == (1257, 1331)
-                assert xds.rio.transform() == Affine(
-                    a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
-                )
-            assert len(record) == 1
+                pass
+        assert len(record) == 1
+        with rioxarray.open_rasterio(fname) as xds:
+            assert xds.rio.crs is None
+            npt.assert_allclose(
+                actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
+            )
+            assert xds.rio.shape == (1257, 1331)
+            assert xds.rio.transform() == Affine(
+                a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
+            )
     geofname.unlink()
     fname.unlink()
 
@@ -171,8 +178,12 @@ def test_figure_savefig_directory_nonexists():
     doesn't exist.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    with pytest.raises(FileNotFoundError, match="No such directory:"):
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
+    with pytest.raises(FileNotFoundError, match=r"No such directory:"):
         fig.savefig("a-nonexist-directory/test_figure_savefig_directory_nonexists.png")
 
 
@@ -181,9 +192,13 @@ def test_figure_savefig_unknown_extension():
     Check that an error is raised when an unknown extension is passed.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     fname = "test_figure_savefig_unknown_extension.test"
-    with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
+    with pytest.raises(GMTValueError, match=r"Invalid file extension: 'test'."):
         fig.savefig(fname)
 
 
@@ -192,9 +207,13 @@ def test_figure_savefig_ps_extension():
     Check that an error is raised when .ps extension is specified.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3c/5c", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3c/5c",
+        frame=Axis(annot=True, tick=True),
+    )
     fname = "test_figure_savefig_ps_extension.ps"
-    with pytest.raises(GMTInvalidInput, match="Extension '.ps' is not supported."):
+    with pytest.raises(GMTValueError, match=r"Extension '.ps' is not supported."):
         fig.savefig(fname)
 
 
@@ -203,11 +222,15 @@ def test_figure_savefig_transparent():
     Check if fails when transparency is not supported.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     prefix = "test_figure_savefig_transparent"
     for fmt in ["pdf", "jpg", "bmp", "eps", "tif"]:
         fname = f"{prefix}.{fmt}"
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             fig.savefig(fname, transparent=True)
 
     # PNG should support transparency and should not raise an error.
@@ -278,7 +301,7 @@ def test_figure_savefig_worldfile():
     # unsupported formats
     for fmt in [".eps", ".kml", ".pdf", ".tiff"]:
         with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
-            with pytest.raises(GMTInvalidInput):
+            with pytest.raises(GMTValueError):
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
@@ -301,7 +324,11 @@ def test_figure_show():
     Test that show creates the correct file name and deletes the temp dir.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
     fig.show()
 
 
@@ -310,8 +337,12 @@ def test_figure_show_invalid_method():
     Test to check if an error is raised when an invalid method is passed to show.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
-    with pytest.raises(GMTInvalidInput):
+    fig.basemap(
+        region="10/70/-300/800",
+        projection="X3i/5i",
+        frame=Axis(annot=True, tick=True),
+    )
+    with pytest.raises(GMTValueError):
         fig.show(method="test")
 
 
@@ -396,7 +427,7 @@ class TestSetDisplay:
         """
         Test if an error is raised when an invalid method is passed.
         """
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             set_display(method="invalid")
 
 

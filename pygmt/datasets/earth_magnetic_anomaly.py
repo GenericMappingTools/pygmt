@@ -10,7 +10,7 @@ from typing import Literal
 
 import xarray as xr
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
@@ -58,9 +58,9 @@ def load_earth_magnetic_anomaly(
     ``data_source="emag2"`` and ``data_source="emag2_4km"``, and ``@earth_wdmam.cpt``
     for ``data_source="wdmam"``. To use the dataset-specific CPT when plotting the
     dataset, explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``,
-    otherwise GMT's default CPT (*turbo*) will be used. If the dataset is referenced by
-    the file name in a grid plotting method, the dataset-specific CPT file is used
-    automatically unless another CPT is specified.
+    otherwise GMT's default CPT (*google/turbo*) will be used. If the dataset is
+    referenced by the file name in a grid plotting method, the dataset-specific CPT file
+    is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-mag.html` and :gmt-datasets:`earth-wdmam.html` for
     more details about available datasets, including version information and references.
@@ -102,13 +102,8 @@ def load_earth_magnetic_anomaly(
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
-    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
-    However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
-    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
-    workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------
@@ -140,11 +135,11 @@ def load_earth_magnetic_anomaly(
         "wdmam": "earth_wdmam",
     }.get(data_source)
     if prefix is None:
-        msg = (
-            f"Invalid earth magnetic anomaly data source '{data_source}'. "
-            "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
+        raise GMTValueError(
+            data_source,
+            description="earth magnetic anomaly data source",
+            choices=["emag2", "emag2_4km", "wdmam"],
         )
-        raise GMTInvalidInput(msg)
     grid = _load_remote_dataset(
         name="earth_wdmam" if data_source == "wdmam" else "earth_mag",
         prefix=prefix,

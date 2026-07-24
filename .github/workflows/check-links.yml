@@ -21,18 +21,18 @@ permissions:
 jobs:
   check_links:
     name: Check Links
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         path: repository
         persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.2.2
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       with:
         ref: gh-pages
         path: documentation
@@ -40,13 +40,14 @@ jobs:
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v2.3.0
+      uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
       with:
         fail: false  # Don't fail action on broken links
         output: /tmp/lychee-out.md
+        # 200: OK
         # 429: Too many requests
         args: >
-          --accept 429
+          --accept 200,429
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/6.[0-9]?/%3Cmodule-name%3E.html$"
           --exclude "^https://doi.org"
@@ -62,11 +63,12 @@ jobs:
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://test.pypi.org/simple/"
           --exclude "^https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf"
+          --exclude "^https://naciscdn.org/naturalearth"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html"
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
-          --exclude "^https://zenodo.org/badge/DOI/"
-          --verbose
+          --exclude "^https://stackoverflow.com/a/69170441"
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"

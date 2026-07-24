@@ -132,10 +132,15 @@ def tempfile_from_geojson(geojson):
         E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
-        import geopandas as gpd
+        import geopandas  # noqa: PLC0415
 
         Path(tmpfile.name).unlink()  # Ensure file is deleted first
-        ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
+        ogrgmt_kwargs = {
+            "filename": tmpfile.name,
+            "driver": "OGR_GMT",
+            "mode": "w",
+            "encoding": "UTF-8",  # Necessary for non-ASCII support on Windows.
+        }
         try:
             # OGR_GMT only supports 32-bit integers. We need to map int/int64
             # types to int32/float types depending on if the column has an
@@ -157,10 +162,10 @@ def tempfile_from_geojson(geojson):
             geojson.to_file(**ogrgmt_kwargs)
         except AttributeError:
             # Other 'geo' formats which implement __geo_interface__
-            import json
+            import json  # noqa: PLC0415
 
             jsontext = json.dumps(geojson.__geo_interface__)
-            gpd.read_file(filename=io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
+            geopandas.read_file(filename=io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
 

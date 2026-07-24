@@ -5,13 +5,14 @@ Timestamp
 The :meth:`pygmt.Figure.timestamp` method can draw the GMT timestamp logo on the plot.
 The timestamp will always be shown relative to the Bottom Left (BL) corner of the plot.
 By default, the ``offset`` and ``justify`` parameters are set to ``("-54p", "-54p")``
-(x, y directions) and ``"BL"`` (Bottom Left), respectively.
+(x-, y-directions) and ``"BL"`` (Bottom Left), respectively.
 """
 
 # %%
 import os
 
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c", frame=True)
@@ -25,7 +26,13 @@ fig.show()
 os.environ["TZ"] = "Pacific/Honolulu"  # optionally set the time zone
 
 fig = pygmt.Figure()
-fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
+fig.coast(
+    region="d",
+    projection="H10c",
+    land="black",
+    water="cornsilk",
+    frame=Axis(annot=True, tick=True, grid=True),
+)
 fig.timestamp(
     label="Powered by PyGMT",
     justify="TL",

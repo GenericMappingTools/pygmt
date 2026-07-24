@@ -6,8 +6,6 @@ Function to load raster tile maps from XYZ tile providers, and load as
 from collections.abc import Sequence
 from typing import Literal
 
-from packaging.version import Version
-
 try:
     import contextily
     from rasterio.crs import CRS
@@ -29,6 +27,7 @@ except ImportError:
 import numpy as np
 import xarray as xr
 
+__doctest_skip__ = ["load_tile_map"]
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
@@ -100,9 +99,6 @@ def load_tile_map(
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
 
-        .. note::
-           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
-
     Returns
     -------
     raster
@@ -127,12 +123,12 @@ def load_tile_map(
     ... )
     >>> raster.sizes
     Frozen({'band': 3, 'y': 256, 'x': 512})
-    >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> raster.coords
     Coordinates:
-      * band         (band) uint8... 1 2 3
-      * y            (y) float64... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
-      * x            (x) float64... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
-        spatial_ref  int... 0
+      * band         (band) uint8 3B 1 2 3
+      * y            (y) float64 2kB -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x            (x) float64 4kB -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+        spatial_ref  int64 8B 0
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
     ...     raster.rio.crs.to_string()
@@ -152,7 +148,7 @@ def load_tile_map(
 
     if crs != _source_crs and not _HAS_RIOXARRAY:
         msg = (
-            f"Package `rioxarray` is required if CRS is not '{_source_crs}'. "
+            f"Package `rioxarray` is required if CRS is not {_source_crs!r}. "
             "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` to install the package."
         )
@@ -165,16 +161,8 @@ def load_tile_map(
         "ll": lonlat,
         "wait": wait,
         "max_retries": max_retries,
+        "zoom_adjust": zoom_adjust,
     }
-    # TODO(contextily>=1.5.0): Remove the check for the 'zoom_adjust' parameter.
-    if zoom_adjust is not None:
-        if Version(contextily.__version__) < Version("1.5.0"):
-            msg = (
-                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
-                "Please upgrade contextily, or manually set the `zoom` level instead."
-            )
-            raise ValueError(msg)
-        contextily_kwargs["zoom_adjust"] = zoom_adjust
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(

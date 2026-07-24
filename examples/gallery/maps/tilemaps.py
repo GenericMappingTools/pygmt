@@ -9,6 +9,7 @@ tiles from a tile server or local file as a basemap or overlay.
 # %%
 import contextily
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.tilemap(
@@ -22,7 +23,7 @@ fig.tilemap(
     zoom=14,
     # Use tiles from OpenStreetMap tile server
     source="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
 )
 
 fig.show()
@@ -39,7 +40,7 @@ fig.tilemap(
     projection="M12c",
     # Use the CartoDB Positron option from contextily
     source=contextily.providers.CartoDB.Positron,
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
 )
 
 fig.show()

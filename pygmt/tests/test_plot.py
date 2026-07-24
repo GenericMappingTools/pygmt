@@ -10,8 +10,9 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure, which
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis, Frame
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
@@ -45,7 +46,7 @@ def test_plot_red_circles(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
     )
     return fig
 
@@ -57,7 +58,11 @@ def test_plot_fail_no_data(data, region):
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(
-            region=region, projection="X10c", style="c0.2c", fill="red", frame="afg"
+            region=region,
+            projection="X10c",
+            style="c0.2c",
+            fill="red",
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -66,7 +71,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -75,10 +80,10 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Axis(annot=True, tick=True, grid=True),
         )
     # Should also fail if given too much data
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.plot(
             x=data[:, 0],
             y=data[:, 1],
@@ -87,7 +92,7 @@ def test_plot_fail_no_data(data, region):
             projection="X10c",
             style="c0.2c",
             fill="red",
-            frame="afg",
+            frame=Axis(annot=True, tick=True, grid=True),
         )
 
 
@@ -97,16 +102,21 @@ def test_plot_fail_1d_array_with_data(data, region):
     symbol are specified when data is given.
     """
     fig = Figure()
-    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
-    with pytest.raises(GMTInvalidInput):
+    kwargs = {
+        "data": data,
+        "region": region,
+        "projection": "X10c",
+        "frame": Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    }
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", intensity=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="c0.2c", fill="red", transparency=data[:, 2] * 100, **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot(style="0.2c", fill="red", symbol=["c"] * data.shape[0], **kwargs)
 
 
@@ -123,7 +133,7 @@ def test_plot_projection(data):
         projection="R270/10c",
         style="s0.2c",
         fill="green",
-        frame="ag",
+        frame=Axis(annot=True, grid=True),
     )
     return fig
 
@@ -141,8 +151,8 @@ def test_plot_colors(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="cubhelix",
-        frame="af",
+        cmap="cpt-city/cubhelix",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -161,7 +171,7 @@ def test_plot_sizes(data, region):
         projection="X10c",
         style="cc",
         fill="blue",
-        frame="af",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -180,8 +190,8 @@ def test_plot_colors_sizes(data, region):
         region=region,
         projection="X10c",
         style="cc",
-        cmap="copper",
-        frame="af",
+        cmap="matlab/copper",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -192,14 +202,19 @@ def test_plot_colors_sizes_proj(data, region):
     Plot the data using z as sizes and fills with a projection.
     """
     fig = Figure()
-    fig.coast(region=region, projection="M15c", frame="af", water="skyblue")
+    fig.coast(
+        region=region,
+        projection="M15c",
+        frame=Axis(annot=True, tick=True),
+        water="skyblue",
+    )
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
         fill=data[:, 2],
         size=0.5 * data[:, 2],
         style="cc",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -219,7 +234,7 @@ def test_plot_varying_intensity():
         y=y,
         region=[-1.1, 1.1, -0.5, 0.5],
         projection="X10c/2c",
-        frame=["S", "xaf+lIntensity"],
+        frame=Frame(axes="S", xaxis=Axis(annot=True, tick=True, label="Intensity")),
         style="c0.25c",
         fill="blue",
         intensity=intensity,
@@ -293,7 +308,7 @@ def test_plot_sizes_colors_transparencies():
         style="cc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
     )
     return fig
@@ -313,7 +328,7 @@ def test_plot_symbol():
         fill="blue",
         size=[0.1, 0.2, 0.3, 0.4],
         symbol=["c", "t", "i", "s"],
-        frame="af",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -331,7 +346,7 @@ def test_plot_matrix(data, fill):
         projection="M15c",
         style="cc",
         fill=fill,
-        frame="a",
+        frame=Axis(annot=True),
         incols="0,1,2+s0.5",
     )
     return fig
@@ -348,8 +363,8 @@ def test_plot_matrix_color(data):
         region=[10, 70, -5, 10],
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
-        frame="a",
+        cmap="gmt/rainbow",
+        frame=Axis(annot=True),
     )
     return fig
 
@@ -391,7 +406,7 @@ def test_plot_vectors():
         projection="X10c",
         style="V0.2c+e+n",
         fill="black",
-        frame="af",
+        frame=Axis(annot=True, tick=True),
     )
     return fig
 
@@ -483,14 +498,19 @@ def test_plot_timedelta64():
     """
     Test plotting numpy.timedelta64 input data.
     """
+    tmin, tmax = np.timedelta64(0, "D"), np.timedelta64(8, "D")
     fig = Figure()
     fig.basemap(
         projection="X8c/5c",
-        region=[0, 8, 0, 10],
-        frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
+        region=[tmin, tmax, 0, 10],
+        frame=Frame(
+            axes="WSne",
+            xaxis=Axis(annot=True, tick=True, label="Forecast Days"),
+            yaxis=Axis(annot=True, tick=True, label="RMSE"),
+        ),
     )
     fig.plot(
-        x=np.arange(np.timedelta64(0, "D"), np.timedelta64(8, "D")),
+        x=np.arange(tmin, tmax),
         y=np.geomspace(start=0.1, stop=9, num=8),
         style="c0.2c",
         pen="1p",
@@ -552,7 +572,7 @@ def test_plot_shapefile():
     See https://github.com/GenericMappingTools/pygmt/issues/1616.
     """
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
-    which(fname=datasets, download="a")
+    which(fname=datasets, download="auto")
     fig = Figure()
     fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig

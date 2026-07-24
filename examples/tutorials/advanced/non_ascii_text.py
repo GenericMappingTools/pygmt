@@ -23,12 +23,18 @@ In this example, we demonstrate how to typeset non-ASCII characters in PyGMT.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
 fig.basemap(
     region=[0, 5, 0, 6],
     projection="X14c/7c",
-    frame=["xaf+lDistance (°)", "yaf+lValue (‰)", "WSen+tTitle: α² ± β²"],
+    frame=Frame(
+        axes="WSen",
+        title="Title: α² ± β²",
+        xaxis=Axis(annot=True, tick=True, label="Distance (°)"),
+        yaxis=Axis(annot=True, tick=True, label="Value (‰)"),
+    ),
 )
 
 fig.text(

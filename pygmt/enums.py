@@ -31,7 +31,7 @@ class GridFormat(IntEnum):
     NS = 16  #: GMT netCDF format (16-bit integer)
     NI = 17  #: GMT netCDF format (32-bit integer)
     NF = 18  #: GMT netCDF format (32-bit float)
-    ND = 19  #: GMT netCDF format (64-bit float)
+    ND = 19  #: GMT netCDF format (64-bit float)  # codespell:ignore
     SD = 20  #: Golden Software Surfer format 7 (64-bit float, read-only)
     AF = 21  #: Atlantic Geoscience Center format AGC (32-bit float)
     GD = 22  #: Import through GDAL

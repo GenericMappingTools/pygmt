@@ -15,20 +15,25 @@ rather large.
 
 **m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **m** or **M**. The central meridian is set with the
-optional *lon0* and the standard parallel is set with the optional *lat0*.
-The figure size is set with *scale* or *width*.
+- **m** or **M**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
+  supplied as well.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[0, 360, -80, 80],
     projection="M0/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["conformal"]

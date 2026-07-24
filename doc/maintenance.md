@@ -16,7 +16,6 @@ communication tools we use.
 ### As a Contributor
 
 - Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
 - Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
@@ -30,7 +29,6 @@ communication tools we use.
 ### As an Administrator
 
 - Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Add as an admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt)
 - Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
@@ -95,15 +93,14 @@ controlled by workflow files located in `.github/workflows`. Here we briefly
 summarize the functions of the workflows. Please refer to the comments in the
 workflow files for more details.
 
-- `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
-- `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
+- `benchmarks.yml`: Benchmark the execution speed of tests to track performance of PyGMT functions
+- `cache_data.yaml`: Cache GMT remote data files and upload as artifacts
 - `check-links.yml`: Check links in the repository and documentation
 - `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
 - `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
 - `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
 - `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
 - `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
-- `dvc-diff.yml`: Report changes in test images
 - `format-command.yml`: Format the codes using slash command
 - `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
 - `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
@@ -242,7 +239,7 @@ publishing the actual release notes at [](changes.md).
    inside the badge url.
 
     ```
-    [![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.<INSERT-DOI-HERE>.svg)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
+    [![Digital Object Identifier for PyGMT vX.Y.Z](https://img.shields.io/badge/DOI-10.5281/zenodo.<INSERT-DOI-HERE>-blue)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
     ```
 3. Open a new pull request using the title 'Changelog entry for vX.Y.Z' with
    the updated release notes, so that other people can help to review and
@@ -254,12 +251,13 @@ publishing the actual release notes at [](changes.md).
    modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the Highlights section.
-7. Edit the list of people who contributed to the release, linking to their
-   GitHub accounts. Sort their names by the number of commits made since the
-   last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
+7. Edit the list of people who contributed to the release, linking to their GitHub
+   accounts. Sort their names by the number of contributions (including commits and PR
+   reviews) made since the last release (e.g., use
+   `git shortlog vX.Y.Z..HEAD -sne --group=author --group=trailer:co-authored-by`).
 8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-   and core package dependencies (NumPy, pandas, Xarray). Follow
+   and core package dependencies (NumPy, pandas, xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the

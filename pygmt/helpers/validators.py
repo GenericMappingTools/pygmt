@@ -5,11 +5,12 @@ Functions to check if given arguments are valid.
 import warnings
 from typing import Literal
 
-from pygmt.exceptions import GMTInvalidInput
+from pygmt._typing import PathLike
+from pygmt.exceptions import GMTParameterError, GMTValueError
 
 
 def validate_output_table_type(
-    output_type: Literal["pandas", "numpy", "file"], outfile: str | None = None
+    output_type: Literal["pandas", "numpy", "file"], outfile: PathLike | None = None
 ) -> Literal["pandas", "numpy", "file"]:
     """
     Check if the ``output_type`` and ``outfile`` parameters are valid.
@@ -38,25 +39,30 @@ def validate_output_table_type(
     >>> validate_output_table_type(output_type="invalid-type")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' either as 'file', ...
+    pygmt....GMTValueError: ...: 'invalid-type'. Expected one of: ...
     >>> validate_output_table_type("file", outfile=None)
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'outfile' for output_type='file'.
+    pygmt.exceptions.GMTParameterError: Missing required parameter: 'outfile'. ...
     >>> with warnings.catch_warnings(record=True) as w:
     ...     validate_output_table_type("pandas", outfile="not-none.txt")
     ...     assert len(w) == 1
     'file'
     """
-    if output_type not in {"file", "numpy", "pandas"}:
-        msg = "Must specify 'output_type' either as 'file', 'numpy', or 'pandas'."
-        raise GMTInvalidInput(msg)
+    _valids = {"file", "numpy", "pandas"}
+    if output_type not in _valids:
+        raise GMTValueError(
+            output_type,
+            description="value for parameter 'output_type'",
+            choices=_valids,
+        )
     if output_type == "file" and outfile is None:
-        msg = "Must specify 'outfile' for output_type='file'."
-        raise GMTInvalidInput(msg)
+        raise GMTParameterError(
+            required="outfile", reason="Required when output_type='file'."
+        )
     if output_type != "file" and outfile is not None:
         msg = (
-            f"Changing 'output_type' from '{output_type}' to 'file' since 'outfile' "
+            f"Changing 'output_type' from {output_type!r} to 'file' since 'outfile' "
             "parameter is set. Please use output_type='file' to suppress the warning."
         )
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
