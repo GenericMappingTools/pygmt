@@ -156,8 +156,6 @@ def grdcontour(
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -180,6 +178,7 @@ def grdcontour(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(

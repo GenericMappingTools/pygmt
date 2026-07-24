@@ -255,8 +255,6 @@ def velo(
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     if kwargs.get("S") is None:
         raise GMTParameterError(required="spec")
     if not isinstance(kwargs["S"], str):
@@ -288,6 +286,7 @@ def velo(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

@@ -250,8 +250,6 @@ def plot(  # noqa: PLR0912
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    self._activate_figure()
-
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
         data = {"x": x, "y": y}
@@ -317,6 +315,7 @@ def plot(  # noqa: PLR0912
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

@@ -151,8 +151,6 @@ def contour(
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -178,6 +176,7 @@ def contour(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

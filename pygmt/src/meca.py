@@ -359,7 +359,6 @@ def meca(
     $perspective
     $transparency
     """
-    self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)
     # Preprocess the input data.
@@ -394,6 +393,7 @@ def meca(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
             lib.call_module(

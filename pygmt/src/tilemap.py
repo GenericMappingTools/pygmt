@@ -111,8 +111,6 @@ def tilemap(
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
-    self._activate_figure()
-
     raster = load_tile_map(
         region=region,
         zoom=zoom,
@@ -145,6 +143,7 @@ def tilemap(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(
