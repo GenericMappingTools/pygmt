@@ -5,10 +5,9 @@ directional_rose - Add a map directional rose.
 from collections.abc import Sequence
 from typing import Literal
 
-from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
 from pygmt.src._common import _parse_position
@@ -82,15 +81,8 @@ def directional_rose(
     >>> fig.directional_rose()
     >>> fig.show()
     """
-    # The default position is set to "TR" since GMT 6.7.0, which has no default value
-    # in GMT 6.6.0 and earlier versions.
-    # TODO(GMT>6.6.0): Set 'default=None' after GMT 6.7.0.
-    position = _parse_position(
-        position,
-        default=None
-        if Version(__gmt_version__) > Version("6.6.0")
-        else Position("TR", cstype="inside"),
-    )
+    # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
+    position = _parse_position(position, default=Position("TR", cstype="inside"))
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
