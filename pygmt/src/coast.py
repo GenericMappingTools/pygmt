@@ -8,14 +8,67 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import args_in_kwargs, build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import (
+    args_in_kwargs,
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    use_alias,
+)
 from pygmt.params import Axis, Box, Frame
 
 __doctest_skip__ = ["coast"]
 
 
+def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
+    """
+    Helper function to create the alias list for the -C option.
+
+    Example
+    -------
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(C=_alias_option_C(**kwargs)).get("C")
+    >>> parse()
+    >>> parse(lakes="blue")
+    'blue+l'
+    >>> parse(river_lakes="cyan")
+    'cyan+r'
+    >>> parse(lakes="blue", river_lakes="cyan")
+    ['blue+l', 'cyan+r']
+
+    >>> # Check for backward compatibility
+    >>> parse(lakes="blue+l")
+    'blue+l'
+    >>> parse(lakes="cyan+r")
+    'cyan+r'
+    >>> parse(lakes=["blue+l", "cyan+r"])
+    ['blue+l', 'cyan+r']
+
+    >>> # Check for mixed usage error
+    >>> parse(lakes=["blue+l", "cyan+r"], river_lakes="cyan")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTParameterError: Conflicting parameters: 'river_lakes' ...
+    """
+    # A list of strings or lakes contains "+l" or "+r" is considered the old syntax.
+    _old_syntax = is_nonstr_iter(lakes) or "+l" in str(lakes) or "+r" in str(lakes)
+    if _old_syntax:
+        if river_lakes is not None:
+            raise GMTParameterError(
+                conflicts_with=("river_lakes", ["lakes"]),
+                reason="'lakes' is using the legacy syntax.",
+            )
+        return Alias(lakes, name="lakes")  # Return as is.
+
+    # The new sytax.
+    return [
+        Alias(lakes, name="lakes", suffix="+l"),
+        Alias(river_lakes, name="river_lakes", suffix="+r"),
+    ]
+
+
 @fmt_docstring
-@use_alias(A="area_thresh", C="lakes", E="dcw")
+@use_alias(A="area_thresh", E="dcw")
 def coast(
     self,
     resolution: Literal[
@@ -26,6 +79,8 @@ def coast(
     rivers: int | str | Sequence[int | str] | None = None,
     borders: int | str | Sequence[int | str] | None = None,
     shorelines: bool | str | Sequence[int | str] = False,
+    lakes: str | None = None,
+    river_lakes: str | None = None,
     map_scale: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
@@ -59,6 +114,7 @@ def coast(
 
     $aliases
        - B = frame
+       - C = lakes, river_lakes
        - D = resolution
        - F = box
        - G = land
@@ -75,13 +131,6 @@ def coast(
     Parameters
     ----------
     $area_thresh
-    lakes : str or list
-        *fill*\ [**+l**\|\ **+r**].
-        Set the shade, color, or pattern for lakes and river-lakes. The
-        default is the fill chosen for "wet" areas set by the ``water``
-        parameter. Optionally, specify separate fills by appending
-        **+l** for lakes or **+r** for river-lakes, and passing multiple
-        strings in a list.
     resolution
         Select the resolution of the coastline dataset to use. The available resolutions
         from highest to lowest are: ``"full"``, ``"high"``, ``"intermediate"``,
@@ -92,6 +141,12 @@ def coast(
         Select filling of "dry" areas.
     water
         Select filling of "wet" areas.
+    lakes
+        Select filling of lakes. If not specified, will use the fill for "wet" areas set
+        by the ``water`` parameter.
+    river_lakes
+        Select filling of river-lakes. If not specified, will use the fill for "wet"
+        areas set by the ``water`` parameter.
     rivers
         Draw rivers. Specify the type of rivers to draw, and optionally append a pen
         attribute, in the format *river*\ /*pen* [Default pen is
@@ -247,7 +302,8 @@ def coast(
         and kwargs.get("I", rivers) is None
         and kwargs.get("N", borders) is None
         and kwargs.get("W", shorelines) is False
-        and not args_in_kwargs(args=["C", "E", "Q"], kwargs=kwargs)
+        and kwargs.get("C", lakes or river_lakes) is None
+        and not args_in_kwargs(args=["E", "Q"], kwargs=kwargs)
     ):
         raise GMTParameterError(
             at_least_one=[
@@ -257,12 +313,14 @@ def coast(
                 "borders",
                 "shorelines",
                 "lakes",
+                "river_lakes",
                 "dcw",
                 "Q",
             ]
         )
 
     aliasdict = AliasSystem(
+        C=_alias_option_C(lakes=lakes, river_lakes=river_lakes),
         D=Alias(
             resolution,
             name="resolution",
