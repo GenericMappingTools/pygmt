@@ -43,7 +43,7 @@ def text(  # noqa: PLR0912, PLR0915
     font: str | StringArrayTypes | bool = False,
     fill: str | None = None,
     pen: str | None = None,
-    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    justify: bool | AnchorCode | Sequence[AnchorCode] | None = None,
     offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,

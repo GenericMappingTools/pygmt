@@ -767,7 +767,7 @@ def sequence_join(
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
-) -> str | list[str] | None | Any:
+) -> str | list[str] | Any | None:
     """
     Join a sequence of values into a string separated by a separator.
 
