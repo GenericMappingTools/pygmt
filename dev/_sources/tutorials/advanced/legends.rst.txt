@@ -40,7 +40,7 @@ manually created legends are supported.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-31
+.. GENERATED FROM PYTHON SOURCE LINES 16-30
 
 Create an auto-legend
 ---------------------
@@ -50,15 +50,14 @@ An auto-legend can be created for the methods :meth:`pygmt.Figure.plot` and
 :meth:`pygmt.Figure.vlines` as well as :meth:`pygmt.Figure.histogram`. Therefore the
 ``label`` parameter has to be specified to state the desired text for the legend entry
 (white spaces are supported). Here, we use :meth:`pygmt.Figure.plot`, exemplary. By
-default, the legend is placed in the Upper Right corner with an offset of 0.1
-centimeters in both x- and y-directions, and surrounded by a box with a white fill and
-a 1-point thick, black, solid outline. The order of the legend entries (top to bottom)
-is determine by the plotting order. Optionally, to adjust the legend, append different
-modifiers to the string passed to ``label``. For a list of available modifiers see
-:gmt-docs:`gmt.html#l-full`. To create a :doc:`multiple-column legend
+default, the legend is placed in the Upper Right corner and surrounded by a box with a
+white fill and a 1-point thick, black, solid outline. The order of the legend entries
+(top to bottom) is determined by the plotting order. Optionally, to adjust the legend,
+append different modifiers to the string passed to ``label``. For a list of available
+modifiers see :gmt-docs:`gmt.html#l-full`. To create a :doc:`multiple-column legend
 </gallery/embellishments/legend>` **+N** is used with the desired number of columns.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-46
+.. GENERATED FROM PYTHON SOURCE LINES 30-45
 
 .. code-block:: Python
 
@@ -89,7 +88,7 @@ modifiers to the string passed to ``label``. For a list of available modifiers s
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-52
+.. GENERATED FROM PYTHON SOURCE LINES 46-51
 
 Adjust position and line spacing
 --------------------------------
@@ -97,7 +96,7 @@ Adjust position and line spacing
 Use the ``position`` parameter to adjust the position of the legend. Note, no box is
 drawn by default if ``position`` is used
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-77
+.. GENERATED FROM PYTHON SOURCE LINES 51-76
 
 .. code-block:: Python
 
@@ -138,12 +137,12 @@ drawn by default if ``position`` is used
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-80
+.. GENERATED FROM PYTHON SOURCE LINES 77-79
 
 Add a box
 ---------
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-112
+.. GENERATED FROM PYTHON SOURCE LINES 79-111
 
 .. code-block:: Python
 
@@ -191,7 +190,7 @@ Add a box
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-129
+.. GENERATED FROM PYTHON SOURCE LINES 112-128
 
 Create a manual legend
 ----------------------
@@ -210,7 +209,7 @@ The following example is orientated on the related GMT example at
 
 We start with setting up the :class:`io.StringIO` object.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-160
+.. GENERATED FROM PYTHON SOURCE LINES 128-159
 
 .. code-block:: Python
 
@@ -252,12 +251,12 @@ We start with setting up the :class:`io.StringIO` object.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-163
+.. GENERATED FROM PYTHON SOURCE LINES 160-162
 
 Now, we can add a legend based on this :class:`io.StringIO` object. For multi-columns
 legends, the width must be specified.
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-172
+.. GENERATED FROM PYTHON SOURCE LINES 162-171
 
 .. code-block:: Python
 
@@ -285,7 +284,7 @@ legends, the width must be specified.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.682 seconds)
+   **Total running time of the script:** (0 minutes 0.716 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_legends.py:

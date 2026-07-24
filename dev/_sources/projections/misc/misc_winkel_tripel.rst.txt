@@ -38,10 +38,11 @@ map into straight lines 0.4 times the length of equator.
 
 **r**\ [*lon0/*]\ *scale* or **R**\ [*lon0/*]\ *width*
 
-The projection is set with **r** or **R**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **r** or **R**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-40
+.. GENERATED FROM PYTHON SOURCE LINES 28-41
 
 
 
@@ -73,7 +74,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.230 seconds)
+   **Total running time of the script:** (0 minutes 0.240 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_winkel_tripel.py:

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.450** total execution time for 13 files **from gallery/embellishments**:
+**00:04.604** total execution time for 13 files **from gallery/embellishments**:
 
 .. container::
 
@@ -33,41 +33,41 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_embellishments_pygmtlogo.py` (``pygmtlogo.py``)
-     - 00:01.012
+     - 00:01.063
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)
-     - 00:00.669
+     - 00:00.677
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)
-     - 00:00.364
+     - 00:00.379
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``)
-     - 00:00.341
+     - 00:00.348
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``scalebar.py``)
-     - 00:00.333
-     - 0.0
-   * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)
-     - 00:00.329
+     - 00:00.343
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)
-     - 00:00.327
+     - 00:00.340
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)
+     - 00:00.338
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_directional_roses.py` (``directional_roses.py``)
-     - 00:00.227
+     - 00:00.236
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_magnetic_rose.py` (``magnetic_rose.py``)
-     - 00:00.215
+     - 00:00.224
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_gmt_logo.py` (``gmt_logo.py``)
-     - 00:00.204
+     - 00:00.211
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)
-     - 00:00.162
+     - 00:00.168
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)
-     - 00:00.142
+     - 00:00.146
      - 0.0
    * - :ref:`sphx_glr_gallery_embellishments_text_formatting.py` (``text_formatting.py``)
-     - 00:00.125
+     - 00:00.131
      - 0.0

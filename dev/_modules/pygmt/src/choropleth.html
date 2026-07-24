@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/choropleth.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -99,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -171,7 +171,7 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">choropleth</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">choropleth</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">data</span><span class="p">:</span> <span class="n">GeoLike</span> <span class="o">|</span> <span class="n">PathLike</span><span class="p">,</span>
     <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -191,10 +191,11 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot a choropleth map.</span>
 
-<span class="sd">    This method fills polygons based on values in a specified data column. It requires</span>
-<span class="sd">    the input data to be a geo-like Python object that implements ``__geo_interface__``</span>
-<span class="sd">    (e.g. a :class:`geopandas.GeoDataFrame`), or an OGR_GMT file containing the</span>
-<span class="sd">    geometry and data to plot.</span>
+<span class="sd">    This method creates a choropleth map by filling each polygon according to an</span>
+<span class="sd">    attribute value. It requires the input data to be a geo-like Python object that</span>
+<span class="sd">    implements ``__geo_interface__`` and includes the values used to fill the polygons</span>
+<span class="sd">    as an attribute field (e.g. a :class:`geopandas.GeoDataFrame`), or an OGR_GMT file</span>
+<span class="sd">    containing the geometry and data to plot.</span>
 
 <span class="sd">    **Aliases:**</span>
 
@@ -217,9 +218,10 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data</span>
-<span class="sd">        A geo-like Python object which implements ``__geo_interface__`` (e.g. a</span>
-<span class="sd">        :class:`geopandas.GeoDataFrame` or :class:`shapely.geometry`), or an OGR_GMT</span>
-<span class="sd">        file containing the geometry and data to plot.</span>
+<span class="sd">        A geo-like Python object which implements ``__geo_interface__`` and includes</span>
+<span class="sd">        the values used to fill the polygons as an attribute field (e.g. a</span>
+<span class="sd">        :class:`geopandas.GeoDataFrame`), or an OGR_GMT file containing the geometry and</span>
+<span class="sd">        data to plot.</span>
 <span class="sd">    column</span>
 <span class="sd">        The name of the data column to use for the fill.</span>
 <span class="sd">    cmap</span>
@@ -255,8 +257,6 @@
 <span class="sd">    &gt;&gt;&gt; fig.colorbar(frame=True)</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">),</span>
         <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">intensity</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;intensity&quot;</span><span class="p">),</span>
@@ -275,6 +275,7 @@
     <span class="c1"># Force -G+z and -L to be set for choropleth</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;+z&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
@@ -291,9 +292,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

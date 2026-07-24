@@ -111,7 +111,7 @@ quantity for the color-coding.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.954 seconds)
+   **Total running time of the script:** (0 minutes 0.942 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_3d_bar.py:

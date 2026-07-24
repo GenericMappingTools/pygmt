@@ -30,13 +30,14 @@ locations relative to the projection center.
 **e**\ *lon0/lat0*\ [*/horizon*]\ */scale* or
 **E**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-The projection type is set with **e** or **E**. *lon0/lat0* specifies the
-projection center, and the optional parameter *horizon* specifies the maximum
-distance to the projection center (i.e. the visible portion of the rest of the
-world map) in degrees <= 180° (default 180°). The size of the figure is set by
-*scale* or *width*.
+- **e** or **E**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: The maximum distance from the projection center to the edge of the
+  map (i.e. the visible portion of the rest of the world map) in degrees
+  (<= 180°) [Optional, default is 180°].
+- *scale* or *width*: Sets the map size.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-35
+.. GENERATED FROM PYTHON SOURCE LINES 23-36
 
 
 
@@ -51,7 +52,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
  .. code-block:: none
 
     coast [WARNING]: Fill/clip continent option (-G) may not work for this projection.
-    coast [WARNING]: If the antipode (0/4.67039e-310) is in the ocean then chances are good it will work.
+    coast [WARNING]: If the antipode (0/4.67418e-310) is in the ocean then chances are good it will work.
     coast [WARNING]: Otherwise, avoid projection center coordinates that are exact multiples of 80 degrees.
 
 
@@ -80,7 +81,7 @@ world map) in degrees <= 180° (default 180°). The size of the figure is set by
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.359 seconds)
+   **Total running time of the script:** (0 minutes 0.362 seconds)
 
 
 .. rst-class:: sphx-glr-example-tags

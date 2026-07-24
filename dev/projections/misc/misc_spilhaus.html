@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/projections/misc/misc_spilhaus.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -120,7 +120,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -196,9 +196,12 @@ to download the full example code.</p>
 <p>The Spilhaus projection is a world map projection that presents the world’s
 oceans as one contiguous body of water, with Antarctica at the top. It was
 developed by Athelstan Spilhaus and is useful for oceanographic studies.</p>
-<p><strong>+proj=spilhaus+width=</strong><em>width</em></p>
-<p>The projection is set as a PROJ string with <code class="docutils literal notranslate"><span class="pre">+proj=spilhaus</span></code> and the figure
-size is set with <em>width</em>.</p>
+<p><strong>+proj=spilhaus+scale=</strong><em>scale</em> or
+<strong>+proj=spilhaus+width=</strong><em>width</em></p>
+<ul class="simple">
+<li><p><strong>+proj=spilhaus</strong>: Sets the projection type.</p></li>
+<li><p><em>scale</em> or <em>width</em>: Sets the map size.</p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This projection works well for coastlines but currently has issues for filling
@@ -218,7 +221,7 @@ land and water masses.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.253 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.275 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-misc-misc-spilhaus-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b7a41176a935007f342afea5669ab951/misc_spilhaus.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">misc_spilhaus.ipynb</span></code></a></p>
@@ -246,9 +249,9 @@ land and water masses.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

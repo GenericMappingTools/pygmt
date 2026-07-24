@@ -51,10 +51,11 @@ conformal latitude in the general spherical formulae instead.
 
 **u**\ *zone/scale* or **U**\ *zone/width*
 
-The projection is set with **u** or **U**. *zone* sets the zone for the figure,
-and the figure size is set with *scale* or *width*.
+- **u** or **U**: Sets the projection type.
+- *zone*: Sets the UTM zone.
+- *scale* or *width*: Sets the map size.
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-54
+.. GENERATED FROM PYTHON SOURCE LINES 41-55
 
 
 
@@ -87,7 +88,7 @@ and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.199 seconds)
+   **Total running time of the script:** (0 minutes 0.204 seconds)
 
 
 .. rst-class:: sphx-glr-example-tags

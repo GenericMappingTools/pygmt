@@ -34,11 +34,12 @@ the scale along meridians.
 **b**\ *lon0/lat0*\ /\ *lat1/lat2*\ */scale*
 or **B**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*
 
-The projection is set with **b** or **B**. The projection center is set by
-*lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
-The figure size is set with *scale* or *width*.
+- **b** or **B**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *lat1/lat2*: Sets the two standard parallels.
+- *scale* or *width*: Sets the map size.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-38
+.. GENERATED FROM PYTHON SOURCE LINES 25-39
 
 
 
@@ -71,7 +72,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.288 seconds)
+   **Total running time of the script:** (0 minutes 0.291 seconds)
 
 
 .. rst-class:: sphx-glr-example-tags

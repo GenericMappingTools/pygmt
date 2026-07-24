@@ -110,7 +110,7 @@ changed.
 
 .. GENERATED FROM PYTHON SOURCE LINES 48-51
 
-Via the ``wordamrk`` parameter the text "PyGMT" can be added on the right side or at
+Via the ``wordmark`` parameter the text "PyGMT" can be added on the right side or at
 the bottom of the visual. Use the ``width`` and ``height`` parameters to adjust the
 size of the logo.
 
@@ -144,7 +144,7 @@ size of the logo.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.012 seconds)
+   **Total running time of the script:** (0 minutes 1.063 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_pygmtlogo.py:

@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/advanced/legends.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -130,7 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -218,12 +218,11 @@ manually created legends are supported.</p>
 <a class="reference internal" href="../../api/generated/pygmt.Figure.vlines.html#pygmt.Figure.vlines" title="pygmt.Figure.vlines"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.vlines</span></code></a> as well as <a class="reference internal" href="../../api/generated/pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.histogram</span></code></a>. Therefore the
 <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter has to be specified to state the desired text for the legend entry
 (white spaces are supported). Here, we use <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>, exemplary. By
-default, the legend is placed in the Upper Right corner with an offset of 0.1
-centimeters in both x- and y-directions, and surrounded by a box with a white fill and
-a 1-point thick, black, solid outline. The order of the legend entries (top to bottom)
-is determine by the plotting order. Optionally, to adjust the legend, append different
-modifiers to the string passed to <code class="docutils literal notranslate"><span class="pre">label</span></code>. For a list of available modifiers see
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full</a>. To create a <a class="reference internal" href="../../gallery/embellishments/legend.html"><span class="doc">multiple-column legend</span></a> <strong>+N</strong> is used with the desired number of columns.</p>
+default, the legend is placed in the Upper Right corner and surrounded by a box with a
+white fill and a 1-point thick, black, solid outline. The order of the legend entries
+(top to bottom) is determined by the plotting order. Optionally, to adjust the legend,
+append different modifiers to the string passed to <code class="docutils literal notranslate"><span class="pre">label</span></code>. For a list of available
+modifiers see <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full">https://docs.generic-mapping-tools.org/6.6/gmt.html#l-full</a>. To create a <a class="reference internal" href="../../gallery/embellishments/legend.html"><span class="doc">multiple-column legend</span></a> <strong>+N</strong> is used with the desired number of columns.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -358,7 +357,7 @@ legends, the width must be specified.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_legends_004.png" srcset="../../_images/sphx_glr_legends_004.png" alt="legends" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.682 seconds)</p>
+<img src="../../_images/sphx_glr_legends_004.png" srcset="../../_images/sphx_glr_legends_004.png" alt="legends" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.716 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-legends-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b51de824cf090938fdd330d92935f425/legends.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">legends.ipynb</span></code></a></p>
@@ -387,9 +386,9 @@ legends, the width must be specified.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

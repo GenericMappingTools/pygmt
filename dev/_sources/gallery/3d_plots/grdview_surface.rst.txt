@@ -97,7 +97,7 @@ for the ``projection`` and ``zscale`` parameters ensures equal axis scaling. The
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.043 seconds)
+   **Total running time of the script:** (0 minutes 2.959 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:

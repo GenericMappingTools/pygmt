@@ -24,11 +24,13 @@ Cartesian logarithmic
 **X**\ *width*\ [**l**][/*height*\ [**l**]] or
 **x**\ *x-scale*\ [**l**][/*y-scale*\ [**l**]]
 
-Give the *width* of the plot and the optional *height*. The lowercase version **x** is
-similar to **X** but expects an *x-scale* and an optional *y-scale*. Each axis with a
-logarithmic transformation requires an **l** after its size argument.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+- **l**: Applies a logarithmic transformation to an axis. Append it after the
+  corresponding size argument [Optional].
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-49
+.. GENERATED FROM PYTHON SOURCE LINES 16-51
 
 
 
@@ -82,7 +84,7 @@ logarithmic transformation requires an **l** after its size argument.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.155 seconds)
+   **Total running time of the script:** (0 minutes 0.158 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_logarithmic.py:

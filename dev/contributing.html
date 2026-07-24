@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/contributing.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="_static/documentation_options.js?v=ddf4a239"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -102,7 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -157,7 +157,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#testing-your-code">Testing your Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-plots">Testing Plots</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-mpl-image-compare">Using mpl_image_compare</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-data-version-control-dvc-to-manage-test-images">Using Data Version Control (dvc) to Manage Test Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-git-large-file-storage-lfs-to-manage-test-images">Using Git Large File Storage (LFS) to Manage Test Images</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#using-check-figures-equal">Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code></a></li>
 </ul>
 </li>
@@ -445,7 +445,7 @@ In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:</p>
 <ul class="simple">
 <li><p>git (for cloning the repo and tracking changes in code)</p></li>
-<li><p>dvc (for downloading baseline images used in tests)</p></li>
+<li><p><a class="reference external" href="https://git-lfs.com">Git LFS</a> (for downloading baseline images used in tests)</p></li>
 <li><p>pytest-mpl (for checking that generated plots match the baseline)</p></li>
 <li><p>sphinx-gallery (for building the gallery example page)</p></li>
 </ul>
@@ -835,9 +835,9 @@ pandas, and xarray objects and the virtual file mechanism.</p>
 If you’re not sure how to do this or are having trouble, submit your pull request
 anyway.
 We will help you create the tests and sort out any kind of problem during code review.</p>
-<p>Pull the baseline images, run the tests, and calculate test coverage using:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
-dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+<p>Pull the latest changes (including baseline images), run the tests, and calculate
+test coverage using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git pull
 make test
 </pre></div>
 </div>
@@ -897,72 +897,35 @@ Visually inspect the one corresponding to your test function.
 If it’s correct, copy it (and only it) to <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code>.
 When you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> the next time, your test should be executed and
 passing.</p>
-<p>Don’t forget to commit the baseline image as well!
-The images should be pushed up into a remote repository using <code class="docutils literal notranslate"><span class="pre">dvc</span></code> (instead of
-<code class="docutils literal notranslate"><span class="pre">git</span></code>) as will be explained in the next section.</p>
+<p>Don’t forget to commit the baseline image as well! Baseline images are tracked with
+Git LFS, as explained in the next section.</p>
 </section>
-<section id="using-data-version-control-dvc-to-manage-test-images">
-<h4>Using Data Version Control (<a class="reference external" href="https://dvc.org">dvc</a>) to Manage Test Images<a class="headerlink" href="#using-data-version-control-dvc-to-manage-test-images" title="Link to this heading"></a></h4>
-<p>As the baseline images are quite large blob files that can change often (e.g.
-with new GMT versions), it is not ideal to store them in <code class="docutils literal notranslate"><span class="pre">git</span></code> (which is meant
-for tracking plain text files). Instead, we will use <a class="reference external" href="https://dvc.org"><code class="docutils literal notranslate"><span class="pre">dvc</span></code></a>
-which is like <code class="docutils literal notranslate"><span class="pre">git</span></code> but for data. What <code class="docutils literal notranslate"><span class="pre">dvc</span></code> does is to store the hash (md5sum)
-of a file. For example, given an image file like <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span></code> will
-generate a <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> plain text file containing the hash of the
-image. This <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> file can be stored as usual on GitHub, while
-the <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code> file can be stored separately on our <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote at
-<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt">https://dagshub.com/GenericMappingTools/pygmt</a>.</p>
-<p>To <strong>pull</strong> or sync files from the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote to your local repository, use
-the commands below. Note how <code class="docutils literal notranslate"><span class="pre">dvc</span></code> commands are very similar to <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
-dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+<section id="using-git-large-file-storage-lfs-to-manage-test-images">
+<h4>Using <a class="reference external" href="https://git-lfs.com">Git Large File Storage (LFS)</a> to Manage Test Images<a class="headerlink" href="#using-git-large-file-storage-lfs-to-manage-test-images" title="Link to this heading"></a></h4>
+<p>As the baseline images are quite large blob files that can change often (e.g., with new
+GMT versions), they are managed with Git LFS rather than regular Git objects.</p>
+<p>You need to run the following command once to set up Git LFS on your machine:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git lfs install
 </pre></div>
 </div>
-<p>Once the sync/download is complete, you should notice two things. There will be
-images stored in the <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>) and
-these images are technically reflinks/symlinks/copies of the files under the
-<code class="docutils literal notranslate"><span class="pre">.dvc/cache</span></code> folder. You can now run the image comparison test suite as per
-usual.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest pygmt/tests/test_logo.py  # run only one test
-make test  # run the entire test suite
-</pre></div>
-</div>
-<p>To <strong>push</strong> or sync changes from your local repository up to the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote
-at DAGsHub, you will first need to set up authentication using the commands
-below. This only needs to be done once, i.e. the first time you contribute a
-test image to the PyGMT project.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc remote modify upstream --local auth basic
-dvc remote modify upstream --local user &quot;$DAGSHUB_USER&quot;
-dvc remote modify upstream --local password &quot;$DAGSHUB_PASS&quot;
-</pre></div>
-</div>
-<p>The configuration will be stored inside your <code class="docutils literal notranslate"><span class="pre">.dvc/config.local</span></code> file. Note
-that the $DAGSHUB_PASS token can be generated at
-<a class="reference external" href="https://dagshub.com/user/settings/tokens">https://dagshub.com/user/settings/tokens</a>
-after creating a DAGsHub account (can be linked to your GitHub account). Once
-you have an account set up, please ask one of the PyGMT maintainers to add you
-as a collaborator at
-<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration</a>
-before proceeding with the next steps.</p>
-<p>The entire workflow for generating or modifying baseline test images can be
-summarized as follows:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Sync with both git and dvc remotes
+<p>After that, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> download the baseline images automatically. If
+Git LFS downloads were deliberately skipped, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">pull</span></code> to download the missing
+images. The images in <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code> can then be used by the image-comparison
+tests as usual.</p>
+<p>The entire workflow for generating or modifying baseline test images can be summarized
+as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Sync Git; Git LFS objects are downloaded automatically
 git pull
-dvc pull
 
 # Generate new baseline images
 pytest --mpl-generate-path=baseline pygmt/tests/test_logo.py
 mv baseline/*.png pygmt/tests/baseline/
 
-# Generate hash for baseline image and stage the *.dvc file in git
-dvc status  # Check which files need to be added to dvc
-dvc add pygmt/tests/baseline/test_logo.png
-git add pygmt/tests/baseline/test_logo.png.dvc
+# Stage the Git LFS-tracked baseline image
+git add pygmt/tests/baseline/test_logo.png
 
-# Commit changes and push to both the git and dvc remotes
-git commit -m &quot;Add test_logo.png into DVC&quot;
-dvc status --remote upstream  # Report which files will be pushed to the dvc remote
-dvc push  # Run before git push to enable automated testing with the new images
+# Commit and push; Git LFS uploads the image automatically
+git commit -m &quot;Add test_logo.png baseline image&quot;
 git push
 </pre></div>
 </div>
@@ -1003,9 +966,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

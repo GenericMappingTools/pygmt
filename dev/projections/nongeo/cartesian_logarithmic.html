@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/projections/nongeo/cartesian_logarithmic.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -115,7 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -190,9 +190,13 @@ to download the full example code.</p>
 <span id="sphx-glr-projections-nongeo-cartesian-logarithmic-py"></span><h1>Cartesian logarithmic<a class="headerlink" href="#cartesian-logarithmic" title="Link to this heading"></a></h1>
 <p><strong>X</strong><em>width</em>[<strong>l</strong>][/<em>height</em>[<strong>l</strong>]] or
 <strong>x</strong><em>x-scale</em>[<strong>l</strong>][/<em>y-scale</em>[<strong>l</strong>]]</p>
-<p>Give the <em>width</em> of the plot and the optional <em>height</em>. The lowercase version <strong>x</strong> is
-similar to <strong>X</strong> but expects an <em>x-scale</em> and an optional <em>y-scale</em>. Each axis with a
-logarithmic transformation requires an <strong>l</strong> after its size argument.</p>
+<ul class="simple">
+<li><p><strong>X</strong> or <strong>x</strong>: Sets the projection type.</p></li>
+<li><p><em>width</em> or <em>x-scale</em>: Sets the plot size.</p></li>
+<li><p><em>height</em> or <em>y-scale</em>: Sets the plot height [Optional].</p></li>
+<li><p><strong>l</strong>: Applies a logarithmic transformation to an axis. Append it after the
+corresponding size argument [Optional].</p></li>
+</ul>
 <img src="../../_images/sphx_glr_cartesian_logarithmic_001.png" srcset="../../_images/sphx_glr_cartesian_logarithmic_001.png" alt="cartesian logarithmic" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pygmt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">,</span> <a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a>
@@ -230,7 +234,7 @@ logarithmic transformation requires an <strong>l</strong> after its size argumen
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.155 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.158 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-nongeo-cartesian-logarithmic-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/07c438f7ea67f18fb2ae785888e59cda/cartesian_logarithmic.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cartesian_logarithmic.ipynb</span></code></a></p>
@@ -258,9 +262,9 @@ logarithmic transformation requires an <strong>l</strong> after its size argumen
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

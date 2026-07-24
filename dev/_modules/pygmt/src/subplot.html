@@ -26,7 +26,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/subplot.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -99,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -287,7 +287,7 @@
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;subsize&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span> <span class="n">SC</span><span class="o">=</span><span class="s2">&quot;sharex&quot;</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="s2">&quot;sharey&quot;</span><span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">subplot</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">subplot</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">nrows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">ncols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
@@ -454,8 +454,6 @@
 <span class="sd">    $frame</span>
 <span class="sd">    $verbose</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
     <span class="k">if</span> <span class="n">nrows</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">ncols</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nrows</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">ncols</span><span class="si">=}</span><span class="s2">&quot;</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
@@ -493,6 +491,8 @@
     <span class="c1"># Otherwise, &quot;subplot end&quot; will use the last session, which may cause</span>
     <span class="c1"># strange positioning issues for later plotting calls.</span>
     <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/2426.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
+
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
@@ -570,8 +570,6 @@
 
 <span class="sd">    $verbose</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span><span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -580,6 +578,7 @@
         <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Alias</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
     <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">))</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
         <span class="k">yield</span>
@@ -594,9 +593,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 

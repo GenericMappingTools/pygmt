@@ -27,7 +27,7 @@
     <link rel="canonical" href="https://pygmt.org//dev/projections/azim/azim_general_perspective.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
+      <script src="../../_static/documentation_options.js?v=ddf4a239"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -117,7 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -194,16 +194,20 @@ to download the full example code.</p>
 point in space. In a full view of the earth one third of its surface area can
 be seen.</p>
 <p><strong>g</strong><em>lon0/lat0</em><em>/scale</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>] or <strong>G</strong><em>lon0/lat0</em><em>/width</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>]</p>
-<p>The projection type is set with <strong>g</strong> or <strong>G</strong>. <em>lon0/lat0</em> specifies the
-projection center and <em>scale</em> or <em>width</em> determine the size of the figure.
-With <strong>+a</strong><em>azimuth</em> the direction (in degrees) in which you are looking is
-specified, measured clockwise from north. <strong>+t</strong><em>tilt</em> is given in degrees
-and is the viewing angle relative to zenith. A tilt of 0° is looking straight
-down, 60° is looking 30° above horizon. The viewport angle in degrees is
-described via <strong>+v</strong><em>vwidth/vheight</em> and <strong>+w</strong><em>twist</em> is the clockwise
-rotation of the image (in degrees). <strong>+z</strong><em>altitude</em> sets the height in km
-of the viewpoint above local sea level (If altitude is less than 10, then it is
-the distance from the center of the earth to the viewpoint in earth radii).</p>
+<ul class="simple">
+<li><p><strong>g</strong> or <strong>G</strong>: Sets the projection type.</p></li>
+<li><p><em>lon0/lat0</em>: Sets the projection center.</p></li>
+<li><p><em>scale</em> or <em>width</em>: Sets the map size.</p></li>
+<li><p><strong>+a</strong><em>azimuth</em>: The direction in which you are looking, measured clockwise
+from north in degrees [Optional].</p></li>
+<li><p><strong>+t</strong><em>tilt</em>: The viewing angle relative to zenith in degrees. A tilt of 0°
+is looking straight down, 60° is looking 30° above horizon [Optional].</p></li>
+<li><p><strong>+v</strong><em>vwidth/vheight</em>: The viewport angle in degrees [Optional].</p></li>
+<li><p><strong>+w</strong><em>twist</em>: The clockwise rotation of the image in degrees [Optional].</p></li>
+<li><p><strong>+z</strong><em>altitude</em>: The height of the viewpoint above local sea level in km.
+If altitude is less than 10, it is the distance from the center of the earth
+to the viewpoint in earth radii [Optional].</p></li>
+</ul>
 <p>The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.</p>
@@ -221,7 +225,7 @@ viewing angle is both 60°, which imitates viewing with naked eye.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.373 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.421 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-azim-azim-general-perspective-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/06138b8ef0f348c8ea4ec7ea6cd766b0/azim_general_perspective.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">azim_general_perspective.ipynb</span></code></a></p>
@@ -249,9 +253,9 @@ viewing angle is both 60°, which imitates viewing with naked eye.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/482d14e88">482d14e8</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Jul 23, 2026.
       </span></p>
   </div>
 
