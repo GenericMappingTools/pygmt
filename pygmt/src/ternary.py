@@ -163,7 +163,7 @@ def ternary(
         Width of the ternary diagram. Use a negative width to indicate that positive
         axes directions be clock-wise [Default lets the **a**, **b**, **c** axes be
         positive in a counter-clockwise direction].
-    region : str or list
+    region
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
@@ -194,7 +194,6 @@ def ternary(
     $perspective
     $transparency
     """
-    self._activate_figure()
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
@@ -215,6 +214,7 @@ def ternary(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

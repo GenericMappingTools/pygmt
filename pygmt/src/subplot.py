@@ -298,8 +298,6 @@ def subplot(
     $frame
     $verbose
     """
-    self._activate_figure()
-
     if nrows < 1 or ncols < 1:
         _value = f"{nrows=}, {ncols=}"
         raise GMTValueError(
@@ -337,6 +335,8 @@ def subplot(
     # Otherwise, "subplot end" will use the last session, which may cause
     # strange positioning issues for later plotting calls.
     # See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    self._activate_figure()
+
     try:
         with Session() as lib:
             lib.call_module(
@@ -414,8 +414,6 @@ def set_panel(
 
     $verbose
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
@@ -424,6 +422,7 @@ def set_panel(
         args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
     args.extend(build_arg_list(aliasdict))
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="subplot", args=args)
         yield

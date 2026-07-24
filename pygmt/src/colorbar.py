@@ -480,8 +480,6 @@ def colorbar(
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=None,  # Use GMT's default behavior if position is not provided.
@@ -543,5 +541,6 @@ def colorbar(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

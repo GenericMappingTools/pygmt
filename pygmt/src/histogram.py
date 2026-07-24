@@ -161,8 +161,6 @@ def histogram(
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     if bar_offset is not None and bar_width is None:
         raise GMTParameterError(
             required="bar_width", reason="Required when 'bar_offset' is set."
@@ -185,6 +183,7 @@ def histogram(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

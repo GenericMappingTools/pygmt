@@ -175,8 +175,6 @@ def grdimage(
     >>> # show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
         msg = (
@@ -200,6 +198,7 @@ def grdimage(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

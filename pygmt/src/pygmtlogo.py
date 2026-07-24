@@ -321,7 +321,7 @@ def pygmtlogo(
     color
         ``True`` for a color logo, and ``False`` for a black and white logo.
     position
-        Position of the GMT logo on the plot. It can be specified in multiple ways:
+        Position of the PyGMT logo on the plot. It can be specified in multiple ways:
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
@@ -370,6 +370,15 @@ def pygmtlogo(
     >>> fig.pygmtlogo(wordmark="horizontal", position="BR", height="1c")
     >>> fig.show()
     """
+    # Validate shape, theme, and wordmark values
+    for value, description, choices in [
+        (shape, "value for shape", ("circle", "hexagon")),
+        (theme, "value for theme", ("light", "dark")),
+        (wordmark, "value for wordmark", ("none", "horizontal", "vertical")),
+    ]:
+        if value not in choices:
+            raise GMTValueError(value, description=description, choices=choices)
+
     # Set the default size of the visual logo to 2 cm.
     if width is None and height is None:
         match wordmark:
@@ -377,12 +386,6 @@ def pygmtlogo(
                 width = width or "2c"
             case "horizontal":
                 height = height or "2c"
-            case _:
-                raise GMTValueError(
-                    wordmark,
-                    description="value for wordmark",
-                    choices={"none", "horizontal", "vertical"},
-                )
 
     with GMTTempFile(suffix=".eps") as logofile:
         # Create logo file

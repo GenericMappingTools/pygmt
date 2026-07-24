@@ -43,7 +43,7 @@ def text(  # noqa: PLR0912, PLR0915
     font: str | StringArrayTypes | bool = False,
     fill: str | None = None,
     pen: str | None = None,
-    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    justify: bool | AnchorCode | Sequence[AnchorCode] | None = None,
     offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
@@ -193,8 +193,6 @@ def text(  # noqa: PLR0912, PLR0915
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
     """
-    self._activate_figure()
-
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
         (textfiles is not None)
@@ -300,6 +298,7 @@ def text(  # noqa: PLR0912, PLR0915
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles or data, required=data_is_required

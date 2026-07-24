@@ -120,8 +120,6 @@ def logo(
     >>> fig.logo(position="TR", width="3c")
     >>> fig.show()
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
@@ -151,5 +149,6 @@ def logo(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(aliasdict))

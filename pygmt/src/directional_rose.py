@@ -81,8 +81,6 @@ def directional_rose(
     >>> fig.directional_rose()
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
     position = _parse_position(position, default=Position("TR", cstype="inside"))
 
@@ -101,5 +99,6 @@ def directional_rose(
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

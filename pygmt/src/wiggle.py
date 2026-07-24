@@ -138,8 +138,6 @@ def wiggle(
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
@@ -174,6 +172,7 @@ def wiggle(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
