@@ -154,6 +154,6 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                 # Add "source" encoding
                 source: str | list = which(fname=filename_or_obj, verbose="quiet")
                 raster.encoding["source"] = (
-                    sorted(source)[0] if isinstance(source, list) else source
+                    min(source) if isinstance(source, list) else source
                 )
                 return raster.to_dataset()

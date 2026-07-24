@@ -179,7 +179,10 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
-"*/src/*.py" = ["PLR0913"]  # Ignore `PLR0913` (too many arguments) in all `src` files
+"*/src/*.py" = [
+    "PLR0913", # Ignore `PLR0913` (too many arguments) in all `src` files
+    "PLR0917", # Ignore `PLR0917` (too many positional arguments) in all `src` files
+]
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
 "examples/**/*.py" = [ # Ignore rules in examples
     "B018",  # Allow useless expressions in Jupyter Notebooks
