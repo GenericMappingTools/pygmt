@@ -121,12 +121,11 @@ COMMON_DOCSTRINGS = {
 
             A unit **u** may be appended to the specified *gap*:
 
-            - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-              be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
-              or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-              **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
-            - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-              **i** (inches), **c** (centimeters), or **p** (points).
+            - For geographic data (**x**\|\ **y**\|\ **d**), valid units are **d**,
+              **m**, **s**, **e**, **f**, **k**, **M**, and **n** [Default is **e**].
+              See :ref:`distance-units` for meanings of the units.
+            - For projected data (**X**\|\ **Y**\|\ **D**), valid units are **c**,
+              **i**, and **p**. See :ref:`dimension-units` for meanings of the units.
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].

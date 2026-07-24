@@ -160,8 +160,9 @@ def ternary(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     width
-        Width of the ternary diagram. Use a negative width to indicate that positive
-        axes directions be clock-wise [Default lets the **a**, **b**, **c** axes be
+        Set the width of the figure by passing a number followed by a
+        :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
+        positive axes directions be clock-wise [Default lets the a, b, c axes be
         positive in a counter-clockwise direction].
     region
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].

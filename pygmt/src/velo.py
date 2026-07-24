@@ -88,7 +88,7 @@ def velo(
         Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
-        :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
+        :gmt-term:`PROJ_LENGTH_UNIT` unless a :ref:`dimension unit <dimension-units>` is
         appended).
 
         - **e**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
