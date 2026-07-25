@@ -106,6 +106,7 @@ pd.Series(["a", "b", "c"], dtype="string[pyarrow_numpy]")
 # A PyArrow array with pyarrow.string dtype
 pa.array(["a", "b", "c"], type=pa.string())
 ```
+:::
 
 ## Datetime Dtypes
 
