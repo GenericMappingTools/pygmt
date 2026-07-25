@@ -25,8 +25,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 ::::{grid-item-card}
 :link: https://www.pygmt.org/dev/install.html
 :margin: 0 3 0 0
-
-**Getting started**  {octicon}`rocket;1em;sd-text-info`
+**Getting started** {octicon}`rocket;1em;sd-text-info`
 ^^^
 - • Installing
 - • Intro to PyGMT
@@ -36,8 +35,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 ::::{grid-item-card}
 :link: https://www.pygmt.org/dev/overview.html
 :margin: 0 3 0 0
-
-**Project Overview**  {octicon}`globe;1em;sd-text-info`
+**Project Overview** {octicon}`globe;1em;sd-text-info`
 ^^^
 - • Why PyGMT?
 - • PyGMT Ecosystem
@@ -49,8 +47,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 ::::{grid-item-card}
 :link: https://www.pygmt.org/dev/gallery/index.html
 :margin: 0 3 0 0
-
-**User Guide**  {octicon}`image;1em;sd-text-info`
+**User Guide** {octicon}`image;1em;sd-text-info`
 ^^^
 - • Gallery
 - • Tutorials
@@ -62,8 +59,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 ::::{grid-item-card}
 :link: https://www.pygmt.org/dev/api/index.html
 :margin: 0 3 0 0
-
-**Reference Documentation**  {octicon}`book;1em;sd-text-info`
+**Reference Documentation** {octicon}`book;1em;sd-text-info`
 ^^^
 - • API Reference
 - • Technical Reference
@@ -75,8 +71,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 ::::{grid-item-card}
 :link: https://www.pygmt.org/dev/contributing.html
 :margin: 0 3 0 0
-
-**Development**  {octicon}`terminal;1em;sd-text-info`
+**Development** {octicon}`terminal;1em;sd-text-info`
 ^^^
 - • Contributors Guide
 - • Mainainers Guide
@@ -86,11 +81,10 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-
-**Getting Help**  {octicon}`light-bulb;1em;sd-text-info`
+**Getting Help** {octicon}`light-bulb;1em;sd-text-info`
 ^^^
 - <i class="fa fa-comment fa-fw"></i> [GMT Forum](https://forum.generic-mapping-tools.org) (please ask questions here)
-- <i class="fa fa-github fa-fw"></i> [Source code](https://github.com/GenericMappingTools/pygmt)
+- <i class="fa fa-github fa-fw"></i> [Source Code](https://github.com/GenericMappingTools/pygmt)
 - <i class="fa fa-gavel fa-fw"></i> [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 - <i class="fa fa-book fa-fw"></i> [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 ::::
