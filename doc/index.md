@@ -1,18 +1,17 @@
 ```{title} Home
 ```
 
-<div class="banner">
-    <img src="_static/pygmtlogo.png" alt="PyGMT Logo" style="width: 65%;">
-    <br>
-    <br>
-    <h2>
-        A Python interface for the
-        <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
-    </h2>
-</div>
+:::{div} sd-d-flex-row sd-align-major-center
+```{image} ./_static/pygmtlogo.png
+:width: 600px
+```
+:::
 
+:::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-4
+A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
+:::
 
-:::{div} sd-text-center sd-fs-5 sd-pb-5
+:::{div} sd-text-center sd-fs-5 sd-pb-4
 ```{include} ../README.md
 :start-after: <!-- doc-about-start-after -->
 :end-before: <!-- doc-about-end-before -->
@@ -97,6 +96,7 @@
 ::::
 
 :::::
+
 
 
 ```{toctree}
