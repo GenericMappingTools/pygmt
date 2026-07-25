@@ -22,7 +22,7 @@ from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
-def _alias_option_A(  # noqa: N802
+def _alias_option_A(  # ruff: ignore[N802]
     tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,

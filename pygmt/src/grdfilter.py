@@ -15,8 +15,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 __doctest_skip__ = ["grdfilter"]
 
 
-def _alias_option_F(  # noqa: N802
-    filter=None,  # noqa: A002
+def _alias_option_F(  # ruff: ignore[N802]
+    filter=None,  # ruff: ignore[A002]
     width=None,
     highpass=False,
 ):
@@ -70,7 +70,7 @@ def _alias_option_F(  # noqa: N802
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
-    filter: Literal[  # noqa: A002
+    filter: Literal[  # ruff: ignore[A002]
         "boxcar", "cosarch", "gaussian", "minall", "minpos", "maxall", "maxneg"
     ]
     | str

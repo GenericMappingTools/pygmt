@@ -331,7 +331,7 @@ class AliasSystem(UserDict):
                 kwdict[option] = aliases._value
         super().__init__(kwdict)
 
-    def add_common(self, **kwargs):  # noqa: PLR0912
+    def add_common(self, **kwargs):  # ruff: ignore[PLR0912]
         """
         Add common parameters to the alias dictionary.
         """

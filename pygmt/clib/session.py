@@ -382,7 +382,7 @@ class Session:
         self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
-        def print_func(file_pointer, message):  # noqa: ARG001
+        def print_func(file_pointer, message):  # ruff: ignore[ARG001]
             """
             Callback function that the GMT C API will use to print log and error
             messages.
@@ -399,7 +399,7 @@ class Session:
                 return 0
             self._error_log.append(message)
             # Flush to make sure the messages are printed even if we have a crash.
-            print(message, file=sys.stderr, flush=True)  # noqa: T201
+            print(message, file=sys.stderr, flush=True)  # ruff: ignore[T201]
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it will be
@@ -1171,7 +1171,7 @@ class Session:
         ------
         GMTCLibError
             If the GMT API function fails to read the data.
-        """  # noqa: W505
+        """  # ruff: ignore[W505]
         c_read_data = self.get_libgmt_func(
             "GMT_Read_Data",
             argtypes=[
@@ -1762,7 +1762,7 @@ class Session:
     @deprecate_parameter(
         "required_data", "required", "v0.16.0", remove_version="v0.20.0"
     )
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(  # ruff: ignore[PLR0912]
         self,
         check_kind=None,
         data=None,
@@ -1920,7 +1920,7 @@ class Session:
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                    _data = [array for _, array in data.items()]  # noqa: PERF102
+                    _data = [array for _, array in data.items()]  # ruff: ignore[PERF102]
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)
@@ -2354,7 +2354,7 @@ class Session:
         ...     region = lib.extract_region()
         >>> print(", ".join([f"{x:.2f}" for x in region]))
         -165.00, -150.00, 15.00, 25.00
-        """  # noqa: RUF002
+        """  # ruff: ignore[RUF002]
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",
             argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.POINTER(ctp.c_double)],

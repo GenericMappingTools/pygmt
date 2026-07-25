@@ -1,4 +1,4 @@
-# ruff: noqa: RUF001,RUF003
+# ruff: file-ignore[RUF001, RUF003]
 """
 Typesetting non-ASCII text
 --------------------------

@@ -11,7 +11,7 @@ from pygmt.exceptions import GMTParameterError, GMTValueError
 
 with contextlib.suppress(ImportError):
     # rioxarray is needed to register the rio accessor
-    import rioxarray  # noqa: F401
+    pass
 
 
 class Resolution(NamedTuple):
