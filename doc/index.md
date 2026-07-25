@@ -28,8 +28,6 @@
 ^^^
 - • Installing
 - • Intro to PyGMT
-<br>
-<br>
 ::::
 
 
