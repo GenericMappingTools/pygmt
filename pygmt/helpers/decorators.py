@@ -430,7 +430,6 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     My nice module.
     <BLANKLINE>
-
     Parameters
     ----------
     data
@@ -455,7 +454,7 @@ def fmt_docstring(module_func):
        - J = projection
        - R = region
     <BLANKLINE>
-    """
+    """  # ruff: ignore[D410, D411]
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
