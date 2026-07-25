@@ -20,67 +20,79 @@
 
 :::::{grid} 1 2 2 2
 
-::::{grid-item-card} Getting started
+::::{grid-item-card}
 :link: https://www.pygmt.org/dev/install.html
-:text-align: center
 :margin: 0 3 0 0
 
-+++
-Intallation guide and Intros
+**Getting started**
+^^^
+• Installing <br>
+• Intro to PyGMT <br>
+<br>
+<br>
 ::::
 
 
-::::{grid-item-card} Project overview
+::::{grid-item-card}
 :link: https://www.pygmt.org/dev/overview.html
-:text-align: center
 :margin: 0 3 0 0
 
-+++
-Why PyGMT, project goals, PyGMT ecosystem,
-How to cite, PyGMT paper, Zenodo, BibTex
-conference presentations
+**Project overview**
+^^^
+• Why PyGMT and Project Goals <br>
+• PyGMT Ecosystem <br>
+• How to Cite, PyGMT paper, Zenodo, BibTex <br>
+• Conference Presentations
 ::::
 
 
-::::{grid-item-card} User Guide
+::::{grid-item-card}
 :link: https://www.pygmt.org/dev/gallery/index.html
-:text-align: center
 :margin: 0 3 0 0
 
-+++
-Gallery, Tutorials, Map projections, and External resources
+**User Guide**
+^^^
+• Gallery <br>
+• Tutorials <br>
+• Projections <br>
+• External Resources
 ::::
 
 
-::::{grid-item-card} Reference Documentation
+::::{grid-item-card}
 :link: https://www.pygmt.org/dev/api/index.html
-:text-align: center
 :margin: 0 3 0 0
 
-+++
-API Reference and Technical Reference,
-Required minimum versions and Changelog
+**Reference Documentation**
+^^^
+• API Reference <br>
+• Technical Reference <br>
+• Minimum Required Versions <br>
+• Changelog
 ::::
 
 
-::::{grid-item-card} Development
+::::{grid-item-card}
 :link: https://www.pygmt.org/dev/contributing.html
-:text-align: center
 :margin: 0 3 0 0
 
-+++
-Countriubtors and mainainers Guides to learn how to get involved
-and and make your first contribution.
+**Development**
+^^^
+• Contributors Guide <br>
+• Mainainers Guide <br>
+• PyGMT Team
 ::::
 
 
-::::{grid-item-card} Getting Help
-:link:
-:text-align: center
+::::{grid-item-card}
 :margin: 0 3 0 0
 
-+++
-GMT Forum, Source code on GitHub, Code of Conduct, License
+**Getting Help**
+^^^
+• [GMT Forum](https://forum.generic-mapping-tools.org) (for asking questions) <br>
+• [GitHub](https://github.com/GenericMappingTools/pygmt) (for reporting bugs and contributing) <br>
+• [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md) <br>
+• [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 ::::
 
 :::::

@@ -71,6 +71,13 @@ p {
     border: solid 2px #b4c7e7;
 }
 
+/* Change background color of cards on landing page */
+/* https://sphinx-design.readthedocs.io/en/latest/css_variables.html */
+:root {
+    --sd-color-card-background: #EBF0F9;
+    --sd-color-card-header: #b4c7e7;
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
