@@ -12,12 +12,13 @@
 </div>
 
 
-:::{div} sd-text-center
+:::{div} sd-text-center sd-fs-5 sd-pb-5
 ```{include} ../README.md
 :start-after: <!-- doc-about-start-after -->
 :end-before: <!-- doc-about-end-before -->
 ```
 :::
+
 
 
 :::::{grid} 1 2 2 2
