@@ -41,7 +41,7 @@
 ^^^
 - • Why PyGMT and Project Goals
 - • PyGMT Ecosystem
-- • How to Cite, PyGMT paper, Zenodo, BibTex
+- • How to Cite PyGMT, BibTex for G3 Paper and Zenodo
 - • Conference Presentations
 ::::
 
@@ -67,7 +67,7 @@
 ^^^
 - • API Reference
 - • Technical Reference
-- • Minimum Required Versions
+- • Minimum Supported Versions
 - • Changelog
 ::::
 
