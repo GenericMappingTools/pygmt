@@ -76,6 +76,7 @@ p {
 :root {
     --sd-color-card-background: #EBF0F9;
     --sd-color-card-header: #b4c7e7;
+	--sd-color-card-footer: #FFFFFF;
 }
 
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
