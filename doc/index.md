@@ -27,8 +27,8 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **Getting started** {octicon}`rocket;1em;sd-text-info`
 ^^^
-- • Installing
-- • Intro to PyGMT
+- • [Installing]()
+- • [Intro to PyGMT]()
 ::::
 
 
@@ -37,10 +37,10 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **Project Overview** {octicon}`globe;1em;sd-text-info`
 ^^^
-- • Why PyGMT?
-- • PyGMT Ecosystem
-- • Citing PyGMT
-- • Conference Presentations
+- • [Why PyGMT?]()
+- • [PyGMT Ecosystem]()
+- • [Citing PyGMT]()
+- • [Conference Presentations]()
 ::::
 
 
@@ -49,10 +49,10 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **User Guide** {octicon}`image;1em;sd-text-info`
 ^^^
-- • Gallery
-- • Tutorials
-- • Projections
-- • External Resources
+- • [Gallery]()
+- • [Tutorials]()
+- • [Projections]()
+- • [External Resources]()
 ::::
 
 
@@ -61,10 +61,10 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **Reference Documentation** {octicon}`book;1em;sd-text-info`
 ^^^
-- • API Reference
-- • Technical Reference
-- • Minimum Supported Versions
-- • Changelog
+- • [API Reference]()
+- • [Technical Reference]()
+- • [Minimum Supported Versions]()
+- • [Changelog]()
 ::::
 
 
@@ -73,9 +73,9 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **Development** {octicon}`terminal;1em;sd-text-info`
 ^^^
-- • Contributors Guide
-- • Mainainers Guide
-- • PyGMT Team
+- • [Contributors Guide]()
+- • [Mainainers Guide]()
+- • [PyGMT Team]()
 ::::
 
 
