@@ -13,8 +13,8 @@
 
 
 ```{include} ../README.md
-:start-after: <!-- • doc-index-start-after -->
-:end-before: <!-- • doc-index-end-before -->
+:start-after: <!-- doc-index-start-after -->
+:end-before: <!-- doc-index-end-before -->
 ```
 
 
