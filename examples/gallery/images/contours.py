@@ -23,6 +23,7 @@ contours every 10 z-values and annotations every 20 z-values.
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis
 
 # Build the contours underlying data with the function z = x^2 + y^2
 X, Y = np.meshgrid(np.linspace(-10, 10, 50), np.linspace(-10, 10, 50))
@@ -34,7 +35,7 @@ fig = pygmt.Figure()
 fig.contour(
     region=[-10, 10, -10, 10],
     projection="X10c/10c",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
     pen="0.5p",
     # Pass the data as 3 1-D data columns
     x=x,

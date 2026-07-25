@@ -36,7 +36,7 @@ def psconvert(
 
     Full GMT docs at :gmt-docs:`psconvert.html`.
 
-    {aliases}
+    $aliases
        - C = gs_option
        - E = dpi
        - F = prefix
@@ -112,9 +112,8 @@ def psconvert(
         both an EPS and a PDF file. Using **F** creates a multi-page PDF
         file from the list of input PS or PDF files. It requires the
         ``prefix`` parameter.
-    {verbose}
+    $verbose
     """
-    self._activate_figure()
     # Default cropping the figure to True
     if kwargs.get("A") is None:
         kwargs["A"] = ""
@@ -142,5 +141,6 @@ def psconvert(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="psconvert", args=build_arg_list(aliasdict))

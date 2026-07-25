@@ -14,19 +14,21 @@ curves.
 
 **c**\ *lon0/lat0*\ */scale* or **C**\ *lon0/lat0*\ */width*
 
-The projection is set with **c** or **C**. The projection center is set by
-*lon0/lat0*, and the figure size is set with *scale* or *width*.
+- **c** or **C**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use the ISO code for Madagascar (MG) and pad it by 2 degrees (+R2)
 fig.coast(
     region="MG+R2",
     projection="C47/-19/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

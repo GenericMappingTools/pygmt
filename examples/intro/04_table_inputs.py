@@ -22,7 +22,7 @@ and work more efficiently with PyGMT.
 # %%
 from pathlib import Path
 
-import geopandas as gpd
+import geopandas
 import numpy as np
 import pandas as pd
 import pygmt
@@ -68,7 +68,7 @@ Path("input_data.dat").unlink()
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
 # - A 2-D :class:`list` (i.e., a list of lists)
-# - A :class:`numpy.ndarray` object with with a dimension of 2
+# - A :class:`numpy.ndarray` object with a dimension of 2
 # - A :class:`pandas.DataFrame` object
 #
 # This is useful when you want to plot data that is already in memory.
@@ -98,9 +98,9 @@ fig.show()
 # GMT and PyGMT do not support natively.
 
 # Example GeoDataFrame
-gdf = gpd.GeoDataFrame(
+gdf = geopandas.GeoDataFrame(
     {
-        "geometry": gpd.points_from_xy([2, 5, 9], [2, 3, 4]),
+        "geometry": geopandas.points_from_xy([2, 5, 9], [2, 3, 4]),
         "value": [10, 20, 30],
     }
 )

@@ -10,8 +10,8 @@ figure (**reference point**) and a point on the feature (**anchor point**). For 
 users can use a two-character code, a combination of a vertical code and a horizontal
 code (order-independent):
 
-- Vertical: **T**(op), **M**(iddle), **B**(ottom)
-- Horizontal: **L**(eft), **C**(entre), **R**(ight)
+- Vertical: **T** (Top), **M** (Middle), **B** (Bottom)
+- Horizontal: **L** (Left), **C** (Centre), **R** (Right)
 
 For example, `"TL"` means **T**op **L**eft.
 
@@ -105,7 +105,14 @@ Script showing justification codes for plot embellishments, e.g., a colorbar.
 fig = pygmt.Figure()
 fig.basemap(projection="X10c/2c", region=[-size, size, -size, size], frame=0)
 
-fig.colorbar(cmap="buda", frame=0, position="jMC+w10c/2c+h")
+fig.colorbar(
+    cmap="SCM/hawaii",
+    frame=0,
+    position="MC",
+    length=10,
+    width=2,
+    orientation="horizontal",
+)
 
 for code in codes:
     fig.text(

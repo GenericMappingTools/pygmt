@@ -130,3 +130,63 @@ class GMTTypeError(GMTError, TypeError):
         if reason:
             msg += f" {reason}"
         super().__init__(msg)
+
+
+class GMTParameterError(GMTError):
+    """
+    Raised when parameters are missing or invalid.
+
+    Parameters
+    ----------
+    required
+        Name or a collection of names of required parameters.
+    at_least_one
+        A collection of parameter names, of which at least one must be specified.
+    at_most_one
+        A collection of mutually exclusive parameter names, of which at most one can be
+        specified.
+    conflicts_with
+        A tuple with the parameter name and a collection of conflicting parameter names,
+        indicating which parameters cannot be used together.
+    reason
+        Detailed reason why the parameters are invalid.
+    """
+
+    def __init__(
+        self,
+        *,
+        required: str | Iterable[str] | None = None,
+        at_least_one: Iterable[str] | None = None,
+        at_most_one: Iterable[str] | None = None,
+        conflicts_with: tuple[str, Iterable[str]] | None = None,
+        reason: str | None = None,
+    ):
+        msg = []
+        if required:
+            if isinstance(required, str):
+                msg.append(f"Missing required parameter: {required!r}.")
+            else:
+                msg.append(
+                    "Missing required parameters: "
+                    f"{', '.join(repr(par) for par in required)}."
+                )
+        if at_least_one:
+            msg.append(
+                "Missing parameter: requires at least one of "
+                f"{', '.join(repr(par) for par in at_least_one)}."
+            )
+        if at_most_one:
+            msg.append(
+                "Mutually exclusive parameters: "
+                f"{', '.join(repr(par) for par in at_most_one)}. "
+                "Specify at most one of them."
+            )
+        if conflicts_with:
+            param, conflicts = conflicts_with
+            msg.append(
+                f"Conflicting parameters: {param!r} cannot be used with "
+                f"{', '.join(repr(c) for c in conflicts)}."
+            )
+        if reason:
+            msg.append(reason)
+        super().__init__(" ".join(msg))

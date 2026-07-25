@@ -16,7 +16,7 @@ References
 ----------
 
 - GMT-octal-codes: https://github.com/seisman/GMT-octal-codes
-- GMT documentation: https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
+- GMT documentation: https://docs.generic-mapping-tools.org/6.6/reference/octal-codes.html
 - Adobe Postscript Language Reference: https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 - Adobe ISOLatin1+: https://en.wikipedia.org/wiki/PostScript_Latin_1_Encoding
 - Adobe Symbol: https://en.wikipedia.org/wiki/Symbol_(typeface)

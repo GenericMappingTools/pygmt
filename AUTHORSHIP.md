@@ -10,14 +10,27 @@ contributors for their work. To do so, we will attempt to define:
 
 The following are the ways in which individuals who have contributed will be recognized.
 
-> **Note**: These policies are not set in stone and may be changed to accommodate the
-> growth of the project or the preferences of the community.
+> **Notes**:
+>
+> 1. These policies are not set in stone and may be changed to accommodate the growth of
+>    the project or the preferences of the community.
+> 2. Authorship and contributor recognition apply to human contributors. Bots, automated
+>    accounts, and AI tools are not considered as authors. If these tools assist with a
+>    contribution, the recognized author is the human who reviews and submits the work.
 
 ## The `AUTHORS.md` file
 
-Anyone who has contributed a pull request to the project is welcome to add themselves to
-the `AUTHORS.md` file. This file lives in the repository and is packaged with
-distributions. This is an optional process.
+The `AUTHORS.md` file lists PyGMT Developers. Anyone who has contributed a pull request
+to the project is welcome to add themselves to the file. This file lives in the
+repository and is packaged with distributions. This is an optional process.
+
+## The PyGMT Team
+
+[The PyGMT Team](https://github.com/GenericMappingTools/pygmt/blob/main/doc/team.md) is
+a group of individuals who maintain the PyGMT project, make decisions about the
+direction of the project, and manage release cycles. The team also includes
+distinguished contributors who have made significant contributions to the project in
+many ways in the project's history.
 
 ## Changelog for each release
 

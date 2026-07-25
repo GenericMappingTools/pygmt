@@ -12,15 +12,14 @@ from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
 @use_alias(
     A="annotation",
-    B="frame",
     C="levels",
     G="label_placement",
     L="triangular_mesh_pen",
@@ -31,12 +30,9 @@ from pygmt.helpers import (
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
-def contour(  # noqa: PLR0913
+def contour(
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -45,9 +41,12 @@ def contour(  # noqa: PLR0913
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -55,18 +54,21 @@ def contour(  # noqa: PLR0913
     Contour table data by direct triangulation.
 
     Takes a matrix, (x, y, z) triplets, or a file name as input and plots,
-    lines, polygons, or symbols at those locations on a map.
+    lines, polygons, or symbols at those locations on a plot.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full GMT docs at :gmt-docs:`contour.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - J = projection
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
@@ -74,11 +76,9 @@ def contour(  # noqa: PLR0913
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {projection}
-    {region}
     annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``levels``.
@@ -89,7 +89,6 @@ def contour(  # noqa: PLR0913
         - Adjust the appearance by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points and
           a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.
-    {frame}
     levels : float, list, or str
         Specify the contour lines to generate.
 
@@ -138,19 +137,20 @@ def contour(  # noqa: PLR0913
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
+    $projection
+    $region
+    $frame
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $perspective
+    $transparency
     """
-    self._activate_figure()
-
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -165,14 +165,18 @@ def contour(  # noqa: PLR0913
     aliasdict = AliasSystem(
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
+        B=frame,
         J=projection,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

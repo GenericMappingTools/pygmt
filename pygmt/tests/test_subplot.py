@@ -4,43 +4,49 @@ Test Figure.subplot.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.params import Axis, Box, Frame, Position
 
 
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_subplot_basic_frame():
     """
-    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure map
-    frame setting is applied to all subplot figures.
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure
+    Create a subplot figure with 1 vertical row and 2 horizontal columns, and ensure the
+    plot frame setting is applied to all subplot panels.
     """
     fig = Figure()
 
-    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame="WSne"):
+    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame=Frame(axes="WSne")):
         with fig.set_panel(panel="0,0"):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot0")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot0"))
         with fig.set_panel(panel=[0, 1]):
-            fig.basemap(region=[0, 3, 0, 3], frame="+tplot1")
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot1"))
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_subplot_direct():
     """
-    Plot map elements to subplot directly using the panel parameter.
+    Plot elements to subplot directly using the panel parameter.
     """
     fig = Figure()
 
     with fig.subplot(nrows=2, ncols=1, subsize=("3c", "3c")):
-        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[0, 0])
-        fig.basemap(region=[0, 3, 0, 3], frame="af", panel=[1, 0])
+        fig.basemap(
+            region=[0, 3, 0, 3], frame=Axis(annot=True, tick=True), panel=[0, 0]
+        )
+        fig.basemap(
+            region=[0, 3, 0, 3], frame=Axis(annot=True, tick=True), panel=[1, 0]
+        )
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_subplot_autolabel_margins_title():
+def test_subplot_tag_margins_title():
     """
-    Make subplot figure with autolabels, setting some margins and a title.
+    Make subplot figure with tags, setting some margins and a title.
     """
     fig = Figure()
 
@@ -48,12 +54,12 @@ def test_subplot_autolabel_margins_title():
         nrows=2,
         ncols=1,
         figsize=("15c", "6c"),
-        autolabel=True,
+        tag=True,
         margins=["0.3c", "0.1c"],
         title="Subplot Title",
     ):
-        fig.basemap(region=[0, 1, 2, 3], frame="WSne", panel=[0, 0])
-        fig.basemap(region=[4, 5, 6, 7], frame="WSne", panel=[1, 0])
+        fig.basemap(region=[0, 1, 2, 3], frame=Frame(axes="WSne"), panel=[0, 0])
+        fig.basemap(region=[4, 5, 6, 7], frame=Frame(axes="WSne"), panel=[1, 0])
 
     return fig
 
@@ -70,7 +76,7 @@ def test_subplot_clearance_and_shared_xy_axis_layout():
         nrows=2,
         ncols=2,
         figsize=("5c", "5c"),
-        frame="WSrt",
+        frame=Frame(axes="WSrt"),
         clearance=["s0.2c", "n0.2c"],
         sharex="t",
         sharey=True,
@@ -89,7 +95,7 @@ def test_subplot_figsize_and_subsize_error():
     into subplot.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         with fig.subplot(figsize=("2c", "1c"), subsize=("2c", "1c")):
             pass
 
@@ -116,5 +122,97 @@ def test_subplot_outside_plotting_positioning():
     with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
         fig.basemap(region=[0, 10, 0, 10], projection="X?", panel=True)
-    fig.colorbar(position="JBC+w5c+h", cmap="turbo", frame=True)
+    fig.colorbar(
+        position=Position("BC", cstype="outside"),
+        length=5,
+        orientation="horizontal",
+        cmap="google/turbo",
+        frame=True,
+    )
     return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_subplot_basic_frame.png")
+def test_subplot_set_panel_without_panel():
+    """
+    Ensure Figure.set_panel works when panel is omitted.
+
+    Omitting ``panel`` should let GMT advance to the next panel according to the subplot
+    order instead of passing an invalid ``None`` argument to the C API.
+
+    Use the baseline image from test_subplot_basic_frame.
+    """
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame=Frame(axes="WSne")):
+        with fig.set_panel():
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot0"))
+        with fig.set_panel():
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot1"))
+    return fig
+
+
+def test_subplot_deprecated_autolabel():
+    """
+    Test that using the deprecated autolabel parameter raises a warning when conflicted
+    with tag parameters.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag="a)"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_box=True):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_orientation="vertical"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_number_style="roman"):
+            pass
+    with pytest.raises(GMTParameterError):
+        with fig.subplot(nrows=1, ncols=1, autolabel=True, tag_position="TL"):
+            pass
+
+
+def test_subplot_invalid_tag_box():
+    """
+    Test that using an invalid tag_box raises an error.
+    """
+    fig = Figure()
+    # Box properties "inner_pen", "inner_gap", and "radius" are not supported.
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_pen="1p")):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(inner_gap=1, inner_pen="1p")):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(radius=1)):
+            pass
+    # Box clearance must be a single value or a tuple of two values.
+    with pytest.raises(GMTValueError):
+        with fig.subplot(nrows=1, ncols=1, tag_box=Box(clearance=(1, 2, 3, 4))):
+            pass
+
+
+def test_subplot_invalid_tag_position():
+    """
+    Test that using an invalid tag_position raises an error.
+    """
+    fig = Figure()
+    # Position's cstype must be "inside" or "outside".
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="mapcoords")
+        ):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="boxcoords")
+        ):
+            pass
+    with pytest.raises(GMTValueError):
+        with fig.subplot(
+            nrows=1, ncols=1, tag_position=Position((1, 1), cstype="plotcoords")
+        ):
+            pass

@@ -8,13 +8,13 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
 @use_alias(
     A="sector",
-    B="frame",
     C="cmap",
     D="shift",
     Em="vectors",
@@ -33,20 +33,20 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     d="nodata",
     e="find",
     h="header",
-    i="incols",
-    p="perspective",
     w="wrap",
 )
-@kwargs_to_strings(i="sequence_comma", p="sequence")
 def rose(
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
     region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
-    panel: int | tuple[int, int] | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -65,17 +65,20 @@ def rose(
 
     Full GMT docs at :gmt-docs:`rose.html`.
 
-    {aliases}
+    $aliases
+       - B = frame
        - R = region
        - V = verbose
        - c = panel
+       - i = incols
+       - p = perspective
        - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
         ``incols`` to indicate the single column with azimuths; then all
@@ -93,8 +96,8 @@ def rose(
         twice: First as azimuth and second as azimuth +180. Ignored if
         ``region`` is given as (-90, 90) or (0, 180).
 
-    region : str or list
-        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
+    region
+        [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
         Specify the ``region`` of interest in (*r*, *azimuth*) space.
         Here, *r0* is 0 and *r1* is the maximal length in units.
@@ -115,11 +118,10 @@ def rose(
          by the largest value so all radii (or bin counts) range from 0
          to 1.
 
-    frame : str
-         Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The y label may be
-         used to plot a figure caption. The scale bar length is determined
-         by the radial gridline spacing.
+    $frame
+        Remember that here *x* is the radial distance and *y* is the azimuth. The y
+        label may be used to plot a figure caption. The scale bar length is determined
+        by the radial gridline spacing.
 
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to
@@ -196,27 +198,29 @@ def rose(
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {verbose}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {header}
-    {incols}
-    {perspective}
-    {transparency}
-    {wrap}
+    $verbose
+    $binary
+    $panel
+    $nodata
+    $find
+    $header
+    $incols
+    $perspective
+    $transparency
+    $wrap
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem().add_common(
+        B=frame,
         R=region,
         V=verbose,
         c=panel,
+        i=incols,
+        p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth

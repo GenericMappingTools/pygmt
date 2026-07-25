@@ -46,22 +46,21 @@ def grdcut(
 
     Full GMT docs at :gmt-docs:`grdcut.html`.
 
-    {aliases}
+    $aliases
+       - G = outgrid
        - J = projection
        - R = region
        - V = verbose
 
     Parameters
     ----------
-    {grid}
+    $grid
     kind
         The raster data kind. Valid values are ``"grid"`` and ``"image"``. When the
         input ``grid`` is a file name, it's difficult to determine if the file is a grid
         or an image, so we need to specify the raster kind explicitly. The default is
         ``"grid"``.
-    {outgrid}
-    {projection}
-    {region}
+    $outgrid
     extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
@@ -86,9 +85,10 @@ def grdcut(
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
-
-    {verbose}
-    {coltypes}
+    $projection
+    $region
+    $verbose
+    $coltypes
 
     Returns
     -------

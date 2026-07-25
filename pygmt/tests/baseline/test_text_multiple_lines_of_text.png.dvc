@@ -1,5 +1,0 @@
-outs:
-- md5: a92c964b4d1e3fc8d2a1c99fbeb4337d
-  size: 6095
-  path: test_text_multiple_lines_of_text.png
-  hash: md5

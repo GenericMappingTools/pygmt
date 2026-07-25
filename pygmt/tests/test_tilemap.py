@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 import pytest
 from pygmt import Figure
+from pygmt.params import Axis
 
 try:
     import contextily
@@ -30,7 +31,7 @@ def test_tilemap_web_mercator():
         zoom=0,
         source=contextily.providers.OpenStreetMap.Mapnik,
         lonlat=False,
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
     )
     return fig
 
@@ -51,7 +52,7 @@ def test_tilemap_ogc_crs84():
         region=[-180.0, 180.0, -90, 90],
         zoom=0,
         source=contextily.providers.OpenStreetMap.Mapnik,
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         projection="R180/5c",
     )
     return fig
@@ -73,7 +74,7 @@ def test_tilemap_no_clip(no_clip):
         region=[-180.0, 180.0, -90, 0.6886],
         zoom=0,
         source=contextily.providers.OpenStreetMap.Mapnik,
-        frame="afg",
+        frame=Axis(annot=True, tick=True, grid=True),
         projection="H180/5c",
         no_clip=no_clip,
     )
@@ -91,7 +92,7 @@ def test_tilemap_no_contextily():
             region=[-20000000.0, 20000000.0, -20000000.0, 20000000.0],
             zoom=0,
             lonlat=False,
-            frame="afg",
+            frame=Axis(annot=True, tick=True, grid=True),
         )
 
 
@@ -107,5 +108,8 @@ def test_tilemap_no_rioxarray():
     with patch("pygmt.datasets.tile_map._HAS_CONTEXTILY", True):
         with pytest.raises(ImportError, match=r"Package `rioxarray` is required"):
             fig.tilemap(
-                region=[-180.0, 180.0, -90, 90], zoom=0, lonlat=True, frame="afg"
+                region=[-180.0, 180.0, -90, 90],
+                zoom=0,
+                lonlat=True,
+                frame=Axis(annot=True, tick=True, grid=True),
             )

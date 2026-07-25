@@ -2,33 +2,35 @@
 Inset
 =====
 
-The :meth:`pygmt.Figure.inset` method adds an inset figure inside a larger
-figure. The method is called using a ``with`` statement, and its
-``position``, ``box``, ``offset``, and ``margin`` parameters are set. Plotting
-methods called within the ``with`` statement are applied to the inset figure.
+The :meth:`pygmt.Figure.inset` method adds an inset figure inside a larger figure. The
+method is called using a ``with`` statement. Plotting methods called within the ``with``
+statement are applied to the inset figure.
 """
 
 # %%
 import pygmt
-from pygmt.params import Box
+from pygmt.params import Axis, Box, Position
 
 fig = pygmt.Figure()
-# Create the primary figure, setting the region to Madagascar, the land color
-# to "brown", the water to "lightblue", the shorelines width to "thin", and
-# adding a frame
-fig.coast(region="MG+r2", land="brown", water="lightblue", shorelines="thin", frame="a")
-# Create an inset, placing it in the Top Left (TL) corner with a width of 3.5 cm and
-# x- and y-offsets of 0.2 cm. The margin is set to 0, and the border is "gold" with a
-# pen size of 1.5 points.
-with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box=Box(pen="1.5p,gold")):
-    # Create a figure in the inset using coast. This example uses the azimuthal
-    # orthogonal projection centered at 47E, 20S. The land color is set to
-    # "gray" and Madagascar is highlighted in "red3".
-    fig.coast(
-        region="g",
-        projection="G47/-20/?",
-        land="gray",
-        water="white",
-        dcw="MG+gred3",
-    )
+# Create the primary figure, setting the region to Madagascar
+fig.basemap(region="MG+r2", projection="M12c", frame=Axis(annot=True))
+# Set the land color to "brown", the water color to "lightblue", and the shorelines
+# width to "thin"
+fig.coast(land="brown", water="lightblue", shorelines="thin")
+
+# Create an inset, placing it in the Top Left (TL) corner with a width of 3.5 cm and x-
+# and y-offsets of 0.2 cm. The clearance is set to 0, and the border is "gold" with a
+# pen thickness of 1.5 points.
+with fig.inset(
+    position=Position("TL", offset=0.2),
+    width=3.5,
+    clearance=0,
+    box=Box(pen="1.5p,gold"),
+):
+    # Create a map within the inset. This example uses the azimuthal orthogonal
+    # projection centered at 47 E, 20 S. The question mark is required for the
+    # automatic size determination by PyGMT
+    fig.basemap(region="g", projection="G47/-20/?", frame=0)
+    # Madagascar is highlighted in "red3"
+    fig.coast(land="gray", water="white", dcw="MG+gred3")
 fig.show()

@@ -9,7 +9,7 @@ import numpy.testing as npt
 import pytest
 from pygmt import sphdistance
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -69,5 +69,5 @@ def test_sphdistance_fails(array):
     """
     Check that sphdistance fails correctly when neither increment nor region is given.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         sphdistance(data=array)

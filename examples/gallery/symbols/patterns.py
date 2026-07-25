@@ -9,15 +9,15 @@ Example method parameters that support bit and hachure patterns include:
 
 - :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and ``water``
 - :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
-- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compressionfill`` and
-  ``extensionfill``
+- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compression_fill`` and
+  ``extension_fill``
 - :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
 - :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
 - :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
 - :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
 - :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error ellipses via
-  ``uncertaintyfill``
-- :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and ``fillnegative``
+  ``uncertainty_fill``
+- :meth:`pygmt.Figure.wiggle`: Anomalies via ``positive_fill`` and ``negative_fill``
 
 GMT provides 90 predefined 1-bit patterns, which are numbered from 1 to 90. In addition,
 custom 1-, 8-, or 24-bit image raster files can also be used as patterns.
@@ -29,7 +29,7 @@ background colors. The foreground and background colors can also be inverted.
 
 # %%
 import pygmt
-from pygmt.params import Pattern
+from pygmt.params import Frame, Pattern
 
 # A list of patterns that will be demonstrated.
 # By default, a pattern is plotted in black and white with a resolution of 300 dpi.
@@ -52,7 +52,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, 0, 12],
     projection="X18c/10c",
-    frame="rlbt+glightgray+tBit and Hachure Patterns",
+    frame=Frame(axes="rlbt", fill="lightgray", title="Bit and Hachure Patterns"),
 )
 y = 11
 for pattern in patterns:

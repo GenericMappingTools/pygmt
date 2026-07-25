@@ -4,6 +4,7 @@ Test Figure.basemap.
 
 import pytest
 from pygmt import Figure
+from pygmt.params import Axis, Frame
 
 
 @pytest.mark.benchmark
@@ -13,7 +14,11 @@ def test_basemap():
     Create a simple basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(
+        region=[10, 70, -3, 8],
+        projection="X8c/6c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -26,7 +31,11 @@ def test_basemap_loglog():
     fig.basemap(
         region=[1, 10000, 1e20, 1e25],
         projection="X16cl/12cl",
-        frame=["WS", "x2+lWavelength", "ya1pf3+lPower"],
+        frame=Frame(
+            axes="WS",
+            xaxis=Axis(annot=2, label="Wavelength"),
+            yaxis=Axis(annot="1p", tick=3, label="Power"),
+        ),
     )
     return fig
 
@@ -40,7 +49,10 @@ def test_basemap_power_axis():
     fig.basemap(
         region=[0, 100, 0, 5000],
         projection="x1p0.5/-0.001",
-        frame=["x1p+lCrustal age", "y500+lDepth"],
+        frame=Frame(
+            xaxis=Axis(annot="1p", label="Crustal age"),
+            yaxis=Axis(annot=500, label="Depth"),
+        ),
     )
     return fig
 
@@ -51,7 +63,11 @@ def test_basemap_polar():
     Create a polar basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[0, 360, 0, 1000], projection="P8c", frame="afg")
+    fig.basemap(
+        region=[0, 360, 0, 1000],
+        projection="P8c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -61,7 +77,11 @@ def test_basemap_winkel_tripel():
     Create a Winkel Tripel basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[90, 450, -90, 90], projection="R270/20c", frame="afg")
+    fig.basemap(
+        region=[90, 450, -90, 90],
+        projection="R270/20c",
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -84,7 +104,11 @@ def test_basemap_utm_projection(projection):
         "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
-    fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
+    fig.basemap(
+        region=[-52, -50, -12, -11],
+        projection=projection,
+        frame=Axis(annot=True, tick=True, grid=True),
+    )
     return fig
 
 
@@ -94,9 +118,10 @@ def test_basemap_rose():
     Create a map with a rose.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
-    )
+    with pytest.warns(FutureWarning, match="'rose' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27], projection="H15c", frame=True, rose="jMC+w5c"
+        )
     return fig
 
 
@@ -106,12 +131,13 @@ def test_basemap_compass():
     Create a map with a compass.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        compass="jMC+w5c+d11.5",
-    )
+    with pytest.warns(FutureWarning, match="'compass' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            compass="jMC+w5c+d11.5",
+        )
     return fig
 
 
@@ -121,12 +147,13 @@ def test_basemap_map_scale():
     Create a map with a map scale.
     """
     fig = Figure()
-    fig.basemap(
-        region=[127.5, 128.5, 26, 27],
-        projection="H15c",
-        frame=True,
-        map_scale="jMC+c26.5+w10k+f+l",
-    )
+    with pytest.warns(FutureWarning, match="'map_scale' parameter has been deprecated"):
+        fig.basemap(
+            region=[127.5, 128.5, 26, 27],
+            projection="H15c",
+            frame=True,
+            map_scale="jMC+c26.5+w10k+f+l",
+        )
     return fig
 
 
@@ -154,4 +181,18 @@ def test_basemap_frame_sequence_true():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=[True, "WSen"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_frame_none():
+    """
+    Test that passing frame="none" works.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame=True)
+    fig.colorbar(cmap="google/turbo", frame=True)
+    fig.shift_origin(xshift=5.5)
+    fig.basemap(region=[0, 5, 0, 2], projection="X5c/2c", frame="none")
+    fig.colorbar(cmap="google/turbo", frame="none")
     return fig

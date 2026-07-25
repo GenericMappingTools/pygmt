@@ -3,7 +3,7 @@ Test the Box class.
 """
 
 import pytest
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.params import Box
 
 
@@ -55,5 +55,5 @@ def test_params_box_invalid_innerborder():
     """
     Test that inner_pen is required when inner_gap is set.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         _ = str(Box(inner_gap="2p"))

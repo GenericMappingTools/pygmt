@@ -29,7 +29,7 @@ y = np.array([-3, -1, 1, 3, 2, -3])
 # Create a Cartesian plot via the :meth:`pygmt.Figure.basemap` method. Pass arrays to
 # the ``x`` and ``y`` parameters of the :meth:`pygmt.Figure.plot` method. Without
 # further adjustments, lines are drawn between the data points. By default, the lines
-# are 0.25-points thick, black, and solid. In this example, the data points are chosen
+# are 0.25-point thick, black, and solid. In this example, the data points are chosen
 # to make the lines form a polygon.
 
 fig = pygmt.Figure()
@@ -44,7 +44,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
-# Use a 2-points thick, darkred, dashed outline
+# Use a 2-point thick, darkred, dashed outline
 fig.plot(x=x, y=y, pen="2p,darkred,dashed")
 fig.show()
 

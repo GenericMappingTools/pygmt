@@ -21,7 +21,7 @@ def test_begin_end():
     end()  # Kill the global session
     begin()
     with Session() as lib:
-        lib.call_module("basemap", ["-R10/70/-3/8", "-JX4i/3i", "-Ba"])
+        lib.call_module("basemap", ["-R10/70/-3/8", "-JX4i/3i", "-Bafg"])
     end()
     begin()  # Restart the global session
     assert Path("pygmt-session.pdf").exists()
@@ -42,7 +42,7 @@ def test_gmt_compat_6_is_applied(capsys):
             lib.call_module("gmtset", ["GMT_COMPATIBILITY=5"])
         begin()
         with Session() as lib:
-            lib.call_module("basemap", ["-R10/70/-3/8", "-JX4i/3i", "-Ba"])
+            lib.call_module("basemap", ["-R10/70/-3/8", "-JX4i/3i", "-Bafg"])
             out, err = capsys.readouterr()  # capture stdout and stderr
             assert out == ""
             assert err != (
@@ -73,7 +73,7 @@ def _gmt_func_wrapper(figname):
 
     reload(pygmt)
     fig = pygmt.Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame=True)
     fig.savefig(figname)
 
 

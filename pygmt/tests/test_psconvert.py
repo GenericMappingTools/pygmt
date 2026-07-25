@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTValueError
+from pygmt.params import Axis
 
 
 @pytest.mark.benchmark
@@ -15,7 +16,7 @@ def test_psconvert():
     Check that psconvert creates a figure in the current directory.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
+    fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame=Axis(annot=True))
     prefix = "test_psconvert"
     fig.psconvert(prefix=prefix, fmt="f", crop=True)
     fname = Path(prefix + ".pdf")
@@ -28,7 +29,7 @@ def test_psconvert_twice():
     Call psconvert twice to get two figures.
     """
     fig = Figure()
-    fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
+    fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame=Axis(annot=True))
     prefix = "test_psconvert_twice"
     # Make a PDF
     fig.psconvert(prefix=prefix, fmt="f")

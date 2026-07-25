@@ -14,16 +14,22 @@ labels: ["feature request"]
 - GMT.jl: https://www.generic-mapping-tools.org/GMTjl_doc/documentation/modules/<module>
 - PyGMT: https://www.pygmt.org/dev/api/generated/<wrapper>.html
 
-## GMT Option Flags and Modifieres
+## GMT Option Flags and Modifiers
 
 ☑️: *Implemented*; ⬜: *To be implemented/discussed*; ~~Strikethrough~~: *Won't implement*.
 
-- [ ] `-R`: `region` #XXX @XXX
-- [ ] `-J`: `projection` #XXX @XXX
+- [ ] `-B`: `frame`
+- [ ] `-J`: `projection`
+- [ ] `-R`: `region`
 - [ ] ...
 - [ ] ~~`-U`~~: Use `Figure.timestamp` instead.
+- [ ] `-V`: `verbose`
 - [ ] ~~`-X`/`-Y`~~: Use `Figure.shift_origin` instead.
 - [ ] ~~`--PAR=value`~~: Use `pygmt.config` instead.
+
+## Related GMT configurations
+
+*List any related GMT configurations that may affect the behavior.*
 
 ## Notes on Input Formats
 
@@ -31,7 +37,7 @@ labels: ["feature request"]
 
 ## Linked Pull Requests
 
-- [ ] Initial feature implementation #XXX @XXX
+- [ ] Initial feature implementation
 - [ ] Add a tutorial or gallery example
 
 ## Related Issues and Discussions

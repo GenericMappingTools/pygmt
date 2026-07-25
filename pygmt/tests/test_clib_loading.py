@@ -37,13 +37,19 @@ class FakedLibGMT:
         """
         return self._name
 
+    def __repr__(self):
+        """
+        Return repr representation to match how real paths are formatted with !r.
+        """
+        return repr(self._name)
+
 
 def test_check_libgmt():
     """
     Make sure check_libgmt fails when given a bogus library.
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
-    msg = rf"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
+    msg = rf"Error loading {libgmt!r}. Couldn't access function GMT_Create_Session."
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
 
@@ -125,7 +131,7 @@ class TestLibgmtBrokenLibs:
         if isinstance(libname, str):
             # libname is an invalid library path in string type,
             # raise OSError like the original ctypes.CDLL
-            msg = f"Unable to find '{libname}'."
+            msg = f"Unable to find {libname!r}."
             raise OSError(msg)
         # libname is a loaded GMT library
         return self.loaded_libgmt
@@ -147,10 +153,10 @@ class TestLibgmtBrokenLibs:
         """
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
-            rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
-            rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
-            rf"Error loading GMT shared library at '{self.faked_libgmt2._name}'.\n"
-            rf"Error loading '{self.faked_libgmt2._name}'. Couldn't access.*"
+            rf"Error loading GMT shared library at {self.faked_libgmt1._name!r}.\n"
+            rf"Error loading {self.faked_libgmt1._name!r}. Couldn't access.*\n"
+            rf"Error loading GMT shared library at {self.faked_libgmt2._name!r}.\n"
+            rf"Error loading {self.faked_libgmt2._name!r}. Couldn't access.*"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
@@ -165,10 +171,10 @@ class TestLibgmtBrokenLibs:
         """
         lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
-            rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
-            rf"Error loading '{self.faked_libgmt1._name}'. Couldn't access.*\n"
-            rf"Error loading GMT shared library at '{self.invalid_path}'.\n"
-            rf"Unable to find '{self.invalid_path}'"
+            rf"Error loading GMT shared library at {self.faked_libgmt1._name!r}.\n"
+            rf"Error loading {self.faked_libgmt1._name!r}. Couldn't access.*\n"
+            rf"Error loading GMT shared library at {self.invalid_path!r}.\n"
+            rf"Unable to find {self.invalid_path!r}"
         )
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
