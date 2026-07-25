@@ -16,7 +16,6 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![CodSpeed Performance Benchmarks](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/GenericMappingTools/pygmt)
 
-<!-- doc-index-start-after -->
 
 ## Why PyGMT?
 
@@ -32,10 +31,14 @@ visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 
 ## About
 
+<!-- doc-index-start-after -->
+
 PyGMT is a library for processing geospatial and geophysical data and making
 publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
+
+<!-- doc-index-end-before -->
 
 ## Project goals
 
@@ -215,8 +218,6 @@ Other official wrappers for GMT:
 
 - [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
 - [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
-
-<!-- doc-index-end-before -->
 
 ## Minimum supported versions
 
