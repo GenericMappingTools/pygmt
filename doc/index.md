@@ -23,21 +23,21 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::::{grid} 1 2 2 2
 
 ::::{grid-item-card}
-:link: https://www.pygmt.org/dev/install.html
+:link: ../install.html
 :margin: 0 3 0 0
 **Getting started** {octicon}`rocket;1em;sd-text-info`
 ^^^
-- • [Installing]()
+- • [Installing](../install.html)
 - • [Intro to PyGMT]()
 ::::
 
 
 ::::{grid-item-card}
-:link: https://www.pygmt.org/dev/overview.html
+:link: ../overview.html
 :margin: 0 3 0 0
 **Project Overview** {octicon}`globe;1em;sd-text-info`
 ^^^
-- • [Why PyGMT?]()
+- • [Why PyGMT?](../overview.html)
 - • [PyGMT Ecosystem]()
 - • [Citing PyGMT]()
 - • [Conference Presentations]()
