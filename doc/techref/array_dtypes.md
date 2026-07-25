@@ -74,7 +74,8 @@ pa.array([1, 2, 3], type=pa.uint8())
 
 ## String Dtypes
 
-In addition to Python's built-in `str` type, PyGMT also support following string dtypes:
+In addition to Python's built-in {class}`str` type, PyGMT also support following string
+dtypes:
 
 - NumPy: {class}`numpy.str_` or fixed-width Unicode string dtype (e.g., `"U10"`)
 - pandas: {class}`pandas.StringDtype`, with different storage backends, including
