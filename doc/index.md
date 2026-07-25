@@ -13,8 +13,8 @@
 
 
 ```{include} ../README.md
-:start-after: <!-- doc-index-start-after -->
-:end-before: <!-- doc-index-end-before -->
+:start-after: <!-- • doc-index-start-after -->
+:end-before: <!-- • doc-index-end-before -->
 ```
 
 
@@ -26,8 +26,8 @@
 
 **Getting started**
 ^^^
-• Installing <br>
-• Intro to PyGMT <br>
+- • Installing
+- • Intro to PyGMT
 <br>
 <br>
 ::::
@@ -39,10 +39,10 @@
 
 **Project overview**
 ^^^
-• Why PyGMT and Project Goals <br>
-• PyGMT Ecosystem <br>
-• How to Cite, PyGMT paper, Zenodo, BibTex <br>
-• Conference Presentations
+- • Why PyGMT and Project Goals
+- • PyGMT Ecosystem
+- • How to Cite, PyGMT paper, Zenodo, BibTex
+- • Conference Presentations
 ::::
 
 
@@ -52,10 +52,10 @@
 
 **User Guide**
 ^^^
-• Gallery <br>
-• Tutorials <br>
-• Projections <br>
-• External Resources
+- • Gallery
+- • Tutorials
+- • Projections
+- • External Resources
 ::::
 
 
@@ -65,10 +65,10 @@
 
 **Reference Documentation**
 ^^^
-• API Reference <br>
-• Technical Reference <br>
-• Minimum Required Versions <br>
-• Changelog
+- • API Reference
+- • Technical Reference
+- • Minimum Required Versions
+- • Changelog
 ::::
 
 
@@ -78,9 +78,9 @@
 
 **Development**
 ^^^
-• Contributors Guide <br>
-• Mainainers Guide <br>
-• PyGMT Team
+- • Contributors Guide
+- • Mainainers Guide
+- • PyGMT Team
 ::::
 
 
@@ -89,10 +89,10 @@
 
 **Getting Help**
 ^^^
-• [GMT Forum](https://forum.generic-mapping-tools.org) (for asking questions) <br>
-• [GitHub](https://github.com/GenericMappingTools/pygmt) (for reporting bugs and contributing) <br>
-• [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md) <br>
-• [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
+- • [GMT Forum](https://forum.generic-mapping-tools.org) (for asking questions)
+- • [GitHub](https://github.com/GenericMappingTools/pygmt) (for reporting bugs and contributing)
+- • [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+- • [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 ::::
 
 :::::
