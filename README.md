@@ -19,6 +19,8 @@
 
 ## Why PyGMT?
 
+<!-- doc-why-start-after -->
+
 A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
 play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
 quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
@@ -27,20 +29,24 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
 
+<!-- doc-why-end-before -->
+
 [![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
 
 ## About
 
-<!-- doc-index-start-after -->
+<!-- doc-about-start-after -->
 
 PyGMT is a library for processing geospatial and geophysical data and making
 publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
-<!-- doc-index-end-before -->
+<!-- doc-about-end-before -->
 
 ## Project goals
+
+<!-- doc-goals-start-after -->
 
 - Make GMT more accessible to new users.
 - Build a Pythonic API for GMT.
@@ -49,6 +55,8 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 - Integration with the [scientific Python ecosystem](https://scientific-python.org/):
   `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
   and `geopandas.GeoDataFrame` for geographical data.
+
+<!-- doc-goals-end-before -->
 
 ## Quickstart
 
@@ -133,6 +141,8 @@ happy to help others learn.
 
 ## Citing PyGMT
 
+<!-- doc-cite-start-after -->
+
 PyGMT is a community developed project. See the
 [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
@@ -200,6 +210,8 @@ the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps aroun
 that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
 citations. Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
 
+<!-- doc-cite-end-before -->
+
 ## License
 
 PyGMT is free software: you can redistribute it and/or modify it under the terms of the
@@ -208,16 +220,24 @@ PyGMT is free software: you can redistribute it and/or modify it under the terms
 
 ## Support
 
+<!-- doc-support-start-after -->
+
 The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
 [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
+<!-- doc-support-end-before -->
+
 ## Related projects
+
+<!-- doc-related-start-after -->
 
 Other official wrappers for GMT:
 
 - [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
 - [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
+
+<!-- doc-related-end-before -->
 
 ## Minimum supported versions
 

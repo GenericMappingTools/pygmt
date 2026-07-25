@@ -13,8 +13,8 @@
 
 
 ```{include} ../README.md
-:start-after: <!-- doc-index-start-after -->
-:end-before: <!-- doc-index-end-before -->
+:start-after: <!-- doc-about-start-after -->
+:end-before: <!-- doc-about-end-before -->
 ```
 
 
@@ -37,9 +37,9 @@
 
 **Project overview**
 ^^^
-- • Why PyGMT and Project Goals
+- • Why PyGMT?
 - • PyGMT Ecosystem
-- • How to Cite PyGMT, BibTex for G3 Paper and Zenodo
+- • Citing PyGMT
 - • Conference Presentations
 ::::
 
@@ -112,6 +112,8 @@ intro/index.rst
 
 overview.md
 ecosystem.md
+citing.md
+conferences.md
 ```
 
 ```{toctree}
