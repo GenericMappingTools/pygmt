@@ -1,9 +1,8 @@
 # Supported Array Dtypes
 
 PyGMT uses NumPy arrays as its core data structure for storing data and exchanging data
-with the GMT C API. This design allows PyGMT to support a wide range of array-like
-objects and data types (*dtypes*), as long as they can be converted to NumPy arrays.
-This page provides a comprehensive overview of the array dtypes supported by PyGMT.
+with the GMT C API. This page provides a comprehensive overview of the dtypes accepted
+by PyGMT's array-conversion and GMT virtual-file interfaces.
 
 ## Numeric Dtypes
 
@@ -35,16 +34,12 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 - {func}`pyarrow.float32`, {func}`pyarrow.float64`
 
 :::{note}
-1. The numeric dtypes {class}`numpy.float16`, {class}`numpy.longdouble`, and
-   {func}`pyarrow.float16` are not supported and should be cast to one of the supported
-   dtypes before passing them to PyGMT.
-2. Complex numeric dtypes such as {class}`numpy.complex64` are not supported.
-3. Signed and unsigned integer dtypes from pandas and PyArrow (e.g.,
+1. Signed and unsigned integer dtypes from pandas and PyArrow (e.g.,
    {class}`pandas.Int8Dtype`, {func}`pyarrow.int8`) support missing values like `None`
-   or {class}`pandas.NA`, whereas NumPy's corrresponding dtypes (e.g.,
+   or {class}`pandas.NA`, whereas NumPy's corresponding dtypes (e.g.,
    {class}`numpy.int8`) don't. Arrays of these dtypes containing missing values are
    automatically cast to {class}`numpy.float64` internally.
-4. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
+2. For 3-D {class}`xarray.DataArray` objects representing raster images, only 8-bit
    unsigned integers (i.e., {class}`numpy.uint8`) are supported.
 :::
 
@@ -74,18 +69,15 @@ pa.array([1, 2, 3], type=pa.uint8())
 
 ## String Dtypes
 
-In addition to Python's built-in {class}`str` type, PyGMT also support following string
-dtypes:
+In addition to Python's built-in {class}`str` type, PyGMT also supports the following
+string dtypes:
 
 - NumPy: {class}`numpy.str_` or fixed-width Unicode string dtype (e.g., `"U10"`)
 - pandas: {class}`pandas.StringDtype`, with different storage backends, including
-  `string[python]`, `string[pyarrow]`, and `string[pyarrow_numpy]`
+  `string[python]` and `string[pyarrow]`
 - PyArrow: {func}`pyarrow.string`/{func}`pyarrow.utf8`,
   {func}`pyarrow.large_string`/{func}`pyarrow.large_utf8`, and
   {func}`pyarrow.string_view`
-
-PyGMT also tries to convert arrays of {class}`numpy.object_` dtype into string arrays if
-possible.
 
 :::{note}
 Examples of string arrays supported by PyGMT:
@@ -102,7 +94,6 @@ np.array(["a", "b", "c"], dtype=np.str_)
 pd.Series(["a", "b", "c"], dtype="string")
 pd.Series(["a", "b", "c"], dtype="string[python]")
 pd.Series(["a", "b", "c"], dtype="string[pyarrow]")
-pd.Series(["a", "b", "c"], dtype="string[pyarrow_numpy]")
 
 # A PyArrow array with pyarrow.string dtype
 pa.array(["a", "b", "c"], type=pa.string())
@@ -123,8 +114,27 @@ PyGMT supports a variety of datetime types:
 - PyArrow: {func}`pyarrow.date32`, {func}`pyarrow.date64` and {func}`pyarrow.timestamp`
   with various resolutions and timezone support.
 
-<!-- Internally GMT stores datetimes as intergers, so not all resolutions are supported. Need to explain it in details. -->
+## Timedelta Dtypes
 
-## Bool Dtypes
+PyGMT supports NumPy arrays with the {class}`numpy.timedelta64` dtype. Timedelta values
+are passed to GMT as their underlying integer values, so their unit determines the
+numeric scale. For example, a `timedelta64[D]` array is interpreted as days, whereas a
+`timedelta64[s]` array is interpreted as seconds.
 
-Currently, `numpy.bool` is not supported.
+Timedelta values can also be used in sequence-valued parameters such as ``region``.
+The timedelta dtype does not, by itself, configure a GMT relative-time axis; configure
+GMT time settings explicitly when a relative-time axis is required.
+
+## Unsupported Dtypes
+
+The following dtypes are intentionally unsupported, and should be cast to an appropriate
+supported dtype before passing to PyGMT:
+
+- Floating-point dtypes: {class}`numpy.float16`, {func}`pyarrow.float16`, {class}`numpy.longdouble`
+- Boolean dtypes: {class}`numpy.bool_`, {class}`pandas.BooleanDtype`, {func}`pyarrow.bool_`
+- Complex dtypes: {class}`numpy.complex64`, {class}`numpy.complex128`
+- {class}`numpy.bytes_` and {class}`numpy.void`
+
+The {class}`numpy.object_` dtype is also not supported. PyGMT may convert object arrays
+that can be interpreted as datetimes or text, but applications should create arrays with
+an explicit supported dtype instead.
