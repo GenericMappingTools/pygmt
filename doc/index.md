@@ -24,7 +24,7 @@
 :link: https://www.pygmt.org/dev/install.html
 :margin: 0 3 0 0
 
-**Getting started**
+**Getting started**  {octicon}`rocket;1em;sd-text-info`
 ^^^
 - • Installing
 - • Intro to PyGMT
@@ -35,7 +35,7 @@
 :link: https://www.pygmt.org/dev/overview.html
 :margin: 0 3 0 0
 
-**Project overview**
+**Project Overview**  {octicon}`globe;1em;sd-text-info`
 ^^^
 - • Why PyGMT?
 - • PyGMT Ecosystem
@@ -48,7 +48,7 @@
 :link: https://www.pygmt.org/dev/gallery/index.html
 :margin: 0 3 0 0
 
-**User Guide**
+**User Guide**  {octicon}`image;1em;sd-text-info`
 ^^^
 - • Gallery
 - • Tutorials
@@ -61,7 +61,7 @@
 :link: https://www.pygmt.org/dev/api/index.html
 :margin: 0 3 0 0
 
-**Reference Documentation**
+**Reference Documentation**  {octicon}`book;1em;sd-text-info`
 ^^^
 - • API Reference
 - • Technical Reference
@@ -74,7 +74,7 @@
 :link: https://www.pygmt.org/dev/contributing.html
 :margin: 0 3 0 0
 
-**Development**
+**Development**  {octicon}`terminal;1em;sd-text-info`
 ^^^
 - • Contributors Guide
 - • Mainainers Guide
@@ -85,12 +85,12 @@
 ::::{grid-item-card}
 :margin: 0 3 0 0
 
-**Getting Help**
+**Getting Help**  {octicon}`light-bulb;1em;sd-text-info`
 ^^^
-- • [GMT Forum](https://forum.generic-mapping-tools.org) (for asking questions)
-- • [GitHub](https://github.com/GenericMappingTools/pygmt) (for reporting bugs and contributing)
-- • [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
-- • [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
+- <i class="fa fa-comment fa-fw"></i> [GMT Forum](https://forum.generic-mapping-tools.org) (please ask questions here)
+- <i class="fa fa-github fa-fw"></i> [Source code](https://github.com/GenericMappingTools/pygmt)
+- <i class="fa fa-gavel fa-fw"></i> [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+- <i class="fa fa-book fa-fw"></i> [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 ::::
 
 :::::
