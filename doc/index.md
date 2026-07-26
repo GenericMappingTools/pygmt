@@ -20,14 +20,90 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 
 
+**Cards (or bottons?) for specific topics**
+
+:::::{grid} 1 3 3 3
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: install.md
+**Installing** {octicon}`terminal;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: intro/index.rst
+**Intro to PyGMT** {octicon}`rocket;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: gallery/index.rst
+**Gallery** {octicon}`image;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: tutorials/index.rst
+**Tutorials** {octicon}`mortar-board;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: api/index.rst
+**API Reference** {octicon}`book;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: external_resources.md
+**External Resources** {octicon}`globe;1em;sd-text-info`
+^^^
+::::
+
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+:link: citing.md
+**Citing PyGMT** {octicon}`checklist;1em;sd-text-info`
+^^^
+::::
+
+:::::
+
+
+
+
+**Cards for main sections identical to sidebar**
+
 :::::{grid} 1 2 2 2
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 **Getting started** {octicon}`rocket;1em;sd-text-info`
 ^^^
-- • [Installing](install.md)
-- • [Intro to PyGMT](intro/index.rst)
+```{button-link} install.md
+:color: #EBF0F9
+:outline: #b4c7e7
+:shadow:
+Installing PyGMT
+```
+```{button-link} intro/index.rst
+:color: #b4c7e7
+:shadow:
+:outline:
+Intro to PyGMT
+```
 ::::
 
 
