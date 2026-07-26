@@ -19,64 +19,69 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::
 
 
-
-**Cards (or bottons?) for specific topics**
-
 :::::{grid} 1 3 3 3
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: install.md
-**Installing** {octicon}`terminal;1em;sd-text-info`
+{octicon}`terminal;3em;sd-text-info`
 ^^^
+[**Installing**](install.md)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: intro/index.rst
-**Intro to PyGMT** {octicon}`rocket;1em;sd-text-info`
+{octicon}`rocket;3em;sd-text-info`
 ^^^
+[**Intro to PyGMT**](intro/index.rst)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: gallery/index.rst
-**Gallery** {octicon}`image;1em;sd-text-info`
+{octicon}`image;3em;sd-text-info`
 ^^^
+[**Gallery**](gallery/index.rst)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: tutorials/index.rst
-**Tutorials** {octicon}`mortar-board;1em;sd-text-info`
+{octicon}`mortar-board;3em;sd-text-info`
 ^^^
+[**Tutorials**](tutorials/index.rst)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: api/index.rst
-**API Reference** {octicon}`book;1em;sd-text-info`
+{octicon}`book;3em;sd-text-info`
 ^^^
+[**API Reference**](api/index.rst)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: external_resources.md
-**External Resources** {octicon}`globe;1em;sd-text-info`
+{octicon}`globe;3em;sd-text-info`
 ^^^
+[**External Resources**](external_resources.md)
 ::::
-
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-:link: citing.md
-**Citing PyGMT** {octicon}`checklist;1em;sd-text-info`
+{octicon}`checklist;3em;sd-text-info`
 ^^^
+[**Citing PyGMT**](citing.md)
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`tools;3em;sd-text-info`
+^^^
+[**Contributors Guide**](contributing.md)
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`light-bulb;3em;sd-text-info`
+^^^
+[**GMT Forum**](https://forum.generic-mapping-tools.org)
 ::::
 
 :::::
@@ -84,24 +89,24 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 
 
-**Cards for main sections identical to sidebar**
+## **Cards for main sections identical to sidebar**
 
-:::::{grid} 1 2 2 2
+:::::{grid} 1 3 3 3
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**Getting started** {octicon}`rocket;1em;sd-text-info`
+**Getting started** {octicon}`rocket;2em;sd-text-info`
 ^^^
-```{button-link} install.md
-:color: #EBF0F9
-:outline: #b4c7e7
-:shadow:
-Installing PyGMT
-```
-```{button-link} intro/index.rst
-:color: #b4c7e7
-:shadow:
+```{button-ref} install.md
+:color: secondary
 :outline:
+:shadow:
+Installing
+```
+```{button-ref} intro/index.rst
+:color: secondary
+:outline:
+:shadow:
 Intro to PyGMT
 ```
 ::::
@@ -109,7 +114,7 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**Project Overview** {octicon}`globe;1em;sd-text-info`
+**Project Overview** {octicon}`globe;2em;sd-text-info`
 ^^^
 - • [Why PyGMT?](overview.md)
 - • [PyGMT Ecosystem](ecosystem.md)
@@ -120,7 +125,7 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**User Guide** {octicon}`image;1em;sd-text-info`
+**User Guide** {octicon}`image;2em;sd-text-info`
 ^^^
 - • [Gallery](gallery/index.rst)
 - • [Tutorials](tutorials/index.rst)
@@ -131,33 +136,68 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**Reference Documentation** {octicon}`book;1em;sd-text-info`
+**Reference Documentation** {octicon}`book;2em;sd-text-info`
 ^^^
 - • [API Reference](api/index.rst)
 - • [Technical Reference](techref/index.md)
-- • [Minimum Supported Versions](minversions.md)
+- • [Compatibility Table](minversions.md)
 - • [Changelog](changes.md)
 ::::
 
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**Development** {octicon}`terminal;1em;sd-text-info`
+**Development** {octicon}`terminal;2em;sd-text-info`
 ^^^
-- • [Contributors Guide](contributing.md)
-- • [Mainainers Guide](maintenance.md)
-- • [PyGMT Team](team.md)
+```{button-ref} contributing.md
+:color: secondary
+:outline:
+:shadow:
+Contributors Guide
+```
+```{button-ref} maintenance.md
+:color: secondary
+:outline:
+:shadow:
+Maintainers Guide
+```
+```{button-ref} team.md
+:color: secondary
+:outline:
+:shadow:
+PyGMT Team
+```
 ::::
 
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-**Getting Help** {octicon}`light-bulb;1em;sd-text-info`
+**Getting Help** {octicon}`light-bulb;2em;sd-text-info`
 ^^^
-- <i class="fa fa-comment fa-fw"></i> [GMT Forum](https://forum.generic-mapping-tools.org) (please ask questions here)
-- <i class="fa fa-github fa-fw"></i> [Source Code](https://github.com/GenericMappingTools/pygmt)
-- <i class="fa fa-gavel fa-fw"></i> [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
-- <i class="fa fa-book fa-fw"></i> [License](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
+```{button-link} https://forum.generic-mapping-tools.org
+:color: secondary
+:outline:
+:shadow:
+{octicon}`comment-discussion;1em;sd-text-info` GMT Forum
+```
+```{button-link} https://github.com/GenericMappingTools/pygmt
+:color: secondary
+:outline:
+:shadow:
+{octicon}`mark-github;1em;sd-text-info` Source Code
+```
+```{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
+:color: secondary
+:outline:
+:shadow:
+{octicon}`code-of-conduct;1em;sd-text-info` Code of Conduct
+```
+```{button-link} https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
+:color: secondary
+:outline:
+:shadow:
+{octicon}`law;1em;sd-text-info` License
+```
 ::::
 
 :::::

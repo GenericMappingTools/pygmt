@@ -71,12 +71,12 @@ p {
     border: solid 2px #b4c7e7;
 }
 
-/* Change background color of cards on landing page */
-/* https://sphinx-design.readthedocs.io/en/latest/css_variables.html */
+/* Change color of cards */
+/* https://sphinx-design.readthedocs.io/en/rtd-theme/css_variables.html */
 :root {
-    --sd-color-card-background: #EBF0F9;
-    --sd-color-card-header: #b4c7e7;
-	--sd-color-card-footer: #FFFFFF;
+    --sd-color-card-background: #EBF0F9; /* lighter color as top box of sidebar */
+    --sd-color-card-header: #b4c7e7; /* same color as top box of sidebar */
+    --sd-color-card-footer: #FFFFFF; /* white */
 }
 
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
