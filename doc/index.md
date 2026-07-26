@@ -57,8 +57,8 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :margin: 0 3 0 0
 **Reference Documentation** {octicon}`book;1em;sd-text-info`
 ^^^
-- • [API Reference](techref/index.rst)
-- • [Technical Reference](api/index.rst)
+- • [API Reference](api/index.rst)
+- • [Technical Reference](techref/index.md)
 - • [Minimum Supported Versions](minversions.md)
 - • [Changelog](changes.md)
 ::::
