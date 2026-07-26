@@ -5,7 +5,13 @@
 :end-before: <!-- doc-why-end-before -->
 ```
 
-## Project Goals
+Afterward, try the [Intro](intro/index.rst) to get started on your own, visit the
+[Gallery](gallery/index.rst) for more impressions or go through the
+[Tutorials](tutorials/index.rst) to learn things in more detail, and finally check
+out some [external PyGMT examples](external_resources)!
+
+
+## Project goals
 
 ```{include} ../README.md
 :start-after: <!-- doc-goals-start-after -->

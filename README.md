@@ -25,11 +25,11 @@ A beautiful map is worth a thousand words. To truly understand how powerful PyGM
 play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
 quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
+<!-- doc-why-end-before -->
+
 Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tutorials),
 visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
-
-<!-- doc-why-end-before -->
 
 [![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
 
