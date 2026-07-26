@@ -27,19 +27,19 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 {octicon}`rocket;3em;sd-text-info` <br>
 **Getting Started**
 ^^^
-```{button-ref} install.md
+```{button-ref} ../install
 :color: secondary
 :outline:
 :shadow:
 Installing
 ```
-```{button-ref} minversions.md
+```{button-ref} ../minversions
 :color: secondary
 :outline:
 :shadow:
 Minimum Supported Versions
 ```
-```{button-ref} intro/index.rst
+```{button-ref} ../intro/index
 :color: secondary
 :outline:
 :shadow:
@@ -52,25 +52,25 @@ Intro to PyGMT
 {octicon}`globe;3em;sd-text-info` <br>
 **Project Overview**
 ^^^
-```{button-ref} overview.md
+```{button-ref} ../overview
 :color: secondary
 :outline:
 :shadow:
 Why PyGMT
 ```
-```{button-ref} ecosystem.md
+```{button-ref} ../ecosystem
 :color: secondary
 :outline:
 :shadow:
 PyGMT Ecosystem
 ```
-```{button-ref} citing.md
+```{button-ref} ../citing
 :color: secondary
 :outline:
 :shadow:
 Citing PyGMT
 ```
-```{button-ref} conferences.md
+```{button-ref} ../conferences
 :color: secondary
 :outline:
 :shadow:
@@ -83,25 +83,25 @@ Conference Presentations
 {octicon}`mortar-board;3em;sd-text-info` <br>
 **User Guide**
 ^^^
-```{button-ref} gallery/index.rst
+```{button-ref} ../gallery/index
 :color: secondary
 :outline:
 :shadow:
 Gallery
 ```
-```{button-ref} tutorials/index.rst
+```{button-ref} ../tutorials/index
 :color: secondary
 :outline:
 :shadow:
 Tutorials
 ```
-```{button-ref} projections/index.rst
+```{button-ref} ../projections/index
 :color: secondary
 :outline:
 :shadow:
 Projections
 ```
-```{button-ref} external_resources.md
+```{button-ref} ../external_resources
 :color: secondary
 :outline:
 :shadow:
@@ -114,13 +114,13 @@ External Resources
 {octicon}`book;3em;sd-text-info` <br>
 **Reference Documentation**
 ^^^
-```{button-ref} api/index.rst
+```{button-ref} ../api/index
 :color: secondary
 :outline:
 :shadow:
 API Reference
 ```
-```{button-ref} techref/index.rst
+```{button-ref} ../techref/index
 :color: secondary
 :outline:
 :shadow:
@@ -133,25 +133,25 @@ Technical Reference
 {octicon}`terminal;3em;sd-text-info` <br>
 **Development**
 ^^^
-```{button-ref} contributing.md
+```{button-ref} ../contributing
 :color: secondary
 :outline:
 :shadow:
 Contributors Guide
 ```
-```{button-ref} maintenance.md
+```{button-ref} ../maintenance
 :color: secondary
 :outline:
 :shadow:
 Maintainers Guide
 ```
-```{button-ref} changes.md
+```{button-ref} ../changes
 :color: secondary
 :outline:
 :shadow:
 Changelog
 ```
-```{button-ref} team.md
+```{button-ref} ../team
 :color: secondary
 :outline:
 :shadow:
