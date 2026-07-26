@@ -7,11 +7,11 @@
 ```
 :::
 
-:::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-4
+:::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
 A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 :::
 
-:::{div} sd-text-center sd-fs-5 sd-pb-4
+:::{div} sd-text-center sd-fs-5 sd-pb-3
 ```{include} ../README.md
 :start-after: <!-- doc-about-start-after -->
 :end-before: <!-- doc-about-end-before -->
@@ -94,7 +94,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`rocket;3em;sd-text-info`   **Getting started**
+{octicon}`rocket;2.5em;sd-text-info`   **Getting started**
 ^^^
 ```{button-ref} install.md
 :color: secondary
@@ -112,37 +112,37 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`globe;3em;sd-text-info`   **Project Overview**
+{octicon}`globe;2.5em;sd-text-info`   **Project Overview**
 ^^^
-- • [Why PyGMT?](overview.md)
-- • [PyGMT Ecosystem](ecosystem.md)
-- • [Citing PyGMT](citing.md)
-- • [Conference Presentations](conferences.md)
+- [Why PyGMT?](overview.md)
+- [PyGMT Ecosystem](ecosystem.md)
+- [Citing PyGMT](citing.md)
+- [Conference Presentations](conferences.md)
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`image;3em;sd-text-info`   **User Guide**
+{octicon}`image;2.5em;sd-text-info`   **User Guide**
 ^^^
-- • [Gallery](gallery/index.rst)
-- • [Tutorials](tutorials/index.rst)
-- • [Projections](projections/index.rst)
-- • [External Resources](external_resources.md)
+- [Gallery](gallery/index.rst)
+- [Tutorials](tutorials/index.rst)
+- [Projections](projections/index.rst)
+- [External Resources](external_resources.md)
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`book;3em;sd-text-info`   **Reference Documentation**
+{octicon}`book;2.5em;sd-text-info`   **Reference Documentation**
 ^^^
-- • [API Reference](api/index.rst)
-- • [Technical Reference](techref/index.md)
-- • [Compatibility Table](minversions.md)
-- • [Changelog](changes.md)
+- [API Reference](api/index.rst)
+- [Technical Reference](techref/index.md)
+- [Minimum Supported Versions](minversions.md)
+- [Changelog](changes.md)
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`terminal;3em;sd-text-info` **Development**
+{octicon}`terminal;2.5em;sd-text-info`   **Development**
 ^^^
 ```{button-ref} contributing.md
 :color: secondary
@@ -166,7 +166,7 @@ PyGMT Team
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`light-bulb;3em;sd-text-info`   **Getting Help**
+{octicon}`light-bulb;2.5em;sd-text-info`   **Getting Help**
 ^^^
 ```{button-link} https://forum.generic-mapping-tools.org
 :color: secondary
