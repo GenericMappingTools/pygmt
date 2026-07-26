@@ -79,7 +79,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`light-bulb;3em;sd-text-info`
+{octicon}`comment-discussion;3em;sd-text-info`
 ^^^
 [**GMT Forum**](https://forum.generic-mapping-tools.org)
 ::::
