@@ -277,7 +277,7 @@ intro/index.rst
 ```{toctree}
 :maxdepth: 2
 :hidden:
-:caption: Project overview
+:caption: Project Overview
 
 overview.md
 ecosystem.md
