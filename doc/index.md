@@ -31,8 +31,8 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::::{grid} 1 3 3 3
 
 <!--- Set up card --->
-::::{grid-item-card}
 <!--- top bottom left right --->
+::::{grid-item-card}
 :margin: 0 3 0 0
 <!--- Add icon --->
 <!--- 3em size, sd-text-info color --->
