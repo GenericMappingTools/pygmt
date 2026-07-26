@@ -56,7 +56,7 @@ Intro to PyGMT
 :color: secondary
 :outline:
 :shadow:
-Why PyGMT?
+Why PyGMT
 ```
 ```{button-ref} ecosystem.md
 :color: secondary

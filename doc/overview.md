@@ -1,4 +1,4 @@
-# Why PyGMT?
+# Why PyGMT
 
 ```{include} ../README.md
 :start-after: <!-- doc-why-start-after -->
