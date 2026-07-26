@@ -330,7 +330,7 @@ Learn about various concepts of PyGMT in more detail.
 {octicon}`book;3em;sd-text-info` <br>
 **API Reference**
 ^^^
-In depth overview of all classes, function and methods of PyGMT.
+In depth information on all classes, function and methods of PyGMT.
 ::::
 
 ::::{grid-item-card}
