@@ -1,12 +1,18 @@
+<!--- https://sphinx-design.readthedocs.io/en/rtd-theme/index.html --->
+
 ```{title} Home
 ```
 
+<!--- Add image of PyGMT logo --->
+<!--- center image --->
 :::{div} sd-d-flex-row sd-align-major-center
 ```{image} ./_static/pygmtlogo.png
 :width: 600px
 ```
-:::
 
+:::
+<!--- Add short text what PyGMT is and does --->
+<!--- sd-text-center centering, sd-fs fontsize, sd-pt padding top, sd-pb padding bottom --->
 :::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
 A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 :::
@@ -19,11 +25,17 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::
 
 
-
+<!--- Set up grid --->
+<!--- Number of default columns screen sizes depended --->
+<!--- extra-small (<576px) small (768px) medium (992px) large screens (>1200px) --->
 :::::{grid} 1 3 3 3
 
+<!--- Set up card --->
 ::::{grid-item-card}
+<!--- top bottom left right --->
 :margin: 0 3 0 0
+<!--- Add icon --->
+<!--- 3em size, sd-text-info color --->
 {octicon}`rocket;3em;sd-text-info` <br>
 **Getting Started**
 ^^^
@@ -376,7 +388,7 @@ Visit the GMT forum for finding help, asking questions and also consider helping
 
 
 
-
+<!--- Set up sidebar --->
 ```{toctree}
 :maxdepth: 2
 :hidden:
