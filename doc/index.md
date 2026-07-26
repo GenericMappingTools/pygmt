@@ -320,7 +320,7 @@ Get an impression of what PyGMT can do for you.
 {octicon}`mortar-board;3em;sd-text-info` <br>
 **Tutorials**
 ^^^
-Let concepts of PyGMT in more detail.
+Learn about various concepts of PyGMT in more detail.
 ::::
 
 ::::{grid-item-card}
