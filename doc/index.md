@@ -23,7 +23,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`terminal;3em;sd-text-info`
+{octicon}`tools;3em;sd-text-info`
 ^^^
 [**Installing**](install.md)
 ::::
@@ -72,7 +72,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`tools;3em;sd-text-info`
+{octicon}`terminal;3em;sd-text-info`
 ^^^
 [**Contributors Guide**](contributing.md)
 ::::
