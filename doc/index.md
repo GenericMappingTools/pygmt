@@ -24,7 +24,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`rocket;2.5em;sd-text-info` <br>
+{octicon}`rocket;3em;sd-text-info` <br>
 **Getting Started**
 ^^^
 ```{button-ref} install.md
@@ -49,7 +49,7 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`globe;2.5em;sd-text-info` <br>
+{octicon}`globe;3em;sd-text-info` <br>
 **Project Overview**
 ^^^
 ```{button-ref} overview.md
@@ -80,7 +80,7 @@ Conference Presentations
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`mortar-board;2.5em;sd-text-info` <br>
+{octicon}`mortar-board;3em;sd-text-info` <br>
 **User Guide**
 ^^^
 ```{button-ref} gallery/index.rst
@@ -111,7 +111,7 @@ External Resources
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`book;2.5em;sd-text-info` <br>
+{octicon}`book;3em;sd-text-info` <br>
 **Reference Documentation**
 ^^^
 ```{button-ref} api/index.rst
@@ -130,7 +130,7 @@ Technical Reference
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`terminal;2.5em;sd-text-info` <br>
+{octicon}`terminal;3em;sd-text-info` <br>
 **Development**
 ^^^
 ```{button-ref} contributing.md
@@ -161,7 +161,7 @@ PyGMT Team
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`light-bulb;2.5em;sd-text-info` <br>
+{octicon}`light-bulb;3em;sd-text-info` <br>
 **Getting Help**
 ^^^
 ```{button-link} https://forum.generic-mapping-tools.org
