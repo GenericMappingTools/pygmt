@@ -8,8 +8,8 @@
 Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
 [Gallery](gallery/index.rst) for more impressions, go through the
 [Tutorials](tutorials/index.rst) to learn things in more detail, look at the
-[Projections](projections/index.rst) to see the available map projections, and finally
-do not forget to check out some [external PyGMT examples](external_resources)!
+available map [Projections](projections/index.rst), and finally do not forget
+to check out some [external PyGMT examples](external_resources)!
 
 
 ## Project goals
