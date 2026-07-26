@@ -23,59 +23,54 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::::{grid} 1 2 2 2
 
 ::::{grid-item-card}
-:link: ../install.html
 :margin: 0 3 0 0
 **Getting started** {octicon}`rocket;1em;sd-text-info`
 ^^^
-- • [Installing](../install.html)
-- • [Intro to PyGMT]()
+- • [Installing](install.md)
+- • [Intro to PyGMT](intro/index.rst)
 ::::
 
 
 ::::{grid-item-card}
-:link: ../overview.html
 :margin: 0 3 0 0
 **Project Overview** {octicon}`globe;1em;sd-text-info`
 ^^^
-- • [Why PyGMT?](../overview.html)
-- • [PyGMT Ecosystem]()
-- • [Citing PyGMT]()
-- • [Conference Presentations]()
+- • [Why PyGMT?](overview.md)
+- • [PyGMT Ecosystem](ecosystem.md)
+- • [Citing PyGMT](citing.md)
+- • [Conference Presentations](conferences.md)
 ::::
 
 
 ::::{grid-item-card}
-:link: https://www.pygmt.org/dev/gallery/index.html
 :margin: 0 3 0 0
 **User Guide** {octicon}`image;1em;sd-text-info`
 ^^^
-- • [Gallery]()
-- • [Tutorials]()
-- • [Projections]()
-- • [External Resources]()
+- • [Gallery](gallery/index.rst)
+- • [Tutorials](tutorials/index.rst)
+- • [Projections](projections/index.rst)
+- • [External Resources](external_resources.md)
 ::::
 
 
 ::::{grid-item-card}
-:link: https://www.pygmt.org/dev/api/index.html
 :margin: 0 3 0 0
 **Reference Documentation** {octicon}`book;1em;sd-text-info`
 ^^^
-- • [API Reference]()
-- • [Technical Reference]()
-- • [Minimum Supported Versions]()
-- • [Changelog]()
+- • [API Reference](techref/index.rst)
+- • [Technical Reference](api/index.rst)
+- • [Minimum Supported Versions](minversions.md)
+- • [Changelog](changes.md)
 ::::
 
 
 ::::{grid-item-card}
-:link: https://www.pygmt.org/dev/contributing.html
 :margin: 0 3 0 0
 **Development** {octicon}`terminal;1em;sd-text-info`
 ^^^
-- • [Contributors Guide]()
-- • [Mainainers Guide]()
-- • [PyGMT Team]()
+- • [Contributors Guide](contributing.md)
+- • [Mainainers Guide](maintenance.md)
+- • [PyGMT Team](team.md)
 ::::
 
 
