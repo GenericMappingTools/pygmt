@@ -15,7 +15,6 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     A="sector",
-    C="cmap",
     D="shift",
     Em="vectors",
     F="no_scale",
@@ -40,6 +39,7 @@ def rose(
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    cmap: str | bool = False,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -67,6 +67,7 @@ def rose(
 
     $aliases
        - B = frame
+       - C = cmap
        - R = region
        - V = verbose
        - c = panel
@@ -209,7 +210,7 @@ def rose(
     $transparency
     $wrap
     """
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(C=Alias(cmap, name="cmap")).add_common(
         B=frame,
         R=region,
         V=verbose,
