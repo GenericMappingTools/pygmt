@@ -194,7 +194,7 @@ def tempfile_from_image(image):
             msg = (
                 "Package `rioxarray` is required to be installed to use this function. "
                 "Please use `python -m pip install rioxarray` or "
-                "`mamba install -c conda-forge rioxarray` "
+                "`conda install -c conda-forge rioxarray` "
                 "to install the package."
             )
             raise ImportError(msg) from e

@@ -189,7 +189,7 @@ These steps for setting up your environment are necessary for
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
 We highly recommend using [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
-and the `mamba` package manager to install and manage your Python packages.
+and the `conda` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
 The repository includes a virtual environment file `environment.yml` with the
@@ -210,14 +210,14 @@ Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-mamba env create --file environment.yml
+conda env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
 (you'll need to do this every time you start a new terminal):
 
 ```bash
-mamba activate pygmt
+conda activate pygmt
 ```
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)

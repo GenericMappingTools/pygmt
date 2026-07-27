@@ -9,7 +9,7 @@ assignees: ''
 
 :tada: [GMT X.Y.Z](https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z) has been released! It is installable from the [conda-forge channel](https://anaconda.org/conda-forge/gmt/files) using the following command:
 ```
-mamba install -c conda-forge gmt=X.Y.Z
+conda install -c conda-forge gmt=X.Y.Z
 ```
 
 <!-- Please add specific checklist items for the tests, xfail pytest markers, and deprecated syntax that need to be updated. -->
