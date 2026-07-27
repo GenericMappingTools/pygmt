@@ -82,11 +82,11 @@ PyGMT Ecosystem
 :shadow:
 Citing PyGMT
 ```
-```{button-ref} ../conferences
+```{button-ref} ../presentations
 :color: secondary
 :outline:
 :shadow:
-Conference Presentations
+Presentations
 ```
 ::::
 
@@ -407,7 +407,7 @@ intro/index.rst
 overview.md
 ecosystem.md
 citing.md
-conferences.md
+presentations.md
 ```
 
 ```{toctree}

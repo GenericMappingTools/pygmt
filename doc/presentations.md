@@ -1,6 +1,6 @@
-# Conference Presentations
+# Presentations
 
-These are conference presentations about the development of PyGMT (previously "GMT/Python"):
+These are international presentations, including both talks and posters, on the development of PyGMT (previously "GMT/Python"):
 
 -   "Accessing and Integrating GMT with Python and the Scientific Python Ecosystem".
     2024.
