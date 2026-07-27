@@ -28,10 +28,12 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 <!--- Set up grid --->
 <!--- Number of default columns screen sizes dependent --->
 <!--- extra-small (<576px) small (768px) medium (992px) large screens (>1200px) --->
-:::::{grid} 1 3 3 3
 
 <!--- Set up card --->
 <!--- top bottom left right --->
+
+:::::{grid} 1 3 3 3
+
 ::::{grid-item-card}
 :margin: 0 3 0 0
 <!--- Add icon --->
