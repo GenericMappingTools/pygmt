@@ -15,7 +15,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 __doctest_skip__ = ["grdmask"]
 
 
-def _alias_option_N(  # ruff: ignore[N802]
+def _alias_option_N(  # ruff: ignore[invalid-function-name]
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,

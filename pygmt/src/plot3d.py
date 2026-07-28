@@ -41,7 +41,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot3d(  # ruff: ignore[PLR0912]
+def plot3d(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
