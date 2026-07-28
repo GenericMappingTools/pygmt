@@ -339,7 +339,7 @@ def load_sample_data(
      'usgs_quakes': 'Table of earthquakes from the USGS'}
     >>> # Load the sample bathymetry dataset
     >>> data = load_sample_data("bathymetry")
-    """  # noqa: W505
+    """  # ruff: ignore[W505]
     if name not in datasets:
         raise GMTValueError(name, choices=datasets.keys(), description="dataset name")
     return datasets[name].func()

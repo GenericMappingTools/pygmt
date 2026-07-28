@@ -107,8 +107,6 @@ def magnetic_rose(
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
     # The default position is set to "TR" since GMT 6.7.0, which has no default value
     # in GMT 6.6.0 and earlier versions.
     # TODO(GMT>6.6.0): Set 'default=None' after GMT 6.7.0.
@@ -148,5 +146,6 @@ def magnetic_rose(
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

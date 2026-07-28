@@ -66,7 +66,7 @@ def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
     return long_name, units
 
 
-class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
+class _GMT_GRID_HEADER(ctp.Structure):  # ruff: ignore[N801]
     """
     GMT grid header structure for metadata about the grid.
 

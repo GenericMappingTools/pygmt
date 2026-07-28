@@ -100,9 +100,9 @@ def shift_origin(
     ...     fig.basemap(region=[0, 5, 0, 5], projection="X5c/5c", frame=True)
     >>> fig.show()
     """
-    self._activate_figure()
     kwdict = {"T": True, "X": xshift, "Y": yshift}
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="plot", args=build_arg_list(kwdict))
         _xshift = lib.get_common("X")  # False or xshift in inches

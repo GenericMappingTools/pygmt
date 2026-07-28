@@ -114,8 +114,6 @@ def paragraph(
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
     _valid_alignments = ("left", "center", "right", "justified")
     if alignment not in _valid_alignments:
         raise GMTValueError(
@@ -175,6 +173,7 @@ def paragraph(
         _textstr = non_ascii_to_octal(_textstr, encoding=encoding)
         confdict["PS_CHAR_ENCODING"] = encoding
 
+    self._activate_figure()
     with Session() as lib:
         with io.StringIO() as buffer:  # Prepare the StringIO input.
             buffer.write(f"> {x} {y} {linespacing} {parwidth} {alignment[0]}\n")

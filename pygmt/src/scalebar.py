@@ -109,7 +109,6 @@ def scalebar(
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
     position = _parse_position(position, default=Position("BL", offset=(0.2, 0.4)))
 
     aliasdict = AliasSystem(
@@ -140,6 +139,7 @@ def scalebar(
     if height is not None:
         confdict["MAP_SCALE_HEIGHT"] = height
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(
             module="basemap", args=build_arg_list(aliasdict, confdict=confdict)

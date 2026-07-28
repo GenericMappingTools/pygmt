@@ -114,7 +114,6 @@ def psconvert(
         ``prefix`` parameter.
     $verbose
     """
-    self._activate_figure()
     # Default cropping the figure to True
     if kwargs.get("A") is None:
         kwargs["A"] = ""
@@ -142,5 +141,6 @@ def psconvert(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="psconvert", args=build_arg_list(aliasdict))

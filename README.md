@@ -51,13 +51,8 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ### Installation
 
-Simple installation using [mamba](https://mamba.readthedocs.org/):
-
-```bash
-mamba install --channel conda-forge pygmt
-```
-
-If you use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
+Simple installation using
+[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
 
 ```bash
 conda install --channel conda-forge pygmt

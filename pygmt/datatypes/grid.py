@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt.datatypes.header import _GMT_GRID_HEADER, gmt_grdfloat
 
 
-class _GMT_GRID(ctp.Structure):  # noqa: N801
+class _GMT_GRID(ctp.Structure):  # ruff: ignore[N801]
     """
     GMT grid structure for holding a grid and its header.
 

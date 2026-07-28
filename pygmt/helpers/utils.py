@@ -43,7 +43,7 @@ Encoding = Literal[
 ]
 
 
-def _validate_data_input(  # noqa: PLR0912
+def _validate_data_input(  # ruff: ignore[PLR0912]
     data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
 ) -> None:
     """
@@ -217,7 +217,7 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     True
     >>> _contains_apostrophe_or_backtick("12AB'`")
     True
-    """  # noqa: RUF002
+    """  # ruff: ignore[RUF002]
     return "'" in argstr or "`" in argstr
 
 
@@ -452,7 +452,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     >>> non_ascii_to_octal("'‘’\"“”")
     '\\234\\140\\047"\\216\\217'
-    """  # noqa: RUF002
+    """  # ruff: ignore[RUF002]
     # Return the input string if it only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
@@ -481,7 +481,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(  # noqa: PLR0912
+def build_arg_list(  # ruff: ignore[PLR0912]
     kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
@@ -712,7 +712,7 @@ def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
         case "darwin":  # macOS
             subprocess.run([shutil.which("open"), fname], check=False, **run_args)  # type:ignore[call-overload]
         case "win32":  # Windows
-            os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
+            os.startfile(fname)  # type:ignore[attr-defined] # ruff: ignore[S606]
         case _:  # Fall back to the browser if can't recognize the operating system.
             webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
@@ -767,7 +767,7 @@ def sequence_join(
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
-) -> str | list[str] | None | Any:
+) -> str | list[str] | Any | None:
     """
     Join a sequence of values into a string separated by a separator.
 

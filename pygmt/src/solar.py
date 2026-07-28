@@ -113,8 +113,6 @@ def solar(
     >>> # show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     datetime_string, datetime_timezone = None, None
     if terminator_datetime:
         try:
@@ -156,5 +154,6 @@ def solar(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(aliasdict))
