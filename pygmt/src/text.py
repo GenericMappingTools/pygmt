@@ -223,7 +223,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
         raise GMTParameterError(
-            required="text", reason="Required when 'x' and 'y' are set."
+            required="text", reason="Required when 'x', 'y', and optional 'z' are set."
         )
 
     # Arguments that can accept arrays.
