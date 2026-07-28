@@ -37,13 +37,8 @@ grid = pygmt.surface(
 )
 
 fig = pygmt.Figure()
-
 pygmt.makecpt(cmap="gmt/geo", series=[-7500, 0, 500])
-
-pygmt.config(
-    FONT_TITLE="12p",
-    MAP_TITLE_OFFSET="4p",
-)
+pygmt.config(FONT_TITLE="12p", MAP_TITLE_OFFSET="4p")
 
 with fig.subplot(
     nrows=1,
@@ -89,11 +84,7 @@ with fig.subplot(
 # Position the color bar using explicit plot coordinates:
 # 10 cm is the horizontal center of the 20 cm wide subplot.
 fig.colorbar(
-    position=Position(
-        ("10c", "-1.2c"),
-        cstype="plotcoords",
-        anchor="TC",
-    ),
+    position=Position(("10c", "-1.2c"), cstype="plotcoords", anchor="TC"),
     length=12,
     width=0.4,
     orientation="horizontal",
