@@ -25,6 +25,7 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     C="clearance",
+    Z="zvalue",
     a="aspatial",
     e="find",
     f="coltypes",
