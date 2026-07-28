@@ -100,7 +100,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
         * *x*: X coordinate or longitude
         * *y*: Y coordinate or latitude
-        * *z*: Z coordinate or altitude
+        * *z*: Optional Z coordinate or altitude
         * *angle*: Angle in degrees counter-clockwise from horizontal
         * *font*: Text size, font, and color
         * *justify*:
@@ -113,7 +113,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         corresponding columns must be present in the input file(s) and the
         columns must be in the order mentioned above.
     x/y/z : float or 1-D arrays
-        The x, y, and z coordinates, or an array of x, y, and z coordinates to plot
+        The x, y, and optional z coordinates, or an array of x, y, and z coordinates to plot
         the text.
     position
         Set reference point on the plot for the text by using x, y
@@ -203,7 +203,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         + (position is not None)
         + (x is not None or y is not None or z is not None)
     ) != 1:
-        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y(/z)/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
