@@ -100,6 +100,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
         * *x*: X coordinate or longitude
         * *y*: Y coordinate or latitude
+        * *z*: Z coordinate or altitude
         * *angle*: Angle in degrees counter-clockwise from horizontal
         * *font*: Text size, font, and color
         * *justify*:
@@ -111,8 +112,8 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         respectively. If these parameters are set to ``True``, then the
         corresponding columns must be present in the input file(s) and the
         columns must be in the order mentioned above.
-    x/y : float or 1-D arrays
-        The x and y coordinates, or an array of x and y coordinates to plot
+    x/y/z : float or 1-D arrays
+        The x, y, and z coordinates, or an array of x, y, and z coordinates to plot
         the text.
     position
         Set reference point on the plot for the text by using x, y
@@ -188,7 +189,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     $perspective
     $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
-        but this option is only valid if using ``x``/``y`` and ``text``.
+        but this option is only valid if using ``x``/``y``(/``z``) and ``text``.
     $wrap
 
     See Also
