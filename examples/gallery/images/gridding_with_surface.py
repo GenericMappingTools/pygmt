@@ -38,10 +38,7 @@ grid = pygmt.surface(
 
 fig = pygmt.Figure()
 
-pygmt.makecpt(
-    cmap="gmt/geo",
-    series=[-7500, 0, 500],
-)
+pygmt.makecpt(cmap="gmt/geo", series=[-7500, 0, 500])
 
 pygmt.config(
     FONT_TITLE="12p",
@@ -72,10 +69,7 @@ with fig.subplot(
             style="c0.05c",
             cmap=True,
         )
-        fig.coast(
-            land="gray",
-            shorelines="0.5p,black",
-        )
+        fig.coast(land="gray", shorelines="0.5p,black")
 
     # Interpolated surface grid.
     with fig.set_panel(panel=1):
@@ -90,10 +84,7 @@ with fig.subplot(
             ),
             cmap=True,
         )
-        fig.coast(
-            land="gray",
-            shorelines="0.5p,black",
-        )
+        fig.coast(land="gray", shorelines="0.5p,black")
 
 # Position the color bar using explicit plot coordinates:
 # 10 cm is the horizontal center of the 20 cm wide subplot.
