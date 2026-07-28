@@ -65,6 +65,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
     - ``textfiles``
     - ``x``/``y``, and ``text``
+    - ``x``/``y``/``z``, and ``text``
     - ``position`` and ``text``
 
     The text strings passed via the ``text`` parameter can contain ASCII characters and
