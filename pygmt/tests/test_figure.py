@@ -129,9 +129,9 @@ def test_figure_savefig_geotiff():
 
     # Check if a TIFF is georeferenced or not
     if _HAS_RIOXARRAY:
-        import rioxarray  # noqa: PLC0415
-        from rasterio.errors import NotGeoreferencedWarning  # noqa: PLC0415
-        from rasterio.transform import Affine  # noqa: PLC0415
+        import rioxarray  # ruff: ignore[PLC0415]
+        from rasterio.errors import NotGeoreferencedWarning  # ruff: ignore[PLC0415]
+        from rasterio.transform import Affine  # ruff: ignore[PLC0415]
 
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:

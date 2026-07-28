@@ -18,7 +18,7 @@ try:
     _HAS_PYARROW = True
 except ImportError:
 
-    class pa:  # noqa: N801
+    class pa:  # ruff: ignore[N801]
         """
         A dummy class to mimic pyarrow.
         """

@@ -32,7 +32,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):  # noqa: ARG001
+        def mock_api_function(*args):  # ruff: ignore[ARG001]
             """
             A mock GMT API function that always returns a given value.
             """
@@ -215,7 +215,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):  # noqa: ARG001
+    def mock_defaults(api, name, value):  # ruff: ignore[ARG001]
         """
         Put 'bla' in the value buffer.
         """
@@ -247,7 +247,7 @@ def test_fails_for_wrong_version(monkeypatch):
         assert clib.__gmt_version__.split(".")[0] == "6"
 
         # Monkeypatch the version string returned by pygmt.clib.loading.get_gmt_version.
-        mpatch.setattr(clib.loading, "get_gmt_version", lambda libgmt: "5.4.3")  # noqa: ARG005
+        mpatch.setattr(clib.loading, "get_gmt_version", lambda libgmt: "5.4.3")  # ruff: ignore[ARG005]
 
         # Reload clib.session and check the __gmt_version__ string.
         importlib.reload(clib.session)
