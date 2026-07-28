@@ -38,6 +38,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
+    z=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
     angle: float | Sequence[float] | bool = False,
