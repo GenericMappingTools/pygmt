@@ -20,7 +20,7 @@ from pygmt.params import Axis, Box, Frame, Position
 region_map = [122, 149, 30, 49]
 
 # Chose a survey line with start point A and end point B
-lonA, latA, lonB, latB = 126, 42, 146, 40  # noqa: N816
+lonA, latA, lonB, latB = 126, 42, 146, 40  # ruff: ignore[N816]
 
 
 fig = pygmt.Figure()

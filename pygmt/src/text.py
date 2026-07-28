@@ -32,7 +32,7 @@ from pygmt.params import Axis, Frame
     it="use_word",
     w="wrap",
 )
-def text(  # noqa: PLR0912, PLR0915
+def text(  # ruff: ignore[PLR0912, PLR0915]
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,

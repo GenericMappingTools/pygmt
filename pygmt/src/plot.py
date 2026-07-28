@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     E="error_bar",
     F="connection",
@@ -43,7 +42,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot(  # noqa: PLR0912
+def plot(  # ruff: ignore[PLR0912]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +50,7 @@ def plot(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -89,6 +89,7 @@ def plot(  # noqa: PLR0912
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - R = region
        - V = verbose
@@ -303,6 +304,7 @@ def plot(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
     ).add_common(
         B=frame,
         R=region,

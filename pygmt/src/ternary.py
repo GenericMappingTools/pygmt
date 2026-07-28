@@ -108,10 +108,11 @@ def _ternary_frame(frame):
 
 
 @fmt_docstring
-@use_alias(C="cmap", S="style")
+@use_alias(S="style")
 def ternary(
     self,
     data: PathLike | TableLike,
+    cmap: str | bool = False,
     fill: str | None = None,
     width: float | str | None = None,
     pen: str | None = None,
@@ -143,6 +144,7 @@ def ternary(
 
     $aliases
        - B = frame
+       - C = cmap
        - G = fill
        - JX = width
        - L = alabel/blabel/clabel
@@ -199,6 +201,7 @@ def ternary(
     labels = _labels if any(v != "-" for v in _labels) else None
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         G=Alias(fill, name="fill"),
         JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
