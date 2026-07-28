@@ -64,8 +64,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     Must provide at least one of the following combinations as input:
 
     - ``textfiles``
-    - ``x``/``y``, and ``text``
-    - ``x``/``y``/``z``, and ``text``
+    - ``x``/``y``[/``z``], and ``text``
     - ``position`` and ``text``
 
     The text strings passed via the ``text`` parameter can contain ASCII characters and
@@ -113,8 +112,8 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         corresponding columns must be present in the input file(s) and the
         columns must be in the order mentioned above.
     x/y/z : float or 1-D arrays
-        The x, y, and optional z coordinates, or an array of x, y, and z coordinates to plot
-        the text.
+        The x, y, and z coordinates, or arrays of x, y and z coordinates of
+        the data points.
     position
         Set reference point on the plot for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
@@ -223,7 +222,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
         raise GMTParameterError(
-            required="text", reason="Required when 'x', 'y', and optional 'z' are set."
+            required="text", reason="Required when 'x', 'y' (and optional 'z') are set."
         )
 
     # Arguments that can accept arrays.
@@ -250,9 +249,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     confdict = {}
     data = None
     if kind == "empty":
-        data = {"x": x, "y": y}
-        if z is not None:
-            data["z"] = z
+        data = {"x": x, "y": y, "z": z}
 
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
