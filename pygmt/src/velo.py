@@ -22,7 +22,6 @@ from pygmt.params import Axis, Frame
 )
 @use_alias(
     A="vector",
-    C="cmap",
     D="rescale",
     E="uncertainty_fill",
     G="fill",
@@ -39,6 +38,7 @@ from pygmt.params import Axis, Frame
 def velo(
     self,
     data: PathLike | TableLike | None = None,
+    cmap: str | bool = False,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -67,6 +67,7 @@ def velo(
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - N = no_clip
        - R = region
@@ -273,6 +274,7 @@ def velo(
         )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         B=frame,
