@@ -251,6 +251,8 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     data = None
     if kind == "empty":
         data = {"x": x, "y": y}
+        if z is not None:
+            data["z"] = z
 
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
