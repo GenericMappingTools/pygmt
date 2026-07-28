@@ -49,24 +49,17 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ## Quickstart
 
-### Installation
-
-Simple installation using
-[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
+Install PyGMT using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
 
 ```bash
 conda install --channel conda-forge pygmt
 ```
 
-For other ways to install `pygmt`, see the [full installation instructions](https://www.pygmt.org/latest/install.html).
+Then try the following example in a Python interpreter or Jupyter notebook. You should
+see a global map with land and water masses colored in tan and lightblue, respectively,
+with the semi-transparent text "PyGMT" on top.
 
-### Getting started
-
-As a starting point, you can open a [Python interpreter](https://docs.python.org/3/tutorial/interpreter.html)
-or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and try the
-following example:
-
-``` python
+```python
 import pygmt
 
 fig = pygmt.Figure()
@@ -75,11 +68,8 @@ fig.coast(land="tan", water="lightblue")
 fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
-
-You should see a global map with land and water masses colored in tan and lightblue,
-respectively. On top, there should be the semi-transparent text "PyGMT". For more examples,
-please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
-[Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
+For other ways to install PyGMT and more examples, please visit the
+[PyGMT documentation](https://www.pygmt.org/).
 
 ## Contacting us
 
