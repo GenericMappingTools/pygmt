@@ -197,11 +197,11 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
     """
-    # Ensure inputs are either textfiles, x/y/text, or position/text
+    # Ensure inputs are either textfiles, x/y(/z)/text, or position/text
     if (
         (textfiles is not None)
         + (position is not None)
-        + (x is not None or y is not None)
+        + (x is not None or y is not None or z is not None)
     ) != 1:
         raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
