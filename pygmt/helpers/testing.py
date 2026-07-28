@@ -75,8 +75,10 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest  # ruff: ignore[PLC0415]
-        from matplotlib.testing.compare import compare_images  # ruff: ignore[PLC0415]
+        # ruff: disable[import-outside-top-level]
+        import pytest
+        from matplotlib.testing.compare import compare_images
+        # ruff: enable[import-outside-top-level]
 
         Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
@@ -191,7 +193,7 @@ def skip_if_no(package):
         A pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
-    import pytest  # ruff: ignore[PLC0415]
+    import pytest  # ruff: ignore[import-outside-top-level]
 
     try:
         _ = importlib.import_module(name=package)

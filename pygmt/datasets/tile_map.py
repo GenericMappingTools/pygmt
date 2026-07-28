@@ -18,7 +18,7 @@ except ImportError:
     _HAS_CONTEXTILY = False
 
 try:
-    import rioxarray  # ruff: ignore[F401]
+    import rioxarray  # ruff: ignore[unused-import]
 
     _HAS_RIOXARRAY = True
 except ImportError:

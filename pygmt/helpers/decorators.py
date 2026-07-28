@@ -454,7 +454,7 @@ def fmt_docstring(module_func):
        - J = projection
        - R = region
     <BLANKLINE>
-    """  # ruff: ignore[D410, D411]
+    """  # ruff: ignore[no-blank-line-after-section, no-blank-line-before-section]
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
