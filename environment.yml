@@ -26,7 +26,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - prek
-    - ruff>=0.15.5
+    - ruff>=0.15.22
     - typos
     # Dev dependencies (unit testing)
     - matplotlib-base

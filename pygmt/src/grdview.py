@@ -24,7 +24,7 @@ from pygmt.src.grdinfo import grdinfo
 __doctest_skip__ = ["grdview"]
 
 
-def _alias_option_Q(  # noqa: N802
+def _alias_option_Q(  # ruff: ignore[N802]
     surftype=None, dpi=None, mesh_fill=None, monochrome=False, nan_transparent=False
 ):
     """

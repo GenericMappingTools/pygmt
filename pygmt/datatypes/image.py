@@ -16,7 +16,7 @@ __doctest_skip__ = (
 )
 
 
-class _GMT_IMAGE(ctp.Structure):  # noqa: N801
+class _GMT_IMAGE(ctp.Structure):  # ruff: ignore[N801]
     """
     GMT image data structure.
 

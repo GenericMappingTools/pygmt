@@ -114,7 +114,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         self,
         filename_or_obj: PathLike,
         *,
-        drop_variables=None,  # noqa: ARG002
+        drop_variables=None,  # ruff: ignore[ARG002]
         raster_kind: Literal["grid", "image"],
         region: Sequence[float] | str | None = None,
         # other backend specific keyword arguments
