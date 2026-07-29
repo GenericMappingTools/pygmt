@@ -11,7 +11,6 @@ from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -23,7 +22,6 @@ __doctest_skip__ = ["grdcontour"]
 
 
 @fmt_docstring
-@deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
     C="levels",

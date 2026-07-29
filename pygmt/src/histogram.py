@@ -24,7 +24,6 @@ from pygmt.params import Axis, Frame
 @deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="horizontal",
-    C="cmap",
     D="annotate",
     F="center",
     G="fill",
@@ -48,6 +47,7 @@ def histogram(
     data: PathLike | TableLike,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
+    cmap: str | bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -66,6 +66,7 @@ def histogram(
 
     $aliases
        - B = frame
+       - C = cmap
        - E = bar_width, bar_offset
        - J = projection
        - R = region
@@ -93,10 +94,9 @@ def histogram(
         label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
     bar_width
-        Use an alternative histogram bar width than the default set via
-        ``series``. Give either an alternative width in data units, or the user
-        may append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
-        fixed dimension instead.
+        Use an alternative histogram bar width than the default set via ``series``. Give
+        either an alternative width in data units, or the user may append a
+        :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
         Shift all bars along the axis by *offset*. It may be given in data units
         of plot dimension units by appending the relevant unit.
@@ -167,6 +167,7 @@ def histogram(
         )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),

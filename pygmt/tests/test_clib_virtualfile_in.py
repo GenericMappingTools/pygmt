@@ -74,7 +74,7 @@ def test_virtualfile_in_required_z_deprecated():
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):  # noqa: PT012
+        with pytest.raises(GMTInvalidInput):  # ruff: ignore[pytest-raises-with-multiple-statements]
             with pytest.warns(FutureWarning):
                 with lib.virtualfile_in(
                     data=data, required_z=True, check_kind="vector"

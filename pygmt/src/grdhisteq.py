@@ -22,7 +22,7 @@ from pygmt.helpers import (
 __doctest_skip__ = ["grdhisteq.*"]
 
 
-class grdhisteq:  # noqa: N801
+class grdhisteq:  # ruff: ignore[invalid-class-name]
     r"""
     Perform histogram equalization for a grid.
 

@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     G="fill",
     I="intensity",
@@ -42,7 +41,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot3d(  # noqa: PLR0912
+def plot3d(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +50,7 @@ def plot3d(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -91,6 +91,7 @@ def plot3d(  # noqa: PLR0912
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - Jz = zscale
        - JZ = zsize
@@ -274,6 +275,7 @@ def plot3d(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
     ).add_common(

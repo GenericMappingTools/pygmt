@@ -26,7 +26,7 @@ else:
 # Projection information.
 project = "PyGMT"
 author = "The PyGMT Developers"
-copyright = f"2017-{datetime.date.today().year}, {author}"  # noqa: A001
+copyright = f"2017-{datetime.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
 
