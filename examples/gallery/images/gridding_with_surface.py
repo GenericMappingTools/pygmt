@@ -17,7 +17,7 @@ from pygmt.params import Axis, Frame, Position
 data = pygmt.datasets.load_sample_data(name="bathymetry")
 
 region = [245, 255, 20, 30]
-spacing = "5m"
+spacing = "5m"  # 5 arc-minutes
 
 # Calculate one representative median value for each occupied block.
 reduced_data = pygmt.blockmedian(
