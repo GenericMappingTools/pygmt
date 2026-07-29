@@ -38,7 +38,7 @@ def shift_origin(
     The shifts *xshift* and *yshift* in x- and y-directions are relative to the current
     plot origin. The default unit for shifts is centimeters (**c**) but can be changed
     to other units via :gmt-term:`PROJ_LENGTH_UNIT`. Optionally, append the length unit
-    (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.
+    (see :ref:`dimension-units`) to the shifts.
 
     For *xshift*, character **w** can be used, which represents the bounding box
     **width** of the last plotting object. The full syntax is
