@@ -47,12 +47,6 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :shadow:
 Installing
 ```
-```{button-ref} ../minversions
-:color: secondary
-:outline:
-:shadow:
-Minimum Supported Versions
-```
 ```{button-ref} ../intro/index
 :color: secondary
 :outline:
@@ -140,6 +134,18 @@ API Reference
 :shadow:
 Technical Reference
 ```
+```{button-ref} ../changes
+:color: secondary
+:outline:
+:shadow:
+Changelog
+```
+```{button-ref} ../minversions
+:color: secondary
+:outline:
+:shadow:
+Minimum Supported Versions
+```
 ::::
 
 ::::{grid-item-card}
@@ -158,12 +164,6 @@ Contributors Guide
 :outline:
 :shadow:
 Maintainers Guide
-```
-```{button-ref} ../changes
-:color: secondary
-:outline:
-:shadow:
-Changelog
 ```
 ```{button-ref} ../team
 :color: secondary
@@ -397,7 +397,6 @@ Visit the GMT forum for finding help, asking questions and also consider helping
 :caption: Getting Started
 
 install.md
-minversions.md
 intro/index.rst
 ```
 
@@ -430,6 +429,8 @@ external_resources.md
 
 api/index.rst
 techref/index.md
+changes.md
+minversions.md
 ```
 
 ```{toctree}
@@ -439,6 +440,5 @@ techref/index.md
 
 contributing.md
 maintenance.md
-changes.md
 team.md
 ```
