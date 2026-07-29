@@ -1,6 +1,6 @@
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" srcset="doc/_static/pygmtlogo_dark.png">
-  <img alt="PyGMT Logo" src="doc/_static/pygmtlogo_light.png">
+  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
+  <img alt="PyGMT Logo" style="width: 65%" src="doc/_static/pygmtlogo_light.png">
 </picture>
 
 # A Python interface for the Generic Mapping Tools
