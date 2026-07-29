@@ -1,6 +1,6 @@
 """
-Gridding scattered data with blockmedian and surface
-====================================================
+Gridding scattered data
+=======================
 
 The :func:`pygmt.surface` function interpolates irregularly spaced
 (x, y, z) observations onto a regular grid. Before interpolation,
