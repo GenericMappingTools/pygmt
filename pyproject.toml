@@ -154,6 +154,7 @@ extend-select = [
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
     "RUF027",   # Possible f-string without an f prefix
     "RUF105",   # Use `# ruff: ignore` rather than `# noqa`
+    "RUF106",   # Rule code used instead of name in suppression comment
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas

@@ -19,7 +19,7 @@ class PyGMTScraper:
     ``conf.py`` as the ``"image_scrapers"`` argument.
     """
 
-    def __call__(self, block, block_vars, gallery_conf):  # ruff: ignore[ARG002]
+    def __call__(self, block, block_vars, gallery_conf):  # ruff: ignore[unused-method-argument]
         """
         Called by sphinx-gallery to save the figures generated after running code.
         """

@@ -470,8 +470,8 @@ def test_text_nonascii(encoding):
     if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
         config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    fig.text(position="TL", text="position-text:°α")  # ruff: ignore[RUF001]
-    fig.text(x=1, y=1, text="xytext:°α")  # ruff: ignore[RUF001]
+    fig.text(position="TL", text="position-text:°α")  # ruff: ignore[ambiguous-unicode-character-string]
+    fig.text(x=1, y=1, text="xytext:°α")  # ruff: ignore[ambiguous-unicode-character-string]
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
     return fig
 
@@ -484,7 +484,7 @@ def test_text_quotation_marks():
     See https://github.com/GenericMappingTools/pygmt/issues/3104 and
     https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
-    quotations = "` ' ‘ ’ \" “ ”"  # ruff: ignore[RUF001]
+    quotations = "` ' ‘ ’ \" “ ”"  # ruff: ignore[ambiguous-unicode-character-string]
     fig = Figure()
     fig.basemap(
         projection="X4c/2c",

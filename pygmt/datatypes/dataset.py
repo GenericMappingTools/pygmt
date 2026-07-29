@@ -11,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 
-class _GMT_DATASEGMENT(ctp.Structure):  # ruff: ignore[N801]
+class _GMT_DATASEGMENT(ctp.Structure):  # ruff: ignore[invalid-class-name]
     """
     GMT datasegment structure for holding a segment with multiple columns.
     """
@@ -38,7 +38,7 @@ class _GMT_DATASEGMENT(ctp.Structure):  # ruff: ignore[N801]
     ]
 
 
-class _GMT_DATATABLE(ctp.Structure):  # ruff: ignore[N801]
+class _GMT_DATATABLE(ctp.Structure):  # ruff: ignore[invalid-class-name]
     """
     GMT datatable structure for holding a table with multiple segments.
     """
@@ -65,7 +65,7 @@ class _GMT_DATATABLE(ctp.Structure):  # ruff: ignore[N801]
     ]
 
 
-class _GMT_DATASET(ctp.Structure):  # ruff: ignore[N801]
+class _GMT_DATASET(ctp.Structure):  # ruff: ignore[invalid-class-name]
     """
     GMT dataset structure for holding multiple tables (files).
 
