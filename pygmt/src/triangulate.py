@@ -20,7 +20,7 @@ from pygmt.helpers import (
 )
 
 
-class triangulate:  # noqa: N801
+class triangulate:  # ruff: ignore[invalid-class-name]
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
