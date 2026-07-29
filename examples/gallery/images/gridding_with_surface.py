@@ -27,7 +27,8 @@ reduced_data = pygmt.blockmedian(
     C=True,
 )
 
-# Interpolate the reduced observations onto a regular grid.
+# Interpolate the reduced observations onto a regular grid. The value "d"
+# constrains the grid to the minimum and maximum input data values.
 grid = pygmt.surface(
     data=reduced_data,
     region=region,
