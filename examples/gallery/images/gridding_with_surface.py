@@ -40,12 +40,7 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="gmt/geo", series=[-7500, 0, 500])
 pygmt.config(FONT_TITLE="12p", MAP_TITLE_OFFSET="4p")
 
-with fig.subplot(
-    nrows=1,
-    ncols=2,
-    figsize=("20c", "9c"),
-    margins="0.5c",
-):
+with fig.subplot(nrows=1, ncols=2, figsize=("20c", "9c")):
     # Block-median observations.
     with fig.set_panel(panel=0):
         fig.basemap(
