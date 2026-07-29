@@ -3,8 +3,6 @@
   <img alt="PyGMT Logo" src="https://github.com/GenericMappingTools/pygmt/blob/add-logo-light-dark-change-readme/doc/_static/pygmtlogo_light.png">
 </picture>
 
----------
-
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
 [![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt)](https://pypi.org/project/pygmt)
