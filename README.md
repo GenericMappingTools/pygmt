@@ -8,7 +8,6 @@
 [![PyPI Python Version](https://img.shields.io/pypi/pyversions/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
 
 [![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?color=2ca02c)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
-[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v3.0%20adopted-2ca02c.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 [![Digital Object Identifier for the Zenodo archive](https://img.shields.io/badge/Zenodo%20DOI-10.5281/zenodo.3781524-2ca02c)](https://doi.org/10.5281/zenodo.3781524)
 [![PyGMT paper](https://img.shields.io/badge/G3%20Paper%20DOI-10.1029/2026GC013105-2ca02c)](https://doi.org/10.1029/2026GC013105)
 
