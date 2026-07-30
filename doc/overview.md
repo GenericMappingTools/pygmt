@@ -1,6 +1,25 @@
-# Overview
+# Why PyGMT
 
-## About
+```{include} ../README.md
+:start-after: <!-- doc-why-start-after -->
+:end-before: <!-- doc-why-end-before -->
+```
+
+Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
+[Gallery](gallery/index.rst) for more impressions, go through the
+[Tutorials](tutorials/index.rst) to learn things in more detail, look at the
+available map [Projections](projections/index.rst), and finally do not forget
+to check out some [external PyGMT examples](external_resources)!
+
+
+## Project goals
+
+```{include} ../README.md
+:start-after: <!-- doc-goals-start-after -->
+:end-before: <!-- doc-goals-end-before -->
+```
+
+## Background
 
 PyGMT is a Python wrapper for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt),
@@ -20,10 +39,24 @@ PDF and PNG.
 
 The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
 [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) (the co-creator and main
-developer of GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT
-has been supported by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403)
-and [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
+developer of GMT) at the University of Hawaiʻi at Mānoa.
 
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
 our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a).
+
+
+## Support
+
+```{include} ../README.md
+:start-after: <!-- doc-support-start-after -->
+:end-before: <!-- doc-support-end-before -->
+```
+
+
+## Related projects
+
+```{include} ../README.md
+:start-after: <!-- doc-related-start-after -->
+:end-before: <!-- doc-related-end-before -->
+```
