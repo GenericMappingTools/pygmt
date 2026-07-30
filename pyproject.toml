@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pygmt"
-description = "A Python interface for the Generic Mapping Tools"
+description = "PyGMT: A Python library for geospatial data visualization, mapping, and analysis"
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
