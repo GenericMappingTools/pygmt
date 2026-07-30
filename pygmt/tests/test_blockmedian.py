@@ -32,6 +32,19 @@ def test_blockmedian_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 
+def test_blockmedian_center(dataframe):
+    """
+    Test setting the output location to the center of each block.
+    """
+    output = blockmedian(
+        data=dataframe, spacing="5m", center=True, region=[245, 255, 20, 30]
+    )
+    expected = blockmedian(
+        data=dataframe, spacing="5m", C=True, region=[245, 255, 20, 30]
+    )
+    pd.testing.assert_frame_equal(left=output, right=expected)
+
+
 @pytest.mark.benchmark
 def test_blockmedian_input_table_matrix(dataframe):
     """

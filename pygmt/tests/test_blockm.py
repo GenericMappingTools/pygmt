@@ -34,6 +34,19 @@ def test_blockmean_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
+def test_blockmean_center(dataframe):
+    """
+    Test setting the output location to the center of each block.
+    """
+    output = blockmean(
+        data=dataframe, spacing="5m", center=True, region=[245, 255, 20, 30]
+    )
+    expected = blockmean(
+        data=dataframe, spacing="5m", C=True, region=[245, 255, 20, 30]
+    )
+    pd.testing.assert_frame_equal(left=output, right=expected)
+
+
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_blockmean_input_table_matrix(array_func, dataframe):
     """
@@ -111,3 +124,16 @@ def test_blockmode_input_dataframe(dataframe):
     assert all(dataframe.columns == output.columns)
     assert output.shape == (5849, 3)
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
+
+
+def test_blockmode_center(dataframe):
+    """
+    Test setting the output location to the center of each block.
+    """
+    output = blockmode(
+        data=dataframe, spacing="5m", center=True, region=[245, 255, 20, 30]
+    )
+    expected = blockmode(
+        data=dataframe, spacing="5m", C=True, region=[245, 255, 20, 30]
+    )
+    pd.testing.assert_frame_equal(left=output, right=expected)
