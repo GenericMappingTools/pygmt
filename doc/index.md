@@ -31,6 +31,7 @@ intro/index.rst
 
 overview.md
 ecosystem.md
+citing.md
 presentations.md
 ```
 

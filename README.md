@@ -115,6 +115,8 @@ happy to help others learn.
 
 ## Citing PyGMT
 
+<!-- doc-cite-start-after -->
+
 PyGMT is a community developed project. See the
 [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
@@ -181,6 +183,8 @@ and use the "Export to BibTeX" function there. It is also strongly recommended t
 the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note
 that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
 citations. Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
+
+<!-- doc-cite-end-before -->
 
 ## License
 
