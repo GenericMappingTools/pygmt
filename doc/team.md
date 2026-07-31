@@ -4,8 +4,8 @@ We are an international team dedicated to building a Pythonic API for the Generi
 Tools (GMT).
 
 PyGMT is a community developed project. All are welcome! For more information about how
-to get involved, see the [](contributing.md). A more complete list of contributors and
-a definition of the term "PyGMT Developers" is available in the
+to get involved, see the [](contributing.md). A more complete list of contributors and a
+definition of the term "PyGMT Developers" is available in the
 [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file in
 the source repository.
 
