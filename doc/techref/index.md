@@ -16,4 +16,5 @@ text_formatting.md
 encodings.md
 justification_codes.md
 environment_variables.md
+array_dtypes.md
 ```
