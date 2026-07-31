@@ -16,7 +16,6 @@ to submit a pull request with your recommended addition to the
 :link: https://www.generic-mapping-tools.org/agu24workshop/
 :text-align: center
 :margin: 0 3 0 0
-
 **2024 AGU PREWS9: Mastering Geospatial Visualizations with GMT/PyGMT**
 ^^^
 ![](https://github.com/user-attachments/assets/9f3ab0ed-83f1-4cff-bc68-387fc13ca61f)
@@ -28,7 +27,6 @@ Wei Ji Leong, Yvonne Fröhlich, Jing-Hui Tong, Federico Esteban, Max Jones, Andr
 :link: https://github.com/andrebelem/Oficina_PyGMT
 :text-align: center
 :margin: 0 3 0 0
-
 **2024 PyGMT Webinar using Google Colab (in Portuguese)**
 ^^^
 ![](https://github.com/andrebelem/Oficina_PyGMT/raw/main/Datasets/3D_sample.png)
@@ -40,7 +38,6 @@ Andre Belem
 :link: https://www.generic-mapping-tools.org/egu22pygmt/
 :text-align: center
 :margin: 0 3 0 0
-
 **2022 EGU SC5.2: Crafting beautiful maps with PyGMT**
 ^^^
 ![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
@@ -52,7 +49,6 @@ Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
 :link: https://github.com/liamtoney/gi-pygmt-2021
 :text-align: center
 :margin: 0 3 0 0
-
 **2021 PyGMT course at the UAF Geophysical Institute**
 ^^^
 ![](https://user-images.githubusercontent.com/3974108/172042115-3f700c16-0f78-49d3-9e8d-87c77e4c0444.png)
@@ -64,7 +60,6 @@ Liam Toney
 :link: https://www.youtube.com/watch?v=Zvcy7VDuhiw
 :text-align: center
 :margin: 0 3 0 0
-
 **2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping**
 ^^^
 ![](https://user-images.githubusercontent.com/3974108/172055872-b81057b6-aef3-473f-8f42-1cc82a68d188.jpg)
@@ -76,7 +71,6 @@ Liam Toney
 :link: https://www.iris.edu/hq/inclass/lesson/728
 :text-align: center
 :margin: 0 3 0 0
-
 **2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT**
 ^^^
 ![](https://user-images.githubusercontent.com/3974108/172055922-8df68c00-4115-42f4-83ae-13a971fef846.png)
@@ -88,7 +82,6 @@ Liam Toney
 :link: https://github.com/MIGG-NTU/PyGMT2021
 :text-align: center
 :margin: 0 3 0 0
-
 **2021 PyGMT Tutorial**
 ^^^
 ![](https://user-images.githubusercontent.com/23487320/172058757-9b68f7ae-7a3f-4f48-9df6-9a065d6cd448.png)
@@ -100,7 +93,6 @@ MIGG-NTU
 :link: https://github.com/GenericMappingTools/foss4g2019oceania
 :text-align: center
 :margin: 0 3 0 0
-
 **2019 PyGMT Workshop at FOSS4G Oceania**
 ^^^
 ![](https://github.com/GenericMappingTools/foss4g2019oceania/releases/download/v1/picton_3d_dsm_view.png)
@@ -112,7 +104,6 @@ Wei Ji Leong
 :link: https://github.com/andrebelem/3D-Antarctic-maps
 :text-align: center
 :margin: 0 3 0 0
-
 **Crafting 3D maps of Antarctica with PyGMT and the IBCSO V2**
 ^^^
 ![](https://github.com/andrebelem/3D-Antarctic-maps/raw/main/3D-Antarctic-Maps.png)
@@ -124,7 +115,6 @@ Andre Belem
 :link: https://github.com/andrebelem/PlanetaryMaps
 :text-align: center
 :margin: 0 3 0 0
-
 **Planetary Maps (in PyGMT)**
 ^^^
 ![](https://github.com/andrebelem/MarsMaps/raw/main/JezeroCrater.png)
@@ -136,7 +126,6 @@ Andre Belem
 :link: https://tktmyd.github.io/pygmt-howto-jp/
 :text-align: center
 :margin: 0 3 0 0
-
 **PyGMT-HOWTO**
 ^^^
 ![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/src/basics/fig/pygmt-coastline.png)
@@ -154,7 +143,6 @@ Takuto Maeda
 :link: https://github.com/michaelgrund/GMT-plotting
 :text-align: center
 :margin: 0 3 0 0
-
 **GMT and PyGMT plotting examples**
 ^^^
 ![](https://user-images.githubusercontent.com/3974108/172055991-c0646f6c-d130-474f-b46a-5587483998cb.jpg)
@@ -166,7 +154,6 @@ Michael Grund
 :link: https://github.com/weiji14/nzasc2021
 :text-align: center
 :margin: 0 3 0 0
-
 **NZ Antarctic Science Conference 2021 poster**
 ^^^
 ![](https://user-images.githubusercontent.com/23487320/107176140-6aa4e580-6a33-11eb-8f30-1a7913788d6c.png)
@@ -178,7 +165,6 @@ Wei Ji Leong
 :link: https://github.com/yvonnefroehlich/gmt-pygmt-plotting
 :text-align: center
 :margin: 0 3 0 0
-
 **PyGMT plotting examples**
 ^^^
 ![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.png)
