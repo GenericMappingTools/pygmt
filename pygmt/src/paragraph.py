@@ -154,7 +154,6 @@ def paragraph(
         text = re.split(r"\n\s*\n", text)  # type: ignore[arg-type]
     # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
     # newlines in each paragraph, but keep leading whitespaces and tabs for now.
-    # _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     # Replace two or more consecutive spaces with \040 (octal for space), and replace
     # tabs with the appropriate number of \040.
