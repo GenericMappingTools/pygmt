@@ -113,10 +113,9 @@ happy to help others learn.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
-## Citing PyGMT
+## Documentation
 
-For details on how to cite PyGMT see the documentation at
-[Citing PyGMT](https://www.pygmt.org/dev/citing).
+* [Citing PyGMT](https://www.pygmt.org/dev/citing)
 
 ## License
 
