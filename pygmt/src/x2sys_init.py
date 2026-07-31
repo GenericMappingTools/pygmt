@@ -41,6 +41,10 @@ def x2sys_init(
     :term:`X2SYS_HOME` to a directory where you have write permission, which is where
     x2sys can keep track of your settings.
 
+    **Reference**: Wessel, P. (2010). Tools for analyzing intersecting tracks: The
+    x2sys package. Computers & Geosciences, 36(3), 348–354.
+    https://doi.org/10.1016/j.cageo.2009.05.009
+
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_init.html`.
 
     $aliases

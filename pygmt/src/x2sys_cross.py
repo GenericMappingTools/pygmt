@@ -91,6 +91,10 @@ def x2sys_cross(
     internal COEs. As an option, you may choose to project all data using one
     of the map projections prior to calculating the COE.
 
+    **Reference**: Wessel, P. (2010). Tools for analyzing intersecting tracks:
+    The x2sys package. Computers & Geosciences, 36(3), 348–354.
+    https://doi.org/10.1016/j.cageo.2009.05.009
+
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
 
     $aliases
