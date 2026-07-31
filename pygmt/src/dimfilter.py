@@ -45,12 +45,12 @@ def dimfilter(
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
+    Full GMT docs at :gmt-docs:`dimfilter.html`.
+
     **Reference**: Kim, S.-S., & Wessel, P. (2008). Directional median
-    filtering for regional- residual separation of bathymetry. Geochemistry,
+    filtering for regional-residual separation of bathymetry. Geochemistry,
     Geophysics, Geosystems, 9(3), 2007GC001850.
     https://doi.org/10.1029/2007GC001850
-
-    Full GMT docs at :gmt-docs:`dimfilter.html`.
 
     $aliases
        - G = outgrid
