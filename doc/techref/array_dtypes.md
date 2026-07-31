@@ -12,7 +12,7 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 
 **Signed Integers**
 
-- `numpy.int8`, `numpy.int16`, `numpy.int32`, `numpy.int64`, `numpy.longlong`
+- `numpy.int8`, `numpy.int16`, `numpy.int32`, `numpy.int64`, {class}`numpy.longlong`
 - {class}`pandas.Int8Dtype`, {class}`pandas.Int16Dtype`, {class}`pandas.Int32Dtype`,
   {class}`pandas.Int64Dtype`
 - {func}`pyarrow.int8`, {func}`pyarrow.int16`, {func}`pyarrow.int32`,
@@ -20,7 +20,7 @@ supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.
 
 **Unsigned Integers**
 
-- `numpy.uint8`, `numpy.uint16`, `numpy.uint32`, `numpy.uint64`, `numpy.ulonglong`
+- `numpy.uint8`, `numpy.uint16`, `numpy.uint32`, `numpy.uint64`, {class}`numpy.ulonglong`
 - {class}`pandas.UInt8Dtype`, {class}`pandas.UInt16Dtype`, {class}`pandas.UInt32Dtype`,
   {class}`pandas.UInt64Dtype`
 - {func}`pyarrow.uint8`, {func}`pyarrow.uint16`, {func}`pyarrow.uint32`,
@@ -71,7 +71,7 @@ pa.array([1, 2, 3], type=pa.uint8())
 In addition to Python's built-in {class}`str` type, PyGMT also supports the following
 string dtypes:
 
-- NumPy: `numpy.str_` or fixed-width Unicode string dtype (e.g., `"U10"`)
+- NumPy: {class}`numpy.str_` or fixed-width Unicode string dtype (e.g., ``"U10"``)
 - pandas: {class}`pandas.StringDtype`, with different storage backends, including
   `string[python]` and `string[pyarrow]`
 - PyArrow: {func}`pyarrow.string`/{func}`pyarrow.utf8`,
@@ -104,10 +104,9 @@ pa.array(["a", "b", "c"], type=pa.string())
 PyGMT supports a variety of datetime types:
 
 - A list/tuple of elements in Python's built-in {class}`datetime.datetime` or
-  {class}`datetime.date`, NumPy's `numpy.datetime64`, pandas' {class}`pandas.Timestamp`
-  types, datetime-like strings, or mixed.
-- NumPy arrays: `numpy.datetime64` with various resolutions
-- pandas objects with `numpy.datetime64`, {class}`pandas.DatetimeTZDtype`,
+  {class}`datetime.date`, datetime-like strings, or mixed.
+- NumPy arrays: {class}`numpy.datetime64` with various resolutions
+- pandas objects with {class}`numpy.datetime64`, {class}`pandas.DatetimeTZDtype`,
   {func}`pyarrow.timestamp` with various resolution and timezone support, and
   pyarrow-backend dtypes like `date32[day][pyarrow]` and `date64[ms][pyarrow]`,
 - PyArrow: {func}`pyarrow.date32`, {func}`pyarrow.date64` and {func}`pyarrow.timestamp`
@@ -115,9 +114,9 @@ PyGMT supports a variety of datetime types:
 
 ## Timedelta Dtypes
 
-PyGMT supports NumPy arrays with the `numpy.timedelta64` dtype. Timedelta values are
-passed to GMT as their underlying integer values, so their unit determines the numeric
-scale. For example, a `timedelta64[D]` array is interpreted as days, whereas a
+PyGMT supports NumPy arrays with the {class}`numpy.timedelta64` dtype. Timedelta values
+are passed to GMT as their underlying integer values, so their unit determines the
+numeric scale. For example, a `timedelta64[D]` array is interpreted as days, whereas a
 `timedelta64[s]` array is interpreted as seconds.
 
 Timedelta values can also be used in sequence-valued parameters such as ``region``.
@@ -129,11 +128,13 @@ GMT time settings explicitly when a relative-time axis is required.
 The following dtypes are intentionally unsupported, and should be cast to an appropriate
 supported dtype before passing to PyGMT:
 
-- Floating-point dtypes: `numpy.float16`, {func}`pyarrow.float16`, `numpy.longdouble`
-- Boolean dtypes: `numpy.bool_`, {class}`pandas.BooleanDtype`, {func}`pyarrow.bool_`
+- Floating-point dtypes: `numpy.float16`, {func}`pyarrow.float16` and
+  {class}`numpy.longdouble`
+- Boolean dtypes: {class}`numpy.bool`, {class}`pandas.BooleanDtype` and
+  {func}`pyarrow.bool_`
 - Complex dtypes: `numpy.complex64`, `numpy.complex128`
-- `numpy.bytes_` and `numpy.void`
+- {class}`numpy.bytes_` and {class}`numpy.void`
 
-The `numpy.object_` dtype is also not supported. PyGMT may convert object arrays
+The {class}`numpy.object_` dtype is also not supported. PyGMT may convert object arrays
 that can be interpreted as datetimes or text, but applications should create arrays with
 an explicit supported dtype instead.
