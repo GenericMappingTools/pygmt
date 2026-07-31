@@ -34,8 +34,7 @@ The BibTeX entry for the PyGMT paper is:
 ```
 The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
 ```
-@software{
-  pygmt_2026_19398871,
+@software{pygmt_2026_19398871,
   author       = {Tian, Dongdong and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
