@@ -2,7 +2,7 @@
 Tests for xarray 'gmt' backend engine.
 """
 
-import importlib
+import importlib.util
 
 import numpy as np
 import numpy.testing as npt
