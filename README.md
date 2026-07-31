@@ -115,7 +115,7 @@ happy to help others learn.
 
 ## Documentation
 
-* [Citing PyGMT](https://www.pygmt.org/dev/citing)
+* [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
 ## License
 
