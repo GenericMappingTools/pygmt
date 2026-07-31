@@ -1,9 +1,5 @@
 # Citing PyGMT
 
-PyGMT is a community developed project. See the
-[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
-on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
-
 If you used PyGMT in your research please consider citing PyGMT. You can either cite the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) published in *Geochemistry, Geophysics, Geosystems*
 or the Zenodo archive of the [PyGMT software](https://doi.org/10.5281/zenodo.3781524).
