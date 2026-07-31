@@ -2,12 +2,11 @@
 
 If you used PyGMT in your research please consider citing PyGMT. You can either cite the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) published in *Geochemistry, Geophysics, Geosystems*
-or the Zenodo archive of the [PyGMT software](https://doi.org/10.5281/zenodo.3781524).
+or the [Zenodo archive](https://doi.org/10.5281/zenodo.3781524) of the PyGMT software. To cite a specific
+version of PyGMT, change to it on Zenodo and use the "Export to BibTeX" function.
 
-To cite a specific version of PyGMT, go to our Zenodo page at <https://doi.org/10.5281/zenodo.3781524>
-and use the "Export to BibTeX" function there. It is also strongly recommended to cite
-the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note
-that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
+It is also strongly recommended to cite the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which
+PyGMT wraps around). Note that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
 citations. Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
 
 
