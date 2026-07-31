@@ -71,6 +71,10 @@ fig.show()
 For other ways to install PyGMT and more examples, please visit the
 [PyGMT documentation](https://www.pygmt.org/).
 
+## Documentation
+
+* [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
+
 ## Contacting us
 
 - Most discussion happens [on GitHub](https://github.com/GenericMappingTools/pygmt).
@@ -112,10 +116,6 @@ making mistakes, and learning from those mistakes. That's how we all improve and
 happy to help others learn.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
-
-## Documentation
-
-* [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
 ## License
 
