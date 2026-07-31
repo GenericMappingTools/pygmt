@@ -46,6 +46,17 @@ Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
 ::::
 
 ::::{grid-item-card}
+:link: https://github.com/MIGG-NTU/PyGMT2021
+:text-align: center
+:margin: 0 3 0 0
+**2021 PyGMT Tutorial**
+^^^
+![](https://user-images.githubusercontent.com/23487320/172058757-9b68f7ae-7a3f-4f48-9df6-9a065d6cd448.png)
++++
+MIGG-NTU
+::::
+
+::::{grid-item-card}
 :link: https://github.com/liamtoney/gi-pygmt-2021
 :text-align: center
 :margin: 0 3 0 0
@@ -76,17 +87,6 @@ Liam Toney
 ![](https://user-images.githubusercontent.com/3974108/172055922-8df68c00-4115-42f4-83ae-13a971fef846.png)
 +++
 Liam Toney
-::::
-
-::::{grid-item-card}
-:link: https://github.com/MIGG-NTU/PyGMT2021
-:text-align: center
-:margin: 0 3 0 0
-**2021 PyGMT Tutorial**
-^^^
-![](https://user-images.githubusercontent.com/23487320/172058757-9b68f7ae-7a3f-4f48-9df6-9a065d6cd448.png)
-+++
-MIGG-NTU
 ::::
 
 ::::{grid-item-card}
