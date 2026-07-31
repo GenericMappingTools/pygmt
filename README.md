@@ -116,7 +116,7 @@ happy to help others learn.
 ## Citing PyGMT
 
 For details on how to cite PyGMT see the documentation at
-[Citing PyGMT](https://www.pygmt.org/latest/citing).
+[Citing PyGMT](https://www.pygmt.org/dev/citing).
 
 ## License
 
