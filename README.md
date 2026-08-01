@@ -73,7 +73,7 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Documentation
 
-* [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
+- [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
 ## Contacting us
 
