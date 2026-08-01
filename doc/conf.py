@@ -130,6 +130,7 @@ myst_enable_extensions = [
 # Enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
     "requires": _get_dep_specifier(),
+	"latest_release": __version__[:8],
 }
 
 # Options for MyST-NB.

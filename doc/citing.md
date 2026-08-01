@@ -30,7 +30,7 @@ The BibTeX entry for the PyGMT paper is:
   url          = {https://doi.org/10.1029/2026GC013105},
 }
 ```
-The BibTeX entry for the latest Zenodo archive, i.e., release v0.19.0, of the PyGMT software is:
+The BibTeX entry for the latest Zenodo archive, i.e., release {{latest_release}}, of the PyGMT software is:
 ```
 @software{pygmt_2026_19398871,
   author       = {Tian, Dongdong and
