@@ -88,6 +88,7 @@ def blockmean(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -112,6 +113,7 @@ def blockmean(
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
     $aliases
+       - C = center
        - I = spacing
        - R = region
        - V = verbose
@@ -129,6 +131,9 @@ def blockmean(
         Arrays of x and y coordinates and values z of the data points.
     $output_type
     $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        mean x and y coordinates are used.
     $spacing
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
@@ -170,6 +175,7 @@ def blockmean(
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
         I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
@@ -203,6 +209,7 @@ def blockmedian(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -227,6 +234,7 @@ def blockmedian(
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
     $aliases
+       - C = center
        - I = spacing
        - R = region
        - V = verbose
@@ -244,6 +252,9 @@ def blockmedian(
         Arrays of x and y coordinates and values z of the data points.
     $output_type
     $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        median x and median y coordinates are used.
     $spacing
     $region
     $verbose
@@ -279,6 +290,7 @@ def blockmedian(
     ... )
     """
     aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
         I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
@@ -318,6 +330,7 @@ def blockmode(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
     spacing: Sequence[float | str] | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -342,6 +355,7 @@ def blockmode(
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
     $aliases
+       - C = center
        - I = spacing
        - R = region
        - V = verbose
@@ -359,6 +373,9 @@ def blockmode(
         Arrays of x and y coordinates and values z of the data points.
     $output_type
     $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        modal x and y coordinates are used.
     $spacing
     $region
     $verbose
@@ -392,6 +409,7 @@ def blockmode(
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
         I=Alias(spacing, name="spacing", sep="/", size=2),
     ).add_common(
         R=region,
