@@ -29,6 +29,10 @@ author = "The PyGMT Developers"
 copyright = f"2017-{datetime.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
+if isdev:
+    latest_release = f"v0.{int(__version__[3:5])-1}.0"  # problem major and path releases
+else:
+    latest_release = __version__
 
 # General configurations.
 needs_sphinx = "6.2"
@@ -130,7 +134,7 @@ myst_enable_extensions = [
 # Enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
     "requires": _get_dep_specifier(),
-	"latest_release": __version__[:8],
+	"latest_release": latest_release,
 }
 
 # Options for MyST-NB.
