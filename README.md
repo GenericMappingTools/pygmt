@@ -1,4 +1,9 @@
-<img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png"/>
+<picture align="center">
+  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
+  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo_light.png">
+</picture>
+
+# A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
