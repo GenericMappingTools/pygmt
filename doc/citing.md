@@ -61,5 +61,5 @@ The BibTeX entry for the latest Zenodo archive, i.e., release {{latest_release}}
   url          = {https://doi.org/10.5281/zenodo.19398871}
 }
 ```
-To cite a specific version of PyGMT, go to the Zenodo archive, select the specific version, and use the
-"Export to BibTeX" function there.
+To cite a specific version of PyGMT, go to the [Zenodo archive](https://doi.org/10.5281/zenodo.3781524),
+select the specific version, and use the "Export to BibTeX" function there.
