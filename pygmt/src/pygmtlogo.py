@@ -291,7 +291,7 @@ def pygmtlogo(
     """
     Plot the PyGMT logo.
 
-    .. figure:: https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo.png
+    .. figure:: https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo_light.png
        :alt: PyGMT logo
        :align: center
        :width: 400px
