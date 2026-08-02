@@ -1,6 +1,6 @@
 r"""
-Cylindrical Stereographic
-=========================
+Cylindrical stereographic projection
+====================================
 
 The cylindrical stereographic projections are certainly not as notable as other
 cylindrical projections, but are still used because of their relative
@@ -11,12 +11,14 @@ onto a cylinder in the direction of the antipodal point on the equator. The
 cylinder crosses the sphere at two standard parallels, equidistant from the
 equator.
 
-**cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *scale*
-or **Cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *width*
+**cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *scale* or
+**Cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **cyl_stere** or **Cyl_stere**. The central meridian
-is set by the optional *lon0*, and the figure size is set with *scale* or
-*width*.
+- **cyl_stere** or **Cyl_stere**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
+  supplied as well.
+- *scale* or *width*: Sets the map size.
 
 The standard parallel is typically one of these (but can be any value):
 
@@ -27,8 +29,17 @@ The standard parallel is typically one of these (but can be any value):
 * 0 - Braun's Cylindrical
 
 """
+
+# %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame="afg", land="gray", projection="Cyl_stere/30/-20/12c")
+fig.coast(
+    region="g",
+    projection="Cyl_stere/30/-20/12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="gray80",
+    water="steelblue",
+)
 fig.show()

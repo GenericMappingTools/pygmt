@@ -2,15 +2,14 @@
 nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -18,12 +17,8 @@ __doctest_skip__ = ["nearneighbor"]
 @fmt_docstring
 @use_alias(
     E="empty",
-    G="outgrid",
-    I="spacing",
     N="sectors",
-    R="region",
     S="search_radius",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
@@ -31,33 +26,43 @@ __doctest_skip__ = ["nearneighbor"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
+def nearneighbor(
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
-    **nearneighbor** reads arbitrarily located (*x*, *y*, *z*\ [, *w*]) triplets
-    [quadruplets] and uses a nearest neighbor algorithm to assign a weighted
-    average value to each node that has one or more data points within a search
-    radius centered on the node with adequate coverage across a subset of the
-    chosen sectors. The node value is computed as a weighted mean of the
+    :func:`pygmt.nearneighbor` reads arbitrarily located (*x*, *y*, *z*\ [, *w*])
+    triplets [quadruplets] and uses a nearest neighbor algorithm to assign a
+    weighted average value to each node that has one or more data points within
+    a search radius centered on the node with adequate coverage across a subset
+    of the chosen sectors. The node value is computed as a weighted mean of the
     nearest point from each sector inside the search radius. The weighting
     function and the averaging used is given by:
 
     .. math::
-        w(r_i) = \frac{{w_i}}{{1 + d(r_i) ^ 2}},
-        \quad d(r) = \frac {{3r}}{{R}},
-        \quad \bar{{z}} = \frac{{\sum_i^n w(r_i) z_i}}{{\sum_i^n w(r_i)}}
+        w(r_i) = \frac{w_i}{1 + d(r_i) ^ 2},
+        \quad d(r) = \frac {3r}{R},
+        \quad \bar{z} = \frac{\sum_i^n w(r_i) z_i}{\sum_i^n w(r_i)}
 
     where :math:`n` is the number of data points that satisfy the selection
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_nearneighbor.png # noqa: W505
+    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_nearneighbor.png
        :width: 300 px
        :align: center
 
@@ -71,31 +76,31 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    Full option list at :gmt-docs:`nearneighbor.html`
+    Full GMT docs at :gmt-docs:`nearneighbor.html`.
 
-    {aliases}
+    $aliases
+       - G = outgrid
+       - I = spacing
+       - R = region
+       - V = verbose
+       - i = incols
+       - r = registration
 
     Parameters
     ----------
-    data : str or {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
-        {table-classes}.
-    x/y/z : 1d arrays
+        providing a file name to an ASCII data table, a 2-D
+        $table_classes.
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {spacing}
-
-    {region}
+    $spacing
 
     search_radius : str
-        Sets the search radius that determines which data points are considered
+        Set the search radius that determines which data points are considered
         close to a node.
-
-    outgrid : str
-        Optional. The file name for the output netcdf file with extension .nc
-        to store the grid in.
-
+    $outgrid
     empty : str
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
@@ -113,33 +118,34 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {registration}
-    {wrap}
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $registration
+    $wrap
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     Example
     -------
     >>> import pygmt
     >>> # Load a sample dataset of bathymetric x, y, and z values
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
-    >>> # Create a new grid with 5 arc-minute spacing in the designated region
-    >>> # Set search_radius to only consider points within 10 arc-minute of a node
+    >>> # Create a new grid with 5 arc-minutes spacing in the designated region
+    >>> # Set search_radius to only take points within 10 arc-minutes of a node
     >>> output = pygmt.nearneighbor(
     ...     data=data,
     ...     spacing="5m",
@@ -147,17 +153,25 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     ...     search_radius="10m",
     ... )
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            )
-            with table_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
-                )
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
+                check_kind="vector", data=data, x=x, y=y, z=z, mincols=3
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="nearneighbor", args=build_arg_list(aliasdict, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

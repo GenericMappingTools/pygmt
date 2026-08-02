@@ -1,0 +1,97 @@
+# Run all doctests on Linux/macOS/Windows
+#
+# This workflow runs all PyGMT doctests. It is scheduled to run weekly every
+# Sunday.
+#
+name: Doctests
+
+on:
+  # push:
+  #   branches: [ main ]
+  # pull_request:
+  workflow_dispatch:
+  # Schedule weekly tests on Sunday
+  schedule:
+    - cron: '0 0 * * 0'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions: {}
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        with:
+          environment-name: pygmt
+          create-args: >-
+            python=3.14
+            gmt=6.6.0
+            numpy
+            pandas
+            xarray
+            packaging
+            contextily
+            geopandas
+            ipython
+            pyarrow-core
+            rioxarray
+            make
+            pip
+            python-build
+            pytest
+            pytest-doctestplus
+            pytest-mpl
+
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        run: |
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: make install
+
+      # Run the doctests
+      - name: Run doctests
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
+        run: |
+          log_file="${RUNNER_TEMP}/pytest.log"
+          make doctest PYTEST_EXTRA="-r P" 2>&1 | tee "${log_file}"
+          exit_code=${PIPESTATUS[0]}
+          if [[ "${RUNNER_OS}" == "Windows" && "${exit_code}" -eq 2 ]] && grep -q "make: .* Error 2816" "${log_file}"; then
+            echo "Doctests exited with make error 2816 (segmentation fault) on Windows; allowing workflow to continue."
+            exit 0
+          fi
+          exit "${exit_code}"

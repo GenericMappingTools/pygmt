@@ -1,6 +1,6 @@
 r"""
-Transverse Mercator
-===================
+Transverse Mercator projection
+==============================
 
 The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In
 this projection the cylinder touches a meridian along which there is no
@@ -9,21 +9,26 @@ infinity at 90° from center. The central meridian, each meridian 90° away from
 the center, and equator are straight lines; other parallels and meridians are
 complex curves.
 
-**t**\ *lon0/*\ [*lat0/*\ ]\ *scale* or **T**\ *lon0/*\ [*lat0/*\ ]\ *width*
+**t**\ *lon0*\ [/\ *lat0*]/\ *scale* or **T**\ *lon0*\ [/\ *lat0*]/\ *width*
 
-The projection is set with **t** or **T**. The central meridian is set
-by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
-figure size is set with *scale* or *width*.
+- **t** or **T**: Sets the projection type.
+- *lon0*: Sets the central meridian.
+- *lat0*: Sets the latitude of origin [Optional].
+- *scale* or *width*: Sets the map size.
 """
+
+# %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],
     projection="T35/12c",
-    land="lightbrown",
-    water="seashell",
-    shorelines="thinnest",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="gray80",
+    water="steelblue",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["conformal"]

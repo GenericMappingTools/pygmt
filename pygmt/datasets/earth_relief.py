@@ -1,206 +1,186 @@
 """
-Function to download the Earth relief datasets from the GMT data server, and
-load as :class:`xarray.DataArray`.
+Function to download the Earth relief datasets from the GMT data server, and load as
+:class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-from packaging.version import Version
-from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput, GMTVersionError
-from pygmt.helpers import kwargs_to_strings
-from pygmt.io import load_dataarray
-from pygmt.src import grdcut, which
+
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
+from pygmt.datasets.load_remote_dataset import _load_remote_dataset
+from pygmt.exceptions import GMTValueError
+
+__doctest_skip__ = ["load_earth_relief"]
 
 
-@kwargs_to_strings(region="sequence")
 def load_earth_relief(
-    resolution="01d",
-    region=None,
-    registration=None,
-    use_srtm=False,
-    data_source="igpp",
-):
+    resolution: Literal[
+        "01d",
+        "30m",
+        "20m",
+        "15m",
+        "10m",
+        "06m",
+        "05m",
+        "04m",
+        "03m",
+        "02m",
+        "01m",
+        "30s",
+        "15s",
+        "03s",
+        "01s",
+    ] = "01d",
+    region: Sequence[float] | str | None = None,
+    registration: Literal["gridline", "pixel", None] = None,
+    data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
+    use_srtm: bool = False,
+) -> xr.DataArray:
     r"""
-    Load Earth relief grids (topography and bathymetry) in various resolutions.
+    Load the Earth relief datasets (topography and bathymetry) in various resolutions.
 
-    The grids are downloaded to a user data directory
-    (usually a subdirectory under ~/.gmt/server/earth/) the first time you
-    invoke this function. Afterwards, it will load the grid from the data
-    directory. So you'll need an internet connection the first time around.
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
+       :width: 80 %
+       :align: center
 
-    This module downloads the grids that can also be accessed by
-    passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid plotting/processing function. *res* is the grid resolution
-    (see below), and *reg* is grid registration type (**p** for pixel
-    registration or **g** for gridline registration).
+       Earth relief datasets (topography and bathymetry).
+
+    This function downloads the dataset from the GMT data server, caches it in a user
+    data directory (usually ``~/.gmt/server/earth/earth_relief``,
+    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
+    ``~/.gmt/server/earth/earth_synbath``), and load the dataset as an
+    :class:`xarray.DataArray`. An internet connection is required the first time around,
+    but subsequent calls will load the dataset from the local data directory.
+
+    The dataset can also be accessed by specifying a file name in any grid processing
+    function or plotting method, using the following file name format:
+    **@**\ *earth_relief_type*\_\ *res*\_\ *reg*. *earth_relief_type* is the GMT name
+    for the dataset. The available options are **earth_relief**, **earth_gebco**,
+    **earth_gebcosi**, and **earth_synbath**. *res* is the grid resolution; *reg* is
+    the grid registration type (**p** for pixel registration, **g** for gridline
+    registration). If *reg* is omitted (e.g., ``@earth_relief_01d``), the
+    gridline-registered grid will be loaded for grid processing functions and the
+    pixel-registered grid willcbe loaded for plotting functions. If *res* is also
+    omitted (i.e., ``@earth_relief``), GMT automatically selects a suitable resolution
+    based on the current region and projection settings.
+
+    This dataset comes with a color palette table (CPT) file, ``gmt/geo``. To use the
+    dataset-specific CPT when plotting the dataset, explicitly set ``cmap="gmt/geo"``,
+    otherwise GMT's default CPT (*google/turbo*) will be used. If the dataset is
+    referenced by the file name in a grid plotting method, the dataset-specific CPT file
+    is used automatically unless another CPT is specified.
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
 
     Parameters
     ----------
-    resolution : str
-        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
-        arc-degree, arc-minute and arc-second. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``, ``"03s"``,
-        or ``"01s"``.
-
-    region : str or list
-        The subregion of the grid to load, in the forms of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for Earth relief grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
-
-    registration : str
+    resolution
+        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
+        arc-minutes, and arc-seconds.
+    region
+        The subregion of the grid to load, in the form of a sequence [*xmin*, *xmax*,
+        *ymin*, *ymax*] or an ISO country code. Required for grids with resolutions
+        higher than 5 arc-minutes (i.e., ``"05m"``).
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, where
-        a gridline-registered grid is returned unless only the pixel-registered
-        grid is available.
+        ``"gridline"`` for gridline registration. Default is ``None``, which means
+        ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"`` only.
+    data_source
+        Select the source for the Earth relief data. Available options are:
 
-        **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
-        grid by default unless only the gridline-registered grid is available.
+        - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
+        - ``"synbath"``: IGPP Earth Relief dataset that uses statistical properties of
+          young seafloor to provide a more realistic relief of young areas with small
+          seamounts.
+        - ``"gebco"``: GEBCO Earth Relief with only observed relief and inferred relief
+          via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
+        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
 
-    use_srtm : bool
-        By default, the land-only SRTM tiles from NASA are used to generate the
-        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15 tiles which have a resolution of 15
-        arc-second (i.e., ``"15s"``). If True, will only load the original
-        land-only SRTM tiles. Only works when ``data_source="igpp"``.
-
-    data_source : str
-        Select the source for the Earth relief data.
-
-        Available options:
-
-        - **igpp** : IGPP Global Earth Relief [Default option]. See
-          :gmt-datasets:`earth-relief.html`.
-
-        - **synbath** : IGPP Global Earth Relief dataset that uses
-          stastical properties of young seafloor to provide more realistic
-          relief of young areas with small seamounts.
-
-        - **gebco** : GEBCO Global Earth Relief with only observed relief and
-          inferred relief via altimetric gravity. See
-          :gmt-datasets:`earth-gebco.html`.
-
-        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
-          elevations.
+        **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
+        ``"03s"`` and ``"01s"``.
+    use_srtm
+        For the resolutions ``"03s"`` and ``"01s"``, by default the land-only SRTM tiles
+        from NASA are used along with up-sampled SRTM15 tiles (with a resolution of 15
+        arc-seconds) to fill in the missing ocean values. If set to ``True``, only the
+        original land-only SRTM tiles are loaded without filling in the ocean values.
+        Only available for ``data_source="igpp"``.
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
-        The Earth relief grid. Coordinates are latitude and longitude in
-        degrees. Relief is in meters.
+    grid
+        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        is in meters.
 
     Note
     ----
-    The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth relief data with resolutions of 5 arc-minutes or higher, which are
-    stored as smaller tiles.
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grid can be accessed via the *gmt* accessor. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and limitations.
 
     Examples
     --------
-
-    >>> # load the default grid (gridline-registered 01d grid)
+    >>> from pygmt.datasets import load_earth_relief
+    >>> # Load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
-    >>> # load high-resolution grid for a specific region
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
+    >>> grid = load_earth_relief(resolution="30m", registration="gridline")
+    >>> # Load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_relief(
-    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
     ... )
-    >>> # load the original 3 arc-second land-only SRTM tiles from NASA
+    >>> # Load the original 3 arc-seconds land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
-    ...     "03s",
+    ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
     ...     use_srtm=True,
     ... )
     """
-    # pylint: disable=too-many-branches
-    # earth relief data stored as single grids for low resolutions
-    non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
-    # earth relief data stored as tiles for high resolutions
-    tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
-    # resolutions of original land-only SRTM tiles from NASA
-    land_only_srtm_resolutions = ["03s", "01s"]
+    # Resolutions of original land-only SRTM tiles from NASA.
+    srtm_resolutions = ("03s", "01s")
 
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
+    # 03s and 01s resolutions are only available for data source "igpp".
+    if resolution in srtm_resolutions and data_source != "igpp":
+        raise GMTValueError(
+            data_source,
+            description="data source",
+            reason=f"Resolution {resolution!r} is only available for data source 'igpp'.",
         )
 
-    if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
-
-    # Check combination of resolution and registration.
-    if (resolution == "15s" and registration == "gridline") or (
-        resolution in ("03s", "01s") and registration == "pixel"
-    ):
-        raise GMTInvalidInput(
-            f"{registration}-registered Earth relief data for "
-            f"resolution '{resolution}' is not supported."
+    # Determine the dataset prefix.
+    prefix = {
+        "igpp": "earth_relief",
+        "gebco": "earth_gebco",
+        "gebcosi": "earth_gebcosi",
+        "synbath": "earth_synbath",
+    }.get(data_source)
+    if prefix is None:
+        raise GMTValueError(
+            data_source,
+            description="earth relief data source",
+            choices=["igpp", "gebco", "gebcosi", "synbath"],
         )
-    earth_relief_sources = {
-        "igpp": "earth_relief_",
-        "gebco": "earth_gebco_",
-        "gebcosi": "earth_gebcosi_",
-        "synbath": "earth_synbath_",
-    }
-    if data_source not in earth_relief_sources:
-        raise GMTInvalidInput(
-            f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
-        )
-    if data_source != "igpp":
-        with Session() as lib:
-            if Version(lib.info["version"]) < Version("6.4.0"):
-                raise GMTVersionError(
-                    f"The {data_source} option is not available for GMT"
-                    " versions before 6.4.0."
-                )
-    # Choose earth relief data prefix
-    if use_srtm and resolution in land_only_srtm_resolutions:
-        if data_source == "igpp":
-            earth_relief_prefix = "srtm_relief_"
-        else:
-            raise GMTInvalidInput(
-                f"The {data_source} option is not available if 'use_srtm=True'."
-                " Set data_source to 'igpp'."
-            )
-    else:
-        earth_relief_prefix = earth_relief_sources.get(data_source)
+    # Use original land-only SRTM tiles.
+    if use_srtm and resolution in srtm_resolutions:
+        prefix = "srtm_relief"
 
-    # different ways to load tiled and non-tiled earth relief data
-    # Known issue: tiled grids don't support slice operation
-    # See https://github.com/GenericMappingTools/pygmt/issues/524
-    if region is None:
-        if resolution not in non_tiled_resolutions:
-            raise GMTInvalidInput(
-                f"'region' is required for Earth relief resolution '{resolution}'."
-            )
-        fname = which(f"@{earth_relief_prefix}{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
-    else:
-        grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
+    # Choose earth relief dataset name.
+    match data_source:
+        case "igpp" | "synbath":
+            name = "earth_igpp"
+        case "gebco" | "gebcosi":
+            name = "earth_gebco"
 
-    # Add some metadata to the grid
-    grid.name = "elevation"
-    grid.attrs["long_name"] = "elevation relative to the geoid"
-    grid.attrs["units"] = "meters"
-    grid.attrs["vertical_datum"] = "EMG96"
-    grid.attrs["horizontal_datum"] = "WGS84"
-    # Remove the actual range because it gets outdated when indexing the grid,
-    # which causes problems when exporting it to netCDF for usage on the
-    # command-line.
-    grid.attrs.pop("actual_range")
-    for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
+    grid = _load_remote_dataset(
+        name=name,
+        prefix=prefix,
+        resolution=resolution,
+        region=region,
+        registration=registration,
+    )
     return grid

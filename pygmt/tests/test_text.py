@@ -1,17 +1,27 @@
 """
-Tests text.
+Test Figure.text.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
-from pygmt import Figure
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt import Figure, config
+from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+from pygmt.params import Axis, Frame
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+try:
+    import pyarrow as pa
+
+    pa_array = pa.array
+except ImportError:
+    pa_array = None
+
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
@@ -46,8 +56,17 @@ def test_text_single_line_of_text(region, projection):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_text_multiple_lines_of_text(region, projection):
+@pytest.mark.benchmark
+@pytest.mark.mpl_image_compare(filename="test_text_multiple_lines_of_text.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        list,
+        pytest.param(np.array, id="numpy"),
+        pytest.param(pa_array, marks=skip_if_no(package="pyarrow"), id="pyarrow"),
+    ],
+)
+def test_text_multiple_lines_of_text(region, projection, array_func):
     """
     Place multiple lines of text at their respective x, y locations.
     """
@@ -57,7 +76,7 @@ def test_text_multiple_lines_of_text(region, projection):
         projection=projection,
         x=[1.2, 1.6],
         y=[0.6, 0.3],
-        text=["This is a line of text", "This is another line of text"],
+        text=array_func(["This is a line of text", "This is another line of text"]),
     )
     return fig
 
@@ -67,7 +86,7 @@ def test_text_without_text_input(region, projection):
     Run text by passing in x and y, but no text.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection=projection, x=1.2, y=2.4)
 
 
@@ -113,11 +132,17 @@ def test_text_nonexistent_filename():
 @pytest.mark.mpl_image_compare
 def test_text_position(region):
     """
-    Print text at center middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right).
+    Print text at center middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right).
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position)
     return fig
@@ -128,31 +153,37 @@ def test_text_invalid_inputs(region):
     Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", position="MC", text=None)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.text(
             region=region, projection="x1c", position="MC", text=["text1", "text2"]
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
 @pytest.mark.mpl_image_compare
 def test_text_position_offset_with_line(region):
     """
-    Print text at centre middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
-    drawn from the original to the shifted point.
+    Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right), offset by 0.5 cm, with a line drawn from the original to the
+    shifted point.
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position, offset="j0.5c+v")
     return fig
@@ -272,12 +303,11 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
 @pytest.mark.mpl_image_compare
 def test_text_justify_parsed_from_textfile():
     """
-    Print text justified based on a column from textfile, using justify=True
-    boolean operation.
+    Print text justified based on a column from textfile, using justify=True boolean
+    operation.
 
-    Loosely based on "All great-circle paths lead to Rome"
-    gallery example at
-    https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
+    Loosely based on "All great-circle paths lead to Rome" gallery example at
+    https://docs.generic-mapping-tools.org/6.6/gallery/ex23.html
     """
     fig = Figure()
     fig.text(
@@ -293,22 +323,57 @@ def test_text_justify_parsed_from_textfile():
 @pytest.mark.mpl_image_compare
 def test_text_angle_font_justify_from_textfile():
     """
-    Print text with x, y, angle, font, justify, and text arguments parsed from
-    the textfile.
+    Print text with x, y, angle, font, justify, and text arguments parsed from the
+    textfile.
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
-            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text(
+            "114 0.5 30 22p,Helvetica-Bold,black LM BORNEO", encoding="utf-8"
+        )
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
-            frame="a",
+            frame=Axis(annot=True),
             textfiles=tempfile.name,
             angle=True,
             font=True,
             justify=True,
         )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_text_position.png")
+def test_text_justify_array(region):
+    """
+    Test passing an array of justify codes.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="x1c", frame=Axis(annot=True))
+    fig.text(
+        x=[0, 2.5, 5.0, 0, 2.5, 5.0, 0, 2.5, 5.0],
+        y=[0, 0, 0, 1.25, 1.25, 1.25, 2.5, 2.5, 2.5],
+        justify=["BL", "BC", "BR", "ML", "MC", "MR", "TL", "TC", "TR"],
+        text=["BL", "BC", "BR", "ML", "C M", "MR", "TL", "TC", "TR"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_angle_justify_font_arrays(region):
+    """
+    Test passing arrays of angle, justify and font.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="X5c/2.5c", frame=True)
+    fig.text(
+        x=[2.5, 2.5],
+        y=[1.0, 2.0],
+        angle=[30, 50],
+        justify=["TL", "BR"],
+        font=["15p,Helvetica-Bold,red", "5p,Times-Italic,blue"],
+        text=["TEXT1", "TEXT2 with spaces"],
+    )
     return fig
 
 
@@ -319,7 +384,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -334,7 +399,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()
@@ -371,4 +436,77 @@ def test_text_nonstr_text():
         y=[1, 2, 3, 4],
         text=[1, 2, 3.0, 4.0],
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_numeric_text():
+    """
+    Test passing text strings that are numeric.
+
+    Regression test for https://github.com/GenericMappingTools/pygmt/issues/3803.
+    """
+    fig = Figure()
+    fig.text(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=True,
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        text=["2012", "2013", "2014", "2015"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_text_nonascii.png")
+@pytest.mark.parametrize("encoding", ["ISOLatin1+", "Standard+"])
+def test_text_nonascii(encoding):
+    """
+    Test passing text strings with non-ascii characters.
+
+    Default PS_CHAR_ENCODING setting should not affect the result.
+    """
+    fig = Figure()
+    if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
+        config(PS_CHAR_ENCODING="Standard+")
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    fig.text(position="TL", text="position-text:°α")  # ruff: ignore[ambiguous-unicode-character-string]
+    fig.text(x=1, y=1, text="xytext:°α")  # ruff: ignore[ambiguous-unicode-character-string]
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_quotation_marks():
+    """
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
+    """
+    quotations = "` ' ‘ ’ \" “ ”"  # ruff: ignore[ambiguous-unicode-character-string]
+    fig = Figure()
+    fig.basemap(
+        projection="X4c/2c",
+        region=[0, 4, 0, 2],
+        frame=Frame(axes="S", xaxis=Axis(label=quotations)),
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii_iso8859():
+    """
+    Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[0, 10, 0, 10],
+        projection="X10c",
+        frame=Frame(axes="WSEN", title="AāáâãäåB"),
+    )
+    fig.text(position="TL", text="position-text:1ÉĘËĖ2")
+    fig.text(x=1, y=1, text="xytext:1éęëė2")
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
     return fig

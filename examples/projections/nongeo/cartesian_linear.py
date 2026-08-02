@@ -2,23 +2,35 @@ r"""
 Cartesian linear
 ================
 
-**X**\ *width*/[*height*]: Give the *width* of the figure and the optional
-*height*.
+**X**\ *width*\ [/*height*] or **x**\ *x-scale*\ [/*y-scale*]
+
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+
+The Cartesian linear projection is primarily designed for regular floating point
+data. To plot geographical data in a linear projection, see the upstream GMT
+documentation :gmt-docs:`Geographic coordinates
+<reference/coordinate-transformations.html#geographic-coordinates>`.
+To make the linear plot using calendar date/time as input coordinates, see the
+tutorial :doc:`Plotting datetime charts </tutorials/advanced/date_time_charts>`.
+GMT documentation :gmt-docs:`Calendar time coordinates
+<reference/coordinate-transformations.html#calendar-time-coordinates>`.
 """
+
+# %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 fig = pygmt.Figure()
-fig.plot(
-    # The x and y parameters determine the coordinates of lines
-    x=[3, 9, 2],
-    y=[4, 9, 37],
-    pen="3p,red",
-    # The region parameter sets the x and y ranges of the
-    # Cartesian projection
+# The region parameter is specified as xmin, xmax, ymin, ymax
+fig.basemap(
     region=[0, 10, 0, 50],
     projection="X15c/10c",
-    # "WSne" is passed to the frame parameter to put annotations
-    # only on the left and bottom axes
-    frame=["af", "WSne"],
+    frame=Frame(fill="bisque", axis=Axis(annot=True, tick=True, grid=True)),
 )
+fig.plot(x=[3, 9, 2], y=[4, 9, 37], pen="2p,black")
+# Plot data points on top of the line
+# Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
+fig.plot(x=[3, 9, 2], y=[4, 9, 37], style="s0.3c", fill="orange", pen="black")
 fig.show()

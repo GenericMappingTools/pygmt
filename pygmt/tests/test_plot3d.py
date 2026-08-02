@@ -1,17 +1,17 @@
 """
-Tests plot3d.
+Test Figure.plot3d.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
+from pygmt.params import Axis, Frame
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -32,7 +32,9 @@ def fixture_region():
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zscale = 5"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting zscale=5.
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -44,14 +46,19 @@ def test_plot3d_red_circles_zscale(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame=["afg", "zafg"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zsize = 6c"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting zsize="6c".
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -63,26 +70,49 @@ def test_plot3d_red_circles_zsize(data, region):
         projection="X10c",
         style="c0.2c",
         fill="red",
-        frame=["afg", "zafg"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
 
 def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency
-    are used with matrix.
+    Should raise an exception if array fill, size, intensity and transparency are used
+    with matrix.
     """
     fig = Figure()
-    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
-    with pytest.raises(GMTInvalidInput):
+    kwargs = {
+        "data": data,
+        "region": region,
+        "projection": "X10c",
+        "frame": Axis(annot=True, tick=True, grid=True),
+    }
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", size=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", intensity=data[:, 2], fill="red", **kwargs)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.plot3d(style="cc", fill="red", transparency=data[:, 2] * 100, **kwargs)
+
+
+def test_plot3d_fail_no_data(data, region):
+    """
+    Should raise an exception if data is not enough or too much.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.plot3d(
+            style="c0.2c", x=data[0], y=data[1], region=region, projection="X10c"
+        )
+    with pytest.raises(GMTParameterError):
+        fig.plot3d(
+            style="c0.2c", data=data, x=data[0], region=region, projection="X10c"
+        )
 
 
 @pytest.mark.mpl_image_compare
@@ -98,10 +128,12 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/10c",
+        projection="R40/10c",
         style="s1c",
         fill="green",
-        frame=["ag", "zag"],
+        frame=Frame(
+            axis=Axis(annot=True, grid=True), zaxis=Axis(annot=True, grid=True)
+        ),
     )
     return fig
 
@@ -122,8 +154,11 @@ def test_plot3d_colors(data, region):
         region=region,
         projection="X6c",
         style="c0.5c",
-        cmap="cubhelix",
-        frame=["afg", "zafg"],
+        cmap="cpt-city/cubhelix",
+        frame=Frame(
+            axis=Axis(annot=True, tick=True, grid=True),
+            zaxis=Axis(annot=True, tick=True, grid=True),
+        ),
     )
     return fig
 
@@ -147,7 +182,9 @@ def test_plot3d_sizes(data, region):
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
         fill="blue",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -171,8 +208,10 @@ def test_plot3d_colors_sizes(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
-        frame=["af", "zaf"],
+        cmap="matlab/copper",
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -191,13 +230,15 @@ def test_plot3d_colors_sizes_proj(data, region):
         perspective=[225, 30],
         region=region,
         projection="M20c",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
         fill=data[:, 2],
         size=data[:, 2],
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        cmap="copper",
+        cmap="matlab/copper",
     )
     return fig
 
@@ -221,7 +262,7 @@ def test_plot3d_varying_intensity():
         projection="X15c/5c",
         zsize="5c",
         perspective=[135, 30],
-        frame=["Sltr", "xaf+lIntensity"],
+        frame=Frame(axes="Sltr", xaxis=Axis(annot=True, tick=True, label="Intensity")),
         style="c0.5c",
         fill="blue",
         intensity=intensity,
@@ -306,8 +347,30 @@ def test_plot3d_sizes_colors_transparencies():
         style="uc",
         fill=fill,
         size=size,
-        cmap="gray",
+        cmap="gmt/gray",
         transparency=transparency,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot3d_symbol():
+    """
+    Plot the data using array-like symbols.
+    """
+    fig = Figure()
+    fig.plot3d(
+        x=[1, 2, 3, 4],
+        y=[1, 2, 3, 4],
+        z=[1, 2, 3, 4],
+        region=[0, 5, 0, 5, 0, 5],
+        projection="X4c",
+        zsize="3c",
+        fill="blue",
+        size=[0.1, 0.2, 0.3, 0.4],
+        symbol=["c", "t", "i", "u"],
+        frame=Frame(axes="WSenZ", axis=Axis(annot=True, tick=True, grid=True)),
+        perspective=[135, 30],
     )
     return fig
 
@@ -328,7 +391,7 @@ def test_plot3d_matrix(data, region, fill):
         projection="M20c",
         style="c1c",
         fill=fill,
-        frame=["a", "za"],
+        frame=Frame(axis=Axis(annot=True), zaxis=Axis(annot=True)),
         incols="0,1,2",
     )
     return fig
@@ -347,9 +410,9 @@ def test_plot3d_matrix_color(data, region):
         region=region,
         projection="X10c",
         style="c0.5c",
-        cmap="rainbow",
+        cmap="gmt/rainbow",
         incols=[0, 1, 2, 2],
-        frame=["a", "za"],
+        frame=Frame(axis=Axis(annot=True), zaxis=Axis(annot=True)),
     )
     return fig
 
@@ -368,12 +431,15 @@ def test_plot3d_from_file(region):
         projection="X20c",
         style="d1c",
         fill="yellow",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
         incols=[0, 1, 2],
     )
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_plot3d_vectors():
     """
@@ -397,7 +463,9 @@ def test_plot3d_vectors():
         projection="X10c",
         style="V1c+e+n",
         fill="black",
-        frame=["af", "zaf"],
+        frame=Frame(
+            axis=Axis(annot=True, tick=True), zaxis=Axis(annot=True, tick=True)
+        ),
     )
     return fig
 
@@ -410,7 +478,11 @@ def test_plot3d_scalar_xyz():
     fig = Figure()
     fig.basemap(
         region=[-2, 2, -2, 2, -2, 2],
-        frame=["xaf+lx", "yaf+ly", "zaf+lz"],
+        frame=Frame(
+            xaxis=Axis(annot=True, tick=True, label="x"),
+            yaxis=Axis(annot=True, tick=True, label="y"),
+            zaxis=Axis(annot=True, tick=True, label="z"),
+        ),
         zscale=2,
         perspective=[225, 30],
     )
@@ -430,8 +502,8 @@ def test_plot3d_scalar_xyz():
 @pytest.mark.parametrize("func", [str, Path])
 def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
-    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
-    and not as line (default GMT style).
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes and not
+    as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT
@@ -440,15 +512,19 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=func(tmpfile.name),
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",
-            frame=["WsNeZ1", "xag", "yag", "zag"],
+            frame=Frame(
+                axes="WsNeZ1",
+                xaxis=Axis(annot=True, grid=True),
+                yaxis=Axis(annot=True, grid=True),
+                zaxis=Axis(annot=True, grid=True),
+            ),
             zscale=1.5,
         )
         return fig
@@ -466,15 +542,19 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file, encoding="utf-8")
         fig = Figure()
         fig.plot3d(
             data=tmpfile.name,
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",
-            frame=["WsNeZ1", "xag", "yag", "zag"],
+            frame=Frame(
+                axes="WsNeZ1",
+                xaxis=Axis(annot=True, grid=True),
+                yaxis=Axis(annot=True, grid=True),
+                zaxis=Axis(annot=True, grid=True),
+            ),
             zscale=1.5,
             style="c0.2c",
         )

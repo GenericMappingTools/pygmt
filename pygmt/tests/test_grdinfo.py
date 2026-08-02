@@ -1,10 +1,11 @@
 """
-Tests for grdinfo.
+Test pygmt.grdinfo.
 """
+
 import numpy as np
 import pytest
 from pygmt import grdinfo
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers.testing import load_static_earth_relief
 
 
@@ -16,6 +17,7 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 def test_grdinfo(grid):
     """
     Make sure grdinfo works as expected.
@@ -28,7 +30,7 @@ def test_grdinfo_fails():
     """
     Check that grdinfo fails correctly.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grdinfo(np.arange(10).reshape((5, 2)))
 
 

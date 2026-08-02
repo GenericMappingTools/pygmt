@@ -1,0 +1,59 @@
+# Static type checks
+#
+# This workflow runs static type checks using mypy.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
+name: Static Type Checks
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '.github/workflows/type_checks.yml'
+  pull_request:
+    paths:
+      - 'pygmt/**/*.py'
+      - '.github/workflows/type_checks.yml'
+  # Schedule daily tests
+  schedule:
+    - cron: '0 0 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions: {}
+
+jobs:
+  static_check:
+    name: Static Type Check
+    runs-on: ubuntu-slim
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+          # Need to install following packages:
+          # 1. required packages
+          # 2. type checker and stub packages
+          # 3. other packages that are used somewhere in PyGMT
+          pip-install: | # zizmor: ignore[misfeature]
+            numpy pandas xarray packaging
+            mypy pandas-stubs pyarrow-stubs
+
+      - name: List install packages
+        run: python -m pip list
+
+      - name: Static type check
+        run: make typecheck

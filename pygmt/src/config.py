@@ -1,29 +1,38 @@
 """
-config - set GMT defaults globally or locally.
+config - Change GMT default settings globally or locally.
 """
+
+import warnings
 from inspect import Parameter, Signature
+from typing import ClassVar
 
 from pygmt.clib import Session
 
 
-class config:  # pylint: disable=invalid-name
+class config:  # ruff: ignore[invalid-class-name]
     """
-    Set GMT defaults globally or locally.
+    Change GMT default settings globally or locally.
 
-    Change GMT defaults globally::
+    Change GMT default settings globally::
 
         pygmt.config(PARAMETER=value)
 
-    Change GMT defaults locally by using it as a context manager::
+    Change GMT default settings locally by using it as a context manager::
 
         with pygmt.config(PARAMETER=value):
             ...
 
-    Full GMT defaults list at :gmt-docs:`gmt.conf.html`
+    Full GMT defaults list at :gmt-docs:`gmt.conf.html`.
+
+    .. note::
+
+        :gmt-term:`PS_CONVERT` is not supported.
+        To configure conversion options, please pass parameters to
+        :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.show` instead.
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
-    _keywords = [
+    _keywords: ClassVar = [
         "COLOR_BACKGROUND",
         "COLOR_FOREGROUND",
         "COLOR_CPT",
@@ -133,7 +142,7 @@ class config:  # pylint: disable=invalid-name
         "PS_CHAR_ENCODING",
         "PS_COLOR_MODEL",
         "PS_COMMENTS",
-        "PS_CONVERT",
+        # "PS_CONVERT",  # Not supported; use parameters of Figure.savefig/show instead
         "PS_IMAGE_COMPRESS",
         "PS_LINE_CAP",
         "PS_LINE_JOIN",
@@ -154,7 +163,7 @@ class config:  # pylint: disable=invalid-name
         "TIME_Y2K_OFFSET_YEAR",
     ]
 
-    _special_keywords = {
+    _special_keywords: ClassVar = {
         "FONT": [
             "FONT_ANNOT_PRIMARY",
             "FONT_ANNOT_SECONDARY",
@@ -186,6 +195,16 @@ class config:  # pylint: disable=invalid-name
     )
 
     def __init__(self, **kwargs):
+        if "PS_CONVERT" in kwargs:
+            warnings.warn(
+                message="Parameter 'PS_CONVERT' is not supported. "
+                "To configure conversion options, please pass parameters to "
+                "pygmt.Figure.savefig or pygmt.Figure.show instead.",
+                category=SyntaxWarning,
+                stacklevel=2,
+            )
+            kwargs.pop("PS_CONVERT")
+
         # Save values so that we can revert to their initial values
         self.old_defaults = {}
         with Session() as lib:
@@ -197,17 +216,23 @@ class config:  # pylint: disable=invalid-name
                     self.old_defaults[key] = lib.get_default(key)
 
         # call gmt set to change GMT defaults
-        arg_str = " ".join([f'{key}="{value}"' for key, value in kwargs.items()])
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set", args=[f"{key}={value}" for key, value in kwargs.items()]
+            )
 
     def __enter__(self):
+        """
+        Do nothing but return the object.
+        """
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        # revert to initial values
-        arg_str = " ".join(
-            [f"{key}={value}" for key, value in self.old_defaults.items()]
-        )
+        """
+        Revert GMT configurations to initial values.
+        """
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set",
+                args=[f"{key}={value}" for key, value in self.old_defaults.items()],
+            )

@@ -1,7 +1,8 @@
 """
-Tests for project.
+Test pygmt.project.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -9,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -34,6 +35,7 @@ def test_project_generate():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
 def test_project_input_matrix(array_func, dataframe):
     """
@@ -52,8 +54,7 @@ def test_project_input_matrix(array_func, dataframe):
 
 def test_project_output_filename(dataframe):
     """
-    Run project by passing in a pandas.DataFrame, and output to an ASCII txt
-    file.
+    Run project by passing in a pandas.DataFrame, and output to an ASCII txt file.
     """
     with GMTTempFile() as tmpfile:
         output = project(
@@ -61,10 +62,11 @@ def test_project_output_filename(dataframe):
             center=[0, -1],
             azimuth=45,
             flat_earth=True,
+            output_type="file",
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (1, 6)
         npt.assert_allclose(
@@ -76,15 +78,30 @@ def test_project_output_filename(dataframe):
 
 def test_project_incorrect_parameters():
     """
-    Run project by providing incorrect parameters such as 1) no `center`; 2) no
-    `data` or `generate`; and 3) `generate` with `convention`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
+    or `generate`; and 3) `generate` with `convention`.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # No `center`
         project(azimuth=45)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # No `data` or `generate`
         project(center=[0, -1], azimuth=45, flat_earth=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # Using `generate` with `convention`
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
+
+
+def test_project_geometry_definition_validation(dataframe):
+    """
+    Validate input validation for mutually exclusive projection geometry parameters.
+    """
+    kwdict = {"center": [0, -1], "data": dataframe}
+    with pytest.raises(GMTParameterError):
+        project(endpoint=[0, 1], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(endpoint=[0, 1], pole=[0, 90], **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, endpoint=[0, 1], **kwdict)

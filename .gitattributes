@@ -1,0 +1,1 @@
+pygmt/tests/baseline/test_*.png filter=lfs diff=lfs merge=lfs -text

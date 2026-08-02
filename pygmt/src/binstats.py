@@ -1,124 +1,192 @@
 """
-binstats - Bin spatial data and determine statistics per bin
+binstats - Bin spatial data and determine statistics per bin.
 """
+
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.exceptions import GMTTypeError, GMTValueError
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    C="statistic",
     E="empty",
-    G="outgrid",
-    I="spacing",
     N="normalize",
-    R="region",
     S="search_radius",
-    V="verbose",
     W="weight",
     a="aspatial",
     b="binary",
     h="header",
-    i="incols",
-    r="registration",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, **kwargs):
+def binstats(
+    data: PathLike | TableLike,
+    outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    statistic: Literal[
+        "mean",
+        "mad",
+        "full",
+        "interquartile",
+        "min",
+        "minpos",
+        "median",
+        "number",
+        "lms",
+        "mode",
+        "quantile",
+        "rms",
+        "stddev",
+        "max",
+        "maxneg",
+        "sum",
+    ] = "number",
+    quantile_value: float = 50,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
     Bin spatial data and determine statistics per bin.
 
     Reads arbitrarily located (x,y[,z][,w]) points
     (2-4 columns) from ``data`` and for each
     node in the specified grid layout determines which points are
-    within the given radius.  These point are then used in the
+    within the given radius. These points are then used in the
     calculation of the specified statistic. The results may be
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.
 
-    Full option list at :gmt-docs:`gmtbinstats.html`
+    Full GMT docs at :gmt-docs:`gmtbinstats.html`.
 
-    {aliases}
+    $aliases
+       - C = statistic
+       - G = outgrid
+       - I = spacing
+       - R = region
+       - V = verbose
+       - i = incols
+       - r = registration
 
     Parameters
     ----------
-    data : str or {table-like}
-        A file name of an ASCII data table or a 2D
-        {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    statistic : str
-        **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
-        \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
-        \|\ **U**\|\ **z**.
-        Choose the statistic that will be computed per node based on the
-        points that are within *radius* distance of the node.  Select one of:
+    data
+        A file name of an ASCII data table or a 2-D $table_classes.
+    $outgrid
+    statistic
+        Choose the statistic that will be computed per node based on the points that are
+        within *radius* distance of the node. Select one of:
 
-        - **a** for mean (average)
-        - **d** for median absolute deviation (MAD)
-        - **g** for full (max-min) range
-        - **i** for 25-75% interquartile range
-        - **l** for minimum (low)
-        - **L** for minimum of positive values only
-        - **m** for median
-        - **n** the number of values
-        - **o** for LMS scale
-        - **p** for mode (maximum likelihood)
-        - **q** for selected quantile (append desired quantile in
-          0-100% range [50])
-        - **r** for the r.m.s.
-        - **s** for standard deviation
-        - **u** for maximum (upper)
-        - **U** for maximum of negative values only
-        - **z** for the sum
-    empty : float or int
+        - ``"mean"``: Mean (i.e., average).
+        - ``"mad"``: Median absolute deviation (MAD).
+        - ``"full"``: The full (max-min) range.
+        - ``"interquartile"``: The 25-75% interquartile range.
+        - ``"min"``: Minimum (lowest value).
+        - ``"minpos"``: Minimum of positive values only.
+        - ``"median"``: Median value.
+        - ``"number"``: The number of values per bin.
+        - ``"lms"``: Least median square (LMS) scale.
+        - ``"mode"``: Mode (maximum likelihood estimate).
+        - ``"quantile"``: Selected quantile. The quantile value is specified by the
+          ``quantile_value`` parameter and is in the 0-100% range.
+        - ``"rms"``: Root mean square (RMS).
+        - ``"stddev"``: Standard deviation.
+        - ``"max"``: Maximum (highest value).
+        - ``"maxneg"``: Maximum of negative values only.
+        - ``"sum"``: The sum of the values.
+    quantile_value
+        The quantile value if ``statistic="quantile"``.
+    empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
-        search *radius* [no normalization].
+        search *radius* [Default is no normalization].
     search_radius : float or str
-        Sets the *search_radius* that determines which data points are
-        considered close to a node. Append the distance unit.
-        Not compatible with ``tiling``.
+        Set the *search_radius* that determines which data points are considered close
+        to a node. Append a :ref:`distance unit <distance-units>`. Not compatible with
+        ``tiling``.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {header}
-    {incols}
-    {registration}
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $header
+    $incols
+    $registration
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
-        - None if ``outgrid`` is set (grid output will be stored in file set by
+        - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="binstats", args=build_arg_string(kwargs, infile=infile)
-                )
+    aliasdict = AliasSystem(
+        C=Alias(
+            statistic,
+            name="statistic",
+            mapping={
+                "mean": "a",
+                "mad": "d",
+                "full": "g",
+                "interquartile": "i",
+                "min": "l",
+                "minpos": "L",
+                "median": "m",
+                "number": "n",
+                "lms": "o",
+                "mode": "p",
+                "quantile": "q",
+                "rms": "r",
+                "stddev": "s",
+                "max": "u",
+                "maxneg": "U",
+                "sum": "z",
+            },
+        ),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+    if statistic == "quantile":
+        if not isinstance(quantile_value, (int, float)):
+            raise GMTTypeError(
+                quantile_value, reason="quantile_value must be an 'int' or 'float'."
+            )
+        if not (0 <= quantile_value <= 100):
+            raise GMTValueError(
+                quantile_value,
+                description="quantile_value",
+                reason="Must be a value between 0 and 100.",
+            )
+        aliasdict["C"] += f"{quantile_value}"
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="binstats", args=build_arg_list(aliasdict, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

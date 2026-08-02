@@ -1,6 +1,6 @@
 r"""
-Sinusoidal
-==========
+Sinusoidal projection
+=====================
 
 The sinusoidal projection is one of the oldest known projections, is
 equal-area, and has been used since the mid-16th century. It has also been
@@ -11,12 +11,24 @@ meridian).
 
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
-The projection is set with **i** or **I**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **i** or **I**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
+
+# %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="I12c", land="coral4", water="azure3", frame="afg")
+fig.coast(
+    region="d",
+    projection="I12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="ivory",
+    water="bisque4",
+)
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]

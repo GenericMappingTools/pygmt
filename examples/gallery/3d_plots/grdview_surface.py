@@ -1,27 +1,29 @@
 """
 Plotting a surface
-------------------
+==================
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with
-``surftype="s"``. Here, we supply the data as an :class:`xarray.DataArray` with
-the coordinate vectors ``x`` and ``y`` defined. Note that the ``perspective``
-parameter here controls the azimuth and elevation angle of the view. We provide
-a list of two arguments to ``frame`` - the first argument specifies the
-:math:`x`- and :math:`y`-axes frame attributes and the second argument,
-prepended with ``"z"``, specifies the :math:`z`-axis frame attributes.
-Specifying the same scale for the ``projection`` and ``zscale`` parameters
-ensures equal axis scaling. The ``shading`` parameter specifies illumination;
-here we choose an azimuth of 45° with ``shading="+a45"``.
+``surftype="surface"``. Here, we supply the data as an :class:`xarray.DataArray` with
+the coordinate vectors ``x`` and ``y`` defined. Note that the ``perspective`` parameter
+here controls the azimuth and elevation angle of the view. Specifying the same scale
+for the ``projection`` and ``zscale`` parameters ensures equal axis scaling. The
+``shading`` parameter specifies illumination; here we choose an azimuth of 45° with
+``shading="+a45"``.
 """
 
+# %%
 import numpy as np
 import pygmt
 import xarray as xr
+from pygmt.params import Axis, Frame, Position
 
 
 # Define an interesting function of two variables, see:
 # https://en.wikipedia.org/wiki/Ackley_function
 def ackley(x, y):
+    """
+    Ackley function.
+    """
     return (
         -20 * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2)))
         - np.exp(0.5 * (np.cos(2 * np.pi * x) + np.cos(2 * np.pi * y)))
@@ -39,16 +41,23 @@ data = xr.DataArray(ackley(*np.meshgrid(x, y)), coords=(x, y))
 fig = pygmt.Figure()
 
 # Plot grid as a 3-D surface
-SCALE = 0.5  # in centimeter
+SCALE = 0.5  # in centimeters
 fig.grdview(
     data,
-    frame=["a5f1", "za5f1"],
+    # Set annotations and gridlines in steps of five, and tick marks in steps of one
+    frame=Frame(
+        axis=Axis(annot=5, tick=1, grid=5),  # x and y axes
+        zaxis=Axis(annot=5, tick=1, grid=5),
+    ),
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
-    surftype="s",
-    cmap="roma",
+    surftype="surface",
+    cmap="SCM/roma",
     perspective=[135, 30],  # Azimuth southeast (135°), at elevation 30°
     shading="+a45",
 )
+
+# Add colorbar for gridded data in the Middle Right corner.
+fig.colorbar(annot=2, tick=1, position=Position("MR", cstype="outside"))
 
 fig.show()

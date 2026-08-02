@@ -1,6 +1,6 @@
 r"""
-Gnomonic
-========
+Gnomonic projection
+===================
 
 The point of perspective of the gnomonic projection lies at the center of the
 Earth. As a consequence great circles (orthodromes) on the surface of the Earth
@@ -10,16 +10,26 @@ and the distortion increases greatly with distance to the projection center. It
 follows that the scope of application is restricted to a small area around the
 projection center (at a maximum of 60°).
 
-**f**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
-or **F**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
+**f**\ *lon0/lat0*\ [*/horizon*]\ */scale*
+or **F**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-**f** or **F** specifies the projection type, *lon0/lat0* specifies the
-projection center, the optional parameter *horizon* specifies the maximum
-distance from projection center (in degrees, < 90, default 60), and *scale* or
-*width* sets the size of the figure.
+- **f** or **F**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: Sets the maximum distance from the projection center in degrees
+  (< 90°) [Optional, default is 60°].
+- *scale* or *width*: Sets the map size.
 """
+
+# %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
-fig.coast(projection="F-90/15/12c", region="g", frame="20g20", land="gray")
+fig.coast(
+    region="g",
+    projection="F-90/15/12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="khaki",
+    water="white",
+)
 fig.show()

@@ -1,6 +1,6 @@
 """
 Plotting data points
---------------------
+====================
 
 GMT shines when it comes to plotting data on a map. We can use some sample data
 that is packaged with GMT to try this out. PyGMT provides access to these
@@ -8,17 +8,22 @@ datasets through the :mod:`pygmt.datasets` package. If you don't have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually ``~/.gmt/cache``).
 """
-# sphinx_gallery_thumbnail_number = 3
+
+# %%
+import io
 
 import pygmt
+from pygmt.params import Box, Position
 
-###############################################################################
+# %%
 # For example, let's load the sample dataset of tsunami generating earthquakes
 # around Japan using :func:`pygmt.datasets.load_sample_data`.
-# The data is loaded as a :class:`pandas.DataFrame`.
+# The data are loaded as a :class:`pandas.DataFrame`.
 
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
+data.head()
 
+# %%
 # Set the region for the plot to be slightly larger than the data bounds.
 region = [
     data.longitude.min() - 1,
@@ -26,12 +31,9 @@ region = [
     data.latitude.min() - 1,
     data.latitude.max() + 1,
 ]
+region
 
-print(region)
-print(data.head())
-
-
-###############################################################################
+# %%
 # We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
 # earthquake epicenters.
 
@@ -41,15 +43,20 @@ fig.coast(land="black", water="skyblue")
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="black")
 fig.show()
 
-###############################################################################
-# We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The
-# ``pen`` parameter controls the outline of the symbols and the ``fill``
-# parameter controls the fill.
+# %%
+# We used the style ``c0.3c`` which means "circles with a diameter of 0.3
+# centimeters". The ``pen`` parameter controls the outline of the symbols and
+# the ``fill`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an
 # array to the ``size`` parameter. Because the magnitude is on a logarithmic
 # scale, it helps to show the differences by scaling the values using a power
 # law.
+#
+# A legend for the size of the circles can not be added automatically. But users can
+# create an :class:`io.StringIO` object, which can be passed to the ``spec`` parameter
+# of :meth:`pygmt.Figure.legend`. For details on creating legends, see the tutorial
+# :doc:`multiple-column legend </tutorials/advanced/legends>`.
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
@@ -62,12 +69,21 @@ fig.plot(
     fill="white",
     pen="black",
 )
+legend = io.StringIO(
+    "\n".join(f"S 0.4 c {0.02 * 2**m:.2f} - 1p 1 Mw {m}" for m in [3, 4, 5])
+)
+fig.legend(
+    spec=legend,
+    position=Position("BR", offset=0.2),
+    line_spacing=2,
+    box=Box(fill="white", pen="black"),
+)
 fig.show()
 
-###############################################################################
+# %%
 # Notice that we didn't include the size in the ``style`` parameter this time,
-# just the symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this
-# case, the size will be interpreted as being in centimeters.
+# just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
+# this case, the size will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array
 # to the ``fill`` parameter and providing a colormap name (``cmap``). We can
@@ -76,12 +92,13 @@ fig.show()
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 # :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
-#
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
-pygmt.makecpt(cmap="viridis", series=[data.depth_km.min(), data.depth_km.max()])
+pygmt.makecpt(
+    cmap="matplotlib/viridis", series=[data.depth_km.min(), data.depth_km.max()]
+)
 fig.plot(
     x=data.longitude,
     y=data.latitude,
@@ -91,5 +108,13 @@ fig.plot(
     style="cc",
     pen="black",
 )
-fig.colorbar(frame="af+lDepth (km)")
+fig.colorbar(annot=True, tick=True, label="Depth (km)")
+fig.legend(
+    spec=legend,
+    position=Position("BR", offset=0.2),
+    line_spacing=2,
+    box=Box(fill="white", pen="black"),
+)
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

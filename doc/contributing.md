@@ -62,12 +62,12 @@ the problem:
   filter the messages to include only the GMT-equivalent commands using a command
   such as:
 
-      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print "gmt", $3}'
+      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
   where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
-  data to a file (e.g., a NetCDF or ASCII txt file) and passing the data file
+  data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
   to the PyGMT function instead. In the GitHub issue, please share the results
   for both cases along with your code.
 
@@ -100,7 +100,7 @@ Please take a look at these resources to learn about Git and pull requests (don'
 hesitate to [ask questions](contributing.md#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
-* [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
+* [Git Workflow Tutorial](https://www.asmeurer.com/git-workflow/) by Aaron Meurer.
 * [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github).
 
 ### Getting Help
@@ -111,7 +111,7 @@ the project where you can ask questions.
 
 ### Pull Request Workflow
 
-We follow the [git pull request workflow](http://www.asmeurer.com/git-workflow)
+We follow the [git pull request workflow](https://www.asmeurer.com/git-workflow)
 to make changes to our codebase. Every change made goes through a pull request, even
 our own, so that our
 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
@@ -130,9 +130,9 @@ our tests. This way, the *main* branch is always stable.
     integrated separately.
   - Bug fixes should be submitted in separate PRs.
 * How to write and submit a PR
-  - Use underscores for all Python (*.py) files as per
-    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory
-    names should also use underscores instead of hyphens.
+  - Use underscores for all Python (\*.py) files as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory names
+    should also use underscores instead of hyphens.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.
@@ -163,12 +163,14 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write tests for the code you wrote/modified if needed.
     Please refer to [Testing your code](contributing.md#testing-your-code) or
     [Testing plots](contributing.md#testing-plots).
-  - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](contributing.md#contributing-gallery-plots)
-    or [Tutorials](contributing.md#contributing-tutorials).
+  - Include an example of new features in the gallery or tutorials. Please refer to
+    [Gallery plots](contributing.md#contributing-gallery-plots) or
+    [Tutorials](contributing.md#contributing-tutorials). If adding a new
+    method/function/class, the gallery example or tutorial should be submitted in a
+    separate pull request.
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
-  - Follow the [PEP8](http://pep8.org) style guide for code and the
+  - Follow the [PEP8](https://pep8.org) style guide for code and the
     [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
     for docstrings. Please refer to [Code style](contributing.md#code-style).
 
@@ -186,17 +188,17 @@ These steps for setting up your environment are necessary for
 [contributing code](contributing.md#contributing-code). A local PyGMT development environment
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
-We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
-package manager to install and manage your Python packages.
+We highly recommend using [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
+and the `conda` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
-The repository includes a conda environment file `environment.yml` with the
+The repository includes a virtual environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
 In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:
 
 - git (for cloning the repo and tracking changes in code)
-- dvc (for downloading baseline images used in tests)
+- [Git LFS](https://git-lfs.com) (for downloading baseline images used in tests)
 - pytest-mpl (for checking that generated plots match the baseline)
 - sphinx-gallery (for building the gallery example page)
 
@@ -227,7 +229,7 @@ To install the current source code into your testing environment, run:
 
 ```bash
 make install  # on Linux/macOS
-pip install --no-deps -e .  # on Windows
+python -m pip install --no-deps -e .  # on Windows
 ```
 
 This installs your project in *editable* mode, meaning that changes made to the source
@@ -251,7 +253,7 @@ There are four main components to PyGMT's documentation:
 
 The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
-[Sphinx](http://www.sphinx-doc.org/). Please refer to
+[Sphinx](https://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the [pull request workflow](contributing.md#pull-request-workflow)
@@ -320,24 +322,25 @@ Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 Many of the PyGMT functions have example code in their documentation. To contribute an
 example, add an "Example" header and put the example code below it. Have all lines
 begin with `>>>`.  To keep this example code from being run during testing, add the code
-`__doctest_skip__ = [function name]` to the top of the module.
+`__doctest_skip__ = ["function_name"]` to the top of the module.
 
 **Inline code example**
 
-Below the import statements at the top of the file
+Below the import statements at the top of the file:
 
-``
-__doctest_skip__ = ["module_name"]
-``
+```python
+__doctest_skip__ = ["function_name"]
+```
 
-At the end of the function's docstring
+At the end of the function's docstring:
 
-    Example
-    -------
-    >>> import pygmt
-    >>> # Comment describing what is happening
-    >>> Code example
-
+```python
+Example
+-------
+>>> import pygmt
+>>> # Comment describing what is happening
+>>> Code example
+```
 
 ### Contributing Gallery Plots
 
@@ -378,9 +381,9 @@ The tutorials (the User Guide in the docs) are also built by sphinx-gallery from
 * Create a `.py` file in the `examples/tutorials/advanced` folder.
 * Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
   is being done. See the other tutorials for the format.
-* Choose the most representative figure as the thumbnail figure by adding a comment line
-  `# sphinx_gallery_thumbnail_number = <fig_number>` to any place (usually at the top)
-  in the tutorial. The *fig_number* starts from 1.
+* Choose the most representative figure as the thumbnail figure by adding the comment
+  line `# sphinx_gallery_thumbnail_number = <fig_number>` at the end of the tutorial.
+  The *fig_number* starts from 1.
 
 Guidelines for a good tutorial:
 
@@ -404,9 +407,9 @@ the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by Black, docstrings
+While the maximum line length for code is automatically set by Ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
+limited to 88 characters** per line.
 
 ### Standards for Example Code
 
@@ -456,8 +459,7 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 An example would be using
 <code>:gmt-docs:\`makecpt.html\`</code> to link to {gmt-docs}`makecpt.html`.
 For GMT configuration parameters, an example is
-<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-{gmt-term}`https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND <COLOR_FOREGROUND>`.
+<code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to {gmt-term}`COLOR_FOREGROUND`.
 
 Sphinx will create a link to the automatically generated page for that
 function/class/module/method.
@@ -466,50 +468,122 @@ function/class/module/method.
 
 ### PyGMT Code Overview
 
-The source code for PyGMT is located in the `pygmt/` directory. When contributing
-code, be sure to follow the general guidelines in the
-[pull request workflow](contributing.md#pull-request-workflow) section.
+The source code for PyGMT is located in the `pygmt/` directory. When contributing code,
+please open an issue first to discuss the feature and its implementation and be sure to
+follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+section.
 
 ### Code Style
 
-We use some tools to format the code so we don't have to think about it:
-
-- [Black](https://github.com/psf/black)
-- [blackdoc](https://github.com/keewis/blackdoc)
-- [docformatter](https://github.com/myint/docformatter)
-- [isort](https://pycqa.github.io/isort/)
-
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
-differences. Regardless, you won't have to worry about formatting the code yourself.
-Before committing, run it to automatically format your code:
+We use the [Ruff](https://docs.astral.sh/ruff) tool to format the code, so we
+don't have to think about it. It loosely follows the [PEP8](https://pep8.org) guide
+but with a few differences. Regardless, you won't have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:
 
 ```bash
 make format
 ```
 
-For consistency, we also use UNIX-style line endings (`\n`) and file permission
-644 (`-rw-r--r--`) throughout the whole project.
-Don't worry if you forget to do it. Our continuous integration systems will
-warn us and you can make a new commit with the formatted code.
+For consistency, we also use `pre-commit` hooks (via [`prek`](https://prek.j178.dev/))
+to enforce UNIX-style line endings (`\n`) and file permission 644 (`-rw-r--r--`)
+throughout the whole project. Don't worry if you forget to do it. Our continuous
+integration systems will warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
 pull request to lint the code automatically.
 
-When wrapping a new alias, use an underscore to separate words bridged by vowels
-(aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
-words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
-convention is not applied by the code checking tools, but the PyGMT maintainers
+When introducing a new parameter name, use an underscore to separate words. This improves
+readability and aligns with the [PEP 8 style guide](https://peps.python.org/pep-0008/).
+For common shortcuts no underscore is needed, e.g., `surftype`, `outgrid`, or `timefmt`.
+This convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
-[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
-common errors.
+When working on a tutorial or a gallery plot, it is good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use `# %%` as code block separators (please
+refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
+for the discussions) and require at least one separator in all example files.
+
+We also use [Ruff](https://docs.astral.sh/ruff) to check the quality of the code
+and quickly catch common errors.
+
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
-contains rules for running both checks:
+contains rules for running the linter checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
-make lint    # Runs pylint, which is a bit slower
+make check   # Runs Ruff in check mode
 ```
+
+### Wrapping a GMT Module
+
+Wrapping a GMT module in PyGMT is usually a big task, but it can progress more smoothly
+and efficiently when divided into **small, manageable chunks**. This section gives an
+overview of the main tasks involved.
+
+1. Open "wrapper request" issue - create a feature request for wrapping a module and
+   discuss what features should be available in the wrapper [optional, usually done by
+   users].
+2. Open a "wrapper tracking" issue - use the "Wrapper for a GMT module" issue template,
+   to track the progress of wrapping the module. Link it to the
+   [Project board](https://github.com/orgs/GenericMappingTools/projects/3), and close
+   the "wrapper request issue" with a comment such as [usually done by maintainers]:
+   > Thank you for opening the feature request. The progress of wrapping the module will
+   > be tracked in issue #XXX and
+   > the [Project board](https://github.com/orgs/GenericMappingTools/projects/3).
+3. Open one PR for the initial implementation, focusing on required and essential
+   parameters [done by maintainers or contributors].
+4. Close the "wrapper tracking issue" once the initial implementation is merged. Leave a
+   comment such as [done by maintainers]:
+   > The initial implementation of wrapping the XXX module was completed in PR #XXX.
+   > Not all functionalities are implemented yet. Further progress will be tracked in
+   > the Project board.
+   This is necessary to avoid having too many long-term open issues.
+5. Open one or more PRs to implement the remaining features and missing aliases.
+6. Open one PR to add a gallery example or a tutorial.
+
+These PRs can be split among multiple contributors. There is no obligation for a single
+contributor to complete all steps. Please comment on the "wrapper tracking issue" if you
+would like to open a PR for any of these tasks to avoid redundant efforts.
+
+#### Initial Feature Implementation
+
+First, comment on the "Wrapper tracking issue" that you will be working on the initial
+implementation. This first pull request should be as minimal as possible - only adding
+the required functionality (i.e., wrapping the required GMT parameters and supporting
+the primary input/output types).
+
+The following steps are common to all initial implementation pull requests that wrap a
+GMT module:
+
+* Create a new module `<module-name>.py` in `pygmt/src`. The module docstring should
+  include the module name and a short description of the functionality (e.g.,
+  `grdfill - Fill blank areas from a grid.`).
+* Add a function `<module-name>` to the module. When writing the new function, it is
+  generally easiest to reference the source code for other functions that input/output
+  similar object types.
+* Write a detailed docstring following the
+  [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html).
+* Add the function to the import statements in `pygmt/src/__init__.py` and
+  `pygmt/__init__.py`.
+* Add the function to appropriate section of the API documentation in `doc/api/index.rst`.
+* Add a testing module `test_<module-name>.py` in `pygmt/tests`, following
+  the guidelines in the [testing your code](#testing-your-code) section.
+
+#### Add Missing Aliases
+
+After the initial implementation, missing aliases can be added in separate PRs:
+
+* Select a suitable alias for each GMT option, following the guidelines in the
+  [code style](#code-style) section. Before creating a new alias, check:
+
+  - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
+    `pygmt/helpers/decorators.py`
+  - whether other wrapped GMT modules have a similar parameter
+  - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
+* Add the alias to the `AliasSystem` class and the function signature.
+* Add the alias and description to the parameters section of the docstring, using the
+  `fmt_docstring` decorator to add descriptions for parameters included in the
+  `COMMON_DOCSTRINGS` dictionary.
 
 ### Testing your Code
 
@@ -524,10 +598,10 @@ existing functionality.
 Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
-the every unique combination arguments. An exception to this would be the most popular
+every unique combination of arguments. An exception to this would be the most popular
 methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
-The highest priority for tests should be the Python-specific code, such as numpy,
-pandas, and xarray objects and the virtualfile mechanism.
+The highest priority for tests should be the Python-specific code, such as NumPy,
+pandas, and xarray objects and the virtual file mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
@@ -535,10 +609,10 @@ If you're not sure how to do this or are having trouble, submit your pull reques
 anyway.
 We will help you create the tests and sort out any kind of problem during code review.
 
-Pull the baseline images, run the tests, and calculate test coverage using:
+Pull the latest changes (including baseline images), run the tests, and calculate
+test coverage using:
 
-    dvc status  # should report any files 'not_in_cache'
-    dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+    git pull
     make test
 
 The coverage report will let you know which lines of code are touched by the tests.
@@ -577,7 +651,9 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting method works"
+    """
+    Test that my plotting method works.
+    """
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     return fig
@@ -601,91 +677,56 @@ If it's correct, copy it (and only it) to `pygmt/tests/baseline`.
 When you run `make test` the next time, your test should be executed and
 passing.
 
-Don't forget to commit the baseline image as well!
-The images should be pushed up into a remote repository using `dvc` (instead of
-`git`) as will be explained in the next section.
+Don't forget to commit the baseline image as well! Baseline images are tracked with
+Git LFS, as explained in the next section.
 
-#### Using Data Version Control ([dvc](https://dvc.org)) to Manage Test Images
+#### Using [Git Large File Storage (LFS)](https://git-lfs.com) to Manage Test Images
 
-As the baseline images are quite large blob files that can change often (e.g.
-with new GMT versions), it is not ideal to store them in `git` (which is meant
-for tracking plain text files). Instead, we will use [`dvc`](https://dvc.org)
-which is like `git` but for data. What `dvc` does is to store the hash (md5sum)
-of a file. For example, given an image file like `test_logo.png`, `dvc` will
-generate a `test_logo.png.dvc` plain text file containing the hash of the
-image. This `test_logo.png.dvc` file can be stored as usual on GitHub, while
-the `test_logo.png` file can be stored separately on our `dvc` remote at
-[https://dagshub.com/GenericMappingTools/pygmt](https://dagshub.com/GenericMappingTools/pygmt).
+As the baseline images are quite large blob files that can change often (e.g., with new
+GMT versions), they are managed with Git LFS rather than regular Git objects.
 
-To **pull** or sync files from the `dvc` remote to your local repository, use
-the commands below. Note how `dvc` commands are very similar to `git`.
+You need to run the following command once to set up Git LFS on your machine:
 
-    dvc status  # should report any files 'not_in_cache'
-    dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+    git lfs install
 
-Once the sync/download is complete, you should notice two things. There will be
-images stored in the `pygmt/tests/baseline` folder (e.g. `test_logo.png`) and
-these images are technically reflinks/symlinks/copies of the files under the
-`.dvc/cache` folder. You can now run the image comparison test suite as per
-usual.
+After that, `git clone` and `git pull` download the baseline images automatically. If
+Git LFS downloads were deliberately skipped, run `git lfs pull` to download the missing
+images. The images in `pygmt/tests/baseline` can then be used by the image-comparison
+tests as usual.
 
-    pytest pygmt/tests/test_logo.py  # run only one test
-    make test  # run the entire test suite
+The entire workflow for generating or modifying baseline test images can be summarized
+as follows:
 
-To **push** or sync changes from your local repository up to the `dvc` remote
-at DAGsHub, you will first need to set up authentication using the commands
-below. This only needs to be done once, i.e. the first time you contribute a
-test image to the PyGMT project.
-
-    dvc remote modify upstream --local auth basic
-    dvc remote modify upstream --local user "$DAGSHUB_USER"
-    dvc remote modify upstream --local password "$DAGSHUB_PASS"
-
-The configuration will be stored inside your `.dvc/config.local` file. Note
-that the $DAGSHUB_PASS token can be generated at
-[https://dagshub.com/user/settings/tokens](https://dagshub.com/user/settings/tokens)
-after creating a DAGsHub account (can be linked to your GitHub account). Once
-you have an account set up, please ask one of the PyGMT maintainers to add you
-as a collaborator at
-[https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
-before proceeding with the next steps.
-
-The entire workflow for generating or modifying baseline test images can be
-summarized as follows:
-
-    # Sync with both git and dvc remotes
+    # Sync Git; Git LFS objects are downloaded automatically
     git pull
-    dvc pull
 
     # Generate new baseline images
     pytest --mpl-generate-path=baseline pygmt/tests/test_logo.py
     mv baseline/*.png pygmt/tests/baseline/
 
-    # Generate hash for baseline image and stage the *.dvc file in git
-    dvc status  # check which files need to be added to dvc
-    dvc add pygmt/tests/baseline/test_logo.png
-    git add pygmt/tests/baseline/test_logo.png.dvc
+    # Stage the Git LFS-tracked baseline image
+    git add pygmt/tests/baseline/test_logo.png
 
-    # Commit changes and push to both the git and dvc remotes
-    git commit -m "Add test_logo.png into DVC"
-    dvc status --remote upstream  # Report which files will be pushed to the dvc remote
-    dvc push  # Run before git push to enable automated testing with the new images
+    # Commit and push; Git LFS uploads the image automatically
+    git commit -m "Add test_logo.png baseline image"
     git push
 
-#### Using check_figures_equal
+#### Using `check_figures_equal`
 
 This approach draws the same figure using two different methods (the reference
 method and the tested method), and checks that both of them are the same.
-It takes two `pygmt.Figure` objects ('fig_ref' and 'fig_test'), generates a png
+It takes two `pygmt.Figure` objects (`fig_ref` and `fig_test`), generates a png
 image, and checks for the Root Mean Square (RMS) error between the two.
 Here's an example:
 
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting method works"
-  fig_ref, fig_test = Figure(), Figure()
-  fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-  fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
-  return fig_ref, fig_test
+    """
+    Test that my plotting method works.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="gmt/geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="gmt/geo")
+    return fig_ref, fig_test
 ```

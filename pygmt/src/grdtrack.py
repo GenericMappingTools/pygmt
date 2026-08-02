@@ -1,20 +1,24 @@
 """
-grdtrack - Sample grids at specified (x,y) locations.
+grdtrack - Sample one or more grids at specified locations.
 """
-import warnings
 
+from collections.abc import Sequence
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
-from pygmt.src.which import which
 
 __doctest_skip__ = ["grdtrack"]
 
@@ -26,11 +30,9 @@ __doctest_skip__ = ["grdtrack"]
     D="dfile",
     E="profile",
     F="critical",
-    R="region",
     N="no_skip",
     S="stack",
     T="radius",
-    V="verbose",
     Z="z_only",
     a="aspatial",
     b="binary",
@@ -39,17 +41,27 @@ __doctest_skip__ = ["grdtrack"]
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     j="distcalc",
     n="interpolation",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
-def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
+@kwargs_to_strings(S="sequence")
+def grdtrack(
+    grid: PathLike | xr.DataArray,
+    points: PathLike | TableLike | None = None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: PathLike | None = None,
+    newcolname=None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
-    Sample grids at specified (x,y) locations.
+    Sample one or more grids at specified locations.
 
     Reads one or more grid files and a table (from file or an array input; but
     see ``profile`` for exception) with (x,y) [or (lon,lat)] positions in the
@@ -65,28 +77,27 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     derivative normal to edge is zero) unless the grid is automatically
     recognized as periodic.)
 
-    Full option list at :gmt-docs:`grdtrack.html`
+    Full GMT docs at :gmt-docs:`grdtrack.html`.
 
-    {aliases}
+    $aliases
+       - R = region
+       - V = verbose
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
-    grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a file name (netcdf
-        format).
+    $grid
 
-    points : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
-        {table-classes}.
-
+    points
+        Pass in either a file name to an ASCII data table, a 2-D
+        $table_classes.
+    $output_type
+    $outfile
     newcolname : str
         Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
         new column in the track :class:`pandas.DataFrame` table where the
         sampled values will be placed.
-
-    outfile : str
-        The file name for the output ASCII file.
-
     resample : str
         **f**\|\ **p**\|\ **m**\|\ **r**\|\ **R**\ [**+l**]
         For track resampling (if ``crossprofile`` or ``profile`` are set) we
@@ -116,13 +127,12 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         to alternate the direction of cross-profiles, or **v** to enforce
         either a "west-to-east" or "south-to-north" view. By default the entire
         profiles are output. Choose to only output the left or right halves
-        of the profiles by appending **+l** or **+r**, respectively.  Append
-        suitable units to *length*; it sets the unit used for *ds* [and
-        *spacing*] (See :gmt-docs:`Units <grdtrack.html#units>`). The default
-        unit for geographic grids is meter while Cartesian grids implies the
-        user unit.  The output columns will be *lon*, *lat*, *dist*, *azimuth*,
-        *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
-        *n* grids).
+        of the profiles by appending **+l** or **+r**, respectively. Append
+        a suitable :ref:`distance unit <distance-units>` to *length*; it sets the unit
+        used for *ds* [and *spacing*]. The default unit for geographic grids is meters
+        while Cartesian grids implies the user unit. The output columns will be
+        *lon*, *lat*, *dist*, *azimuth*, *z1*, *z2*, ..., *zn* (The *zi* are the sampled
+        values for each of the *n* grids).
     dfile : str
         In concert with ``crossprofile`` we can save the (possibly resampled)
         original lines to *dfile* [Default only saves the cross-profiles]. The
@@ -186,10 +196,9 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {region}
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
-        [Default only output points within grid domain].
+        [Default only output points within the grid domain].
     stack : str or list
         *method*/*modifiers*.
         In conjunction with ``crossprofile``, compute a single stacked profile
@@ -215,7 +224,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         - **+c**\ *fact* : Compute envelope on stacked profile as
           ±\ *fact* \*\ *deviation* [Default fact value is 2].
 
-        Notes:
+        Here are some notes:
 
         1. Deviations depend on *method* and are st.dev (**a**), L1 scale,
            i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and
@@ -232,7 +241,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
            by deviations (**+d**) and finally residuals (**+r**). When more
            than one grid is sampled this sequence of 1-3 columns is repeated
            for each grid.
-    radius : bool or int or float or str
+    radius : bool, float, or str
         [*radius*][**+e**\|\ **p**].
         To be used with normal grid sampling, and limited to a single, non-IMG
         grid. If the nearest node to the input point is NaN, search outwards
@@ -244,38 +253,39 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {verbose}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {distcalc}
-    {interpolation}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $verbose
+    $region
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $distcalc
+    $interpolation
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
-    track: pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table with (x, y, ..., newcolname) if
-          ``outfile`` is not set
-        - None if ``outfile`` is set (track output will be stored in file set
-          by ``outfile``)
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of -118 to
-    >>> # -107, and a y-range of -49 to -42
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # -118° E to -107° E, and a latitude range of -49° N to -42° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[-118, -107, -49, -42]
     ... )
@@ -287,75 +297,46 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     ...     points=points, grid=grid, newcolname="bathymetry"
     ... )
     """
-    # pylint: disable=too-many-branches
     if points is not None and kwargs.get("E") is not None:
-        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
+        raise GMTParameterError(at_most_one=["points", "profile"])
 
     if points is None and kwargs.get("E") is None:
-        raise GMTInvalidInput("Must give 'points' or set 'profile'.")
+        raise GMTParameterError(at_least_one=["points", "profile"])
 
     if hasattr(points, "columns") and newcolname is None:
-        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
-
-    # Backward compatibility with old parameter order "points, grid".
-    # deprecated_version="0.7.0", remove_version="v0.9.0"
-    is_a_grid = True
-    if not isinstance(grid, (xr.DataArray, str)):
-        is_a_grid = False
-    elif isinstance(grid, str):
-        try:
-            xr.open_dataarray(which(grid, download="a"), engine="netcdf4").close()
-            is_a_grid = True
-        except (ValueError, OSError):
-            is_a_grid = False
-    if not is_a_grid:
-        msg = (
-            "Positional parameters 'points, grid' of pygmt.grdtrack() has changed "
-            "to 'grid, points=None' since v0.7.0. It's likely that you're NOT "
-            "passing a valid grid as the first positional argument or "
-            "are passing an invalid grid to the 'grid' parameter. "
-            "Please check the order of arguments with the latest documentation. "
-            "This warning will be removed in v0.9.0."
+        raise GMTParameterError(
+            required="newcolname", reason="Pass in a string to 'newcolname'."
         )
-        grid, points = points, grid
-        warnings.warn(msg, category=FutureWarning, stacklevel=1)
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            # Store the xarray.DataArray grid in virtualfile
-            grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-            with grid_context as grdfile:
-                kwargs.update({"G": grdfile})
-                if outfile is None:  # Output to tmpfile if outfile is not set
-                    outfile = tmpfile.name
+    column_names = None
+    if output_type == "pandas" and isinstance(points, pd.DataFrame):
+        column_names = [*points.columns.to_list(), newcolname]
 
-                if points is not None:
-                    # Choose how data will be passed into the module
-                    table_context = lib.virtualfile_from_data(
-                        check_kind="vector", data=points
-                    )
-                    with table_context as csvfile:
-                        lib.call_module(
-                            module="grdtrack",
-                            args=build_arg_string(
-                                kwargs, infile=csvfile, outfile=outfile
-                            ),
-                        )
-                else:
-                    lib.call_module(
-                        module="grdtrack",
-                        args=build_arg_string(kwargs, outfile=outfile),
-                    )
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+        i=incols,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = points.columns.to_list() + [newcolname]
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="vector", data=points, required=False
+            ) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            aliasdict["G"] = vingrd
+            lib.call_module(
+                module="grdtrack",
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.virtualfile_to_dataset(
+            vfname=vouttbl,
+            output_type=output_type,
+            column_names=column_names,
+        )

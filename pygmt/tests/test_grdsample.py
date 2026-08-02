@@ -1,11 +1,14 @@
 """
-Tests for grdsample.
+Test pygmt.grdsample.
 """
-import os
+
+from pathlib import Path
 
 import pytest
 import xarray as xr
-from pygmt import grdsample, load_dataarray
+from pygmt import grdsample
+from pygmt.enums import GridRegistration, GridType
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
 
@@ -47,10 +50,10 @@ def fixture_expected_grid():
             [551.75, 666.6875, 958.21875],
             [411.3125, 518.4375, 931.28125],
         ],
-        coords=dict(
-            lon=[-52, -50, -48],
-            lat=[-19.5, -18.5, -17.5, -16.5, -15.5],
-        ),
+        coords={
+            "lon": [-52, -50, -48],
+            "lat": [-19.5, -18.5, -17.5, -16.5, -15.5],
+        },
         dims=["lat", "lon"],
     )
 
@@ -64,20 +67,21 @@ def test_grdsample_file_out(grid, expected_grid, region, spacing):
             grid=grid, outgrid=tmpfile.name, spacing=spacing, region=region
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
-        temp_grid = load_dataarray(tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
+        temp_grid = xr.load_dataarray(tmpfile.name, engine="gmt", raster_kind="grid")
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with no outgrid set and the spacing is changed.
     """
-    result = grdsample(grid=grid, spacing=spacing, region=region)
+    result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
-    assert result.gmt.gtype == 1  # Geographic grid
-    assert result.gmt.registration == 1  # Pixel registration
+    assert result.gmt.gtype is GridType.GEOGRAPHIC
+    assert result.gmt.registration is GridRegistration.PIXEL
     # check information of the output grid
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
@@ -86,8 +90,16 @@ def test_grdsample_registration_changes(grid):
     """
     Test grdsample with no set outgrid and applying registration changes.
     """
-    assert grid.gmt.registration == 1  # Pixel registration
-    translated_grid = grdsample(grid=grid, translate=True)
-    assert translated_grid.gmt.registration == 0  # Gridline registration
-    registration_grid = grdsample(grid=translated_grid, registration="p")
-    assert registration_grid.gmt.registration == 1  # Pixel registration
+    assert grid.gmt.registration is GridRegistration.PIXEL
+    translated_grid = grdsample(grid=grid, toggle=True)
+    assert translated_grid.gmt.registration is GridRegistration.GRIDLINE
+    registration_grid = grdsample(grid=translated_grid, registration="pixel")
+    assert registration_grid.gmt.registration is GridRegistration.PIXEL
+
+
+def test_grdsample_toggle_and_registration_mutually_exclusive(grid):
+    """
+    Raise an exception if toggle and registration are both set.
+    """
+    with pytest.raises(GMTParameterError):
+        grdsample(grid=grid, toggle=True, registration="pixel")

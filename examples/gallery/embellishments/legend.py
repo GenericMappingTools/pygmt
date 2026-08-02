@@ -1,27 +1,64 @@
 """
 Legend
-------
+======
 
-The :meth:`pygmt.Figure.legend` method can automatically create a legend for
-symbols plotted using :meth:`pygmt.Figure.plot`. Legend entries are only
-created when the ``label`` parameter is used.
+The :meth:`pygmt.Figure.legend` method can automatically create a legend for symbols
+plotted using :meth:`pygmt.Figure.plot`. A legend entry is only added when the ``label``
+parameter is used to state the desired text. Optionally, to adjust the legend, users can
+append different modifiers. A list of all available modifiers can be found at
+:gmt-docs:`gmt.html#l-full`. To create a multiple-column legend **+N** is used with the
+desired number of columns. For more complicated legends, users may want to write an
+ASCII file with instructions for the layout of the legend items and pass it to the
+``spec`` parameter of :meth:`pygmt.Figure.legend`. For details on how to set up such a
+file, please see the GMT documentation at :gmt-docs:`legend.html#legend-codes`.
 """
-import pygmt
 
+# %%
+import numpy as np
+import pygmt
+from pygmt.params import Axis, Frame, Position
+
+# Set up some test data
+x = np.arange(-10, 10.2, 0.2)
+y1 = np.sin(x) + 1.1
+y2 = np.cos(x) + 1.1
+y3 = np.sin(x / 2) - 1.1
+y4 = np.cos(x / 2) - 1.1
+
+# Create new Figure() object
 fig = pygmt.Figure()
 
-fig.basemap(projection="x2c", region=[0, 7, 3, 7], frame=True)
-
-fig.plot(
-    data="@Table_5_11.txt",
-    style="c0.40c",
-    fill="lightgreen",
-    pen="faint",
-    label="Apples",
+fig.basemap(
+    projection="X10c/7c",
+    region=[-10, 10, -3.5, 3.5],
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=True, label="x"),
+        yaxis=Axis(annot=1, tick=0.5, label="y"),
+    ),
 )
-fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-fig.plot(data="@Table_5_11.txt", style="t0.40c", fill="orange", label="Oranges")
 
-fig.legend(position="JTR+jTR+o0.2c", box=True)
+# -----------------------------------------------------------------------------
+# Top: Vertical legend (one column, default)
+
+# Use the label parameter to state the text label for the legend entry
+fig.plot(x=x, y=y1, pen="1p,green3", label="sin(x)+1.1")
+fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
+
+# Add a legend to the plot at the Top Right (TR) corner with a 0.2-cm offset in x- and
+# y-directions; surround the legend with a box.
+fig.legend(position=Position("TR", offset=0.2), box=True)
+
+# -----------------------------------------------------------------------------
+# Bottom: Horizontal legend (here two columns)
+
+# +N sets the number of columns corresponding to the given number, here 2
+fig.plot(x=x, y=y3, pen="1p,darkred,-", label="sin(x/2)-1.1+N2")
+
+fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
+
+# For a multi-column legend, users have to provide the width, here it is set to 6 cm;
+# the legend is placed at the Bottom Right (BR) corner.
+fig.legend(position=Position("BR", offset=0.2), width="6c", box=True)
 
 fig.show()

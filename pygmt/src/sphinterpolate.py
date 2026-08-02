@@ -1,30 +1,31 @@
 """
-sphinterpolate - Spherical gridding in tension of data on a sphere
+sphinterpolate - Spherical gridding in tension of data on a sphere.
 """
+
+from collections.abc import Sequence
+from typing import Literal
+
+import xarray as xr
+from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
-@use_alias(
-    G="outgrid",
-    I="spacing",
-    R="region",
-    V="verbose",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(data, **kwargs):
+def sphinterpolate(
+    data: PathLike | TableLike,
+    outgrid: PathLike | None = None,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    **kwargs,
+) -> xr.DataArray | None:
     r"""
-    Create spherical grid files in tension of data.
+    Spherical gridding in tension of data on a sphere.
 
     Reads a table containing *lon, lat, z* columns and performs a Delaunay
     triangulation to set up a spherical interpolation in tension. Several
@@ -32,26 +33,32 @@ def sphinterpolate(data, **kwargs):
     global gradient estimation or optimize the tension selection to satisfy one
     of four criteria.
 
-    Full option list at :gmt-docs:`sphinterpolate.html`
+    Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    {aliases}
+    **Aliases:**
+
+    .. hlist:
+       :columns: 2
+
+       - G = outgrid
+       - I = spacing
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    data : str or {table-like}
+    data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
-        {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    {spacing}
-    {region}
-    {verbose}
+        providing a file name to an ASCII data table, a 2-D
+        $table_classes.
+    $outgrid
+    $spacing
+    $region
+    $verbose
 
     Returns
     -------
-    ret: xarray.DataArray or None
+    ret
         Return type depends on whether the ``outgrid`` parameter is set:
 
         - :class:`xarray.DataArray` if ``outgrid`` is not set
@@ -67,15 +74,21 @@ def sphinterpolate(data, **kwargs):
     >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="sphinterpolate",
-                    args=build_arg_string(kwargs, infile=infile),
-                )
+    aliasdict = AliasSystem(
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            aliasdict["G"] = voutgrd
+            lib.call_module(
+                module="sphinterpolate", args=build_arg_list(aliasdict, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

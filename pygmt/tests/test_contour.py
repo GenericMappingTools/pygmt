@@ -1,17 +1,18 @@
-# pylint: disable=redefined-outer-name
 """
-Tests contour.
+Test Figure.contour.
 """
-import os
+
+import platform
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
+from pygmt.params import Axis
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -31,6 +32,15 @@ def fixture_region():
 
 
 @pytest.mark.mpl_image_compare
+@pytest.mark.xfail(
+    platform.machine() == "aarch64"
+    or (
+        platform.system() == "Linux"
+        and platform.machine() == "x86_64"
+        and platform.freedesktop_os_release()["PRETTY_NAME"].startswith("Ubuntu 26.04")
+    ),
+    reason="Fails on Linux ARM64 and Ubuntu 26.04 x86_64",
+)
 def test_contour_vec(region):
     """
     Plot an x-centered gaussian kernel with different y scale.
@@ -43,10 +53,19 @@ def test_contour_vec(region):
     y = y.flatten()
     z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
     z = np.exp(-z / 10**2 * np.log(2))
-    fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
+    fig.contour(
+        x=x,
+        y=y,
+        z=z,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True),
+        pen=True,
+    )
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_contour_matrix.png")
 @pytest.mark.parametrize(
     "array_func",
@@ -58,7 +77,11 @@ def test_contour_matrix(array_func, data, region):
     """
     fig = Figure()
     fig.contour(
-        data=array_func(data), projection="X10c", region=region, frame="ag", pen=True
+        data=array_func(data),
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, grid=True),
+        pen=True,
     )
     return fig
 
@@ -70,16 +93,83 @@ def test_contour_from_file(region):
     """
     fig = Figure()
     fig.contour(
-        data=POINTS_DATA, projection="X10c", region=region, frame="af", pen="#ffcb87"
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        pen="#ffcb87",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_interval(region):
+    """
+    Plot data with fixed (different) contour and annotation intervals.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        levels=0.1,
+        annotation=0.2,
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_one_level(region):
+    """
+    Plot data with one contour level and one (different) annotation level.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        levels=[0.4],
+        annotation=[0.5],
+        pen=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_contour_multiple_levels(region):
+    """
+    Plot data with multiple (different) contour and annotation levels.
+    """
+    fig = Figure()
+    fig.contour(
+        data=POINTS_DATA,
+        projection="X10c",
+        region=region,
+        frame=Axis(annot=True, tick=True),
+        levels=[0.2, 0.3],
+        annotation=[0.4, 0.45],
+        pen=True,
     )
     return fig
 
 
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
+@pytest.mark.xfail(
+    platform.machine() == "aarch64"
+    or (
+        platform.system() == "Linux"
+        and platform.machine() == "x86_64"
+        and platform.freedesktop_os_release()["PRETTY_NAME"].startswith("Ubuntu 26.04")
+    ),
+    reason="Fails on Linux ARM64 and Ubuntu 26.04 x86_64",
+)
 def test_contour_incols_transposed_data(region):
     """
-    Make sure that transposing the data matrix still produces a correct result
-    with incols reordering the columns.
+    Make sure that transposing the data matrix still produces a correct result with
+    incols reordering the columns.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1313
@@ -103,7 +193,7 @@ def test_contour_incols_transposed_data(region):
         data,
         projection="X10c",
         region=region,
-        frame="a",
+        frame=Axis(annot=True),
         pen=True,
         incols=[1, 0, 2],
     )

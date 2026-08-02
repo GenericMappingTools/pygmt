@@ -1,8 +1,10 @@
 """
-Tests for pygmt.config.
+Test pygmt.config.
 """
+
 import pytest
 from pygmt import Figure, config
+from pygmt.params import Axis, Frame
 
 
 @pytest.mark.mpl_image_compare
@@ -14,7 +16,9 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", "+tBlue Annotation"]
+        region=[0, 10, 0, 10],
+        projection="X5c/5c",
+        frame=Frame(title="Blue Annotation", axis=Axis(annot=True, tick=True)),
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
@@ -22,14 +26,18 @@ def test_config():
         fig.basemap(
             region=[0, 10, 0, 10],
             projection="X5c/5c",
-            frame=["xaf+lred label", "yaf", "+tred annotation"],
+            frame=Frame(
+                title="red annotation",
+                xaxis=Axis(annot=True, tick=True, label="red label"),
+                yaxis=Axis(annot=True, tick=True),
+            ),
         )
 
     fig.shift_origin(xshift="7c")
     fig.basemap(
         region=[0, 10, 0, 10],
         projection="X5c/5c",
-        frame=["af", "+tBlue Annotation"],
+        frame=Frame(title="Blue Annotation", axis=Axis(annot=True, tick=True)),
     )
     # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
@@ -41,8 +49,8 @@ def test_config_font_one():
     """
     Test that setting FONT config changes all FONT_* settings except FONT_LOGO.
 
-    Specifically, this test only checks that FONT_ANNOT_PRIMARY,
-    FONT_ANNOT_SECONDARY, FONT_LABEL, and FONT_TITLE are modified.
+    Specifically, this test only checks that FONT_ANNOT_PRIMARY, FONT_ANNOT_SECONDARY,
+    FONT_LABEL, and FONT_TITLE are modified.
     """
     fig = Figure()
     with config(FONT="8p,red"):
@@ -64,21 +72,27 @@ def test_config_font_annot():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_config_format_date_map():
     """
-    Test that setting FORMAT_DATE_MAP config changes how the output date string
-    is plotted.
+    Test that setting FORMAT_DATE_MAP config changes how the output date string is
+    plotted.
 
     Note the space in 'o dd', this acts as a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/247.
+
+    Setting FORMAT_DATE_MAP="yyyy mm dd" as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2298.
     """
     fig = Figure()
+    # Set FORMAT_DATE_MAP to "yyyy mm dd" which contains whitespaces.
+    config(FORMAT_DATE_MAP="yyyy mm dd")
     with config(FORMAT_DATE_MAP="o dd"):
         fig.basemap(
             region=["1969-7-21T", "1969-7-23T", 0, 1],
             projection="X2.5c/0.1c",
-            frame=["sxa1D", "S"],
+            frame=Frame(axes="S", xaxis2=Axis(annot="1D")),
         )
     return fig
 
@@ -86,34 +100,34 @@ def test_config_format_date_map():
 @pytest.mark.mpl_image_compare
 def test_config_format_time_map():
     """
-    Test that setting FORMAT_TIME_MAP config changes both
-    FORMAT_TIME_PRIMARY_MAP and FORMAT_TIME_SECONDARY_MAP.
+    Test that setting FORMAT_TIME_MAP config changes both FORMAT_TIME_PRIMARY_MAP and
+    FORMAT_TIME_SECONDARY_MAP.
     """
     fig = Figure()
     with config(FORMAT_TIME_MAP="abbreviation"):
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=["pa1K", "sa1K", "NWse"],
+            frame=Frame(axes="NWse", axis=Axis(annot="1K"), axis2=Axis(annot="1K")),
         )
-    fig.basemap(frame=["pa1K", "sa1K", "nwSE"])
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1K"), axis2=Axis(annot="1K")))
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_config_map_annot_offset():
     """
-    Test that setting MAP_ANNOT_OFFSET config changes both
-    MAP_ANNOT_OFFSET_PRIMARY and MAP_ANNOT_OFFSET_SECONDARY.
+    Test that setting MAP_ANNOT_OFFSET config changes both MAP_ANNOT_OFFSET_PRIMARY and
+    MAP_ANNOT_OFFSET_SECONDARY.
     """
     fig = Figure()
     with config(MAP_ANNOT_OFFSET="15p"):
         fig.basemap(
             region=["2020-1-24T", "2020-1-27T", 0, 1],
             projection="X6c/1c",
-            frame=["pa1d", "sa1d", "NWse"],
+            frame=Frame(axes="NWse", axis=Axis(annot="1d"), axis2=Axis(annot="1d")),
         )
-    fig.basemap(frame=["pa1d", "sa1d", "nwSE"])
+    fig.basemap(frame=Frame(axes="nwSE", axis=Axis(annot="1d"), axis2=Axis(annot="1d")))
     return fig
 
 
@@ -128,11 +142,22 @@ def test_config_map_grid_cross_size():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
@@ -147,30 +172,52 @@ def test_config_map_grid_pen():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_config_map_tick_length():
     """
-    Test that setting MAP_TICK_LENGTH config changes both
-    MAP_TICK_LENGTH_PRIMARY and MAP_TICK_LENGTH_SECONDARY.
+    Test that setting MAP_TICK_LENGTH config changes both MAP_TICK_LENGTH_PRIMARY and
+    MAP_TICK_LENGTH_SECONDARY.
     """
     fig = Figure()
     with config(MAP_TICK_LENGTH="5p"):
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
 
 
@@ -185,9 +232,37 @@ def test_config_map_tick_pen():
         fig.basemap(
             region=["2020-1-24T21:00", "2020-1-25T00:00", 0, 1],
             projection="X6c/2c",
-            frame=["pa1Hg", "sa45mg45m", "NWse"],
-            verbose="e",
+            frame=Frame(
+                axes="NWse",
+                axis=Axis(annot="1H", grid=True),
+                axis2=Axis(annot="45m", grid="45m"),
+            ),
+            verbose="error",
         )
     fig.shift_origin(yshift=-3)
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
+    fig.basemap(
+        frame=Frame(
+            axes="nwSE",
+            axis=Axis(annot="1H", grid=True),
+            axis2=Axis(annot="45m", grid="45m"),
+        ),
+        verbose="error",
+    )
     return fig
+
+
+def test_config_ps_convert():
+    """
+    Test that Parameter 'PS_CONVERT' is not supported.
+    """
+    # Check that PS_CONVERT is removed from the autocomplete list
+    assert "PS_CONVERT" not in config._keywords
+
+    # Check that a warning is raised when PS_CONVERT is used in config
+    msg = (
+        "Parameter 'PS_CONVERT' is not supported. "
+        "To configure conversion options, please pass parameters to "
+        "pygmt.Figure.savefig or pygmt.Figure.show instead."
+    )
+    with pytest.warns(SyntaxWarning, match=msg):
+        config(PS_CONVERT="C")

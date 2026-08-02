@@ -1,3 +1,11 @@
+# Code lint and style checks
+#
+# This workflow runs code style and lint checks to check if the codes have
+# consistent code style and are high-quality.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
 name: Style Checks
 
 on:
@@ -8,35 +16,53 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions: {}
+
 jobs:
   style_check:
     name: Style Checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
-
-      # Setup Miniconda
-      - name: Set up Python
-        uses: actions/setup-python@v4.3.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          python-version: '3.10'
+          persist-credentials: false
 
-      - name: Install packages
+      - name: Set up Python and install dependencies
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.14'
+          pip-install: ruff prek # zizmor: ignore[misfeature]
+
+      - name: List installed packages
+        run: python -m pip list
+
+      - name: Formatting check (Ruff + prek)
         run: |
-          pip install black blackdoc docformatter flakeheaven pylint isort
-          sudo apt-get install dos2unix
+           make check
+           prek run --all-files
 
-      - name: Formatting check (black, blackdoc, docformatter, flakeheaven and isort)
-        run: make check
-
-      - name: Linting (pylint)
-        run: make lint
-
-      - name: Ensure files use UNIX line breaks and have 644 permission
+      - name: Ensure example scripts have at least one code block separator
         run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
-          if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+          git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Code block separator '# %%' is required in following example files:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi
+
+      - name: Ensure hyphens are not used in names of directories and Python files
+        run: |
+          git ls-files '*.py' | grep '-' > output.txt || true
+          git ls-tree -rd --name-only HEAD | grep '-' >> output.txt || true
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Following directories/files use hyphens in file names:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi

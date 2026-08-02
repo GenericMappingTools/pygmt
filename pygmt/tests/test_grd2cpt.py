@@ -1,13 +1,15 @@
 """
-Tests for grd2cpt.
+Test pygmt.grd2cpt.
 """
-import os
+
+from pathlib import Path
 
 import pytest
 from pygmt import Figure, grd2cpt
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.params import Axis
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -18,16 +20,17 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grd2cpt(grid):
     """
-    Test creating a CPT with grd2cpt to create a CPT based off a grid input and
-    plot it with a color bar.
+    Test creating a CPT with grd2cpt to create a CPT based off a grid input and plot it
+    with a color bar.
     """
     fig = Figure()
-    fig.basemap(frame="a", projection="W0/15c", region="d")
+    fig.basemap(frame=Axis(annot=True), projection="W0/15c", region="d")
     grd2cpt(grid=grid)
-    fig.colorbar(frame="a")
+    fig.colorbar(frame=Axis(annot=True))
     return fig
 
 
@@ -35,7 +38,7 @@ def test_grd2cpt_blank_output(grid):
     """
     Use incorrect setting by passing in blank file name to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grd2cpt(grid=grid, output="")
 
 
@@ -43,7 +46,7 @@ def test_grd2cpt_invalid_output(grid):
     """
     Use incorrect setting by passing in invalid type to output parameter.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         grd2cpt(grid=grid, output=["some.cpt"])
 
 
@@ -53,15 +56,14 @@ def test_grd2cpt_output_to_cpt_file(grid):
     """
     with GMTTempFile(suffix=".cpt") as cptfile:
         grd2cpt(grid=grid, output=cptfile.name)
-        assert os.path.getsize(cptfile.name) > 0
+        assert Path(cptfile.name).stat().st_size > 0
 
 
 def test_grd2cpt_unrecognized_data_type():
     """
-    Test that an error will be raised if an invalid data type is passed to
-    grid.
+    Test that an error will be raised if an invalid data type is passed to grid.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         grd2cpt(grid=0)
 
 
@@ -69,5 +71,5 @@ def test_grd2cpt_categorical_and_cyclic(grid):
     """
     Use incorrect setting by setting both categorical and cyclic to True.
     """
-    with pytest.raises(GMTInvalidInput):
-        grd2cpt(grid=grid, cmap="batlow", categorical=True, cyclic=True)
+    with pytest.raises(GMTParameterError):
+        grd2cpt(grid=grid, cmap="SCM/batlow", categorical=True, cyclic=True)
