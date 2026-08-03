@@ -5,6 +5,8 @@
 
 # A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 
+[Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
+
 [![GitHub Release](https://img.shields.io/github/v/release/GenericMappingTools/pygmt?color=1f77b4)](https://github.com/GenericMappingTools/pygmt/releases)
 [![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?color=1f77b4)](https://anaconda.org/conda-forge/pygmt)
@@ -54,11 +56,7 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Documentation
 
-- [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
-- [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
-- [Related Projects](https://www.pygmt.org/dev/overview.html#related-projects)
-- [Funding](https://www.pygmt.org/dev/overview.html#funding)
 
 ## Contacting us
 

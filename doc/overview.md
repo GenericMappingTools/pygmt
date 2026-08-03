@@ -45,16 +45,3 @@ developer of GMT) at the University of Hawaiʻi at Mānoa.
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
 our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a).
-
-## Related projects
-
-Other official wrappers for GMT:
-
-- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
-- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
-
-## Funding
-
-The development of PyGMT has been supported by NSF grants
-[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
-[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
