@@ -95,15 +95,7 @@ discussions. In that spirit please have a look at our
 
 ## Contributing
 
-
-### Contributing guidelines
-
-Please read our [Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-to see how you can help and give feedback.
-
-### Imposter syndrome disclaimer
-
-**We want your help.** No, really.
+**Imposter syndrome disclaimer**: We want your help. No, really.
 
 There may be a little voice inside your head that is telling you that you're not ready
 to be an open source contributor; that your skills aren't nearly good enough to
@@ -119,6 +111,9 @@ assumptions that seasoned contributors have glossed over. If you can write any c
 all, you can contribute code to open source. We are constantly trying out new skills,
 making mistakes, and learning from those mistakes. That's how we all improve and we are
 happy to help others learn.
+
+Please read our [Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
+to see how you can help and give feedback.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
