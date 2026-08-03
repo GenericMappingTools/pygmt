@@ -1,6 +1,6 @@
 <picture align="center">
   <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
-  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo_light.png">
+  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png">
 </picture>
 
 # A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
@@ -87,22 +87,15 @@ For other ways to install PyGMT and more examples, please visit the
 - We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a)
   where you can ask questions and leave comments.
 
+## Code of conduct
+
+We want everyone to feel welcome to contribute to this project and participate in
+discussions. In that spirit please have a look at our
+[Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
+
 ## Contributing
 
-### Code of conduct
-
-Please note that this project is released with a
-[Contributor Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
-By participating in this project you agree to abide by its terms.
-
-### Contributing guidelines
-
-Please read our [Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
-to see how you can help and give feedback.
-
-### Imposter syndrome disclaimer
-
-**We want your help.** No, really.
+**Imposter syndrome disclaimer**: We want your help. No, really.
 
 There may be a little voice inside your head that is telling you that you're not ready
 to be an open source contributor; that your skills aren't nearly good enough to
@@ -118,6 +111,9 @@ assumptions that seasoned contributors have glossed over. If you can write any c
 all, you can contribute code to open source. We are constantly trying out new skills,
 making mistakes, and learning from those mistakes. That's how we all improve and we are
 happy to help others learn.
+
+Please read our [Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
+to see how you can help and give feedback.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
