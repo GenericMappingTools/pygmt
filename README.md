@@ -20,36 +20,17 @@
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
 
-<!-- doc-index-start-after -->
 
 ## Why PyGMT?
-
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
-play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
-quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
-
-Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tutorials),
-visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
-[external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
-
-[![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
-
-## About
 
 PyGMT is a library for processing geospatial and geophysical data and making
 publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
-## Project goals
-
-- Make GMT more accessible to new users.
-- Build a Pythonic API for GMT.
-- Interface with the GMT C API directly using ctypes (no system calls).
-- Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
-  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
-  and `geopandas.GeoDataFrame` for geographical data.
+A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
+play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
+quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 ## Quickstart
 
@@ -77,6 +58,7 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Documentation
 
+- [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
 - [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 - [Related Projects](https://www.pygmt.org/dev/overview.html#related-projects)

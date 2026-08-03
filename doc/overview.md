@@ -1,16 +1,14 @@
 # Why PyGMT
 
-```{include} ../README.md
-:start-after: <!-- doc-why-start-after -->
-:end-before: <!-- doc-why-end-before -->
-```
+A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
+play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
+quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
 [Gallery](gallery/index.rst) for more impressions, go through the
 [Tutorials](tutorials/index.rst) to learn things in more detail, look at the
 available map [Projections](projections/index.rst), and finally do not forget
 to check out some [external PyGMT examples](external_resources)!
-
 
 ## Project goals
 
