@@ -10,12 +10,10 @@
 [![GitHub Release](https://img.shields.io/github/v/release/GenericMappingTools/pygmt?color=1f77b4)](https://github.com/GenericMappingTools/pygmt/releases)
 [![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
 [![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?color=1f77b4)](https://anaconda.org/conda-forge/pygmt)
-[![PyPI Python Version](https://img.shields.io/pypi/pyversions/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
-
+[![PyPI Python Version](https://img.shields.io/pypi/pyversions/pygmt?color=1f77b4)](https://pypi.org/project/pygmt) <br>
 [![PyGMT paper](https://img.shields.io/badge/G3%20Paper%20DOI-10.1029/2026GC013105-2ca02c)](https://doi.org/10.1029/2026GC013105)
 [![Digital Object Identifier for the Zenodo archive](https://img.shields.io/badge/Zenodo%20DOI-10.5281/zenodo.3781524-2ca02c)](https://doi.org/10.5281/zenodo.3781524)
-[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?color=2ca02c)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
-
+[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?color=2ca02c)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt) <br>
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
