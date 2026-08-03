@@ -32,6 +32,7 @@ intro/index.rst
 overview.md
 ecosystem.md
 presentations.md
+citing.md
 ```
 
 ```{toctree}
