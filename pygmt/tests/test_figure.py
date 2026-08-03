@@ -4,7 +4,7 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
-import importlib
+import importlib.util
 from pathlib import Path
 from unittest.mock import Mock, patch
 
