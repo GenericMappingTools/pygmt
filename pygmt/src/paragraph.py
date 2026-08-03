@@ -114,8 +114,6 @@ def paragraph(
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
     _valid_alignments = ("left", "center", "right", "justified")
     if alignment not in _valid_alignments:
         raise GMTValueError(
@@ -156,7 +154,6 @@ def paragraph(
         text = re.split(r"\n\s*\n", text)  # type: ignore[arg-type]
     # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
     # newlines in each paragraph, but keep leading whitespaces and tabs for now.
-    # _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     # Replace two or more consecutive spaces with \040 (octal for space), and replace
     # tabs with the appropriate number of \040.
@@ -175,6 +172,7 @@ def paragraph(
         _textstr = non_ascii_to_octal(_textstr, encoding=encoding)
         confdict["PS_CHAR_ENCODING"] = encoding
 
+    self._activate_figure()
     with Session() as lib:
         with io.StringIO() as buffer:  # Prepare the StringIO input.
             buffer.write(f"> {x} {y} {linespacing} {parwidth} {alignment[0]}\n")

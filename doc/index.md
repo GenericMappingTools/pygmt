@@ -2,7 +2,7 @@
 ```
 
 <div class="banner">
-    <img src="_static/pygmtlogo.png" alt="PyGMT Logo" style="width: 65%;">
+    <img src="_static/pygmtlogo_light.png" alt="PyGMT Logo" style="width: 65%;">
     <h2>
         A Python interface for the
         <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
@@ -20,9 +20,19 @@
 :hidden:
 :caption: Getting Started
 
-overview.md
 install.md
 intro/index.rst
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+:caption: Project Overview
+
+overview.md
+ecosystem.md
+presentations.md
+citing.md
 ```
 
 ```{toctree}
@@ -45,7 +55,6 @@ api/index.rst
 techref/index.md
 changes.md
 minversions.md
-ecosystem.md
 ```
 
 ```{toctree}

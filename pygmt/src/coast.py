@@ -296,8 +296,6 @@ def coast(
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     if (
         kwargs.get("G", land) is None
         and kwargs.get("S", water) is None
@@ -353,5 +351,6 @@ def coast(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(aliasdict))

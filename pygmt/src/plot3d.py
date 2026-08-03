@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     G="fill",
     I="intensity",
@@ -42,7 +41,7 @@ from pygmt.src._common import _data_geometry_is_point
     l="label",
     w="wrap",
 )
-def plot3d(  # noqa: PLR0912
+def plot3d(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +50,7 @@ def plot3d(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -91,6 +91,7 @@ def plot3d(  # noqa: PLR0912
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - Jz = zscale
        - JZ = zsize
@@ -220,8 +221,6 @@ def plot3d(  # noqa: PLR0912
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    self._activate_figure()
-
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
         data = {"x": x, "y": y, "z": z}
@@ -276,6 +275,7 @@ def plot3d(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
     ).add_common(
@@ -290,6 +290,7 @@ def plot3d(  # noqa: PLR0912
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(

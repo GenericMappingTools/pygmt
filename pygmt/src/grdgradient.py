@@ -15,7 +15,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 __doctest_skip__ = ["grdgradient"]
 
 
-def _alias_option_N(  # noqa: N802
+def _alias_option_N(  # ruff: ignore[invalid-function-name]
     normalize=False,
     norm_amp=None,
     norm_ambient=None,

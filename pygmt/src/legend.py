@@ -116,8 +116,6 @@ def legend(
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     # Set default box if both position and box are not given.
     # The default position will be set later in _parse_position().
     if kwargs.get("D", position) is None and kwargs.get("F", box) is False:
@@ -161,6 +159,7 @@ def legend(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required=False) as vintbl:
             lib.call_module(

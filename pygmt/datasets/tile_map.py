@@ -18,7 +18,7 @@ except ImportError:
     _HAS_CONTEXTILY = False
 
 try:
-    import rioxarray  # noqa: F401
+    import rioxarray  # ruff: ignore[unused-import]
 
     _HAS_RIOXARRAY = True
 except ImportError:
@@ -142,7 +142,7 @@ def load_tile_map(
         msg = (
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
-            "`mamba install -c conda-forge contextily` to install the package."
+            "`conda install -c conda-forge contextily` to install the package."
         )
         raise ImportError(msg)
 
@@ -150,7 +150,7 @@ def load_tile_map(
         msg = (
             f"Package `rioxarray` is required if CRS is not {_source_crs!r}. "
             "Please use `python -m pip install rioxarray` or "
-            "`mamba install -c conda-forge rioxarray` to install the package."
+            "`conda install -c conda-forge rioxarray` to install the package."
         )
         raise ImportError(msg)
 

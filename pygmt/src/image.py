@@ -87,12 +87,12 @@ def image(
         ``(0, 0)`` with anchor ``"BL"``).
     width
     height
-        Width (and height) of the image in plot coordinates (inches, cm, etc.). If
-        ``height`` (or ``width``) is set to 0, then the original aspect ratio of the
-        image is maintained. If ``width`` (or ``height``) is negative, the absolute
-        value is used to interpolate image to the device resolution using the PostScript
-        image operator. If neither dimensions nor ``dpi`` are set then revert to the
-        default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
+        Width (and height) of the image in plot dimension, with an optional
+        :ref:`dimension unit <dimension-units>`. If ``height`` (or ``width``) is set to
+        0, then the original aspect ratio of the image is maintained. If ``width`` (or
+        ``height``) is negative, the absolute value is used to interpolate image to the
+        device resolution using the PostScript image operator. If neither dimensions nor
+        ``dpi`` are set then revert to the default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].
     dpi
         Set the dpi of the image in dots per inch, or append **c** to indicate this is
         dots per cm.
@@ -132,8 +132,6 @@ def image(
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
@@ -166,6 +164,7 @@ def image(
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(
             module="image", args=build_arg_list(aliasdict, infile=imagefile)

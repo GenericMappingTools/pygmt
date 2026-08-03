@@ -1,20 +1,24 @@
-<img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png"/>
+<picture align="center">
+  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
+  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo_light.png">
+</picture>
+
+# A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 
 [Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
-[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt)](https://pypi.org/project/pygmt)
-[![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt)](https://anaconda.org/conda-forge/pygmt)
-[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
-[![Compatible Python versions](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FGenericMappingTools%2Fpygmt%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)](https://www.pygmt.org/dev/minversions.html)
-[![Digital Object Identifier for the Zenodo archive](https://img.shields.io/badge/DOI-10.5281/zenodo.3781524-blue)](https://doi.org/10.5281/zenodo.3781524)
-[![Discourse forum](https://img.shields.io/discourse/status?label=forum&server=https%3A%2F%2Fforum.generic-mapping-tools.org)](https://forum.generic-mapping-tools.org)
-[![PyOpenSci](https://tinyurl.com/y22nb8up)](https://github.com/pyOpenSci/software-submission/issues/43)
-[![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v3.0%20adopted-ff69b4.svg)](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+[![GitHub Release](https://img.shields.io/github/v/release/GenericMappingTools/pygmt?color=1f77b4)](https://github.com/GenericMappingTools/pygmt/releases)
+[![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
+[![Latest version on conda-forge](https://img.shields.io/conda/v/conda-forge/pygmt?color=1f77b4)](https://anaconda.org/conda-forge/pygmt)
+[![PyPI Python Version](https://img.shields.io/pypi/pyversions/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
+
+[![PyGMT paper](https://img.shields.io/badge/G3%20Paper%20DOI-10.1029/2026GC013105-2ca02c)](https://doi.org/10.1029/2026GC013105)
+[![Digital Object Identifier for the Zenodo archive](https://img.shields.io/badge/Zenodo%20DOI-10.5281/zenodo.3781524-2ca02c)](https://doi.org/10.5281/zenodo.3781524)
+[![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?color=2ca02c)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
+
 [![GitHub Actions Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml)
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![CodSpeed Performance Benchmarks](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/GenericMappingTools/pygmt)
 
 <!-- doc-index-start-after -->
 
@@ -49,29 +53,17 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ## Quickstart
 
-### Installation
-
-Simple installation using [mamba](https://mamba.readthedocs.org/):
-
-```bash
-mamba install --channel conda-forge pygmt
-```
-
-If you use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
+Install PyGMT using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
 
 ```bash
 conda install --channel conda-forge pygmt
 ```
 
-For other ways to install `pygmt`, see the [full installation instructions](https://www.pygmt.org/latest/install.html).
+Then try the following example in a Python interpreter or Jupyter notebook. You should
+see a global map with land and water masses colored in tan and lightblue, respectively,
+with the semi-transparent text "PyGMT" on top.
 
-### Getting started
-
-As a starting point, you can open a [Python interpreter](https://docs.python.org/3/tutorial/interpreter.html)
-or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and try the
-following example:
-
-``` python
+```python
 import pygmt
 
 fig = pygmt.Figure()
@@ -80,11 +72,12 @@ fig.coast(land="tan", water="lightblue")
 fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
+For other ways to install PyGMT and more examples, please visit the
+[PyGMT documentation](https://www.pygmt.org/).
 
-You should see a global map with land and water masses colored in tan and lightblue,
-respectively. On top, there should be the semi-transparent text "PyGMT". For more examples,
-please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
-[Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
+## Documentation
+
+- [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
 ## Contacting us
 
@@ -127,75 +120,6 @@ making mistakes, and learning from those mistakes. That's how we all improve and
 happy to help others learn.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
-
-## Citing PyGMT
-
-PyGMT is a community developed project. See the
-[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
-on GitHub for a list of the people involved and a definition of the term "PyGMT Developers".
-
-Feel free to cite our work in your research. You can either cite the [PyGMT paper](https://doi.org/10.1029/2026GC013105)
-published in *Geochemistry, Geophysics, Geosystems* or the Zenodo archive of the PyGMT software.
-
-The BibTeX entry for the PyGMT paper is:
-```
-@article{pygmt_2026_2026GC013105,
-  author       = {Tian, Dongdong and
-                  Fröhlich, Yvonne and
-                  Leong, Wei Ji and
-                  Grund, Michael and
-                  Schlitzer, William and
-                  Jones, Max and
-                  Uieda, Leonardo and
-                  Luis, Joaquim M. F.},
-  title        = {{PyGMT: Bridging Python and the Generic Mapping Tools for Geospatial Visualization and Analysis}},
-  journal      = {Geochemistry, Geophysics, Geosystems},
-  year         = 2026,
-  volume       = {27},
-  number       = {7},
-  pages        = {e2026GC013105},
-  doi          = {10.1029/2026GC013105},
-  url          = {https://doi.org/10.1029/2026GC013105},
-}
-```
-The BibTeX entry for the latest Zenodo archive of the PyGMT software is:
-```
-@software{
-  pygmt_2026_19398871,
-  author       = {Tian, Dongdong and
-                  Leong, Wei Ji and
-                  Fröhlich, Yvonne and
-                  Grund, Michael and
-                  Schlitzer, William and
-                  Jones, Max and
-                  Toney, Liam and
-                  Yao, Jiayuan and
-                  Tong, Jing-Hui and
-                  Magen, Yohai and
-                  Materna, Kathryn and
-                  Belem, Andre and
-                  Newton, Tyler and
-                  Anant, Abhishek and
-                  Ziebarth, Malte and
-                  Quinn, Jamie and
-                  He, Xingchen and
-                  Uieda, Leonardo and
-                  Wessel, Paul},
-  title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = jul,
-  year         = 2026,
-  publisher    = {Zenodo},
-  version      = {0.19.0},
-  doi          = {10.5281/zenodo.19398871},
-  url          = {https://doi.org/10.5281/zenodo.19398871}
-}
-```
-
-To cite a specific version of PyGMT, go to our Zenodo page at <https://doi.org/10.5281/zenodo.3781524>
-and use the "Export to BibTeX" function there. It is also strongly recommended to cite
-the [GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note
-that some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated
-citations. Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
 
 ## License
 

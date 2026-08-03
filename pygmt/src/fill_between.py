@@ -113,7 +113,6 @@ def fill_between(
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
     _x = np.atleast_1d(x)
     _y = np.atleast_1d(y)
     _y2 = np.atleast_1d(y2)
@@ -177,6 +176,7 @@ def fill_between(
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         if _x2 is not None:
             with (

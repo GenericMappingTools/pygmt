@@ -17,7 +17,7 @@ from pygmt.params import Box, Position
 __doctest_skip__ = ["pygmtlogo"]
 
 
-def _create_logo(  # noqa: PLR0915
+def _create_logo(  # ruff: ignore[too-many-statements]
     shape: Literal["circle", "hexagon"] = "circle",
     theme: Literal["light", "dark"] = "light",
     wordmark: Literal["none", "horizontal", "vertical"] = "none",
@@ -28,7 +28,7 @@ def _create_logo(  # noqa: PLR0915
     """
     Create the PyGMT logo using PyGMT.
     """
-    from pygmt.figure import Figure  # noqa: PLC0415
+    from pygmt.figure import Figure  # ruff: ignore[import-outside-top-level]
 
     # Helpful definitions
     size = 4
@@ -242,7 +242,7 @@ def _create_logo(  # noqa: PLR0915
 
     # Helpful for implementing the logo; not included in the logo
     if debug:
-        from pygmt import config  # noqa: PLC0415
+        from pygmt import config  # ruff: ignore[import-outside-top-level]
 
         # Gridlines
         with config(MAP_GRID_PEN="0.1p,gray30"):
@@ -291,7 +291,7 @@ def pygmtlogo(
     """
     Plot the PyGMT logo.
 
-    .. figure:: https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo.png
+    .. figure:: https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo_light.png
        :alt: PyGMT logo
        :align: center
        :width: 400px

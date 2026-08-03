@@ -32,7 +32,7 @@ from pygmt.params import Axis, Frame
     it="use_word",
     w="wrap",
 )
-def text(  # noqa: PLR0912, PLR0915
+def text(  # ruff: ignore[too-many-branches, too-many-statements]
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -43,7 +43,7 @@ def text(  # noqa: PLR0912, PLR0915
     font: str | StringArrayTypes | bool = False,
     fill: str | None = None,
     pen: str | None = None,
-    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    justify: bool | AnchorCode | Sequence[AnchorCode] | None = None,
     offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
@@ -144,10 +144,10 @@ def text(  # noqa: PLR0912, PLR0915
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (**c** for centimeters,
-        **i** for inches, or **p** for points; if not given we consult
-        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
-        size. Optionally, use modifier **+t** to set the shape of the text
+        are specified. Append a :ref:`dimension unit <dimension-units>`; if not given
+        we consult :gmt-term:`PROJ_LENGTH_UNIT`. Alternatively, append *%* for a
+        percentage of the font size. Optionally, use modifier **+t** to set the shape
+        of the text
         box when using ``fill`` and/or ``pen``. Append lowercase **o**
         to get a straight rectangle [Default is **o**]. Append uppercase
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
@@ -193,8 +193,6 @@ def text(  # noqa: PLR0912, PLR0915
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
     """
-    self._activate_figure()
-
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
         (textfiles is not None)
@@ -300,6 +298,7 @@ def text(  # noqa: PLR0912, PLR0915
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles or data, required=data_is_required
