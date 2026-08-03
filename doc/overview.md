@@ -56,7 +56,7 @@ The development of PyGMT has been supported by NSF grants
 
 ## Related projects
 
-```{include} ../README.md
-:start-after: <!-- doc-related-start-after -->
-:end-before: <!-- doc-related-end-before -->
-```
+Other official wrappers for GMT:
+
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
