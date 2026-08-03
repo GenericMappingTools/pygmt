@@ -1,9 +1,8 @@
 # Why PyGMT
 
-```{include} ../README.md
-:start-after: <!-- doc-why-start-after -->
-:end-before: <!-- doc-why-end-before -->
-```
+A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
+play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
+quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
 [Gallery](gallery/index.rst) for more impressions, go through the
@@ -11,13 +10,15 @@ Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
 available map [Projections](projections/index.rst), and finally do not forget
 to check out some [external PyGMT examples](external_resources)!
 
-
 ## Project goals
 
-```{include} ../README.md
-:start-after: <!-- doc-goals-start-after -->
-:end-before: <!-- doc-goals-end-before -->
-```
+- Make GMT more accessible to new users.
+- Build a Pythonic API for GMT.
+- Interface with the GMT C API directly using ctypes (no system calls).
+- Support for rich display in the Jupyter notebook.
+- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
+  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
+  and `geopandas.GeoDataFrame` for geographical data.
 
 ## Background
 
@@ -45,18 +46,15 @@ We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
 our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a).
 
-
-## Support
-
-```{include} ../README.md
-:start-after: <!-- doc-support-start-after -->
-:end-before: <!-- doc-support-end-before -->
-```
-
-
 ## Related projects
 
-```{include} ../README.md
-:start-after: <!-- doc-related-start-after -->
-:end-before: <!-- doc-related-end-before -->
-```
+Other official wrappers for GMT:
+
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
+
+## Funding
+
+The development of PyGMT has been supported by NSF grants
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
