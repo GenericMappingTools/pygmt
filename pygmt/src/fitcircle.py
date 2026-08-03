@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -77,7 +77,9 @@ def fitcircle(
     $outfile
     norm : int or bool
         Specify the desired *norm* as **1** or **2**\ , or use ``True`` or
-        **3** to see both solutions.
+        **3** to see both solutions. Note that ``output_type="pandas"`` is
+        not supported when ``norm`` is ``True`` or **3**; use
+        ``output_type="numpy"`` or ``output_type="file"`` instead.
     small_circle : bool or float
         Attempt to fit a small circle instead of a great circle. The pole
         will be constrained to lie on the great circle connecting the pole
@@ -100,6 +102,17 @@ def fitcircle(
         raise GMTParameterError(required="norm")
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
+    norm = kwargs.get("L")
+    if output_type == "pandas" and (norm is True or norm == 3):
+        raise GMTValueError(
+            norm,
+            description="value for parameter 'norm'",
+            reason=(
+                "Pandas output is not supported when 'norm' is set to True or 3 "
+                "since both L1 and L2 solutions are stacked in the same rows. "
+                "Use output_type='numpy' or output_type='file' instead."
+            ),
+        )
 
     aliasdict = AliasSystem().add_common(
         V=verbose,

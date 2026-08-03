@@ -30,15 +30,15 @@ def test_fitcircle_no_outfile(data):
     """
     Test fitcircle with no set outfile.
     """
-    result = fitcircle(data=data, norm=True)
+    result = fitcircle(data=data, norm=2)
     assert isinstance(result, pd.DataFrame)
-    assert result.shape == (7, 3)
+    assert result.shape == (4, 3)
     # Test longitude results
-    npt.assert_allclose(result.longitude.min(), 52.7434273422)
+    npt.assert_allclose(result.longitude.min(), 52.7449849947)
     npt.assert_allclose(result.longitude.max(), 330.243649573)
     # Test latitude results
-    npt.assert_allclose(result.latitude.min(), -21.2085369093)
-    npt.assert_allclose(result.latitude.max(), 21.2085369093)
+    npt.assert_allclose(result.latitude.min(), -21.2046833116)
+    npt.assert_allclose(result.latitude.max(), 21.2046833116)
 
 
 def test_fitcircle_file_output(data):
@@ -97,12 +97,27 @@ def test_fitcircle_format(data):
     """
     Test that correct formats are returned.
     """
-    circle_default = fitcircle(data=data, norm=True)
+    circle_default = fitcircle(data=data, norm=2)
     assert isinstance(circle_default, pd.DataFrame)
-    circle_array = fitcircle(data=data, norm=True, output_type="numpy")
+    circle_array = fitcircle(data=data, norm=2, output_type="numpy")
     assert isinstance(circle_array, np.ndarray)
-    circle_df = fitcircle(data=data, norm=True, output_type="pandas")
+    circle_df = fitcircle(data=data, norm=2, output_type="pandas")
     assert isinstance(circle_df, pd.DataFrame)
+
+
+@pytest.mark.parametrize("norm", [True, 3])
+def test_fitcircle_pandas_unsupported_for_both_norms(data, norm):
+    """
+    Test that fitcircle raises an exception when output_type is "pandas" (the
+    default) and norm is True or 3, since the L1 and L2 solutions are stacked
+    in the same rows and can't be represented as a single pandas.DataFrame.
+    """
+    with pytest.raises(GMTValueError):
+        fitcircle(data=data, norm=norm)
+    with pytest.raises(GMTValueError):
+        fitcircle(data=data, norm=norm, output_type="pandas")
+    result = fitcircle(data=data, norm=norm, output_type="numpy")
+    assert isinstance(result, np.ndarray)
 
 
 def test_fitcircle_small_circle(data):
