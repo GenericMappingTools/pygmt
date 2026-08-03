@@ -87,13 +87,14 @@ For other ways to install PyGMT and more examples, please visit the
 - We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a)
   where you can ask questions and leave comments.
 
+## Code of conduct
+
+We want everyone to feel welcome to contribute to this project and participate in
+discussions. In that spirit please have a look at our
+[Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
+
 ## Contributing
 
-### Code of conduct
-
-Please note that this project is released with a
-[Contributor Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
-By participating in this project you agree to abide by its terms.
 
 ### Contributing guidelines
 
