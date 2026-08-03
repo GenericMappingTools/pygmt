@@ -8,6 +8,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import xarray as xr
+from pygmt.clib import Session
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile
@@ -35,6 +36,32 @@ def test_xarray_backend_load_dataarray():
         assert dataarray.gmt.registration is GridRegistration.PIXEL
         # ensure data array can be saved back to a NetCDF file
         dataarray.to_netcdf(tmpfile.name)
+
+
+def test_xarray_backend_load_dataarray_temp_nc_grid():
+    """
+    Check that xarray.load_dataarray works to read a temporary netCDF grid, and ensure
+    that GMTDataArrayAccessor information is retained after original file is deleted.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/4005
+    """
+
+    with Session() as lib:
+        with GMTTempFile(suffix=".nc") as tmpfile:
+            args = [
+                "@earth_relief_01d_g",
+                "-T",  # change from gridline to pixel registration
+                f"-G{tmpfile.name}",
+            ]
+            lib.call_module(module="grdedit", args=args)
+            dataarray = xr.load_dataarray(
+                tmpfile.name, engine="gmt", raster_kind="grid"
+            )
+
+        # Ensure GMTDataArrayAccessor info is preserved after tempfile is deleted
+        assert dataarray.gmt.registration is GridRegistration.PIXEL
+        assert dataarray.gmt.gtype is GridType.CARTESIAN
 
 
 def test_xarray_backend_gmt_open_nc_grid():
