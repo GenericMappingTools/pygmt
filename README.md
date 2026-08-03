@@ -77,7 +77,10 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Documentation
 
+- [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
+- [Related Projects](https://www.pygmt.org/dev/overview.html#related-projects)
+- [Funding](https://www.pygmt.org/dev/overview.html#funding)
 
 ## Contacting us
 
@@ -122,26 +125,3 @@ to see how you can help and give feedback.
 PyGMT is free software: you can redistribute it and/or modify it under the terms of the
 **BSD 3-clause License**. A copy of this license is provided in
 [LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).
-
-## Support
-
-The development of PyGMT has been supported by NSF grants
-[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
-[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
-
-## Related projects
-
-Other official wrappers for GMT:
-
-- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
-- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
-
-<!-- doc-index-end-before -->
-
-## Minimum supported versions
-
-PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the scientific Python ecosystem, and made a few extensions based on the needs of
-the project. Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
-for the detailed policy and the minimum supported versions of GMT, Python and core
-package dependencies.
