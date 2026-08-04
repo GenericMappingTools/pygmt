@@ -4,7 +4,7 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 
-import importlib
+import importlib.util
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -129,9 +129,11 @@ def test_figure_savefig_geotiff():
 
     # Check if a TIFF is georeferenced or not
     if _HAS_RIOXARRAY:
-        import rioxarray  # ruff: ignore[PLC0415]
-        from rasterio.errors import NotGeoreferencedWarning  # ruff: ignore[PLC0415]
-        from rasterio.transform import Affine  # ruff: ignore[PLC0415]
+        # ruff: disable[import-outside-top-level]
+        import rioxarray
+        from rasterio.errors import NotGeoreferencedWarning
+        from rasterio.transform import Affine
+        # ruff: enable[import-outside-top-level]
 
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:

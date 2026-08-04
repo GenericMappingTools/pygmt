@@ -20,9 +20,19 @@
 :hidden:
 :caption: Getting Started
 
-overview.md
 install.md
 intro/index.rst
+```
+
+```{toctree}
+:maxdepth: 2
+:hidden:
+:caption: Project Overview
+
+overview.md
+ecosystem.md
+presentations.md
+citing.md
 ```
 
 ```{toctree}
@@ -45,7 +55,6 @@ api/index.rst
 techref/index.md
 changes.md
 minversions.md
-ecosystem.md
 ```
 
 ```{toctree}

@@ -92,7 +92,7 @@ def _build_frame(
     return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
-def _alias_option_D(  # ruff: ignore[N802]
+def _alias_option_D(  # ruff: ignore[invalid-function-name]
     position=None,
     length=None,
     width=None,
@@ -220,7 +220,7 @@ def _alias_option_D(  # ruff: ignore[N802]
     ]
 
 
-def _alias_option_N(dpi=None):  # ruff: ignore[N802]
+def _alias_option_N(dpi=None):  # ruff: ignore[invalid-function-name]
     """
     Return an Alias object for the colorbar encoding setting.
 
