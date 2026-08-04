@@ -10,6 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
+from pygmt.exceptions import GMTParameterError
 from pygmt.params import Axis
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -198,3 +199,22 @@ def test_contour_incols_transposed_data(region):
         incols=[1, 0, 2],
     )
     return fig
+
+
+def test_contour_fail_too_much_data(data, region):
+    """
+    Check that contour raises an exception if both data and x/y/z are given.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError):
+        fig.contour(
+            data=data,
+            # Transpose x and y values
+            x=data[1],
+            y=data[0],
+            z=data[2],
+            region=region,
+            projection="X10c",
+            frame=Axis(annot=True),
+            pen=True,
+        )

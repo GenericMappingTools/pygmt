@@ -8,6 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
@@ -151,6 +152,9 @@ def contour(
     $perspective
     $transparency
     """
+    # Validate that 'data' and 'x,y,z' aren't both passed to contour
+    if data is not None and any(triplet is not None for triplet in (x, y, z)):
+        raise GMTParameterError(at_most_one=["data", "x/y/z"])
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
