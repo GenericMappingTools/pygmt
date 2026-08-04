@@ -24,7 +24,7 @@ reduced_data = pygmt.blockmedian(
     data=data,
     region=region,
     spacing=spacing,
-    C=True,
+    center=True,
 )
 
 # Interpolate the reduced observations onto a regular grid. The value "d"
