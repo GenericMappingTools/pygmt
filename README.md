@@ -98,6 +98,19 @@ to see how you can help and give feedback.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
+## Related projects
+
+Other official wrappers for GMT:
+
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
+
+## Funding
+
+The development of PyGMT has been supported by NSF grants
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
+
 ## License
 
 PyGMT is free software: you can redistribute it and/or modify it under the terms of the
