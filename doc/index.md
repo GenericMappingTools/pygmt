@@ -2,8 +2,7 @@
 :::
 
 <!-- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html -->
-<!-- Add image of PyGMT logo -->
-<!-- center image -->
+<!-- Add and center the PyGMT logo image -->
 ::::{div} sd-d-flex-row sd-align-major-center
 :::{image} ./_static/pygmtlogo.png
 :width: 600px
