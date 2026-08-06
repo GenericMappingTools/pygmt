@@ -1,8 +1,7 @@
-<!-- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html -->
-
 :::{title} Home
 :::
 
+<!-- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html -->
 <!-- Add image of PyGMT logo -->
 <!-- center image -->
 ::::{div} sd-d-flex-row sd-align-major-center
