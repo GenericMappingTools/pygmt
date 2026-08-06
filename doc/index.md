@@ -117,7 +117,7 @@ External Resources
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`book;3em;sd-text-info` **Reference Documentation**
+{octicon}`book;3em;sd-text-info` **Reference Guide**
 ^^^
 ```{button-ref} ../api/index
 :color: secondary
@@ -419,7 +419,7 @@ external_resources.md
 ```{toctree}
 :maxdepth: 2
 :hidden:
-:caption: Reference Documentation
+:caption: Reference Guide
 
 api/index.rst
 techref/index.md
