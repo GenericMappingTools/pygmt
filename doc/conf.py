@@ -222,10 +222,6 @@ html_context = {
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
             "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
-        (
-            '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/main/LICENSE.txt",
-        ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook" links
     "doc_path": "doc",
