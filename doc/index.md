@@ -39,6 +39,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 <!-- 3em size, sd-text-info color -->
 {octicon}`rocket;2.5em;sd-text-info` **Getting Started**
 ^^^
+<!-- button text defaults to page title -->
 ```{button-ref} install
 :color: secondary
 :outline:
