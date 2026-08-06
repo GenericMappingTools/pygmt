@@ -32,7 +32,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 <!--- Set up card --->
 <!--- top bottom left right --->
 
-:::::{grid} 1 3 3 3
+:::::{grid} 1 2 2 3
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
