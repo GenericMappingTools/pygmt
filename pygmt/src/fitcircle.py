@@ -8,26 +8,21 @@ from typing import Literal
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTValueError
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    use_alias,
-    validate_output_table_type,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring, validate_output_table_type
 
 
 @fmt_docstring
-@use_alias(
-    L="norm",
-    S="small_circle",
-)
 def fitcircle(
-    data: PathLike | TableLike,
+    data: PathLike | TableLike | None = None,
+    x=None,
+    y=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    norm: Literal["absolutes", "squares", "both"] | None = None,
+    small_circle: bool | float = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -45,22 +40,26 @@ def fitcircle(
     dispersion, the pole to the great circle will be less well determined
     than the mean. Compare both solutions as a qualitative check.
 
-    Setting ``norm`` to **1** approximates the minimization of the sum of
-    absolute values of cosines of angular distances. This solution finds the
-    mean position as the Fisher average of the data, and the pole position
-    as the Fisher average of the cross-products between the mean and the
-    data. Averaging cross-products gives weight to points in proportion to
-    their distance from the mean, analogous to the "leverage" of distant
-    points in linear regression in the plane.
+    Setting ``norm`` to ``"absolutes"`` approximates the minimization of the
+    sum of absolute values of cosines of angular distances. This solution
+    finds the mean position as the Fisher average of the data, and the pole
+    position as the Fisher average of the cross-products between the mean
+    and the data. Averaging cross-products gives weight to points in
+    proportion to their distance from the mean, analogous to the "leverage"
+    of distant points in linear regression in the plane.
 
-    Setting ``norm`` to **2** approximates the minimization of the sum of
-    squares of cosines of angular distances. It creates a 3 by 3 matrix of
-    sums of squares of components of the data vectors. The eigenvectors of
-    this matrix give the mean and pole locations. This method may be more
-    subject to roundoff errors when there are thousands of data. The pole is
-    given by the eigenvector corresponding to the smallest eigenvalue; it is
-    the least-well represented factor in the data and is not easily
-    estimated by either method.
+    Setting ``norm`` to ``"squares"`` approximates the minimization of the
+    sum of squares of cosines of angular distances. It creates a 3 by 3
+    matrix of sums of squares of components of the data vectors. The
+    eigenvectors of this matrix give the mean and pole locations. This
+    method may be more subject to roundoff errors when there are thousands
+    of data. The pole is given by the eigenvector corresponding to the
+    smallest eigenvalue; it is the least-well represented factor in the data
+    and is not easily estimated by either method.
+
+    Takes a matrix, (x, y) pairs, or a file name as input.
+
+    Must provide either ``data`` or ``x`` and ``y``.
 
     Full GMT docs at :gmt-docs:`fitcircle.html`.
 
@@ -73,13 +72,16 @@ def fitcircle(
         Pass in (longitude, latitude) or (latitude, longitude) values by
         providing a file name to an ASCII data table, a 2-D
         $table_classes.
+    x/y : 1-D arrays
+        Arrays of x and y coordinates of the data points.
     $output_type
     $outfile
-    norm : int or bool
-        Specify the desired *norm* as **1** or **2**\ , or use ``True`` or
-        **3** to see both solutions. Note that ``output_type="pandas"`` is
-        not supported when ``norm`` is ``True`` or **3**; use
-        ``output_type="numpy"`` or ``output_type="file"`` instead.
+    norm
+        Specify the desired norm. Use ``"absolutes"`` or ``"squares"`` to
+        select a single solution, or ``"both"`` to see both solutions. Note
+        that ``output_type="pandas"`` is not supported when ``norm`` is
+        ``"both"``; use ``output_type="numpy"`` or ``output_type="file"``
+        instead.
     small_circle : bool or float
         Attempt to fit a small circle instead of a great circle. The pole
         will be constrained to lie on the great circle connecting the pole
@@ -98,30 +100,34 @@ def fitcircle(
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
     """
-    if kwargs.get("L") is None:
+    if norm is None:
         raise GMTParameterError(required="norm")
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
-    norm = kwargs.get("L")
-    if output_type == "pandas" and (norm is True or norm == 3):
+    if output_type == "pandas" and norm == "both":
         raise GMTValueError(
             norm,
             description="value for parameter 'norm'",
             reason=(
-                "Pandas output is not supported when 'norm' is set to True or 3 "
-                "since both L1 and L2 solutions are stacked in the same rows. "
-                "Use output_type='numpy' or output_type='file' instead."
+                "Pandas output is not supported when 'norm' is set to 'both' "
+                "since both solutions are stacked in the same rows. Use "
+                "output_type='numpy' or output_type='file' instead."
             ),
         )
 
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(
+        L=Alias(norm, name="norm", mapping={"absolutes": 1, "squares": 2, "both": 3}),
+        S=Alias(small_circle, name="small_circle"),
+    ).add_common(
         V=verbose,
     )
     aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_in(
+                check_kind="vector", data=data, x=x, y=y, mincols=2
+            ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
             lib.call_module(
