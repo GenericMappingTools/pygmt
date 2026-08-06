@@ -225,6 +225,7 @@ Class-style Parameters
     Box
     Frame
     Pattern
+    Perspective
     Position
 
 Enums
