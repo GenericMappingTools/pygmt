@@ -1,16 +1,15 @@
 <!--- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html --->
 
-```{title} Home
-```
+:::{title} Home
+:::
 
 <!--- Add image of PyGMT logo --->
 <!--- center image --->
-:::{div} sd-d-flex-row sd-align-major-center
-```{image} ./_static/pygmtlogo.png
+::::{div} sd-d-flex-row sd-align-major-center
+:::{image} ./_static/pygmtlogo.png
 :width: 600px
-```
-
 :::
+::::
 <!--- Add short text what PyGMT is and does --->
 <!--- sd-text-center centering, sd-fs fontsize, sd-pt padding top, sd-pb padding bottom --->
 :::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
