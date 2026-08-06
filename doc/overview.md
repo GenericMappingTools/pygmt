@@ -1,26 +1,6 @@
-# Why PyGMT
+# Overview
 
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
-play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
-quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
-
-Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
-[Gallery](gallery/index.rst) for more impressions, go through the
-[Tutorials](tutorials/index.rst) to learn things in more detail, look at the
-available map [Projections](projections/index.rst), and finally do not forget
-to check out some [external PyGMT examples](external_resources)!
-
-## Project goals
-
-- Make GMT more accessible to new users.
-- Build a Pythonic API for GMT.
-- Interface with the GMT C API directly using ctypes (no system calls).
-- Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
-  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
-  and `geopandas.GeoDataFrame` for geographical data.
-
-## Background
+## About
 
 PyGMT is a Python wrapper for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt),
@@ -40,7 +20,9 @@ PDF and PNG.
 
 The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
 [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) (the co-creator and main
-developer of GMT) at the University of Hawaiʻi at Mānoa.
+developer of GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT
+has been supported by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403)
+and [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
