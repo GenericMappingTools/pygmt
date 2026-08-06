@@ -20,7 +20,7 @@ A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-t
 :::{div} sd-text-center sd-fs-5 sd-pb-3
 PyGMT is a library for processing geospatial and geophysical data and making
 publication-quality maps and figures. It provides a Pythonic interface for the
-[Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
+[Generic Mapping Tools (GMT)](https://www.generic-mapping-tools.org/), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :::
 
