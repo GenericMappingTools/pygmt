@@ -174,25 +174,19 @@ PyGMT Team
 :color: secondary
 :outline:
 :shadow:
-{octicon}`comment-discussion;1em;sd-text-info` GMT Forum
+{octicon}`comment-discussion;1em;sd-text-info` PyGMT Q&A (GMT Forum)
 ```
 ```{button-link} https://github.com/GenericMappingTools/pygmt
 :color: secondary
 :outline:
 :shadow:
-{octicon}`mark-github;1em;sd-text-info` Source Code
+{octicon}`mark-github;1em;sd-text-info` Bug Report (GitHub)
 ```
 ```{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
 :color: secondary
 :outline:
 :shadow:
 {octicon}`code-of-conduct;1em;sd-text-info` Code of Conduct
-```
-```{button-link} https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
-:color: secondary
-:outline:
-:shadow:
-{octicon}`law;1em;sd-text-info` License
 ```
 ::::
 
