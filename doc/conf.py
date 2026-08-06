@@ -215,7 +215,7 @@ html_context = {
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Report a bug',
+            '<i class="fa fa-github fa-fw"></i> Bug Report',
             f"{repository_url}/issues",
         ),
         (
