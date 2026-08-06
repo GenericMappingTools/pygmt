@@ -58,3 +58,9 @@ Other official wrappers for GMT:
 The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
 [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
+
+## License
+
+PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+BSD 3-clause License. A copy of this license is provided in
+[LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).
