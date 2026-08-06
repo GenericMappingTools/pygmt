@@ -79,6 +79,11 @@ p {
     --sd-color-card-footer: #FFFFFF; /* white */
 }
 
+/* Set margin below buttons */
+.sd-card-text {
+    margin-bottom: 10px;
+}
+
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
