@@ -38,13 +38,13 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 <!-- 3em size, sd-text-info color -->
 {octicon}`rocket;2.5em;sd-text-info` **Getting Started**
 ^^^
-```{button-ref} ../install
+```{button-ref} install
 :color: secondary
 :outline:
 :shadow:
 Installing
 ```
-```{button-ref} ../intro/index
+```{button-ref} intro/index
 :color: secondary
 :outline:
 :shadow:
@@ -56,25 +56,25 @@ Intro to PyGMT
 :margin: 0 3 0 0
 {octicon}`globe;2.5em;sd-text-info` **Project Overview**
 ^^^
-```{button-ref} ../overview
+```{button-ref} overview
 :color: secondary
 :outline:
 :shadow:
 Why PyGMT
 ```
-```{button-ref} ../ecosystem
+```{button-ref} ecosystem
 :color: secondary
 :outline:
 :shadow:
 PyGMT Ecosystem
 ```
-```{button-ref} ../presentations
+```{button-ref} presentations
 :color: secondary
 :outline:
 :shadow:
 Presentations
 ```
-```{button-ref} ../citing
+```{button-ref} citing
 :color: secondary
 :outline:
 :shadow:
