@@ -43,13 +43,11 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :color: secondary
 :outline:
 :shadow:
-Installing
 ```
 ```{button-ref} intro/index
 :color: secondary
 :outline:
 :shadow:
-Intro to PyGMT
 ```
 ::::
 
@@ -61,25 +59,21 @@ Intro to PyGMT
 :color: secondary
 :outline:
 :shadow:
-Why PyGMT
 ```
 ```{button-ref} ecosystem
 :color: secondary
 :outline:
 :shadow:
-PyGMT Ecosystem
 ```
 ```{button-ref} presentations
 :color: secondary
 :outline:
 :shadow:
-Presentations
 ```
 ```{button-ref} citing
 :color: secondary
 :outline:
 :shadow:
-Citing PyGMT
 ```
 ::::
 
@@ -91,25 +85,21 @@ Citing PyGMT
 :color: secondary
 :outline:
 :shadow:
-Gallery
 ```
 ```{button-ref} ../tutorials/index
 :color: secondary
 :outline:
 :shadow:
-Tutorials
 ```
 ```{button-ref} ../projections/index
 :color: secondary
 :outline:
 :shadow:
-Projections
 ```
 ```{button-ref} ../external_resources
 :color: secondary
 :outline:
 :shadow:
-External Resources
 ```
 ::::
 
@@ -121,25 +111,21 @@ External Resources
 :color: secondary
 :outline:
 :shadow:
-API Reference
 ```
 ```{button-ref} ../techref/index
 :color: secondary
 :outline:
 :shadow:
-Technical Reference
 ```
 ```{button-ref} ../changes
 :color: secondary
 :outline:
 :shadow:
-Changelog
 ```
 ```{button-ref} ../minversions
 :color: secondary
 :outline:
 :shadow:
-Minimum Supported Versions
 ```
 ::::
 
