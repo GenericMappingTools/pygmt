@@ -198,8 +198,8 @@ citing.md
 :hidden:
 :caption: User Guide
 
-tutorials/index.rst
 gallery/index.rst
+tutorials/index.rst
 projections/index.rst
 external_resources.md
 ```
