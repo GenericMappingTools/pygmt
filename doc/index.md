@@ -174,7 +174,7 @@ PyGMT Team
 :color: secondary
 :outline:
 :shadow:
-{octicon}`comment-discussion;1em;sd-text-info` PyGMT Q&A (GMT Forum)
+{octicon}`comment-discussion;1em;sd-text-info` GMT Forum
 ```
 ```{button-link} https://github.com/GenericMappingTools/pygmt
 :color: secondary
