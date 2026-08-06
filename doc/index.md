@@ -39,7 +39,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 <!--- Add icon --->
 <!--- 3em size, sd-text-info color --->
-{octicon}`rocket;3em;sd-text-info` **Getting Started**
+{octicon}`rocket;2.5em;sd-text-info` **Getting Started**
 ^^^
 ```{button-ref} ../install
 :color: secondary
@@ -57,7 +57,7 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`globe;3em;sd-text-info` **Project Overview**
+{octicon}`globe;2.5em;sd-text-info` **Project Overview**
 ^^^
 ```{button-ref} ../overview
 :color: secondary
@@ -87,7 +87,7 @@ Citing PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`mortar-board;3em;sd-text-info` **User Guide**
+{octicon}`mortar-board;2.5em;sd-text-info` **User Guide**
 ^^^
 ```{button-ref} ../gallery/index
 :color: secondary
@@ -117,7 +117,7 @@ External Resources
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`book;3em;sd-text-info` **Reference Guide**
+{octicon}`book;2.5em;sd-text-info` **Reference Guide**
 ^^^
 ```{button-ref} ../api/index
 :color: secondary
@@ -147,7 +147,7 @@ Minimum Supported Versions
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`terminal;3em;sd-text-info` **Development**
+{octicon}`terminal;2.5em;sd-text-info` **Development**
 ^^^
 ```{button-ref} ../contributing
 :color: secondary
@@ -171,7 +171,7 @@ PyGMT Team
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`light-bulb;3em;sd-text-info` **Getting Help**
+{octicon}`light-bulb;2.5em;sd-text-info` **Getting Help**
 ^^^
 ```{button-link} https://forum.generic-mapping-tools.org
 :color: secondary
@@ -209,7 +209,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: install
 :link-type: doc
-{octicon}`tools;3em;sd-text-info`
+{octicon}`tools;2.5em;sd-text-info`
 ^^^
 **Installing**
 ::::
@@ -218,7 +218,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: intro/index
 :link-type: doc
-{octicon}`rocket;3em;sd-text-info`
+{octicon}`rocket;2.5em;sd-text-info`
 ^^^
 **Intro to PyGMT**
 ::::
@@ -227,7 +227,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: gallery/index
 :link-type: doc
-{octicon}`image;3em;sd-text-info`
+{octicon}`image;2.5em;sd-text-info`
 ^^^
 **Gallery**
 ::::
@@ -236,7 +236,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: tutorials/index
 :link-type: doc
-{octicon}`mortar-board;3em;sd-text-info`
+{octicon}`mortar-board;2.5em;sd-text-info`
 ^^^
 **Tutorials**
 ::::
@@ -245,7 +245,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: api/index
 :link-type: doc
-{octicon}`book;3em;sd-text-info`
+{octicon}`book;2.5em;sd-text-info`
 ^^^
 **API Reference**
 ::::
@@ -254,7 +254,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: external_resources
 :link-type: doc
-{octicon}`globe;3em;sd-text-info`
+{octicon}`globe;2.5em;sd-text-info`
 ^^^
 **External Resources**
 ::::
@@ -263,7 +263,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: citing
 :link-type: doc
-{octicon}`checklist;3em;sd-text-info`
+{octicon}`checklist;2.5em;sd-text-info`
 ^^^
 **Citing PyGMT**
 ::::
@@ -272,7 +272,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: contributing
 :link-type: doc
-{octicon}`terminal;3em;sd-text-info`
+{octicon}`terminal;2.5em;sd-text-info`
 ^^^
 **Contributors Guide**
 ::::
@@ -280,7 +280,7 @@ PyGMT Team
 ::::{grid-item-card}
 :margin: 0 3 0 0
 :link: https://forum.generic-mapping-tools.org
-{octicon}`comment-discussion;3em;sd-text-info`
+{octicon}`comment-discussion;2.5em;sd-text-info`
 ^^^
 **GMT Forum**
 ::::
@@ -296,7 +296,7 @@ PyGMT Team
 :margin: 0 3 0 0
 :link: install
 :link-type: doc
-{octicon}`tools;3em;sd-text-info` <br>
+{octicon}`tools;2.5em;sd-text-info` <br>
 **Installing**
 ^^^
 Installing PyGMT, GMT and the required and optional dependencies.
@@ -306,7 +306,7 @@ Installing PyGMT, GMT and the required and optional dependencies.
 :margin: 0 3 0 0
 :link: intro/index
 :link-type: doc
-{octicon}`rocket;3em;sd-text-info` <br>
+{octicon}`rocket;2.5em;sd-text-info` <br>
 **Intro to PyGMT**
 ^^^
 Tutorials to get started with PyGMT.
@@ -316,7 +316,7 @@ Tutorials to get started with PyGMT.
 :margin: 0 3 0 0
 :link: gallery/index
 :link-type: doc
-{octicon}`image;3em;sd-text-info` <br>
+{octicon}`image;2.5em;sd-text-info` <br>
 **Gallery**
 ^^^
 Get an impression of what PyGMT can do for you.
@@ -326,7 +326,7 @@ Get an impression of what PyGMT can do for you.
 :margin: 0 3 0 0
 :link: tutorials/index
 :link-type: doc
-{octicon}`mortar-board;3em;sd-text-info` <br>
+{octicon}`mortar-board;2.5em;sd-text-info` <br>
 **Tutorials**
 ^^^
 Learn about various concepts of PyGMT in more detail.
@@ -336,7 +336,7 @@ Learn about various concepts of PyGMT in more detail.
 :margin: 0 3 0 0
 :link: api/index
 :link-type: doc
-{octicon}`book;3em;sd-text-info` <br>
+{octicon}`book;2.5em;sd-text-info` <br>
 **API Reference**
 ^^^
 In depth information on all classes, function and methods of PyGMT.
@@ -346,7 +346,7 @@ In depth information on all classes, function and methods of PyGMT.
 :margin: 0 3 0 0
 :link: external_resources
 :link-type: doc
-{octicon}`globe;3em;sd-text-info` <br>
+{octicon}`globe;2.5em;sd-text-info` <br>
 **External Resources**
 ^^^
 External tutorials and contributions from posters and publications.
@@ -356,7 +356,7 @@ External tutorials and contributions from posters and publications.
 :margin: 0 3 0 0
 :link: citing
 :link-type: doc
-{octicon}`checklist;3em;sd-text-info` <br>
+{octicon}`checklist;2.5em;sd-text-info` <br>
 **Citing PyGMT**
 ^^^
 BibTex entries to cite PyGMT via the publication in G-Cubed and the uploads on Zenodo.
@@ -366,7 +366,7 @@ BibTex entries to cite PyGMT via the publication in G-Cubed and the uploads on Z
 :margin: 0 3 0 0
 :link: contributing
 :link-type: doc
-{octicon}`terminal;3em;sd-text-info` <br>
+{octicon}`terminal;2.5em;sd-text-info` <br>
 **Contributors Guide**
 ^^^
 Learn how you can get involved and make your first own contribution.
@@ -375,7 +375,7 @@ Learn how you can get involved and make your first own contribution.
 ::::{grid-item-card}
 :margin: 0 3 0 0
 :link: https://forum.generic-mapping-tools.org
-{octicon}`comment-discussion;3em;sd-text-info` <br>
+{octicon}`comment-discussion;2.5em;sd-text-info` <br>
 **GMT Forum**
 ^^^
 Visit the GMT forum for finding help, asking questions and also consider helping others.
