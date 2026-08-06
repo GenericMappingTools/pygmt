@@ -211,11 +211,11 @@ html_show_sphinx = False
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-comment fa-fw"></i> GMT Forum',
-            "https://forum.generic-mapping-tools.org",
+            '<i class="fa fa-comment fa-fw"></i> PyGMT Q&A (GMT Forum)',
+            "https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Bug Report',
+            '<i class="fa fa-github fa-fw"></i> Bug Report (GitHub)',
             f"{repository_url}/issues",
         ),
         (
