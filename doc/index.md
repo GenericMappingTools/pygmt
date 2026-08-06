@@ -38,142 +38,136 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 {octicon}`rocket;2.5em;sd-text-info` **Getting Started**
 ^^^
 <!-- button text defaults to page title -->
-```{button-ref} install
+:::{button-ref} install
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} intro/index
+:::
+:::{button-ref} intro/index
 :color: secondary
 :outline:
 :shadow:
-```
+:::
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 {octicon}`globe;2.5em;sd-text-info` **Project Overview**
 ^^^
-```{button-ref} overview
+:::{button-ref} overview
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ecosystem
+:::
+:::{button-ref} ecosystem
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} presentations
+:::
+:::{button-ref} presentations
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} citing
+:::
+:::{button-ref} citing
 :color: secondary
 :outline:
 :shadow:
-```
+:::
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 {octicon}`mortar-board;2.5em;sd-text-info` **User Guide**
 ^^^
-```{button-ref} ../gallery/index
+:::{button-ref} ../gallery/index
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../tutorials/index
+:::
+:::{button-ref} ../tutorials/index
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../projections/index
+:::
+:::{button-ref} ../projections/index
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../external_resources
+:::
+:::{button-ref} ../external_resources
 :color: secondary
 :outline:
 :shadow:
-```
+:::
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 {octicon}`book;2.5em;sd-text-info` **Reference Guide**
 ^^^
-```{button-ref} ../api/index
+:::{button-ref} ../api/index
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../techref/index
+:::
+:::{button-ref} ../techref/index
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../changes
+:::
+:::{button-ref} ../changes
 :color: secondary
 :outline:
 :shadow:
-```
-```{button-ref} ../minversions
+:::
+:::{button-ref} ../minversions
 :color: secondary
 :outline:
 :shadow:
-```
+:::
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 {octicon}`terminal;2.5em;sd-text-info` **Development**
 ^^^
-```{button-ref} ../contributing
+:::{button-ref} ../contributing
 :color: secondary
 :outline:
 :shadow:
 Contributors Guide
-```
-```{button-ref} ../maintenance
+:::
+:::{button-ref} ../maintenance
 :color: secondary
 :outline:
 :shadow:
 Maintainers Guide
-```
-```{button-ref} ../team
-:color: secondary
-:outline:
-:shadow:
-PyGMT Team
-```
+:::
 ::::
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
 {octicon}`light-bulb;2.5em;sd-text-info` **Getting Help**
 ^^^
-```{button-link} https://forum.generic-mapping-tools.org
+:::{button-link} https://forum.generic-mapping-tools.org
 :color: secondary
 :outline:
 :shadow:
 {octicon}`comment-discussion;1em;sd-text-info` GMT Forum
-```
-```{button-link} https://github.com/GenericMappingTools/pygmt
+:::
+:::{button-link} https://github.com/GenericMappingTools/pygmt
 :color: secondary
 :outline:
 :shadow:
 {octicon}`mark-github;1em;sd-text-info` Bug Report (GitHub)
-```
-```{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
+:::
+:::{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
 :color: secondary
 :outline:
 :shadow:
 {octicon}`code-of-conduct;1em;sd-text-info` Code of Conduct
-```
+:::
 ::::
 
 :::::
