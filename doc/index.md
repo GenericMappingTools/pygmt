@@ -39,8 +39,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 <!--- Add icon --->
 <!--- 3em size, sd-text-info color --->
-{octicon}`rocket;3em;sd-text-info` <br>
-**Getting Started**
+{octicon}`rocket;3em;sd-text-info` **Getting Started**
 ^^^
 ```{button-ref} ../install
 :color: secondary
@@ -58,8 +57,7 @@ Intro to PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`globe;3em;sd-text-info` <br>
-**Project Overview**
+{octicon}`globe;3em;sd-text-info` **Project Overview**
 ^^^
 ```{button-ref} ../overview
 :color: secondary
@@ -89,8 +87,7 @@ Citing PyGMT
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`mortar-board;3em;sd-text-info` <br>
-**User Guide**
+{octicon}`mortar-board;3em;sd-text-info` **User Guide**
 ^^^
 ```{button-ref} ../gallery/index
 :color: secondary
@@ -120,8 +117,7 @@ External Resources
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`book;3em;sd-text-info` <br>
-**Reference Documentation**
+{octicon}`book;3em;sd-text-info` **Reference Documentation**
 ^^^
 ```{button-ref} ../api/index
 :color: secondary
@@ -151,8 +147,7 @@ Minimum Supported Versions
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`terminal;3em;sd-text-info` <br>
-**Development**
+{octicon}`terminal;3em;sd-text-info` **Development**
 ^^^
 ```{button-ref} ../contributing
 :color: secondary
@@ -176,8 +171,7 @@ PyGMT Team
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-{octicon}`light-bulb;3em;sd-text-info` <br>
-**Getting Help**
+{octicon}`light-bulb;3em;sd-text-info` **Getting Help**
 ^^^
 ```{button-link} https://forum.generic-mapping-tools.org
 :color: secondary
