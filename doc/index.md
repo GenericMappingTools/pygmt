@@ -23,6 +23,7 @@ publication-quality maps and figures. It provides a Pythonic interface for the
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :::
 
+
 <!-- Set up grid -->
 <!-- Number of default columns screen sizes dependent -->
 <!-- extra-small (<576px) small (768px) medium (992px) large screens (>1200px) -->
@@ -193,6 +194,7 @@ PyGMT Team
 :::::
 
 
+<!-- Set up sidebar -->
 
 ```{toctree}
 :maxdepth: 2
