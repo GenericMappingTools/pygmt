@@ -1,4 +1,4 @@
-# Why PyGMT
+# Overview
 
 A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
 play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
