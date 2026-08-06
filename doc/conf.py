@@ -211,20 +211,16 @@ html_show_sphinx = False
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
-        ),
-        (
-            '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/main/LICENSE.txt",
-        ),
-        (
-            '<i class="fa fa-comment fa-fw"></i> Contact',
+            '<i class="fa fa-comment fa-fw"></i> GMT Forum',
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Source Code',
-            repository_url,
+            '<i class="fa fa-github fa-fw"></i> Bug Report (GitHub)',
+            f"{repository_url}/issues",
+        ),
+        (
+            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook" links
