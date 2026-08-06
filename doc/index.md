@@ -80,22 +80,22 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 {octicon}`mortar-board;2.5em;sd-text-info` **User Guide**
 ^^^
-:::{button-ref} ../gallery/index
+:::{button-ref} gallery/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../tutorials/index
+:::{button-ref} tutorials/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../projections/index
+:::{button-ref} projections/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../external_resources
+:::{button-ref} external_resources
 :color: secondary
 :outline:
 :shadow:
@@ -106,22 +106,22 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 {octicon}`book;2.5em;sd-text-info` **Reference Guide**
 ^^^
-:::{button-ref} ../api/index
+:::{button-ref} api/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../techref/index
+:::{button-ref} techref/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../changes
+:::{button-ref} changes
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../minversions
+:::{button-ref} minversions
 :color: secondary
 :outline:
 :shadow:
@@ -132,12 +132,12 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 {octicon}`terminal;2.5em;sd-text-info` **Development**
 ^^^
-:::{button-ref} ../contributing
+:::{button-ref} contributing
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} ../maintenance
+:::{button-ref} maintenance
 :color: secondary
 :outline:
 :shadow:
