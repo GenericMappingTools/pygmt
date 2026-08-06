@@ -136,13 +136,11 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :color: secondary
 :outline:
 :shadow:
-Contributors Guide
 :::
 :::{button-ref} ../maintenance
 :color: secondary
 :outline:
 :shadow:
-Maintainers Guide
 :::
 ::::
 
