@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022]
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022, windows-11-arm]
         gmt_version: ['6.5']
     timeout-minutes: 30
     defaults:
@@ -54,7 +54,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9 # v3.1.0
         with:
           environment-name: pygmt
           create-args: >-
