@@ -215,11 +215,11 @@ html_context = {
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Bug Report (GitHub)',
+            '<i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)',
             f"{repository_url}/issues",
         ),
         (
-            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
+            '<i class="fa fa-handshake-o fa-fw"></i> Code of Conduct',
             "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
     ],
