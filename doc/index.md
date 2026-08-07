@@ -142,6 +142,11 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :outline:
 :shadow:
 :::
+:::{button-ref} team
+:color: secondary
+:outline:
+:shadow:
+:::
 ::::
 
 ::::{grid-item-card}
@@ -220,7 +225,7 @@ minversions.md
 :hidden:
 :caption: Development
 
-team.md
 contributing.md
 maintenance.md
+team.md
 ```
