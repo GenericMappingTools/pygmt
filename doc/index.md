@@ -80,12 +80,12 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 {octicon}`mortar-board;2.5em;sd-text-info` **User Guide**
 ^^^
-:::{button-ref} gallery/index
+:::{button-ref} tutorials/index
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} tutorials/index
+:::{button-ref} gallery/index
 :color: secondary
 :outline:
 :shadow:
@@ -198,8 +198,8 @@ citing.md
 :hidden:
 :caption: User Guide
 
-gallery/index.rst
 tutorials/index.rst
+gallery/index.rst
 projections/index.rst
 external_resources.md
 ```
