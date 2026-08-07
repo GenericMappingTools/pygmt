@@ -52,6 +52,25 @@ fig.show()
 For other ways to install PyGMT and more examples, please visit the
 [PyGMT documentation](https://www.pygmt.org/).
 
+## Dependencies
+
+**Required**
+
+- GMT
+- Python
+- NumPy
+- pandas
+- xarray
+
+**Optional**
+
+- GeoPandas
+- contextily
+- rioarray
+
+For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
+and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
+
 ## Documentation
 
 - [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
