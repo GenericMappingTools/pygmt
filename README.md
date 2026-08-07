@@ -66,8 +66,6 @@ and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
 - [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
 - [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
-- [Related Projects](https://www.pygmt.org/dev/overview.html#related-projects)
-- [Funding](https://www.pygmt.org/dev/overview.html#funding)
 
 ## Contacting us
 
