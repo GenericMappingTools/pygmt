@@ -54,19 +54,9 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Dependencies
 
-**Required**
+**Required**: GMT, Python, NumPy, pandas, xarray
 
-- GMT
-- Python
-- NumPy
-- pandas
-- xarray
-
-**Optional**
-
-- GeoPandas
-- contextily
-- rioarray
+**Optional**: GeoPandas, contextily, rioarray
 
 For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
 and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
