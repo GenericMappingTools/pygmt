@@ -50,7 +50,7 @@ our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-
 
 ## Related projects
 
-Other official wrappers for GMT:
+Other official GMT wrappers include:
 
 - [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
 - [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
