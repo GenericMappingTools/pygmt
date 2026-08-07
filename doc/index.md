@@ -159,7 +159,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :shadow:
 {octicon}`comment-discussion;1em;sd-text-info` GMT Forum
 :::
-:::{button-link} https://github.com/GenericMappingTools/pygmt
+:::{button-link} https://github.com/GenericMappingTools/pygmt/issues
 :color: secondary
 :outline:
 :shadow:
