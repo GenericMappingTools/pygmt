@@ -12,16 +12,6 @@ Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
 available map [Projections](projections/index.rst), and finally do not forget
 to check out some [external PyGMT examples](external_resources)!
 
-## Project goals
-
-- Make GMT more accessible to new users.
-- Build a Pythonic API for GMT.
-- Interface with the GMT C API directly using ctypes (no system calls).
-- Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
-  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
-  and `geopandas.GeoDataFrame` for geographical data.
-
 ## Background
 
 PyGMT is a Python wrapper for the
@@ -47,6 +37,16 @@ developer of GMT) at the University of Hawaiʻi at Mānoa.
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
 our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a).
+
+## Project goals
+
+- Make GMT more accessible to new users.
+- Build a Pythonic API for GMT.
+- Interface with the GMT C API directly using ctypes (no system calls).
+- Support for rich display in the Jupyter notebook.
+- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
+  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
+  and `geopandas.GeoDataFrame` for geographical data.
 
 ## Related projects
 
