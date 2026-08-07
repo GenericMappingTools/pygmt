@@ -40,6 +40,8 @@ our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-
 
 ## Project goals
 
+From the beginning, the project has aimed to achieve the following goals:
+
 - Make GMT more accessible to new users.
 - Build a Pythonic API for GMT.
 - Interface with the GMT C API directly using ctypes (no system calls).
