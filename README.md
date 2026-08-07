@@ -28,18 +28,17 @@ A beautiful map is worth a thousand words. To truly understand how powerful PyGM
 play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
 quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
-## Dependencies
+## Quickstart
 
-**Required**: GMT, Python, NumPy, pandas, xarray
+Dependencies
 
-**Optional**: GeoPandas, contextily, rioarray
+- Required: GMT, Python, NumPy, pandas, xarray
+- Optional: GeoPandas, contextily, rioarray
 
 For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
 and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
 
-## Quickstart
-
-Install PyGMT using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
+Install the lastest version of PyGMT using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
 
 ```bash
 conda install --channel conda-forge pygmt
