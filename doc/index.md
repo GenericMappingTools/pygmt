@@ -163,7 +163,7 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :color: secondary
 :outline:
 :shadow:
-{octicon}`mark-github;1em;sd-text-info` Bug Report (GitHub)
+{octicon}`bug;1em;sd-text-info` Bug Report (GitHub)
 :::
 :::{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
 :color: secondary
