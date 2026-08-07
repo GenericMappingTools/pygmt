@@ -9,7 +9,6 @@
 :::
 ::::
 <!-- Add short text what PyGMT is and does -->
-<!-- sd-text-center centering, sd-fs fontsize, sd-pt padding top, sd-pb padding bottom -->
 :::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
 A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
 :::
@@ -23,21 +22,12 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 
 <!-- Set up grid -->
-<!-- Number of default columns screen sizes dependent -->
-<!-- extra-small (<576px) small (768px) medium (992px) large screens (>1200px) -->
-
-<!-- Set up card -->
-<!-- top bottom left right -->
-
 :::::{grid} 1 2 2 3
 
 ::::{grid-item-card}
 :margin: 0 3 0 0
-<!-- Add icon -->
-<!-- 3em size, sd-text-info color -->
 {octicon}`rocket;2.5em;sd-text-info` **Getting Started**
 ^^^
-<!-- button text defaults to page title -->
 :::{button-ref} install
 :color: secondary
 :outline:
