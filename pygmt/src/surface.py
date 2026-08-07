@@ -77,6 +77,10 @@ def surface(
 
     Full GMT docs at :gmt-docs:`surface.html`.
 
+    **Reference**: Smith, W. H. F., & Wessel, P. (1990). Gridding with continuous
+    curvature splines in tension. *Geophysics*, 55(3), 293-305.
+    https://doi.org/10.1190/1.1442837
+
     $aliases
        - G = outgrid
        - I = spacing
