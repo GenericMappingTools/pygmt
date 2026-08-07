@@ -132,17 +132,17 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :margin: 0 3 0 0
 {octicon}`terminal;2.5em;sd-text-info` **Development**
 ^^^
+:::{button-ref} team
+:color: secondary
+:outline:
+:shadow:
+:::
 :::{button-ref} contributing
 :color: secondary
 :outline:
 :shadow:
 :::
 :::{button-ref} maintenance
-:color: secondary
-:outline:
-:shadow:
-:::
-:::{button-ref} team
 :color: secondary
 :outline:
 :shadow:
@@ -225,7 +225,7 @@ minversions.md
 :hidden:
 :caption: Development
 
+team.md
 contributing.md
 maintenance.md
-team.md
 ```
