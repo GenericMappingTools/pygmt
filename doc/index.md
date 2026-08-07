@@ -116,12 +116,12 @@ program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 :outline:
 :shadow:
 :::
-:::{button-ref} changes
+:::{button-ref} minversions
 :color: secondary
 :outline:
 :shadow:
 :::
-:::{button-ref} minversions
+:::{button-ref} changes
 :color: secondary
 :outline:
 :shadow:
@@ -216,8 +216,8 @@ external_resources.md
 
 api/index.rst
 techref/index.md
-changes.md
 minversions.md
+changes.md
 ```
 
 ```{toctree}
