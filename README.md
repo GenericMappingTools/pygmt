@@ -30,9 +30,8 @@ quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITX
 
 ## Dependencies
 
-**Required**: GMT, Python, NumPy, pandas, xarray
-
-**Optional**: GeoPandas, contextily, rioarray
+- **Required**: GMT, NumPy, pandas, xarray, packaging
+- **Optional**: contextily, GeoPandas, IPython, pyarrow, rioarray
 
 For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
 and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
