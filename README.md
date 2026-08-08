@@ -34,16 +34,16 @@ our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 PyGMT depends on GMT and the following Python libraries:
 
 - **Required**:
-[NumPy](https://numpy.org/),
-[pandas](https://pandas.pydata.org/),
-[xarray](https://xarray.pydata.org/),
-[packaging](https://packaging.pypa.io/en/stable/)
+  [NumPy](https://numpy.org/),
+  [pandas](https://pandas.pydata.org/),
+  [xarray](https://xarray.pydata.org/),
+  [packaging](https://packaging.pypa.io/en/stable/)
 - **Optional**:
-[IPython](https://ipython.org/),
-[GeoPandas](https://geopandas.org/),
-[contextily](https://contextily.readthedocs.io/),
-[rioarray](https://corteva.github.io/rioxarray/),
-[PyArrow](https://arrow.apache.org/docs/python/)
+  [IPython](https://ipython.org/),
+  [GeoPandas](https://geopandas.org/),
+  [contextily](https://contextily.readthedocs.io/),
+  [rioarray](https://corteva.github.io/rioxarray/),
+  [PyArrow](https://arrow.apache.org/docs/python/)
 
 For detailed version requirements, see [Minimum Supported Versions](https://www.pygmt.org/latest/minversions.html).
 
