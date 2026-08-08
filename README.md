@@ -45,7 +45,7 @@ PyGMT depends on GMT and the following Python libraries:
 [rioarray](https://corteva.github.io/rioxarray/),
 [PyArrow](https://arrow.apache.org/docs/python/)
 
-For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html).
+For detailed version requirements, see [Minimum Supported Versions](https://www.pygmt.org/latest/minversions.html).
 
 ## Quickstart
 
