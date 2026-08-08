@@ -25,6 +25,7 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     C="clearance",
+    Z="zvalue",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -37,6 +38,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     textfiles: PathLike | TableLike | None = None,
     x=None,
     y=None,
+    z=None,
     position: AnchorCode | None = None,
     text: str | StringArrayTypes | None = None,
     angle: float | Sequence[float] | bool = False,
@@ -62,7 +64,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     Must provide at least one of the following combinations as input:
 
     - ``textfiles``
-    - ``x``/``y``, and ``text``
+    - ``x``/``y``[/``z``], and ``text``
     - ``position`` and ``text``
 
     The text strings passed via the ``text`` parameter can contain ASCII characters and
@@ -97,6 +99,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
         * *x*: X coordinate or longitude
         * *y*: Y coordinate or latitude
+        * *z*: Optional Z coordinate or altitude
         * *angle*: Angle in degrees counter-clockwise from horizontal
         * *font*: Text size, font, and color
         * *justify*:
@@ -108,9 +111,9 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         respectively. If these parameters are set to ``True``, then the
         corresponding columns must be present in the input file(s) and the
         columns must be in the order mentioned above.
-    x/y : float or 1-D arrays
-        The x and y coordinates, or an array of x and y coordinates to plot
-        the text.
+    x/y/z : float or 1-D arrays
+        The x, y, and z coordinates, or arrays of x, y and z coordinates of
+        the data points.
     position
         Set reference point on the plot for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
@@ -185,7 +188,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     $perspective
     $transparency
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
-        but this option is only valid if using ``x``/``y`` and ``text``.
+        but this option is only valid if using ``x``/``y``(/``z``) and ``text``.
     $wrap
 
     See Also
@@ -193,13 +196,13 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
     """
-    # Ensure inputs are either textfiles, x/y/text, or position/text
+    # Ensure inputs are either textfiles, x/y(/z)/text, or position/text
     if (
         (textfiles is not None)
         + (position is not None)
-        + (x is not None or y is not None)
+        + (x is not None or y is not None or z is not None)
     ) != 1:
-        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
+        raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y(/z)/text"])
 
     data_is_required = position is None
     kind = data_kind(textfiles, required=data_is_required)
@@ -219,7 +222,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         raise GMTParameterError(at_most_one=["text", "textfiles"])
     if kind == "empty" and text is None:
         raise GMTParameterError(
-            required="text", reason="Required when 'x' and 'y' are set."
+            required="text", reason="Required when 'x', 'y' (and optional 'z') are set."
         )
 
     # Arguments that can accept arrays.
@@ -247,6 +250,9 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     data = None
     if kind == "empty":
         data = {"x": x, "y": y}
+
+        if z is not None:
+            data["z"] = z
 
         for arg, flag, name in array_args:
             if is_nonstr_iter(arg):
