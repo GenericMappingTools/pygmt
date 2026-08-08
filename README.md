@@ -31,7 +31,7 @@ our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 ## Dependencies
 
-Beside building on top of GMT and Python, PyGMT relies on several Python libaries:
+PyGMT depends on GMT and the following Python libraries:
 
 - **Required**:
 [NumPy](https://numpy.org/),
