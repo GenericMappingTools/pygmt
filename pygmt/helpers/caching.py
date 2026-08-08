@@ -116,6 +116,7 @@ def cache_data() -> None:
         "@RidgeTest.prj",
         "@RidgeTest.shp",
         "@RidgeTest.shx",
+        "@sat_03.txt",
         "@SOEST_block4.png",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
