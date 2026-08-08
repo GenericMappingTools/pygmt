@@ -2,61 +2,57 @@
 
 These are international presentations, including both talks and posters, on the development of PyGMT (previously "GMT/Python"):
 
--   "Accessing and Integrating GMT with Python and the Scientific Python Ecosystem".
-    2024.
-	Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
-	Presented at *AGU 2024*.
-	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
 
-    ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8){.align-center width="80%"}
+:::::{grid} 1 2 2 2
 
--   "Geospatial Analysis & Visualization with PyGMT".
-    2022.
-    Max Jones, Wei Ji Leong, and Leonardo Uieda.
-    Presented at *SciPy 2022*.
-    doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793).
-    Recording available at <https://www.youtube.com/watch?v=nCktihu9bWg>
+::::{grid-item-card}
+:text-align: center
+:margin: 0 3 0 0
+*AGU 2024* <br> **Accessing and Integrating GMT with Python and the Scientific Python Ecosystem**
+^^^
+![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8)
+<br> &nbsp; <br>
+**Slides**: [10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
++++
+Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund
+::::
 
-    [![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}](https://www.youtube.com/watch?v=nCktihu9bWg)
+::::{grid-item-card}
+:text-align: center
+:margin: 0 3 0 0
+*SciPy 2022* <br> **Geospatial Analysis & Visualization with PyGMT**
+^^^
+![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/scipy2022-youtube-thumbnail.jpg)
+<br> &nbsp; <br>
+**Slides**: [10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793) <br>
+**Recording**: [youtube.com/watch?v=nCktihu9bWg](https://www.youtube.com/watch?v=nCktihu9bWg)
++++
+Max Jones, Wei Ji Leong, and Leonardo Uieda
+::::
 
--   "PyGMT: Accessing the Generic Mapping Tools from Python".
-    2019.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AGU 2019*.
-    doi:[10.6084/m9.figshare.11320280](https://doi.org/10.6084/m9.figshare.11320280)
+::::{grid-item-card}
+:text-align: center
+:margin: 0 3 0 0
+*AGU 2019* <br> **PyGMT: Accessing the Generic Mapping Tools from Python**
+^^^
+![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/agu2019-poster.jpg)
+<br> &nbsp; <br>
+**Poster**: [10.6084/m9.figshare.11320280](https://doi.org/10.6084/m9.figshare.11320280)
++++
+Leonardo Uieda and Paul Wessel
+::::
 
-    ![](_static/agu2019-poster.jpg){.align-center width="80%"}
+::::{grid-item-card}
+:text-align: center
+:margin: 0 3 0 0
+*SciPy 2018* <br> **Building an object-oriented Python interface for the Generic Mapping Tools**
+^^^
+![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/scipy2018-youtube-thumbnail.png)
+<br> &nbsp; <br>
+**Slides**: [10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052) <br>
+**Recording**: [youtube.com/watch?v=6wMtfZXfTRM](https://www.youtube.com/watch?v=6wMtfZXfTRM)
++++
+Leonardo Uieda and Paul Wessel
+::::
 
--   "Building an object-oriented Python interface for the Generic Mapping Tools".
-    2018.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *SciPy 2018*.
-    doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052).
-    Recording available at <https://www.youtube.com/watch?v=6wMtfZXfTRM>
-
-    [![](_static/scipy2018-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=6wMtfZXfTRM)
-
--   "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
-    2018.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AOGS Annual Meeting 2018*.
-    doi:[10.6084/m9.figshare.6399944](https://doi.org/10.6084/m9.figshare.6399944)
-
-    ![](_static/aogs2018-poster.jpg){.align-center width="80%"}
-
--   "Bringing the Generic Mapping Tools to Python".
-    2017.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *SciPy 2017*.
-    doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833).
-    Recording available at <https://www.youtube.com/watch?v=93M4How7R24>
-
-    [![](_static/scipy2017-youtube-thumbnail.png){.align-center width="80%"}](https://www.youtube.com/watch?v=93M4How7R24)
-
--   "A modern Python interface for the Generic Mapping Tools".
-    2017.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AGU 2017*.
-    doi:[10.6084/m9.figshare.5662411](https://doi.org/10.6084/m9.figshare.5662411)
-
-    ![](_static/agu2017-poster.jpg){.align-center width="80%"}
+:::::
