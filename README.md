@@ -24,9 +24,10 @@ publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
-play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
-quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
+A beautiful map is worth a thousand words. To experience the power of PyGMT, try it 
+online with [Binder or Google Colab](https://github.com/GenericMappingTools/try-gmt)
+without installing anything on your computer. For a quick introduction, check out
+our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 ## Dependencies
 
