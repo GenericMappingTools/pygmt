@@ -57,12 +57,11 @@ fig.coast(land="tan", water="lightblue")
 fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
-For other ways to install PyGMT and more examples, please visit the
-[PyGMT documentation](https://www.pygmt.org/).
 
 ## Documentation
 
 - Documentation: [Latest version](https://www.pygmt.org/latest/) | [Development version](https://www.pygmt.org/dev/)
+- [Full installation instructions](https://www.pygmt.org/latest/install.html)
 - [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
