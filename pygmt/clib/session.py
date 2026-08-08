@@ -1345,7 +1345,7 @@ class Session:
         ...     lib.put_vector(dataset, column=0, vector=x)
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
-        ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
+        ...     vfargs = (family, geometry, "GMT_IN", dataset)
         ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
@@ -1495,9 +1495,7 @@ class Session:
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
 
-        with self.open_virtualfile(
-            family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
-        ) as vfile:
+        with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextlib.contextmanager
@@ -1572,9 +1570,7 @@ class Session:
 
         self.put_matrix(dataset, matrix)
 
-        with self.open_virtualfile(
-            family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
-        ) as vfile:
+        with self.open_virtualfile(family, geometry, "GMT_IN", dataset) as vfile:
             yield vfile
 
     @contextlib.contextmanager
@@ -1656,9 +1652,8 @@ class Session:
             registration=_reg,  # type: ignore[arg-type]
         )
         self.put_matrix(gmt_grid, matrix)
-        with self.open_virtualfile(
-            family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid
-        ) as vfile:
+        args = (family, geometry, "GMT_IN", gmt_grid)
+        with self.open_virtualfile(*args) as vfile:
             yield vfile
 
     @contextlib.contextmanager
