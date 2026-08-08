@@ -62,6 +62,7 @@ For other ways to install PyGMT and more examples, please visit the
 
 ## Documentation
 
+- Documentation: [Latest version](https://www.pygmt.org/latest/) | [Development version](https://www.pygmt.org/dev/)
 - [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
