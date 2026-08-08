@@ -31,7 +31,9 @@ our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 ## Dependencies
 
-- **Required**: GMT, NumPy, pandas, xarray, packaging
+Beside building on top of GMT and Python, PyGMT relies on several Python packages
+
+- **Required**: NumPy, pandas, xarray, packaging
 - **Optional**: contextily, GeoPandas, IPython, pyarrow, rioarray
 
 For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
