@@ -48,8 +48,8 @@ From the beginning, the project has aimed to achieve the following goals:
 - Make GMT more accessible to new users.
 - Build a Pythonic API for GMT.
 - Interface with the GMT C API directly using ctypes (no system calls).
-- Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
+- Support rich display in the Jupyter notebook.
+- Integrate with the [scientific Python ecosystem](https://scientific-python.org/):
   `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
   and `geopandas.GeoDataFrame` for geographical data.
 
