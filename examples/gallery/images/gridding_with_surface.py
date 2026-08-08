@@ -22,10 +22,7 @@ spacing = "5m"  # 5 arc-minutes
 
 # Calculate one representative median value for each occupied block.
 reduced_data = pygmt.blockmedian(
-    data=data,
-    region=region,
-    spacing=spacing,
-    center=True,
+    data=data, region=region, spacing=spacing, center=True
 )
 
 # Interpolate the reduced observations onto a regular grid. The value "d"
