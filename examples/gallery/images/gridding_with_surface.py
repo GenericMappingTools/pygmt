@@ -2,10 +2,11 @@
 Gridding scattered data
 =======================
 
-The :func:`pygmt.surface` function interpolates irregularly spaced
-(x, y, z) observations onto a regular grid. Before interpolation,
-:func:`pygmt.blockmedian` reduces redundant observations by returning one
-median value for every occupied block.
+The :func:`pygmt.surface` function interpolates irregularly spaced (x, y, z)
+observations onto a regular grid. Before interpolation, it's usually recommended
+to preprocess the data using one of :func:`pygmt.blockmean`,
+:func:`pygmt.blockmedian`, and :func:`pygmt.blockmode`, to avoid aliasing short
+wavelengths, by returning one value for every occupied block.
 
 """
 
@@ -30,11 +31,7 @@ reduced_data = pygmt.blockmedian(
 # Interpolate the reduced observations onto a regular grid. The value "d"
 # constrains the grid to the minimum and maximum input data values.
 grid = pygmt.surface(
-    data=reduced_data,
-    region=region,
-    spacing=spacing,
-    lower="d",
-    upper="d",
+    data=reduced_data, region=region, spacing=spacing, lower="d", upper="d"
 )
 
 fig = pygmt.Figure()
