@@ -28,7 +28,7 @@ and allowing different backends. GMT uses the
 and very fast. The PostScript figures can be converted to other formats like PDF, PNG,
 and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not have any
 contact with the original PostScript files and get only the more convenient formats like
-PDF and PNG. 
+PDF and PNG.
 
 For more information about the design and development of PyGMT, see the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) published in
