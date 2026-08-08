@@ -34,8 +34,7 @@ The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) an
 [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) (the co-creator and main developer
 of GMT) at the University of Hawaiʻi at Mānoa. Currently the project is maintained by an
 [international team](team.md) with contributions from
-[multiple contributors](https://github.com/GenericMappingTools/pygmt/graphs/contributors)
-(see also [AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)).
+[multiple contributors](https://github.com/GenericMappingTools/pygmt/graphs/contributors).
 
 We welcome any feedback and ideas! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
