@@ -2,15 +2,15 @@
 
 ## Why PyGMT
 
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
-play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
-quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
+A beautiful map is worth a thousand words. To experience the power of PyGMT, try it
+online with [Binder or Google Colab](https://github.com/GenericMappingTools/try-gmt)
+without installing anything on your computer.
 
-Afterward, try the [Intro to PyGMT](intro/index.rst) on your own, visit the
-[Gallery](gallery/index.rst) for more impressions, go through the
-[Tutorials](tutorials/index.rst) to learn things in more detail, look at the
-available map [Projections](projections/index.rst), and finally do not forget
-to check out some [external PyGMT examples](external_resources)!
+For a quick introduction, check out our [3-minute overview](https://youtu.be/4iPnITXrxVU).
+Afterward, try the [Intro to PyGMT](intro/index.rst) tutorial on your own, explore the
+[Gallery](gallery/index.rst) for inspiration, follow the [Tutorials](tutorials/index.rst)
+to learn more, explore available map [Projections](projections/index.rst), and finally
+check out some [external PyGMT examples](external_resources).
 
 ## Background
 
