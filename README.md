@@ -72,6 +72,7 @@ fig.show()
 
 ## Documentation
 
+<!-- TODO(PyGMT=0.20.0): change dev to latest -->
 - Documentation: [Latest version](https://www.pygmt.org/latest/) | [Development version](https://www.pygmt.org/dev/)
 - [Full installation instructions](https://www.pygmt.org/latest/install.html)
 - [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
