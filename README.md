@@ -24,17 +24,26 @@ publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
-A beautiful map is worth a thousand words. To experience the power of PyGMT, try it 
+A beautiful map is worth a thousand words. To experience the power of PyGMT, try it
 online with [Binder or Google Colab](https://github.com/GenericMappingTools/try-gmt)
 without installing anything on your computer. For a quick introduction, check out
 our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
 ## Dependencies
 
-Beside building on top of GMT and Python, PyGMT relies on several Python packages
+Beside building on top of GMT and Python, PyGMT relies on several Python libaries:
 
-- **Required**: NumPy, pandas, xarray, packaging
-- **Optional**: contextily, GeoPandas, IPython, pyarrow, rioarray
+- **Required**:
+[NumPy](https://numpy.org/),
+[pandas](https://pandas.pydata.org/),
+[xarray](https://xarray.pydata.org/),
+[packaging](https://packaging.pypa.io/en/stable/)
+- **Optional**:
+[IPython](https://ipython.org/),
+[GeoPandas](https://geopandas.org/),
+[contextily](https://contextily.readthedocs.io/),
+[rioarray](https://corteva.github.io/rioxarray/),
+[PyArrow](https://arrow.apache.org/docs/python/)
 
 For details on the versions, see [Minimum supported Versions](https://www.pygmt.org/latest/minversions.html)
 and [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html).
