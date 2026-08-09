@@ -25,7 +25,6 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     C="clearance",
-    D="offset",
     a="aspatial",
     e="find",
     f="coltypes",
@@ -33,7 +32,7 @@ from pygmt.params import Axis, Frame
     it="use_word",
     w="wrap",
 )
-def text_(  # noqa: PLR0912, PLR0913, PLR0915
+def text(  # ruff: ignore[too-many-branches, too-many-statements]
     self,
     textfiles: PathLike | TableLike | None = None,
     x=None,
@@ -44,7 +43,8 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     font: str | StringArrayTypes | bool = False,
     fill: str | None = None,
     pen: str | None = None,
-    justify: bool | None | AnchorCode | Sequence[AnchorCode] = None,
+    justify: bool | AnchorCode | Sequence[AnchorCode] | None = None,
+    offset: Sequence[float | str] | str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -77,6 +77,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
 
     $aliases
        - B = frame
+       - D = offset
        - F = **+a**: angle, **+c**: position, **+j**: justify, **+f**: font
        - G = fill
        - J = projection
@@ -143,10 +144,10 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (**c** for centimeters,
-        **i** for inches, or **p** for points; if not given we consult
-        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
-        size. Optionally, use modifier **+t** to set the shape of the text
+        are specified. Append a :ref:`dimension unit <dimension-units>`; if not given
+        we consult :gmt-term:`PROJ_LENGTH_UNIT`. Alternatively, append *%* for a
+        percentage of the font size. Optionally, use modifier **+t** to set the shape
+        of the text
         box when using ``fill`` and/or ``pen``. Append lowercase **o**
         to get a straight rectangle [Default is **o**]. Append uppercase
         **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
@@ -157,16 +158,14 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     pen
         Set the pen used to draw a rectangle around the text string (see ``clearance``)
         [Default is ``"0.25p,black,solid"``].
-    offset : str
-        [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offset the text from the projected (x, y) point by *dx*/\ *dy*
-        [Default is ``"0/0"``].
-        If *dy* is not specified then it is set equal to *dx*. Use **j** to
-        offset the text away from the point instead (i.e., the text
-        justification will determine the direction of the shift). Using
-        **J** will shorten diagonal offsets at corners by sqrt(2).
-        Optionally, append **+v** which will draw a line from the original
-        point to the shifted point; append a pen to change the attributes
+    offset
+        (*dx*, *dy*) or [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
+        Offset the text from the projected (x, y) point by (*dx*, *dy*) [Default is
+        (0, 0)]. If *dy* is not specified then it is set equal to *dx*. Use **j** to
+        offset the text away from the point instead (i.e., the text justification will
+        determine the direction of the shift). Using **J** will shorten diagonal offsets
+        at corners by sqrt(2). Optionally, append **+v** which will draw a line from
+        the original point to the shifted point; append a pen to change the attributes
         for this line.
     no_clip
         Do **not** clip text at the frame boundaries [Default is ``False``].
@@ -188,9 +187,12 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
         ``transparency`` can also be a 1-D array to set varying transparency for texts,
         but this option is only valid if using ``x``/``y`` and ``text``.
     $wrap
-    """
-    self._activate_figure()
 
+    See Also
+    --------
+    pygmt.Figure.paragraph
+        Typeset one or multiple paragraphs.
+    """
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
         (textfiles is not None)
@@ -281,6 +283,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
                 )
 
     aliasdict = AliasSystem(
+        D=Alias(offset, name="offset", sep="/", size=2),
         G=Alias(fill, name="fill"),
         N=Alias(no_clip, name="no_clip"),
         W=Alias(pen, name="pen"),
@@ -295,6 +298,7 @@ def text_(  # noqa: PLR0912, PLR0913, PLR0915
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=textfiles or data, required=data_is_required

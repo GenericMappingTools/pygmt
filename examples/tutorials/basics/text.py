@@ -59,7 +59,7 @@ fig.text(x=0, y=-3, text="my text")
 # Shift the text label relatively to the position given via the x and y parameters
 # by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down
 # (negative y-direction)
-fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
+fig.text(x=0, y=-3, text="my text", offset=(1, -0.5))
 
 fig.shift_origin(xshift="w+0.5c")
 
@@ -153,7 +153,7 @@ fig.show()
 # ----------------------------
 #
 # It is also possible to add text labels via an external input file containing ``x``,
-# ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
+# ``y``, and ``text`` columns. Additionally, columns to set the ``angle``, ``font``,
 # and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
@@ -162,7 +162,7 @@ fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file with region / sea names:
 # - longitude (x) and latitude (y) coordinates are in the first two columns
-# - angle, font, and justify muss be present in this order in the next three columns
+# - angle, font, and justify must be present in this order in the next three columns
 # - the text to be printed is given in the last column
 with Path.open("examples.txt", "w") as f:
     f.write("114.00  0.50   0 15p,Helvetica-Bold,white CM BORNEO\n")
@@ -196,19 +196,13 @@ fig.show()
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
-# Left: Add a tag to a subplot
+# Left: Add a tag to a subplot at the Top Left corner
 fig.basemap(
     region=[-5, 5, -5, 5],
     projection="X5c",
     frame=Frame(axes="WStr", axis=Axis(annot=True, tick=True)),
 )
-
-fig.text(
-    text="(a)",
-    position="TL",  # Top Left
-    justify="TL",  # Top Left
-    offset="0.1c/-0.1c",
-)
+fig.text(text="(a)", position="TL", justify="TL", offset=(0.1, -0.1))
 
 fig.shift_origin(xshift="w+1c")
 
@@ -224,7 +218,7 @@ fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
     position="TC",  # Top Center
     justify="MC",  # Middle Center
-    offset="0c/0.2c",
+    offset=(0, 0.2),
     no_clip=True,  # Allow plotting outside of the plot frame
 )
 

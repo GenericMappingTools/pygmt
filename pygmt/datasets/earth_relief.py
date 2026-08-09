@@ -92,7 +92,7 @@ def load_earth_relief(
         Select the source for the Earth relief data. Available options are:
 
         - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
-        - ``"synbath"``: IGPP Earth Relief dataset that uses stastical properties of
+        - ``"synbath"``: IGPP Earth Relief dataset that uses statistical properties of
           young seafloor to provide a more realistic relief of young areas with small
           seamounts.
         - ``"gebco"``: GEBCO Earth Relief with only observed relief and inferred relief

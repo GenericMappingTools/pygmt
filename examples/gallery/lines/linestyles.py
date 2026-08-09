@@ -33,7 +33,7 @@ fig.basemap(
 
 # Plot the line using the default line style
 fig.plot(x=x, y=y)
-fig.text(x=x[-1], y=y[-1], text="solid (default)", justify="ML", offset="0.2c/0c")
+fig.text(x=x[-1], y=y[-1], text="solid (default)", justify="ML", offset=(0.2, 0))
 
 # Plot the line using different line styles
 for linestyle in [
@@ -48,14 +48,14 @@ for linestyle in [
 ]:
     y -= 1  # Move the current line down
     fig.plot(x=x, y=y, pen=linestyle)
-    fig.text(x=x[-1], y=y[-1], text=linestyle, justify="ML", offset="0.2c/0c")
+    fig.text(x=x[-1], y=y[-1], text=linestyle, justify="ML", offset=(0.2, 0))
 
 # Plot the line like a railway track (black/white).
 # The trick here is plotting the same line twice but with different line styles
 y -= 1  # move the current line down
 fig.plot(x=x, y=y, pen="5p,black")
 fig.plot(x=x, y=y, pen="4p,white,20p_20p")
-fig.text(x=x[-1], y=y[-1], text="5p,black", justify="ML", offset="0.2c/0.2c")
-fig.text(x=x[-1], y=y[-1], text="4p,white,20p_20p", justify="ML", offset="0.2c/-0.2c")
+fig.text(x=x[-1], y=y[-1], text="5p,black", justify="ML", offset=(0.2, 0.2))
+fig.text(x=x[-1], y=y[-1], text="4p,white,20p_20p", justify="ML", offset=(0.2, -0.2))
 
 fig.show()

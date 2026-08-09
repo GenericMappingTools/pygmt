@@ -16,7 +16,7 @@ __doctest_skip__ = ["coast"]
 
 @fmt_docstring
 @use_alias(A="area_thresh", C="lakes", E="dcw")
-def coast(  # noqa: PLR0913
+def coast(
     self,
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
@@ -208,6 +208,15 @@ def coast(  # noqa: PLR0913
     $perspective
     $transparency
 
+    See Also
+    --------
+    pygmt.Figure.directional_rose
+        Add a map directional rose.
+    pygmt.Figure.magnetic_rose
+        Add a map magnetic rose.
+    pygmt.Figure.scalebar
+        Add a scale bar.
+
     Example
     -------
     >>> import pygmt
@@ -232,8 +241,6 @@ def coast(  # noqa: PLR0913
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     if (
         kwargs.get("G", land) is None
         and kwargs.get("S", water) is None
@@ -286,5 +293,6 @@ def coast(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_list(aliasdict))

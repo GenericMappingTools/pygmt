@@ -41,7 +41,7 @@ fig.text(
     x=cities_large.geometry.x,
     y=cities_large.geometry.y,
     text=cities_large["name"],
-    offset="0.12c",
+    offset=0.12,
     justify="BL",
     font="6p,Helvetica-Bold",
     fill="white@30",

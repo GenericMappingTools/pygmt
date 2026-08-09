@@ -22,7 +22,7 @@ fig.basemap(region=[0, 2, 0, 2], projection="X10c", frame=True)
 # the current plot, scale it to a width of 8 centimeters and draw a rectangular border
 # around it.
 fig.image(
-    imagefile="https://oceania.generic-mapping-tools.org/cache/needle.jpg",
+    imagefile="https://github.com/GenericMappingTools/gmtserver-admin/raw/master/cache/needle.jpg",
     position=Position((1, 1), cstype="mapcoords", anchor="MC"),
     width="8c",
     box=True,

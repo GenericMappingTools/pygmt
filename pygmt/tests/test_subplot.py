@@ -110,7 +110,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
             pass
 
 
-@pytest.mark.mpl_image_compare()
+@pytest.mark.mpl_image_compare
 def test_subplot_outside_plotting_positioning():
     """
     Plotting calls are correctly positioned after exiting subplot.
@@ -129,6 +129,25 @@ def test_subplot_outside_plotting_positioning():
         cmap="google/turbo",
         frame=True,
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_subplot_basic_frame.png")
+def test_subplot_set_panel_without_panel():
+    """
+    Ensure Figure.set_panel works when panel is omitted.
+
+    Omitting ``panel`` should let GMT advance to the next panel according to the subplot
+    order instead of passing an invalid ``None`` argument to the C API.
+
+    Use the baseline image from test_subplot_basic_frame.
+    """
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=2, figsize=("6c", "3c"), frame=Frame(axes="WSne")):
+        with fig.set_panel():
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot0"))
+        with fig.set_panel():
+            fig.basemap(region=[0, 3, 0, 3], frame=Frame(title="plot1"))
     return fig
 
 

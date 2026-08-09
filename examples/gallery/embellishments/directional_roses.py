@@ -3,7 +3,7 @@ Directional map rose
 ====================
 
 The :meth:`pygmt.Figure.directional_rose` method allows to add directional roses on
-maps. Using the method without any arguments will plot a rose at the bottom left corner,
+maps. Using the method without any arguments will plot a rose at the Top Right corner,
 but this example will focus on customizing its position and appearance.
 
 Colors of the map roses can be adjusted using :gmt-term:`MAP_DEFAULT_PEN` and

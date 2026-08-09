@@ -1,27 +1,32 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
-version-resolver:
-  minor:
-    labels:
-      - 'feature'
-  default: patch
 categories:
+  - type: 'pre-exclude'
+    when:
+      label: 'skip-changelog'
   - title: 'New Features'
-    label: 'feature'
+    semver-increment: 'minor'
+    when:
+      label: 'feature'
   - title: 'Enhancements'
-    label: 'enhancement'
+    when:
+      label: 'enhancement'
   - title: 'Deprecations'
-    label: 'deprecation'
+    when:
+      label: 'deprecation'
   - title: 'Bug Fixes'
-    label: 'bug'
+    when:
+      label: 'bug'
   - title: 'Documentation'
-    label: 'documentation'
+    when:
+      label: 'documentation'
   - title: 'Maintenance'
-    label: 'maintenance'
-exclude-labels:
-  - 'skip-changelog'
+    when:
+      label: 'maintenance'
 exclude-contributors:
   - 'actions-bot'
+  - 'Copilot'
+  - 'copilot-swe-agent[bot]'
   - 'dependabot'
   - 'dependabot[bot]'
 category-template: '### $TITLE'
@@ -46,7 +51,7 @@ replacers:
 template: |
   ## Release v$RESOLVED_VERSION (20YY/MM/DD)
 
-  [![Digital Object Identifier for PyGMT v$RESOLVED_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+  [![Digital Object Identifier for PyGMT v$RESOLVED_VERSION](https://img.shields.io/badge/DOI-10.5281/zenodo.3781524-blue)](https://doi.org/10.5281/zenodo.3781524)
 
   ### Highlights
 

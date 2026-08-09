@@ -11,14 +11,20 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    deprecate_parameter,
+    fmt_docstring,
+    is_given,
+    use_alias,
+)
 from pygmt.params import Axis, Frame
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
 
 
-def _alias_option_Q(  # noqa: N802
+def _alias_option_Q(  # ruff: ignore[invalid-function-name]
     surftype=None, dpi=None, mesh_fill=None, monochrome=False, nan_transparent=False
 ):
     """
@@ -69,8 +75,7 @@ def _alias_option_Q(  # noqa: N802
     _old_surftype_syntax = surftype is not None and surftype not in _surftype_mapping
 
     if _old_surftype_syntax and any(
-        v is not None and v is not False
-        for v in (dpi, mesh_fill, monochrome, nan_transparent)
+        is_given(v) for v in (dpi, mesh_fill, monochrome, nan_transparent)
     ):
         raise GMTParameterError(
             conflicts_with=(
@@ -116,7 +121,7 @@ def _alias_option_Q(  # noqa: N802
 @deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
 @deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(I="shading", f="coltypes", n="interpolation")
-def grdview(  # noqa: PLR0913
+def grdview(
     self,
     grid: PathLike | xr.DataArray,
     cmap: str | None = None,
@@ -218,7 +223,7 @@ def grdview(  # noqa: PLR0913
         value in the grid. However, if ``region`` was used to set *zmin/zmax* then
         *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and
         ``facade_fill`` to control the appearance of the plane.
-        **Note**: For GMT<=6.6.0, *zmin* set in ``region`` has no effect due to a GMT
+        **Note**: For GMT<=6.7.0, *zmin* set in ``region`` has no effect due to a GMT
         bug.
     facade_fill
         Fill for the frontal facade between the plane specified by ``plane`` and the
@@ -286,13 +291,12 @@ def grdview(  # noqa: PLR0913
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
         plane = True
 
-    # Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838
+    # Workaround for GMT bugs https://github.com/GenericMappingTools/gmt/pull/8838 and
+    # https://github.com/GenericMappingTools/gmt/pull/9123.
     # Fix the plane value to be the grid minimum if plane=True.
     # Notes:
     # 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.
@@ -300,8 +304,8 @@ def grdview(  # noqa: PLR0913
     #    it is less than the grid minimum value.". We can't add a workaround for this
     #    case since we can't parse zmin/zmax from 'region' if 'region' was set in
     #    previous plotting commands.
-    # TODO(GMT>6.6.0): Remove this workaround.
-    if Version(__gmt_version__) <= Version("6.6.0") and plane is True:
+    # TODO(GMT>6.7.0): Remove this workaround.
+    if Version(__gmt_version__) <= Version("6.7.0") and plane is True:
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
@@ -334,6 +338,7 @@ def grdview(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

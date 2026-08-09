@@ -34,7 +34,7 @@ from pygmt.src._common import _parse_position
     h="header",
     w="wrap",
 )
-def wiggle(  # noqa: PLR0913
+def wiggle(
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -94,7 +94,7 @@ def wiggle(  # noqa: PLR0913
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
-        - A sequence of two values representing the x- and y- coordinates in plot
+        - A sequence of two values representing the x- and y-coordinates in plot
           coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
@@ -109,10 +109,9 @@ def wiggle(  # noqa: PLR0913
         Set the alignment of the scale label. Choose from ``"left"`` or ``"right"``
         [Default is ``"left"``].
     scale : str or float
-        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
-        or **p** to indicate the distance unit (centimeters, inches, or
-        points); if no unit is given we use the default unit that is
-        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
+        Give anomaly scale in data-units/dimension-unit. Append a
+        :ref:`dimension unit <dimension-units>`; if no unit is given we use the default
+        unit that is controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
     positive_fill
         Set color or pattern for filling positive wiggles [Default is no fill].
     negative_fill
@@ -138,8 +137,6 @@ def wiggle(  # noqa: PLR0913
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
@@ -174,6 +171,7 @@ def wiggle(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

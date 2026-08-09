@@ -13,7 +13,7 @@ fig = pygmt.Figure()
 fig.basemap(region=[-8, 8, -7, 7], projection="M10c", frame=True)
 
 # Add a magnetic rose
-# By default, it's placed in the lower left corner
+# By default, it's placed in the Top Right corner
 fig.magnetic_rose()
 
 # Add a magnetic rose with several adjustments

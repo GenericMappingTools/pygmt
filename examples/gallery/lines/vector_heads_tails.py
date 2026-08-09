@@ -82,7 +82,7 @@ for vecstyle in [
         x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", fill="red3"
     )
     fig.text(
-        x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c"
+        x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset=(0.2, 0)
     )
     y -= 1  # move the next vector down
 

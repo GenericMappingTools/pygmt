@@ -54,7 +54,7 @@ class Position(BaseParam):
 
     ``cstype="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
-        ``refpoint`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
+        ``refpoint`` as (*x*, *y*) with a :ref:`dimension unit <dimension-units>`.
         Useful for precise layout control.
 
         **Example:** ``refpoint=("2c", "2.5c"), cstype="plotcoords"``
@@ -186,6 +186,18 @@ class Position(BaseParam):
                         description="reference point",
                         reason="Expect a valid 2-character justification code.",
                     )
+            case _:
+                raise GMTValueError(
+                    self.cstype,
+                    description="cstype",
+                    choices=[
+                        "mapcoords",
+                        "plotcoords",
+                        "boxcoords",
+                        "inside",
+                        "outside",
+                    ],
+                )
         # Validate the anchor if specified.
         if self.anchor is not None and self.anchor not in _valid_anchors:
             raise GMTValueError(

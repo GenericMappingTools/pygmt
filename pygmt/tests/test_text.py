@@ -6,7 +6,9 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from packaging.version import Version
 from pygmt import Figure, config
+from pygmt.clib.session import __gmt_version__
 from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
@@ -169,7 +171,12 @@ def test_text_invalid_inputs(region):
         fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
-@pytest.mark.mpl_image_compare
+# TODO(GMT>=6.7.0): Remove the conditional filename when the minimum version is reached.
+@pytest.mark.mpl_image_compare(
+    filename="test_text_position_offset_with_line.png"
+    if Version(__gmt_version__) >= Version("6.7.0")
+    else "test_text_position_offset_with_line_legacy.png"
+)
 def test_text_position_offset_with_line(region):
     """
     Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
@@ -470,8 +477,8 @@ def test_text_nonascii(encoding):
     if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
         config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
-    fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
+    fig.text(position="TL", text="position-text:°α")  # ruff: ignore[ambiguous-unicode-character-string]
+    fig.text(x=1, y=1, text="xytext:°α")  # ruff: ignore[ambiguous-unicode-character-string]
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
     return fig
 
@@ -484,7 +491,7 @@ def test_text_quotation_marks():
     See https://github.com/GenericMappingTools/pygmt/issues/3104 and
     https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
-    quotations = "` ' ‘ ’ \" “ ”"  # noqa: RUF001
+    quotations = "` ' ‘ ’ \" “ ”"  # ruff: ignore[ambiguous-unicode-character-string]
     fig = Figure()
     fig.basemap(
         projection="X4c/2c",

@@ -38,6 +38,8 @@ def test_params_position_invalid_location():
     Test that invalid location inputs raise GMTValueError.
     """
     with pytest.raises(GMTValueError):
+        Position((1, 2), cstype="invalid")
+    with pytest.raises(GMTValueError):
         Position("invalid", cstype="mapcoords")
     with pytest.raises(GMTValueError):
         Position((1, 2, 3), cstype="mapcoords")

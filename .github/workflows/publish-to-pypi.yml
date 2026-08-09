@@ -43,17 +43,19 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         # fetch all history so that setuptools-scm works
         fetch-depth: 0
         persist-credentials: false
 
-    - name: Set up Python and install dependencies
-      uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+    - name: Set up Python
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
       with:
         python-version: '3.14'
-        pip-install: build # zizmor: ignore[misfeature]
+
+    - name: Install dependencies
+      run: python -m pip install build
 
     # This step is only necessary for testing purposes and for TestPyPI
     - name: Fix up version string for TestPyPI
@@ -97,7 +99,7 @@ jobs:
         path: dist/
 
     - name: Publish distribution 📦 to TestPyPI
-      uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+      uses: pypa/gh-action-pypi-publish@ba38be9e461d3875417946c167d0b5f3d385a247 # v1.14.1
       with:
         repository-url: https://test.pypi.org/legacy/
 
@@ -121,4 +123,4 @@ jobs:
         path: dist/
 
     - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+      uses: pypa/gh-action-pypi-publish@ba38be9e461d3875417946c167d0b5f3d385a247 # v1.14.1

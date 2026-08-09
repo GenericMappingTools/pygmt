@@ -14,6 +14,7 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
+    is_given,
     kwargs_to_strings,
     use_alias,
 )
@@ -21,7 +22,7 @@ from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
-def _alias_option_A(  # noqa: N802
+def _alias_option_A(  # ruff: ignore[invalid-function-name]
     tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,
@@ -62,7 +63,7 @@ def _alias_option_A(  # noqa: N802
     # Check conflicts with deprecated 'autolabel' parameter.
     if autolabel:
         if any(
-            v is not None and v is not False
+            is_given(v)
             for v in [tag, tag_position, tag_box, tag_number_style, tag_orientation]
         ):
             raise GMTParameterError(
@@ -83,8 +84,7 @@ def _alias_option_A(  # noqa: N802
     # Validate tag_box if provided.
     if tag_box:
         if any(
-            v is not None and v is not False
-            for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
+            is_given(v) for v in {tag_box.inner_pen, tag_box.inner_gap, tag_box.radius}
         ):
             raise GMTValueError(
                 tag_box,
@@ -131,7 +131,7 @@ def _alias_option_A(  # noqa: N802
 @contextlib.contextmanager
 @use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(  # noqa: PLR0913
+def subplot(
     self,
     nrows: int = 1,
     ncols: int = 1,
@@ -298,8 +298,6 @@ def subplot(  # noqa: PLR0913
     $frame
     $verbose
     """
-    self._activate_figure()
-
     if nrows < 1 or ncols < 1:
         _value = f"{nrows=}, {ncols=}"
         raise GMTValueError(
@@ -337,6 +335,8 @@ def subplot(  # noqa: PLR0913
     # Otherwise, "subplot end" will use the last session, which may cause
     # strange positioning issues for later plotting calls.
     # See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    self._activate_figure()
+
     try:
         with Session() as lib:
             lib.call_module(
@@ -414,18 +414,15 @@ def set_panel(
 
     $verbose
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
+    args = ["set"]
+    if panel is not None:
+        args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
+    args.extend(build_arg_list(aliasdict))
+
+    self._activate_figure()
     with Session() as lib:
-        lib.call_module(
-            module="subplot",
-            args=[
-                "set",
-                Alias(panel, name="panel", sep=",", size=2)._value,
-                *build_arg_list(aliasdict),
-            ],
-        )
+        lib.call_module(module="subplot", args=args)
         yield

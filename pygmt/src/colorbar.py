@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
@@ -63,11 +63,11 @@ def _build_frame(
     >>> _build_frame()  # Passing no parameters returns None
     """
     # Using the old 'frame' parameter.
-    if frame is not None and frame is not False:
+    if is_given(frame):
         return frame
 
     _xaxis_is_set = any(
-        v is not None and v is not False
+        is_given(v)
         for v in {annot, tick, grid, annot_angle, annot_prefix, annot_unit, label}
     )
     _yaxis_is_set = unit is not None
@@ -92,7 +92,7 @@ def _build_frame(
     return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
-def _alias_option_D(  # noqa: N802, PLR0913
+def _alias_option_D(  # ruff: ignore[invalid-function-name]
     position=None,
     length=None,
     width=None,
@@ -220,7 +220,7 @@ def _alias_option_D(  # noqa: N802, PLR0913
     ]
 
 
-def _alias_option_N(dpi=None):  # noqa: N802
+def _alias_option_N(dpi=None):  # ruff: ignore[invalid-function-name]
     """
     Return an Alias object for the colorbar encoding setting.
 
@@ -241,9 +241,10 @@ def _alias_option_N(dpi=None):  # noqa: N802
 
 
 @fmt_docstring
-@use_alias(C="cmap", L="equalsize", Z="zfile")
-def colorbar(  # noqa: PLR0913
+@use_alias(L="equalsize", Z="zfile")
+def colorbar(
     self,
+    cmap: str | bool = False,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
     width: float | str | None = None,
@@ -306,6 +307,7 @@ def colorbar(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     $aliases
+       - C = cmap
        - F = box
        - G = truncate
        - I = shading
@@ -367,8 +369,12 @@ def colorbar(  # noqa: PLR0913
         annotation text; the unit is placed after the annotation text; and the angle is
         the angle of the annotation text.
     frame
-        Set colorbar boundary frame, labels, and axes attributes. If set to ``"none"``,
-        then no frame will be drawn.
+        Set colorbar boundary frame, labels, and axes attributes. If ``frame=True``, a
+        default frame will be drawn. If ``frame="none"``, no frame will be drawn. Raw
+        GMT strings or sequences of strings are also supported for backward
+        compatibility. For more control over the frame attributes, use parameters such
+        as ``annot``, ``tick``, ``grid``, ``annot_angle``, ``annot_prefix``,
+        ``annot_unit``, ``label``, and ``unit`` instead.
     orientation
         Set the colorbar orientation to either ``"horizontal"`` or ``"vertical"``.
         [Default is vertical, unless ``position`` is set to bottom-center or top-center
@@ -476,8 +482,6 @@ def colorbar(  # noqa: PLR0913
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=None,  # Use GMT's default behavior if position is not provided.
@@ -497,6 +501,7 @@ def colorbar(  # noqa: PLR0913
     )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         D=_alias_option_D(
             position=position,
             length=length,
@@ -539,5 +544,6 @@ def colorbar(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_list(aliasdict))

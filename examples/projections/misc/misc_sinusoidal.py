@@ -11,8 +11,9 @@ meridian).
 
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
-The projection is set with **i** or **I**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **i** or **I**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
@@ -29,3 +30,5 @@ fig.coast(
     water="bisque4",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]

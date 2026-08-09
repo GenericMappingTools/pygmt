@@ -8,8 +8,9 @@ and hence non-conformal. All meridians and parallels are straight lines.
 
 **y**\ *lon0/lat0*\ */scale* or **Y**\ *lon0/lat0*\ */width*
 
-The projection is set with **y** or **Y**. The projection center is set by
-*lon0/lat0*, and the figure size is set with *scale* or *width*.
+- **y** or **Y**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
@@ -26,3 +27,5 @@ fig.coast(
     water="steelblue",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]

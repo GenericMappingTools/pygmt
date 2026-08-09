@@ -1,11 +1,6 @@
-# Project Contributors
+# PyGMT Developers
 
-This project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com)
-during [an NSF funded postdoc](https://www.leouieda.com/blog/hawaii-gmt-postdoc)
-with [Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) at the University of
-Hawaiʻi at Mānoa.
-
-The following people have contributed code and/or documentation to the project
+The following people have contributed code and/or documentation to the PyGMT project
 (alphabetically by name) and are considered to be "PyGMT Developers":
 
 | Name | ORCID | Affiliation |
@@ -28,6 +23,3 @@ The following people have contributed code and/or documentation to the project
 | [Xingchen He](https://github.com/Chuan1937) | [0009-0004-7182-2252](https://orcid.org/0009-0004-7182-2252) | Chengdu University of Technology, China |
 | [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel |
 | [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Unaffiliated |
-
-Individuals who have made significant contributions to PyGMT are recognized on the
-[PyGMT Team](https://www.pygmt.org/dev/team.html) page.
