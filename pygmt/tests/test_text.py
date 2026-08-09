@@ -6,7 +6,9 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from packaging.version import Version
 from pygmt import Figure, config
+from pygmt.clib.session import __gmt_version__
 from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
@@ -169,7 +171,12 @@ def test_text_invalid_inputs(region):
         fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
-@pytest.mark.mpl_image_compare
+# TODO(GMT>=6.7.0): Remove the conditional filename when the minimum version is reached.
+@pytest.mark.mpl_image_compare(
+    filename="test_text_position_offset_with_line.png"
+    if Version(__gmt_version__) >= Version("6.7.0")
+    else "test_text_position_offset_with_line_legacy.png"
+)
 def test_text_position_offset_with_line(region):
     """
     Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
