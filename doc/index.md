@@ -10,7 +10,7 @@
 ::::
 <!-- Add short text what PyGMT is and does -->
 :::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
-A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
+A Python interface to the [Generic Mapping Tools](https://www.generic-mapping-tools.org/) for geospatial visualization and analysis
 :::
 
 :::{div} sd-text-center sd-fs-5 sd-pb-3
