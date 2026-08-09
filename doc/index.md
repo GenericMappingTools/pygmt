@@ -1,19 +1,172 @@
-```{title} Home
-```
+:::{title} Home
+:::
 
-<div class="banner">
-    <img src="_static/pygmtlogo_light.png" alt="PyGMT Logo" style="width: 65%;">
-    <h2>
-        A Python interface for the
-        <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
-    </h2>
-</div>
+<!-- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html -->
+<!-- Add and center the PyGMT logo image -->
+::::{div} sd-d-flex-row sd-align-major-center
+:::{image} ./_static/pygmtlogo.png
+:width: 600px
+:::
+::::
+<!-- Add short text what PyGMT is and does -->
+:::{div} sd-text-center sd-fs-3 sd-pt-3 sd-pb-3
+A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
+:::
 
-```{include} ../README.md
-:start-after: <!-- doc-index-start-after -->
-:end-before: <!-- doc-index-end-before -->
-:relative-images:
-```
+:::{div} sd-text-center sd-fs-5 sd-pb-3
+PyGMT is a library for processing geospatial and geophysical data and making
+publication-quality maps and figures. It provides a Pythonic interface for the
+[Generic Mapping Tools (GMT)](https://www.generic-mapping-tools.org/), a command-line
+program widely used across the Earth, Ocean, and Planetary sciences and beyond.
+:::
+
+
+<!-- Set up grid -->
+:::::{grid} 1 2 2 3
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`rocket;2.5em;sd-text-info` **Getting Started**
+^^^
+:::{button-ref} install
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} intro/index
+:color: secondary
+:outline:
+:shadow:
+:::
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`globe;2.5em;sd-text-info` **Project Overview**
+^^^
+:::{button-ref} overview
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} ecosystem
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} presentations
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} citing
+:color: secondary
+:outline:
+:shadow:
+:::
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`mortar-board;2.5em;sd-text-info` **User Guide**
+^^^
+:::{button-ref} tutorials/index
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} gallery/index
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} projections/index
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} external_resources
+:color: secondary
+:outline:
+:shadow:
+:::
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`book;2.5em;sd-text-info` **Reference Guide**
+^^^
+:::{button-ref} api/index
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} techref/index
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} minversions
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} changes
+:color: secondary
+:outline:
+:shadow:
+:::
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`terminal;2.5em;sd-text-info` **Development**
+^^^
+:::{button-ref} contributing
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} maintenance
+:color: secondary
+:outline:
+:shadow:
+:::
+:::{button-ref} team
+:color: secondary
+:outline:
+:shadow:
+:::
+::::
+
+::::{grid-item-card}
+:margin: 0 3 0 0
+{octicon}`light-bulb;2.5em;sd-text-info` **Getting Help**
+^^^
+:::{button-link} https://forum.generic-mapping-tools.org
+:color: secondary
+:outline:
+:shadow:
+{octicon}`comment-discussion;1em;sd-text-info` GMT Forum
+:::
+:::{button-link} https://github.com/GenericMappingTools/pygmt/issues
+:color: secondary
+:outline:
+:shadow:
+{octicon}`bug;1em;sd-text-info` Bug Report (GitHub)
+:::
+:::{button-link} https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md
+:color: secondary
+:outline:
+:shadow:
+{octicon}`code-of-conduct;1em;sd-text-info` Code of Conduct
+:::
+::::
+
+:::::
+
+
+<!-- Set up sidebar -->
 
 ```{toctree}
 :maxdepth: 2
@@ -49,12 +202,12 @@ external_resources.md
 ```{toctree}
 :maxdepth: 2
 :hidden:
-:caption: Reference Documentation
+:caption: Reference Guide
 
 api/index.rst
 techref/index.md
-changes.md
 minversions.md
+changes.md
 ```
 
 ```{toctree}
@@ -62,7 +215,7 @@ minversions.md
 :hidden:
 :caption: Development
 
-team.md
 contributing.md
 maintenance.md
+team.md
 ```

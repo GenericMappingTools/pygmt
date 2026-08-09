@@ -50,7 +50,7 @@ jobs:
           environment-name: pygmt
           create-args: >-
             python=3.14
-            gmt=6.6.0
+            gmt=6.7.0
             numpy
             pandas
             xarray
