@@ -88,8 +88,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.6/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.7/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
