@@ -20,7 +20,7 @@ from pygmt.params import Axis, Box, Frame
 __doctest_skip__ = ["coast"]
 
 
-def _alias_option_C(lakes=None, river_lakes=None):  # noqa: N802
+def _alias_option_C(lakes=None, river_lakes=None):  # ruff: ignore[invalid-function-name]
     """
     Helper function to create the alias list for the -C option.
 
