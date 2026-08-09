@@ -3,7 +3,7 @@
 These are international presentations, including both talks and posters, on the development of PyGMT (previously "GMT/Python"):
 
 
-:::::{grid} 1 2 2 3
+:::::{grid} 1 2 2 2
 
 ::::{grid-item-card}
 :text-align: center
