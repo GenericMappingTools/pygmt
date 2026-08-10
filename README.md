@@ -1,6 +1,6 @@
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
-  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png">
+  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo_dark.png">
+  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo.png">
 </picture>
 
 # A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
