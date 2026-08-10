@@ -8,16 +8,18 @@ These are international presentations, including both talks and posters, on the 
 ::::{grid-item-card}
 :text-align: center
 :margin: 0 3 0 0
-*AGU 2024* <br> **Accessing and Integrating GMT with Python and the Scientific Python Ecosystem**
+*AGU 2024*
 ^^^
+**Accessing and Integrating GMT with Python and the Scientific Python Ecosystem**
+
 ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8)
-<br> &nbsp; <br>
+
+Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, Michael Grund
++++
 {bdg-link-muted-line}`doi: 10.6084/m9.figshare.28049495 <https://doi.org/10.6084/m9.figshare.28049495>`
 
 {bdg-link-info}`Slides <https://doi.org/10.6084/m9.figshare.28049495>`
 {bdg-link-info}`Code <https://github.com/yvonnefroehlich/gmt-pygmt-plotting/tree/main/011_agu_FTLJG_2024#011_agu_ftljg_2024>`
-+++
-Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, Michael Grund
 ::::
 
 ::::{grid-item-card}
