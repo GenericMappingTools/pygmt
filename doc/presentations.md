@@ -10,7 +10,7 @@ These are international presentations, including both talks and posters, on the 
 :margin: 0 3 0 0
 *AGU 2024*
 ^^^
-**Accessing and Integrating GMT with Python and the Scientific Python Ecosystem**
+**PyGMT - Accessing and Integrating GMT with Python and the Scientific Python Ecosystem**
 
 ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8)
 
