@@ -42,7 +42,7 @@ PyGMT depends on GMT and the following Python libraries:
   [IPython](https://ipython.org/),
   [GeoPandas](https://geopandas.org/),
   [contextily](https://contextily.readthedocs.io/),
-  [rioarray](https://corteva.github.io/rioxarray/),
+  [rioxarray](https://corteva.github.io/rioxarray/),
   [PyArrow](https://arrow.apache.org/docs/python/)
 
 For detailed version requirements, see [Minimum Supported Versions](https://www.pygmt.org/latest/minversions.html).
