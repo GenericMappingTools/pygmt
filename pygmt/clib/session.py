@@ -197,7 +197,7 @@ class Session:
         """
         if not hasattr(self, "_info"):
             self._info = {
-                "version": self.get_default("API_BIN_VERSION")
+                "version": self.get_default("API_BIN_VERSION"),
                 # "api version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
                 # API_BINDIR points to the directory of the Python interpreter
