@@ -30,7 +30,7 @@ Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, Michael Grund
 ^^^
 **Geospatial Analysis & Visualization with PyGMT**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/scipy2022-youtube-thumbnail.jpg)
+![](_static/scipy2022-youtube-thumbnail.jpg)
 
 Max Jones, Wei Ji Leong, Leonardo Uieda
 +++
@@ -49,7 +49,7 @@ Max Jones, Wei Ji Leong, Leonardo Uieda
 ^^^
 **PyGMT: Accessing the Generic Mapping Tools from Python**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/agu2019-poster.jpg)
+![](_static/agu2019-poster.jpg)
 
 Leonardo Uieda, Paul Wessel
 +++
@@ -66,7 +66,7 @@ Leonardo Uieda, Paul Wessel
 ^^^
 **Building an object-oriented Python interface for the Generic Mapping Tools**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/scipy2018-youtube-thumbnail.png)
+![](_static/scipy2018-youtube-thumbnail.png)
 
 Leonardo Uieda, Paul Wessel
 +++
@@ -85,7 +85,7 @@ Leonardo Uieda, Paul Wessel
 ^^^
 **Integrating the Generic Mapping Tools with the Scientific Python Ecosystem**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/aogs2018-poster.jpg)
+![](_static/aogs2018-poster.jpg)
 
 Leonardo Uieda, Paul Wessel
 +++
@@ -102,7 +102,7 @@ Leonardo Uieda, Paul Wessel
 ^^^
 **Bringing the Generic Mapping Tools to Python**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/scipy2017-youtube-thumbnail.png)
+![](_static/scipy2017-youtube-thumbnail.png)
 
 Leonardo Uieda, Paul Wessel
 +++
@@ -121,7 +121,7 @@ Leonardo Uieda, Paul Wessel
 ^^^
 **A modern Python interface for the Generic Mapping Tools**
 
-![](https://github.com/GenericMappingTools/pygmt/raw/main/doc/_static/agu2017-poster.jpg)
+![](_static/agu2017-poster.jpg)
 
 Leonardo Uieda, Paul Wessel
 +++
