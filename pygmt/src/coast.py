@@ -60,7 +60,7 @@ def _alias_option_C(lakes=None, river_lakes=None):  # ruff: ignore[invalid-funct
             )
         return Alias(lakes, name="lakes")  # Return as is.
 
-    # The new sytax.
+    # The new syntax.
     return [
         Alias(lakes, name="lakes", suffix="+l"),
         Alias(river_lakes, name="river_lakes", suffix="+r"),
