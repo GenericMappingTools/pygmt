@@ -3,10 +3,10 @@ Gridding scattered data
 =======================
 
 The :func:`pygmt.surface` function interpolates irregularly spaced (x, y, z)
-observations onto a regular grid. Before interpolation, it's usually recommended
-to preprocess the data using one of :func:`pygmt.blockmean`,
-:func:`pygmt.blockmedian`, and :func:`pygmt.blockmode`, to avoid aliasing short
-wavelengths, by returning one value for every occupied block.
+observations onto a regular grid. Before interpolation, it's usually recommended to
+preprocess the data using one of :func:`pygmt.blockmean`, :func:`pygmt.blockmedian`, and
+:func:`pygmt.blockmode`, to avoid aliasing short wavelengths, by returning one value for
+every occupied block.
 
 """
 
@@ -21,9 +21,7 @@ region = [245, 255, 20, 30]
 spacing = "5m"  # 5 arc-minutes
 
 # Calculate one representative median value for each occupied block.
-reduced_data = pygmt.blockmedian(
-    data=data, region=region, spacing=spacing, center=True
-)
+reduced_data = pygmt.blockmedian(data=data, region=region, spacing=spacing, center=True)
 
 # Interpolate the reduced observations onto a regular grid. The value "d"
 # constrains the grid to the minimum and maximum input data values.
@@ -42,7 +40,6 @@ with fig.subplot(nrows=1, ncols=2, figsize=("20c", "9c")):
             region=region,
             projection="M?",
             frame=Frame(
-                axes="WSne",
                 axis=Axis(annot=2, tick=1),
                 title="Block-median observations",
             ),
@@ -63,7 +60,6 @@ with fig.subplot(nrows=1, ncols=2, figsize=("20c", "9c")):
             region=region,
             projection="M?",
             frame=Frame(
-                axes="WSne",
                 axis=Axis(annot=2, tick=1),
                 title="Interpolated surface",
             ),
