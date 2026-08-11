@@ -29,6 +29,7 @@ def tilemap(
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    headers: dict[str, str] | None = None,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -89,7 +90,7 @@ def tilemap(
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
           URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
-          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+          ``https://tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -108,6 +109,10 @@ def tilemap(
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
+    headers
+        HTTP headers to includes with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. By default, only passing
+        PyGMT (with the version string and URL) as the User-Agent.
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
@@ -120,6 +125,7 @@ def tilemap(
         wait=wait,
         max_retries=max_retries,
         zoom_adjust=zoom_adjust,
+        headers=headers,
     )
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC

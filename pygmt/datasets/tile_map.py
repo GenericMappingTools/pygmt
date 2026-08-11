@@ -6,6 +6,8 @@ Function to load raster tile maps from XYZ tile providers, and load as
 from collections.abc import Sequence
 from typing import Literal
 
+from pygmt._show_versions import __version__ as _pygmt_version
+
 try:
     import contextily
     from rasterio.crs import CRS
@@ -40,6 +42,7 @@ def load_tile_map(
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    headers: dict[str, str] | None = None,
 ) -> xr.DataArray:
     """
     Load a georeferenced raster tile map from XYZ tile providers.
@@ -75,7 +78,7 @@ def load_tile_map(
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
           URL need to be {x}, {y}, {z}, respectively. E.g.
-          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+          ``https://tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -98,6 +101,10 @@ def load_tile_map(
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
+    headers
+        HTTP headers to includes with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. By default, only passing
+        PyGMT (with the version string and URL) as the User-Agent.
 
     Returns
     -------
@@ -154,6 +161,10 @@ def load_tile_map(
         )
         raise ImportError(msg)
 
+    # Set default HTTP headers.
+    if headers is None:
+        headers = {"User-Agent": f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"}
+
     # Keyword arguments for contextily.bounds2img
     contextily_kwargs = {
         "zoom": zoom,
@@ -162,6 +173,7 @@ def load_tile_map(
         "wait": wait,
         "max_retries": max_retries,
         "zoom_adjust": zoom_adjust,
+        "headers": headers,
     }
 
     west, east, south, north = region
