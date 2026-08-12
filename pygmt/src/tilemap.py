@@ -110,9 +110,10 @@ def tilemap(
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
     headers
-        HTTP headers to includes with requests to the tile server. This can be useful
-        for authentication or to set a custom User-Agent. By default, only passing
-        PyGMT (with the version string and URL) as the User-Agent.
+        HTTP headers to include with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. When supported by
+        ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
+        ``PyGMT/v0.19.0 (+https://www.pygmt.org)``.
 
         .. note::
            The ``headers`` parameter requires ``contextily>=1.7.0``.
