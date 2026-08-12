@@ -87,9 +87,6 @@ def load_tile_map(
 
         .. important::
            Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).
-
-        .. note::
-           OpenStreetMap tile providers require ``contextily>=1.7.0``.
     lonlat
         If ``False``, coordinates in ``region`` are assumed to be Spherical Mercator as
         opposed to longitude/latitude.
