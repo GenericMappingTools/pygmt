@@ -113,6 +113,9 @@ def tilemap(
         HTTP headers to includes with requests to the tile server. This can be useful
         for authentication or to set a custom User-Agent. By default, only passing
         PyGMT (with the version string and URL) as the User-Agent.
+
+        .. note::
+           The ``headers`` parameter requires ``contextily>=1.7.0``.
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
