@@ -17,12 +17,12 @@ from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
     "area_thresh": r"""
-        area_thresh : float or str
+        area_thresh
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
-            hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is ``"0/0/4"`` (all features)].""",
+            hierarchical level that is lower than *min_level* or higher than *max_level*
+            will not be plotted [Default is ``"0/0/4"`` (all features)].""",
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].

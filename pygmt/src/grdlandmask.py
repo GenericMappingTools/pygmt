@@ -10,7 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring
 
 __doctest_skip__ = ["grdlandmask"]
 
@@ -22,7 +22,6 @@ __doctest_skip__ = ["grdlandmask"]
 @deprecate_parameter(
     "bordervalues", "border_values", "v0.18.0", remove_version="v0.20.0"
 )
-@use_alias(A="area_thresh")
 def grdlandmask(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
@@ -31,6 +30,7 @@ def grdlandmask(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    area_thresh: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -38,7 +38,7 @@ def grdlandmask(
     cores: int | bool = False,
     **kwargs,
 ) -> xr.DataArray | None:
-    r"""
+    """
     Create a "wet-dry" mask grid from shoreline database.
 
     Read the selected shoreline database and use that information to decide which nodes
@@ -49,7 +49,13 @@ def grdlandmask(
 
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
-    $aliases
+
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
+       - A = area_thresh
        - D = resolution
        - E = border_values
        - G = outgrid
@@ -122,6 +128,7 @@ def grdlandmask(
         raise GMTParameterError(required=["region", "spacing"])
 
     aliasdict = AliasSystem(
+        A=Alias(area_thresh, name="area_thresh"),
         D=Alias(
             resolution,
             name="resolution",
