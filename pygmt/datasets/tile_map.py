@@ -185,8 +185,11 @@ def load_tile_map(
             )
     else:
         # Set default HTTP headers.
+        default_ua = f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"
         if headers is None:
-            headers = {"User-Agent": f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"}
+            headers = {"User-Agent": default_ua}
+        elif not any(key.lower() == "user-agent" for key in headers):
+            headers = {**headers, "User-Agent": default_ua}
         contextily_kwargs["headers"] = headers
 
     west, east, south, north = region
