@@ -6,7 +6,9 @@ Function to load raster tile maps from XYZ tile providers, and load as
 from collections.abc import Sequence
 from typing import Literal
 
+from packaging.version import Version
 from pygmt._show_versions import __version__ as _pygmt_version
+from pygmt.exceptions import GMTParameterError
 
 try:
     import contextily
@@ -161,10 +163,6 @@ def load_tile_map(
         )
         raise ImportError(msg)
 
-    # Set default HTTP headers.
-    if headers is None:
-        headers = {"User-Agent": f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"}
-
     # Keyword arguments for contextily.bounds2img
     contextily_kwargs = {
         "zoom": zoom,
@@ -173,8 +171,20 @@ def load_tile_map(
         "wait": wait,
         "max_retries": max_retries,
         "zoom_adjust": zoom_adjust,
-        "headers": headers,
     }
+
+    # TODO(contextily>=1.7.0): Remove once contextily>=1.7.0 is required.
+    # The 'headers' parameter was added in contextily v1.7.0
+    if Version(contextily.__version__) < Version("1.7.0"):
+        if headers is not None:
+            raise GMTParameterError(
+                reason="The 'headers' parameter requires contextily>=1.7.0."
+            )
+    else:
+        # Set default HTTP headers.
+        if headers is None:
+            headers = {"User-Agent": f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"}
+        contextily_kwargs["headers"] = headers
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(
