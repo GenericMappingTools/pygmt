@@ -113,7 +113,7 @@ def tilemap(
         HTTP headers to include with requests to the tile server. This can be useful
         for authentication or to set a custom User-Agent. When supported by
         ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
-        ``PyGMT/v0.19.0 (+https://www.pygmt.org)``.
+        ``PyGMT/vX.Y.Z (+https://www.pygmt.org)``.
 
         .. note::
            Requires ``contextily>=1.7.0``.
