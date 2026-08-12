@@ -116,7 +116,7 @@ def tilemap(
         ``PyGMT/v0.19.0 (+https://www.pygmt.org)``.
 
         .. note::
-           The ``headers`` parameter requires ``contextily>=1.7.0``.
+           Requires ``contextily>=1.7.0``.
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
