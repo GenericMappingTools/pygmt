@@ -284,9 +284,9 @@ COMMON_DOCSTRINGS = {
               i.e., looking from south to north].
             - *elevation*: Elevation angle of the viewpoint above the horizon [Default
               is 90, i.e., looking straight down at nadir].
-            - *level*: Z-level at which 2-D elements (e.g., the plot frame) are drawn.
+            - *level*: the level at which 2-D elements (e.g., the plot frame) are drawn.
               Only applied when used together with ``zsize`` or ``zscale``. [Default is
-              at the bottom of the z-axis].
+              at the bottom of the selected axis].
             - :class:`pygmt.params.Perspective`: A class-style way for more control over
               the perspective parameters.
 
