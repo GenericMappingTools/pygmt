@@ -42,12 +42,12 @@ class Perspective(BaseParam):
 
     #: The level at which all 2-D material, like the plot frame, is plotted. Only valid
     #: when used together with parameters ``zsize``/``zscale``. Default is at the bottom
-    #: of the z-axis.
+    #: of the selected axis.
     level: float | None = None
 
-    #: Set which constant-coordinate plane is used as the plotting plane. Use ``"x"``
-    #: for the x-plane, ``"y"`` for the y-plane, or ``"z"`` for the horizontal z-plane
-    # [Default is ``"z"``].
+    #: Set which constant-coordinate plane is used as the plotting plane. Use ``"x"``,
+    #: ``"y"``, or ``"z"`` for the x-plane, y-plane, or horizontal z-plane,
+    #: respectively [Default is ``"z"``].
     plane: Literal["x", "y", "z"] | None = None
 
     def _validate(self):
@@ -64,7 +64,7 @@ class Perspective(BaseParam):
 
         if self.plane is not None and self.plane not in {"x", "y", "z"}:
             raise GMTValueError(
-                self.plane, description="plane", choices=["x", "y", "z"]
+                self.plane, description="plane", choices={"x", "y", "z"}
             )
 
     @property
