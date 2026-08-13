@@ -17,7 +17,7 @@ __doctest_skip__ = ["magnetic_rose"]
 
 
 @fmt_docstring
-def magnetic_rose(  # noqa: PLR0913
+def magnetic_rose(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
@@ -49,8 +49,7 @@ def magnetic_rose(  # noqa: PLR0913
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the Bottom Left corner of the plot (position
-        ``(0, 0)`` with anchor ``"BL"``).
+        If not specified, defaults to the Top Right corner of the plot.
     width
         Width of the rose in plot coordinates, or append unit ``%`` for a size in
         percentage of plot width [Default is 15%].
@@ -107,9 +106,8 @@ def magnetic_rose(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
-    position = _parse_position(position, default=Position("BL", cstype="inside"))
+    # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
+    position = _parse_position(position, default=Position("TR", cstype="inside"))
 
     if declination_label is not None:
         if declination is None:
@@ -140,5 +138,6 @@ def magnetic_rose(  # noqa: PLR0913
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

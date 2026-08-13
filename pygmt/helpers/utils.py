@@ -43,7 +43,7 @@ Encoding = Literal[
 ]
 
 
-def _validate_data_input(  # noqa: PLR0912
+def _validate_data_input(  # ruff: ignore[too-many-branches]
     data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
 ) -> None:
     """
@@ -217,7 +217,7 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     True
     >>> _contains_apostrophe_or_backtick("12AB'`")
     True
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     return "'" in argstr or "`" in argstr
 
 
@@ -452,7 +452,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     >>> non_ascii_to_octal("'‘’\"“”")
     '\\234\\140\\047"\\216\\217'
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     # Return the input string if it only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
@@ -481,7 +481,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(  # noqa: PLR0912
+def build_arg_list(  # ruff: ignore[too-many-branches]
     kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
@@ -563,7 +563,7 @@ def build_arg_list(  # noqa: PLR0912
         if len(key) > 2:  # Raise an exception for unrecognized options
             msg = f"Unrecognized parameter {key!r}."
             raise GMTInvalidInput(msg)
-        if value is None or value is False:  # Exclude arguments that are None or False
+        if not is_given(value):
             pass
         elif value is True:
             gmt_args.append(f"-{key}")
@@ -601,6 +601,44 @@ def build_arg_list(  # noqa: PLR0912
             raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
+
+
+def is_given(value: Any) -> bool:
+    """
+    Check if a parameter is given (not None and not False).
+
+    In PyGMT, most parameters default to ``False`` (for boolean-only parameters) or
+    ``None`` (for non-boolean parameters), which means the parameters are not given and
+    should not be used in building the CLI option string.
+
+    Parameters
+    ----------
+    value
+        The value to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if the value is not ``None`` and not ``False``, otherwise ``False``.
+
+    Examples
+    --------
+    >>> is_given(None)
+    False
+    >>> is_given(False)
+    False
+    >>> is_given(True)
+    True
+    >>> is_given(0)
+    True
+    >>> is_given("")
+    True
+    >>> is_given([])
+    True
+    >>> is_given("value")
+    True
+    """
+    return value is not None and value is not False
 
 
 def is_nonstr_iter(value: Any) -> bool:
@@ -674,7 +712,7 @@ def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
         case "darwin":  # macOS
             subprocess.run([shutil.which("open"), fname], check=False, **run_args)  # type:ignore[call-overload]
         case "win32":  # Windows
-            os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
+            os.startfile(fname)  # type:ignore[attr-defined] # ruff: ignore[start-process-with-no-shell]
         case _:  # Fall back to the browser if can't recognize the operating system.
             webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
@@ -720,9 +758,7 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
     True
     """
-    return any(
-        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
-    )
+    return any(is_given(kwargs.get(arg)) for arg in args)
 
 
 def sequence_join(
@@ -731,7 +767,7 @@ def sequence_join(
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
-) -> str | list[str] | None | Any:
+) -> str | list[str] | Any | None:
     """
     Join a sequence of values into a string separated by a separator.
 

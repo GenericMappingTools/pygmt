@@ -14,7 +14,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_utm_zones.png
+.. figure:: https://docs.generic-mapping-tools.org/6.7/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -32,8 +32,9 @@ conformal latitude in the general spherical formulae instead.
 
 **u**\ *zone/scale* or **U**\ *zone/width*
 
-The projection is set with **u** or **U**. *zone* sets the zone for the figure,
-and the figure size is set with *scale* or *width*.
+- **u** or **U**: Sets the projection type.
+- *zone*: Sets the UTM zone.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

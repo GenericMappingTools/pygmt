@@ -1,5 +1,0 @@
-outs:
-- md5: 4d20cdb71af2e6568f64f0246ec860ea
-  size: 64008
-  hash: md5
-  path: test_grdcontour_multiple_levels.png

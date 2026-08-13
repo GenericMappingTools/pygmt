@@ -121,12 +121,11 @@ COMMON_DOCSTRINGS = {
 
             A unit **u** may be appended to the specified *gap*:
 
-            - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-              be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
-              or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-              **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
-            - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-              **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
+            - For geographic data (**x**\|\ **y**\|\ **d**), valid units are **d**,
+              **m**, **s**, **e**, **f**, **k**, **M**, and **n** [Default is **e**].
+              See :ref:`distance-units` for meanings of the units.
+            - For projected data (**X**\|\ **Y**\|\ **D**), valid units are **c**,
+              **i**, and **p**. See :ref:`dimension-units` for meanings of the units.
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -298,7 +297,8 @@ COMMON_DOCSTRINGS = {
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
-        region : str or list
+        region : list or str
+            [*xmin*, *xmax*, *ymin*, *ymax*] or
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
@@ -437,7 +437,8 @@ def fmt_docstring(module_func):
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
-    region : str or list
+    region : list or str
+        [*xmin*, *xmax*, *ymin*, *ymax*] or
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection
@@ -452,7 +453,7 @@ def fmt_docstring(module_func):
        - J = projection
        - R = region
     <BLANKLINE>
-    """  # noqa: D410,D411
+    """  # ruff: ignore[no-blank-line-after-section, no-blank-line-before-section]
     filler_text = {}
 
     if hasattr(module_func, "aliases"):

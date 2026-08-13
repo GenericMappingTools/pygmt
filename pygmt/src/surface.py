@@ -77,6 +77,10 @@ def surface(
 
     Full GMT docs at :gmt-docs:`surface.html`.
 
+    **Reference**: Smith, W. H. F., & Wessel, P. (1990). Gridding with continuous
+    curvature splines in tension. *Geophysics*, 55(3), 293-305.
+    https://doi.org/10.1190/1.1442837
+
     $aliases
        - G = outgrid
        - I = spacing
@@ -107,8 +111,8 @@ def surface(
     max_radius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
         farther than ``max_radius`` away from a data constraint are set to NaN
-        [Default is no masking]. Append a distance unit (see
-        :gmt-docs:`Units <surface.html#units>`) if needed. One can also
+        [Default is no masking]. Append a :ref:`distance unit <distance-units>` if
+        needed. One can also
         select the nodes to mask by using the *n_cells*\ **c** form. Here
         *n_cells* means the number of cells around the node is controlled
         by a data point. As an example ``"0c"`` means that only the cell

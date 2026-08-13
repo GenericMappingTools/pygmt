@@ -45,7 +45,7 @@ def directional_rose(
         - A :doc:`2-character justification code </techref/justification_codes>` for a
           position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.
 
-        If not specified, defaults to the Bottom Left corner of the plot.
+        If not specified, defaults to the Top Right corner of the plot.
     width
         Width of the rose in plot coordinates, or append unit ``%`` for a size in
         percentage of plot width [Default is 10%].
@@ -81,9 +81,8 @@ def directional_rose(
     >>> fig.directional_rose()
     >>> fig.show()
     """
-    self._activate_figure()
-
-    position = _parse_position(position, default=Position("BL", cstype="inside"))
+    # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
+    position = _parse_position(position, default=Position("TR", cstype="inside"))
 
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
@@ -100,5 +99,6 @@ def directional_rose(
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

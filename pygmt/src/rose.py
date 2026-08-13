@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import AliasSystem
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
@@ -15,7 +15,6 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 @use_alias(
     A="sector",
-    C="cmap",
     D="shift",
     Em="vectors",
     F="no_scale",
@@ -35,11 +34,12 @@ from pygmt.params import Axis, Frame
     h="header",
     w="wrap",
 )
-def rose(  # noqa: PLR0913
+def rose(
     self,
     data: PathLike | TableLike | None = None,
     length=None,
     azimuth=None,
+    cmap: str | bool = False,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -67,6 +67,7 @@ def rose(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - R = region
        - V = verbose
        - c = panel
@@ -96,8 +97,8 @@ def rose(  # noqa: PLR0913
         twice: First as azimuth and second as azimuth +180. Ignored if
         ``region`` is given as (-90, 90) or (0, 180).
 
-    region : str or list
-        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
+    region
+        [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
         Specify the ``region`` of interest in (*r*, *azimuth*) space.
         Here, *r0* is 0 and *r1* is the maximal length in units.
@@ -209,9 +210,7 @@ def rose(  # noqa: PLR0913
     $transparency
     $wrap
     """
-    self._activate_figure()
-
-    aliasdict = AliasSystem().add_common(
+    aliasdict = AliasSystem(C=Alias(cmap, name="cmap")).add_common(
         B=frame,
         R=region,
         V=verbose,
@@ -222,6 +221,7 @@ def rose(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=length, y=azimuth
