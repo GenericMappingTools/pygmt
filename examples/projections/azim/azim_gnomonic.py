@@ -10,13 +10,14 @@ and the distortion increases greatly with distance to the projection center. It
 follows that the scope of application is restricted to a small area around the
 projection center (at a maximum of 60°).
 
-**f**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
-or **F**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
+**f**\ *lon0/lat0*\ [*/horizon*]\ */scale*
+or **F**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-**f** or **F** specifies the projection type, *lon0/lat0* specifies the
-projection center, the optional parameter *horizon* specifies the maximum
-distance from projection center (in degrees, < 90, default 60), and *scale* or
-*width* sets the size of the figure.
+- **f** or **F**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: Sets the maximum distance from the projection center in degrees
+  (< 90°) [Optional, default is 60°].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

@@ -16,7 +16,7 @@ __doctest_skip__ = ["scalebar"]
 
 
 @fmt_docstring
-def scalebar(  # noqa: PLR0913
+def scalebar(
     self,
     length: float | str,
     height: float | str | None = None,
@@ -41,10 +41,10 @@ def scalebar(  # noqa: PLR0913
     ----------
     length
         Length of the scale bar in kilometers. Append a suffix to specify another unit.
-        Valid units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute
-        miles; **n**: nautical miles; **u**: US survey feet.
+        Supported units are: **e**, **f**, **k**, **M**, **n**, and **u**. See
+        :ref:`distance-units` for meanings of the units.
     height
-        Height of the scale bar [Default is ``"5p"``]. Only works when ``fancy=True``.
+        Height of the scale bar [Default is ``"5p"``].
     position
         Position of the scale bar on the plot. It can be specified in multiple ways:
 
@@ -109,7 +109,6 @@ def scalebar(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
     position = _parse_position(position, default=Position("BL", offset=(0.2, 0.4)))
 
     aliasdict = AliasSystem(
@@ -140,6 +139,7 @@ def scalebar(  # noqa: PLR0913
     if height is not None:
         confdict["MAP_SCALE_HEIGHT"] = height
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(
             module="basemap", args=build_arg_list(aliasdict, confdict=confdict)

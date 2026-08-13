@@ -51,11 +51,12 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
+          lfs: true
 
       - name: Get current week number of year
         id: date
@@ -63,7 +64,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9 # v3.1.0
         with:
           environment-name: pygmt
           cache-environment: true
@@ -97,7 +98,7 @@ jobs:
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
@@ -140,32 +141,13 @@ jobs:
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray packaging \
-                        build contextily dvc geopandas ipython pyarrow rioxarray \
+                        build contextily geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
                         netCDF4 sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
         run: micromamba list
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        id: dvc-pull
-        continue-on-error: true
-        run: |
-          dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-        env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Download DVC cache as artifacts from GitHub
-        if: steps.dvc-pull.outcome == 'failure'
-        run: |
-          rm -rvf .dvc/cache/
-          gh run download --name dvc-cache --dir .dvc/cache/
-          dvc checkout --verbose
-        env:
-          GH_TOKEN: ${{ github.token }}
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

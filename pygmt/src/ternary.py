@@ -108,13 +108,18 @@ def _ternary_frame(frame):
 
 
 @fmt_docstring
-@use_alias(C="cmap", G="fill", JX="width", S="style", W="pen")
-def ternary(  # noqa: PLR0913
+@use_alias(S="style")
+def ternary(
     self,
     data: PathLike | TableLike,
+    cmap: str | bool = False,
+    fill: str | None = None,
+    width: float | str | None = None,
+    pen: str | None = None,
     alabel: str | None = None,
     blabel: str | None = None,
     clabel: str | None = None,
+    no_clip: bool = False,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
@@ -139,9 +144,14 @@ def ternary(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
+       - G = fill
+       - JX = width
        - L = alabel/blabel/clabel
+       - N = no_clip
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -151,13 +161,12 @@ def ternary(  # noqa: PLR0913
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    width : str
-        Set the width of the figure by passing a number, followed by
-        a unit (**i** for inches, **c** for centimeters). Use a negative width
-        to indicate that positive axes directions be clock-wise
-        [Default lets the a, b, c axes be positive in a
-        counter-clockwise direction].
-    region : str or list
+    width
+        Set the width of the figure by passing a number followed by a
+        :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
+        positive axes directions be clock-wise [Default lets the a, b, c axes be
+        positive in a counter-clockwise direction].
+    region
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
@@ -165,7 +174,6 @@ def ternary(  # noqa: PLR0913
         For ternary diagrams, use :class:`pygmt.params.Frame` ``xaxis``, ``yaxis``, and
         ``zaxis`` attributes to set the **a**, **b**, and **c** axes, respectively.
     $cmap
-    $fill
     alabel
         Set the label for the *a* vertex where the component is 100%. The label is
         placed at a distance of three times the :gmt-term:`MAP_LABEL_OFFSET` setting
@@ -177,19 +185,29 @@ def ternary(  # noqa: PLR0913
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    $pen
+    pen
+        Set pen attributes for the outlines of symbols or lines.
+    fill
+        Set color or pattern for filling of symbols [Default is no fill].
+    no_clip
+        Do not clip symbols to the ternary diagram [Default plots points whose
+        coordinates are strictly inside the map border].
     $verbose
     $panel
     $perspective
     $transparency
     """
-    self._activate_figure()
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
+        G=Alias(fill, name="fill"),
+        JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
+        N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=_ternary_frame(frame),
         R=region,
@@ -200,6 +218,7 @@ def ternary(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

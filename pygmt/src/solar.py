@@ -16,7 +16,7 @@ __doctest_skip__ = ["solar"]
 
 
 @fmt_docstring
-def solar(  # noqa: PLR0913
+def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
@@ -113,8 +113,6 @@ def solar(  # noqa: PLR0913
     >>> # show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     datetime_string, datetime_timezone = None, None
     if terminator_datetime:
         try:
@@ -156,5 +154,6 @@ def solar(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="solar", args=build_arg_list(aliasdict))

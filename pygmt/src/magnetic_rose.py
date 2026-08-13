@@ -5,10 +5,9 @@ magnetic_rose - Add a map magnetic rose.
 from collections.abc import Sequence
 from typing import Literal
 
-from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
-from pygmt.clib import Session, __gmt_version__
+from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Perspective, Position
@@ -18,7 +17,7 @@ __doctest_skip__ = ["magnetic_rose"]
 
 
 @fmt_docstring
-def magnetic_rose(  # noqa: PLR0913
+def magnetic_rose(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
@@ -107,17 +106,8 @@ def magnetic_rose(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
-    # The default position is set to "TR" since GMT 6.7.0, which has no default value
-    # in GMT 6.6.0 and earlier versions.
-    # TODO(GMT>6.6.0): Set 'default=None' after GMT 6.7.0.
-    position = _parse_position(
-        position,
-        default=None
-        if Version(__gmt_version__) > Version("6.6.0")
-        else Position("TR", cstype="inside"),
-    )
+    # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
+    position = _parse_position(position, default=Position("TR", cstype="inside"))
 
     if declination_label is not None:
         if declination is None:
@@ -148,5 +138,6 @@ def magnetic_rose(  # noqa: PLR0913
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

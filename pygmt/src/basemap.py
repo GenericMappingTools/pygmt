@@ -14,7 +14,7 @@ from pygmt.params import Axis, Box, Frame, Perspective
 
 @fmt_docstring
 @use_alias(f="coltypes")
-def basemap(  # noqa: PLR0913
+def basemap(
     self,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -140,8 +140,6 @@ def basemap(  # noqa: PLR0913
     >>> fig.basemap(region="g", projection="H15c", frame=True)
     >>> fig.show()
     """
-    self._activate_figure()
-
     for name, value, recommendation in (
         ("map_scale", map_scale, "Figure.scalebar"),
         ("compass", compass, "Figure.magnetic_rose"),
@@ -172,5 +170,6 @@ def basemap(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))
