@@ -147,7 +147,7 @@ def fitcircle(
             row = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="numpy")[0]
             values = [float(value) for value in row]
 
-    solution = {
+    solution: dict[str, tuple[float, float] | float] = {
         "flat_mean": (values[0], values[1]),
         "mean": (values[2], values[3]),
         "north_pole": (values[4], values[5]),
