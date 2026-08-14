@@ -120,7 +120,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9 # v3.1.0
         with:
           environment-name: pygmt
           cache-environment: true
@@ -128,7 +128,7 @@ jobs:
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.6.0
+            gmt=6.7.0
             ghostscript=10.07.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}

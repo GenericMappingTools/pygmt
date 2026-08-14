@@ -33,8 +33,9 @@ import pygmt
 pygmt.show_versions()
 ```
 
-You are now ready to make your first figure! Start by looking at our [Intro](intro/index.rst),
-[Tutorials](tutorials/index.rst), and [Gallery](gallery/index.rst). Good luck!
+You are now ready to make your first figure! Start by looking at our
+[Intro](intro/index.rst), [Tutorials](tutorials/index.rst), and
+[Gallery](gallery/index.rst). Good luck!
 
 :::{note}
 The sections below provide more detailed, step by step instructions to install and test
@@ -46,10 +47,10 @@ development version.
 
 PyGMT is tested to run on Python {{ requires.python }}.
 
-We recommend using the [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
-Python distribution to ensure you have all dependencies installed. Installing Miniforge
-does not require administrative rights to your computer and doesn't interfere with any
-other Python installations on your system.
+We recommend using the [Miniforge](https://github.com/conda-forge/miniforge) Python
+distribution to ensure you have all dependencies installed. Installing Miniforge does
+not require administrative rights to your computer and doesn't interfere with any other
+Python installations on your system.
 
 ## Which GMT?
 
@@ -61,26 +62,25 @@ Compiled conda packages of GMT for Linux, macOS and Windows are provided through
 [build GMT from source](https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md)
 instead.
 
-We recommend following the instructions further on to install GMT 6.
+We recommend following the instructions further on to install GMT.
 
 ## Dependencies
 
-PyGMT requires the following packages to be installed:
+PyGMT depends on GMT and the following Python libraries:
 
-- [NumPy](https://numpy.org)
-- [pandas](https://pandas.pydata.org)
-- [xarray](https://xarray.dev/)
-- [packaging](https://packaging.pypa.io)
+- **Required**:
+  [NumPy](https://numpy.org/),
+  [pandas](https://pandas.pydata.org/),
+  [xarray](https://xarray.pydata.org/),
+  [packaging](https://packaging.pypa.io/en/stable/)
+- **Optional**:
+  [IPython](https://ipython.org/),
+  [GeoPandas](https://geopandas.org/),
+  [contextily](https://contextily.readthedocs.io/),
+  [rioxarray](https://corteva.github.io/rioxarray/),
+  [PyArrow](https://arrow.apache.org/docs/python/)
 
-:::{note}
-For the minimum supported versions of the dependencies, please see [](minversions.md).
-:::
-
-:::{note}
-Some optional dependencies (e.g., [IPython](https://ipython.readthedocs.io/en/stable/),
-[GeoPandas](https://geopandas.org/en/stable/)) add more functionality to PyGMT.
-For a complete list of the optional dependencies, refer to [](ecosystem.md).
-:::
+For detailed version requirements, see [](minversions.md).
 
 ## Installing GMT and other dependencies
 
@@ -164,8 +164,8 @@ from Python.
 
 ## Testing your install
 
-To ensure that PyGMT and its dependencies are installed correctly, run the following
-in your Python interpreter:
+To ensure that PyGMT and its dependencies are installed correctly, run the following in
+your Python interpreter:
 
 ```{code-cell} ipython
 ---
@@ -231,7 +231,6 @@ jupyter kernelspec list --json
 After that, you need to restart Jupyter, open your notebook, select the `pygmt` kernel
 and then import pygmt.
 
-
 ### Not working transparency
 
 It is known that some combinations of GMT and Ghostscript versions cause issues,
@@ -240,4 +239,4 @@ please check your GMT and Ghostscript versions (you can run `pygmt.show_versions
 We recommend:
 
 - Ghostscript 9.53-9.56 for GMT 6.4.0 (or below)
-- Ghostscript 10.03-10.07 for GMT 6.5.0-6.6.0
+- Ghostscript 10.03-10.07 for GMT 6.5.0-6.7.0

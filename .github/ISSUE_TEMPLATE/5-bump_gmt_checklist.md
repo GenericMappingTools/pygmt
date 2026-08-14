@@ -26,6 +26,7 @@ conda install -c conda-forge gmt=X.Y.Z
   - [ ] Update `.github/workflows/ci_tests.yaml`
   - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
   - [ ] Update GMT 6.x minor version for `extlinks` urls in `doc/conf.py`
+  - [ ] Update the GMT-Ghostscript compatibility notes in `doc/install.md` and `pygmt/_show_versions.py`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix failing doctests reported in the ["Doctest" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
 - [ ] Run `grep -r "# TODO(GMT.*)" --include="*.py" .` to find TODO items related to GMT

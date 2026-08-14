@@ -1,11 +1,9 @@
 <picture align="center">
-  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="doc/_static/pygmtlogo_dark.png">
-  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="doc/_static/pygmtlogo.png">
+  <source media="(prefers-color-scheme: dark)" style="width: 65%" srcset="https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo_dark.png">
+  <img alt="PyGMT - A Python interface for the Generic Mapping Tools" style="width: 65%" src="https://raw.githubusercontent.com/GenericMappingTools/pygmt/main/doc/_static/pygmtlogo.png">
 </picture>
 
 # A Python interface for the [Generic Mapping Tools](https://www.generic-mapping-tools.org/)
-
-[Documentation (development version)](https://www.pygmt.org/dev) | [Contact](https://forum.generic-mapping-tools.org) | [TryOnline](https://github.com/GenericMappingTools/try-gmt)
 
 [![GitHub Release](https://img.shields.io/github/v/release/GenericMappingTools/pygmt?color=1f77b4)](https://github.com/GenericMappingTools/pygmt/releases)
 [![Latest version on PyPI](https://img.shields.io/pypi/v/pygmt?color=1f77b4)](https://pypi.org/project/pygmt)
@@ -18,36 +16,36 @@
 [![GitHub Actions GMT Dev Tests status](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml/badge.svg)](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
 [![Test coverage status](https://codecov.io/gh/GenericMappingTools/pygmt/graph/badge.svg?token=78Fu4EWstx)](https://app.codecov.io/gh/GenericMappingTools/pygmt)
 
-<!-- doc-index-start-after -->
 
 ## Why PyGMT?
-
-A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is,
-play with it online on [Binder](https://github.com/GenericMappingTools/try-gmt)! For a
-quicker introduction, check out our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
-
-Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tutorials),
-visit the [Gallery](https://www.pygmt.org/latest/gallery), and check out some
-[external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
-
-[![Quick Introduction to PyGMT YouTube Video](https://raw.githubusercontent.com/GenericMappingTools/pygmt/refs/heads/main/doc/_static/scipy2022-youtube-thumbnail.jpg)](https://www.youtube.com/watch?v=4iPnITXrxVU)
-
-## About
 
 PyGMT is a library for processing geospatial and geophysical data and making
 publication-quality maps and figures. It provides a Pythonic interface for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line
 program widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
-## Project goals
+A beautiful map is worth a thousand words. To experience the power of PyGMT, try it
+online with [Binder or Google Colab](https://github.com/GenericMappingTools/try-gmt)
+without installing anything on your computer. For a quick introduction, check out
+our [3 minute overview](https://youtu.be/4iPnITXrxVU)!
 
-- Make GMT more accessible to new users.
-- Build a Pythonic API for GMT.
-- Interface with the GMT C API directly using ctypes (no system calls).
-- Support for rich display in the Jupyter notebook.
-- Integration with the [scientific Python ecosystem](https://scientific-python.org/):
-  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
-  and `geopandas.GeoDataFrame` for geographical data.
+## Dependencies
+
+PyGMT depends on GMT and the following Python libraries:
+
+- **Required**:
+  [NumPy](https://numpy.org/),
+  [pandas](https://pandas.pydata.org/),
+  [xarray](https://xarray.pydata.org/),
+  [packaging](https://packaging.pypa.io/en/stable/)
+- **Optional**:
+  [IPython](https://ipython.org/),
+  [GeoPandas](https://geopandas.org/),
+  [contextily](https://contextily.readthedocs.io/),
+  [rioxarray](https://corteva.github.io/rioxarray/),
+  [PyArrow](https://arrow.apache.org/docs/python/)
+
+For detailed version requirements, see [Minimum Supported Versions](https://www.pygmt.org/latest/minversions.html).
 
 ## Quickstart
 
@@ -70,11 +68,14 @@ fig.coast(land="tan", water="lightblue")
 fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
 fig.show()
 ```
-For other ways to install PyGMT and more examples, please visit the
-[PyGMT documentation](https://www.pygmt.org/).
 
 ## Documentation
 
+<!-- TODO(PyGMT=0.20.0): change dev to latest -->
+- Documentation: [Latest version](https://www.pygmt.org/latest/) | [Development version](https://www.pygmt.org/dev/)
+- [Full installation instructions](https://www.pygmt.org/latest/install.html)
+- [Gallery](https://www.pygmt.org/latest/gallery/index.html) and [Tutorials](https://www.pygmt.org/latest/tutorials/index.html)
+- [PyGMT Ecosystem](https://www.pygmt.org/latest/ecosystem.html)
 - [Citing PyGMT](https://www.pygmt.org/dev/citing.html)
 
 ## Contacting us
@@ -115,31 +116,21 @@ to see how you can help and give feedback.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
-## License
+## Related projects
 
-PyGMT is free software: you can redistribute it and/or modify it under the terms of the
-**BSD 3-clause License**. A copy of this license is provided in
-[LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).
+Other official GMT wrappers include:
 
-## Support
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
+
+## Funding
 
 The development of PyGMT has been supported by NSF grants
 [OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
 [EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
-## Related projects
+## License
 
-Other official wrappers for GMT:
-
-- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
-- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
-
-<!-- doc-index-end-before -->
-
-## Minimum supported versions
-
-PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
-rest of the scientific Python ecosystem, and made a few extensions based on the needs of
-the project. Please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html)
-for the detailed policy and the minimum supported versions of GMT, Python and core
-package dependencies.
+PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+**BSD 3-clause License**. A copy of this license is provided in
+[LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).
