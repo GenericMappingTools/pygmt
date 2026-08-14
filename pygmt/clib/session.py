@@ -9,7 +9,6 @@ import contextlib
 import ctypes as ctp
 import io
 import sys
-import warnings
 from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
@@ -1756,7 +1755,6 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
     @deprecate_parameter(
         "required_data", "required", "v0.16.0", remove_version="v0.20.0"
@@ -1770,7 +1768,6 @@ class Session:
         z=None,
         required=True,
         mincols=2,
-        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1800,14 +1797,6 @@ class Session:
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
-        extra_arrays : list of 1-D arrays
-            A list of numpy arrays in addition to x, y, and z. All of these arrays must
-            be of the same size as the x/y/z arrays.
-
-            .. deprecated:: v0.16.0
-               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead to the `data` parameter. E.g.,
-               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1889,14 +1878,6 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                if extra_arrays:
-                    msg = (
-                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
-                        "Prepare and pass a dictionary of arrays instead to the `data` "
-                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
-                    )
-                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
-                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
