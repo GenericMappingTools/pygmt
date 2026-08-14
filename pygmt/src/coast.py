@@ -68,7 +68,7 @@ def _alias_option_C(lakes=None, river_lakes=None):  # ruff: ignore[invalid-funct
 
 
 @fmt_docstring
-@use_alias(A="area_thresh", E="dcw")
+@use_alias(E="dcw")
 def coast(
     self,
     resolution: Literal[
@@ -81,6 +81,7 @@ def coast(
     shorelines: bool | str | Sequence[int | str] = False,
     lakes: str | None = None,
     river_lakes: str | None = None,
+    area_thresh: float | str | None = None,
     map_scale: str | None = None,
     box: Box | bool = False,
     projection: str | None = None,
@@ -113,6 +114,7 @@ def coast(
     Full GMT docs at :gmt-docs:`coast.html`.
 
     $aliases
+       - A = area_thresh
        - B = frame
        - C = lakes, river_lakes
        - D = resolution
@@ -320,6 +322,7 @@ def coast(
         )
 
     aliasdict = AliasSystem(
+        A=Alias(area_thresh, name="area_thresh"),
         C=_alias_option_C(lakes=lakes, river_lakes=river_lakes),
         D=Alias(
             resolution,
