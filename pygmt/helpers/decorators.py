@@ -792,9 +792,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     Examples
     --------
-    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    >>> @deprecate_parameter("sizes", "size", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("colors", "color", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("infile", "data", "0.0.0", "9.9.9")
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")

@@ -359,7 +359,7 @@ def subplot(
 @fmt_docstring
 @contextlib.contextmanager
 # TODO(PyGMT>=0.23.0): Remove the deprecated 'fixedlabel' parameter.
-@deprecate_parameter("fixedlabel", "tag", "v0.19.0", remove_version="v0.23.0")
+@deprecate_parameter("fixedlabel", "tag", "0.19.0", remove_version="0.23.0")
 @use_alias(C="clearance")
 def set_panel(
     self,

@@ -175,15 +175,15 @@ Here is an example:
 ```python
 # TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "0.4.0", remove_version="0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
 @kwargs_to_strings(R="sequence", i="sequence_comma")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `columns` is deprecated since v0.4.0, and will be
-fully removed in v0.6.0. The new parameter name is `incols`.
+In this case, the old parameter name `columns` is deprecated since 0.4.0, and will be
+fully removed in 0.6.0. The new parameter name is `incols`.
 
 ### TODO comments
 
