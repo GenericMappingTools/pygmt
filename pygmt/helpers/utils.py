@@ -19,7 +19,7 @@ import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput, GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTTypeError, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -443,9 +443,7 @@ def data_kind(  # ruff: ignore[too-many-branches]
                 valid_kinds = check_kind
 
         if kind not in valid_kinds:
-            msg = f"Unrecognized data type: {type(data)}."
-            raise GMTInvalidInput(msg)
-
+            raise GMTTypeError(dtype=type(data))
     return kind  # type: ignore[return-value]
 
 
