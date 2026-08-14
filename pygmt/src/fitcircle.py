@@ -27,8 +27,7 @@ def fitcircle(
     """
     Find mean position and great or small circle fit to points on sphere.
 
-    **fitcircle** reads (longitude, latitude) or (latitude, longitude) values from the
-    first two columns of the input data. These are converted to Cartesian
+    This method takes (longitude, latitude) values and converts them to Cartesian
     three-vectors on the unit sphere. Then two locations are found: the mean
     of the input positions, and the pole to the great circle which best fits
     the input positions.
