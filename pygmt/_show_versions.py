@@ -17,7 +17,7 @@ from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
 # Get semantic version through setuptools-scm
-__version__ = f"v{version('pygmt')}"  # e.g. v0.1.2.dev3+g0ab3cd78
+__version__ = version("pygmt")  # e.g., 0.1.2.dev3+g0ab3cd78
 __commit__ = (  # 0ab3cd78
     __version__.rsplit(sep="+g", maxsplit=1)[-1] if "+g" in __version__ else ""
 )
