@@ -17,13 +17,12 @@ def fitcircle(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
-    outfile: PathLike | None = None,
     norm: Literal["absolutes", "squares"] | None = None,
     small_circle: bool | float = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
-) -> dict[str, tuple[float, float] | float] | None:
+) -> dict[str, tuple[float, float] | float]:
     """
     Find mean position and great or small circle fit to points on sphere.
 
@@ -72,9 +71,6 @@ def fitcircle(
         $table_classes.
     x/y : 1-D arrays
         Arrays of x and y coordinates of the data points.
-    outfile
-        The file name for the full GMT text report. If set, no ``dict`` is
-        returned; the raw GMT report is written to ``outfile`` instead.
     norm
         Specify the desired norm, either ``"absolutes"`` or ``"squares"``.
     small_circle
@@ -88,9 +84,8 @@ def fitcircle(
     Returns
     -------
     ret
-        ``None`` if ``outfile`` is set (the raw GMT report is written to
-        ``outfile`` instead). Otherwise, a ``dict`` with the following keys,
-        each mapping to a ``(longitude, latitude)`` tuple:
+        A ``dict`` with the following keys, each mapping to a
+        ``(longitude, latitude)`` tuple:
 
         - ``"flat_mean"``: the flat Earth mean position
         - ``"mean"``: the mean position (Fisher or eigenvalue method,
@@ -115,17 +110,6 @@ def fitcircle(
         V=verbose,
     )
     aliasdict.merge(kwargs)
-
-    if outfile is not None:
-        with Session() as lib:
-            with lib.virtualfile_in(
-                check_kind="vector", data=data, x=x, y=y, mincols=2
-            ) as vintbl:
-                lib.call_module(
-                    module="fitcircle",
-                    args=build_arg_list(aliasdict, infile=vintbl, outfile=outfile),
-                )
-        return None
 
     # "c" (small-circle pole and colatitude) is only valid with -S; GMT errors
     # ("Cannot select c without setting -S") if "c" is requested without it.
