@@ -11,7 +11,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -20,8 +19,6 @@ from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'barwidth' parameter.
-@deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="horizontal",
     D="annotate",
