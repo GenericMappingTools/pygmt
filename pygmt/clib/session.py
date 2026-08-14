@@ -32,7 +32,6 @@ from pygmt.exceptions import (
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
-    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1755,10 +1754,6 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
-    @deprecate_parameter(
-        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
-    )
     def virtualfile_in(
         self,
         check_kind=None,
@@ -1790,10 +1785,6 @@ class Session:
         required : bool
             Set to True when 'data' or ('x' and 'y') is required. Set to False when
             dealing with optional virtual files. Default is True.
-
-            .. versionchanged:: v0.16.0
-               The parameter 'required_data' is renamed to 'required'. The parameter
-               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
