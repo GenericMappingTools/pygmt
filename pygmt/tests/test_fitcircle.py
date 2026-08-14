@@ -6,7 +6,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import fitcircle
-from pygmt.exceptions import GMTParameterError
 from pygmt.src import which
 
 
@@ -37,7 +36,7 @@ def test_fitcircle_absolutes(data):
 
 def test_fitcircle_squares(data):
     """
-    Test fitcircle with norm="squares".
+    Test fitcircle with norm="squares", which is also the default.
     """
     result = fitcircle(data=data, norm="squares")
     assert isinstance(result, dict)
@@ -46,6 +45,7 @@ def test_fitcircle_squares(data):
     npt.assert_allclose(result["mean"], (330.163207808, -18.4067882988))
     npt.assert_allclose(result["north_pole"], (52.7449849947, 21.2046833116))
     npt.assert_allclose(result["south_pole"], (232.744984995, -21.2046833116))
+    assert fitcircle(data=data) == result  # norm="squares" is the default
 
 
 def test_fitcircle_small_circle(data):
@@ -73,11 +73,3 @@ def test_fitcircle_input_xy(data):
     result = fitcircle(x=data.longitude, y=data.latitude, norm="absolutes")
     assert isinstance(result, dict)
     npt.assert_allclose(result["flat_mean"], (330.243649573, -18.3910128205))
-
-
-def test_fitcircle_no_norm(data):
-    """
-    Test that fitcircle fails when the required "norm" parameter is missing.
-    """
-    with pytest.raises(GMTParameterError):
-        fitcircle(data=data)
