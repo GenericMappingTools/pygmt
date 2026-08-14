@@ -1756,13 +1756,12 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
     # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
     @deprecate_parameter(
         "required_data", "required", "v0.16.0", remove_version="v0.20.0"
     )
-    def virtualfile_in(  # ruff: ignore[too-many-branches]
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1771,7 +1770,6 @@ class Session:
         z=None,
         required=True,
         mincols=2,
-        required_z=False,
         extra_arrays=None,
     ):
         """
@@ -1802,13 +1800,6 @@ class Session:
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
-        required_z : bool
-            State whether the 'z' column is required.
-
-            .. deprecated:: v0.16.0
-               The parameter 'required_z' will be removed in v0.20.0. Use parameter
-               'mincols' instead. E.g., ``required_z=True`` is equivalent to
-               ``mincols=3``.
         extra_arrays : list of 1-D arrays
             A list of numpy arrays in addition to x, y, and z. All of these arrays must
             be of the same size as the x/y/z arrays.
@@ -1844,16 +1835,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        if required_z is True:
-            warnings.warn(
-                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
-                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
-                "``required_z=True`` is equivalent to ``mincols=3``.",
-                category=FutureWarning,
-                stacklevel=1,
-            )
-            mincols = 3
-
         kind = data_kind(data, required=required)
         _validate_data_input(
             data=data,
