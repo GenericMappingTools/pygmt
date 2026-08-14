@@ -11,15 +11,11 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
-@deprecate_parameter(
-    "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(
     A="vector",
     D="rescale",

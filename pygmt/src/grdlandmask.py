@@ -10,18 +10,12 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'maskvalues' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'bordervalues' parameter.
-@deprecate_parameter("maskvalues", "mask_values", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter(
-    "bordervalues", "border_values", "v0.18.0", remove_version="v0.20.0"
-)
 def grdlandmask(
     outgrid: PathLike | None = None,
     spacing: Sequence[float | str] | None = None,
