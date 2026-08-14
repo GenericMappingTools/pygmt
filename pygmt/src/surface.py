@@ -9,14 +9,12 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'maxradius' parameter.
-@deprecate_parameter("maxradius", "max_radius", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="convergence",
     Ll="lower",
