@@ -4,7 +4,8 @@ Tests for Figure.vlines.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
+from pygmt.params import Axis
 
 
 @pytest.mark.mpl_image_compare
@@ -61,7 +62,11 @@ def test_vlines_geographic_global():
     Plot vertical lines in geographic coordinates.
     """
     fig = Figure()
-    fig.basemap(region=[-180, 180, -90, 90], projection="R15c", frame="a30g30")
+    fig.basemap(
+        region=[-180, 180, -90, 90],
+        projection="R15c",
+        frame=Axis(annot=30, grid=30),
+    )
     fig.vlines(30, pen="1p")
     fig.vlines(90, ymin=-60, pen="1p,blue")
     fig.vlines(-90, ymax=60, pen="1p,blue")
@@ -90,13 +95,13 @@ def test_vlines_invalid_input():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 6], projection="X10c/6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=2, ymax=[3, 4])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=[2, 3], ymax=4)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines(1, ymin=[2, 3], ymax=[4, 5])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines([1, 2], ymin=[2, 3, 4], ymax=3)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.vlines([1, 2], ymin=[2, 3], ymax=[4, 5, 6])

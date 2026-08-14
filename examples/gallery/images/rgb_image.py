@@ -13,11 +13,12 @@ The example below shows a Worldview 2 satellite image over
 Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
 `CC BY-NC 4.0 <https://creativecommons.org/licenses/by-nc/4.0/>`_ license.
-"""  # noqa: RUF002
+"""  # ruff: ignore[ambiguous-unicode-character-docstring]
 
 # %%
 import pygmt
 import rioxarray
+from pygmt.params import Axis, Frame
 
 # %%
 # Read 3-band data from GeoTIFF into an xarray.DataArray object:
@@ -38,6 +39,10 @@ with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
         grid=image,
         # Use a map scale where 1 cm on the map equals 1 km on the ground
         projection="x1:100000",
-        frame=[r"WSne+tL@!a¯hain@!a¯, Hawai`i on 9 Aug 2023", "af"],
+        frame=Frame(
+            axes="WSne",
+            title=r"L@!a¯hain@!a¯, Hawai`i on 9 Aug 2023",
+            axis=Axis(annot=True, tick=True),
+        ),
     )
 fig.show()

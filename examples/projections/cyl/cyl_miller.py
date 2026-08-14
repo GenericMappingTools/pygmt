@@ -12,18 +12,20 @@ by 0.8.
 
 **j**\ [*lon0/*]\ */scale* or **J**\ [*lon0/*]\ */width*
 
-The projection is set with **j** or **J**. The central meridian is set by the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **j** or **J**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[-180, 180, -80, 80],
     projection="J-65/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )

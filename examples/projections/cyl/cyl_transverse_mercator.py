@@ -11,20 +11,24 @@ complex curves.
 
 **t**\ *lon0*\ [/\ *lat0*]/\ *scale* or **T**\ *lon0*\ [/\ *lat0*]/\ *width*
 
-The projection is set with **t** or **T**. The central meridian is set
-by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
-figure size is set with *scale* or *width*.
+- **t** or **T**: Sets the projection type.
+- *lon0*: Sets the central meridian.
+- *lat0*: Sets the latitude of origin [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],
     projection="T35/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",
     water="steelblue",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["conformal"]

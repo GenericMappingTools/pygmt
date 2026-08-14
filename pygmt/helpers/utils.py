@@ -15,10 +15,11 @@ from itertools import islice
 from pathlib import Path
 from typing import Any, Literal
 
+import numpy as np
 import xarray as xr
 from pygmt._typing import PathLike
 from pygmt.encodings import charset
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 
 # Type hints for the list of encodings supported by PyGMT.
 Encoding = Literal[
@@ -47,7 +48,7 @@ Kind = Literal[
 ]
 
 
-def _validate_data_input(  # noqa: PLR0912
+def _validate_data_input(  # ruff: ignore[too-many-branches]
     data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
 ) -> None:
     """
@@ -221,7 +222,7 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     True
     >>> _contains_apostrophe_or_backtick("12AB'`")
     True
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     return "'" in argstr or "`" in argstr
 
 
@@ -277,7 +278,7 @@ def _check_encoding(argstr: str) -> Encoding:
     return "ISOLatin1+"
 
 
-def data_kind(  # noqa: PLR0912
+def data_kind(  # ruff: ignore[too-many-branches]
     data: Any,
     required: bool = True,
     check_kind: Kind | Sequence[Kind] | Literal["raster", "vector"] | None = None,
@@ -482,7 +483,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     >>> non_ascii_to_octal("'‘’\"“”")
     '\\234\\140\\047"\\216\\217'
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     # Return the input string if it only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
@@ -511,8 +512,8 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(  # noqa: PLR0912
-    kwdict: dict[str, Any],
+def build_arg_list(  # ruff: ignore[too-many-branches]
+    kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
     outfile: PathLike | None = None,
@@ -555,6 +556,8 @@ def build_arg_list(  # noqa: PLR0912
     ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
     >>> build_arg_list(dict(B=["af", "WSne+tBlank Space"]))
     ['-BWSne+tBlank Space', '-Baf']
+    >>> build_arg_list(dict(B=[True, "+tTitle"]))
+    ['-B', '-B+tTitle']
     >>> build_arg_list(dict(F='+t"Empty Spaces"'))
     ['-F+t"Empty Spaces"']
     >>> build_arg_list(dict(l="'Void Space'"))
@@ -589,14 +592,17 @@ def build_arg_list(  # noqa: PLR0912
     gmt_args = []
     for key, value in kwdict.items():
         if len(key) > 2:  # Raise an exception for unrecognized options
-            msg = f"Unrecognized parameter '{key}'."
+            msg = f"Unrecognized parameter {key!r}."
             raise GMTInvalidInput(msg)
-        if value is None or value is False:  # Exclude arguments that are None or False
+        if not is_given(value):
             pass
         elif value is True:
             gmt_args.append(f"-{key}")
         elif is_nonstr_iter(value):
-            gmt_args.extend(f"-{key}{_value}" for _value in value)
+            gmt_args.extend(
+                f"-{key}{_value}" if _value is not True else f"-{key}"
+                for _value in value
+            )
         else:
             gmt_args.append(f"-{key}{value}")
 
@@ -623,15 +629,53 @@ def build_arg_list(  # noqa: PLR0912
             or os.fspath(outfile) in {"", ".", ".."}
             or os.fspath(outfile).endswith(("/", "\\"))
         ):
-            msg = f"Invalid output file name '{outfile}'."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(outfile, description="output file name")
         gmt_args.append(f"->{os.fspath(outfile)}")
     return gmt_args
 
 
+def is_given(value: Any) -> bool:
+    """
+    Check if a parameter is given (not None and not False).
+
+    In PyGMT, most parameters default to ``False`` (for boolean-only parameters) or
+    ``None`` (for non-boolean parameters), which means the parameters are not given and
+    should not be used in building the CLI option string.
+
+    Parameters
+    ----------
+    value
+        The value to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if the value is not ``None`` and not ``False``, otherwise ``False``.
+
+    Examples
+    --------
+    >>> is_given(None)
+    False
+    >>> is_given(False)
+    False
+    >>> is_given(True)
+    True
+    >>> is_given(0)
+    True
+    >>> is_given("")
+    True
+    >>> is_given([])
+    True
+    >>> is_given("value")
+    True
+    """
+    return value is not None and value is not False
+
+
 def is_nonstr_iter(value: Any) -> bool:
     """
-    Check if the value is iterable (e.g., list, tuple, array) but not a string.
+    Check if the value is iterable (e.g., list, tuple, array) but not a string or a 0-D
+    array.
 
     Parameters
     ----------
@@ -660,8 +704,14 @@ def is_nonstr_iter(value: Any) -> bool:
     True
     >>> is_nonstr_iter(np.array(["abc", "def", "ghi"]))
     True
+    >>> is_nonstr_iter(np.array(42))
+    False
     """
-    return isinstance(value, Iterable) and not isinstance(value, str)
+    return (
+        isinstance(value, Iterable)
+        and not isinstance(value, str)
+        and not (hasattr(value, "ndim") and value.ndim == 0)
+    )
 
 
 def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
@@ -693,7 +743,7 @@ def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
         case "darwin":  # macOS
             subprocess.run([shutil.which("open"), fname], check=False, **run_args)  # type:ignore[call-overload]
         case "win32":  # Windows
-            os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
+            os.startfile(fname)  # type:ignore[attr-defined] # ruff: ignore[start-process-with-no-shell]
         case _:  # Fall back to the browser if can't recognize the operating system.
             webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
@@ -739,18 +789,16 @@ def args_in_kwargs(args: Sequence[str], kwargs: dict[str, Any]) -> bool:
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
     True
     """
-    return any(
-        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
-    )
+    return any(is_given(kwargs.get(arg)) for arg in args)
 
 
 def sequence_join(
     value: Any,
-    separator: str = "/",
+    sep: str = "/",
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
-) -> str | list[str] | None | Any:
+) -> str | list[str] | Any | None:
     """
     Join a sequence of values into a string separated by a separator.
 
@@ -761,7 +809,7 @@ def sequence_join(
     ----------
     value
         The 1-D or 2-D sequence of values to join.
-    separator
+    sep
         The separator to join the values.
     size
         Expected size of the 1-D sequence. It can be either an integer or a sequence of
@@ -794,37 +842,83 @@ def sequence_join(
 
     >>> sequence_join([1, 2, 3, 4])
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator=",")
+    >>> sequence_join([1, 2, 3, 4], sep=",")
     '1,2,3,4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=4)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=4)
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4])
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4])
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=[2, 4], ndim=2)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=[2, 4], ndim=2)
     '1/2/3/4'
-    >>> sequence_join([1, 2, 3, 4], separator="/", size=2)
+    >>> sequence_join([1, 2, 3, 4], sep="/", size=2)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 2 values, but got 4 values.
-    >>> sequence_join([1, 2, 3, 4, 5], separator="/", size=[2, 4], name="parname")
+    >>> sequence_join([1, 2, 3, 4, 5], sep="/", size=[2, 4], name="parname")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Parameter 'parname': Expected ...
 
-    >>> sequence_join([[1, 2], [3, 4]], separator="/")
+    >>> sequence_join([[1, 2], [3, 4]], sep="/")
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a 1-D ..., but a 2-D sequence is given.
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=2, ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=2, ndim=2)
     ['1/2', '3/4']
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=4, ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=4, ndim=2)
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Expected a sequence of 4 values.
-    >>> sequence_join([[1, 2], [3, 4]], separator="/", size=[2, 4], ndim=2)
+    >>> sequence_join([[1, 2], [3, 4]], sep="/", size=[2, 4], ndim=2)
     ['1/2', '3/4']
+
+    >>> # Join a sequence of datetime-like objects into a string.
+    >>> import datetime
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> sequence_join(
+    ...     [
+    ...         datetime.date(2010, 1, 1),
+    ...         np.datetime64("2010-01-01T16:00:00"),
+    ...         np.array("2010-03-01T00:00:00", dtype=np.datetime64),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '2010-01-01/2010-01-01T16:00:00/2010-03-01T00:00:00'
+    >>> sequence_join(
+    ...     [
+    ...         datetime.datetime(2010, 3, 1),
+    ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '2010-03-01T00:00:00.000000/2015-01-01T12:00:00.123456/2005-01-01T08:00:00.000000000'
+
+    >>> # Join a sequence of timedelta64 objects into a string.
+    >>> sequence_join(
+    ...     [
+    ...         np.timedelta64(0, "Y"),
+    ...         np.timedelta64(1, "M"),
+    ...         np.timedelta64(2, "W"),
+    ...         np.timedelta64(3, "D"),
+    ...         np.timedelta64(4, "h"),
+    ...         np.timedelta64(5, "m"),
+    ...         np.timedelta64(6, "s"),
+    ...         np.timedelta64(7, "ms"),
+    ...         np.timedelta64(8, "us"),
+    ...         np.timedelta64(9, "ns"),
+    ...         np.timedelta64(10, "ps"),
+    ...         np.timedelta64(11, "fs"),
+    ...         np.timedelta64(12, "as"),
+    ...         np.timedelta64(13),
+    ...     ],
+    ...     sep="/",
+    ... )
+    '0/1/2/3/4/5/6/7/8/9/10/11/12/13'
     """
     # Return the original value if it is not a sequence (e.g., None, bool, or str).
     if not is_nonstr_iter(value):
@@ -834,7 +928,7 @@ def sequence_join(
     # Change size to a list to simplify the checks.
     size = [size] if isinstance(size, int) else size
     errmsg = {
-        "name": f"Parameter '{name}': " if name else "",
+        "name": f"Parameter {name!r}: " if name else "",
         "sizes": ", ".join(str(s) for s in size) if size is not None else "",
     }
 
@@ -849,7 +943,23 @@ def sequence_join(
                 f"but got {len(value)} values."
             )
             raise GMTInvalidInput(msg)
-        return separator.join(str(v) for v in value)
+        # Handle datetime-like or timedelta64 objects in the sequence.
+        # 'str(v)' produces a string like '2024-01-01 00:00:00' for some datetime-like
+        # objects (e.g., datetime.datetime, pandas.Timestamp), and a string like
+        # '0 days' for np.timedelta64 objects.
+        # Need to convert them to ISO 8601 string format 'YYYY-MM-DDThh:mm:ss.ffffff'
+        # or integer number for timedelta64.
+        _values = []
+        for item in value:
+            if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
+                _values.append(str(item.astype(int)))
+            elif " " in str(item):
+                _values.append(
+                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
+                )
+            else:
+                _values.append(str(item))
+        return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.
     if ndim == 1:
@@ -858,4 +968,4 @@ def sequence_join(
     if size is not None and any(len(i) not in size for i in value):
         msg = f"{errmsg['name']}Expected a sequence of {errmsg['sizes']} values."
         raise GMTInvalidInput(msg)
-    return [separator.join(str(j) for j in sub) for sub in value]
+    return [sep.join(str(j) for j in sub) for sub in value]

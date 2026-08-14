@@ -5,24 +5,11 @@ Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import datetime
-import importlib
 
-from packaging.requirements import Requirement
 from pygmt import __commit__, __version__
-from pygmt.clib import required_gmt_version
+from pygmt._show_versions import _get_dep_specifier
 from pygmt.sphinx_gallery import PyGMTScraper
 
-# Dictionary for dependency name and minimum required versions.
-requirements = {
-    Requirement(requirement).name: str(Requirement(requirement).specifier)
-    for requirement in importlib.metadata.requires("pygmt")
-}
-requirements.update(
-    {
-        "python": importlib.metadata.metadata("pygmt")["Requires-Python"],
-        "gmt": f">={required_gmt_version}",
-    }
-)
 # Is a development version or not.
 isdev = "dev" in __version__ or __version__ == "unknown"
 # Some variables.
@@ -39,7 +26,7 @@ else:
 # Projection information.
 project = "PyGMT"
 author = "The PyGMT Developers"
-copyright = f"2017-{datetime.date.today().year}, {author}"  # noqa: A001
+copyright = f"2017-{datetime.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
 
@@ -101,8 +88,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.5/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.7/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
@@ -142,7 +129,7 @@ myst_enable_extensions = [
 ]
 # Enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
-    "requires": requirements,
+    "requires": _get_dep_specifier(),
 }
 
 # Options for MyST-NB.
@@ -206,11 +193,13 @@ sphinx_gallery_conf = {
 
 # Options for HTML output.
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {}
+html_theme_options = {
+    "logo_only": True,
+}
 html_title = project
 html_short_title = project
 html_baseurl = f"{doc_url}/dev/" if isdev else f"{doc_url}/latest/"
-html_logo = ""
+html_logo = "_static/pygmtlogo.png"
 html_favicon = "_static/favicon.png"
 html_css_files = ["style.css"]
 html_static_path = ["_static"]
@@ -222,20 +211,16 @@ html_show_sphinx = False
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
-        ),
-        (
-            '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/main/LICENSE.txt",
-        ),
-        (
-            '<i class="fa fa-comment fa-fw"></i> Contact',
+            '<i class="fa fa-comment fa-fw"></i> GMT Forum',
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Source Code',
-            repository_url,
+            '<i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)',
+            f"{repository_url}/issues",
+        ),
+        (
+            '<i class="fa fa-handshake-o fa-fw"></i> Code of Conduct',
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook" links

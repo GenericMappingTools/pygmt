@@ -35,13 +35,16 @@ For modifying the main front line via the ``pen`` parameter, see the
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Generate a two-point line for plotting
 x = np.array([1, 4])
 y = np.array([20, 20])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tLine Fronts")
+fig.basemap(
+    region=[0, 10, 0, 20], projection="X15c/15c", frame=Frame(title="Line Fronts")
+)
 
 # Plot the line using different front styles
 for frontstyle in [
@@ -87,7 +90,7 @@ for frontstyle in [
         text=frontstyle,
         font="Courier-Bold",
         justify="ML",
-        offset="0.75c/0c",
+        offset=(0.75, 0),
     )
 
 fig.show()

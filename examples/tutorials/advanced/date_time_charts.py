@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 import pygmt
 import xarray as xr
+from pygmt.params import Axis, Frame
 
 # %%
 # Using Python's ``datetime``
@@ -42,7 +43,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
     region=[datetime.date(2010, 1, 1), datetime.date(2014, 12, 1), 0, 6],
-    frame=["WSen", "afg"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=x,
     y=y,
     style="c0.3c",
@@ -79,7 +80,7 @@ fig.plot(
         0,
         6,
     ],
-    frame=["WS", "af"],
+    frame=Frame(axes="WS", axis=Axis(annot=True, tick=True)),
     x=x,
     y=y,
     style="c0.4c",
@@ -112,7 +113,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
     region=["2016-01-01", "2017-01-01", 0, 6],
-    frame=["WSen", "afg"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=x,
     y=y,
     style="a0.45c",
@@ -145,7 +146,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
     region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 3, 1), 0, 6],
-    frame=["WSen", "afg"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=x,
     y=y,
     style="i0.4c",
@@ -175,7 +176,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
     region=[datetime.datetime(2017, 12, 31), datetime.datetime(2019, 12, 31), 0, 10],
-    frame=["WSen", "ag"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
     style="i0.4c",
@@ -203,7 +204,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
     region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
-    frame=["WSen", "ag"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
     style="n0.4c",
@@ -231,7 +232,7 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
     region=[datetime.datetime(2010, 1, 1), datetime.datetime(2012, 6, 1), 0, 10],
-    frame=["WS", "ag"],
+    frame=Frame(axes="WS", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
     style="s0.5c",
@@ -270,7 +271,7 @@ fig = pygmt.Figure()
 fig.plot(
     region=region,
     projection="X15c/10c",
-    frame=["WSen", "afg"],
+    frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=df.Date,
     y=df.Score,
     style="c0.4c",
@@ -286,20 +287,19 @@ fig.show()
 #
 # This example focuses on annotating the axes and setting the interval in which the
 # annotations should appear. All of these modifications are passed to the ``frame``
-# parameter and each item in that list modifies a specific aspect of the frame.
+# parameter via a :class:`pygmt.params.Frame` object.
 #
-# Adding ``"WS"`` means that only the Western/Left (**W**) and Southern/Bottom (**S**)
-# borders of the plot are annotated. For more information on this, please refer to the
+# Setting ``axes="WS"`` in :class:`pygmt.params.Frame` means that only the
+# Western/Left (**W**) and Southern/Bottom (**S**) borders of the plot are annotated.
+# For more information on this, please refer to the
 # :doc:`Frames, ticks, titles, and labels tutorial </tutorials/basics/frames>`.
 #
-# Another important item in the list passed to ``frame`` is ``"sxa1Of1D"``. This string
-# modifies the secondary annotation (**s**) of the x-axis (**x**). Specifically, it sets
-# the main annotation and major tick spacing interval to one month (**a1O**) (capital
-# letter O, not zero). Additionally, it sets the minor tick spacing interval to 1 day
-# (**f1D**). To use the month name instead of its number set :gmt-term:`FORMAT_DATE_MAP`
-# to **o**. More information on configuring date formats can be found at
-# :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
-# :gmt-term:`FORMAT_DATE_OUT`.
+# Setting ``xaxis2=Axis(annot="1O", tick="1D")`` modifies the secondary x-axis
+# annotation interval to one month (**1O**) (capital letter O, not zero), and sets the
+# minor tick spacing interval to 1 day (**1D**). To use the month name instead of its
+# number set :gmt-term:`FORMAT_DATE_MAP` to **o**. More information on configuring
+# date formats can be found at :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`,
+# and :gmt-term:`FORMAT_DATE_OUT`.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
@@ -309,7 +309,13 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
     fig.plot(
         projection="X15c/10c",
         region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
-        frame=["WS", "sxa1Of1D", "pxa5d", "sy+lLength", "pya1+ucm"],
+        frame=Frame(
+            axes="WS",
+            xaxis=Axis(annot="5d"),
+            yaxis=Axis(annot=1, unit="cm"),
+            xaxis2=Axis(annot="1O", tick="1D"),
+            yaxis2=Axis(label="Length"),
+        ),
         x=x,
         y=y,
         style="c0.4c",
@@ -344,7 +350,13 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
             0,
             10,
         ],
-        frame=["WS", "sxa1K", "pxa6H", "sy+lSpeed", "pya1+ukm/h"],
+        frame=Frame(
+            axes="WS",
+            xaxis=Axis(annot="6H"),
+            yaxis=Axis(annot=1, unit="km/h"),
+            xaxis2=Axis(annot="1K"),
+            yaxis2=Axis(label="Speed"),
+        ),
         x=x,
         y=y,
         style="n0.4c",

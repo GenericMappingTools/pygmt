@@ -32,9 +32,9 @@ fig.show()
 #
 # The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of which
 # there are 5 options: ``fancy`` (default, see above), ``fancy+``, ``plain``, ``graph``
-# (which does not apply to geographical maps) and ``inside``.
+# (which does not apply to geographic maps) and ``inside``.
 #
-# The ``FORMAT_GEO_MAP`` parameter controls the format of geographical tick annotations.
+# The ``FORMAT_GEO_MAP`` parameter controls the format of geographic tick annotations.
 # The default uses degrees and minutes. Here we specify the ticks to be a decimal number
 # of degrees.
 

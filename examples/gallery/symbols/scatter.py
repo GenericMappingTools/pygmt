@@ -12,6 +12,7 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 rng = np.random.default_rng(seed=19680801)
 n = 200  # number of random data points
@@ -20,7 +21,11 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[-1, 1, -1, 1],
     projection="X10c/10c",
-    frame=["xa0.5fg", "ya0.5fg", "WSrt"],
+    frame=Frame(
+        axes="WSrt",
+        xaxis=Axis(annot=0.5, tick=True, grid=True),
+        yaxis=Axis(annot=0.5, tick=True, grid=True),
+    ),
 )
 for fill in ["gray73", "darkorange", "slateblue"]:
     # Generate standard normal distributions centered on 0

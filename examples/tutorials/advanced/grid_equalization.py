@@ -8,6 +8,7 @@ statistics based on a cumulative distribution function.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame, Position
 
 # %%
 # Load sample data
@@ -35,14 +36,14 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[500, 3540], cmap="turku")
+pygmt.makecpt(series=[500, 3540], cmap="SCM/turku")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Digital Elevation Model"
 ):
     # Plot the original digital elevation model in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=grid, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=grid, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the z-value distribution in the original digital
     # elevation model
     with fig.set_panel(panel=1):
@@ -51,12 +52,21 @@ with fig.subplot(
             projection="X?",
             region=[500, 3600, 0, 20],
             series=[500, 3600, 100],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Elevation (m)"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -104,14 +114,14 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Linear distribution"
 ):
     # Plot the grid with a linear distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=linear, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=linear, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the linear z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
@@ -119,13 +129,22 @@ with fig.subplot(
             projection="X?",
             region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -154,14 +173,14 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[-4.5, 4.5], cmap="vik")
+pygmt.makecpt(series=[-4.5, 4.5], cmap="SCM/vik")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Normal distribution"
 ):
     # Plot the grid with a normal distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=normal, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(grid=normal, projection="M?", frame=Frame(axes="WSne"), cmap=True)
     # Plot a histogram showing the normal z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
@@ -169,12 +188,21 @@ with fig.subplot(
             projection="X?",
             region=[-4.5, 4.5, 0, 20],
             series=[-4.5, 4.5, 0.2],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 
@@ -218,14 +246,16 @@ fig = pygmt.Figure()
 # Define figure configuration
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
-pygmt.makecpt(series=[0, divisions, 1], cmap="lajolla")
+pygmt.makecpt(series=[0, divisions, 1], cmap="SCM/lajolla")
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Quadratic distribution"
 ):
     # Plot the grid with a quadratic distribution in the first panel
     with fig.set_panel(panel=0):
-        fig.grdimage(grid=quadratic, projection="M?", frame="WSne", cmap=True)
+        fig.grdimage(
+            grid=quadratic, projection="M?", frame=Frame(axes="WSne"), cmap=True
+        )
     # Plot a histogram showing the quadratic z-value distribution
     with fig.set_panel(panel=1):
         fig.histogram(
@@ -233,13 +263,22 @@ with fig.subplot(
             projection="X?",
             region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
+            frame=Frame(
+                axes="wnSE",
+                xaxis=Axis(annot=True, tick=True, label="Relative elevation"),
+                yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
+            ),
             cmap=True,
             histtype=1,
             pen="1p,black",
             center=True,
         )
-        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(
+            position=Position("MR", cstype="outside", offset=(1.5, 0)),
+            length=3,
+            width=0.3,
+            frame=True,
+        )
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3

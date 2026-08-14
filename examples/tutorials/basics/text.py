@@ -2,7 +2,7 @@
 Plotting text
 =============
 
-It is often useful to add text annotations to a plot or map. This is handled by the
+It is often useful to add text annotations to a plot. This is handled by the
 :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 """
 
@@ -10,6 +10,7 @@ It is often useful to add text annotations to a plot or map. This is handled by 
 from pathlib import Path
 
 import pygmt
+from pygmt.params import Axis, Frame
 
 # %%
 # Adding a single text label
@@ -37,18 +38,14 @@ fig.show()
 # * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
 #   from the horizontal in degrees.
 # * ``justify``: Defines the anchor point of the bounding box for the text. It is
-#   specified by a two-letter (order independent) code, chosen from:
-#
-#   * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-#   * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
+#   specified by a :doc:`2-character justification code </techref/justification_codes>`.
 # * ``offset``: Shifts the text relatively to the reference point.
 
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: "font", "angle", and "offset" parameters
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Change font size, family/weight, color of the text
 fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
@@ -62,13 +59,13 @@ fig.text(x=0, y=-3, text="my text")
 # Shift the text label relatively to the position given via the x and y parameters
 # by 1 centimeter to the right (positive x-direction) and 0.5 centimeters down
 # (negative y-direction)
-fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
+fig.text(x=0, y=-3, text="my text", offset=(1, -0.5))
 
 fig.shift_origin(xshift="w+0.5c")
 
 # -----------------------------------------------------------------------------
 # Right: "justify" parameter
-fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame="rtlb")
+fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Plot markers for reference
 fig.plot(
@@ -81,15 +78,15 @@ fig.plot(
 
 # Plot text labels at the x and y positions of the markers while varying the anchor
 # point via the justify parameter
-fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
-fig.text(x=0, y=0.5, text="TC", justify="TC")  # TopCenter
-fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
-fig.text(x=-0.5, y=0, text="ML", justify="ML")  # MiddleLeft
-fig.text(x=0, y=0, text="MC", justify="MC")  # MiddleCenter
-fig.text(x=0.5, y=0, text="MR", justify="MR")  # MiddleRight
-fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # BottomLeft
-fig.text(x=0, y=-0.5, text="BC", justify="BC")  # BottomCenter
-fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # BottomRight
+fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # Top Left
+fig.text(x=0, y=0.5, text="TC", justify="TC")  # Top Center
+fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # Top Right
+fig.text(x=-0.5, y=0, text="ML", justify="ML")  # Middle Left
+fig.text(x=0, y=0, text="MC", justify="MC")  # Middle Center
+fig.text(x=0.5, y=0, text="MR", justify="MR")  # Middle Right
+fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # Bottom Left
+fig.text(x=0, y=-0.5, text="BC", justify="BC")  # Bottom Center
+fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # Bottom Right
 
 fig.show()
 
@@ -107,7 +104,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=Frame(axes="rtlb"))
 
 # Add a box with a fill in green color
 fig.text(x=0, y=3, text="My text", fill="green")
@@ -156,16 +153,16 @@ fig.show()
 # ----------------------------
 #
 # It is also possible to add text labels via an external input file containing ``x``,
-# ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
+# ``y``, and ``text`` columns. Additionally, columns to set the ``angle``, ``font``,
 # and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
-fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
+fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame=Axis(annot=2, tick=1))
 fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file with region / sea names:
 # - longitude (x) and latitude (y) coordinates are in the first two columns
-# - angle, font, and justify muss be present in this order in the next three columns
+# - angle, font, and justify must be present in this order in the next three columns
 # - the text to be printed is given in the last column
 with Path.open("examples.txt", "w") as f:
     f.write("114.00  0.50   0 15p,Helvetica-Bold,white CM BORNEO\n")
@@ -191,40 +188,38 @@ fig.show()
 #
 # Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can be
 # specified to set the reference point for the text on the plot. As for the ``justify``
-# parameter, the ``position`` parameter is specified by a two-letter (order independent)
-# code, chosen from:
-#
-# * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
-# * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
-#
-# This can be helpful to add a tag to a subplot or text labels out of the plot or map
+# parameter, the ``position`` parameter is specified by a
+# :doc:`2-character justification code </techref/justification_codes>`.
+# This can be helpful to add a tag to a subplot or text labels out of the plot
 # frame, e.g., for depth slices.
 
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
-# Left: Add a tag to a subplot
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WStr", "af"])
-
-fig.text(
-    text="(a)",
-    position="TL",  # Top Left
-    justify="TL",  # Top Left
-    offset="0.1c/-0.1c",
+# Left: Add a tag to a subplot at the Top Left corner
+fig.basemap(
+    region=[-5, 5, -5, 5],
+    projection="X5c",
+    frame=Frame(axes="WStr", axis=Axis(annot=True, tick=True)),
 )
+fig.text(text="(a)", position="TL", justify="TL", offset=(0.1, -0.1))
 
 fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
-# Right: Add a text label outside of the plot or map frame
-fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
+# Right: Add a text label outside of the plot frame
+fig.basemap(
+    region=[-30, 30, 10, 60],
+    projection="L0/35/23/47/5c",
+    frame=Frame(axes="wSnE", axis=Axis(annot=True, tick=True)),
+)
 
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
     position="TC",  # Top Center
     justify="MC",  # Middle Center
-    offset="0c/0.2c",
-    no_clip=True,  # Allow plotting outside of the map or plot frame
+    offset=(0, 0.2),
+    no_clip=True,  # Allow plotting outside of the plot frame
 )
 
 fig.show()

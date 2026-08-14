@@ -2,56 +2,47 @@
 plot - Plot lines, polygons, and symbols in 2-D.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
+from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
 
 @fmt_docstring
 @use_alias(
-    A="straight_line",
-    B="frame",
-    C="cmap",
     D="offset",
     E="error_bar",
     F="connection",
     G="fill",
     I="intensity",
-    J="projection",
     L="close",
     N="no_clip",
-    R="region",
     S="style",
-    V="verbose",
     W="pen",
     Z="zvalue",
     a="aspatial",
     b="binary",
-    c="panel",
     d="nodata",
     e="find",
     f="coltypes",
     g="gap",
     h="header",
-    i="incols",
     l="label",
-    p="perspective",
-    t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(  # noqa: PLR0912
+def plot(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -59,14 +50,24 @@ def plot(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
-    straight_line: bool | Literal["x", "y"] = False,  # noqa: ARG001
+    cmap: str | bool = False,
+    straight_line: bool | Literal["x", "y"] = False,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    panel: int | Sequence[int] | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
+    transparency: float | Sequence[float] | bool | None = None,
     **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    polygons, or symbols at those locations on a plot.
 
     Must provide either ``data`` or ``x``/``y``.
 
@@ -85,13 +86,23 @@ def plot(  # noqa: PLR0912
 
     Full GMT docs at :gmt-docs:`plot.html`.
 
-    {aliases}
+    $aliases
+       - A = straight_line
+       - B = frame
+       - C = cmap
+       - J = projection
+       - R = region
+       - V = verbose
+       - c = panel
+       - i = incols
+       - p = perspective
+       - t = transparency
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
         size, respectively.
     x/y : float or 1-D arrays
@@ -107,8 +118,6 @@ def plot(  # noqa: PLR0912
         should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {projection}
-    {region}
     straight_line
         By default, line segments are drawn as straight lines in the Cartesian and polar
         coordinate systems, and as great circle arcs (by resampling coarse input data
@@ -132,8 +141,7 @@ def plot(  # noqa: PLR0912
             meaning of *x* and *y* is reversed, i.e., *x* means meridians and *y* means
             parallels. The bug is fixed by upstream
             `PR #8648 <https://github.com/GenericMappingTools/gmt/pull/8648>`__.
-    {frame}
-    {cmap}
+    $cmap
     offset : str
         *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
@@ -169,7 +177,7 @@ def plot(  # noqa: PLR0912
         Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
         coordinates of a *refpoint* which will serve as a fixed external reference point
         for all groups.
-    {fill}
+    $fill
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float, bool, or 1-D array
@@ -190,7 +198,7 @@ def plot(  # noqa: PLR0912
         [Default plots points whose coordinates are strictly inside the
         frame boundaries only].
         The parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360-longitude) maps we
+        clipped to the plot region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
@@ -200,8 +208,7 @@ def plot(  # noqa: PLR0912
     style : str
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
-    {pen}
-    {verbose}
+    $pen
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -211,27 +218,39 @@ def plot(  # noqa: PLR0912
         polygon in the input data. To apply it to the fill color, use
         ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {aspatial}
-    {binary}
-    {panel}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {label}
-    {perspective}
-    {transparency}
-        ``transparency`` can also be a 1-D array to set varying
-        transparency for symbols, but this option is only valid if using
-        ``x``/``y``.
-    {wrap}
+    $projection
+    $region
+    $frame
+    $verbose
+    $aspatial
+    $binary
+    $panel
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $label
+    $perspective
+    $transparency
+        ``transparency`` can also be a 1-D array to set varying transparency for
+        symbols, but this option is only valid if using ``x``/``y``.
+    $wrap
+
+    See Also
+    --------
+    pygmt.Figure.choropleth
+        Plot a choropleth map.
+    pygmt.Figure.fill_between
+        Fill the area between two curves.
+    pygmt.Figure.hlines
+        Plot horizontal lines.
+    pygmt.Figure.vlines
+        Plot vertical lines.
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    self._activate_figure()
-
     kind = data_kind(data, check_kind="vector")
     if kind == "empty":  # Data is given via a series of vectors.
         kind = "vectors"
@@ -250,11 +269,14 @@ def plot(  # noqa: PLR0912
         # Size
         if is_nonstr_iter(size):
             data["size"] = size
-        # Intensity and transparency
-        for flag, name in [("I", "intensity"), ("t", "transparency")]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                data[name] = kwargs[flag]
-                kwargs[flag] = ""
+        # Intensity
+        if is_nonstr_iter(kwargs.get("I")):
+            data["intensity"] = kwargs["I"]
+            kwargs["I"] = ""
+        # Transparency
+        if is_nonstr_iter(transparency):
+            data["transparency"] = transparency
+            transparency = True
         # Symbol must be at the last column
         if is_nonstr_iter(symbol):
             if "S" not in kwargs:
@@ -262,24 +284,43 @@ def plot(  # noqa: PLR0912
             data["symbol"] = symbol
     else:
         if any(v is not None for v in (x, y)):
-            msg = "Too much data. Use either data or x/y/z."
-            raise GMTInvalidInput(msg)
+            raise GMTParameterError(at_most_one=["data", "x/y/z"])
         for name, value in [
             ("direction", direction),
             ("fill", kwargs.get("G")),
             ("size", size),
             ("intensity", kwargs.get("I")),
-            ("transparency", kwargs.get("t")),
+            ("transparency", transparency),
             ("symbol", symbol),
         ]:
             if is_nonstr_iter(value):
-                msg = f"'{name}' can't be a 1-D array if 'data' is used."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(value),
+                    reason=f"Parameter {name!r} can't be a 1-D array if 'data' is used.",
+                )
 
     # Set the default style if data has a geometry of Point or MultiPoint
     if kwargs.get("S") is None and _data_geometry_is_point(data, kind):
         kwargs["S"] = "s0.2c"
 
+    aliasdict = AliasSystem(
+        A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
+    ).add_common(
+        B=frame,
+        R=region,
+        J=projection,
+        V=verbose,
+        c=panel,
+        i=incols,
+        p=perspective,
+        t=transparency,
+    )
+    aliasdict.merge(kwargs)
+
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(data=data, kind=kind) as vintbl:
-            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))
+            lib.call_module(
+                module="plot", args=build_arg_list(aliasdict, infile=vintbl)
+            )

@@ -8,7 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import grdlandmask
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -64,5 +64,5 @@ def test_grdlandmask_fails():
     """
     Check that grdlandmask fails correctly when region and spacing are not given.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         grdlandmask()

@@ -7,6 +7,7 @@ import pytest
 from pygmt import Figure
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.datasets import load_blue_marble
+from pygmt.exceptions import GMTTypeError
 
 rioxarray = pytest.importorskip("rioxarray")
 
@@ -53,6 +54,5 @@ def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
     """
     fig = Figure()
     image = xr_image.copy().astype(dtype=dtype)
-    with pytest.warns(expected_warning=RuntimeWarning) as record:
+    with pytest.raises(GMTTypeError, match="Only uint8 images are supported"):
         fig.grdimage(grid=image)
-    assert len(record) == 1

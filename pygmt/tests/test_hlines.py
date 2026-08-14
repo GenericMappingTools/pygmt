@@ -4,7 +4,7 @@ Tests for Figure.hlines.
 
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 @pytest.mark.mpl_image_compare
@@ -109,13 +109,13 @@ def test_hlines_invalid_input():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 6], projection="X10c/6c", frame=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.hlines(1, xmin=2, xmax=[3, 4])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.hlines(1, xmin=[2, 3], xmax=4)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.hlines(1, xmin=[2, 3], xmax=[4, 5])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.hlines([1, 2], xmin=[2, 3, 4], xmax=3)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         fig.hlines([1, 2], xmin=[2, 3], xmax=[4, 5, 6])
