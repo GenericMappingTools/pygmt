@@ -9,7 +9,6 @@ import contextlib
 import ctypes as ctp
 import io
 import sys
-import warnings
 from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
@@ -33,7 +32,6 @@ from pygmt.exceptions import (
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
-    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1756,13 +1754,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
-    @deprecate_parameter(
-        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
-    )
-    def virtualfile_in(  # ruff: ignore[too-many-branches]
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1771,8 +1763,6 @@ class Session:
         z=None,
         required=True,
         mincols=2,
-        required_z=False,
-        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1795,28 +1785,9 @@ class Session:
         required : bool
             Set to True when 'data' or ('x' and 'y') is required. Set to False when
             dealing with optional virtual files. Default is True.
-
-            .. versionchanged:: v0.16.0
-               The parameter 'required_data' is renamed to 'required'. The parameter
-               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
-        required_z : bool
-            State whether the 'z' column is required.
-
-            .. deprecated:: v0.16.0
-               The parameter 'required_z' will be removed in v0.20.0. Use parameter
-               'mincols' instead. E.g., ``required_z=True`` is equivalent to
-               ``mincols=3``.
-        extra_arrays : list of 1-D arrays
-            A list of numpy arrays in addition to x, y, and z. All of these arrays must
-            be of the same size as the x/y/z arrays.
-
-            .. deprecated:: v0.16.0
-               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead to the `data` parameter. E.g.,
-               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1844,16 +1815,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        if required_z is True:
-            warnings.warn(
-                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
-                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
-                "``required_z=True`` is equivalent to ``mincols=3``.",
-                category=FutureWarning,
-                stacklevel=1,
-            )
-            mincols = 3
-
         kind = data_kind(data, required=required)
         _validate_data_input(
             data=data,
@@ -1908,14 +1869,6 @@ class Session:
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                if extra_arrays:
-                    msg = (
-                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
-                        "Prepare and pass a dictionary of arrays instead to the `data` "
-                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
-                    )
-                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
-                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
