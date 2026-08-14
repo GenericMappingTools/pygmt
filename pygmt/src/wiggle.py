@@ -8,20 +8,12 @@ from typing import Literal
 from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame, Perspective, Position
 from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillpositive' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillnegative' parameter.
-@deprecate_parameter(
-    "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter(
-    "fillnegative", "negative_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(
     T="track",
     W="pen",

@@ -13,7 +13,6 @@ from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_given,
     use_alias,
@@ -114,12 +113,6 @@ def _alias_option_Q(  # ruff: ignore[invalid-function-name]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*pen' parameters.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'drapegrid' parameter.
-@deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(I="shading", f="coltypes", n="interpolation")
 def grdview(
     self,

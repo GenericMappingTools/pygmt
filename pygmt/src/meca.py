@@ -14,7 +14,6 @@ from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     use_alias,
 )
@@ -116,15 +115,6 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'labelbox' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
-@deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter(
-    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter(
-    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(A="offset", Fr="label_box", L="outline", T="nodal")
 def meca(
     self,
