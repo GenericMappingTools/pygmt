@@ -13,7 +13,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_given,
     use_alias,
@@ -23,15 +22,6 @@ __doctest_skip__ = ["grdfill"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
-@deprecate_parameter(
-    "constantfill", "constant_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter("gridfill", "grid_fill", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter(
-    "neighborfill", "neighbor_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter("splinefill", "spline_fill", "v0.18.0", remove_version="v0.20.0")
 @use_alias(f="coltypes")
 def grdfill(
     grid: PathLike | xr.DataArray,
