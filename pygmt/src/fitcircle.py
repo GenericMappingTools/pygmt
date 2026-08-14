@@ -79,7 +79,7 @@ def fitcircle(
         returned; the raw GMT report is written to ``outfile`` instead.
     norm
         Specify the desired norm, either ``"absolutes"`` or ``"squares"``.
-    small_circle : bool or float
+    small_circle
         Attempt to fit a small circle instead of a great circle. The pole
         will be constrained to lie on the great circle connecting the pole
         of the best-fit great circle and the mean location of the data.
