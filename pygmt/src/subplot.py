@@ -231,7 +231,7 @@ def subplot(
     autolabel
         Specify automatic tag of each subplot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
            Use the parameters ``tag``, ``tag_position``, ``tag_box``,
            ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
