@@ -1,6 +1,5 @@
 """
-fitcircle - Find mean position and great or small circle fit to points on
-sphere.
+fitcircle - Find mean position and great or small circle fit to points on sphere.
 """
 
 from typing import Literal
