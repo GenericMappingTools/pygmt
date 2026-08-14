@@ -7,7 +7,6 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.helpers.utils import is_given
 
@@ -17,7 +16,7 @@ def fitcircle(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
-    norm: Literal["absolutes", "squares"] | None = None,
+    norm: Literal["absolutes", "squares"] = "squares",
     small_circle: bool | float = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -72,7 +71,8 @@ def fitcircle(
     x/y : 1-D arrays
         Arrays of x and y coordinates of the data points.
     norm
-        Specify the desired norm, either ``"absolutes"`` or ``"squares"``.
+        Specify the desired norm, either ``"absolutes"`` or ``"squares"``
+        [Default is ``"squares"``].
     small_circle
         Attempt to fit a small circle instead of a great circle. The pole
         will be constrained to lie on the great circle connecting the pole
@@ -100,9 +100,6 @@ def fitcircle(
           from the small circle pole to the small circle (a ``float``, not a
           tuple)
     """
-    if norm is None:
-        raise GMTParameterError(required="norm")
-
     aliasdict = AliasSystem(
         L=Alias(norm, name="norm", mapping={"absolutes": 1, "squares": 2}),
         S=Alias(small_circle, name="small_circle"),
