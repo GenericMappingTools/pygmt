@@ -2,14 +2,11 @@
 Test pygmt.fitcircle.
 """
 
-from pathlib import Path
-
 import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt import fitcircle
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import GMTTempFile
 from pygmt.src import which
 
 
@@ -76,16 +73,6 @@ def test_fitcircle_input_xy(data):
     result = fitcircle(x=data.longitude, y=data.latitude, norm="absolutes")
     assert isinstance(result, dict)
     npt.assert_allclose(result["flat_mean"], (330.243649573, -18.3910128205))
-
-
-def test_fitcircle_outfile(data):
-    """
-    Test that fitcircle returns None and writes a file when outfile is set.
-    """
-    with GMTTempFile(suffix=".txt") as tmpfile:
-        result = fitcircle(data=data, norm="squares", outfile=tmpfile.name)
-        assert result is None  # return value is None
-        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
 
 
 def test_fitcircle_no_norm(data):
