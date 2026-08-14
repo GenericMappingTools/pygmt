@@ -24,7 +24,7 @@ def fitcircle(
     | bool = False,
     **kwargs,
 ) -> dict[str, tuple[float, float] | float] | None:
-    r"""
+    """
     Find mean position and great or small circle fit to points on sphere.
 
     **fitcircle** reads (longitude, latitude) or (latitude, longitude) values from the
