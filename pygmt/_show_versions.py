@@ -93,19 +93,19 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     match Version(gs_version):
         case v if v < Version("9.53"):
             return (
-                f"Ghostscript v{gs_version} is too old and may have serious bugs. "
+                f"Ghostscript {gs_version} is too old and may have serious bugs. "
                 "Please consider upgrading your Ghostscript."
             )
         case v if Version("10.00") <= v < Version("10.02"):
             return (
-                f"Ghostscript v{gs_version} has known bugs. "
-                "Please consider upgrading to version v10.02 or later."
+                f"Ghostscript {gs_version} has known bugs. "
+                "Please consider upgrading to Ghostscript 10.02 or later."
             )
         case v if v >= Version("10.02") and Version(__gmt_version__) < Version("6.5.0"):
             return (
-                f"GMT v{__gmt_version__} doesn't support Ghostscript v{gs_version}. "
+                f"GMT {__gmt_version__} doesn't support Ghostscript {gs_version}. "
                 "Please consider upgrading to GMT>=6.5.0 or downgrading to Ghostscript "
-                "v9.56."
+                "9.56."
             )
     return None
 

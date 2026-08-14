@@ -178,7 +178,7 @@ def load_tile_map(
     }
 
     # TODO(contextily>=1.7.0): Remove once contextily>=1.7.0 is required.
-    # The 'headers' parameter was added in contextily v1.7.0
+    # The 'headers' parameter was added in contextily 1.7.0.
     if Version(contextily.__version__) < Version("1.7.0"):
         if headers is not None:
             raise GMTParameterError(

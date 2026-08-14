@@ -146,9 +146,9 @@ patch release.
 ## Backwards Compatibility and Deprecation Policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change until
-the v1.0.0 release. Versioning in PyGMT is based on the
-[semantic versioning specification](https://semver.org/spec/v2.0.0.html)
-(i.e., v*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
+the 1.0.0 release. Versioning in PyGMT is based on the
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (i.e.,
+*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
 - Incompatible changes are only allowed in major and minor releases, not in patch releases.
