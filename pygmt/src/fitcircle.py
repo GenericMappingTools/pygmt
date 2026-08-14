@@ -69,7 +69,7 @@ def fitcircle(
     Parameters
     ----------
     data
-        Pass in (longitude, latitude) or (latitude, longitude) values by
+        Pass in (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2-D
         $table_classes.
     x/y : 1-D arrays
