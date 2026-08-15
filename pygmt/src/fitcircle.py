@@ -84,7 +84,7 @@ def fitcircle(
     Returns
     -------
     ret
-        A ``dict`` with the following keys, each mapping to a
+        A dictionary with the following keys, each mapping to a
         ``(longitude, latitude)`` tuple:
 
         - ``"flat_mean"``: the flat Earth mean position
