@@ -59,7 +59,13 @@ def fitcircle(
 
     Full GMT docs at :gmt-docs:`fitcircle.html`.
 
-    $aliases
+    **Aliases:**
+    
+    .. hlist::
+       :columns: 3
+       
+       - L = norm
+       - S = small_circle      
        - V = verbose
 
     Parameters
