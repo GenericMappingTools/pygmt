@@ -60,12 +60,12 @@ def fitcircle(
     Full GMT docs at :gmt-docs:`fitcircle.html`.
 
     **Aliases:**
-    
+
     .. hlist::
        :columns: 3
-       
+
        - L = norm
-       - S = small_circle      
+       - S = small_circle
        - V = verbose
 
     Parameters
@@ -79,7 +79,7 @@ def fitcircle(
         Specify the desired norm, either ``"absolutes"`` or ``"squares"``
         [Default is ``"squares"``].
     small_circle
-        Attempt to fit a small circle instead of a great circle. The pole will be 
+        Attempt to fit a small circle instead of a great circle. The pole will be
         constrained to lie on the great circle connecting the pole of the best-fit great
         circle and the mean location of the data. Optionally set the desired fixed
         latitude of the small circle [Default will determine the optimal latitude].
