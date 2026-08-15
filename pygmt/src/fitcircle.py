@@ -74,11 +74,10 @@ def fitcircle(
         Specify the desired norm, either ``"absolutes"`` or ``"squares"``
         [Default is ``"squares"``].
     small_circle
-        Attempt to fit a small circle instead of a great circle. The pole
-        will be constrained to lie on the great circle connecting the pole
-        of the best-fit great circle and the mean location of the data.
-        Optionally append the desired fixed latitude of the small circle
-        [Default will determine the optimal latitude].
+        Attempt to fit a small circle instead of a great circle. The pole will be 
+        constrained to lie on the great circle connecting the pole of the best-fit great
+        circle and the mean location of the data. Optionally set the desired fixed
+        latitude of the small circle [Default will determine the optimal latitude].
     $verbose
 
     Returns
