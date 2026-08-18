@@ -69,6 +69,7 @@ jobs:
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://stackoverflow.com/a/69170441"
+          --exclude "^https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png"
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
