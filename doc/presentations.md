@@ -37,7 +37,7 @@ Max Jones, Wei Ji Leong, Leonardo Uieda
 {bdg-link-muted-line}`doi: 10.6084/m9.figshare.20483793 <https://doi.org/10.6084/m9.figshare.20483793>`
 
 {bdg-link-info}`Slides <https://doi.org/10.6084/m9.figshare.20483793>`
-{bdg-link-info}`Recoding <https://www.youtube.com/watch?v=nCktihu9bWg>`
+{bdg-link-info}`Recording <https://www.youtube.com/watch?v=nCktihu9bWg>`
 {bdg-link-info}`Code <https://github.com/maxrjones/scipy2022>`
 ::::
 
@@ -73,7 +73,7 @@ Leonardo Uieda, Paul Wessel
 {bdg-link-muted-line}`doi: 10.6084/m9.figshare.6814052 <https://doi.org/10.6084/m9.figshare.6814052>`
 
 {bdg-link-info}`Slides <https://doi.org/10.6084/m9.figshare.6814052>`
-{bdg-link-info}`Recoding <https://www.youtube.com/watch?v=6wMtfZXfTRM>`
+{bdg-link-info}`Recording <https://www.youtube.com/watch?v=6wMtfZXfTRM>`
 {bdg-link-info}`Code <https://github.com/leouieda/scipy2018>`
 ::::
 
@@ -109,7 +109,7 @@ Leonardo Uieda, Paul Wessel
 {bdg-link-muted-line}`doi: 10.6084/m9.figshare.7635833 <https://doi.org/10.6084/m9.figshare.7635833>`
 
 {bdg-link-info}`Slides <https://doi.org/10.6084/m9.figshare.7635833>`
-{bdg-link-info}`Recoding <https://www.youtube.com/watch?v=93M4How7R24>`
+{bdg-link-info}`Recording <https://www.youtube.com/watch?v=93M4How7R24>`
 {bdg-link-info}`Code <https://github.com/GenericMappingTools/scipy2017>`
 ::::
 
@@ -125,7 +125,7 @@ Leonardo Uieda, Paul Wessel
 
 Leonardo Uieda, Paul Wessel
 +++
-{bdg-link-muted-line}`doi: 10.6084/m9.figshare.566241 <https://doi.org/10.6084/m9.figshare.5662411>`
+{bdg-link-muted-line}`doi: 10.6084/m9.figshare.5662411 <https://doi.org/10.6084/m9.figshare.5662411>`
 
 {bdg-link-info}`Poster <https://doi.org/10.6084/m9.figshare.5662411>`
 ::::
