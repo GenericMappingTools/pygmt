@@ -570,7 +570,7 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since 0.9.0 and removed in 0.12.0.
+            # timestamp (U) was deprecated since 0.9.0 and removed in 0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
                 raise GMTParameterError(
                     reason=(
@@ -579,7 +579,7 @@ def use_alias(**aliases):
                     )
                 )
 
-            # xshift (X) is deprecated since 0.8.0 and removed in 0.12.0.
+            # xshift (X) was deprecated since 0.8.0 and removed in 0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
@@ -588,7 +588,7 @@ def use_alias(**aliases):
                     )
                 )
 
-            # yshift (Y) is deprecated since 0.8.0 and removed in 0.12.0.
+            # yshift (Y) was deprecated since 0.8.0 and removed in 0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
