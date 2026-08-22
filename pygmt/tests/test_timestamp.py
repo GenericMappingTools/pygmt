@@ -102,7 +102,7 @@ def test_timestamp_unsupported_u_timestamp():
     """
     Raise an exception when either U or timestamp is used.
 
-    Parameters U and timestamp are no longer supported since v0.12.0.
+    Parameters U and timestamp are no longer supported since 0.12.0.
     """
     fig = Figure()
     with pytest.raises(GMTParameterError):

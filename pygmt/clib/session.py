@@ -645,14 +645,14 @@ class Session:
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
-            # API and is used for PyGMT >= v0.12.0.
+            # API and is used for PyGMT>=0.12.0.
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
         elif isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
             # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # whitespaces or quotation marks. It's used in PyGMT<=0.11.0 but is no
             # longer recommended.
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()

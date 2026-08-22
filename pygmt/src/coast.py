@@ -189,10 +189,10 @@ def coast(
     map_scale
         Draw a map scale bar on the plot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
-            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained
-            for backward compatibility and accepts raw GMT CLI strings for the ``-L``
+            Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained for
+            backward compatibility and accepts raw GMT CLI strings for the ``-L``
             option.
     box
         Draw a background box behind the map scale or rose. If set to ``True``, a simple

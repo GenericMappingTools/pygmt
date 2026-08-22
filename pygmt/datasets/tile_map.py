@@ -107,7 +107,7 @@ def load_tile_map(
         HTTP headers to include with requests to the tile server. This can be useful
         for authentication or to set a custom User-Agent. When supported by
         ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
-        ``PyGMT/vX.Y.Z (+https://www.pygmt.org)``.
+        ``PyGMT/X.Y.Z (+https://www.pygmt.org)``.
 
         .. note::
            Requires ``contextily>=1.7.0``.
@@ -178,7 +178,7 @@ def load_tile_map(
     }
 
     # TODO(contextily>=1.7.0): Remove once contextily>=1.7.0 is required.
-    # The 'headers' parameter was added in contextily v1.7.0
+    # The 'headers' parameter was added in contextily 1.7.0.
     if Version(contextily.__version__) < Version("1.7.0"):
         if headers is not None:
             raise GMTParameterError(
