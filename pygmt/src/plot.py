@@ -251,8 +251,9 @@ def plot(  # ruff: ignore[too-many-branches]
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    kind = data_kind(data)
+    kind = data_kind(data, check_kind="vector")
     if kind == "empty":  # Data is given via a series of vectors.
+        kind = "vectors"
         data = {"x": x, "y": y}
         # Parameters for vector styles
         if (
@@ -319,7 +320,7 @@ def plot(  # ruff: ignore[too-many-branches]
 
     self._activate_figure()
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+        with lib.virtualfile_in(data=data, kind=kind) as vintbl:
             lib.call_module(
                 module="plot", args=build_arg_list(aliasdict, infile=vintbl)
             )
