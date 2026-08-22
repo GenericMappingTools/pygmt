@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/paragraph.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=2ffee993"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.src.paragraph</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">paragraph - Typeset one or multiple paragraphs.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
@@ -175,11 +178,11 @@
     <span class="n">non_ascii_to_octal</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;paragraph&quot;</span><span class="p">]</span>
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"paragraph"</span><span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">paragraph</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paragraph</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
@@ -191,15 +194,15 @@
     <span class="n">justify</span><span class="p">:</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fill</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">alignment</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;justified&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+    <span class="n">alignment</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"justified"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span><span class="p">,</span>
     <span class="n">tab_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">blank_line</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">,</span> <span class="s2">"warning"</span><span class="p">,</span> <span class="s2">"timing"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"compat"</span><span class="p">,</span> <span class="s2">"debug"</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Typeset one or multiple paragraphs.</span>
 
 <span class="sd">    This method typesets one or multiple paragraphs of text at a given position. The</span>
@@ -237,12 +240,12 @@
 <span class="sd">        Set the alignment of the block of text, relative to the given x, y position.</span>
 <span class="sd">        Choose a :doc:`2-character justification code &lt;/techref/justification_codes&gt;`.</span>
 <span class="sd">    alignment</span>
-<span class="sd">        Set the alignment of the text. Valid values are ``&quot;left&quot;``, ``&quot;center&quot;``,</span>
-<span class="sd">        ``&quot;right&quot;``, and ``&quot;justified&quot;``.</span>
+<span class="sd">        Set the alignment of the text. Valid values are ``"left"``, ``"center"``,</span>
+<span class="sd">        ``"right"``, and ``"justified"``.</span>
 <span class="sd">    fill</span>
 <span class="sd">        Set color for filling the paragraph box [Default is no fill].</span>
 <span class="sd">    pen</span>
-<span class="sd">        Set the pen for the paragraph box [Default is ``&quot;0.25p,black,solid&quot;``].</span>
+<span class="sd">        Set the pen for the paragraph box [Default is ``"0.25p,black,solid"``].</span>
 <span class="sd">    tab_width</span>
 <span class="sd">        Number of spaces used to expand tab characters in ``text`` when typesetting.</span>
 <span class="sd">        Must be a non-negative integer. Use ``0`` to remove tab characters instead of</span>
@@ -259,85 +262,83 @@
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 10, 0, 10], projection=&quot;X10c/10c&quot;, frame=True)</span>
+<span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)</span>
 <span class="sd">    &gt;&gt;&gt; fig.paragraph(</span>
 <span class="sd">    ...     x=4,</span>
 <span class="sd">    ...     y=4,</span>
-<span class="sd">    ...     text=&quot;This is a long paragraph. &quot; * 10,</span>
-<span class="sd">    ...     parwidth=&quot;5c&quot;,</span>
-<span class="sd">    ...     linespacing=&quot;12p&quot;,</span>
-<span class="sd">    ...     font=&quot;12p&quot;,</span>
+<span class="sd">    ...     text="This is a long paragraph. " * 10,</span>
+<span class="sd">    ...     parwidth="5c",</span>
+<span class="sd">    ...     linespacing="12p",</span>
+<span class="sd">    ...     font="12p",</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
-    <span class="n">_valid_alignments</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;justified&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">_valid_alignments</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"justified"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">alignment</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_valid_alignments</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
             <span class="n">alignment</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;alignment&#39;&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"value for parameter 'alignment'"</span><span class="p">,</span>
             <span class="n">choices</span><span class="o">=</span><span class="n">_valid_alignments</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">tab_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
             <span class="n">tab_width</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;tab_width&#39;&quot;</span><span class="p">,</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Must be a non-negative integer.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"value for parameter 'tab_width'"</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"Must be a non-negative integer."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">F</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+f&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;angle&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+a&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+j&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"font"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+f"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"angle"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+a"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"justify"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+j"</span><span class="p">),</span>
         <span class="p">],</span>
-        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">),</span>
-        <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">),</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"fill"</span><span class="p">),</span>
+        <span class="n">W</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"pen"</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">({</span><span class="s2">&quot;M&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">({</span><span class="s2">"M"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
 
     <span class="c1"># Prepare the text string that will be passed to an io.StringIO object.</span>
     <span class="c1"># Separator for multiple paragraphs.</span>
-    <span class="c1"># &quot;\n\n&quot;: the default separator, which results in no blank line between paragraphs.</span>
-    <span class="c1"># &quot; \n\n&quot;: add a blank line between paragraphs.</span>
-    <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot; </span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">blank_line</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="c1"># "\n\n": the default separator, which results in no blank line between paragraphs.</span>
+    <span class="c1"># " \n\n": add a blank line between paragraphs.</span>
+    <span class="n">sep</span> <span class="o">=</span> <span class="s2">" </span><span class="se">\n\n</span><span class="s2">"</span> <span class="k">if</span> <span class="n">blank_line</span> <span class="k">else</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span>
     <span class="c1"># Convert a single string into a list of paragraphs for consistent handling.</span>
     <span class="c1"># Split the single string on blank lines, allowing for whitespaces in between.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\n\s*\n&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n\s*\n"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
     <span class="c1"># Join multiple paragraphs with a blank line. Remove trailing whitespaces and</span>
     <span class="c1"># newlines in each paragraph, but keep leading whitespaces and tabs for now.</span>
-    <span class="c1"># _textstr = sep.join(t.rstrip().replace(&quot;\n&quot;, &quot;&quot;) for t in text)</span>
-    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">text</span><span class="p">)</span>
     <span class="c1"># Replace two or more consecutive spaces with \040 (octal for space), and replace</span>
     <span class="c1"># tabs with the appropriate number of \040.</span>
-    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; {2,}&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;\040&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()),</span> <span class="n">_textstr</span><span class="p">)</span>
-    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">_textstr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\040&quot;</span> <span class="o">*</span> <span class="n">tab_width</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">_textstr</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">" {2,}"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="sa">r</span><span class="s2">"\040"</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">()),</span> <span class="n">_textstr</span><span class="p">)</span>
+    <span class="n">_textstr</span> <span class="o">=</span> <span class="n">_textstr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"\040"</span> <span class="o">*</span> <span class="n">tab_width</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_textstr</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
             <span class="n">text</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;text&#39; must be a non-empty string or sequence of strings.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"text"</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"'text' must be a non-empty string or sequence of strings."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="n">confdict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># Check the encoding of the text string and convert it to octal if necessary.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span> <span class="o">:=</span> <span class="n">_check_encoding</span><span class="p">(</span><span class="n">_textstr</span><span class="p">))</span> <span class="o">!=</span> <span class="s2">&quot;ascii&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">encoding</span> <span class="o">:=</span> <span class="n">_check_encoding</span><span class="p">(</span><span class="n">_textstr</span><span class="p">))</span> <span class="o">!=</span> <span class="s2">"ascii"</span><span class="p">:</span>
         <span class="n">_textstr</span> <span class="o">=</span> <span class="n">non_ascii_to_octal</span><span class="p">(</span><span class="n">_textstr</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
-        <span class="n">confdict</span><span class="p">[</span><span class="s2">&quot;PS_CHAR_ENCODING&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoding</span>
+        <span class="n">confdict</span><span class="p">[</span><span class="s2">"PS_CHAR_ENCODING"</span><span class="p">]</span> <span class="o">=</span> <span class="n">encoding</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">buffer</span><span class="p">:</span>  <span class="c1"># Prepare the StringIO input.</span>
-            <span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&gt; </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">linespacing</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">parwidth</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">alignment</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"&gt; </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">linespacing</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">parwidth</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">alignment</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
             <span class="n">buffer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">_textstr</span><span class="p">)</span>
             <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">buffer</span><span class="p">)</span> <span class="k">as</span> <span class="n">vfile</span><span class="p">:</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                    <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+                    <span class="s2">"text"</span><span class="p">,</span>
                     <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vfile</span><span class="p">,</span> <span class="n">confdict</span><span class="o">=</span><span class="n">confdict</span><span class="p">),</span>
                 <span class="p">)</span>
 </pre></div>
@@ -351,9 +352,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/137401c56">137401c5</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Aug 22, 2026.
       </span></p>
   </div>
 

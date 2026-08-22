@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdfilter.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=2ffee993"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.src.grdfilter</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">grdfilter - Filter a grid in the space (or time) domain.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
@@ -168,94 +171,94 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">is_given</span><span class="p">,</span> <span class="n">use_alias</span>
 
-<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdfilter&quot;</span><span class="p">]</span>
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"grdfilter"</span><span class="p">]</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_F</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
-    <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: A002</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_F</span><span class="p">(</span>  <span class="c1"># ruff: ignore[invalid-function-name]</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># ruff: ignore[builtin-argument-shadowing]</span>
     <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">highpass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Helper function to create the alias list for the -F option.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
-<span class="sd">    ...     return AliasSystem(F=_alias_option_F(**kwargs)).get(&quot;F&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;boxcar&quot;, width=2.0)</span>
-<span class="sd">    &#39;b2.0&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;cosarch&quot;, width=(5, 10))</span>
-<span class="sd">    &#39;c5/10&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(filter=&quot;gaussian&quot;, width=100, highpass=True)</span>
-<span class="sd">    &#39;g100+h&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    ...     return AliasSystem(F=_alias_option_F(**kwargs)).get("F")</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter="boxcar", width=2.0)</span>
+<span class="sd">    'b2.0'</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter="cosarch", width=(5, 10))</span>
+<span class="sd">    'c5/10'</span>
+<span class="sd">    &gt;&gt;&gt; parse(filter="gaussian", width=100, highpass=True)</span>
+<span class="sd">    'g100+h'</span>
+<span class="sd">    """</span>
     <span class="n">_filter_mapping</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;boxcar&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cosarch&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;gaussian&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;minall&quot;</span><span class="p">:</span> <span class="s2">&quot;l&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;minpos&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;maxall&quot;</span><span class="p">:</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;maxneg&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+        <span class="s2">"boxcar"</span><span class="p">:</span> <span class="s2">"b"</span><span class="p">,</span>
+        <span class="s2">"cosarch"</span><span class="p">:</span> <span class="s2">"c"</span><span class="p">,</span>
+        <span class="s2">"gaussian"</span><span class="p">:</span> <span class="s2">"g"</span><span class="p">,</span>
+        <span class="s2">"minall"</span><span class="p">:</span> <span class="s2">"l"</span><span class="p">,</span>
+        <span class="s2">"minpos"</span><span class="p">:</span> <span class="s2">"L"</span><span class="p">,</span>
+        <span class="s2">"maxall"</span><span class="p">:</span> <span class="s2">"u"</span><span class="p">,</span>
+        <span class="s2">"maxneg"</span><span class="p">:</span> <span class="s2">"U"</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="c1"># Check if the &#39;filter&#39; parameter is using the old GMT command string syntax.</span>
+    <span class="c1"># Check if the 'filter' parameter is using the old GMT command string syntax.</span>
     <span class="n">_old_filter_syntax</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">filter</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_filter_mapping</span>
 
     <span class="k">if</span> <span class="n">_old_filter_syntax</span><span class="p">:</span>
-        <span class="n">kwdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;highpass&quot;</span><span class="p">:</span> <span class="n">highpass</span><span class="p">}</span>
+        <span class="n">kwdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">"highpass"</span><span class="p">:</span> <span class="n">highpass</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_given</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwdict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
             <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
-                <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">kwdict</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
-                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;filter&#39; is specified using the unrecommended GMT command string syntax.&quot;</span><span class="p">,</span>
+                <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">"filter"</span><span class="p">,</span> <span class="n">kwdict</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">"'filter' is specified using the unrecommended GMT command string syntax."</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">)</span>  <span class="c1"># Deprecated raw GMT command string.</span>
+        <span class="k">return</span> <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"filter"</span><span class="p">)</span>  <span class="c1"># Deprecated raw GMT command string.</span>
 
     <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="p">[</span><span class="s2">"filter"</span><span class="p">,</span> <span class="s2">"width"</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="p">[</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="n">_filter_mapping</span><span class="p">),</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="n">highpass</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;highpass&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+h&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"filter"</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="n">_filter_mapping</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"width"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">highpass</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"highpass"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+h"</span><span class="p">),</span>
     <span class="p">]</span>
 
 
 <div class="viewcode-block" id="grdfilter">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdfilter.html#pygmt.grdfilter">[docs]</a>
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdfilter</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="s2">"coltypes"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdfilter</span><span class="p">(</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">outgrid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="nb">filter</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>  <span class="c1"># noqa: A002</span>
-        <span class="s2">&quot;boxcar&quot;</span><span class="p">,</span> <span class="s2">&quot;cosarch&quot;</span><span class="p">,</span> <span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="s2">&quot;minall&quot;</span><span class="p">,</span> <span class="s2">&quot;minpos&quot;</span><span class="p">,</span> <span class="s2">&quot;maxall&quot;</span><span class="p">,</span> <span class="s2">&quot;maxneg&quot;</span>
+    <span class="nb">filter</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>  <span class="c1"># ruff: ignore[builtin-argument-shadowing]</span>
+        <span class="s2">"boxcar"</span><span class="p">,</span> <span class="s2">"cosarch"</span><span class="p">,</span> <span class="s2">"gaussian"</span><span class="p">,</span> <span class="s2">"minall"</span><span class="p">,</span> <span class="s2">"minpos"</span><span class="p">,</span> <span class="s2">"maxall"</span><span class="p">,</span> <span class="s2">"maxneg"</span>
     <span class="p">]</span>
     <span class="o">|</span> <span class="nb">str</span>
     <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">highpass</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">distance</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
-        <span class="s2">&quot;pixel&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cartesian&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geo_cartesian&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geo_flatearth1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geo_flatearth2&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geo_spherical&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geo_mercator&quot;</span><span class="p">,</span>
+        <span class="s2">"pixel"</span><span class="p">,</span>
+        <span class="s2">"cartesian"</span><span class="p">,</span>
+        <span class="s2">"geo_cartesian"</span><span class="p">,</span>
+        <span class="s2">"geo_flatearth1"</span><span class="p">,</span>
+        <span class="s2">"geo_flatearth2"</span><span class="p">,</span>
+        <span class="s2">"geo_spherical"</span><span class="p">,</span>
+        <span class="s2">"geo_mercator"</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">spacing</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">nans</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">nans</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="s2">"replace"</span><span class="p">,</span> <span class="s2">"preserve"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">toggle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">,</span> <span class="s2">"warning"</span><span class="p">,</span> <span class="s2">"timing"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"compat"</span><span class="p">,</span> <span class="s2">"debug"</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"gridline"</span><span class="p">,</span> <span class="s2">"pixel"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Filter a grid in the space (or time) domain.</span>
 
 <span class="sd">    Filter a grid file in the space (or time) domain using one of the selected</span>
@@ -263,7 +266,7 @@
 <span class="sd">    distances using Cartesian or Spherical geometries. The output grid file</span>
 <span class="sd">    can optionally be generated as a sub-region of the input (via ``region``)</span>
 <span class="sd">    and/or with new increment (via ``spacing``) or registration</span>
-<span class="sd">    (via ``toggle``). In this way, one may have &quot;extra space&quot; in the input</span>
+<span class="sd">    (via ``toggle``). In this way, one may have "extra space" in the input</span>
 <span class="sd">    data so that the edges will not be used and the output can be within one</span>
 <span class="sd">    half-width of the input edges. If the filter is low-pass, then the output</span>
 <span class="sd">    may be less frequently sampled than the input.</span>
@@ -291,17 +294,17 @@
 
 <span class="sd">        Convolution filters include:</span>
 
-<span class="sd">        - ``&quot;boxcar&quot;``: All weights are equal.</span>
-<span class="sd">        - ``&quot;cosarch&quot;``: Weights follow a cosine arch curve.</span>
-<span class="sd">        - ``&quot;gaussian&quot;``: Weights are given by the Gaussian function, where filter width</span>
+<span class="sd">        - ``"boxcar"``: All weights are equal.</span>
+<span class="sd">        - ``"cosarch"``: Weights follow a cosine arch curve.</span>
+<span class="sd">        - ``"gaussian"``: Weights are given by the Gaussian function, where filter width</span>
 <span class="sd">          is 6 times the conventional Gaussian sigma.</span>
 
 <span class="sd">        Non-convolution filters include:</span>
 
-<span class="sd">        - ``&quot;minall&quot;``: Return minimum of all values.</span>
-<span class="sd">        - ``&quot;minpos&quot;``: Return minimum of all positive values only.</span>
-<span class="sd">        - ``&quot;maxall&quot;``: Return maximum of all values.</span>
-<span class="sd">        - ``&quot;maxneg&quot;``: Return maximum of all negative values only.</span>
+<span class="sd">        - ``"minall"``: Return minimum of all values.</span>
+<span class="sd">        - ``"minpos"``: Return minimum of all positive values only.</span>
+<span class="sd">        - ``"maxall"``: Return maximum of all values.</span>
+<span class="sd">        - ``"maxneg"``: Return maximum of all negative values only.</span>
 
 <span class="sd">        **Note**: There are still a few other filter types available in GMT (e.g.,</span>
 <span class="sd">        histogram and mode filters), but they are not implemented in PyGMT yet. As a</span>
@@ -311,7 +314,7 @@
 <span class="sd">    width</span>
 <span class="sd">        The full diameter width of the filter. It can be a single value for an isotropic</span>
 <span class="sd">        filter, or a pair of values for a rectangular filter (width in x- and</span>
-<span class="sd">        y-directions, requiring ``distance`` be either ``&quot;pixel&quot;`` or ``&quot;cartesian&quot;``).</span>
+<span class="sd">        y-directions, requiring ``distance`` be either ``"pixel"`` or ``"cartesian"``).</span>
 <span class="sd">    highpass</span>
 <span class="sd">        By default, the filter is a low-pass filter. If True, then the filter is a</span>
 <span class="sd">        high-pass filter. [Default is ``False``].</span>
@@ -329,31 +332,31 @@
 <span class="sd">              - Grid (x,y)</span>
 <span class="sd">              - Width</span>
 <span class="sd">              - Distance Calculation</span>
-<span class="sd">            * - ``&quot;pixel&quot;``</span>
+<span class="sd">            * - ``"pixel"``</span>
 <span class="sd">              - Pixels (px, py)</span>
 <span class="sd">              - Odd number of pixels</span>
 <span class="sd">              - Cartesian</span>
-<span class="sd">            * - ``&quot;cartesian&quot;``</span>
+<span class="sd">            * - ``"cartesian"``</span>
 <span class="sd">              - Same units as *width*</span>
 <span class="sd">              - Any</span>
 <span class="sd">              - Cartesian</span>
-<span class="sd">            * - ``&quot;geo_cartesian&quot;``</span>
+<span class="sd">            * - ``"geo_cartesian"``</span>
 <span class="sd">              - Degrees</span>
 <span class="sd">              - km</span>
 <span class="sd">              - Cartesian</span>
-<span class="sd">            * - ``&quot;geo_flatearth1&quot;``</span>
+<span class="sd">            * - ``"geo_flatearth1"``</span>
 <span class="sd">              - Degrees</span>
 <span class="sd">              - km</span>
 <span class="sd">              - Cartesian, dx scaled by cos(middle y)</span>
-<span class="sd">            * - ``&quot;geo_flatearth2&quot;``</span>
+<span class="sd">            * - ``"geo_flatearth2"``</span>
 <span class="sd">              - Degrees</span>
 <span class="sd">              - km</span>
 <span class="sd">              - Cartesian, dx scaled by cos(y) per row</span>
-<span class="sd">            * - ``&quot;geo_spherical&quot;``</span>
+<span class="sd">            * - ``"geo_spherical"``</span>
 <span class="sd">              - Degrees</span>
 <span class="sd">              - km</span>
 <span class="sd">              - Spherical (great circle)</span>
-<span class="sd">            * - ``&quot;geo_mercator&quot;``</span>
+<span class="sd">            * - ``"geo_mercator"``</span>
 <span class="sd">              - Mercator **-Jm1** img units</span>
 <span class="sd">              - km</span>
 <span class="sd">              - Spherical</span>
@@ -362,11 +365,11 @@
 <span class="sd">        Determine how NaN-values in the input grid affect the filtered output grid.</span>
 <span class="sd">        Choose one of:</span>
 
-<span class="sd">        - ``&quot;ignore&quot;``: Ignore all NaNs in the calculation of filtered value [Default].</span>
-<span class="sd">        - ``&quot;replace&quot;``: Similar to ``&quot;ignore&quot;`` except if the input node was NaN then</span>
+<span class="sd">        - ``"ignore"``: Ignore all NaNs in the calculation of filtered value [Default].</span>
+<span class="sd">        - ``"replace"``: Similar to ``"ignore"`` except if the input node was NaN then</span>
 <span class="sd">          the output node will be set to NaN (only applied if both grids are</span>
 <span class="sd">          co-registered).</span>
-<span class="sd">        - ``&quot;preserve&quot;``: Force the filtered value to be NaN if any grid nodes with</span>
+<span class="sd">        - ``"preserve"``: Force the filtered value to be NaN if any grid nodes with</span>
 <span class="sd">          NaN-values are found inside the filter circle.</span>
 <span class="sd">    toggle</span>
 <span class="sd">        Toggle the node registration for the output grid so as to become the opposite of</span>
@@ -394,38 +397,38 @@
 <span class="sd">    &gt;&gt;&gt; # Apply a gaussian filter of 600 km (full width) to the @earth_relief_30m_g grid</span>
 <span class="sd">    &gt;&gt;&gt; # and return a filtered grid (saved as netCDF file).</span>
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfilter(</span>
-<span class="sd">    ...     grid=&quot;@earth_relief_30m_g&quot;,</span>
-<span class="sd">    ...     filter=&quot;gaussian&quot;,</span>
+<span class="sd">    ...     grid="@earth_relief_30m_g",</span>
+<span class="sd">    ...     filter="gaussian",</span>
 <span class="sd">    ...     width=600,</span>
-<span class="sd">    ...     distance=&quot;geo_spherical&quot;,</span>
+<span class="sd">    ...     distance="geo_spherical",</span>
 <span class="sd">    ...     region=[150, 250, 10, 40],</span>
 <span class="sd">    ...     spacing=0.5,</span>
-<span class="sd">    ...     outgrid=&quot;filtered_pacific.nc&quot;,</span>
+<span class="sd">    ...     outgrid="filtered_pacific.nc",</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; Path(&quot;filtered_pacific.nc&quot;).unlink()  # Cleanup file</span>
+<span class="sd">    &gt;&gt;&gt; Path("filtered_pacific.nc").unlink()  # Cleanup file</span>
 <span class="sd">    &gt;&gt;&gt; # Apply a Gaussian smoothing filter of 600 km to the input DataArray and return</span>
 <span class="sd">    &gt;&gt;&gt; # a filtered DataArray with the smoothed grid.</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief()</span>
 <span class="sd">    &gt;&gt;&gt; smoothed = pygmt.grdfilter(</span>
-<span class="sd">    ...     grid=grid, filter=&quot;gaussian&quot;, width=600, distance=&quot;geo_spherical&quot;</span>
+<span class="sd">    ...     grid=grid, filter="gaussian", width=600, distance="geo_spherical"</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"D"</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">)</span>
     <span class="c1"># filter is also required but will be checked in _alias_option_F.</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">D</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
             <span class="n">distance</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"distance"</span><span class="p">,</span>
             <span class="n">mapping</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;pixel&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;cartesian&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;geo_cartesian&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;geo_flatearth1&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="s2">&quot;geo_flatearth2&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                <span class="s2">&quot;geo_spherical&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-                <span class="s2">&quot;geo_mercator&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+                <span class="s2">"pixel"</span><span class="p">:</span> <span class="s2">"p"</span><span class="p">,</span>
+                <span class="s2">"cartesian"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"geo_cartesian"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"geo_flatearth1"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">"geo_flatearth2"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s2">"geo_spherical"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="s2">"geo_mercator"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
             <span class="p">},</span>
         <span class="p">),</span>
         <span class="n">F</span><span class="o">=</span><span class="n">_alias_option_F</span><span class="p">(</span>
@@ -433,11 +436,11 @@
             <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
             <span class="n">highpass</span><span class="o">=</span><span class="n">highpass</span><span class="p">,</span>
         <span class="p">),</span>
-        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">spacing</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"spacing"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span>
-            <span class="n">nans</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;nans&quot;</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ignore&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">:</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;preserve&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">}</span>
+            <span class="n">nans</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"nans"</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="s2">"ignore"</span><span class="p">:</span> <span class="s2">"i"</span><span class="p">,</span> <span class="s2">"replace"</span><span class="p">:</span> <span class="s2">"r"</span><span class="p">,</span> <span class="s2">"preserve"</span><span class="p">:</span> <span class="s2">"p"</span><span class="p">}</span>
         <span class="p">),</span>
-        <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">toggle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;toggle&quot;</span><span class="p">),</span>
+        <span class="n">T</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">toggle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"toggle"</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
@@ -448,12 +451,12 @@
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">with</span> <span class="p">(</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">"raster"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">"grid"</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
         <span class="p">):</span>
-            <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+            <span class="n">aliasdict</span><span class="p">[</span><span class="s2">"G"</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdfilter&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">"grdfilter"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
 
@@ -468,9 +471,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/137401c56">137401c5</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Aug 22, 2026.
       </span></p>
   </div>
 

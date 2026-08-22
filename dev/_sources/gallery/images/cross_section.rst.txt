@@ -52,7 +52,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
     region_map = [122, 149, 30, 49]
 
     # Chose a survey line with start point A and end point B
-    lonA, latA, lonB, latB = 126, 42, 146, 40  # noqa: N816
+    lonA, latA, lonB, latB = 126, 42, 146, 40  # ruff: ignore[mixed-case-variable-in-global-scope]
 
 
     fig = pygmt.Figure()
@@ -149,7 +149,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.313 seconds)
+   **Total running time of the script:** (0 minutes 0.320 seconds)
 
 
 .. _sphx_glr_download_gallery_images_cross_section.py:

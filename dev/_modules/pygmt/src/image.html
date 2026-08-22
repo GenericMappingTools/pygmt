@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/image.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=2ffee993"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.src.image</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">image - Plot raster or EPS images.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
@@ -170,8 +173,8 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">&quot;bitcolor&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">image</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">G</span><span class="o">=</span><span class="s2">"bitcolor"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">image</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">imagefile</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
     <span class="n">position</span><span class="p">:</span> <span class="n">Position</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">AnchorCode</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -184,15 +187,15 @@
     <span class="n">invert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">projection</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span> <span class="o">|</span> <span class="n">Axis</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span> <span class="o">|</span> <span class="n">Axis</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"none"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">,</span> <span class="s2">"warning"</span><span class="p">,</span> <span class="s2">"timing"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"compat"</span><span class="p">,</span> <span class="s2">"debug"</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Plot raster or EPS images.</span>
 
 <span class="sd">    Reads an Encapsulated PostScript file or a raster image file and plots it.</span>
@@ -203,7 +206,7 @@
 <span class="sd">    - made transparent where either the back- or foreground is painted.</span>
 
 <span class="sd">    As an option, the user may choose to convert colored raster images to grayscale</span>
-<span class="sd">    using TV&#39;s YIQ-transformation. For raster files, the user can select which color is</span>
+<span class="sd">    using TV's YIQ-transformation. For raster files, the user can select which color is</span>
 <span class="sd">    made transparent. The user may also choose to replicate the image which, when</span>
 <span class="sd">    preceded by appropriate clip paths, may allow larger custom-designed fill patterns</span>
 <span class="sd">    to be implemented.</span>
@@ -235,20 +238,20 @@
 <span class="sd">        - A :class:`pygmt.params.Position` object to fully control the reference point,</span>
 <span class="sd">          anchor point, and offset.</span>
 <span class="sd">        - A sequence of two values representing the x- and y-coordinates in plot</span>
-<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``(&quot;1c&quot;, &quot;2c&quot;)``.</span>
+<span class="sd">          coordinates, e.g., ``(1, 2)`` or ``("1c", "2c")``.</span>
 <span class="sd">        - A :doc:`2-character justification code &lt;/techref/justification_codes&gt;` for a</span>
-<span class="sd">          position inside the plot, e.g., ``&quot;TL&quot;`` for Top Left corner inside the plot.</span>
+<span class="sd">          position inside the plot, e.g., ``"TL"`` for Top Left corner inside the plot.</span>
 
 <span class="sd">        If not specified, defaults to the Bottom Left corner of the plot (position</span>
-<span class="sd">        ``(0, 0)`` with anchor ``&quot;BL&quot;``).</span>
+<span class="sd">        ``(0, 0)`` with anchor ``"BL"``).</span>
 <span class="sd">    width</span>
 <span class="sd">    height</span>
-<span class="sd">        Width (and height) of the image in plot coordinates (inches, cm, etc.). If</span>
-<span class="sd">        ``height`` (or ``width``) is set to 0, then the original aspect ratio of the</span>
-<span class="sd">        image is maintained. If ``width`` (or ``height``) is negative, the absolute</span>
-<span class="sd">        value is used to interpolate image to the device resolution using the PostScript</span>
-<span class="sd">        image operator. If neither dimensions nor ``dpi`` are set then revert to the</span>
-<span class="sd">        default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].</span>
+<span class="sd">        Width (and height) of the image in plot dimension, with an optional</span>
+<span class="sd">        :ref:`dimension unit &lt;dimension-units&gt;`. If ``height`` (or ``width``) is set to</span>
+<span class="sd">        0, then the original aspect ratio of the image is maintained. If ``width`` (or</span>
+<span class="sd">        ``height``) is negative, the absolute value is used to interpolate image to the</span>
+<span class="sd">        device resolution using the PostScript image operator. If neither dimensions nor</span>
+<span class="sd">        ``dpi`` are set then revert to the default dpi [:gmt-term:`GMT_GRAPHICS_DPU`].</span>
 <span class="sd">    dpi</span>
 <span class="sd">        Set the dpi of the image in dots per inch, or append **c** to indicate this is</span>
 <span class="sd">        dots per cm.</span>
@@ -287,13 +290,11 @@
 <span class="sd">    $panel</span>
 <span class="sd">    $perspective</span>
 <span class="sd">    $transparency</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
+<span class="sd">    """</span>
     <span class="n">position</span> <span class="o">=</span> <span class="n">_parse_position</span><span class="p">(</span>
         <span class="n">position</span><span class="p">,</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Position</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">&quot;plotcoords&quot;</span><span class="p">),</span>  <span class="c1"># Default to (0,0) in plotcoords</span>
-        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span> <span class="s2">&quot;dpi&quot;</span><span class="p">:</span> <span class="n">dpi</span><span class="p">,</span> <span class="s2">&quot;replicate&quot;</span><span class="p">:</span> <span class="n">replicate</span><span class="p">},</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Position</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">cstype</span><span class="o">=</span><span class="s2">"plotcoords"</span><span class="p">),</span>  <span class="c1"># Default to (0,0) in plotcoords</span>
+        <span class="n">kwdict</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span> <span class="s2">"dpi"</span><span class="p">:</span> <span class="n">dpi</span><span class="p">,</span> <span class="s2">"replicate"</span><span class="p">:</span> <span class="n">replicate</span><span class="p">},</span>
     <span class="p">)</span>
 
     <span class="c1"># width is required when only height is given.</span>
@@ -302,15 +303,15 @@
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
         <span class="n">D</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+w&quot;</span><span class="p">),</span>  <span class="c1"># +wwidth/height</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">replicate</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;replicate&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+n&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+r&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"position"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"width"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+w"</span><span class="p">),</span>  <span class="c1"># +wwidth/height</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"height"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"/"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">replicate</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"replicate"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+n"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"dpi"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+r"</span><span class="p">),</span>
         <span class="p">],</span>
-        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">),</span>
-        <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">monochrome</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">),</span>
-        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">invert</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;invert&quot;</span><span class="p">),</span>
+        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"box"</span><span class="p">),</span>
+        <span class="n">M</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">monochrome</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"monochrome"</span><span class="p">),</span>
+        <span class="n">I</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">invert</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"invert"</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
@@ -322,9 +323,10 @@
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">imagefile</span><span class="p">)</span>
+            <span class="n">module</span><span class="o">=</span><span class="s2">"image"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">imagefile</span><span class="p">)</span>
         <span class="p">)</span>
 </pre></div>
 
@@ -337,9 +339,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/137401c56">137401c5</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Aug 22, 2026.
       </span></p>
   </div>
 

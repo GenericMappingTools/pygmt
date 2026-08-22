@@ -9,11 +9,11 @@ are straight lines.
 
 **q**\ [*lon0*/\ [*lat0*/]]\ *scale* or **Q**\ [*lon0*/\ [*lat0*/]]\ *width*
 
-The projection is set with **q** or **Q**, and the figure size is set with
-*scale* or *width*. Optionally, the central meridian can be set with *lon0*
-[Default is the middle of the map]. Optionally, the standard parallel can
-be set with *lat0* [Default is the equator]. When supplied, the central
-meridian must be supplied as well.
+- **q** or **Q**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional, default is the middle of the map].
+- *lat0*: Sets the standard parallel [Optional, default is the equator]. When
+  supplied, *lon0* must be supplied as well.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/_show_versions.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/documentation_options.js?v=2ffee993"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,11 +157,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt._show_versions</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Utility methods to print system information for debugging.</span>
 
 <span class="sd">Adapted from :func:`rioxarray.show_versions` and :func:`pandas.show_versions`.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">platform</span>
@@ -173,24 +176,24 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span><span class="p">,</span> <span class="n">required_gmt_version</span>
 
 <span class="c1"># Get semantic version through setuptools-scm</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;v</span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="s1">&#39;pygmt&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">"pygmt"</span><span class="p">)</span>  <span class="c1"># e.g., 0.1.2.dev3+g0ab3cd78</span>
 <span class="n">__commit__</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># 0ab3cd78</span>
-    <span class="n">__version__</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;+g&quot;</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;+g&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">__version__</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s2">"+g"</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">"+g"</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">else</span> <span class="s2">""</span>
 <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_clib_info</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get information about the GMT shared library.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">info</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_module_version</span><span class="p">(</span><span class="n">modname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get version information of a Python module.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">version</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
@@ -198,105 +201,105 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_gdal_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get GDAL version by calling the GDAL C API via ctypes.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">match</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-        <span class="k">case</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;linux&quot;</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;freebsd&quot;</span><span class="p">):</span>
-            <span class="n">libname</span> <span class="o">=</span> <span class="s2">&quot;libgdal.so&quot;</span>
-        <span class="k">case</span> <span class="s2">&quot;darwin&quot;</span><span class="p">:</span>
-            <span class="n">libname</span> <span class="o">=</span> <span class="s2">&quot;libgdal.dylib&quot;</span>
-        <span class="k">case</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
-            <span class="n">libname</span> <span class="o">=</span> <span class="s2">&quot;gdal.dll&quot;</span>
+        <span class="k">case</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"linux"</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"freebsd"</span><span class="p">):</span>
+            <span class="n">libname</span> <span class="o">=</span> <span class="s2">"libgdal.so"</span>
+        <span class="k">case</span> <span class="s2">"darwin"</span><span class="p">:</span>
+            <span class="n">libname</span> <span class="o">=</span> <span class="s2">"libgdal.dylib"</span>
+        <span class="k">case</span> <span class="s2">"win32"</span><span class="p">:</span>
+            <span class="n">libname</span> <span class="o">=</span> <span class="s2">"gdal.dll"</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">lib</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="n">libname</span><span class="p">)</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">GDALVersionInfo</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span>
-        <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">GDALVersionInfo</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;RELEASE_NAME&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>  <span class="c1"># e.g., 3.6.3</span>
+        <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">GDALVersionInfo</span><span class="p">(</span><span class="sa">b</span><span class="s2">"RELEASE_NAME"</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>  <span class="c1"># e.g., 3.6.3</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_ghostscript_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get Ghostscript version.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">match</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">:</span>
-        <span class="k">case</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;darwin&quot;</span><span class="p">}</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;freebsd&quot;</span><span class="p">):</span>
-            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gs&quot;</span><span class="p">]</span>
-        <span class="k">case</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
-            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gswin64c.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;gswin32c.exe&quot;</span><span class="p">]</span>
+        <span class="k">case</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"linux"</span><span class="p">,</span> <span class="s2">"darwin"</span><span class="p">}</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"freebsd"</span><span class="p">):</span>
+            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"gs"</span><span class="p">]</span>
+        <span class="k">case</span> <span class="s2">"win32"</span><span class="p">:</span>
+            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"gswin64c.exe"</span><span class="p">,</span> <span class="s2">"gswin32c.exe"</span><span class="p">]</span>
         <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">for</span> <span class="n">gs_cmd</span> <span class="ow">in</span> <span class="n">cmds</span><span class="p">:</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">gsfullpath</span> <span class="o">:=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">gs_cmd</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">gsfullpath</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">[</span><span class="n">gsfullpath</span><span class="p">,</span> <span class="s2">"--version"</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_check_ghostscript_version</span><span class="p">(</span><span class="n">gs_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Check if the Ghostscript version is compatible with GMT versions.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">gs_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;Ghostscript is not detected. Your installation may be broken.&quot;</span>
+        <span class="k">return</span> <span class="s2">"Ghostscript is not detected. Your installation may be broken."</span>
 
     <span class="k">match</span> <span class="n">Version</span><span class="p">(</span><span class="n">gs_version</span><span class="p">):</span>
-        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;9.53&quot;</span><span class="p">):</span>
+        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"9.53"</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Ghostscript v</span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2"> is too old and may have serious bugs. &quot;</span>
-                <span class="s2">&quot;Please consider upgrading your Ghostscript.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Ghostscript </span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2"> is too old and may have serious bugs. "</span>
+                <span class="s2">"Please consider upgrading your Ghostscript."</span>
             <span class="p">)</span>
-        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;10.00&quot;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;10.02&quot;</span><span class="p">):</span>
+        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"10.00"</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"10.02"</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Ghostscript v</span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2"> has known bugs. &quot;</span>
-                <span class="s2">&quot;Please consider upgrading to version v10.02 or later.&quot;</span>
+                <span class="sa">f</span><span class="s2">"Ghostscript </span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2"> has known bugs. "</span>
+                <span class="s2">"Please consider upgrading to Ghostscript 10.02 or later."</span>
             <span class="p">)</span>
-        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;10.02&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.5.0&quot;</span><span class="p">):</span>
+        <span class="k">case</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"10.02"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"6.5.0"</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;GMT v</span><span class="si">{</span><span class="n">__gmt_version__</span><span class="si">}</span><span class="s2"> doesn&#39;t support Ghostscript v</span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2">. &quot;</span>
-                <span class="s2">&quot;Please consider upgrading to GMT&gt;=6.5.0 or downgrading to Ghostscript &quot;</span>
-                <span class="s2">&quot;v9.56.&quot;</span>
+                <span class="sa">f</span><span class="s2">"GMT </span><span class="si">{</span><span class="n">__gmt_version__</span><span class="si">}</span><span class="s2"> doesn't support Ghostscript </span><span class="si">{</span><span class="n">gs_version</span><span class="si">}</span><span class="s2">. "</span>
+                <span class="s2">"Please consider upgrading to GMT&gt;=6.5.0 or downgrading to Ghostscript "</span>
+                <span class="s2">"9.56."</span>
             <span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_dep</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Requirement</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Get requirements of the PyGMT package.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)]</span>  <span class="c1"># type: ignore[union-attr]</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">requires</span><span class="p">(</span><span class="s2">"pygmt"</span><span class="p">)]</span>  <span class="c1"># type: ignore[union-attr]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_dep_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get version information of PyGMT&#39;s dependencies.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Get version information of PyGMT's dependencies.</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">_get_module_version</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">_get_dep</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
-        <span class="s2">&quot;gdal&quot;</span><span class="p">:</span> <span class="n">_get_gdal_version</span><span class="p">(),</span>
-        <span class="s2">&quot;ghostscript&quot;</span><span class="p">:</span> <span class="n">_get_ghostscript_version</span><span class="p">(),</span>
+        <span class="s2">"gdal"</span><span class="p">:</span> <span class="n">_get_gdal_version</span><span class="p">(),</span>
+        <span class="s2">"ghostscript"</span><span class="p">:</span> <span class="n">_get_ghostscript_version</span><span class="p">(),</span>
     <span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_dep_specifier</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get version specifiers of PyGMT&#39;s dependencies.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Get version specifiers of PyGMT's dependencies.</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">req</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">specifier</span><span class="p">)</span> <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="n">_get_dep</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span>
-        <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="n">metadata</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)[</span><span class="s2">&quot;Requires-Python&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;gmt&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;&gt;=</span><span class="si">{</span><span class="n">required_gmt_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="s2">"python"</span><span class="p">:</span> <span class="n">metadata</span><span class="p">(</span><span class="s2">"pygmt"</span><span class="p">)[</span><span class="s2">"Requires-Python"</span><span class="p">],</span>
+        <span class="s2">"gmt"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"&gt;=</span><span class="si">{</span><span class="n">required_gmt_version</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
     <span class="p">}</span>
 
 
 <div class="viewcode-block" id="show_versions">
 <a class="viewcode-back" href="../../api/generated/pygmt.show_versions.html#pygmt.show_versions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_versions</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Print various dependency versions which are useful when submitting bug reports.</span>
 
 <span class="sd">    This includes information about:</span>
@@ -309,29 +312,29 @@
 
 <span class="sd">    It also warns users if the installed Ghostscript version has serious bugs or is</span>
 <span class="sd">    incompatible with the installed GMT version.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">sys_info</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
-        <span class="s2">&quot;executable&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
-        <span class="s2">&quot;machine&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
+        <span class="s2">"python"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">),</span>
+        <span class="s2">"executable"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
+        <span class="s2">"machine"</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
     <span class="p">}</span>
     <span class="n">dep_version</span> <span class="o">=</span> <span class="n">_get_dep_version</span><span class="p">()</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;PyGMT information:&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  version: </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;System information:&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sys_info</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Dependency information:&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dep_version</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">)</span>
-    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_get_clib_info</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"PyGMT information:"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  version: </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"System information:"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sys_info</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"Dependency information:"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">dep_version</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"GMT library information:"</span><span class="p">)</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">_get_clib_info</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 
-    <span class="k">if</span> <span class="n">warnmsg</span> <span class="o">:=</span> <span class="n">_check_ghostscript_version</span><span class="p">(</span><span class="n">dep_version</span><span class="p">[</span><span class="s2">&quot;ghostscript&quot;</span><span class="p">]):</span>
-        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;WARNING:&quot;</span><span class="p">)</span>
-        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">warnmsg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">warnmsg</span> <span class="o">:=</span> <span class="n">_check_ghostscript_version</span><span class="p">(</span><span class="n">dep_version</span><span class="p">[</span><span class="s2">"ghostscript"</span><span class="p">]):</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"WARNING:"</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">warnmsg</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -344,9 +347,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/137401c56">137401c5</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Aug 22, 2026.
       </span></p>
   </div>
 

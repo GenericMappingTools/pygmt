@@ -1,0 +1,373 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Supported Array Dtypes &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=eff37dcc" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//dev/techref/array_dtypes.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2ffee993"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Minimum Supported Versions" href="../minversions.html" />
+    <link rel="prev" title="Environment Variables" href="environment_variables.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../index.html">
+     
+       <img src="../_static/pygmtlogo.png" class="logo" alt="Logo"/>
+   </a>
+     <div class="version">
+       dev
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citing.html">Citing PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Technical Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="common_parameters.html">Common Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projections.html">GMT Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="units.html">Dimension and Distance Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fonts.html">Supported Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text_formatting.html">Text Formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encodings.html">Supported Encodings and Non-ASCII Characters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="justification_codes.html">Justification Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="environment_variables.html">Environment Variables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Supported Array Dtypes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#numeric-dtypes">Numeric Dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-dtypes">String Dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datetime-dtypes">Datetime Dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#timedelta-dtypes">Timedelta Dtypes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unsupported-dtypes">Unsupported Dtypes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../team.html">PyGMT Team</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Technical Reference</a></li>
+      <li class="breadcrumb-item active">Supported Array Dtypes</li>
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/array_dtypes.md"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="supported-array-dtypes">
+<h1>Supported Array Dtypes<a class="headerlink" href="#supported-array-dtypes" title="Link to this heading"></a></h1>
+<p>PyGMT uses NumPy arrays as its core data structure for storing data and exchanging data
+with the GMT C API. This design allows PyGMT to support a wide range of array-like
+objects and data types (<em>dtypes</em>), as long as they can be converted to NumPy arrays.
+This page provides a comprehensive overview of the array dtypes supported by PyGMT.</p>
+<section id="numeric-dtypes">
+<h2>Numeric Dtypes<a class="headerlink" href="#numeric-dtypes" title="Link to this heading"></a></h2>
+<p>In addition to Python’s built-in numeric types (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>), PyGMT
+supports most of the numeric dtypes provided by NumPy, pandas, and PyArrow.</p>
+<p><strong>Signed Integers</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy.int8</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int64</span></code>, <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.longlong" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.longlong</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Int8Dtype.html#pandas.Int8Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Int8Dtype</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Int16Dtype.html#pandas.Int16Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Int16Dtype</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Int32Dtype.html#pandas.Int32Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Int32Dtype</span></code></a>,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Int64Dtype.html#pandas.Int64Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Int64Dtype</span></code></a></p></li>
+<li><p><a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.int8.html#pyarrow.int8" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.int8</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.int16.html#pyarrow.int16" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.int16</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.int32.html#pyarrow.int32" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.int32</span></code></a>,
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.int64.html#pyarrow.int64" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.int64</span></code></a></p></li>
+</ul>
+<p><strong>Unsigned Integers</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy.uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.uint16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.uint32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.uint64</span></code>, <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.ulonglong" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ulonglong</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.UInt8Dtype.html#pandas.UInt8Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.UInt8Dtype</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.UInt16Dtype.html#pandas.UInt16Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.UInt16Dtype</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.UInt32Dtype.html#pandas.UInt32Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.UInt32Dtype</span></code></a>,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.UInt64Dtype.html#pandas.UInt64Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.UInt64Dtype</span></code></a></p></li>
+<li><p><a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.uint8.html#pyarrow.uint8" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.uint8</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.uint16.html#pyarrow.uint16" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.uint16</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.uint32.html#pyarrow.uint32" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.uint32</span></code></a>,
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.uint64.html#pyarrow.uint64" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.uint64</span></code></a></p></li>
+</ul>
+<p><strong>Floating-point numbers</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Float32Dtype.html#pandas.Float32Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Float32Dtype</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Float64Dtype.html#pandas.Float64Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Float64Dtype</span></code></a></p></li>
+<li><p><a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.float32.html#pyarrow.float32" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.float32</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.float64.html#pyarrow.float64" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.float64</span></code></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ol class="arabic simple">
+<li><p>Signed and unsigned integer dtypes from pandas and PyArrow (e.g.,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Int8Dtype.html#pandas.Int8Dtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Int8Dtype</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.int8.html#pyarrow.int8" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.int8</span></code></a>) support missing values like <code class="docutils literal notranslate"><span class="pre">None</span></code>
+or <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.NA</span></code>, whereas NumPy’s corresponding dtypes (e.g., <code class="docutils literal notranslate"><span class="pre">numpy.int8</span></code>)
+don’t. Arrays of these dtypes containing missing values are automatically cast to
+<code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code> internally.</p></li>
+<li><p>For 3-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2026.7.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> objects representing raster images, only 8-bit
+unsigned integers (i.e., <code class="docutils literal notranslate"><span class="pre">numpy.uint8</span></code>) are supported.</p></li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Examples of numeric arrays supported by PyGMT:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A list of integers</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># A NumPy array with dtype int32</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+<span class="c1"># A pandas Series with nullable Int32 dtype</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"Int32"</span><span class="p">)</span>
+
+<span class="c1"># A pandas Series with nullable Int32 dtype and missing values</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"Int32"</span><span class="p">)</span>
+
+<span class="c1"># A pandas Series using a PyArrow-backed float64 dtype</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"float64[pyarrow]"</span><span class="p">)</span>
+
+<span class="c1"># A PyArrow array with dtype uint8</span>
+<span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">uint8</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="string-dtypes">
+<h2>String Dtypes<a class="headerlink" href="#string-dtypes" title="Link to this heading"></a></h2>
+<p>In addition to Python’s built-in <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> type, PyGMT also supports the following
+string dtypes:</p>
+<ul class="simple">
+<li><p>NumPy: <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.str_" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.str_</span></code></a> or fixed-width Unicode string dtype (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;U10&quot;</span></code>)</p></li>
+<li><p>pandas: <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.StringDtype.html#pandas.StringDtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.StringDtype</span></code></a>, with different storage backends, including
+<code class="docutils literal notranslate"><span class="pre">string[python]</span></code> and <code class="docutils literal notranslate"><span class="pre">string[pyarrow]</span></code></p></li>
+<li><p>PyArrow: <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.string.html#pyarrow.string" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.string</span></code></a>/<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.utf8.html#pyarrow.utf8" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.utf8</span></code></a>,
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.large_string.html#pyarrow.large_string" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.large_string</span></code></a>/<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.large_utf8.html#pyarrow.large_utf8" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.large_utf8</span></code></a>, and
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.string_view.html#pyarrow.string_view" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.string_view</span></code></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Examples of string arrays supported by PyGMT:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A list of strings</span>
+<span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">]</span>
+
+<span class="c1"># A NumPy string array</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">)</span>
+
+<span class="c1"># A pandas.Series string array</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"string"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"string[python]"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"string[pyarrow]"</span><span class="p">)</span>
+
+<span class="c1"># A PyArrow array with pyarrow.string dtype</span>
+<span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="datetime-dtypes">
+<h2>Datetime Dtypes<a class="headerlink" href="#datetime-dtypes" title="Link to this heading"></a></h2>
+<p>PyGMT supports a variety of datetime types:</p>
+<ul class="simple">
+<li><p>A list/tuple of elements in Python’s built-in <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> or
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.date</span></code></a>, datetime-like strings, or mixed.</p></li>
+<li><p>NumPy arrays: <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a> with various resolutions</p></li>
+<li><p>pandas objects with <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeTZDtype.html#pandas.DatetimeTZDtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeTZDtype</span></code></a>,
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html#pyarrow.timestamp" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.timestamp</span></code></a> with various resolution and timezone support, and
+pyarrow-backend dtypes like <code class="docutils literal notranslate"><span class="pre">date32[day][pyarrow]</span></code> and <code class="docutils literal notranslate"><span class="pre">date64[ms][pyarrow]</span></code>,</p></li>
+<li><p>PyArrow: <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.date32.html#pyarrow.date32" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.date32</span></code></a>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.date64.html#pyarrow.date64" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.date64</span></code></a> and <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html#pyarrow.timestamp" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.timestamp</span></code></a>
+with various resolutions and timezone support.</p></li>
+</ul>
+</section>
+<section id="timedelta-dtypes">
+<h2>Timedelta Dtypes<a class="headerlink" href="#timedelta-dtypes" title="Link to this heading"></a></h2>
+<p>PyGMT supports NumPy arrays with the <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.timedelta64" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.timedelta64</span></code></a> dtype. Timedelta values
+are passed to GMT as their underlying integer values, so their unit determines the
+numeric scale. For example, a <code class="docutils literal notranslate"><span class="pre">timedelta64[D]</span></code> array is interpreted as days, whereas a
+<code class="docutils literal notranslate"><span class="pre">timedelta64[s]</span></code> array is interpreted as seconds.</p>
+<p>Timedelta values can also be used in sequence-valued parameters such as <code class="docutils literal notranslate"><span class="pre">region</span></code>.
+The timedelta dtype does not, by itself, configure a GMT relative-time axis; configure
+GMT time settings explicitly when a relative-time axis is required.</p>
+</section>
+<section id="unsupported-dtypes">
+<h2>Unsupported Dtypes<a class="headerlink" href="#unsupported-dtypes" title="Link to this heading"></a></h2>
+<p>The following dtypes are intentionally unsupported, and should be cast to an appropriate
+supported dtype before passing to PyGMT:</p>
+<ul class="simple">
+<li><p>Floating-point dtypes: <code class="docutils literal notranslate"><span class="pre">numpy.float16</span></code>, <a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.float16.html#pyarrow.float16" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.float16</span></code></a> and
+<a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.longdouble" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.longdouble</span></code></a></p></li>
+<li><p>Boolean dtypes: <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.bool" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.bool</span></code></a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.BooleanDtype.html#pandas.BooleanDtype" title="(in pandas v3.0.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.BooleanDtype</span></code></a> and
+<a class="reference external" href="https://arrow.apache.org/docs/python/generated/pyarrow.bool_.html#pyarrow.bool_" title="(in Apache Arrow v25.0.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyarrow.bool_</span></code></a></p></li>
+<li><p>Complex dtypes: <code class="docutils literal notranslate"><span class="pre">numpy.complex64</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.complex128</span></code></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.bytes_" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.bytes_</span></code></a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.void" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.void</span></code></a></p></li>
+</ul>
+<p>The <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.object_" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.object_</span></code></a> dtype is also not supported. PyGMT may convert object arrays
+that can be interpreted as datetimes or text, but applications should create arrays with
+an explicit supported dtype instead.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="environment_variables.html" class="btn btn-neutral float-left" title="Environment Variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../minversions.html" class="btn btn-neutral float-right" title="Minimum Supported Versions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/137401c56">137401c5</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Aug 22, 2026.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

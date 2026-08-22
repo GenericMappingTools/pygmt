@@ -833,6 +833,23 @@ Images, contours, and fields
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.surface function interpolates irregularly spaced (x, y, z) observations onto a regular grid. Before interpolation, it&#x27;s usually recommended to preprocess the data using one of pygmt.blockmean, pygmt.blockmedian, and pygmt.blockmode, to avoid aliasing short wavelengths, by returning one value for every occupied block.">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_gridding_with_surface_thumb.png
+    :alt:
+
+  :doc:`/gallery/images/gridding_with_surface`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gridding scattered data</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.image method can be used to read and place an image file in many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via the imagefile parameter or simply use the filename as the first argument. You can also use a full URL pointing to your desired image. The position parameter allows us to place the image at a specific location on the plot.">
 
 .. only:: html
@@ -898,6 +915,7 @@ Images, contours, and fields
    /gallery/images/contours
    /gallery/images/grdlandmask
    /gallery/images/cross_section
+   /gallery/images/gridding_with_surface
    /gallery/images/image
    /gallery/images/rgb_image
    /gallery/images/track_sampling
