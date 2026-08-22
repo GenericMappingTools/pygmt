@@ -31,7 +31,7 @@ fig.basemap(
     region=[1, 100, 0, 10],
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
-    # Set the figure's frame and color as well as annotations, ticks, and gridlines
+    # Set the plot's frame and color as well as annotations, ticks, and gridlines
     frame=Frame(
         axes="WSne",
         fill="bisque",
@@ -45,6 +45,6 @@ fig.plot(x=xline, y=yline, pen="2p,black,dashed")
 
 # Plot the square root values on top of the line
 # Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
-# Symbols are not clipped if they go off the figure
+# Symbols are not clipped if they go off the plot
 fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()

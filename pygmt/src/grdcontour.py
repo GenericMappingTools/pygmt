@@ -148,7 +148,7 @@ def grdcontour(
     ...     annotation=1000,
     ...     # Add a frame for the plot
     ...     frame=Axis(annot=True),
-    ...     # Set the projection to Mercator for the 10 cm figure
+    ...     # Set the projection to Mercator, and the plot width to 10 centimeters
     ...     projection="M10c",
     ... )
     >>> # Show the plot
