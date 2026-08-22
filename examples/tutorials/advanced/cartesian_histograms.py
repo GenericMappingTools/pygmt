@@ -71,7 +71,7 @@ fig.histogram(
     histtype=0,
 )
 
-# Shift plot origin by the figure width ("w") plus 2 centimeters to the right
+# Shift plot origin by the previous plot's width ("w") plus 2 centimeters to the right
 fig.shift_origin(xshift="w+2c")
 
 # Create histogram for data01 with horizontal bars
