@@ -17,7 +17,7 @@ from pygmt.helpers import (
     is_given,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
@@ -141,7 +141,7 @@ def grdview(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
