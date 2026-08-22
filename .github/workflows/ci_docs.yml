@@ -67,6 +67,10 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+    env:
+      # Tectonic cache directory.
+      # See https://tectonic-typesetting.github.io/book/latest/getting-started/first-document.html#cache.
+      TECTONIC_CACHE_DIR: ${{ github.workspace }}/.tectonic-cache
 
     steps:
       # Checkout current git repository
@@ -146,6 +150,15 @@ jobs:
             exit 0
           fi
           exit "${exit_code}"
+
+      - name: Cache tectonic packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0 # zizmor: ignore[cache-poisoning]
+        with:
+          path: ${{ env.TECTONIC_CACHE_DIR }}
+          # cache is persistent for one week, same as the micromamba environment cache.
+          key: tectonic-${{ runner.os }}-${{ steps.date.outputs.date }}
+          # Fall back to the most recent cache so tectonic only downloads what's missing.
+          restore-keys: tectonic-${{ runner.os }}-
 
       - name: Build the PDF documentation
         env:
