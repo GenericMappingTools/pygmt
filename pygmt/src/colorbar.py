@@ -301,7 +301,7 @@ def colorbar(
        GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
        :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
        :gmt-term:`FONT`)
-       For GMT >=6.7.0, users should use ``no_font_scaling = True`` to turn of
+       For GMT >=6.7.0, users should use ``no_font_scaling = True`` to turn off
        the automatic fontsize scaling.
        For GMT 6.5.0 - 6.6.0, users have to divide the desired fontsize by the
        value calculated with the formula given above before passing it to the
