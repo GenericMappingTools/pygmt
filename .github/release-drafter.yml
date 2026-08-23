@@ -9,9 +9,11 @@ categories:
     when:
       label: 'feature'
   - title: 'Enhancements'
+    semver-increment: 'minor'
     when:
       label: 'enhancement'
   - title: 'Deprecations'
+    semver-increment: 'minor'
     when:
       label: 'deprecation'
   - title: 'Bug Fixes'
@@ -36,6 +38,8 @@ sort-direction: 'ascending'
 replacers:
   - search: '/@(\w+)?/g'
     replace: '[@$1](https://github.com/$1)'
+  - search: '@Chuan1937'
+    replace: 'Xingchen He'
   - search: '@maxrjones'
     replace: 'Max Jones'
   - search: '@michaelgrund'
@@ -64,3 +68,7 @@ template: |
   ### Contributors
 
   $CONTRIBUTORS
+
+  ### New Contributors
+
+  $NEW_CONTRIBUTORS
