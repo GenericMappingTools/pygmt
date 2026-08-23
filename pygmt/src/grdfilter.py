@@ -10,7 +10,7 @@ from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given
 
 __doctest_skip__ = ["grdfilter"]
 
@@ -66,7 +66,6 @@ def _alias_option_F(  # ruff: ignore[invalid-function-name]
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def grdfilter(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -95,6 +94,7 @@ def grdfilter(
     | bool = False,
     registration: Literal["gridline", "pixel"] | bool = False,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -112,7 +112,11 @@ def grdfilter(
 
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - D = distance
        - F = filter, width, **+h**: highpass
        - G = outgrid
@@ -121,6 +125,7 @@ def grdfilter(
        - R = region
        - T = toggle
        - V = verbose
+       - f = coltypes
        - r = registration
        - x = cores
 
@@ -283,6 +288,7 @@ def grdfilter(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         r=registration,
         x=cores,
     )

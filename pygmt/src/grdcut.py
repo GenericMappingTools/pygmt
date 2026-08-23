@@ -21,7 +21,7 @@ __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
-@use_alias(N="extend", S="circ_subregion", Z="z_subregion", f="coltypes")
+@use_alias(N="extend", S="circ_subregion", Z="z_subregion")
 def grdcut(
     grid: PathLike | xr.DataArray,
     kind: Literal["grid", "image"] = "grid",
@@ -30,6 +30,7 @@ def grdcut(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -51,6 +52,7 @@ def grdcut(
        - J = projection
        - R = region
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -127,6 +129,7 @@ def grdcut(
         J=projection,
         R=region,
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 
