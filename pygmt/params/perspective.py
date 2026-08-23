@@ -40,7 +40,7 @@ class Perspective(BaseParam):
     #: down at nadir).
     elevation: float | None = None
 
-    #: The level at which all 2-D material, like the plot frame, is plotted. Only valid
+    #: The level at which all 2-D elements, like the plot frame, is plotted. Only valid
     #: when used together with parameters ``zsize``/``zscale``. Default is at the bottom
     #: of the selected axis.
     level: float | None = None
