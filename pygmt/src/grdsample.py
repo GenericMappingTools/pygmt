@@ -22,7 +22,7 @@ __doctest_skip__ = ["grdsample"]
 
 # TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
-@deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
+@deprecate_parameter("translate", "toggle", "0.18.0", remove_version="0.21.0")
 @use_alias(f="coltypes", n="interpolation")
 def grdsample(
     grid: PathLike | xr.DataArray,

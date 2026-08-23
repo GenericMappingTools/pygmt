@@ -36,7 +36,7 @@ def logo(
     """
     Plot the GMT logo.
 
-    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_coverlogo.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.7/_images/GMT_coverlogo.png
        :alt: GMT logo
        :align: center
        :width: 300px

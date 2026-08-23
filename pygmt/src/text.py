@@ -119,7 +119,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the plot.
     text
-        The text string, or an array of strings to plot on the figure.
+        The text string, or an array of strings to plot.
     angle
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
