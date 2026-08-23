@@ -13,7 +13,7 @@ from pygmt.datatypes.header import (
 )
 
 
-class _GMT_CUBE(ctp.Structure):  # noqa: N801
+class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
     """
     GMT cube data structure for 3-D data.
 
