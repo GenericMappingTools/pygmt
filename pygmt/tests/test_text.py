@@ -6,10 +6,13 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from packaging.version import Version
 from pygmt import Figure, config
-from pygmt.exceptions import GMTCLibError, GMTInvalidInput
+from pygmt.clib.session import __gmt_version__
+from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
+from pygmt.params import Axis, Frame
 
 try:
     import pyarrow as pa
@@ -85,7 +88,7 @@ def test_text_without_text_input(region, projection):
     Run text by passing in x and y, but no text.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection=projection, x=1.2, y=2.4)
 
 
@@ -135,7 +138,13 @@ def test_text_position(region):
     Left/Centre/Right).
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position)
     return fig
@@ -146,23 +155,28 @@ def test_text_invalid_inputs(region):
     Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", position="MC", text=None)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         fig.text(
             region=region, projection="x1c", position="MC", text=["text1", "text2"]
         )
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
-@pytest.mark.mpl_image_compare
+# TODO(GMT>=6.7.0): Remove the conditional filename when the minimum version is reached.
+@pytest.mark.mpl_image_compare(
+    filename="test_text_position_offset_with_line.png"
+    if Version(__gmt_version__) >= Version("6.7.0")
+    else "test_text_position_offset_with_line_legacy.png"
+)
 def test_text_position_offset_with_line(region):
     """
     Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
@@ -170,7 +184,13 @@ def test_text_position_offset_with_line(region):
     shifted point.
     """
     fig = Figure()
-    fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
+    fig.text(
+        region=region,
+        projection="x1c",
+        frame=Axis(annot=True),
+        position="CM",
+        text="C M",
+    )
     for position in ("TL", "TC", "TR", "ML", "MR", "BL", "BC", "BR"):
         fig.text(position=position, text=position, offset="j0.5c+v")
     return fig
@@ -294,7 +314,7 @@ def test_text_justify_parsed_from_textfile():
     operation.
 
     Loosely based on "All great-circle paths lead to Rome" gallery example at
-    https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
+    https://docs.generic-mapping-tools.org/6.7/gallery/ex23.html
     """
     fig = Figure()
     fig.text(
@@ -321,7 +341,7 @@ def test_text_angle_font_justify_from_textfile():
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",
-            frame="a",
+            frame=Axis(annot=True),
             textfiles=tempfile.name,
             angle=True,
             font=True,
@@ -336,7 +356,7 @@ def test_text_justify_array(region):
     Test passing an array of justify codes.
     """
     fig = Figure()
-    fig.basemap(region=region, projection="x1c", frame="a")
+    fig.basemap(region=region, projection="x1c", frame=Axis(annot=True))
     fig.text(
         x=[0, 2.5, 5.0, 0, 2.5, 5.0, 0, 2.5, 5.0],
         y=[0, 0, 0, 1.25, 1.25, 1.25, 2.5, 2.5, 2.5],
@@ -457,8 +477,8 @@ def test_text_nonascii(encoding):
     if encoding == "Standard+":  # Temporarily set the PS_CHAR_ENCODING to "Standard+".
         config(PS_CHAR_ENCODING="Standard+")
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
-    fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
+    fig.text(position="TL", text="position-text:°α")  # ruff: ignore[ambiguous-unicode-character-string]
+    fig.text(x=1, y=1, text="xytext:°α")  # ruff: ignore[ambiguous-unicode-character-string]
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζ∆❡", "xytext2:∑π∇✉"])
     return fig
 
@@ -466,13 +486,19 @@ def test_text_nonascii(encoding):
 @pytest.mark.mpl_image_compare
 def test_text_quotation_marks():
     """
-    Test typesetting quotation marks.
+    Test typesetting backtick, apostrophe, and single and double quotation marks.
 
-    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    See https://github.com/GenericMappingTools/pygmt/issues/3104 and
+    https://github.com/GenericMappingTools/pygmt/issues/3476.
     """
+    quotations = "` ' ‘ ’ \" “ ”"  # ruff: ignore[ambiguous-unicode-character-string]
     fig = Figure()
-    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
-    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
+    fig.basemap(
+        projection="X4c/2c",
+        region=[0, 4, 0, 2],
+        frame=Frame(axes="S", xaxis=Axis(label=quotations)),
+    )
+    fig.text(x=2, y=1, text=quotations, font="20p")
     return fig
 
 
@@ -482,7 +508,11 @@ def test_text_nonascii_iso8859():
     Test passing text strings with non-ascii characters in ISO-8859-4 encoding.
     """
     fig = Figure()
-    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=["WSEN+tAāáâãäåB"])
+    fig.basemap(
+        region=[0, 10, 0, 10],
+        projection="X10c",
+        frame=Frame(axes="WSEN", title="AāáâãäåB"),
+    )
     fig.text(position="TL", text="position-text:1ÉĘËĖ2")
     fig.text(x=1, y=1, text="xytext:1éęëė2")
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])

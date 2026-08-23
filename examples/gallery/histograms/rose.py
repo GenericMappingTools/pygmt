@@ -8,6 +8,7 @@ histograms.
 
 # %%
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Load sample compilation of fracture lengths and azimuth as
 # hypothetically digitized from geological maps
@@ -34,11 +35,9 @@ fig.rose(
     norm=True,
     # use red3 as color fill for the sectors
     fill="red3",
-    # define the frame with ticks and gridlines every 0.2
-    # length unit in radial direction and every 30 degrees
-    # in azimuthal direction, set background color to
-    # lightgray
-    frame=["x0.2g0.2", "y30g30", "+glightgray"],
+    # define the frame with gridlines every 0.2 length unit in radial direction
+    # and every 30 degrees in azimuthal direction, set background color to lightgray
+    frame=Frame(xaxis=Axis(grid=0.2), yaxis=Axis(grid=30), fill="lightgray"),
     # use a pen size of 1p to draw the outlines
     pen="1p",
 )

@@ -3,6 +3,7 @@ Wrapper for the GMT_GRID_HEADER data structure and related utility functions.
 """
 
 import ctypes as ctp
+from collections.abc import Mapping
 from typing import Any, ClassVar
 
 import numpy as np
@@ -65,7 +66,7 @@ def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
     return long_name, units
 
 
-class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
+class _GMT_GRID_HEADER(ctp.Structure):  # ruff: ignore[invalid-class-name]
     """
     GMT grid header structure for metadata about the grid.
 
@@ -199,7 +200,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         return "z"
 
     @property
-    def data_attrs(self) -> dict[str, Any]:
+    def data_attrs(self) -> Mapping[str, Any]:
         """
         Attributes for the data variable from the grid header.
         """
@@ -209,7 +210,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
             GridFormat.NS,
             GridFormat.NI,
             GridFormat.NF,
-            GridFormat.ND,
+            GridFormat.ND,  # codespell:ignore
         }:  # Set attributes specific to CF-1.7 conventions
             attrs["Conventions"] = "CF-1.7"
             attrs["title"] = self.title.decode()

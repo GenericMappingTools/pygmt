@@ -23,9 +23,7 @@ import atexit as _atexit
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
 from pygmt._show_versions import __commit__, __version__, show_versions
-from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
-from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
@@ -46,6 +44,8 @@ from pygmt.src import (
     grdhisteq,
     grdinfo,
     grdlandmask,
+    grdmask,
+    grdpaste,
     grdproject,
     grdsample,
     grdtrack,
@@ -65,6 +65,7 @@ from pygmt.src import (
     x2sys_init,
     xyz2grd,
 )
+from pygmt.xarray import GMTBackendEntrypoint, GMTDataArrayAccessor
 
 # Start our global modern mode session
 _begin()

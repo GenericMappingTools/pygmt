@@ -7,6 +7,8 @@ from collections.abc import Sequence
 from typing import Literal
 
 from packaging.version import Version
+from pygmt._show_versions import __version__ as _pygmt_version
+from pygmt.exceptions import GMTParameterError
 
 try:
     import contextily
@@ -20,7 +22,7 @@ except ImportError:
     _HAS_CONTEXTILY = False
 
 try:
-    import rioxarray  # noqa: F401
+    import rioxarray  # ruff: ignore[unused-import]
 
     _HAS_RIOXARRAY = True
 except ImportError:
@@ -29,6 +31,7 @@ except ImportError:
 import numpy as np
 import xarray as xr
 
+__doctest_skip__ = ["load_tile_map"]
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
@@ -41,6 +44,7 @@ def load_tile_map(
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    headers: dict[str, str] | None = None,
 ) -> xr.DataArray:
     """
     Load a georeferenced raster tile map from XYZ tile providers.
@@ -76,7 +80,7 @@ def load_tile_map(
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
           URL need to be {x}, {y}, {z}, respectively. E.g.
-          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+          ``https://tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -99,9 +103,14 @@ def load_tile_map(
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
+    headers
+        HTTP headers to include with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. When supported by
+        ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
+        ``PyGMT/X.Y.Z (+https://www.pygmt.org)``.
 
         .. note::
-           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
+           Requires ``contextily>=1.7.0``.
 
     Returns
     -------
@@ -127,12 +136,12 @@ def load_tile_map(
     ... )
     >>> raster.sizes
     Frozen({'band': 3, 'y': 256, 'x': 512})
-    >>> raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> raster.coords
     Coordinates:
-      * band         (band) uint8... 1 2 3
-      * y            (y) float64... -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
-      * x            (x) float64... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
-        spatial_ref  int... 0
+      * band         (band) uint8 3B 1 2 3
+      * y            (y) float64 2kB -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x            (x) float64 4kB -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+        spatial_ref  int64 8B 0
     >>> # CRS is set only if rioxarray is available
     >>> if hasattr(raster, "rio"):
     ...     raster.rio.crs.to_string()
@@ -146,15 +155,15 @@ def load_tile_map(
         msg = (
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
-            "`mamba install -c conda-forge contextily` to install the package."
+            "`conda install -c conda-forge contextily` to install the package."
         )
         raise ImportError(msg)
 
     if crs != _source_crs and not _HAS_RIOXARRAY:
         msg = (
-            f"Package `rioxarray` is required if CRS is not '{_source_crs}'. "
+            f"Package `rioxarray` is required if CRS is not {_source_crs!r}. "
             "Please use `python -m pip install rioxarray` or "
-            "`mamba install -c conda-forge rioxarray` to install the package."
+            "`conda install -c conda-forge rioxarray` to install the package."
         )
         raise ImportError(msg)
 
@@ -165,16 +174,24 @@ def load_tile_map(
         "ll": lonlat,
         "wait": wait,
         "max_retries": max_retries,
+        "zoom_adjust": zoom_adjust,
     }
-    # TODO(contextily>=1.5.0): Remove the check for the 'zoom_adjust' parameter.
-    if zoom_adjust is not None:
-        if Version(contextily.__version__) < Version("1.5.0"):
-            msg = (
-                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
-                "Please upgrade contextily, or manually set the `zoom` level instead."
+
+    # TODO(contextily>=1.7.0): Remove once contextily>=1.7.0 is required.
+    # The 'headers' parameter was added in contextily 1.7.0.
+    if Version(contextily.__version__) < Version("1.7.0"):
+        if headers is not None:
+            raise GMTParameterError(
+                reason="The 'headers' parameter requires contextily>=1.7.0."
             )
-            raise ValueError(msg)
-        contextily_kwargs["zoom_adjust"] = zoom_adjust
+    else:
+        # Set default HTTP headers.
+        default_ua = f"PyGMT/{_pygmt_version} (+https://www.pygmt.org)"
+        if headers is None:
+            headers = {"User-Agent": default_ua}
+        elif not any(key.lower() == "user-agent" for key in headers):
+            headers = {**headers, "User-Agent": default_ua}
+        contextily_kwargs["headers"] = headers
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(

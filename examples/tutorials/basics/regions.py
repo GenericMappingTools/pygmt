@@ -9,6 +9,7 @@ of inputs that it can accept.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Coordinates
@@ -32,7 +33,7 @@ fig.coast(
     # Display the shorelines and set the pen thickness to 0.5p
     shorelines="1/0.5p",
     # Set the frame to display annotations and gridlines
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -49,7 +50,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -69,7 +70,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -93,7 +94,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -111,7 +112,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -133,7 +134,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -154,7 +155,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -173,7 +174,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -193,7 +194,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -211,7 +212,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -231,6 +232,6 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()

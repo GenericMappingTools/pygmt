@@ -20,8 +20,10 @@ from pygmt.helpers.utils import (
     args_in_kwargs,
     build_arg_list,
     data_kind,
+    is_given,
     is_nonstr_iter,
     launch_external_viewer,
     non_ascii_to_octal,
+    sequence_join,
 )
 from pygmt.helpers.validators import validate_output_table_type

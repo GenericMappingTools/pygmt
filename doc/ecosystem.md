@@ -1,16 +1,19 @@
-# Ecosystem
+# PyGMT Ecosystem
 
 PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
 line program that provides a wide range of tools for manipulating geospatial data and
-making publication-quality maps and figures. PyGMT integrates well with the
+making publication-quality maps and figures. It integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
-fundamental array data structure, [pandas][] for tabular data I/O and [Xarray][] for
-raster grids/images/cubes I/O.
+fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
+raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
+several optional packages to provide additional functionality for users.
 
-In addition to these core dependencies, PyGMT also relies on several optional packages to
-provide additional functionality for users.
+![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
-*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
+_The PyGMT ecosystem. This figure was originally published in the
+[PyGMT paper](https://doi.org/10.1029/2026GC013105) in G-Cubed. The full publication is
+released under CC BY-NC 4.0. No modifications were made._
+
 
 ## PyGMT dependencies
 
@@ -32,9 +35,9 @@ designed to make working with "relational" or "labeled" data both easy and intui
 It aims to be the fundamental high-level building block for doing practical, real-world
 data analysis in Python.
 
-### Xarray*
+### xarray*
 
-[Xarray][] is an open source project and Python package that introduces labels in the
+[xarray][] is an open source project and Python package that introduces labels in the
 form of dimensions, coordinates, and attributes on top of raw NumPy-like arrays, which
 allows for more intuitive, more concise, and less error-prone user experience.
 
@@ -67,7 +70,7 @@ In PyGMT, {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` 
 
 ### rioxarray
 
-[rioxarray][] is a geospatial [Xarray][] extension powered by [rasterio][]. Built on top
+[rioxarray][] is a geospatial [xarray][] extension powered by [rasterio][]. Built on top
 of rasterio, it enables seamless reading, writing, and manipulation of multi-dimensional
 arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial
 extent (bounds).
@@ -102,17 +105,19 @@ more details, see
 [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 ```
 
-## PyGMT ecosystem
+## Packages depending on PyGMT
 
 Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
-Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
-ecosystem.
+Below is an incomplete list (in no particular order) of these tools.
 
 ```{note}
 If your package relies on PyGMT, please
 [let us know](https://github.com/GenericMappingTools/pygmt/issues/new) or
 [add it by yourself](contributing.md).
 ```
+
+*This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
+
 
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/

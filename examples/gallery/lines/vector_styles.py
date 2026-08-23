@@ -24,8 +24,8 @@ fig.coast(
 
 
 # Left: plot 12 Cartesian vectors with different lengths
-x = np.linspace(-116, -116, 12)  # x vector coordinates
-y = np.linspace(33.5, 42.5, 12)  # y vector coordinates
+x = np.linspace(-116, -116, 12)  # x-vector coordinates
+y = np.linspace(33.5, 42.5, 12)  # y-vector coordinates
 direction = np.zeros(x.shape)  # direction of vectors
 length = np.linspace(0.5, 2.4, 12)  # length of vectors
 # Cartesian vectors (v) with red fill and pen (+g, +p), vector head at the end (+e), and
@@ -37,8 +37,8 @@ fig.text(text="CARTESIAN", x=-112, y=44.2, font="13p,Helvetica-Bold,red", fill="
 
 # Middle: plot 7 math angle arcs with different radii
 num = 7
-x = np.full(num, -95)  # x coordinates of the center
-y = np.full(num, 37)  # y coordinates of the center
+x = np.full(num, -95)  # x-coordinates of the center
+y = np.full(num, 37)  # y-coordinates of the center
 radius = 1.8 - 0.2 * np.arange(0, num)  # radius
 startdir = np.full(num, 90)  # start direction in degrees
 stopdir = 180 + 40 * np.arange(0, num)  # stop direction in degrees

@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import skip_if_no
 
@@ -141,7 +141,7 @@ def test_virtualfile_from_vectors_diff_size():
     x = np.arange(5)
     y = np.arange(6)
     with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             with lib.virtualfile_from_vectors((x, y)):
                 pass
 
@@ -190,28 +190,3 @@ def test_virtualfile_from_vectors_arraylike():
         bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
         expected = f"<vector memory>: N = {size}\t{bounds}\n"
         assert output == expected
-
-
-# TODO(PyGMT>=0.16.0): Remove this test in PyGMT v0.16.0 in which the "*args" parameter
-# will be removed.
-def test_virtualfile_from_vectors_args():
-    """
-    Test the backward compatibility of the deprecated syntax for passing multiple
-    vectors.
-
-    This test is the same as test_virtualfile_from_vectors_arraylike, but using the
-    old syntax.
-    """
-    size = 13
-    x = list(range(0, size, 1))
-    y = tuple(range(size, size * 2, 1))
-    z = range(size * 2, size * 3, 1)
-    with pytest.warns(FutureWarning, match="virtualfile_from_vectors"):
-        with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(x, y, z) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", [vfile, f"->{outfile.name}"])
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
-            expected = f"<vector memory>: N = {size}\t{bounds}\n"
-            assert output == expected

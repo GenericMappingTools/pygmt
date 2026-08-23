@@ -1,6 +1,18 @@
 # Overview
 
-## About
+## Why PyGMT
+
+A beautiful map is worth a thousand words. To experience the power of PyGMT, try it
+online with [Binder or Google Colab](https://github.com/GenericMappingTools/try-gmt)
+without installing anything on your computer.
+
+For a quick introduction, check out our [3-minute overview](https://youtu.be/4iPnITXrxVU).
+Afterward, try the [Intro to PyGMT](intro/index.rst) tutorial on your own, explore the
+[Gallery](gallery/index.rst) for inspiration, follow the [Tutorials](tutorials/index.rst)
+to learn more, explore available map [Projections](projections/index.rst), and finally
+check out some [external PyGMT examples](external_resources).
+
+## Background
 
 PyGMT is a Python wrapper for the
 [Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt),
@@ -18,72 +30,49 @@ and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not 
 contact with the original PostScript files and get only the more convenient formats like
 PDF and PNG.
 
-The project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
-[Paul Wessel](https://www.soest.hawaii.edu/wessel) (the co-creator and main developer of
-GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT has been supported
-by NSF grants [OCE-1558403](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403)
-and [EAR-1948602](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602).
+For more information about the design and development of PyGMT, see the
+[PyGMT paper](https://doi.org/10.1029/2026GC013105) published in
+*Geochemistry, Geophysics, Geosystems*.
 
-We welcome any feedback and ideas! Let us know by submitting
+## Project goals
+
+From the beginning, the project has aimed to achieve the following goals:
+
+- Make GMT more accessible to new users.
+- Build a Pythonic API for GMT.
+- Interface with the GMT C API directly using ctypes (no system calls).
+- Support rich display in the Jupyter notebook.
+- Integrate with the [scientific Python ecosystem](https://scientific-python.org/):
+  `numpy.ndarray` or `pandas.DataFrame` for data tables, `xarray.DataArray` for grids,
+  and `geopandas.GeoDataFrame` for geographical data.
+
+## Community
+
+The PyGMT project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com) and
+[Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel) (the co-creator and main developer
+of GMT) at the University of Hawaiʻi at Mānoa. Currently, the project is community-driven
+and maintained by an [international team](team.md), with contributions from
+[multiple contributors](https://github.com/GenericMappingTools/pygmt/graphs/contributors).
+
+We welcome any feedback, ideas, and contributions! Let us know by submitting
 [issues on GitHub](https://github.com/GenericMappingTools/pygmt/issues) or by posting on
 our [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a).
 
-## Presentations
+## Related projects
 
-These are conference presentations about the development of PyGMT (previously "GMT/Python"):
+Other official GMT wrappers include:
 
--   "Accessing and Integrating GMT with Python and the Scientific Python Ecosystem".
-    2024.
-	Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
-	Presented at *AGU 2024*.
-	doi:[10.6084/m9.figshare.28049495](https://doi.org/10.6084/m9.figshare.28049495)
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
 
-    ![](https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8){.align-center width="80%"}
+## Funding
 
--   "Geospatial Analysis & Visualization with PyGMT".
-    2022.
-    Max Jones, Wei Ji Leong, and Leonardo Uieda.
-    Presented at *SciPy 2022*.
-    doi:[10.6084/m9.figshare.20483793](https://doi.org/10.6084/m9.figshare.20483793)
+The development of PyGMT has been supported by NSF grants
+[OCE-1558403](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403) and
+[EAR-1948602](https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602).
 
-    ![](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}
+## License
 
--   "PyGMT: Accessing the Generic Mapping Tools from Python".
-    2019.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AGU 2019*.
-    doi:[10.6084/m9.figshare.11320280](https://doi.org/10.6084/m9.figshare.11320280)
-
-    ![](_static/agu2019-poster.jpg){.align-center width="80%"}
-
--   "Building an object-oriented Python interface for the Generic Mapping Tools".
-    2018.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *SciPy 2018*.
-    doi:[10.6084/m9.figshare.6814052](https://doi.org/10.6084/m9.figshare.6814052)
-
-    ![](_static/scipy2018-youtube-thumbnail.png){.align-center width="80%"}
-
--   "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
-    2018.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AOGS Annual Meeting 2018*.
-    doi:[10.6084/m9.figshare.6399944](https://doi.org/10.6084/m9.figshare.6399944)
-
-    ![](_static/aogs2018-poster.jpg){.align-center width="80%"}
-
--   "Bringing the Generic Mapping Tools to Python".
-    2017.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *SciPy 2017*.
-    doi:[10.6084/m9.figshare.7635833](https://doi.org/10.6084/m9.figshare.7635833)
-
-    ![](_static/scipy2017-youtube-thumbnail.png){.align-center width="80%"}
-
--   "A modern Python interface for the Generic Mapping Tools".
-    2017.
-    Leonardo Uieda and Paul Wessel.
-    Presented at *AGU 2017*.
-    doi:[10.6084/m9.figshare.5662411](https://doi.org/10.6084/m9.figshare.5662411)
-
-    ![](_static/agu2017-poster.jpg){.align-center width="80%"}
+PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+BSD 3-clause License. A copy of this license is provided in
+[LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).

@@ -5,16 +5,17 @@ Cartesian power
 **X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]] or
 **x**\ *x-scale*\ [**p**\ *pvalue*][/*y-scale*\ [**p**\ *pvalue*]]
 
-Give the *width* of the figure and the optional argument *height*.
-The lowercase version **x** is similar to **X** but expects
-an *x-scale* and an optional *y-scale*.
-Each axis with a power transformation requires **p** and the exponent
-for that axis after its size argument.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+- **p**\ *pvalue*: Applies a power transformation with exponent *pvalue* to an
+  axis. Append it after the corresponding size argument [Optional].
 """
 
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Axis, Frame
 
 # Create a list of y-values 0-10
 yvalues = np.arange(0, 11)
@@ -28,7 +29,12 @@ fig.basemap(
     projection="X15cp0.5/10c",
     # Set the figures frame as well as annotations and ticks
     # The "p" forces to show only square numbers as annotations of the x-axis
-    frame=["WSne+gbisque", "xfga1p", "ya2f1g"],
+    frame=Frame(
+        axes="WSne",
+        fill="bisque",
+        xaxis=Axis(annot="1p", tick=True, grid=True),
+        yaxis=Axis(annot=2, tick=1, grid=True),
+    ),
 )
 
 # Set the line thickness to "thick" (equals "1p", i.e. 1 point)

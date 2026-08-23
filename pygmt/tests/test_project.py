@@ -10,7 +10,7 @@ import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import project
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -81,12 +81,27 @@ def test_project_incorrect_parameters():
     Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
     or `generate`; and 3) `generate` with `convention`.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # No `center`
         project(azimuth=45)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # No `data` or `generate`
         project(center=[0, -1], azimuth=45, flat_earth=True)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         # Using `generate` with `convention`
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
+
+
+def test_project_geometry_definition_validation(dataframe):
+    """
+    Validate input validation for mutually exclusive projection geometry parameters.
+    """
+    kwdict = {"center": [0, -1], "data": dataframe}
+    with pytest.raises(GMTParameterError):
+        project(endpoint=[0, 1], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(endpoint=[0, 1], pole=[0, 90], **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, **kwdict)
+    with pytest.raises(GMTParameterError):
+        project(pole=[0, 90], azimuth=45, endpoint=[0, 1], **kwdict)

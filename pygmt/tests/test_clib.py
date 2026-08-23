@@ -2,6 +2,7 @@
 Test the wrappers for the C API.
 """
 
+import importlib
 from contextlib import contextmanager
 
 import pytest
@@ -12,7 +13,7 @@ from pygmt.clib.session import FAMILIES, VIAS
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
-    GMTInvalidInput,
+    GMTValueError,
     GMTVersionError,
 )
 
@@ -31,7 +32,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):  # noqa: ARG001
+        def mock_api_function(*args):  # ruff: ignore[unused-function-argument]
             """
             A mock GMT API function that always returns a given value.
             """
@@ -169,7 +170,7 @@ def test_parse_constant_fails():
         "NOT_A_PROPER_FAMILY|ALSO_INVALID",
     ]
     for test_case in test_cases:
-        with pytest.raises(GMTInvalidInput):
+        with pytest.raises(GMTValueError):
             lib._parse_constant(test_case, valid=FAMILIES, valid_modifiers=VIAS)
 
     # Should also fail if not given valid modifiers but is using them anyway.
@@ -178,7 +179,7 @@ def test_parse_constant_fails():
         "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=VIAS
     )
     # But this shouldn't.
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         lib._parse_constant(
             "GMT_IS_DATASET|GMT_VIA_MATRIX", valid=FAMILIES, valid_modifiers=None
         )
@@ -214,7 +215,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):  # noqa: ARG001
+    def mock_defaults(api, name, value):  # ruff: ignore[unused-function-argument]
         """
         Put 'bla' in the value buffer.
         """
@@ -241,14 +242,12 @@ def test_fails_for_wrong_version(monkeypatch):
     """
     Make sure that importing clib raise an exception if GMT is too old.
     """
-    import importlib
-
     with monkeypatch.context() as mpatch:
         # Make sure the current GMT major version is 6.
         assert clib.__gmt_version__.split(".")[0] == "6"
 
         # Monkeypatch the version string returned by pygmt.clib.loading.get_gmt_version.
-        mpatch.setattr(clib.loading, "get_gmt_version", lambda libgmt: "5.4.3")  # noqa: ARG005
+        mpatch.setattr(clib.loading, "get_gmt_version", lambda libgmt: "5.4.3")  # ruff: ignore[unused-lambda-argument]
 
         # Reload clib.session and check the __gmt_version__ string.
         importlib.reload(clib.session)

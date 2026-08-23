@@ -13,8 +13,9 @@ National Geographic Society.
 
 **n**\ [*lon0/*]\ *scale* or **N**\ [*lon0/*]\ *width*
 
-The projection is set with **n** or **N**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **n** or **N**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 
 .. rubric:: Footnotes
 
@@ -27,8 +28,15 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="N12c", frame="afg", land="ivory", water="bisque4")
+fig.coast(
+    region="d",
+    projection="N12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="ivory",
+    water="bisque4",
+)
 fig.show()
