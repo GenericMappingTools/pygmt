@@ -15,14 +15,12 @@ from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
     is_given,
-    use_alias,
 )
 
 __doctest_skip__ = ["grdfill"]
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def grdfill(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -35,6 +33,7 @@ def grdfill(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:
     r"""
@@ -48,7 +47,11 @@ def grdfill(
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - Ac = constant_fill
        - Ag = grid_fill
        - An = neighbor_fill
@@ -58,6 +61,7 @@ def grdfill(
        - N = hole
        - R = region
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -138,6 +142,7 @@ def grdfill(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 

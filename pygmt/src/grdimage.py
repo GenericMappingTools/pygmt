@@ -23,7 +23,6 @@ __doctest_skip__ = ["grdimage"]
     I="shading",
     Q="nan_transparent",
     n="interpolation",
-    f="coltypes",
 )
 def grdimage(
     self,
@@ -40,6 +39,7 @@ def grdimage(
     perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -84,6 +84,7 @@ def grdimage(
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
        - x = cores
@@ -194,6 +195,7 @@ def grdimage(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
         x=cores,

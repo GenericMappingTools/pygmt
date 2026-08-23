@@ -8,12 +8,11 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given
 from pygmt.params import Axis, Box, Frame, Perspective
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def basemap(
     self,
     projection: str | None = None,
@@ -28,7 +27,8 @@ def basemap(
     rose: str | None = None,
     box: Box | str | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: Perspective | float | Sequence[float] | bool = False,
+    coltypes: str | None = None,
+    perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
@@ -58,7 +58,11 @@ def basemap(
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - B = frame
        - F = box
        - J = projection
@@ -70,6 +74,7 @@ def basemap(
        - Tm = compass
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -165,6 +170,7 @@ def basemap(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )

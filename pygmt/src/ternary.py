@@ -162,7 +162,7 @@ def ternary(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     width
-        Set the width of the figure by passing a number followed by a
+        Set the width of the plot by passing a number followed by a
         :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
         positive axes directions be clock-wise [Default lets the a, b, c axes be
         positive in a counter-clockwise direction].
@@ -191,7 +191,7 @@ def ternary(
         Set color or pattern for filling of symbols [Default is no fill].
     no_clip
         Do not clip symbols to the ternary diagram [Default plots points whose
-        coordinates are strictly inside the map border].
+        coordinates are strictly inside the plot border].
     $verbose
     $panel
     $perspective

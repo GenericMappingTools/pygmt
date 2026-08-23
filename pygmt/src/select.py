@@ -33,7 +33,6 @@ __doctest_skip__ = ["select"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     s="skiprows",
@@ -54,6 +53,7 @@ def select(
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -83,6 +83,7 @@ def select(
        - J = projection
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
 
@@ -239,6 +240,7 @@ def select(
         J=projection,
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
     )

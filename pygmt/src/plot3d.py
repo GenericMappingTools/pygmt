@@ -35,7 +35,6 @@ from pygmt.src._common import _data_geometry_is_point
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     l="label",
@@ -63,6 +62,7 @@ def plot3d(  # ruff: ignore[too-many-branches]
     incols: int | str | Sequence[int | str] | None = None,
     perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -98,6 +98,7 @@ def plot3d(  # ruff: ignore[too-many-branches]
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -284,6 +285,7 @@ def plot3d(  # ruff: ignore[too-many-branches]
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,
