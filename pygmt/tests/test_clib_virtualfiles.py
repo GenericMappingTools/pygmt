@@ -1,15 +1,17 @@
 """
-Test the Session.open_virtualfile method.
+Test the Session methods for virtual files.
 """
 
 from pathlib import Path
 
 import numpy as np
+import numpy.testing as npt
 import pytest
 from pygmt import clib
 from pygmt.clib.session import DTYPES_NUMERIC
 from pygmt.exceptions import GMTCLibError, GMTValueError
 from pygmt.helpers import GMTTempFile
+from pygmt.src import which
 from pygmt.tests.test_clib import mock
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -107,3 +109,20 @@ def test_open_virtualfile_bad_direction():
         with pytest.raises(GMTValueError):
             with lib.open_virtualfile(*vfargs):
                 pass
+
+
+@pytest.mark.parametrize("kind", ["cube", None])
+def test_virtualfile_to_raster_cube(kind):
+    """
+    Test Session.virtualfile_to_raster for cubes, with an explicit kind and with the
+    kind inquired from the virtual file.
+    """
+    cubefile = which("@cube.nc", download="c")
+    with clib.Session() as lib:
+        with lib.virtualfile_out(kind="cube") as voutcube:
+            lib.call_module("read", [cubefile, voutcube, "-Tu"])
+            cube = lib.virtualfile_to_raster(vfname=voutcube, kind=kind)
+    assert cube.dims == ("z", "y", "x")
+    assert cube.shape == (4, 11, 11)
+    npt.assert_allclose(cube.z, [1.0, 2.0, 3.0, 5.0])
+    npt.assert_allclose(cube.max(dim=("y", "x")), [100.0, 110.0, 120.0, 140.0])
