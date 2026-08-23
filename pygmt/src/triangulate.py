@@ -54,7 +54,6 @@ class triangulate:  # ruff: ignore[invalid-class-name]
         b="binary",
         d="nodata",
         e="find",
-        f="coltypes",
         h="header",
         s="skiprows",
         w="wrap",
@@ -74,6 +73,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
+        coltypes: str | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -105,6 +105,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
            - J = projection
            - R = region
            - V = verbose
+           - f = coltypes
            - i = incols
            - r = registration
 
@@ -157,6 +158,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
             R=region,
             J=projection,
             V=verbose,
+            f=coltypes,
             i=incols,
             r=registration,
         )
@@ -181,7 +183,6 @@ class triangulate:  # ruff: ignore[invalid-class-name]
         b="binary",
         d="nodata",
         e="find",
-        f="coltypes",
         h="header",
         s="skiprows",
         w="wrap",
@@ -203,6 +204,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
+        coltypes: str | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -226,6 +228,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
            - J = projection
            - R = region
            - V = verbose
+           - f = coltypes
            - i = incols
            - r = registration
 
@@ -276,6 +279,7 @@ class triangulate:  # ruff: ignore[invalid-class-name]
             J=projection,
             R=region,
             V=verbose,
+            f=coltypes,
             i=incols,
             r=registration,
         )

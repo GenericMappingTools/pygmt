@@ -27,7 +27,6 @@ from pygmt.params import Axis, Frame
     C="clearance",
     a="aspatial",
     e="find",
-    f="coltypes",
     h="header",
     it="use_word",
     w="wrap",
@@ -54,6 +53,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -86,6 +86,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
        - V = verbose
        - W = pen
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -293,6 +294,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )

@@ -31,7 +31,6 @@ __doctest_skip__ = ["grdcontour"]
     S="resample",
     W="pen",
     l="label",
-    f="coltypes",
 )
 @kwargs_to_strings(L="sequence")
 def grdcontour(
@@ -45,6 +44,7 @@ def grdcontour(
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -60,6 +60,7 @@ def grdcontour(
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -171,6 +172,7 @@ def grdcontour(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )
