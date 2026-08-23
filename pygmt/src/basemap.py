@@ -28,7 +28,7 @@ def basemap(
     box: Box | str | bool = False,
     panel: int | Sequence[int] | bool = False,
     coltypes: str | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
