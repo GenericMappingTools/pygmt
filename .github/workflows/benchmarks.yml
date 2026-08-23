@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -48,14 +48,14 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            gmt=6.6.0
+            gmt=6.7.0
             python=3.14
             numpy
             pandas
@@ -84,7 +84,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@a4a36bb07c0638b0b4ca52bf1f3dad1b4289e52f # v4.18.1
+        uses: CodSpeedHQ/action@4296e51e7041e24dadb86d1d6e8b9320d223dbe8 # v5.0.3
         env:
           GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         with:

@@ -8,20 +8,12 @@ from typing import Literal
 from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame, Position
 from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillpositive' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'fillnegative' parameter.
-@deprecate_parameter(
-    "fillpositive", "positive_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter(
-    "fillnegative", "negative_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(
     T="track",
     W="pen",
@@ -34,7 +26,7 @@ from pygmt.src._common import _parse_position
     h="header",
     w="wrap",
 )
-def wiggle(  # noqa: PLR0913
+def wiggle(
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -109,10 +101,9 @@ def wiggle(  # noqa: PLR0913
         Set the alignment of the scale label. Choose from ``"left"`` or ``"right"``
         [Default is ``"left"``].
     scale : str or float
-        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
-        or **p** to indicate the distance unit (centimeters, inches, or
-        points); if no unit is given we use the default unit that is
-        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
+        Give anomaly scale in data-units/dimension-unit. Append a
+        :ref:`dimension unit <dimension-units>`; if no unit is given we use the default
+        unit that is controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
     positive_fill
         Set color or pattern for filling positive wiggles [Default is no fill].
     negative_fill
@@ -138,8 +129,6 @@ def wiggle(  # noqa: PLR0913
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position("BL", offset=0.2),  # Default to BL with 0.2-cm offset.
@@ -174,6 +163,7 @@ def wiggle(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

@@ -5,7 +5,7 @@ channels:
 dependencies:
     - python>=3.12
     # Required dependencies
-    - gmt=6.6.0
+    - gmt=6.7.0
     - ghostscript=10.07.1
     - numpy>=2.1
     - pandas>=2.3
@@ -18,7 +18,7 @@ dependencies:
     - pyarrow-core>=16
     - rioxarray
     # Development dependencies (general)
-    - dvc
+    - git-lfs
     - jupyter
     - make
     - pip
@@ -26,7 +26,7 @@ dependencies:
     # Dev dependencies (style checks)
     - codespell
     - prek
-    - ruff>=0.15.5
+    - ruff>=0.15.22
     - typos
     # Dev dependencies (unit testing)
     - matplotlib-base
@@ -47,7 +47,7 @@ dependencies:
     # Dev dependencies (building PDF documentation)
     - cairosvg
     - sphinxcontrib-svg2pdfconverter
-    - tectonic=0.15
+    - tectonic
     # Dev dependencies (type hints)
     - mypy
     - pandas-stubs

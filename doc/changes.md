@@ -1407,7 +1407,7 @@
 * [@daroari](https://github.com/daroari)
 * [@obaney](https://github.com/obaney)
 * [@srijac](https://github.com/srijac)
-* [Andrés Ignacio Torres](https://github.com/aitorres)
+* Andrés Ignacio Torres
 * [Becky Salvage](https://github.com/BeckySalvage)
 * [Claudio Satriano](https://github.com/claudiodsf)
 * [Jamie J Quinn](https://github.com/JamieJQuinn)

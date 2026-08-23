@@ -5,9 +5,11 @@ Cartesian logarithmic
 **X**\ *width*\ [**l**][/*height*\ [**l**]] or
 **x**\ *x-scale*\ [**l**][/*y-scale*\ [**l**]]
 
-Give the *width* of the plot and the optional *height*. The lowercase version **x** is
-similar to **X** but expects an *x-scale* and an optional *y-scale*. Each axis with a
-logarithmic transformation requires an **l** after its size argument.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+- **l**: Applies a logarithmic transformation to an axis. Append it after the
+  corresponding size argument [Optional].
 """
 
 # %%
@@ -29,7 +31,7 @@ fig.basemap(
     region=[1, 100, 0, 10],
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
-    # Set the figure's frame and color as well as annotations, ticks, and gridlines
+    # Set the plot's frame and color as well as annotations, ticks, and gridlines
     frame=Frame(
         axes="WSne",
         fill="bisque",
@@ -43,6 +45,6 @@ fig.plot(x=xline, y=yline, pen="2p,black,dashed")
 
 # Plot the square root values on top of the line
 # Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
-# Symbols are not clipped if they go off the figure
+# Symbols are not clipped if they go off the plot frame
 fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()

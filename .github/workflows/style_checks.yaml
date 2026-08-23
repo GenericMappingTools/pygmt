@@ -26,18 +26,19 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - name: Set up Python and install dependencies
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.14'
-          pip-install: ruff prek # zizmor: ignore[misfeature]
 
-      - name: List installed packages
-        run: python -m pip list
+      - name: Install packages
+        run: |
+          python -m pip install ruff prek
+          python -m pip list
 
       - name: Formatting check (Ruff + prek)
         run: |
@@ -62,17 +63,6 @@ jobs:
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Following directories/files use hyphens in file names:"
-            cat output.txt
-            rm output.txt
-            exit $nfiles
-          fi
-
-      - name: Ensure baseline PNG DVC metadata does not mark files executable
-        run: |
-          grep -l '^[[:space:]]*isexec:[[:space:]]*true$' pygmt/tests/baseline/*.png.dvc > output.txt || true
-          nfiles=$(wc --lines output.txt | awk '{print $1}')
-          if [[ $nfiles > 0 ]]; then
-            echo "The following baseline PNG DVC files mark images as executable:"
             cat output.txt
             rm output.txt
             exit $nfiles

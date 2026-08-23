@@ -107,11 +107,12 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
+          lfs: true
 
       - name: Get current week number of year
         id: date
@@ -119,7 +120,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
@@ -127,7 +128,7 @@ jobs:
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.6.0
+            gmt=6.7.0
             ghostscript=10.07.1
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
@@ -150,38 +151,6 @@ jobs:
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@f98e06938123ccabd21905ea5d0069192241f9f1 # v8.3.1
-        with:
-          activate-environment: true
-          python-version: ${{ matrix.python-version }}
-          # only enable the cache if the ref is not a tag
-          enable-cache: ${{ !startsWith(github.ref, 'refs/tags/') }}
-
-      - name: Install dvc
-        run: |
-          uv pip install dvc
-          uv pip list
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        id: dvc-pull
-        continue-on-error: true
-        run: |
-          uv run dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          uv run dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-        env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Download DVC cache as artifacts from GitHub
-        if: steps.dvc-pull.outcome == 'failure'
-        run: |
-          rm -rvf .dvc/cache/
-          gh run download --name dvc-cache --dir .dvc/cache/
-          uv run dvc checkout --verbose
         env:
           GH_TOKEN: ${{ github.token }}
 

@@ -20,13 +20,13 @@ if __commit__:
     commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
 else:
     commit_link = (
-        f'<a href="{repository_url}/releases/tag/{__version__}">{__version__}</a>'
+        f'<a href="{repository_url}/releases/tag/v{__version__}">v{__version__}</a>'
     )
 
 # Projection information.
 project = "PyGMT"
 author = "The PyGMT Developers"
-copyright = f"2017-{datetime.date.today().year}, {author}"  # noqa: A001
+copyright = f"2017-{datetime.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
 
@@ -50,7 +50,7 @@ extensions = [
     "sphinxcontrib.cairosvgconverter",
 ]
 needs_extensions = {
-    "sphinx_gallery.gen_gallery": "0.19",
+    "sphinx_gallery.gen_gallery": "0.21",
 }
 # Options for highlighting.
 pygments_style = "default"
@@ -88,8 +88,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.6/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.7/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
@@ -211,20 +211,16 @@ html_show_sphinx = False
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
-        ),
-        (
-            '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/main/LICENSE.txt",
-        ),
-        (
-            '<i class="fa fa-comment fa-fw"></i> Contact',
+            '<i class="fa fa-comment fa-fw"></i> GMT Forum',
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Source Code',
-            repository_url,
+            '<i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)',
+            f"{repository_url}/issues",
+        ),
+        (
+            '<i class="fa fa-handshake-o fa-fw"></i> Code of Conduct',
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook" links

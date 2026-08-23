@@ -14,7 +14,7 @@ from pygmt.params import Axis, Box, Frame
 
 @fmt_docstring
 @use_alias(f="coltypes")
-def basemap(  # noqa: PLR0913
+def basemap(
     self,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -44,8 +44,8 @@ def basemap(  # noqa: PLR0913
 
     .. note::
 
-        Parameters ``map_scale``, ``rose``, and ``compass`` are deprecated since
-        v0.19.0 in favor of the dedicated higher-level methods:
+        Parameters ``map_scale``, ``rose``, and ``compass`` are deprecated since 0.19.0
+        in favor of the dedicated higher-level methods:
 
         - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
         - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.
@@ -85,7 +85,7 @@ def basemap(  # noqa: PLR0913
     map_scale
         Draw a map scale bar on the plot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained
             for backward compatibility and accepts raw GMT CLI strings for the ``-L``
@@ -93,7 +93,7 @@ def basemap(  # noqa: PLR0913
     compass
         Draw a map magnetic rose on the map.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.magnetic_rose` instead. This parameter is maintained
             for backward compatibility and accepts raw GMT CLI strings for the ``-Tm``
@@ -101,7 +101,7 @@ def basemap(  # noqa: PLR0913
     rose
         Draw a map directional rose on the map.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.directional_rose` instead. This parameter is
             maintained for backward compatibility and accepts raw GMT CLI strings for
@@ -109,7 +109,7 @@ def basemap(  # noqa: PLR0913
     box
         Draw a background box behind the scalebar, directional rose, or magnetic rose.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use the ``box`` parameter in :meth:`pygmt.Figure.scalebar`,
             :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`
@@ -140,8 +140,6 @@ def basemap(  # noqa: PLR0913
     >>> fig.basemap(region="g", projection="H15c", frame=True)
     >>> fig.show()
     """
-    self._activate_figure()
-
     for name, value, recommendation in (
         ("map_scale", map_scale, "Figure.scalebar"),
         ("compass", compass, "Figure.magnetic_rose"),
@@ -149,7 +147,7 @@ def basemap(  # noqa: PLR0913
     ):
         if is_given(value):
             warnings.warn(
-                f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
+                f"The {name!r} parameter has been deprecated since 0.19.0. Use {recommendation!r} instead.",
                 category=FutureWarning,
                 stacklevel=2,
             )
@@ -172,5 +170,6 @@ def basemap(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_list(aliasdict))

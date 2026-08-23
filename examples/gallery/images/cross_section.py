@@ -20,7 +20,7 @@ from pygmt.params import Axis, Box, Frame, Position
 region_map = [122, 149, 30, 49]
 
 # Chose a survey line with start point A and end point B
-lonA, latA, lonB, latB = 126, 42, 146, 40  # noqa: N816
+lonA, latA, lonB, latB = 126, 42, 146, 40  # ruff: ignore[mixed-case-variable-in-global-scope]
 
 
 fig = pygmt.Figure()
@@ -101,7 +101,7 @@ fig.fill_between(
     x=track_df.p, y=track_df.elevation, y2=-8000, pen="1p,red", fill="gray"
 )
 
-# Add map frame
+# Add plot frame
 # Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
 # and south or bottom sides ("WSrt")
 fig.basemap(

@@ -9,14 +9,12 @@ import xarray as xr
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 
 __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'maxradius' parameter.
-@deprecate_parameter("maxradius", "max_radius", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     C="convergence",
     Ll="lower",
@@ -77,6 +75,10 @@ def surface(
 
     Full GMT docs at :gmt-docs:`surface.html`.
 
+    **Reference**: Smith, W. H. F., & Wessel, P. (1990). Gridding with continuous
+    curvature splines in tension. *Geophysics*, 55(3), 293-305.
+    https://doi.org/10.1190/1.1442837
+
     $aliases
        - G = outgrid
        - I = spacing
@@ -107,8 +109,8 @@ def surface(
     max_radius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
         farther than ``max_radius`` away from a data constraint are set to NaN
-        [Default is no masking]. Append a distance unit (see
-        :gmt-docs:`Units <surface.html#units>`) if needed. One can also
+        [Default is no masking]. Append a :ref:`distance unit <distance-units>` if
+        needed. One can also
         select the nodes to mask by using the *n_cells*\ **c** form. Here
         *n_cells* means the number of cells around the node is controlled
         by a data point. As an example ``"0c"`` means that only the cell

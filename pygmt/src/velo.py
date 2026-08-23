@@ -11,18 +11,13 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
-@deprecate_parameter(
-    "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(
     A="vector",
-    C="cmap",
     D="rescale",
     E="uncertainty_fill",
     G="fill",
@@ -36,9 +31,10 @@ from pygmt.params import Axis, Frame
     e="find",
     h="header",
 )
-def velo(  # noqa : PLR0913
+def velo(
     self,
     data: PathLike | TableLike | None = None,
+    cmap: str | bool = False,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -67,6 +63,7 @@ def velo(  # noqa : PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - N = no_clip
        - R = region
@@ -88,7 +85,7 @@ def velo(  # noqa : PLR0913
         Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
-        :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
+        :gmt-term:`PROJ_LENGTH_UNIT` unless a :ref:`dimension unit <dimension-units>` is
         appended).
 
         - **e**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
@@ -255,8 +252,6 @@ def velo(  # noqa : PLR0913
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     if kwargs.get("S") is None:
         raise GMTParameterError(required="spec")
     if not isinstance(kwargs["S"], str):
@@ -275,6 +270,7 @@ def velo(  # noqa : PLR0913
         )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         B=frame,
@@ -288,6 +284,7 @@ def velo(  # noqa : PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

@@ -17,12 +17,12 @@ from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
     "area_thresh": r"""
-        area_thresh : float or str
+        area_thresh
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
-            hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is ``"0/0/4"`` (all features)].""",
+            hierarchical level that is lower than *min_level* or higher than *max_level*
+            will not be plotted [Default is ``"0/0/4"`` (all features)].""",
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
@@ -121,12 +121,11 @@ COMMON_DOCSTRINGS = {
 
             A unit **u** may be appended to the specified *gap*:
 
-            - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-              be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds),
-              or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
-              **M**\ (iles), or **n**\ (autical miles) [Default is (m)\ **e**\ (ters)].
-            - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-              **i** (inches), **c** (centimeters), or **p** (points).
+            - For geographic data (**x**\|\ **y**\|\ **d**), valid units are **d**,
+              **m**, **s**, **e**, **f**, **k**, **M**, and **n** [Default is **e**].
+              See :ref:`distance-units` for meanings of the units.
+            - For projected data (**X**\|\ **Y**\|\ **D**), valid units are **c**,
+              **i**, and **p**. See :ref:`dimension-units` for meanings of the units.
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -298,7 +297,8 @@ COMMON_DOCSTRINGS = {
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
-        region : str or list
+        region : list or str
+            [*xmin*, *xmax*, *ymin*, *ymax*] or
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
@@ -437,7 +437,8 @@ def fmt_docstring(module_func):
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
-    region : str or list
+    region : list or str
+        [*xmin*, *xmax*, *ymin*, *ymax*] or
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection
@@ -452,7 +453,7 @@ def fmt_docstring(module_func):
        - J = projection
        - R = region
     <BLANKLINE>
-    """  # noqa: D410,D411
+    """  # ruff: ignore[no-blank-line-after-section, no-blank-line-before-section]
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
@@ -569,29 +570,29 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
+            # timestamp (U) was deprecated since 0.9.0 and removed in 0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
+                        "Parameters 'U' and 'timestamp' are no longer supported since 0.12.0. "
                         "Use Figure.timestamp() instead."
                     )
                 )
 
-            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
+            # xshift (X) was deprecated since 0.8.0 and removed in 0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                        "Parameters 'X' and 'xshift' are no longer supported since 0.12.0. "
                         "Use Figure.shift_origin(xshift=...) instead."
                     )
                 )
 
-            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
+            # yshift (Y) was deprecated since 0.8.0 and removed in 0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                        "Parameters 'Y' and 'yshift' are no longer supported since 0.12.0. "
                         "Use Figure.shift_origin(yshift=...) instead."
                     )
                 )
@@ -791,9 +792,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     Examples
     --------
-    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    >>> @deprecate_parameter("sizes", "size", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("colors", "color", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("infile", "data", "0.0.0", "9.9.9")
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")

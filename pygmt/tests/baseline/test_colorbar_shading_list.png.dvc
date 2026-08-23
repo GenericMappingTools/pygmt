@@ -1,5 +1,0 @@
-outs:
-- md5: 52364ac84db033b53f7125ce12e95cce
-  size: 25000
-  path: test_colorbar_shading_list.png
-  hash: md5

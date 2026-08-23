@@ -153,6 +153,8 @@ extend-select = [
     "PLR6201",  # Use a set literal when testing for membership
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
     "RUF027",   # Possible f-string without an f prefix
+    "RUF105",   # Use `# ruff: ignore` rather than `# noqa`
+    "RUF106",   # Rule code used instead of name in suppression comment
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas
@@ -164,7 +166,6 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
@@ -179,6 +180,10 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+"*/src/*.py" = [
+    "PLR0913", # Ignore `PLR0913` (too many arguments) in all `src` files
+    "PLR0917", # Ignore `PLR0917` (too many positional arguments) in all `src` files
+]
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
 "examples/**/*.py" = [ # Ignore rules in examples
     "B018",  # Allow useless expressions in Jupyter Notebooks

@@ -17,7 +17,7 @@ __doctest_skip__ = ["logo"]
 
 
 @fmt_docstring
-def logo(  # noqa: PLR0913
+def logo(
     self,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
@@ -36,7 +36,7 @@ def logo(  # noqa: PLR0913
     """
     Plot the GMT logo.
 
-    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_coverlogo.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.7/_images/GMT_coverlogo.png
        :alt: GMT logo
        :align: center
        :width: 300px
@@ -120,8 +120,6 @@ def logo(  # noqa: PLR0913
     >>> fig.logo(position="TR", width="3c")
     >>> fig.show()
     """
-    self._activate_figure()
-
     position = _parse_position(
         position,
         default=Position((0, 0), cstype="plotcoords"),  # Default to (0,0) in plotcoords
@@ -151,5 +149,6 @@ def logo(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="logo", args=build_arg_list(aliasdict))
