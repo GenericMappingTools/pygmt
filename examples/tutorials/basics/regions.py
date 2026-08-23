@@ -22,7 +22,7 @@ fig = pygmt.Figure()
 fig.coast(
     # Set the x-range from 10E to 20E and the y-range to 35N to 45N
     region="10/20/35/45",
-    # Set projection to Mercator, and the map size to 15 centimeters
+    # Set projection to Mercator, and the map width to 15 centimeters
     projection="M15c",
     # Set the color of the land to light gray
     land="lightgray",

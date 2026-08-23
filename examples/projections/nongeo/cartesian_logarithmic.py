@@ -45,6 +45,6 @@ fig.plot(x=xline, y=yline, pen="2p,black,dashed")
 
 # Plot the square root values on top of the line
 # Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
-# Symbols are not clipped if they go off the plot
+# Symbols are not clipped if they go off the plot frame
 fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()
