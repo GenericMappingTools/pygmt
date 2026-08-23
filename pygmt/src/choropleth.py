@@ -8,7 +8,8 @@ from typing import Literal
 from pygmt._typing import GeoLike, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring
+from pygmt.exceptions import GMTTypeError, GMTValueError
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring
 from pygmt.params import Axis, Frame
 
 __doctest_skip__ = ["choropleth"]
@@ -101,6 +102,21 @@ def choropleth(
     >>> fig.colorbar(frame=True)
     >>> fig.show()
     """
+    # The input data must be a geo-like object or a path to an OGR_GMT file.
+    if (kind := data_kind(data)) not in {"geojson", "file"}:
+        raise GMTTypeError(
+            type(data),
+            reason="Expected a geo-like object or a path to an OGR_GMT file.",
+        )
+
+    # Check if the column name exists in the data for geo-like objects.
+    if kind == "geojson" and (_columns := getattr(data, "columns", None)) is not None:
+        # The geometry column is not an aspatial attribute field, so exclude it.
+        geometry = getattr(getattr(data, "geometry", None), "name", None)
+        fields = [str(col) for col in _columns if col != geometry]
+        if column not in fields:
+            raise GMTValueError(column, description="column name", choices=fields)
+
     aliasdict = AliasSystem(
         C=Alias(cmap, name="cmap"),
         I=Alias(intensity, name="intensity"),
