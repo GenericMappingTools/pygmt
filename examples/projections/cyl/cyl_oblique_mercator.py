@@ -31,7 +31,7 @@ from pygmt.params import Axis
 fig = pygmt.Figure()
 fig.coast(
     projection="Oa-120/25/-30/3c+v",
-    # Set bottom left and top right coordinates of the figure with "+r"
+    # Set bottom left and top right coordinates of the map with "+r"
     region="-122/35/-107/22+r",
     frame=Axis(annot=True, tick=True, grid=True),
     land="gray80",

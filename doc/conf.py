@@ -20,7 +20,7 @@ if __commit__:
     commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
 else:
     commit_link = (
-        f'<a href="{repository_url}/releases/tag/{__version__}">{__version__}</a>'
+        f'<a href="{repository_url}/releases/tag/v{__version__}">v{__version__}</a>'
     )
 
 # Projection information.
@@ -50,7 +50,7 @@ extensions = [
     "sphinxcontrib.cairosvgconverter",
 ]
 needs_extensions = {
-    "sphinx_gallery.gen_gallery": "0.19",
+    "sphinx_gallery.gen_gallery": "0.21",
 }
 # Options for highlighting.
 pygments_style = "default"
@@ -88,8 +88,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.6/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.7/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
