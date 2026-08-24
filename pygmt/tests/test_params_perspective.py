@@ -37,16 +37,12 @@ def test_params_perspective_refpoint_cstype():
     assert str(Perspective(azimuth=120, refpoint=(4, 4, 10))) == "120+w4/4/10"
 
     # Different cstype values.
-    assert str(Perspective(azimuth=120, refpoint=(4, 4), cstype="mapcoords")) == (
-        "120+w4/4"
-    )
-    assert (
-        str(Perspective(azimuth=120, refpoint=(4, 4, 10), cstype="mapcoords"))
-        == "120+w4/4/10"
-    )
-    assert str(Perspective(azimuth=120, refpoint=(4, 4), cstype="plotcoords")) == (
-        "120+v4/4"
-    )
+    view = Perspective(azimuth=120, refpoint=(4, 4), cstype="mapcoords")
+    assert str(view) == "120+w4/4"
+    view = Perspective(azimuth=120, refpoint=(4, 4, 10), cstype="mapcoords")
+    assert str(view) == "120+w4/4/10"
+    view = Perspective(azimuth=120, refpoint=(4, 4), cstype="plotcoords")
+    assert str(view) == "120+v4/4"
 
 
 def test_params_perspective_refpoint_invalid():
