@@ -15,7 +15,7 @@ from pygmt.params import Axis, Frame
 @fmt_docstring
 def sac(
     self,
-    spec: PathLike | str | Sequence[PathLike | str],
+    data: PathLike | str | Sequence[PathLike | str],
     pen: str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
