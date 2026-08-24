@@ -295,8 +295,8 @@ def colorbar(
     tile widths.
 
     .. note::
-       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
-       and y-label are scaled based on the width of the colorbar following
+      By default, the fontsizes of the colorbar annotations, label, and unit
+      are scaled based on the width of the colorbar following
        :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize use the
        GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
        :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
