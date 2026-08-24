@@ -51,7 +51,7 @@ def sac(
 
     Parameters
     ----------
-    spec : str, pathlib.Path, or a sequence of them
+    data
         The SAC waveform file(s) to plot.
     pen : str
         Set pen attributes for all traces [Default is ``"0.25p,black,solid"``].
