@@ -33,17 +33,17 @@ class Perspective(BaseParam):
     >>> fig.show()
     """
 
-    #: Azimuth of the viewpoint in degrees. Default is 180.0 (looking from south to
-    #: north).
+    #: Azimuth angle of the viewpoint in degrees. Default is 180.0, i.e., looking from
+    #: south to north.
     azimuth: float | None = None
 
-    #: Elevation angle of the viewpoint in degrees. Default is 90.0 (looking straight
-    #: down at nadir).
+    #: Elevation angle of the viewpoint in degrees above the horizon. Default is 90.0,
+    #: i.e., looking straight down at nadir.
     elevation: float | None = None
 
-    #: The level at which all 2-D elements, like the plot frame, is plotted. Only valid
-    #: when used together with parameters ``zsize``/``zscale``. Default is at the bottom
-    #: of the selected axis.
+    #: The level at which all 2-D elements, (e.g., the plot frame), are drawn. Only
+    #: valid when used together with parameters ``zsize`` or ``zscale``. Default is at
+    #: the bottom of the selected axis.
     level: float | None = None
 
     #: Set which constant-coordinate plane is used as the plotting plane. Use ``"x"``,
@@ -56,7 +56,7 @@ class Perspective(BaseParam):
     #: point instead. The format of ``refpoint`` depends on the value of ``cstype``:
     #:
     #: - ``cstype="mapcoords"``: (*longitude*, *latitude*) or
-    #    (*longitude*, *latitude*, *z*)
+    #:   (*longitude*, *latitude*, *z*)
     #: - ``cstype="plotcoords"``: (*x*, *y*)
     refpoint: Sequence[float | str] | None = None
 

@@ -274,24 +274,18 @@ COMMON_DOCSTRINGS = {
             Set pen attributes for lines or the outline of symbols.""",
     "perspective": r"""
         perspective
-            Select perspective view and set the azimuth and elevation of the viewpoint.
+            Select perspective view and set the viewpoint.
 
-            Accepts a :class:`pygmt.params.Perspective` object, a single value
-            *azimuth*, a sequence of two values (*azimuth*, *elevation*), a sequence of
-            three values (*azimuth*, *elevation*, *level*).
-
-            - *azimuth*: Azimuth angle of the viewpoint in degrees [Default is 180,
-              i.e., looking from south to north].
-            - *elevation*: Elevation angle of the viewpoint above the horizon [Default
-              is 90, i.e., looking straight down at nadir].
-            - *level*: the level at which 2-D elements (e.g., the plot frame) are drawn.
-              Only applied when used together with ``zsize`` or ``zscale``. [Default is
-              at the bottom of the selected axis].
-            - :class:`pygmt.params.Perspective`: A class-style way for more control over
-              the perspective parameters.
-
+            Pass a :class:`pygmt.params.Perspective` object to control the viewpoint.
             Alternatively, set ``perspective=True`` to reuse the perspective setting
-            from the previous plotting method.""",
+            from the previous plotting method.
+
+            It also accepts following shortcuts (refer to
+            :class:`pygmt.params.Perspective` for meaning of the parameters):
+
+            - A single value *azimuth*
+            - A sequence of two values (*azimuth*, *elevation*)
+            - A sequence of three values (*azimuth*, *elevation*, *level*).""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
