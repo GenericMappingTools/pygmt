@@ -27,7 +27,6 @@ from pygmt.helpers import (
     Q="unit",
     S="sort",
     Z="ellipse",
-    f="coltypes",
 )
 def project(
     data: PathLike | TableLike | None = None,
@@ -44,6 +43,7 @@ def project(
     pole: Sequence[float | str] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -118,6 +118,7 @@ def project(
        - T = pole
        - W = width
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -253,6 +254,7 @@ def project(
         W=Alias(width, name="width", sep="/", size=2),
     ).add_common(
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 

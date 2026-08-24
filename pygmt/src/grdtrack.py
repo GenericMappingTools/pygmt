@@ -38,7 +38,6 @@ __doctest_skip__ = ["grdtrack"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     j="distcalc",
@@ -58,6 +57,7 @@ def grdtrack(
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -82,6 +82,7 @@ def grdtrack(
     $aliases
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
 
@@ -317,6 +318,7 @@ def grdtrack(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
     )

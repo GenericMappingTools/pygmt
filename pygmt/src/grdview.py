@@ -113,7 +113,7 @@ def _alias_option_Q(  # ruff: ignore[invalid-function-name]
 
 
 @fmt_docstring
-@use_alias(I="shading", f="coltypes", n="interpolation")
+@use_alias(I="shading", n="interpolation")
 def grdview(
     self,
     grid: PathLike | xr.DataArray,
@@ -143,6 +143,7 @@ def grdview(
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -172,6 +173,7 @@ def grdview(
        - Wf = facade_pen
        - Wm = mesh_pen
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -326,6 +328,7 @@ def grdview(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )
