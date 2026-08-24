@@ -52,3 +52,78 @@ def test_sac_multiple_traces():
         frame=True,
     )
     return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_time_window():
+    """
+    Plot a SAC waveform in a given time window.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        time_window=[10, 18],
+        region=[9, 20, -2, 2],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_offset():
+    """
+    Plot SAC waveforms with an offset.
+    """
+    fig = Figure()
+    fig.sac(
+        data=[SAC_DATA, SAC_DATA],
+        # Offset the two traces (at y positions 0 and 1) by dy=1, so the y range
+        # of the traces becomes 1 and 2, respectively. The data amplitude is
+        # ~±1.6, so the region is set with some margins.
+        offset=[0, 1],
+        region=[9, 20, -1, 4],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_fill():
+    """
+    Plot a SAC waveform with the positive portion filled.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        fill="+ggray",
+        region=[9, 20, -2, 2],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_amplitude_scale():
+    """
+    Plot a SAC waveform with vertical scaling.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        amplitude_scale="1.5c",
+        region=[9, 20, -4, 4],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
