@@ -104,7 +104,7 @@ class Perspective(BaseParam):
                 self.refpoint,
                 name="refpoint",
                 sep="/",
-                prefix="+w" if self.cstype == "mapcoords" else "+v",
-                size={2, 3} if self.cstype == "mapcoords" else 2,
+                prefix={"mapcoords": "+w", "plotcoords": "+v"}[self.cstype],
+                size={"mapcoords": {2, 3}, "plotcoords": 2}[self.cstype],
             ),
         ]
