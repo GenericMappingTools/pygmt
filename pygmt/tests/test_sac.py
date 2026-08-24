@@ -74,6 +74,42 @@ def test_sac_time_window():
 
 @XFAIL_GMT_LE_6_6
 @pytest.mark.mpl_image_compare
+def test_sac_time_window_bare():
+    """
+    Plot a SAC waveform in the time window determined by the region.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        time_window=True,
+        region=[9, 20, -2, 2],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_fill_positive_negative():
+    """
+    Plot a SAC waveform with the positive and negative portions filled.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        fill=["p+gblack", "n+gred"],
+        preprocess="r",
+        region=[9, 20, -2, 2],
+        projection="X15c/5c",
+        frame=True,
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
 def test_sac_offset():
     """
     Plot SAC waveforms with an offset.
@@ -122,6 +158,101 @@ def test_sac_amplitude_scale():
         data=SAC_DATA,
         amplitude_scale="1.5c",
         region=[9, 20, -4, 4],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_profile():
+    """
+    Plot a SAC waveform on a trace number profile.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        profile="n1",
+        region=[9, 20, -1, 3],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_preprocess():
+    """
+    Plot a SAC waveform with the mean removed.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        preprocess="r",
+        region=[9, 20, -2, 2],
+        projection="X15c/5c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_vertical():
+    """
+    Plot a SAC waveform vertically.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        vertical=True,
+        region=[-2, 2, 9, 20],
+        projection="X5c/15c",
+        frame=True,
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_time_scale():
+    """
+    Plot a SAC waveform on a geographic map with a time scale.
+    """
+    fig = Figure()
+    # The station is at (stlo, stla) = (-120, 48), so the region is extended
+    # westward to keep the waveform from sticking to the map boundary.
+    fig.basemap(region=[-135, -30, 35, 65], projection="M10c", frame=True)
+    fig.sac(
+        data=SAC_DATA,
+        amplitude_scale="1i",
+        # Use the reciprocal time scale, i.e., 0.5 cm per second, so that the
+        # 10-s waveform occupies 5 cm on the map.
+        time_scale="i0.5c",
+        pen="0.5p,red",
+    )
+    return fig
+
+
+@XFAIL_GMT_LE_6_6
+@pytest.mark.mpl_image_compare
+def test_sac_time_options():
+    """
+    Plot a SAC waveform with time alignment, shift, and reduction velocity.
+    """
+    fig = Figure()
+    fig.sac(
+        data=SAC_DATA,
+        reduction_velocity=8,
+        time_shift=2,
+        time_reference="o",
+        region=[5, 18, -2, 2],
         projection="X15c/5c",
         frame=True,
         pen="0.5p,red",
