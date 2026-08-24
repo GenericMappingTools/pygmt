@@ -53,7 +53,7 @@ def sac(
     ----------
     data
         The SAC waveform file(s) to plot.
-    pen : str
+    pen
         Set pen attributes for all traces [Default is ``"0.25p,black,solid"``].
     $projection
     $region
