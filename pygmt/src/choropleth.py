@@ -50,10 +50,10 @@ def choropleth(
        - C = cmap
        - I = intensity
        - J = projection
-       - R = region
        - N = no_clip
-       - W = pen
+       - R = region
        - V = verbose
+       - W = pen
        - a = column
        - c = panel
        - p = perspective

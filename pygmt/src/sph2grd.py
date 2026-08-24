@@ -42,8 +42,8 @@ def sph2grd(
        - I = spacing
        - R = region
        - V = verbose
-       - r = registration
        - i = incols
+       - r = registration
        - x = cores
 
     Parameters
