@@ -280,12 +280,10 @@ COMMON_DOCSTRINGS = {
             Alternatively, set ``perspective=True`` to reuse the perspective setting
             from the previous plotting method.
 
-            It also accepts following shortcuts (refer to
-            :class:`pygmt.params.Perspective` for meaning of the parameters):
-
-            - A single value *azimuth*
-            - A sequence of two values (*azimuth*, *elevation*)
-            - A sequence of three values (*azimuth*, *elevation*, *level*).""",
+            It also accepts following shortcuts: a single value *azimuth*, a sequence of
+            two values (*azimuth*, *elevation*), or a sequence of three values
+            (*azimuth*, *elevation*, *level*). Please refer to
+            :class:`pygmt.params.Perspective` for meaning of the parameters.""",
     "projection": r"""
         projection
             *projcode*\[*projparams*/]\ *width*\|\ *scale*.
