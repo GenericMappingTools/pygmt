@@ -469,7 +469,7 @@ def colorbar(
         is 600 if the colorbar is drawn as image.
     no_font_scaling
         By default, the font sizes used for the colorbar are scaled automatically
-        based on the length of the colorbar. Set this parameter to ``True`` to 
+        based on the length of the colorbar. Set this parameter to ``True`` to
         turn off the automatic scaling [Requires GMT>=6.7.0].
     $projection
     $region
