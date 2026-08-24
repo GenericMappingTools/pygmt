@@ -101,14 +101,17 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
      [  0.   1.   2.   3.   4.   5.   6.   7.   8.   9.  10.]
      [  0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.]]
     >>> # The northernmost row of every layer. The four layers are the same X*Y grid
-    >>> # scaled by 1, 1.1, 1.2 and 1.4, so this also pins the layer order.
+    >>> # scaled by 1.0, 1.1, 1.2, and 1.4, respectively.
     >>> print(data[:, 0, :])
     [[  0.  10.  20.  30.  40.  50.  60.  70.  80.  90. 100.]
      [  0.  11.  22.  33.  44.  55.  66.  77.  88.  99. 110.]
      [  0.  12.  24.  36.  48.  60.  72.  84.  96. 108. 120.]
      [  0.  14.  28.  42.  56.  70.  84.  98. 112. 126. 140.]]
-    >>> print(data.max(axis=(1, 2)))
-    [100. 110. 120. 140.]
+    >>> # Verify that layer k equals scale[k] * outer(y, x) for every element.
+    >>> scale = [1.0, 1.1, 1.2, 1.4]
+    >>> expected = np.array([s * np.outer(y, x) for s in scale], dtype=np.float32)
+    >>> np.allclose(data, expected)
+    True
     """
 
     _fields_: ClassVar = [
@@ -167,6 +170,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
 
         Examples
         --------
+        >>> import numpy as np
         >>> from pygmt import which
         >>> from pygmt.clib import Session
         >>> cubefile = which("@cube.nc", download="c")
@@ -188,9 +192,25 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
             long_name:     z
             axis:          Z
             actual_range:  [1. 5.]
-        >>> # The four layers are the same X*Y grid scaled by 1, 1.1, 1.2 and 1.4.
-        >>> da.max(dim=("y", "x")).values
-        array([100., 110., 120., 140.], dtype=float32)
+        >>> # The four layers are the same X*Y grid scaled by 1.0, 1.1, 1.2, and 1.4.
+        >>> # Verify that layer k equals scale[k] * outer(y, x) for every element.
+        >>> scale = [1.0, 1.1, 1.2, 1.4]
+        >>> expected = [s * np.outer(da.y, da.x) for s in scale]
+        >>> np.allclose(da.values, expected)
+        True
+        >>> # Cross-check against loading the same file directly with xarray.
+        >>> import xarray as xr
+        >>> direct = xr.open_dataset(cubefile)["cube"]
+        >>> da.dims == direct.dims
+        True
+        >>> np.allclose(da.coords["x"], direct.coords["x"])
+        True
+        >>> np.allclose(da.coords["y"], direct.coords["y"])
+        True
+        >>> np.allclose(da.coords["z"], direct.coords["z"])
+        True
+        >>> np.allclose(da.values, direct.values)
+        True
         >>> da.gmt.registration, da.gmt.gtype
         (<GridRegistration.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
         """
