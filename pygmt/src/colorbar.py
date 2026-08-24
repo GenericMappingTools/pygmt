@@ -468,9 +468,9 @@ def colorbar(
         If not specified, GMT uses its default encoding behavior, and the default dpi
         is 600 if the colorbar is drawn as image.
     no_font_scaling
-        For GMT >=6.5.0, the fontsizes used for the colorbar are scaled automaticly
-        based on the length of the colorbar. For GMT >= 6.7.0, use this parameter to
-        turn of the this automatic fontsize scaling.
+        By default, the font sizes used for the colorbar are scaled automatically
+        based on the length of the colorbar. Set this parameter to ``True`` to 
+        turn off the automatic scaling [Requires GMT>=6.7.0].
     $projection
     $region
     $verbose
