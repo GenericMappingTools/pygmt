@@ -78,4 +78,4 @@ def sac(
 
     self._activate_figure()
     with Session() as lib:
-        lib.call_module(module="sac", args=build_arg_list(aliasdict, infile=spec))
+        lib.call_module(module="sac", args=build_arg_list(aliasdict, infile=data))

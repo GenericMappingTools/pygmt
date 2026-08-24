@@ -26,7 +26,7 @@ def test_sac():
     """
     fig = Figure()
     fig.sac(
-        spec=SAC_DATA,
+        data=SAC_DATA,
         region=[9, 20, -2, 2],
         projection="X15c/5c",
         frame=["xaf+lTime (s)", "yaf+lAmplitude", "WSen"],
@@ -43,7 +43,7 @@ def test_sac_multiple_traces():
     """
     fig = Figure()
     fig.sac(
-        spec=[SAC_DATA, SAC_DATA],
+        data=[SAC_DATA, SAC_DATA],
         # Plot two traces on a trace number profile, i.e., the y positions of the
         # two traces are 0 and 1, respectively. The data amplitude is ~±1.6, so
         # the region is set with some margins.
