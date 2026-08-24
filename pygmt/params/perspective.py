@@ -3,6 +3,7 @@ The Perspective class for setting perspective view.
 """
 
 import dataclasses
+from collections.abc import Sequence
 from typing import Literal
 
 from pygmt.alias import Alias
@@ -50,6 +51,23 @@ class Perspective(BaseParam):
     #: respectively [Default is ``"z"``].
     plane: Literal["x", "y", "z"] | None = None
 
+    #: Reference point for the perspective view. By default, the view rotates about the
+    #: plotting origin. Use ``refpoint`` and ``cstype`` to rotate about a different
+    #: point instead. The format of ``refpoint`` depends on the value of ``cstype``:
+    #:
+    #: - ``cstype="mapcoords"``: (*longitude*, *latitude*) or
+    #    (*longitude*, *latitude*, *z*)
+    #: - ``cstype="plotcoords"``: (*x*, *y*)
+    refpoint: Sequence[float | str] | None = None
+
+    #: Coordinate system type of ``refpoint``. Valid values are:
+    #:
+    #: - ``"mapcoords"``: Map/data coordinates
+    #: - ``"plotcoords"``: Plot coordinates
+    #:
+    #: Defaults to ``"mapcoords"``.
+    cstype: Literal["mapcoords", "plotcoords"] = "mapcoords"
+
     def _validate(self):
         """
         Post-initialization processing to validate parameters.
@@ -67,6 +85,11 @@ class Perspective(BaseParam):
                 self.plane, description="plane", choices={"x", "y", "z"}
             )
 
+        if self.cstype not in {"mapcoords", "plotcoords"}:
+            raise GMTValueError(
+                self.cstype, description="cstype", choices={"mapcoords", "plotcoords"}
+            )
+
     @property
     def _aliases(self):
         """
@@ -77,4 +100,11 @@ class Perspective(BaseParam):
             Alias(self.azimuth, name="azimuth"),
             Alias(self.elevation, name="elevation", prefix="/"),
             Alias(self.level, name="level", prefix="/"),
+            Alias(
+                self.refpoint,
+                name="refpoint",
+                sep="/",
+                prefix="+w" if self.cstype == "mapcoords" else "+v",
+                size={2, 3} if self.cstype == "mapcoords" else 2,
+            ),
         ]

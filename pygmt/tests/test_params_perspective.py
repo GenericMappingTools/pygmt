@@ -3,7 +3,7 @@ Test the Perspective class.
 """
 
 import pytest
-from pygmt.exceptions import GMTValueError
+from pygmt.exceptions import GMTInvalidInput, GMTValueError
 from pygmt.params import Perspective
 
 
@@ -26,6 +26,39 @@ def test_params_perspective():
     assert str(Perspective(azimuth=120, elevation=30, plane="y")) == "y120/30"
     assert str(Perspective(azimuth=120, elevation=30, plane="z")) == "z120/30"
     assert str(Perspective(plane="y")) == "y180.0"
+
+
+def test_params_perspective_refpoint_cstype():
+    """
+    Test the Perspective class with the refpoint/cstype parameters.
+    """
+    # Default cstype is "mapcoords".
+    assert str(Perspective(azimuth=120, refpoint=(4, 4))) == "120+w4/4"
+    assert str(Perspective(azimuth=120, refpoint=(4, 4, 10))) == "120+w4/4/10"
+
+    # Different cstype values.
+    assert str(Perspective(azimuth=120, refpoint=(4, 4), cstype="mapcoords")) == (
+        "120+w4/4"
+    )
+    assert (
+        str(Perspective(azimuth=120, refpoint=(4, 4, 10), cstype="mapcoords"))
+        == "120+w4/4/10"
+    )
+    assert str(Perspective(azimuth=120, refpoint=(4, 4), cstype="plotcoords")) == (
+        "120+v4/4"
+    )
+
+
+def test_params_perspective_refpoint_invalid():
+    """
+    Test that invalid refpoint/cstype combinations raise errors.
+    """
+    # Invalid cstype.
+    with pytest.raises(GMTValueError):
+        str(Perspective(refpoint=(4, 4), cstype="bad"))
+    # plotcoords ("+v") only accepts 2 values, not 3.
+    with pytest.raises(GMTInvalidInput):
+        str(Perspective(refpoint=(4, 4, 4), cstype="plotcoords"))
 
 
 def test_params_perspective_invalid_plane():
