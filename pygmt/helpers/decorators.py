@@ -275,14 +275,11 @@ COMMON_DOCSTRINGS = {
     "perspective": r"""
         perspective
             Select perspective view and set the viewpoint.
-
             Pass a :class:`pygmt.params.Perspective` object to control the viewpoint.
             Alternatively, set ``perspective=True`` to reuse the perspective setting
-            from the previous plotting method.
-
-            It also accepts following shortcuts: a single value *azimuth*, a sequence of
-            two values (*azimuth*, *elevation*), or a sequence of three values
-            (*azimuth*, *elevation*, *level*). Please refer to
+            from the previous plotting method. It also accepts following shortcuts: a
+            single value *azimuth*, a sequence of two values (*azimuth*, *elevation*),
+            or a sequence of three values (*azimuth*, *elevation*, *level*). Refer to
             :class:`pygmt.params.Perspective` for meaning of the parameters.""",
     "projection": r"""
         projection
