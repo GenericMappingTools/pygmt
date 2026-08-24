@@ -21,13 +21,13 @@ class Perspective(BaseParam):
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Perspective
+    >>> from pygmt.params import Axis, Frame, Perspective
     >>> fig = pygmt.Figure()
     >>> fig.basemap(
     ...     region=[0, 10, 0, 10, 0, 20],
     ...     projection="X3c",
     ...     zsize="3c",
-    ...     frame=["xafg", "yafg", "zafg", "wSEnZ"],
+    ...     frame=Frame(axes="WSenZ", title="Perspective View", axis=Axis(grid=True)),
     ...     perspective=Perspective(azimuth=135, elevation=40, level=10),
     ... )
     >>> fig.show()
