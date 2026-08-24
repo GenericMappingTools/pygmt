@@ -27,7 +27,7 @@ def sac(
     transparency: float | None = None,
     **kwargs,
 ):
-    r"""
+    """
     Plot seismograms in SAC format.
 
     Reads SAC waveform files and plots seismic traces. Only evenly spaced SAC
