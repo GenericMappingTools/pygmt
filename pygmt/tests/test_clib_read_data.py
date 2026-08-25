@@ -5,7 +5,6 @@ Test the Session.read_data method.
 from pathlib import Path
 
 import numpy as np
-import numpy.testing as npt
 import pandas as pd
 import pytest
 import xarray as xr
@@ -42,6 +41,14 @@ def fixture_expected_xrimage():
             dataarray = da.load().drop_vars("spatial_ref")
             return dataarray
     return None
+
+
+@pytest.fixture(scope="module", name="expected_xrcube")
+def fixture_expected_xrcube():
+    """
+    The expected xr.DataArray object for the @cube.nc file.
+    """
+    return xr.load_dataarray(which("@cube.nc", download="c"))
 
 
 def test_clib_read_data_dataset():
@@ -203,44 +210,18 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
             xr.testing.assert_equal(xrimage, expected_xrimage)
 
 
-def test_clib_read_data_cube():
+def test_clib_read_data_cube(expected_xrcube):
     """
     Test the Session.read_data method for cubes.
     """
     infile = which("@cube.nc", download="c")
     with Session() as lib:
         cube = lib.read_data(infile, kind="cube").contents
-        header = cube.header.contents
-        assert header.n_rows == 11
-        assert header.n_columns == 11
-        assert header.n_bands == 4  # Number of layers in the cube
-        assert header.wesn[:] == [0.0, 10.0, 0.0, 10.0]
-        assert cube.z_range[:] == [1.0, 5.0]
-
-        z = np.ctypeslib.as_array(cube.z, shape=(header.n_bands,))
-        npt.assert_allclose(z, [1.0, 2.0, 3.0, 5.0])
-
-        # The cube data is a stack of 2-D padded layers, i.e., layer k starts at
-        # offset k * header.size.
-        data = np.ctypeslib.as_array(cube.data, shape=(header.n_bands, header.size))
-        pad = header.pad[:]
-        data = data[:, : header.my * header.mx].reshape(
-            header.n_bands, header.my, header.mx
-        )
-        data = data[:, pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
-        assert data.shape == (4, 11, 11)
-        npt.assert_allclose(data.min(), 0.0)
-        npt.assert_allclose(data.max(), 140.0)
-        # The cube is X*Y scaled by 1, 1.1, 1.2 and 1.4 for the four layers, so the
-        # per-layer maxima also pin the layer order.
-        npt.assert_allclose(
-            [layer.max() for layer in data], [100.0, 110.0, 120.0, 140.0]
-        )
-        # GMT stores rows north-first, so row 0 is y=10 (not the y=0 row of zeros).
-        npt.assert_allclose(data[0, 0], np.arange(0.0, 101.0, 10.0))
+        xrcube = cube.to_xarray()
+        xr.testing.assert_equal(xrcube, expected_xrcube)
 
 
-def test_clib_read_data_cube_two_steps():
+def test_clib_read_data_cube_two_steps(expected_xrcube):
     """
     Test the Session.read_data method for cubes in two steps, first reading the header
     and then the data.
@@ -254,32 +235,17 @@ def test_clib_read_data_cube_two_steps():
         assert header.n_rows == 11
         assert header.n_columns == 11
         assert header.n_bands == 4
+        assert header.wesn[:] == [0.0, 10.0, 0.0, 10.0]
+        assert header.z_min == 0.0
+        assert header.z_max == 140.0
         assert not cube.data  # The data is not read yet
 
         # Read the data
         lib.read_data(infile, kind="cube", mode="GMT_DATA_ONLY", data=data_ptr)
-        assert data_ptr.contents.data  # The data is read now
 
-
-def test_clib_read_data_cube_to_xarray():
-    """
-    Test converting a cube read by Session.read_data into an xarray.DataArray.
-
-    The result is compared against the netCDF file read directly by xarray.
-    """
-    infile = which("@cube.nc", download="c")
-    expected = xr.open_dataset(infile)["cube"]
-    with Session() as lib:
-        cube = lib.read_data(infile, kind="cube").contents.to_xarray()
-
-    assert cube.dims == ("z", "y", "x")
-    assert cube.shape == (4, 11, 11)
-    # Coordinates are returned ascending, matching the CF conventions of the file.
-    for dim in cube.dims:
-        npt.assert_allclose(cube[dim], expected[dim])
-    npt.assert_allclose(cube, expected)
-    assert cube.attrs["long_name"] == "cube"
-    assert cube.z.attrs["actual_range"].tolist() == [1.0, 5.0]
+        # Full check
+        xrcube = data_ptr.contents.to_xarray()
+        xr.testing.assert_equal(xrcube, expected_xrcube)
 
 
 @pytest.mark.parametrize("infile", ["@earth_relief_01d_p", "@earth_day_01d"])
