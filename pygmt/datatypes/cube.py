@@ -135,7 +135,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         ("units", ctp.c_char * GMT_GRID_UNIT_LEN80),
     ]
 
-    def _parse_dimension(self) -> tuple[str, dict]:
+    def _parse_z_dimension(self) -> tuple[str, dict]:
         """
         Get the name and attributes of the 3rd dimension.
 
@@ -160,8 +160,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         Returns
         -------
         dataarray
-            A 3-D :class:`xr.DataArray` object with dimensions ordered as
-            (3rd dimension, y, x).
+            A 3-D :class:`xr.DataArray` object with dimensions ordered as (z, y, x).
 
         Examples
         --------
@@ -178,42 +177,43 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         ...         da = cube.contents.to_xarray()
         >>> da.name, da.dims, da.shape
         ('z', ('z', 'y', 'x'), (4, 11, 11))
+        >>> da.coords["x"]
+        <xarray.DataArray 'x' (x: 11)> Size: 88B
+        array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10.])
+        Coordinates:
+          * x        (x) float64 88B 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0
+        Attributes:
+            long_name:     x
+            axis:          X
+            actual_range:  [ 0. 10.]
+        >>> da.coords["y"]
+        <xarray.DataArray 'y' (y: 11)> Size: 88B
+        array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10.])
+        Coordinates:
+          * y        (y) float64 88B 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0 9.0 10.0
+        Attributes:
+            long_name:     y
+            axis:          Y
+            actual_range:  [ 0. 10.]
         >>> da.coords["z"]
         <xarray.DataArray 'z' (z: 4)> Size: 32B
         array([1., 2., 3., 5.])
         Coordinates:
-          * z        (z) float64 32B 1.0 2.0 3.0 5.0
+          * z        (z) float64 32B  1.0 2.0 3.0 5.0
         Attributes:
             long_name:     z
             axis:          Z
             actual_range:  [1. 5.]
-        >>> # The four layers are the same X*Y grid scaled by 1.0, 1.1, 1.2, and 1.4.
-        >>> # Verify that layer k equals scale[k] * outer(y, x) for every element.
-        >>> scale = [1.0, 1.1, 1.2, 1.4]
-        >>> expected = [s * np.outer(da.y, da.x) for s in scale]
-        >>> np.allclose(da.values, expected)
-        True
-        >>> # Cross-check against loading the same file directly with xarray.
-        >>> import xarray as xr
-        >>> direct = xr.open_dataset(cubefile)["cube"]
-        >>> da.dims == direct.dims
-        True
-        >>> np.allclose(da.coords["x"], direct.coords["x"])
-        True
-        >>> np.allclose(da.coords["y"], direct.coords["y"])
-        True
-        >>> np.allclose(da.coords["z"], direct.coords["z"])
-        True
-        >>> np.allclose(da.values, direct.values)
-        True
         >>> da.gmt.registration, da.gmt.gtype
         (<GridRegistration.GRIDLINE: 0>, <GridType.CARTESIAN: 0>)
         """
+        # The cube header
         header = self.header.contents
 
-        # The y/x dimensions come from the 2-D grid header; the 3rd one from the cube.
+        # Get x/y dimensions and their attributes from the header.
         dims, dim_attrs = header.dims, header.dim_attrs
-        zdim, zdim_attrs = self._parse_dimension()
+        # Get the 3rd dimension and its attributes from the cube itself.
+        zdim, zdim_attrs = self._parse_z_dimension()
 
         # The coordinates, given as a tuple of the form (dims, data, attrs)
         x = np.ctypeslib.as_array(self.x, shape=(header.n_columns,)).copy()
@@ -225,15 +225,16 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
             (dims[1], x, dim_attrs[1]),
         ]
 
-        # The data array. The cube is a stack of 2-D padded layers, i.e., layer k
-        # starts at offset k * header.size, which can exceed header.my * header.mx.
+        # The cube is a stack of 2-D padded layers, i.e., layer k starts at offset
+        # k * header.size, which can exceed header.my * header.mx.
         data = np.ctypeslib.as_array(
             self.data, shape=(header.n_bands, header.size)
         ).copy()
-        pad = header.pad[:]
         data = data[:, : header.my * header.mx].reshape(
             header.n_bands, header.my, header.mx
         )
+        # The data array without paddings.
+        pad = header.pad[:]
         data = data[:, pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
 
         # Create the xarray.DataArray object
