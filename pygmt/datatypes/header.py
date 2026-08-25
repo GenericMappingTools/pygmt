@@ -123,8 +123,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # ruff: ignore[invalid-class-name]
         ("complex_mode", ctp.c_uint),
         # Grid format
         ("type", ctp.c_uint),
-        # Number of bands [1]. Used with GMT_IMAGE containers for the number of bands
-        # and with GMT_CUBE containers for the number of layers
+        # Number of bands for GMT_IMAGE or number of layers for GMT_CUBE [1].
         ("n_bands", ctp.c_uint),
         # Actual x-dimension in memory. mx = n_columns + pad[0] + pad[1]
         ("mx", ctp.c_uint),
