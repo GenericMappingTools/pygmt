@@ -40,7 +40,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
     ...     with lib.virtualfile_out(kind="cube") as voutcube:
     ...         lib.call_module("read", [cubefile, voutcube, "-Tu"])
     ...         # Read the cube from the virtual file
-    ...         cube = lib.read_virtualfile(vfname=voutcube, kind="cube").contents
+    ...         cube = lib.read_virtualfile(voutcube, kind="cube").contents
     ...         # The cube header
     ...         header = cube.header.contents
     ...         # Access the header properties
@@ -64,6 +64,8 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
     ...         ).copy()
     ...         # Reshape the layers to 2-D and strip the paddings
     ...         pad = header.pad[:]
+    ...         # header.size can exceed header.my * header.mx because GMT rounds up to
+    ...         # an even count. So we need to slice the data array to the actual size.
     ...         data = data[:, : header.my * header.mx].reshape(
     ...             header.n_bands, header.my, header.mx
     ...         )
@@ -85,9 +87,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
     array([1., 2., 3., 5.])
     >>> data.shape
     (4, 11, 11)
-    >>> print(data.min(), data.max())
-    0.0 140.0
-    >>> # GMT stores rows north-first, so row 0 is y=10 and the last row is y=0.
+    >>> # The first layer is a grid of X * Y.
     >>> print(data[0, :, :])
     [[  0.  10.  20.  30.  40.  50.  60.  70.  80.  90. 100.]
      [  0.   9.  18.  27.  36.  45.  54.  63.  72.  81.  90.]
@@ -100,17 +100,12 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
      [  0.   2.   4.   6.   8.  10.  12.  14.  16.  18.  20.]
      [  0.   1.   2.   3.   4.   5.   6.   7.   8.   9.  10.]
      [  0.   0.   0.   0.   0.   0.   0.   0.   0.   0.   0.]]
-    >>> # The northernmost row of every layer. The four layers are the same X*Y grid
-    >>> # scaled by 1.0, 1.1, 1.2, and 1.4, respectively.
-    >>> print(data[:, 0, :])
-    [[  0.  10.  20.  30.  40.  50.  60.  70.  80.  90. 100.]
-     [  0.  11.  22.  33.  44.  55.  66.  77.  88.  99. 110.]
-     [  0.  12.  24.  36.  48.  60.  72.  84.  96. 108. 120.]
-     [  0.  14.  28.  42.  56.  70.  84.  98. 112. 126. 140.]]
-    >>> # Verify that layer k equals scale[k] * outer(y, x) for every element.
-    >>> scale = [1.0, 1.1, 1.2, 1.4]
-    >>> expected = np.array([s * np.outer(y, x) for s in scale], dtype=np.float32)
-    >>> np.allclose(data, expected)
+    >>> # Other layers are the same, but scaled by 1.0, 1.1, 1.2, and 1.4, respectively.
+    >>> np.allclose(data[1, :, :], 1.1 * data[0, :, :])
+    True
+    >>> np.allclose(data[2, :, :], 1.2 * data[0, :, :])
+    True
+    >>> np.allclose(data[3, :, :], 1.4 * data[0, :, :])
     True
     """
 
