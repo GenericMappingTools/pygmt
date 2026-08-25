@@ -48,7 +48,9 @@ def fixture_expected_xrcube():
     """
     The expected xr.DataArray object for the @cube.nc file.
     """
-    return xr.load_dataarray(which("@cube.nc", download="c"))
+    return xr.load_dataarray(
+        which("@cube.nc", download="c"), engine="gmt", raster_kind="cube"
+    )
 
 
 def test_clib_read_data_dataset():

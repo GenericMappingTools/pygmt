@@ -176,7 +176,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         ...         # Convert to xarray.DataArray and use it later
         ...         da = cube.contents.to_xarray()
         >>> da.name, da.dims, da.shape
-        ('z', ('z', 'y', 'x'), (4, 11, 11))
+        ('cube', ('z', 'y', 'x'), (4, 11, 11))
         >>> da.coords["x"]
         <xarray.DataArray 'x' (x: 11)> Size: 88B
         array([ 0.,  1.,  2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10.])
@@ -237,9 +237,10 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         pad = header.pad[:]
         data = data[:, pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
 
-        # Create the xarray.DataArray object
+        # Create the xarray.DataArray object.
+        # The cube name is stored in the header's z_units attribute.
         cube = xr.DataArray(
-            data, coords=coords, name=header.name, attrs=header.data_attrs
+            data, coords=coords, name=header.z_units, attrs=header.data_attrs
         )
 
         # Flip the coordinates and data if necessary so that coordinates are ascending.
