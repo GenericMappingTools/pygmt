@@ -1971,6 +1971,12 @@ class Session:
         family
             The integer value for the family of the virtual file.
 
+        Raises
+        ------
+        GMTCLibError
+            If the virtual file is not found, i.e., ``vfname`` is not a valid virtual
+            file name.
+
         Examples
         --------
         >>> from pygmt.clib import Session
@@ -1978,13 +1984,23 @@ class Session:
         ...     with lib.virtualfile_out(kind="dataset") as vfile:
         ...         family = lib.inquire_virtualfile(vfile)
         ...         assert family == lib["GMT_IS_DATASET"]
+        >>> with Session() as lib:
+        ...     lib.inquire_virtualfile("not-a-virtual-file")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTCLibError: Failed to inquire the family of virtual file ...
         """
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
             restype=ctp.c_int,
         )
-        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+        family = c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
+        if family not in {self[name] for name in FAMILIES}:
+            msg = f"Failed to inquire the family of virtual file {vfname!r}."
+            raise GMTCLibError(msg)
+        return family
 
     def read_virtualfile(
         self,
