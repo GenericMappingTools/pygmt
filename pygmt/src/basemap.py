@@ -20,12 +20,12 @@ def basemap(
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
-    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
-    | bool = False,
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
     box: Box | str | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | Sequence[int] | bool = False,
     coltypes: str | None = None,
     perspective: float | Sequence[float] | str | bool = False,
@@ -35,9 +35,9 @@ def basemap(
     """
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several map
-    projections are available, and separate tick-mark intervals for axis annotation,
-    ticking, and gridlines can be specified.
+    Creates a basic or fancy basemap with axes, fill, and title. Several map projections
+    are available, and separate tick-mark intervals for axis annotation, ticks, and
+    gridlines can be specified.
 
     If not in subplot mode (see :meth:`pygmt.Figure.subplot`), at least one of the
     parameters ``frame``, ``map_scale``, ``rose``, or ``compass`` must be specified.
@@ -125,7 +125,9 @@ def basemap(
             parameters.
     $verbose
     $panel
-    $coltypes
+    coltypes
+        Specify the types of the coordinates given via ``region``. See
+        :gmt-docs:`basemap.html#f` for details.
     $perspective
     $transparency
 
