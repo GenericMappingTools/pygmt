@@ -116,8 +116,8 @@ def project(
        - E = endpoint
        - L = length
        - T = pole
-       - W = width
        - V = verbose
+       - W = width
        - f = coltypes
 
     Parameters
