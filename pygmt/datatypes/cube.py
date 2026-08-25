@@ -240,7 +240,7 @@ class _GMT_CUBE(ctp.Structure):  # ruff: ignore[invalid-class-name]
         # Create the xarray.DataArray object.
         # The cube name is stored in the header's z_units attribute.
         cube = xr.DataArray(
-            data, coords=coords, name=header.z_units, attrs=header.data_attrs
+            data, coords=coords, name=header.z_units.decode(), attrs=header.data_attrs
         )
 
         # Flip the coordinates and data if necessary so that coordinates are ascending.
