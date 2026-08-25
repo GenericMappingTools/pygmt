@@ -1,0 +1,27 @@
+# Download the cached GMT remote data files
+#
+# GMT downloads remote data files (e.g. Earth relief grids) on demand. To avoid
+# hitting the data servers in every job, the files are cached once by the
+# 'cache_data.yaml' workflow and uploaded as the 'gmt-cache' artifact. This action
+# downloads that artifact into the ~/.gmt directory.
+#
+# The job must check out the repository before using this action, and needs the
+# 'actions: read' permission to download artifacts from other workflow runs.
+name: Download GMT cache
+description: Download the cached GMT remote data files into the ~/.gmt directory.
+
+runs:
+  using: composite
+  steps:
+    - name: Download remote data from GitHub
+      # The job default shell is not inherited by composite actions, so it's set here to
+      # match the login shell used by the workflows.
+      shell: bash -l {0}
+      run: |
+        # Download cached files to ~/.gmt directory and list them
+        gh run download --name gmt-cache --dir ~/.gmt/
+        # Change modification times of the two files, so GMT won't refresh it
+        touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
+        ls -lhR ~/.gmt
+      env:
+        GH_TOKEN: ${{ github.token }}
