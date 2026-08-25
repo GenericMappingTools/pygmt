@@ -127,7 +127,7 @@ def basemap(
     $panel
     coltypes
         Specify the types of the coordinates given via ``region``. See
-        :gmt-docs:`basemap.html#f` for details.
+        :gmt-docs:`gmt.html#f-full` for details.
     $perspective
     $transparency
 
