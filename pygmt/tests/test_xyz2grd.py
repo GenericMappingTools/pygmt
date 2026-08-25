@@ -10,7 +10,7 @@ import xarray as xr
 from pygmt import xyz2grd
 from pygmt.datasets import load_sample_data
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import GMTTempFile
 
 
@@ -75,9 +75,9 @@ def test_xyz2grd_missing_region_spacing(ship_data):
     """
     Test xyz2grd raise an exception if region or spacing is missing.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         xyz2grd(data=ship_data)
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         xyz2grd(data=ship_data, region=[245, 255, 20, 30])
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTParameterError):
         xyz2grd(data=ship_data, spacing=5)

@@ -22,7 +22,11 @@ def test_show_versions():
     assert "System information:" in output
     assert "Dependency information:" in output
     assert "GMT library information:" in output
-    assert "WARNING:" not in output  # No GMT-Ghostscript incompatibility warnings.
+    # No GMT-Ghostscript incompatibility warnings.
+    assert "WARNING:" not in output
+    # GDAL version is correctly reported.
+    assert "gdal:" in output
+    assert "gdal: None" not in output
 
 
 @pytest.mark.parametrize(

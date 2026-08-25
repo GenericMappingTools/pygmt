@@ -11,6 +11,7 @@ appearance can be set via the GMT default parameters :gmt-term:`PS_LINE_CAP`
 # %%
 import numpy as np
 import pygmt
+from pygmt.params import Frame
 
 # Set up dictionary for colors
 dict_col = {
@@ -31,7 +32,7 @@ fig = pygmt.Figure()
 x = np.array([30, 170])
 y = np.array([70, 70])
 
-fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame="rltb")
+fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame=Frame(axes="rltb"))
 
 for line_cap in ["butt", "round", "square"]:
     # Change GMT default locally
@@ -58,7 +59,7 @@ fig.shift_origin(yshift="-h")
 x = np.array([5, 95, 65])
 y = np.array([10, 70, 10])
 
-fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame="rltb")
+fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame=Frame(axes="rltb"))
 
 for line_join in ["bevel", "round", "miter"]:
     with pygmt.config(PS_LINE_JOIN=line_join, PS_MITER_LIMIT=1):

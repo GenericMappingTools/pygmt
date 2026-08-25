@@ -9,14 +9,12 @@ import contextlib
 import ctypes as ctp
 import io
 import sys
-import warnings
 from collections.abc import Callable, Generator, Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
-from packaging.version import Version
 from pygmt.clib.conversion import (
     dataarray_to_matrix,
     sequence_to_ctypes_array,
@@ -26,11 +24,15 @@ from pygmt.clib.conversion import (
 from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.datatypes.header import gmt_grdfloat
-from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
+from pygmt.exceptions import (
+    GMTCLibError,
+    GMTCLibNoSessionError,
+    GMTTypeError,
+    GMTValueError,
+)
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
-    deprecate_parameter,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -107,7 +109,7 @@ DTYPES_TEXT = {
 DTYPES = DTYPES_NUMERIC | DTYPES_TEXT
 
 # Dictionary for storing the values of GMT constants.
-GMT_CONSTANTS = {}
+GMT_CONSTANTS: dict[str, int] = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
@@ -144,6 +146,7 @@ class Session:
     Examples
     --------
 
+    >>> from pygmt.clib import Session
     >>> from pygmt.helpers.testing import load_static_earth_relief
     >>> from pygmt.helpers import GMTTempFile
     >>> grid = load_static_earth_relief()
@@ -297,7 +300,7 @@ class Session:
         session = None
         value = c_get_enum(session, name.encode())
         if value is None or value == -99999:
-            msg = f"Constant '{name}' doesn't exist in libgmt."
+            msg = f"Constant {name!r} doesn't exist in libgmt."
             raise GMTCLibError(msg)
         return value
 
@@ -411,7 +414,7 @@ class Session:
         self._error_log: list[str] = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
-        def print_func(file_pointer, message):  # noqa: ARG001
+        def print_func(file_pointer, message):  # ruff: ignore[unused-function-argument]
             """
             Callback function that the GMT C API will use to print log and error
             messages.
@@ -428,7 +431,7 @@ class Session:
                 return 0
             self._error_log.append(message)
             # Flush to make sure the messages are printed even if we have a crash.
-            print(message, file=sys.stderr, flush=True)  # noqa: T201
+            print(message, file=sys.stderr, flush=True)  # ruff: ignore[print]
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it will be
@@ -535,7 +538,7 @@ class Session:
         value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
         if status != 0:
-            msg = f"Error getting value for '{name}' (error code {status})."
+            msg = f"Error getting value for {name!r} (error code {status})."
             raise GMTCLibError(msg)
         return value.value.decode()
 
@@ -595,11 +598,13 @@ class Session:
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
-        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: 'A'. Expected ...
         """
-        if option not in "BIJRUVXYabfghinoprst:":
-            msg = f"Unknown GMT common option flag '{option}'."
-            raise GMTInvalidInput(msg)
+        valid_options = "BIJRUVXYabfghinoprst:"
+        if option not in valid_options:
+            raise GMTValueError(
+                option, description="GMT common option", choices=valid_options
+            )
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
@@ -657,7 +662,7 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
+        GMTTypeError
             If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
@@ -674,24 +679,26 @@ class Session:
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
-            # API and is used for PyGMT >= v0.12.0.
+            # API and is used for PyGMT>=0.12.0.
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
         elif isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
             # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # whitespaces or quotation marks. It's used in PyGMT<=0.11.0 but is no
             # longer recommended.
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
         else:
-            msg = "'args' must either be a list of strings (recommended) or a string."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(
+                type(args),
+                reason="Parameter 'args' must either be a list of strings (recommended) or a string.",
+            )
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
-            msg = f"Module '{module}' failed with status code {status}:\n{self._error_message}"
+            msg = f"Module {module!r} failed with status code {status}:\n{self._error_message}"
             raise GMTCLibError(msg)
 
     def create_data(
@@ -882,7 +889,7 @@ class Session:
         their values are added.
 
         If no valid modifiers are given, then will assume that modifiers are not
-        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTInvalidInput`
+        allowed. In this case, will raise a :class:`pygmt.exceptions.GMTValueError`
         exception if given a modifier.
 
         Parameters
@@ -890,7 +897,7 @@ class Session:
         constant
             The name of a valid GMT API constant, with an optional modifier.
         valid
-            A list of valid values for the constant. Will raise a GMTInvalidInput
+            A list of valid values for the constant. Will raise a GMTValueError
             exception if the given value is not in the list.
         valid_modifiers
             A list of valid modifiers that can be added to the constant. If ``None``,
@@ -901,28 +908,23 @@ class Session:
         nmodifiers = len(parts) - 1
 
         if name not in valid:
-            msg = f"Invalid constant name '{name}'. Must be one of {valid}."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(name, description="constant name", choices=valid)
 
         match nmodifiers:
             case 1 if valid_modifiers is None:
-                msg = (
-                    f"Constant modifiers are not allowed since valid values "
-                    f"were not given: '{constant}'."
+                raise GMTValueError(
+                    constant,
+                    reason="Constant modifiers are not allowed since valid values were not given.",
                 )
-                raise GMTInvalidInput(msg)
             case 1 if valid_modifiers is not None and parts[1] not in valid_modifiers:
-                msg = (
-                    f"Invalid constant modifier '{parts[1]}'. "
-                    f"Must be one of {valid_modifiers}."
+                raise GMTValueError(
+                    parts[1], description="constant modifier", choices=valid_modifiers
                 )
-                raise GMTInvalidInput(msg)
             case n if n > 1:
-                msg = (
-                    f"Only one modifier is allowed in constants, "
-                    f"{nmodifiers} given: '{constant}'."
+                raise GMTValueError(
+                    constant,
+                    reason=f"Only one modifier is allowed in constants but {nmodifiers} given.",
                 )
-                raise GMTInvalidInput(msg)
 
         integer_value = sum(self[part] for part in parts)
         return integer_value
@@ -946,9 +948,10 @@ class Session:
 
         Raises
         ------
-        GMTInvalidInput
-            If the array has the wrong number of dimensions or is an unsupported data
-            type.
+        GMTValueError
+            If the array has the wrong number of dimensions.
+        GMTTypeError
+            If the array is an unsupported data type.
 
         Examples
         --------
@@ -966,14 +969,16 @@ class Session:
         """
         # Check that the array has the given number of dimensions.
         if array.ndim != ndim:
-            msg = f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(
+                array.ndim,
+                description="array dimension",
+                reason=f"Expected a numpy {ndim}-D array, got {array.ndim}-D.",
+            )
 
         # 1-D arrays can be numeric or text, 2-D arrays can only be numeric.
         valid_dtypes = DTYPES if ndim == 1 else DTYPES_NUMERIC
         if (dtype := array.dtype.type) not in valid_dtypes:
-            msg = f"Unsupported numpy data type '{dtype}'."
-            raise GMTInvalidInput(msg)
+            raise GMTTypeError(dtype)
         return self[DTYPES[dtype]]
 
     def put_vector(
@@ -1198,7 +1203,7 @@ class Session:
         ------
         GMTCLibError
             If the GMT API function fails to read the data.
-        """  # noqa: W505
+        """  # ruff: ignore[doc-line-too-long]
         c_read_data = self.get_libgmt_func(
             "GMT_Read_Data",
             argtypes=[
@@ -1236,7 +1241,7 @@ class Session:
             data,
         )
         if data_ptr is None:
-            msg = f"Failed to read dataset from '{infile}'."
+            msg = f"Failed to read dataset from {infile!r}."
             raise GMTCLibError(msg)
         return ctp.cast(data_ptr, ctp.POINTER(dtype))
 
@@ -1307,7 +1312,7 @@ class Session:
             data,
         )
         if status != 0:
-            msg = f"Failed to write dataset to '{output}'."
+            msg = f"Failed to write dataset to {output!r}."
             raise GMTCLibError(msg)
 
     @contextlib.contextmanager
@@ -1422,7 +1427,7 @@ class Session:
         finally:
             status = c_close_virtualfile(self.session_pointer, vfname.encode())
             if status != 0:
-                msg = f"Failed to close virtual file '{vfname}'."
+                msg = f"Failed to close virtual file {vfname!r}."
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
@@ -1491,8 +1496,7 @@ class Session:
 
         rows = len(arrays[0])
         if not all(len(i) == rows for i in arrays):
-            msg = "All arrays must have same size."
-            raise GMTInvalidInput(msg)
+            raise GMTValueError(arrays, reason="All arrays must have same size.")
 
         family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
         geometry = "GMT_IS_POINT"
@@ -1784,13 +1788,7 @@ class Session:
                     seg.header = None
                     seg.text = None
 
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_z'.
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'extra_arrays'.
-    # TODO(PyGMT>=0.20.0): Remove the deprecated parameter 'required_data'.
-    @deprecate_parameter(
-        "required_data", "required", "v0.16.0", remove_version="v0.20.0"
-    )
-    def virtualfile_in(  # noqa: PLR0912
+    def virtualfile_in(
         self,
         check_kind=None,
         data=None,
@@ -1799,8 +1797,6 @@ class Session:
         z=None,
         required=True,
         mincols=2,
-        required_z=False,
-        extra_arrays=None,
     ):
         """
         Store any data inside a virtual file.
@@ -1823,28 +1819,9 @@ class Session:
         required : bool
             Set to True when 'data' or ('x' and 'y') is required. Set to False when
             dealing with optional virtual files. Default is True.
-
-            .. versionchanged:: v0.16.0
-               The parameter 'required_data' is renamed to 'required'. The parameter
-               'required_data' is deprecated in v0.16.0 and will be removed in v0.20.0.
         mincols
             Number of minimum required columns. Default is 2 (i.e. require x and y
             columns).
-        required_z : bool
-            State whether the 'z' column is required.
-
-            .. deprecated:: v0.16.0
-               The parameter 'required_z' will be removed in v0.20.0. Use parameter
-               'mincols' instead. E.g., ``required_z=True`` is equivalent to
-               ``mincols=3``.
-        extra_arrays : list of 1-D arrays
-            A list of numpy arrays in addition to x, y, and z. All of these arrays must
-            be of the same size as the x/y/z arrays.
-
-            .. deprecated:: v0.16.0
-               The parameter 'extra_arrays' will be removed in v0.20.0. Prepare and pass
-               a dictionary of arrays instead to the `data` parameter. E.g.,
-               ``data={"x": x, "y": y, "size": size}``.
 
         Returns
         -------
@@ -1872,16 +1849,6 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        if required_z is True:
-            warnings.warn(
-                "The parameter 'required_z' is deprecated in v0.16.0 and will be "
-                "removed in v0.20.0. Use parameter 'mincols' instead. E.g., "
-                "``required_z=True`` is equivalent to ``mincols=3``.",
-                category=FutureWarning,
-                stacklevel=1,
-            )
-            mincols = 3
-
         kind = data_kind(data, required=required)
         _validate_data_input(
             data=data,
@@ -1900,8 +1867,10 @@ class Session:
             elif check_kind == "vector":
                 valid_kinds += ("empty", "matrix", "vectors", "geojson")
             if kind not in valid_kinds:
-                msg = f"Unrecognized data type for {check_kind}: {type(data)}."
-                raise GMTInvalidInput(msg)
+                raise GMTTypeError(
+                    type(data),
+                    reason=f"Unrecognized data type for {check_kind!r} kind.",
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
@@ -1926,30 +1895,24 @@ class Session:
         _data = data
         match kind:
             case "image" if data.dtype != "uint8":
-                msg = (
-                    f"Input image has dtype: {data.dtype} which is unsupported, and "
-                    "may result in an incorrect output. Please recast image to a uint8 "
-                    "dtype and/or scale to 0-255 range, e.g. using a histogram "
-                    "equalization function like skimage.exposure.equalize_hist."
+                raise GMTTypeError(
+                    data.dtype,
+                    reason=(
+                        "Only uint8 images are supported. Please recast image to a "
+                        "uint8 dtype and/or scale to 0-255 range, e.g. using a "
+                        "histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    ),
                 )
-                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             case "empty":  # data is None, so data must be given via x/y/z.
                 _data = [x, y]
                 if z is not None:
                     _data.append(z)
-                if extra_arrays:
-                    msg = (
-                        "The parameter 'extra_arrays' will be removed in v0.20.0. "
-                        "Prepare and pass a dictionary of arrays instead to the `data` "
-                        "parameter. E.g., `data={'x': x, 'y': y, 'size': size}`"
-                    )
-                    warnings.warn(message=msg, category=FutureWarning, stacklevel=1)
-                    _data.extend(extra_arrays)
             case "vectors":
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # Dictionary, pandas.DataFrame or xarray.Dataset types.
                     # pandas.Series will be handled below like a 1-D numpy.ndarray.
-                    _data = [array for _, array in data.items()]
+                    _data = [array for _, array in data.items()]  # ruff: ignore[incorrect-dict-iterator]
                 else:
                     # Python list, tuple, numpy.ndarray, and pandas.Series types
                     _data = np.atleast_2d(np.asanyarray(data).T)
@@ -2156,9 +2119,6 @@ class Session:
             registration=_reg,
             pad=self["GMT_PAD_DEFAULT"],
         )
-        if Version(__gmt_version__) < Version("6.5.0"):
-            # Upstream bug fixed in GMT>=6.5.0
-            self.set_allocmode(family, data)
 
         gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_GRID))
         header = gmtgrid.contents.header.contents
@@ -2420,7 +2380,7 @@ class Session:
         ...     region = lib.extract_region()
         >>> print(", ".join([f"{x:.2f}" for x in region]))
         -165.00, -150.00, 15.00, 25.00
-        """  # noqa: RUF002
+        """  # ruff: ignore[ambiguous-unicode-character-docstring]
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",
             argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.POINTER(ctp.c_double)],

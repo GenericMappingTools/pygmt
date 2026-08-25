@@ -2,12 +2,14 @@
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt._typing import PathLike
+from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -21,17 +23,15 @@ __doctest_skip__ = ["grdvolume"]
 
 
 @fmt_docstring
-@use_alias(
-    C="contour",
-    R="region",
-    S="unit",
-    V="verbose",
-)
-@kwargs_to_strings(C="sequence", R="sequence")
+@use_alias(C="contour", S="unit")
+@kwargs_to_strings(C="sequence")
 def grdvolume(
     grid: PathLike | xr.DataArray,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -45,13 +45,15 @@ def grdvolume(
 
     Full GMT docs at :gmt-docs:`grdvolume.html`.
 
-    {aliases}
+    $aliases
+       - R = region
+       - V = verbose
 
     Parameters
     ----------
-    {grid}
-    {output_type}
-    {outfile}
+    $grid
+    $output_type
+    $outfile
     contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
@@ -66,8 +68,8 @@ def grdvolume(
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-    {region}
-    {verbose}
+    $region
+    $verbose
 
     Returns
     -------
@@ -104,6 +106,12 @@ def grdvolume(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
+    aliasdict = AliasSystem().add_common(
+        R=region,
+        V=verbose,
+    )
+    aliasdict.merge(kwargs)
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
@@ -111,6 +119,6 @@ def grdvolume(
         ):
             lib.call_module(
                 module="grdvolume",
-                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

@@ -3,7 +3,6 @@ Tests for the _to_numpy function in the clib.conversion module.
 """
 
 import datetime
-import sys
 
 import numpy as np
 import numpy.testing as npt
@@ -19,7 +18,7 @@ try:
     _HAS_PYARROW = True
 except ImportError:
 
-    class pa:  # noqa: N801
+    class pa:  # ruff: ignore[invalid-class-name]
         """
         A dummy class to mimic pyarrow.
         """
@@ -52,17 +51,10 @@ def _check_result(result, expected_dtype):
 @pytest.mark.parametrize(
     ("data", "expected_dtype"),
     [
-        # TODO(NumPy>=2.0): Remove the if-else statement after NumPy>=2.0.
-        pytest.param(
-            [1, 2, 3],
-            np.int32
-            if sys.platform == "win32" and Version(np.__version__) < Version("2.0")
-            else np.int64,
-            id="int",
-        ),
+        pytest.param([1, 2, 3], np.int64, id="int"),
         pytest.param([1.0, 2.0, 3.0], np.float64, id="float"),
         pytest.param(
-            [complex(+1), complex(-2j), complex("-Infinity+NaNj")],
+            [complex(+1), -2j, complex("-Infinity+NaNj")],
             np.complex128,
             id="complex",
         ),
@@ -322,11 +314,6 @@ def test_to_numpy_pandas_numeric(dtype, expected_dtype):
     Test the _to_numpy function with pandas.Series of numeric dtypes.
     """
     data = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     result = _to_numpy(series)
     _check_result(result, expected_dtype)
@@ -369,11 +356,6 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
     dtypes and missing values (NA).
     """
     data = [1.0, 2.0, None, 4.0, 5.0, 6.0]
-    # TODO(pandas>=2.2): Remove the workaround for float16 dtype in pandas<2.2.
-    # float16 needs special handling for pandas < 2.2.
-    # Example from https://arrow.apache.org/docs/python/generated/pyarrow.float16.html
-    if dtype == "float16[pyarrow]" and Version(pd.__version__) < Version("2.2"):
-        data = np.array(data, dtype=np.float16)
     series = pd.Series(data, dtype=dtype)[::2]  # Not C-contiguous
     assert series.isna().any()
     result = _to_numpy(series)
@@ -389,7 +371,15 @@ def test_to_numpy_pandas_numeric_with_na(dtype, expected_dtype):
         "U10",
         "string[python]",
         pytest.param("string[pyarrow]", marks=skip_if_no(package="pyarrow")),
-        pytest.param("string[pyarrow_numpy]", marks=skip_if_no(package="pyarrow")),
+        pytest.param(
+            # TODO(pandas>=3.0): Remove the string[pyarrow_numpy] else statement
+            (
+                "str"  # pyarrow string dtype in pandas>=3.0
+                if Version(pd.__version__) >= Version("3.0.0.dev0")
+                else "string[pyarrow_numpy]"
+            ),
+            marks=skip_if_no(package="pyarrow"),
+        ),
     ],
 )
 def test_to_numpy_pandas_string(dtype):
@@ -428,12 +418,6 @@ def test_to_numpy_pandas_date(dtype, expected_dtype):
     )
 
 
-pandas_old_version = pytest.mark.xfail(
-    condition=Version(pd.__version__) < Version("2.1"),
-    reason="pandas 2.0 bug reported in https://github.com/pandas-dev/pandas/issues/52705",
-)
-
-
 @pytest.mark.parametrize(
     ("dtype", "expected_dtype"),
     [
@@ -445,23 +429,14 @@ pandas_old_version = pytest.mark.xfail(
         # pandas.DatetimeTZDtype can be given in two ways [tz is required]:
         # 1. pandas.DatetimeTZDtype(unit, tz)
         # 2. String aliases: "datetime64[unit, tz]"
-        pytest.param(
-            "datetime64[s, UTC]",
-            "datetime64[s]",
-            id="datetime64[s, tz=UTC]",
-            marks=pandas_old_version,
-        ),
+        pytest.param("datetime64[s, UTC]", "datetime64[s]", id="datetime64[s, tz=UTC]"),
         pytest.param(
             "datetime64[s, America/New_York]",
             "datetime64[s]",
             id="datetime64[s, tz=America/New_York]",
-            marks=pandas_old_version,
         ),
         pytest.param(
-            "datetime64[s, +07:30]",
-            "datetime64[s]",
-            id="datetime64[s, +07:30]",
-            marks=pandas_old_version,
+            "datetime64[s, +07:30]", "datetime64[s]", id="datetime64[s, +07:30]"
         ),
         # PyArrow timestamp types can be given in two ways [tz is optional]:
         # 1. pd.ArrowDtype(pyarrow.Timestamp(unit, tz=tz))
@@ -476,13 +451,13 @@ pandas_old_version = pytest.mark.xfail(
             "timestamp[ms][pyarrow]",
             "datetime64[ms]",
             id="timestamp[ms][pyarrow]",
-            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+            marks=skip_if_no(package="pyarrow"),
         ),
         pytest.param(
             "timestamp[us][pyarrow]",
             "datetime64[us]",
             id="timestamp[us][pyarrow]",
-            marks=[skip_if_no(package="pyarrow"), pandas_old_version],
+            marks=skip_if_no(package="pyarrow"),
         ),
         pytest.param(
             "timestamp[ns][pyarrow]",

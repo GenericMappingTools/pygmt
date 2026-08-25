@@ -11,14 +11,24 @@ meridian).
 
 **i**\ [*lon0/*]\ *scale* or **I**\ [*lon0/*]\ *width*
 
-The projection is set with **i** or **I**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **i** or **I**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use region "d" to specify global region (-180/180/-90/90)
-fig.coast(region="d", projection="I12c", frame="afg", land="ivory", water="bisque4")
+fig.coast(
+    region="d",
+    projection="I12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="ivory",
+    water="bisque4",
+)
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]

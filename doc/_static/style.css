@@ -38,16 +38,6 @@ p {
     margin-bottom: 0px;
 }
 
-.banner {
-    padding-bottom: 60px;
-    text-align: center;
-}
-
-.banner h1 {
-    margin-top: 40px;
-    font-size: 4em;
-}
-
 .wy-nav-content {
     max-width: 1000px;
 }
@@ -59,6 +49,29 @@ p {
     margin-bottom: .809em;
     font-weight: 400;
     color: hsla(0, 0%, 100%, .3);
+}
+
+/* Change background color of sidebar top box with logo, version and search bar */
+.wy-side-nav-search {
+    background: #b4c7e7;
+}
+
+/* Change border of the search bar */
+.wy-side-nav-search input[type="text"] {
+    border: solid 2px #b4c7e7;
+}
+
+/* Change color of cards */
+/* https://sphinx-design.readthedocs.io/en/rtd-theme/css_variables.html */
+:root {
+    --sd-color-card-background: #EBF0F9; /* lighter color as top box of sidebar */
+    --sd-color-card-header: #b4c7e7; /* same color as top box of sidebar */
+    --sd-color-card-footer: #FFFFFF; /* white */
+}
+
+/* Set margin below buttons */
+.sd-card-text {
+    margin-bottom: 10px;
 }
 
 /* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
@@ -160,6 +173,18 @@ html.writer-html5 .rst-content dl.field-list {
 
 .sphx-glr-single-img {
     max-width: 80%!important;
+}
+
+.sphx-glr-tag-label {
+    font-weight: bold;
+    background-color: #f2f3f5;
+    padding: 0.1rem 0.35rem;
+}
+
+.sphx-glr-tag {
+    background-color: #e6eef8;
+    margin: 0.1rem 0.2rem 0.1rem 0;
+    padding: 0.1rem 0.35rem;
 }
 
 /*

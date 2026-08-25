@@ -36,8 +36,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-13, windows-2022]
-        gmt_version: ['6.4']
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-14, windows-2022]
+        gmt_version: ['6.5', '6.6']
     timeout-minutes: 30
     defaults:
       run:
@@ -46,7 +46,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -54,16 +54,16 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.5
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=${{ matrix.gmt_version }}
-            ghostscript<10
-            numpy=1.26
-            pandas
-            xarray
+            ghostscript
+            numpy=2.1
+            pandas=2.3
+            xarray=2024.7
             packaging=24.2
             contextily=1.5
             geopandas=1.0
@@ -84,11 +84,7 @@ jobs:
           # Download cached files to ~/.gmt directory and list them
           gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it.
-          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and in the
-          # `~/.gmt` directory for GMT>=6.5.
-          mkdir -p ~/.gmt/server/
-          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
         env:
           GH_TOKEN: ${{ github.token }}
@@ -99,4 +95,6 @@ jobs:
 
       # Run the tests but skip images
       - name: Run tests
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         run: make test_no_images PYTEST_EXTRA="-r P"

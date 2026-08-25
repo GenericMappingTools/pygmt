@@ -2,16 +2,17 @@
 blockm - Block average (x, y, z) data tables by mean, median, or mode estimation.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
     validate_output_table_type,
 )
@@ -71,22 +72,14 @@ def _blockm(
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
-    R="region",
     S="summary",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
-    i="incols",
-    o="outcols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -94,6 +87,15 @@ def blockmean(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -110,19 +112,30 @@ def blockmean(
 
     Full GMT docs at :gmt-docs:`blockmean.html`.
 
-    {aliases}
+    $aliases
+       - C = center
+       - I = spacing
+       - R = region
+       - V = verbose
+       - f = coltypes
+       - i = incols
+       - o = outcols
+       - r = registration
 
     Parameters
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
+    $output_type
+    $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        mean x and y coordinates are used.
+    $spacing
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
         Type of summary values calculated by blockmean.
@@ -131,18 +144,18 @@ def blockmean(
         - **n**: report the number of input points inside each block
         - **s**: report the sum of all z-values inside a block
         - **w**: report the sum of weights
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {incols}
-    {coltypes}
-    {header}
-    {outcols}
-    {registration}
-    {wrap}
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -162,6 +175,19 @@ def blockmean(
     >>> # Calculate block mean values within 5 by 5 arc-minute bins
     >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        f=coltypes,
+        i=incols,
+        o=outcols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmean",
         data=data,
@@ -170,27 +196,12 @@ def blockmean(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
 @fmt_docstring
-@use_alias(
-    I="spacing",
-    R="region",
-    V="verbose",
-    a="aspatial",
-    b="binary",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    h="header",
-    i="incols",
-    o="outcols",
-    r="registration",
-    w="wrap",
-)
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@use_alias(a="aspatial", b="binary", d="nodata", e="find", h="header", w="wrap")
 def blockmedian(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -198,6 +209,15 @@ def blockmedian(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -214,31 +234,42 @@ def blockmedian(
 
     Full GMT docs at :gmt-docs:`blockmedian.html`.
 
-    {aliases}
+    $aliases
+       - C = center
+       - I = spacing
+       - R = region
+       - V = verbose
+       - f = coltypes
+       - i = incols
+       - o = outcols
+       - r = registration
 
     Parameters
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {outcols}
-    {registration}
-    {wrap}
+    $output_type
+    $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        median x and median y coordinates are used.
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -260,6 +291,19 @@ def blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
     """
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        f=coltypes,
+        i=incols,
+        o=outcols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmedian",
         data=data,
@@ -268,27 +312,19 @@ def blockmedian(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )
 
 
 @fmt_docstring
 @use_alias(
-    I="spacing",
-    R="region",
-    V="verbose",
     a="aspatial",
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
-    i="incols",
-    o="outcols",
-    r="registration",
     w="wrap",
 )
-@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -296,6 +332,15 @@ def blockmode(
     z=None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: PathLike | None = None,
+    center: bool = False,
+    spacing: Sequence[float | str] | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
+    registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -312,31 +357,42 @@ def blockmode(
 
     Full GMT docs at :gmt-docs:`blockmode.html`.
 
-    {aliases}
+    $aliases
+       - C = center
+       - I = spacing
+       - R = region
+       - V = verbose
+       - f = coltypes
+       - i = incols
+       - o = outcols
+       - r = registration
 
     Parameters
     ----------
     data
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
-        {table-classes}.
+        $table_classes.
     x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
-    {output_type}
-    {outfile}
-    {spacing}
-    {region}
-    {verbose}
-    {aspatial}
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {header}
-    {incols}
-    {outcols}
-    {registration}
-    {wrap}
+    $output_type
+    $outfile
+    center
+        Use the center of each block as the output location. By default, the
+        modal x and y coordinates are used.
+    $spacing
+    $region
+    $verbose
+    $aspatial
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $header
+    $incols
+    $outcols
+    $registration
+    $wrap
 
     Returns
     -------
@@ -356,6 +412,19 @@ def blockmode(
     >>> # Calculate block mode values within 5 by 5 arc-minute bins
     >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
+    aliasdict = AliasSystem(
+        C=Alias(center, name="center"),
+        I=Alias(spacing, name="spacing", sep="/", size=2),
+    ).add_common(
+        R=region,
+        V=verbose,
+        f=coltypes,
+        i=incols,
+        o=outcols,
+        r=registration,
+    )
+    aliasdict.merge(kwargs)
+
     return _blockm(
         block_method="blockmode",
         data=data,
@@ -364,5 +433,5 @@ def blockmode(
         z=z,
         output_type=output_type,
         outfile=outfile,
-        **kwargs,
+        **aliasdict,
     )

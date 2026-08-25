@@ -7,7 +7,7 @@ import numpy.testing as npt
 import pytest
 from pygmt.datasets import load_earth_magnetic_anomaly
 from pygmt.enums import GridRegistration
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTValueError
 
 
 def test_earth_mag_01d():
@@ -169,5 +169,5 @@ def test_earth_mag_data_source_error():
     """
     Test that an error is raised when an invalid argument is passed to 'data_source'.
     """
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTValueError):
         load_earth_magnetic_anomaly(resolution="01d", data_source="invalid")

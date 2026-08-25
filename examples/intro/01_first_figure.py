@@ -16,6 +16,7 @@ address other PyGMT methods.
 # are accessible from the :mod:`pygmt` top level package.
 
 import pygmt
+from pygmt.params import Frame
 
 # %%
 # Creating a figure
@@ -63,7 +64,7 @@ fig.show()
 #
 # This figure plots all of the coastlines in the given region, but it does not
 # indicate where the land and water are. Color values can be passed to ``land``
-# and ``water`` to set the colors on the figure.
+# and ``water`` to set the colors on the map.
 #
 # When plotting colors in PyGMT, there are multiple
 # :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
@@ -95,7 +96,7 @@ fig.show()
 # The appropriate projection varies for the type of map. The available
 # projections are explained in the :doc:`projection </projections/index>`
 # gallery. For this example, the Mercator projection is set using ``"M"``.
-# The width of the figure will be 10 centimeters, as set by ``"10c"``.
+# The width of the map will be 10 centimeters, as set by ``"10c"``.
 # The map size can also be set in inches using "i" (e.g. a 5-inch wide
 # Mercator projection would use ``"M5i"``).
 
@@ -118,8 +119,8 @@ fig.show()
 # that is being displayed is not apparent. A frame can be added to
 # annotate the latitude and longitude of the region.
 #
-# The ``frame`` parameter is used to add a frame to the figure. For now, it
-# will be set to ``"a"`` to **a**\ nnotate the axes automatically.
+# The ``frame`` parameter is used to add a frame to the map. For now, it
+# will be set to ``True`` to annotate the axes automatically.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -128,7 +129,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame="a",
+    frame=True,
 )
 fig.show()
 
@@ -137,13 +138,8 @@ fig.show()
 # Add a title
 # -----------
 #
-# The ``frame`` parameter can be used to add a title to the figure. The title
-# is set by passing ``"+t"`` followed by the title (e.g. setting the map
-# title to "Title" would be ``"+tTitle"``).
-#
-# To pass multiple arguments to ``frame``, a list can be used, as shown in the
-# example below. This format uses ``frame`` to set both the axes annotations
-# and the figure title.
+# The ``frame`` parameter can also be used to add a title to the map. Here,
+# :class:`pygmt.params.Frame` sets the map title.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -152,7 +148,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=["a", "+tMaine"],
+    frame=Frame(title="Maine"),
 )
 fig.show()
 

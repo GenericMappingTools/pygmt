@@ -2,11 +2,13 @@
 select - Select data table subsets based on multiple spatial criteria.
 """
 
+from collections.abc import Sequence
 from typing import Literal
 
 import numpy as np
 import pandas as pd
 from pygmt._typing import PathLike, TableLike
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
@@ -15,36 +17,28 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
-from pygmt.src._common import _parse_coastline_resolution
 
 __doctest_skip__ = ["select"]
 
 
 @fmt_docstring
 @use_alias(
-    A="area_thresh",
     C="dist2pt",
     F="polygon",
-    G="gridmask",
+    G="mask_grid",
     I="reverse",
-    J="projection",
     L="dist2line",
-    N="mask",
-    R="region",
-    V="verbose",
+    N="mask_values",
     Z="z_subregion",
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
-    i="incols",
-    o="outcols",
     s="skiprows",
     w="wrap",
 )
-@kwargs_to_strings(N="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(N="sequence")
 def select(
     data: PathLike | TableLike | None = None,
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
@@ -52,6 +46,14 @@ def select(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    area_thresh: float | str | None = None,
+    projection: str | None = None,
+    region: Sequence[float | str] | str | None = None,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
+    incols: int | str | Sequence[int | str] | None = None,
+    outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -75,16 +77,24 @@ def select(
 
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
-    {aliases}
+    $aliases
+       - A = area_thresh
+       - D = resolution
+       - J = projection
+       - R = region
+       - V = verbose
+       - f = coltypes
+       - i = incols
+       - o = outcols
 
     Parameters
     ----------
     data
         Pass in either a file name to an ASCII data table, a 2-D
-        {table-classes}.
-    {output_type}
-    {outfile}
-    {area_thresh}
+        $table_classes.
+    $output_type
+    $outfile
+    $area_thresh
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
@@ -120,9 +130,9 @@ def select(
         <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
-    gridmask : str
+    mask_grid : str
         Pass all locations that are inside the valid data area of the grid
-        *gridmask*. Nodes that are outside are either NaN or zero.
+        *mask_grid*. Nodes that are outside are either NaN or zero.
     reverse : str
         [**cflrsz**].
         Reverse the sense of the test for each of the criteria specified:
@@ -130,35 +140,30 @@ def select(
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
         - **g** will pass records inside the cells with z equal zero of the
-          grid mask in ``gridmask``.
+          *mask_grid* in ``mask_grid``.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
-        - **s** select records NOT considered inside as specified by ``mask``
+        - **s** select records NOT considered inside as specified by ``mask_values``
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    {projection}
-    mask : str or list
-        Pass all records whose location is inside specified geographical
-        features. Specify if records should be skipped (s) or kept (k) using
-        1 of 2 formats:
+    mask_values : str or list
+        Pass all records whose location is inside specified geographical features.
+        Specify if records should be skipped (s) or kept (k) using 1 of 2 formats:
 
         - *wet/dry*.
         - *ocean/land/lake/island/pond*.
 
-        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
-        land].
+        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry land].
     resolution
-        Ignored unless ``mask`` is set. Select the resolution of the coastline dataset
-        to use. The available resolutions from highest to lowest are: ``"full"``,
-        ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which drops by 80%
-        between levels. Alternatively, choose ``"auto"`` to automatically select the
-        most suitable resolution given the chosen region. Note that because the
-        coastlines differ in details, a node in a mask file using one resolution is not
-        guaranteed to remain inside [or outside] when a different resolution is
+        Ignored unless ``mask_values`` is set. Select the resolution of the coastline
+        dataset to use. The available resolutions from highest to lowest are:
+        ``"full"``, ``"high"``, ``"intermediate"``, ``"low"``, and ``"crude"``, which
+        drops by 80% between levels. Alternatively, choose ``"auto"`` to automatically
+        select the most suitable resolution given the chosen region. Note that because
+        the coastlines differ in details, a node in a mask file using one resolution is
+        not guaranteed to remain inside [or outside] when a different resolution is
         selected. If ``None``, the low resolution is used by default.
-    {region}
-    {verbose}
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -178,16 +183,19 @@ def select(
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
-    {binary}
-    {nodata}
-    {find}
-    {coltypes}
-    {gap}
-    {header}
-    {incols}
-    {outcols}
-    {skiprows}
-    {wrap}
+    $projection
+    $region
+    $verbose
+    $binary
+    $nodata
+    $find
+    $coltypes
+    $gap
+    $header
+    $incols
+    $outcols
+    $skiprows
+    $wrap
 
     Returns
     -------
@@ -208,13 +216,35 @@ def select(
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    kwargs["D"] = kwargs.get("D", _parse_coastline_resolution(resolution))
-
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
     if output_type == "pandas" and isinstance(data, pd.DataFrame):
         column_names = data.columns.to_list()
+
+    aliasdict = AliasSystem(
+        A=Alias(area_thresh, name="area_thresh"),
+        D=Alias(
+            resolution,
+            name="resolution",
+            mapping={
+                "auto": "a",
+                "full": "f",
+                "high": "h",
+                "intermediate": "i",
+                "low": "l",
+                "crude": "c",
+            },
+        ),
+    ).add_common(
+        J=projection,
+        R=region,
+        V=verbose,
+        f=coltypes,
+        i=incols,
+        o=outcols,
+    )
+    aliasdict.merge(kwargs)
 
     with Session() as lib:
         with (
@@ -223,7 +253,7 @@ def select(
         ):
             lib.call_module(
                 module="select",
-                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(aliasdict, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

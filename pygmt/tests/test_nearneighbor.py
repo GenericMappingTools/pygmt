@@ -11,7 +11,7 @@ import xarray as xr
 from pygmt import nearneighbor
 from pygmt.datasets import load_sample_data
 from pygmt.enums import GridRegistration, GridType
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import GMTTempFile
 
 
@@ -62,7 +62,7 @@ def test_nearneighbor_wrong_kind_of_input(ship_data):
     Run nearneighbor using grid input that is not file/matrix/vectors.
     """
     data = ship_data.bathymetry.to_xarray()  # convert pandas.Series to xarray.DataArray
-    with pytest.raises(GMTInvalidInput):
+    with pytest.raises(GMTTypeError):
         nearneighbor(
             data=data, spacing="5m", region=[245, 255, 20, 30], search_radius="10m"
         )

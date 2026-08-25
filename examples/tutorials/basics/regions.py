@@ -9,6 +9,7 @@ of inputs that it can accept.
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 # %%
 # Coordinates
@@ -21,7 +22,7 @@ fig = pygmt.Figure()
 fig.coast(
     # Set the x-range from 10E to 20E and the y-range to 35N to 45N
     region="10/20/35/45",
-    # Set projection to Mercator, and the figure size to 15 centimeters
+    # Set projection to Mercator, and the map width to 15 centimeters
     projection="M15c",
     # Set the color of the land to light gray
     land="lightgray",
@@ -32,7 +33,7 @@ fig.coast(
     # Display the shorelines and set the pen thickness to 0.5p
     shorelines="1/0.5p",
     # Set the frame to display annotations and gridlines
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -49,7 +50,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -69,7 +70,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -80,9 +81,9 @@ fig.show()
 #
 # In addition to passing coordinates, the argument **d** can be passed to set
 # the region to the entire globe. The range is 180W to 180E (-180, 180) and 90S
-# to 90N (-90 to 90). With no parameters set for the projection, the figure
+# to 90N (-90 to 90). With no parameters set for the projection, the map
 # defaults to be centered at the mid-point of both x- and y-axes. Using
-# **d**\ , the figure is centered at (0, 0), or the intersection of the equator
+# **d**\ , the map is centered at (0, 0), or the intersection of the equator
 # and prime meridian.
 
 fig = pygmt.Figure()
@@ -93,14 +94,14 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
 # %%
 # The argument **g** can be passed, which encompasses the entire globe. The
 # range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
-# set for the projection, the figure is centered at (180, 0), or the
+# set for the projection, the map is centered at (180, 0), or the
 # intersection of the equator and International Date Line.
 
 fig = pygmt.Figure()
@@ -111,7 +112,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -126,14 +127,14 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.coast(
-    # Set the figure region to encompass Japan with the ISO code "JP"
+    # Set the map region to encompass Japan with the ISO code "JP"
     region="JP",
     projection="M12c",
     land="lightgray",
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -154,7 +155,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -173,7 +174,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -193,7 +194,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -211,7 +212,7 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()
 
@@ -231,6 +232,6 @@ fig.coast(
     water="white",
     borders="1/0.5p",
     shorelines="1/0.5p",
-    frame="ag",
+    frame=Axis(annot=True, grid=True),
 )
 fig.show()

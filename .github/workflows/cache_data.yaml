@@ -27,10 +27,14 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macos-latest
+    runs-on: ubuntu-slim
     defaults:
       run:
         shell: bash -l {0}
@@ -38,7 +42,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -46,12 +50,12 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v2.0.5
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           create-args: >-
-            python=3.13
-            gmt=6.5.0
+            python=3.14
+            gmt=6.7.0
             numpy
             pandas
             xarray
@@ -66,6 +70,8 @@ jobs:
 
       # Download remote files
       - name: Download remote data
+        env:
+          GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         run: |
           python -c "from pygmt.helpers.caching import cache_data; cache_data()"
 
@@ -74,7 +80,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: gmt-cache
           include-hidden-files: true

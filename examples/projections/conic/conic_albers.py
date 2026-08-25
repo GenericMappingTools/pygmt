@@ -15,21 +15,25 @@ the scale along meridians.
 **b**\ *lon0/lat0*\ /\ *lat1/lat2*\ */scale*
 or **B**\ *lon0/lat0*\ /\ *lat1/lat2*\ */width*
 
-The projection is set with **b** or **B**. The projection center is set by
-*lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
-The figure size is set with *scale* or *width*.
+- **b** or **B**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *lat1/lat2*: Sets the two standard parallels.
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
 import pygmt
+from pygmt.params import Axis
 
 fig = pygmt.Figure()
 # Use the ISO country code for Brazil and add a padding of 2 degrees (+R2)
 fig.coast(
     region="BR+R2",
     projection="B-55/-15/-25/0/12c",
-    frame="afg",
+    frame=Axis(annot=True, tick=True, grid=True),
     land="seagreen",
     water="gray90",
 )
 fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]
