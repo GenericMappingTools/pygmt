@@ -10,7 +10,7 @@ import ctypes as ctp
 import io
 import sys
 from collections.abc import Callable, Generator, Sequence
-from typing import Literal
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -286,7 +286,7 @@ class Session:
         return value
 
     def get_libgmt_func(
-        self, name: str, argtypes: list | None = None, restype=None
+        self, name: str, argtypes: list | None = None, restype: Any = ctp.c_int
     ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
@@ -302,9 +302,10 @@ class Session:
         argtypes
             List of ctypes types used to convert the Python input arguments for the API
             function.
-        restype : ctypes type
-            The ctypes type used to convert the input returned by the function into a
-            Python type.
+        restype
+            The ctypes type used to convert the value returned by the function into a
+            Python type [Default is :class:`ctypes.c_int`]. Use ``None`` for functions
+            that return void.
 
         Returns
         -------
@@ -322,13 +323,10 @@ class Session:
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
-        if not hasattr(self, "_libgmt"):
-            self._libgmt = _libgmt
-        function = getattr(self._libgmt, name)
+        function = getattr(_libgmt, name)
         if argtypes is not None:
             function.argtypes = argtypes
-        if restype is not None:
-            function.restype = restype
+        function.restype = restype
         return function
 
     def create(self, name: str) -> None:
