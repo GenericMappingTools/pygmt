@@ -548,25 +548,36 @@ class Session:
         --------
         >>> with Session() as lib:
         ...     lib.call_module(
-        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve"]
+        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve", "-fg"]
         ...     )
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
         ...     verbose = lib.get_common("V")
+        ...     coltypes = lib.get_common("f")
         ...     lib.call_module("plot", ["-T", "-Xw+1i", "-Yh-1i"])
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
-        >>> print(region, projection, timestamp, verbose, xshift, yshift)
-        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> print(region, projection, timestamp, verbose, coltypes, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 0 6.0 1.5
         >>> with Session() as lib:
         ...     lib.call_module("basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf"])
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
         pygmt.exceptions.GMTValueError: Invalid GMT common option: 'A'. Expected ...
+        >>> with Session() as lib:
+        ...     lib.get_common("BI")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: 'BI'. Expected ...
+        >>> with Session() as lib:
+        ...     lib.get_common("")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: ''. Expected ...
         """
-        valid_options = "BIJRUVXYabfghinoprst:"
+        valid_options = tuple("BIJRUVXYabfghinoprst:")
         if option not in valid_options:
             raise GMTValueError(
                 option, description="GMT common option", choices=valid_options
@@ -577,20 +588,22 @@ class Session:
             argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
             restype=ctp.c_int,
         )
-        value = np.empty(6, np.float64)  # numpy array to store the value of the option
+        value = np.empty(6, np.float64)  # Array to store the value of the option
         status = c_get_common(
             self.session_pointer,
             ord(option),
             value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
 
-        if status == self["GMT_NOTSET"]:  # GMT_NOTSET (-1) means the option is not set
+        # Option was not set, so return False.
+        if status == self["GMT_NOTSET"]:
             return False
-        if status == 0:  # Option is set and no other value is returned.
-            return True
 
-        # Otherwise, option is set and values are returned.
+        # Option was set. Return values depend on the option.
         match option:
+            case "B" | "J" | "U" | "g" | "n" | "p" | "s":
+                # For these options, status is 0 when the option is set.
+                return True
             case "I" | "R" | "t":
                 # Option values (in double type) are returned via the 'value' array.
                 # 'status' is number of valid values in the array.
@@ -1971,6 +1984,12 @@ class Session:
         family
             The integer value for the family of the virtual file.
 
+        Raises
+        ------
+        GMTCLibError
+            If the virtual file is not found, i.e., ``vfname`` is not a valid virtual
+            file name.
+
         Examples
         --------
         >>> from pygmt.clib import Session
@@ -1978,13 +1997,23 @@ class Session:
         ...     with lib.virtualfile_out(kind="dataset") as vfile:
         ...         family = lib.inquire_virtualfile(vfile)
         ...         assert family == lib["GMT_IS_DATASET"]
+        >>> with Session() as lib:
+        ...     lib.inquire_virtualfile("not-a-virtual-file")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTCLibError: Failed to inquire the family of virtual file ...
         """
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
             restype=ctp.c_int,
         )
-        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+        family = c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
+        if family not in {self[name] for name in FAMILIES}:
+            msg = f"Failed to inquire the family of virtual file {vfname!r}."
+            raise GMTCLibError(msg)
+        return family
 
     def read_virtualfile(
         self,
