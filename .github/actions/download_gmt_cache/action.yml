@@ -14,6 +14,7 @@ runs:
   using: composite
   steps:
     - name: Download remote data from GitHub
+      shell: bash
       run: |
         # Download cached files to ~/.gmt directory and list them
         gh run download --name gmt-cache --dir ~/.gmt/
