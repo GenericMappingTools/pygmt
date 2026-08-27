@@ -14,9 +14,6 @@ runs:
   using: composite
   steps:
     - name: Download remote data from GitHub
-      # The job default shell is not inherited by composite actions, so it's set here to
-      # match the login shell used by the workflows.
-      shell: bash -l {0}
       run: |
         # Download cached files to ~/.gmt directory and list them
         gh run download --name gmt-cache --dir ~/.gmt/
