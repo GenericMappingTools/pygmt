@@ -52,6 +52,22 @@ def test_project_input_matrix(array_func, dataframe):
     )
 
 
+def test_project_input_xy(dataframe):
+    """
+    Run project by passing in x/y as input.
+    """
+    output = project(
+        x=dataframe.x, y=dataframe.y, center=[0, -1], azimuth=45, flat_earth=True
+    )
+    assert isinstance(output, pd.DataFrame)
+    assert output.shape == (1, 6)
+    npt.assert_allclose(
+        output.iloc[0],
+        [0.000000, 0.000000, 0.707107, 0.707107, 0.500000, -0.500000],
+        rtol=1e-5,
+    )
+
+
 def test_project_output_filename(dataframe):
     """
     Run project by passing in a pandas.DataFrame, and output to an ASCII txt file.
@@ -78,14 +94,14 @@ def test_project_output_filename(dataframe):
 
 def test_project_incorrect_parameters():
     """
-    Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
-    or `generate`; and 3) `generate` with `convention`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`,
+    `x`/`y` or `generate`; and 3) `generate` with `convention`.
     """
     with pytest.raises(GMTParameterError):
         # No `center`
         project(azimuth=45)
     with pytest.raises(GMTParameterError):
-        # No `data` or `generate`
+        # No `data`, `x`/`y` or `generate`
         project(center=[0, -1], azimuth=45, flat_earth=True)
     with pytest.raises(GMTParameterError):
         # Using `generate` with `convention`

@@ -126,6 +126,8 @@ def project(
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         $table_classes.
+    x/y/z : 1-D arrays
+        Arrays of x and y coordinates and values z of the data points.
     $output_type
     $outfile
     center
@@ -223,9 +225,9 @@ def project(
     """
     if kwargs.get("C", center) is None:
         raise GMTParameterError(required="center")
-    if kwargs.get("G") is None and data is None:
+    if kwargs.get("G") is None and data is None and x is None and y is None:
         raise GMTParameterError(
-            required="data", reason="Required unless 'generate' is set."
+            at_least_one=["data", "x/y/z"], reason="Required unless 'generate' is set."
         )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTParameterError(at_most_one=["convention", "generate"])
@@ -267,7 +269,7 @@ def project(
                 y=y,
                 z=z,
                 mincols=2,
-                required=False,
+                required=aliasdict.get("G") is None,
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
