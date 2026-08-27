@@ -127,7 +127,7 @@ def project(
         providing a file name to an ASCII data table, a 2-D
         $table_classes.
     x/y/z : 1-D arrays
-        Arrays of x and y coordinates and values z of the data points.
+        Arrays of x- and y-coordinates and z-values of the data points.
     $output_type
     $outfile
     center

@@ -98,13 +98,13 @@ def test_project_incorrect_parameters():
     `x`/`y` or `generate`; and 3) `generate` with `convention`.
     """
     with pytest.raises(GMTParameterError):
-        # No `center`
+        # 'center' is not set
         project(azimuth=45)
     with pytest.raises(GMTParameterError):
-        # No `data`, `x`/`y` or `generate`
+        # None of 'data', 'x'/'y' or 'generate' is set
         project(center=[0, -1], azimuth=45, flat_earth=True)
     with pytest.raises(GMTParameterError):
-        # Using `generate` with `convention`
+        # Using 'generate' with 'convention'
         project(center=[0, -1], generate=0.5, convention="xypqrsz")
 
 
