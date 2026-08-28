@@ -2,19 +2,20 @@
 image - Plot raster or EPS images.
 """
 
+import warnings
 from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import AnchorCode, PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
+from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
-@use_alias(G="bitcolor")
 def image(
     self,
     imagefile: PathLike,
@@ -26,6 +27,10 @@ def image(
     box: Box | bool = False,
     monochrome: bool = False,
     invert: bool = False,
+    bgcolor: str | None = None,
+    fgcolor: str | None = None,
+    transparent_color: str | None = None,
+    bitcolor: str | Sequence[str] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -54,10 +59,15 @@ def image(
 
     Full GMT docs at :gmt-docs:`image.html`.
 
-    $aliases
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
        - B = frame
        - D = position, **+w**: width/height, **+r**: dpi, **+n**: replicate
        - F = box
+       - G = bgcolor, fgcolor, transparent_color, bitcolor
        - I = invert
        - J = projection
        - M = monochrome
@@ -74,7 +84,7 @@ def image(
         contain an appropriate BoundingBox. A raster file can have a depth of 1, 8, 24,
         or 32 bits and is read via GDAL.
     position
-        Position of the GMT logo on the plot. It can be specified in multiple ways:
+        Position of the image on the plot. It can be specified in multiple ways:
 
         - A :class:`pygmt.params.Position` object to fully control the reference point,
           anchor point, and offset.
@@ -106,14 +116,18 @@ def image(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    bitcolor : str or list
-        [*color*][**+b**\|\ **f**\|\ **t**].
-        Change certain pixel values to another color or make them transparent.
-        For 1-bit images you can specify an alternate *color* for the
-        background (**+b**) or the foreground (**+f**) pixels, or give no color
-        to make those pixels transparent. Can be repeated with different
-        settings. Alternatively, for color images you can select a single
-        *color* that should be made transparent instead (**+t**).
+    bgcolor
+    fgcolor
+        For 1-bit images, set the background and foreground colors [Default is black and
+        white, respectively]. Setting either to an empty string makes those pixels
+        transparent. Cannot be both empty.
+    transparent_color
+        For color images, set a single color that should be made transparent.
+    bitcolor
+        .. deprecated:: 0.20.0
+
+            Use ``bgcolor``, ``fgcolor``, or ``transparent_color`` instead. Will be
+            removed in 0.24.0.
     monochrome
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
@@ -142,6 +156,38 @@ def image(
     if width is None and height is not None:
         width = 0
 
+    # TODO(PyGMT>=0.24.0): Remove the deprecated "bitcolor" parameter.
+    if bitcolor is not None:
+        msg = (
+            "The 'bitcolor' parameter has been deprecated since v0.20.0 and will be "
+            "removed in v0.24.0. Use 'bgcolor', 'fgcolor' or 'transparent_color' "
+            "instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        if any(v is not None for v in [bgcolor, fgcolor, transparent_color]):
+            raise GMTParameterError(
+                conflicts_with=(
+                    "bitcolor",
+                    ["bgcolor", "fgcolor", "transparent_color"],
+                ),
+            )
+
+    # 'bgcolor' and 'fgcolor' cannot both be empty.
+    if bgcolor == "" and fgcolor == "":
+        _value = f"{bgcolor=}, {fgcolor=}"
+        raise GMTValueError(
+            _value,
+            description="bgcolor and fgcolor",
+            reason="'bgcolor' and 'fgcolor' cannot both be empty.",
+        )
+    # GMT requires a color for the "+t" modifier.
+    if transparent_color == "":
+        raise GMTValueError(
+            transparent_color,
+            description="value for 'transparent_color'",
+            reason="'transparent_color' cannot be empty.",
+        )
+
     aliasdict = AliasSystem(
         D=[
             Alias(position, name="position"),
@@ -151,6 +197,13 @@ def image(
             Alias(dpi, name="dpi", prefix="+r"),
         ],
         F=Alias(box, name="box"),
+        G=[
+            Alias(bgcolor, name="bgcolor", suffix="+b"),
+            Alias(fgcolor, name="fgcolor", suffix="+f"),
+            Alias(transparent_color, name="transparent_color", suffix="+t"),
+        ]
+        if bitcolor is None
+        else Alias(bitcolor, name="bitcolor"),
         M=Alias(monochrome, name="monochrome"),
         I=Alias(invert, name="invert"),
     ).add_common(
