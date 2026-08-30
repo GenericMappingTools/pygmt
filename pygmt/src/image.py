@@ -124,6 +124,13 @@ def image(
     transparent_color
         For color images, set a single color that should be made transparent.
     bitcolor
+        [*color*][**+b**\|\ **f**\|\ **t**].
+        Change certain pixel values to another color or make them transparent. For 1-bit
+        images you can specify an alternate *color* for the background (**+b**) or the
+        foreground (**+f**) pixels, or give no color to make those pixels transparent.
+        Alternatively, for color images you can select a single *color* that should be
+        made transparent instead (**+t**). Pass a list of to specify multiple settings.
+
         .. deprecated:: 0.20.0
 
             Use ``bgcolor``, ``fgcolor``, or ``transparent_color`` instead. Will be
