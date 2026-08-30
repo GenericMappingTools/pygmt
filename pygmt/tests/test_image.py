@@ -82,7 +82,7 @@ def test_image_bgcolor_fgcolor():
     Test setting the background and foreground colors of a 1-bit image.
     """
     fig = Figure()
-    fig.basemap(region=[-1, 8, 0, 5], projection="X10c/5c", frame=Frame(fill="gray"))
+    fig.basemap(region=[0, 8, 0, 4], projection="x1c/1c", frame=Frame(fill="gray"))
     fig.image(imagefile="@vader1.png", position=(0, 0), width="2c")
     fig.image(imagefile="@vader1.png", position=(2, 0), width="2c", bgcolor="")
     fig.image(imagefile="@vader1.png", position=(4, 0), width="2c", fgcolor="")
