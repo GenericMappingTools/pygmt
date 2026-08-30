@@ -18,6 +18,7 @@ on:
     types: [ opened, reopened, labeled, synchronize ]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests_dev.yaml'
   workflow_dispatch:
   # Schedule tests on Monday/Wednesday/Friday
@@ -56,7 +57,10 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
-          lfs: true
+          lfs: false
+
+      - name: Checkout the Git LFS (i.e., the baseline images) objects
+        uses: $/.github/actions/checkout-lfs
 
       - name: Get current week number of year
         id: date

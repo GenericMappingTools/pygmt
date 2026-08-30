@@ -29,11 +29,13 @@ on:
     branches: [ main ]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests.yaml'
   workflow_dispatch:
   release:
@@ -112,7 +114,10 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
-          lfs: true
+          lfs: false
+
+      - name: Checkout the Git LFS (i.e., the baseline images) objects
+        uses: $/.github/actions/checkout-lfs
 
       - name: Get current week number of year
         id: date
