@@ -69,7 +69,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: $/github/actions/download_gmt_cache
+        uses: $/.github/actions/download_gmt_cache
 
       # Install the package that we want to test
       - name: Install the package
