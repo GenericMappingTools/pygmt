@@ -67,7 +67,7 @@ def image(
        - B = frame
        - D = position, **+w**: width/height, **+r**: dpi, **+n**: replicate
        - F = box
-       - G = bgcolor, fgcolor, transparent_color, bitcolor
+       - G = **+b**: bgcolor, **+f**: fgcolor, **+t**: transparent_color, bitcolor
        - I = invert
        - J = projection
        - M = monochrome
