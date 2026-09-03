@@ -56,13 +56,21 @@ jobs:
             exit $nfiles
           fi
 
-      - name: Ensure hyphens are not used in names of directories and Python files
+      - name: Ensure hyphens are not used in names of directories and files
         run: |
-          git ls-files '*.py' | grep '-' > output.txt || true
-          git ls-tree -rd --name-only HEAD | grep '-' >> output.txt || true
+          # Paths that allows hyphens in their names.
+          allowed=(
+            '^\.pre-commit-config\.yaml$'
+            '^\.github/release-drafter\.yml$'
+            '^\.github/ISSUE_TEMPLATE/[0-9]+-'
+            '^doc/_static/'
+            '^pygmt/tests/baseline/'
+            '^\.github/workflows/'
+          )
+          git ls-files | grep '-' | grep -v -E "$(IFS='|'; echo "${allowed[*]}")" > output.txt || true
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
-            echo "Following directories/files use hyphens in file names:"
+            echo "Following directories/files use hyphens in their names:"
             cat output.txt
             rm output.txt
             exit $nfiles
