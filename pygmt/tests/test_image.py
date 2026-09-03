@@ -112,7 +112,7 @@ def test_image_bgcolor_fgcolor():
     return fig
 
 
-def test_image_bitcolor_invalid():
+def test_image_invalid_colors():
     """
     Test that invalid 'bgcolor'/'fgcolor'/'transparent_color' values raise an error.
     """
