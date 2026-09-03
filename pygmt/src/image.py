@@ -67,7 +67,7 @@ def image(
        - B = frame
        - D = position, **+w**: width/height, **+r**: dpi, **+n**: replicate
        - F = box
-       - G = bgcolor, fgcolor, transparent_color, bitcolor
+       - G = **+b**: bgcolor, **+f**: fgcolor, **+t**: transparent_color, bitcolor
        - I = invert
        - J = projection
        - M = monochrome
@@ -129,7 +129,7 @@ def image(
         images you can specify an alternate *color* for the background (**+b**) or the
         foreground (**+f**) pixels, or give no color to make those pixels transparent.
         Alternatively, for color images you can select a single *color* that should be
-        made transparent instead (**+t**). Pass a list of to specify multiple settings.
+        made transparent instead (**+t**). Pass a list to specify multiple settings.
 
         .. deprecated:: 0.20.0
 
