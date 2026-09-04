@@ -23,13 +23,11 @@ from pygmt.params import Axis, Frame
     A="horizontal",
     D="annotate",
     F="center",
-    G="fill",
     L="extreme",
     N="distribution",
     Q="cumulative",
     S="stairs",
     T="series",
-    W="pen",
     Z="histtype",
     b="binary",
     d="nodata",
@@ -45,6 +43,8 @@ def histogram(
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
+    pen: str | None = None,
+    fill: str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -65,9 +65,11 @@ def histogram(
        - B = frame
        - C = cmap
        - E = bar_width, bar_offset
+       - G = fill
        - J = projection
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - i = incols
        - p = perspective
@@ -79,9 +81,11 @@ def histogram(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     $cmap
-    fill : str
+    pen
+        Draw bar outline (or stair-case curve) using the specified pen thickness
+        [Default is no outline].
+    fill
          Set color or pattern for filling bars [Default is no fill].
-    $pen
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -169,6 +173,8 @@ def histogram(
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        G=Alias(fill, name="fill"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,
