@@ -1,8 +1,8 @@
 # Download the cached GMT remote data files
 #
-# GMT downloads remote data files (e.g. Earth relief grids) on demand. To avoid hitting 
-# the data servers in every job, the files are cached once by the 'cache_data.yaml' 
-# workflow and uploaded as the 'gmt-cache' artifact. This action downloads that artifact 
+# GMT downloads remote data files (e.g. Earth relief grids) on demand. To avoid hitting
+# the data servers in every job, the files are cached once by the 'cache_data.yaml'
+# workflow and uploaded as the 'gmt-cache' artifact. This action downloads that artifact
 # into the ~/.gmt directory.
 #
 name: Download GMT cache
