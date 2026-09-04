@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/grdview.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=bca195e8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.src.grdview</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">grdview - Create 3-D perspective image or surface mesh from a grid.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
@@ -169,7 +172,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTParameterError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_list</span><span class="p">,</span>
-    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">is_given</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
@@ -177,57 +179,57 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axis</span><span class="p">,</span> <span class="n">Frame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.grdinfo</span><span class="w"> </span><span class="kn">import</span> <span class="n">grdinfo</span>
 
-<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdview&quot;</span><span class="p">]</span>
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"grdview"</span><span class="p">]</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_Q</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_alias_option_Q</span><span class="p">(</span>  <span class="c1"># ruff: ignore[invalid-function-name]</span>
     <span class="n">surftype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mesh_fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">monochrome</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nan_transparent</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Helper function to build the Alias list for the -Q option.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; def parse(**kwargs):</span>
-<span class="sd">    ...     return AliasSystem(Q=_alias_option_Q(**kwargs)).get(&quot;Q&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;surface&quot;)</span>
-<span class="sd">    &#39;s&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;mesh&quot;)</span>
-<span class="sd">    &#39;m&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;surface+mesh&quot;)</span>
-<span class="sd">    &#39;sm&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;waterfall_x&quot;)</span>
-<span class="sd">    &#39;mx&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;waterfall_y&quot;)</span>
-<span class="sd">    &#39;my&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;image&quot;)</span>
-<span class="sd">    &#39;i&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;image&quot;, nan_transparent=True)</span>
-<span class="sd">    &#39;c&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;image&quot;, dpi=150)</span>
-<span class="sd">    &#39;i150&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;image&quot;, dpi=150, nan_transparent=True)</span>
-<span class="sd">    &#39;c150&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;mesh&quot;, mesh_fill=&quot;blue&quot;)</span>
-<span class="sd">    &#39;mblue&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;surface&quot;, monochrome=True)</span>
-<span class="sd">    &#39;s+m&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parse(surftype=&quot;surface+mesh&quot;, monochrome=True)</span>
-<span class="sd">    &#39;sm+m&#39;</span>
+<span class="sd">    ...     return AliasSystem(Q=_alias_option_Q(**kwargs)).get("Q")</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="surface")</span>
+<span class="sd">    's'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="mesh")</span>
+<span class="sd">    'm'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="surface+mesh")</span>
+<span class="sd">    'sm'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="waterfall_x")</span>
+<span class="sd">    'mx'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="waterfall_y")</span>
+<span class="sd">    'my'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="image")</span>
+<span class="sd">    'i'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="image", nan_transparent=True)</span>
+<span class="sd">    'c'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="image", dpi=150)</span>
+<span class="sd">    'i150'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="image", dpi=150, nan_transparent=True)</span>
+<span class="sd">    'c150'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="mesh", mesh_fill="blue")</span>
+<span class="sd">    'mblue'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="surface", monochrome=True)</span>
+<span class="sd">    's+m'</span>
+<span class="sd">    &gt;&gt;&gt; parse(surftype="surface+mesh", monochrome=True)</span>
+<span class="sd">    'sm+m'</span>
 
 <span class="sd">    &gt;&gt;&gt; # Check for backward compatibility with old raw GMT syntax.</span>
-<span class="sd">    &gt;&gt;&gt; for surftype in [&quot;s&quot;, &quot;m&quot;, &quot;sm&quot;, &quot;i&quot;, &quot;c&quot;, &quot;mx&quot;, &quot;my&quot;, &quot;mblue&quot;, &quot;i150&quot;]:</span>
+<span class="sd">    &gt;&gt;&gt; for surftype in ["s", "m", "sm", "i", "c", "mx", "my", "mblue", "i150"]:</span>
 <span class="sd">    ...     assert parse(surftype=surftype) == surftype</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">_surftype_mapping</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;surface&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;mesh&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;surface+mesh&quot;</span><span class="p">:</span> <span class="s2">&quot;sm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span> <span class="k">if</span> <span class="n">nan_transparent</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;waterfall_x&quot;</span><span class="p">:</span> <span class="s2">&quot;mx&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;waterfall_y&quot;</span><span class="p">:</span> <span class="s2">&quot;my&quot;</span><span class="p">,</span>
+        <span class="s2">"surface"</span><span class="p">:</span> <span class="s2">"s"</span><span class="p">,</span>
+        <span class="s2">"mesh"</span><span class="p">:</span> <span class="s2">"m"</span><span class="p">,</span>
+        <span class="s2">"surface+mesh"</span><span class="p">:</span> <span class="s2">"sm"</span><span class="p">,</span>
+        <span class="s2">"image"</span><span class="p">:</span> <span class="s2">"c"</span> <span class="k">if</span> <span class="n">nan_transparent</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">"i"</span><span class="p">,</span>
+        <span class="s2">"waterfall_x"</span><span class="p">:</span> <span class="s2">"mx"</span><span class="p">,</span>
+        <span class="s2">"waterfall_y"</span><span class="p">:</span> <span class="s2">"my"</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="c1"># Previously, &#39;surftype&#39; was aliased to Q.</span>
+    <span class="c1"># Previously, 'surftype' was aliased to Q.</span>
     <span class="n">_old_surftype_syntax</span> <span class="o">=</span> <span class="n">surftype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_surftype_mapping</span>
 
     <span class="k">if</span> <span class="n">_old_surftype_syntax</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
@@ -235,55 +237,49 @@
     <span class="p">):</span>
         <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
             <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;surftype&quot;</span><span class="p">,</span>
-                <span class="p">[</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span> <span class="s2">&quot;mesh_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;monochrome&quot;</span><span class="p">,</span> <span class="s2">&quot;nan_transparent&quot;</span><span class="p">],</span>
+                <span class="s2">"surftype"</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">"dpi"</span><span class="p">,</span> <span class="s2">"mesh_fill"</span><span class="p">,</span> <span class="s2">"monochrome"</span><span class="p">,</span> <span class="s2">"nan_transparent"</span><span class="p">],</span>
             <span class="p">),</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;surftype&#39; is specified using the unrecommended GMT command string syntax.&quot;</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"'surftype' is specified using the unrecommended GMT command string syntax."</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">dpi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="o">!=</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dpi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="o">!=</span> <span class="s2">"image"</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
-            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">]),</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;dpi&#39; is allowed only when &#39;surftype&#39; is &#39;image&#39;.&quot;</span><span class="p">,</span>
+            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">"dpi"</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">"</span><span class="p">]),</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"'dpi' is allowed only when 'surftype' is 'image'."</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="n">nan_transparent</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="o">!=</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">nan_transparent</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="o">!=</span> <span class="s2">"image"</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
-            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;nan_transparent&quot;</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">]),</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;nan_transparent&#39; is allowed only when &#39;surftype&#39; is &#39;image&#39;.&quot;</span><span class="p">,</span>
+            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">"nan_transparent"</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">"</span><span class="p">]),</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"'nan_transparent' is allowed only when 'surftype' is 'image'."</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="n">mesh_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;waterfall_x&quot;</span><span class="p">,</span> <span class="s2">&quot;waterfall_y&quot;</span><span class="p">}:</span>
+    <span class="k">if</span> <span class="n">mesh_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">surftype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"mesh"</span><span class="p">,</span> <span class="s2">"waterfall_x"</span><span class="p">,</span> <span class="s2">"waterfall_y"</span><span class="p">}:</span>
         <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
-            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;mesh_fill&quot;</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">]),</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;&#39;mesh_fill&#39; is allowed only when &#39;surftype&#39; is &#39;mesh&#39;, &#39;waterfall_x&#39;, or &#39;waterfall_y&#39;.&quot;</span><span class="p">,</span>
+            <span class="n">conflicts_with</span><span class="o">=</span><span class="p">(</span><span class="s2">"mesh_fill"</span><span class="p">,</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"surftype=</span><span class="si">{</span><span class="n">surftype</span><span class="si">!r}</span><span class="s2">"</span><span class="p">]),</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"'mesh_fill' is allowed only when 'surftype' is 'mesh', 'waterfall_x', or 'waterfall_y'."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">[</span>
         <span class="n">Alias</span><span class="p">(</span>
             <span class="n">surftype</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;surftype&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"surftype"</span><span class="p">,</span>
             <span class="n">mapping</span><span class="o">=</span><span class="n">_surftype_mapping</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_old_surftype_syntax</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">),</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">),</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="n">mesh_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mesh_fill&quot;</span><span class="p">),</span>
-        <span class="n">Alias</span><span class="p">(</span><span class="n">monochrome</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+m&quot;</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"dpi"</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">mesh_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mesh_fill"</span><span class="p">),</span>
+        <span class="n">Alias</span><span class="p">(</span><span class="n">monochrome</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"monochrome"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+m"</span><span class="p">),</span>
     <span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated &#39;*pen&#39; parameters.</span>
-<span class="c1"># TODO(PyGMT&gt;=0.20.0): Remove the deprecated &#39;drapegrid&#39; parameter.</span>
-<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;contourpen&quot;</span><span class="p">,</span> <span class="s2">&quot;contour_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
-<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;facadepen&quot;</span><span class="p">,</span> <span class="s2">&quot;facade_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
-<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;meshpen&quot;</span><span class="p">,</span> <span class="s2">&quot;mesh_pen&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
-<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;drapegrid&quot;</span><span class="p">,</span> <span class="s2">&quot;drape_grid&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.18.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.20.0&quot;</span><span class="p">)</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">grdview</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">"shading"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="s2">"interpolation"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">grdview</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
     <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">drape_grid</span><span class="p">:</span> <span class="n">PathLike</span> <span class="o">|</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">surftype</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
-        <span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;surface&quot;</span><span class="p">,</span> <span class="s2">&quot;surface+mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;waterfall_x&quot;</span><span class="p">,</span> <span class="s2">&quot;waterfall_y&quot;</span>
+        <span class="s2">"mesh"</span><span class="p">,</span> <span class="s2">"surface"</span><span class="p">,</span> <span class="s2">"surface+mesh"</span><span class="p">,</span> <span class="s2">"image"</span><span class="p">,</span> <span class="s2">"waterfall_x"</span><span class="p">,</span> <span class="s2">"waterfall_y"</span>
     <span class="p">]</span>
     <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -300,15 +296,16 @@
     <span class="n">zscale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">zsize</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span> <span class="o">|</span> <span class="n">Axis</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;none&quot;</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">:</span> <span class="n">Frame</span> <span class="o">|</span> <span class="n">Axis</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"none"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">,</span> <span class="s2">"warning"</span><span class="p">,</span> <span class="s2">"timing"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"compat"</span><span class="p">,</span> <span class="s2">"debug"</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">panel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">perspective</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">transparency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">coltypes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Create 3-D perspective image or surface mesh from a grid.</span>
 
 <span class="sd">    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a mesh,</span>
@@ -335,6 +332,7 @@
 <span class="sd">       - Wf = facade_pen</span>
 <span class="sd">       - Wm = mesh_pen</span>
 <span class="sd">       - c = panel</span>
+<span class="sd">       - f = coltypes</span>
 <span class="sd">       - p = perspective</span>
 <span class="sd">       - t = transparency</span>
 
@@ -347,23 +345,23 @@
 <span class="sd">        The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on</span>
 <span class="sd">        top of the grid surface provided by ``grid`` [Default determines colors from</span>
 <span class="sd">        ``grid``]. Note that ``zscale`` and ``plane`` always refer to ``grid``.</span>
-<span class="sd">        ``drape_grid`` only provides the information pertaining to colors. If it&#39;s a</span>
-<span class="sd">        grid, the colors will be looked-up via the CPT (see ``cmap``); if it&#39;s an image,</span>
+<span class="sd">        ``drape_grid`` only provides the information pertaining to colors. If it's a</span>
+<span class="sd">        grid, the colors will be looked-up via the CPT (see ``cmap``); if it's an image,</span>
 <span class="sd">        ``cmap`` is not expected.</span>
 <span class="sd">    surftype</span>
 <span class="sd">        Specify surface type for the grid. Valid values are:</span>
 
-<span class="sd">        - ``&quot;mesh&quot;``: mesh plot [Default].</span>
-<span class="sd">        - ``&quot;surface&quot;``: surface plot.</span>
-<span class="sd">        - ``&quot;surface+mesh&quot;``: surface plot with mesh lines drawn on top of the surface.</span>
-<span class="sd">        - ``&quot;image&quot;``: image plot.</span>
-<span class="sd">        - ``&quot;waterfall_x&quot;``/``&quot;waterfall_y&quot;``: waterfall plots (row or column profiles).</span>
+<span class="sd">        - ``"mesh"``: mesh plot [Default].</span>
+<span class="sd">        - ``"surface"``: surface plot.</span>
+<span class="sd">        - ``"surface+mesh"``: surface plot with mesh lines drawn on top of the surface.</span>
+<span class="sd">        - ``"image"``: image plot.</span>
+<span class="sd">        - ``"waterfall_x"``/``"waterfall_y"``: waterfall plots (row or column profiles).</span>
 <span class="sd">    dpi</span>
 <span class="sd">        Effective dots-per-unit resolution for the rasterization for image plots (i.e.,</span>
-<span class="sd">        ``surftype=&quot;image&quot;``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]</span>
+<span class="sd">        ``surftype="image"``) [Default is :gmt-term:`GMT_GRAPHICS_DPU`]</span>
 <span class="sd">    nan_transparent</span>
 <span class="sd">        Make grid nodes with z = NaN transparent, using the color-masking feature in</span>
-<span class="sd">        PostScript Level 3. Only applies when ``surftype=&quot;image&quot;``.</span>
+<span class="sd">        PostScript Level 3. Only applies when ``surftype="image"``.</span>
 <span class="sd">    monochrome</span>
 <span class="sd">        Force conversion to monochrome image using the (television) YIQ transformation.</span>
 <span class="sd">    contour_pen</span>
@@ -371,7 +369,7 @@
 <span class="sd">        used for the contours.</span>
 <span class="sd">    mesh_pen</span>
 <span class="sd">        Set the pen attributes used for the mesh. Need to set ``surftype`` to</span>
-<span class="sd">        ``&quot;mesh&quot;``, or ``&quot;surface+mesh&quot;`` to draw meshlines.</span>
+<span class="sd">        ``"mesh"``, or ``"surface+mesh"`` to draw meshlines.</span>
 <span class="sd">    mesh_fill</span>
 <span class="sd">        Set the mesh fill in mesh plot or waterfall plots [Default is white].</span>
 <span class="sd">    plane</span>
@@ -379,7 +377,7 @@
 <span class="sd">        value in the grid. However, if ``region`` was used to set *zmin/zmax* then</span>
 <span class="sd">        *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and</span>
 <span class="sd">        ``facade_fill`` to control the appearance of the plane.</span>
-<span class="sd">        **Note**: For GMT&lt;=6.6.0, *zmin* set in ``region`` has no effect due to a GMT</span>
+<span class="sd">        **Note**: For GMT&lt;=6.7.0, *zmin* set in ``region`` has no effect due to a GMT</span>
 <span class="sd">        bug.</span>
 <span class="sd">    facade_fill</span>
 <span class="sd">        Fill for the frontal facade between the plane specified by ``plane`` and the</span>
@@ -393,7 +391,7 @@
 <span class="sd">        :func:`pygmt.grdgradient` first; append **+a**\ *azimuth*, **+n**\ *args*, and</span>
 <span class="sd">        **+m**\ *ambient* to specify azimuth, intensity, and ambient arguments for that</span>
 <span class="sd">        function, or just give **+d** to select the default arguments [Default is</span>
-<span class="sd">        ``&quot;+a-45+nt1+m0&quot;``].</span>
+<span class="sd">        ``"+a-45+nt1+m0"``].</span>
 <span class="sd">    $projection</span>
 <span class="sd">    smooth</span>
 <span class="sd">        Sets the smooth factor used for smoothing the contours before plotting</span>
@@ -418,11 +416,11 @@
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; from pygmt.params import Axis, Frame</span>
-<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with &quot;gridline&quot; registration in a given region</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 30 arc-minutes grid with "gridline" registration in a given region</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
-<span class="sd">    ...     resolution=&quot;30m&quot;,</span>
+<span class="sd">    ...     resolution="30m",</span>
 <span class="sd">    ...     region=[-92.5, -82.5, -3, 7],</span>
-<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ...     registration="gridline",</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; # Create a new figure instance with pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
@@ -434,41 +432,40 @@
 <span class="sd">    ...     perspective=[130, 30],</span>
 <span class="sd">    ...     # Add a frame to the x- and y-axes</span>
 <span class="sd">    ...     # Specify annotations on the south and east borders of the plot</span>
-<span class="sd">    ...     frame=Frame(axes=&quot;wSnE&quot;, xaxis=Axis(annot=True), yaxis=Axis(annot=True)),</span>
+<span class="sd">    ...     frame=Frame(axes="wSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),</span>
 <span class="sd">    ...     # Set the projection of the 2-D map to Mercator with a 10 cm width</span>
-<span class="sd">    ...     projection=&quot;M10c&quot;,</span>
+<span class="sd">    ...     projection="M10c",</span>
 <span class="sd">    ...     # Set the vertical scale (z-axis) to 2 cm</span>
-<span class="sd">    ...     zsize=&quot;2c&quot;,</span>
-<span class="sd">    ...     # Set &quot;surface plot&quot; to color the surface via a CPT</span>
-<span class="sd">    ...     surftype=&quot;surface&quot;,</span>
-<span class="sd">    ...     # Specify CPT to &quot;geo&quot;</span>
-<span class="sd">    ...     cmap=&quot;gmt/geo&quot;,</span>
+<span class="sd">    ...     zsize="2c",</span>
+<span class="sd">    ...     # Set "surface plot" to color the surface via a CPT</span>
+<span class="sd">    ...     surftype="surface",</span>
+<span class="sd">    ...     # Specify CPT to "geo"</span>
+<span class="sd">    ...     cmap="gmt/geo",</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
-
-    <span class="c1"># Enable &#39;plane&#39; if &#39;facade_fill&#39; or &#39;facade_pen&#39; are set</span>
+<span class="sd">    """</span>
+    <span class="c1"># Enable 'plane' if 'facade_fill' or 'facade_pen' are set</span>
     <span class="k">if</span> <span class="n">plane</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="p">(</span><span class="n">facade_fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">facade_pen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
         <span class="n">plane</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="c1"># Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838</span>
+    <span class="c1"># Workaround for GMT bugs https://github.com/GenericMappingTools/gmt/pull/8838 and</span>
+    <span class="c1"># https://github.com/GenericMappingTools/gmt/pull/9123.</span>
     <span class="c1"># Fix the plane value to be the grid minimum if plane=True.</span>
     <span class="c1"># Notes:</span>
-    <span class="c1"># 1. It&#39;s the minimum of the grid, not a subset of the grid defined by &#39;region&#39;.</span>
-    <span class="c1"># 2. The GMT docs says &quot;if -R was used to set zmin/zmax then we use that value if</span>
-    <span class="c1">#    it is less than the grid minimum value.&quot;. We can&#39;t add a workaround for this</span>
-    <span class="c1">#    case since we can&#39;t parse zmin/zmax from &#39;region&#39; if &#39;region&#39; was set in</span>
+    <span class="c1"># 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.</span>
+    <span class="c1"># 2. The GMT docs says "if -R was used to set zmin/zmax then we use that value if</span>
+    <span class="c1">#    it is less than the grid minimum value.". We can't add a workaround for this</span>
+    <span class="c1">#    case since we can't parse zmin/zmax from 'region' if 'region' was set in</span>
     <span class="c1">#    previous plotting commands.</span>
-    <span class="c1"># TODO(GMT&gt;6.6.0): Remove this workaround.</span>
-    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.6.0&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">plane</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="c1"># TODO(GMT&gt;6.7.0): Remove this workaround.</span>
+    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">"6.7.0"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">plane</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">plane</span> <span class="o">=</span> <span class="n">grdinfo</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">per_column</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
-        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">),</span>
-        <span class="n">Jz</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zscale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">),</span>
-        <span class="n">JZ</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zsize</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">),</span>
+        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"cmap"</span><span class="p">),</span>
+        <span class="n">Jz</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zscale</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"zscale"</span><span class="p">),</span>
+        <span class="n">JZ</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">zsize</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"zsize"</span><span class="p">),</span>
         <span class="n">Q</span><span class="o">=</span><span class="n">_alias_option_Q</span><span class="p">(</span>
             <span class="n">surftype</span><span class="o">=</span><span class="n">surftype</span><span class="p">,</span>
             <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span>
@@ -477,34 +474,36 @@
             <span class="n">nan_transparent</span><span class="o">=</span><span class="n">nan_transparent</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">N</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">plane</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;plane&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="n">facade_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;facade_fill&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+g&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">plane</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"plane"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="n">facade_fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"facade_fill"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+g"</span><span class="p">),</span>
         <span class="p">],</span>
-        <span class="n">S</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">smooth</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;smooth&quot;</span><span class="p">),</span>
-        <span class="n">Wc</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">contour_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;contour_pen&quot;</span><span class="p">),</span>
-        <span class="n">Wf</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">facade_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;facade_pen&quot;</span><span class="p">),</span>
-        <span class="n">Wm</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">mesh_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mesh_pen&quot;</span><span class="p">),</span>
+        <span class="n">S</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">smooth</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">),</span>
+        <span class="n">Wc</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">contour_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"contour_pen"</span><span class="p">),</span>
+        <span class="n">Wf</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">facade_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"facade_pen"</span><span class="p">),</span>
+        <span class="n">Wm</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">mesh_pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"mesh_pen"</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">B</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
         <span class="n">c</span><span class="o">=</span><span class="n">panel</span><span class="p">,</span>
+        <span class="n">f</span><span class="o">=</span><span class="n">coltypes</span><span class="p">,</span>
         <span class="n">p</span><span class="o">=</span><span class="n">perspective</span><span class="p">,</span>
         <span class="n">t</span><span class="o">=</span><span class="n">transparency</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
         <span class="k">with</span> <span class="p">(</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">"raster"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
-                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">aliasdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">drape_grid</span><span class="p">),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">"raster"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">aliasdict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"G"</span><span class="p">,</span> <span class="n">drape_grid</span><span class="p">),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span> <span class="k">as</span> <span class="n">vdrapegrid</span><span class="p">,</span>
         <span class="p">):</span>
-            <span class="n">aliasdict</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vdrapegrid</span>
+            <span class="n">aliasdict</span><span class="p">[</span><span class="s2">"G"</span><span class="p">]</span> <span class="o">=</span> <span class="n">vdrapegrid</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdview&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">"grdview"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
             <span class="p">)</span>
 </pre></div>
 
@@ -517,9 +516,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Ecosystem &mdash; PyGMT</title>
+        <title>PyGMT Ecosystem &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
@@ -20,16 +20,16 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/ecosystem.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/documentation_options.js?v=bca195e8"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=ccdb6887"></script>
       <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -37,8 +37,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="PyGMT Team" href="team.html" />
-    <link rel="prev" title="Minimum Supported Versions" href="minversions.html" />
+    <link rel="next" title="Presentations" href="presentations.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -85,24 +85,13 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Ecosystem</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PyGMT Ecosystem</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pygmt-dependencies">PyGMT dependencies</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#numpy">NumPy*</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pandas">pandas*</a></li>
@@ -114,31 +103,45 @@
 <li class="toctree-l3"><a class="reference internal" href="#pyarrow">PyArrow</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pygmt-ecosystem">PyGMT ecosystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#packages-depending-on-pygmt">Packages depending on PyGMT</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -158,7 +161,7 @@
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Ecosystem</li>
+      <li class="breadcrumb-item active">PyGMT Ecosystem</li>
     <li class="source-link">
         
             
@@ -174,17 +177,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ecosystem">
-<h1>Ecosystem<a class="headerlink" href="#ecosystem" title="Link to this heading"></a></h1>
+  <section id="pygmt-ecosystem">
+<h1>PyGMT Ecosystem<a class="headerlink" href="#pygmt-ecosystem" title="Link to this heading"></a></h1>
 <p>PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
 line program that provides a wide range of tools for manipulating geospatial data and
-making publication-quality maps and figures. PyGMT integrates well with the
+making publication-quality maps and figures. It integrates well with the
 <a class="reference external" href="https://scientific-python.org/">scientific Python ecosystem</a>, with <a class="reference external" href="https://numpy.org/">NumPy</a> for its
 fundamental array data structure, <a class="reference external" href="https://pandas.pydata.org/">pandas</a> for tabular data I/O and <a class="reference external" href="https://xarray.pydata.org/">xarray</a> for
-raster grids/images/cubes I/O.</p>
-<p>In addition to these core dependencies, PyGMT also relies on several optional packages to
-provide additional functionality for users.</p>
-<p><em>This page was adapted from <a class="reference external" href="https://geopandas.org/en/latest/community/ecosystem.html">GeoPandas’s Ecosystem</a> page.</em></p>
+raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
+several optional packages to provide additional functionality for users.</p>
+<p><img alt="" src="https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb" /></p>
+<p><em>The PyGMT ecosystem. This figure was originally published in the
+<a class="reference external" href="https://doi.org/10.1029/2026GC013105">PyGMT paper</a> in G-Cubed. The full publication is
+released under CC BY-NC 4.0. No modifications were made.</em></p>
 <section id="pygmt-dependencies">
 <h2>PyGMT dependencies<a class="headerlink" href="#pygmt-dependencies" title="Link to this heading"></a></h2>
 <p><em>Asterisk (*) after the package name indicates the package is a required dependency of PyGMT.</em></p>
@@ -272,17 +277,17 @@ more details, see
 </div>
 </section>
 </section>
-<section id="pygmt-ecosystem">
-<h2>PyGMT ecosystem<a class="headerlink" href="#pygmt-ecosystem" title="Link to this heading"></a></h2>
+<section id="packages-depending-on-pygmt">
+<h2>Packages depending on PyGMT<a class="headerlink" href="#packages-depending-on-pygmt" title="Link to this heading"></a></h2>
 <p>Various packages rely on PyGMT for geospatial data processing, analysis, and visualization.
-Below is an incomplete list (in no particular order) of tools which form the PyGMT-related
-ecosystem.</p>
+Below is an incomplete list (in no particular order) of these tools.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If your package relies on PyGMT, please
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">let us know</a> or
 <a class="reference internal" href="contributing.html"><span class="std std-doc">add it by yourself</span></a>.</p>
 </div>
+<p><em>This page was adapted from <a class="reference external" href="https://geopandas.org/en/latest/community/ecosystem.html">GeoPandas’s Ecosystem</a> page.</em></p>
 </section>
 </section>
 
@@ -291,17 +296,17 @@ ecosystem.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="minversions.html" class="btn btn-neutral float-left" title="Minimum Supported Versions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="team.html" class="btn btn-neutral float-right" title="PyGMT Team" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="presentations.html" class="btn btn-neutral float-right" title="Presentations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

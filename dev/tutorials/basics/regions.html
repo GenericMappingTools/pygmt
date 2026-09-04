@@ -20,16 +20,16 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/tutorials/basics/regions.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/documentation_options.js?v=bca195e8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -85,9 +85,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -115,35 +121,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -208,17 +211,17 @@ of inputs that it can accept.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Set the x-range from 10E to 20E and the y-range to 35N to 45N</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;10/20/35/45&quot;</span><span class="p">,</span>
-    <span class="c1"># Set projection to Mercator, and the figure size to 15 centimeters</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M15c&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"10/20/35/45"</span><span class="p">,</span>
+    <span class="c1"># Set projection to Mercator, and the map width to 15 centimeters</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M15c"</span><span class="p">,</span>
     <span class="c1"># Set the color of the land to light gray</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
     <span class="c1"># Set the color of the water to white</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
     <span class="c1"># Display the national borders and set the pen thickness to 0.5p</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="c1"># Display the shorelines and set the pen thickness to 0.5p</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="c1"># Set the frame to display annotations and gridlines</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
@@ -231,11 +234,11 @@ of inputs that it can accept.</p>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Set the x-range from 10E to 20E and the y-range to 35N to 45N</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -249,12 +252,12 @@ coordinates, append <strong>+r</strong> at the end of the <code class="docutils 
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Set the bottom-left corner as 10E, 35N and the top-right corner as</span>
     <span class="c1"># 20E, 45N</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;10/35/20/45+r&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"10/35/20/45+r"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -265,18 +268,18 @@ coordinates, append <strong>+r</strong> at the end of the <code class="docutils 
 <h2>Global regions<a class="headerlink" href="#global-regions" title="Link to this heading"></a></h2>
 <p>In addition to passing coordinates, the argument <strong>d</strong> can be passed to set
 the region to the entire globe. The range is 180W to 180E (-180, 180) and 90S
-to 90N (-90 to 90). With no parameters set for the projection, the figure
+to 90N (-90 to 90). With no parameters set for the projection, the map
 defaults to be centered at the mid-point of both x- and y-axes. Using
-<strong>d</strong>, the figure is centered at (0, 0), or the intersection of the equator
+<strong>d</strong>, the map is centered at (0, 0), or the intersection of the equator
 and prime meridian.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;Cyl_stere/12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;darkgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"d"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"Cyl_stere/12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"darkgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -284,16 +287,16 @@ and prime meridian.</p>
 </div>
 <img src="../../_images/sphx_glr_regions_004.png" srcset="../../_images/sphx_glr_regions_004.png" alt="regions" class = "sphx-glr-single-img"/><p>The argument <strong>g</strong> can be passed, which encompasses the entire globe. The
 range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
-set for the projection, the figure is centered at (180, 0), or the
+set for the projection, the map is centered at (180, 0), or the
 intersection of the equator and International Date Line.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;Cyl_stere/12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;darkgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"g"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"Cyl_stere/12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"darkgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -307,13 +310,13 @@ two-character ISO 3166-1 alpha-2 convention
 (for further information: <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2</a>).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="c1"># Set the figure region to encompass Japan with the ISO code &quot;JP&quot;</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="c1"># Set the map region to encompass Japan with the ISO code "JP"</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -328,12 +331,12 @@ of <em>increment</em> .</p>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Expand the region boundaries to be multiples of 3 degrees in all</span>
     <span class="c1"># directions</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP+r3"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -346,12 +349,12 @@ values can be passed to expand differently on each axis. The format is
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Expand the region boundaries to be multiples of 3 degrees on the x-axis</span>
     <span class="c1"># and 5 degrees on the y-axis.</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3/5&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP+r3/5"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -365,12 +368,12 @@ east, south, and north axes.</p>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Expand the region boundaries to be multiples of 3 degrees to the west, 5</span>
     <span class="c1"># degrees to the east, 7 degrees to the south, and 9 degrees to the north.</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+r3/5/7/9&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP+r3/5/7/9"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -382,12 +385,12 @@ increment without rounding.</p>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Expand the region setting outside the range of Japan by 3 degrees in all</span>
     <span class="c1"># directions, without rounding to the nearest increment.</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+R3&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP+R3"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
@@ -401,18 +404,18 @@ increment.</p>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Expand the region boundaries to be multiples of 3 degrees in all</span>
     <span class="c1"># directions</span>
-    <span class="n">region</span><span class="o">=</span><span class="s2">&quot;JP+e3&quot;</span><span class="p">,</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M12c&quot;</span><span class="p">,</span>
-    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;lightgray&quot;</span><span class="p">,</span>
-    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
-    <span class="n">borders</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
-    <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="s2">"JP+e3"</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">"M12c"</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">"lightgray"</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
+    <span class="n">borders</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
+    <span class="n">shorelines</span><span class="o">=</span><span class="s2">"1/0.5p"</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Axis.html#pygmt.params.Axis" title="pygmt.params.Axis" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Axis</span></a><span class="p">(</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_regions_011.png" srcset="../../_images/sphx_glr_regions_011.png" alt="regions" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.401 seconds)</p>
+<img src="../../_images/sphx_glr_regions_011.png" srcset="../../_images/sphx_glr_regions_011.png" alt="regions" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.360 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-regions-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/da130767478db6f302310ed3547b5ed2/regions.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">regions.ipynb</span></code></a></p>
@@ -441,9 +444,9 @@ increment.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

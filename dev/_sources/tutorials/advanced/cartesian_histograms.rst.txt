@@ -121,7 +121,7 @@ bars can be achieved via ``horizontal=True``.
         histtype=0,
     )
 
-    # Shift plot origin by the figure width ("w") plus 2 centimeters to the right
+    # Shift plot origin by the previous plot's width ("w") plus 2 centimeters to the right
     fig.shift_origin(xshift="w+2c")
 
     # Create histogram for data01 with horizontal bars
@@ -585,7 +585,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.255 seconds)
+   **Total running time of the script:** (0 minutes 1.258 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:

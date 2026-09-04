@@ -20,16 +20,16 @@
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/gallery/lines/decorated_lines.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/documentation_options.js?v=bca195e8"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -85,9 +85,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -124,35 +130,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -210,7 +213,7 @@ settings from the symbol information. This example shows how to adjust the symbo
 Beside the built-in symbols also custom symbols can be used. For modifying the main
 decorated line via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter, see the
 <a class="reference internal" href="linestyles.html"><span class="doc">Line styles example</span></a>. For details on the input data
-see the upstream GMT documentation at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/plot.html#s">https://docs.generic-mapping-tools.org/6.6/plot.html#s</a>. Furthermore, there are
+see the upstream GMT documentation at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.7/plot.html#s">https://docs.generic-mapping-tools.org/6.7/plot.html#s</a>. Furthermore, there are
 so-called <em>line fronts</em>, which are often used to plot fault lines, subduction zones,
 or weather fronts; for details see the
 <a class="reference internal" href="linefronts.html"><span class="doc">Line fronts example</span></a>.</p>
@@ -224,67 +227,67 @@ or weather fronts; for details see the
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span>
-    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Decorated Lines&quot;</span><span class="p">)</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"X15c"</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><a href="../../api/generated/pygmt.params.Frame.html#pygmt.params.Frame" title="pygmt.params.Frame" class="sphx-glr-backref-module-pygmt-params sphx-glr-backref-type-py-class"><span class="n">Frame</span></a><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Decorated Lines"</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># Plot different decorated lines</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decoline</span></a> <span class="ow">in</span> <span class="p">[</span>
-    <span class="c1"># Line with circles (&quot;c&quot;) of 0.5 centimeters radius in distance of 1 centimeter</span>
-    <span class="s2">&quot;~d1c:+sc0.5c&quot;</span><span class="p">,</span>
-    <span class="c1"># Adjust thickness, color, and style of the outline via &quot;+p&quot;</span>
+    <span class="c1"># Line with circles ("c") of 0.5 centimeters radius in distance of 1 centimeter</span>
+    <span class="s2">"~d1c:+sc0.5c"</span><span class="p">,</span>
+    <span class="c1"># Adjust thickness, color, and style of the outline via "+p"</span>
     <span class="c1"># Here, we plot a 1-point thick, blue, dashed outline</span>
-    <span class="s2">&quot;~d1c:+sc0.5c+p1p,blue,dashed&quot;</span><span class="p">,</span>
-    <span class="c1"># Add a fill color using &quot;+g&quot; with the desired color</span>
-    <span class="s2">&quot;~d1c:+sc0.5c+glightblue&quot;</span><span class="p">,</span>
-    <span class="c1"># To use a pattern as fill append &quot;p&quot; and give the pattern number</span>
-    <span class="s2">&quot;~d1c:+sc0.5c+gp8+p1p,blue&quot;</span><span class="p">,</span>
-    <span class="c1"># Line with triangles (&quot;t&quot;)</span>
-    <span class="s2">&quot;~d1c:+st0.5c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Rotate counter-clockwise from line-parallel (&quot;+ap&quot;) by 30 degrees</span>
-    <span class="s2">&quot;~d1c:+st0.5c+gtan+p1p,black+ap30&quot;</span><span class="p">,</span>
+    <span class="s2">"~d1c:+sc0.5c+p1p,blue,dashed"</span><span class="p">,</span>
+    <span class="c1"># Add a fill color using "+g" with the desired color</span>
+    <span class="s2">"~d1c:+sc0.5c+glightblue"</span><span class="p">,</span>
+    <span class="c1"># To use a pattern as fill append "p" and give the pattern number</span>
+    <span class="s2">"~d1c:+sc0.5c+gp8+p1p,blue"</span><span class="p">,</span>
+    <span class="c1"># Line with triangles ("t")</span>
+    <span class="s2">"~d1c:+st0.5c+gtan+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Rotate counter-clockwise from line-parallel ("+ap") by 30 degrees</span>
+    <span class="s2">"~d1c:+st0.5c+gtan+p1p,black+ap30"</span><span class="p">,</span>
     <span class="c1"># Line with inverse triangles with a size of 0.3 centimeters in a</span>
     <span class="c1"># distance of 0.4 centimeters</span>
-    <span class="s2">&quot;~d0.4c:+si0.3c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Line with squares (&quot;s&quot;) with a size of 0.7 centimeters in a distance of</span>
+    <span class="s2">"~d0.4c:+si0.3c+gtan+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Line with squares ("s") with a size of 0.7 centimeters in a distance of</span>
     <span class="c1"># 1 centimeter</span>
-    <span class="s2">&quot;~d1c:+ss0.7c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Shift symbols using &quot;+n&quot; in x- and y-directions relative to the main decorated</span>
+    <span class="s2">"~d1c:+ss0.7c+gtan+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Shift symbols using "+n" in x- and y-directions relative to the main decorated</span>
     <span class="c1"># line</span>
-    <span class="s2">&quot;~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c&quot;</span><span class="p">,</span>
-    <span class="c1"># Give the number of equally spaced symbols by using &quot;n&quot; instead of &quot;d&quot;</span>
-    <span class="s2">&quot;~n6:+sn0.5c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Use uppercase &quot;N&quot; to have symbols at the start and end of the line</span>
-    <span class="s2">&quot;~N6:+sh0.5c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Suppress the main decorated line by appending &quot;+i&quot;</span>
-    <span class="s2">&quot;~d1c:+sg0.5c+gtan+p1p,black+i&quot;</span><span class="p">,</span>
-    <span class="c1"># To only plot a symbol at the start of the line use &quot;N-1&quot;</span>
-    <span class="s2">&quot;~N-1:+sp0.2c+gblack&quot;</span><span class="p">,</span>
-    <span class="c1"># To only plot a symbol at the end of the line use &quot;N+1&quot;</span>
-    <span class="s2">&quot;~N+1:+sp0.2c+gblack&quot;</span><span class="p">,</span>
-    <span class="c1"># Line with stars (&quot;a&quot;)</span>
-    <span class="s2">&quot;~d1c:+sa0.5c+ggold+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Line with crosses (&quot;x&quot;)</span>
-    <span class="s2">&quot;~d1c:+sx0.5c+p2p,red&quot;</span><span class="p">,</span>
-    <span class="c1"># Line with (vertical) lines or bars (&quot;y&quot;)</span>
-    <span class="s2">&quot;~d0.5c:+sy0.5c+p5p,brown&quot;</span><span class="p">,</span>
-    <span class="c1"># Use custom symbol (&quot;k&quot;) &quot;squaroid&quot; with a size of 0.5 centimeters</span>
-    <span class="s2">&quot;~d1c:+sksquaroid/0.5c+ggray+p1p,black&quot;</span><span class="p">,</span>
+    <span class="s2">"~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c"</span><span class="p">,</span>
+    <span class="c1"># Give the number of equally spaced symbols by using "n" instead of "d"</span>
+    <span class="s2">"~n6:+sn0.5c+gtan+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Use uppercase "N" to have symbols at the start and end of the line</span>
+    <span class="s2">"~N6:+sh0.5c+gtan+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Suppress the main decorated line by appending "+i"</span>
+    <span class="s2">"~d1c:+sg0.5c+gtan+p1p,black+i"</span><span class="p">,</span>
+    <span class="c1"># To only plot a symbol at the start of the line use "N-1"</span>
+    <span class="s2">"~N-1:+sp0.2c+gblack"</span><span class="p">,</span>
+    <span class="c1"># To only plot a symbol at the end of the line use "N+1"</span>
+    <span class="s2">"~N+1:+sp0.2c+gblack"</span><span class="p">,</span>
+    <span class="c1"># Line with stars ("a")</span>
+    <span class="s2">"~d1c:+sa0.5c+ggold+p1p,black"</span><span class="p">,</span>
+    <span class="c1"># Line with crosses ("x")</span>
+    <span class="s2">"~d1c:+sx0.5c+p2p,red"</span><span class="p">,</span>
+    <span class="c1"># Line with (vertical) lines or bars ("y")</span>
+    <span class="s2">"~d0.5c:+sy0.5c+p5p,brown"</span><span class="p">,</span>
+    <span class="c1"># Use custom symbol ("k") "squaroid" with a size of 0.5 centimeters</span>
+    <span class="s2">"~d1c:+sksquaroid/0.5c+ggray+p1p,black"</span><span class="p">,</span>
 <span class="p">]:</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">-</span> <span class="mf">1.2</span>  <span class="c1"># Move current line down</span>
-    <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decoline</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1.25p,black&quot;</span><span class="p">)</span>
+    <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">style</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decoline</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">"1.25p,black"</span><span class="p">)</span>
     <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span>
         <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
         <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
         <span class="n">text</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decoline</span></a><span class="p">,</span>
-        <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Courier-Bold&quot;</span><span class="p">,</span>
-        <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;ML&quot;</span><span class="p">,</span>
+        <span class="n">font</span><span class="o">=</span><span class="s2">"Courier-Bold"</span><span class="p">,</span>
+        <span class="n">justify</span><span class="o">=</span><span class="s2">"ML"</span><span class="p">,</span>
         <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mf">0.75</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.313 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.317 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-decorated-lines-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b43833f86c2f912c249b38caeda4c1e6/decorated_lines.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decorated_lines.ipynb</span></code></a></p>
@@ -312,9 +315,9 @@ or weather fronts; for details see the
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

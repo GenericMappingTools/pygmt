@@ -20,16 +20,16 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/overview.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/documentation_options.js?v=bca195e8"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=ccdb6887"></script>
       <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -37,8 +37,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installing" href="install.html" />
-    <link rel="prev" title="Why PyGMT?" href="index.html" />
+    <link rel="next" title="PyGMT Ecosystem" href="ecosystem.html" />
+    <link rel="prev" title="4. PyGMT I/O: Table inputs" href="intro/04_table_inputs.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -84,14 +84,25 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#about">About</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#presentations">Presentations</a></li>
-</ul>
-</li>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-pygmt">Why PyGMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-goals">Project goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#community">Community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#related-projects">Related projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funding">Funding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -100,35 +111,32 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -166,8 +174,19 @@
              
   <section id="overview">
 <h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
-<section id="about">
-<h2>About<a class="headerlink" href="#about" title="Link to this heading"></a></h2>
+<section id="why-pygmt">
+<h2>Why PyGMT<a class="headerlink" href="#why-pygmt" title="Link to this heading"></a></h2>
+<p>A beautiful map is worth a thousand words. To experience the power of PyGMT, try it
+online with <a class="reference external" href="https://github.com/GenericMappingTools/try-gmt">Binder or Google Colab</a>
+without installing anything on your computer.</p>
+<p>For a quick introduction, check out our <a class="reference external" href="https://youtu.be/4iPnITXrxVU">3-minute overview</a>.
+Afterward, try the <a class="reference internal" href="intro/index.html"><span class="std std-doc">Intro to PyGMT</span></a> tutorial on your own, explore the
+<a class="reference internal" href="gallery/index.html"><span class="std std-doc">Gallery</span></a> for inspiration, follow the <a class="reference internal" href="tutorials/index.html"><span class="std std-doc">Tutorials</span></a>
+to learn more, explore available map <a class="reference internal" href="projections/index.html"><span class="std std-doc">Projections</span></a>, and finally
+check out some <a class="reference internal" href="external_resources.html"><span class="doc std std-doc">external PyGMT examples</span></a>.</p>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading"></a></h2>
 <p>PyGMT is a Python wrapper for the
 <a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>,
 a command-line program widely used across the Earth, Ocean, and Planetary sciences and
@@ -182,72 +201,53 @@ and very fast. The PostScript figures can be converted to other formats like PDF
 and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not have any
 contact with the original PostScript files and get only the more convenient formats like
 PDF and PNG.</p>
-<p>The project was started in 2017 by <a class="reference external" href="https://www.leouieda.com">Leonardo Uieda</a> and
-<a class="reference external" href="https://en.wikipedia.org/wiki/P%C3%A5l_Wessel">Paul Wessel</a> (the co-creator and main
-developer of GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT
-has been supported by NSF grants <a class="reference external" href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403">OCE-1558403</a>
-and <a class="reference external" href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602">EAR-1948602</a>.</p>
-<p>We welcome any feedback and ideas! Let us know by submitting
+<p>For more information about the design and development of PyGMT, see the
+<a class="reference external" href="https://doi.org/10.1029/2026GC013105">PyGMT paper</a> published in
+<em>Geochemistry, Geophysics, Geosystems</em>.</p>
+</section>
+<section id="project-goals">
+<h2>Project goals<a class="headerlink" href="#project-goals" title="Link to this heading"></a></h2>
+<p>From the beginning, the project has aimed to achieve the following goals:</p>
+<ul class="simple">
+<li><p>Make GMT more accessible to new users.</p></li>
+<li><p>Build a Pythonic API for GMT.</p></li>
+<li><p>Interface with the GMT C API directly using ctypes (no system calls).</p></li>
+<li><p>Support rich display in the Jupyter notebook.</p></li>
+<li><p>Integrate with the <a class="reference external" href="https://scientific-python.org/">scientific Python ecosystem</a>:
+<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> for data tables, <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> for grids,
+and <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> for geographical data.</p></li>
+</ul>
+</section>
+<section id="community">
+<h2>Community<a class="headerlink" href="#community" title="Link to this heading"></a></h2>
+<p>The PyGMT project was started in 2017 by <a class="reference external" href="https://www.leouieda.com">Leonardo Uieda</a> and
+<a class="reference external" href="https://en.wikipedia.org/wiki/P%C3%A5l_Wessel">Paul Wessel</a> (the co-creator and main developer
+of GMT) at the University of Hawaiʻi at Mānoa. Currently, the project is community-driven
+and maintained by an <a class="reference internal" href="team.html"><span class="std std-doc">international team</span></a>, with contributions from
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/graphs/contributors">multiple contributors</a>.</p>
+<p>We welcome any feedback, ideas, and contributions! Let us know by submitting
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on GitHub</a> or by posting on
 our <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a>.</p>
 </section>
-<section id="presentations">
-<h2>Presentations<a class="headerlink" href="#presentations" title="Link to this heading"></a></h2>
-<p>These are conference presentations about the development of PyGMT (previously “GMT/Python”):</p>
-<ul>
-<li><p>“Accessing and Integrating GMT with Python and the Scientific Python Ecosystem”.
-2024.
-Yvonne Fröhlich, Dongdong Tian, Wei Ji Leong, Max Jones, and Michael Grund.
-Presented at <em>AGU 2024</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.28049495">10.6084/m9.figshare.28049495</a></p>
-<p><a class="align-center reference internal" href="https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8"><img alt="" class="align-center" src="https://github.com/user-attachments/assets/19e1391e-648d-43da-b6f6-ecfb4f3e83e8" style="width: 80%;" /></a></p>
-</li>
-<li><p>“Geospatial Analysis &amp; Visualization with PyGMT”.
-2022.
-Max Jones, Wei Ji Leong, and Leonardo Uieda.
-Presented at <em>SciPy 2022</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.20483793">10.6084/m9.figshare.20483793</a>.
-Recording available at <a class="reference external" href="https://www.youtube.com/watch?v=nCktihu9bWg">https://www.youtube.com/watch?v=nCktihu9bWg</a></p>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=nCktihu9bWg"><img alt="" class="align-center" src="_images/scipy2022-youtube-thumbnail.jpg" style="width: 80%;" /></a></p>
-</li>
-<li><p>“PyGMT: Accessing the Generic Mapping Tools from Python”.
-2019.
-Leonardo Uieda and Paul Wessel.
-Presented at <em>AGU 2019</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.11320280">10.6084/m9.figshare.11320280</a></p>
-<p><a class="align-center reference internal" href="_images/agu2019-poster.jpg"><img alt="" class="align-center" src="_images/agu2019-poster.jpg" style="width: 80%;" /></a></p>
-</li>
-<li><p>“Building an object-oriented Python interface for the Generic Mapping Tools”.
-2018.
-Leonardo Uieda and Paul Wessel.
-Presented at <em>SciPy 2018</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6814052">10.6084/m9.figshare.6814052</a>.
-Recording available at <a class="reference external" href="https://www.youtube.com/watch?v=6wMtfZXfTRM">https://www.youtube.com/watch?v=6wMtfZXfTRM</a></p>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=6wMtfZXfTRM"><img alt="" class="align-center" src="_images/scipy2018-youtube-thumbnail.png" style="width: 80%;" /></a></p>
-</li>
-<li><p>“Integrating the Generic Mapping Tools with the Scientific Python Ecosystem”.
-2018.
-Leonardo Uieda and Paul Wessel.
-Presented at <em>AOGS Annual Meeting 2018</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6399944">10.6084/m9.figshare.6399944</a></p>
-<p><a class="align-center reference internal" href="_images/aogs2018-poster.jpg"><img alt="" class="align-center" src="_images/aogs2018-poster.jpg" style="width: 80%;" /></a></p>
-</li>
-<li><p>“Bringing the Generic Mapping Tools to Python”.
-2017.
-Leonardo Uieda and Paul Wessel.
-Presented at <em>SciPy 2017</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.7635833">10.6084/m9.figshare.7635833</a>.
-Recording available at <a class="reference external" href="https://www.youtube.com/watch?v=93M4How7R24">https://www.youtube.com/watch?v=93M4How7R24</a></p>
-<p><a class="reference external" href="https://www.youtube.com/watch?v=93M4How7R24"><img alt="" class="align-center" src="_images/scipy2017-youtube-thumbnail.png" style="width: 80%;" /></a></p>
-</li>
-<li><p>“A modern Python interface for the Generic Mapping Tools”.
-2017.
-Leonardo Uieda and Paul Wessel.
-Presented at <em>AGU 2017</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.5662411">10.6084/m9.figshare.5662411</a></p>
-<p><a class="align-center reference internal" href="_images/agu2017-poster.jpg"><img alt="" class="align-center" src="_images/agu2017-poster.jpg" style="width: 80%;" /></a></p>
-</li>
+<section id="related-projects">
+<h2>Related projects<a class="headerlink" href="#related-projects" title="Link to this heading"></a></h2>
+<p>Other official GMT wrappers include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">GMT.jl</a>: A Julia wrapper for GMT.</p></li>
+<li><p><a class="reference external" href="https://github.com/GenericMappingTools/gmtmex">gmtmex</a>: A Matlab/Octave wrapper for GMT.</p></li>
 </ul>
+</section>
+<section id="funding">
+<h2>Funding<a class="headerlink" href="#funding" title="Link to this heading"></a></h2>
+<p>The development of PyGMT has been supported by NSF grants
+<a class="reference external" href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1558403">OCE-1558403</a> and
+<a class="reference external" href="https://www.nsf.gov/awardsearch/show-award/?AWD_ID=1948602">EAR-1948602</a>.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+BSD 3-clause License. A copy of this license is provided in
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt">LICENSE.txt</a>.</p>
 </section>
 </section>
 
@@ -256,17 +256,17 @@ doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.5662
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Why PyGMT?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="install.html" class="btn btn-neutral float-right" title="Installing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro/04_table_inputs.html" class="btn btn-neutral float-left" title="4. PyGMT I/O: Table inputs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ecosystem.html" class="btn btn-neutral float-right" title="PyGMT Ecosystem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

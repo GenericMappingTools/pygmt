@@ -5,11 +5,11 @@ Cartesian power
 **X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]] or
 **x**\ *x-scale*\ [**p**\ *pvalue*][/*y-scale*\ [**p**\ *pvalue*]]
 
-Give the *width* of the figure and the optional argument *height*.
-The lowercase version **x** is similar to **X** but expects
-an *x-scale* and an optional *y-scale*.
-Each axis with a power transformation requires **p** and the exponent
-for that axis after its size argument.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+- **p**\ *pvalue*: Applies a power transformation with exponent *pvalue* to an
+  axis. Append it after the corresponding size argument [Optional].
 """
 
 # %%
@@ -43,6 +43,6 @@ fig.plot(x=xvalues, y=yvalues, pen="thick,black,solid")
 
 # Plot the data points on top of the line
 # Use circles with 0.3 centimeters diameter, with an "orange" fill and a "black" outline
-# Symbols are not clipped if they go off the figure
+# Symbols are not clipped if they go off the plot frame
 fig.plot(x=xvalues, y=yvalues, style="c0.3c", fill="orange", pen="black", no_clip=True)
 fig.show()

@@ -18,11 +18,11 @@
 .. _sphx_glr_gallery_images_image.py:
 
 
-Image on a figure
-=================
+Image on a plot
+===============
 
 The :meth:`pygmt.Figure.image` method can be used to read and place an image file in
-many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify the filename via
+many formats (e.g., png, jpg, eps, pdf) on a plot. We must specify the filename via
 the ``imagefile`` parameter or simply use the filename as the first argument. You can
 also use a full URL pointing to your desired image. The ``position`` parameter allows
 us to place the image at a specific location on the plot.
@@ -68,7 +68,7 @@ us to place the image at a specific location on the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.414 seconds)
+   **Total running time of the script:** (0 minutes 0.441 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:

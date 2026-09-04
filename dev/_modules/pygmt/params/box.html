@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/params/box.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=bca195e8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.params.box</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">The Box class for specifying the box around GMT embellishments.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">dataclasses</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
@@ -166,14 +169,14 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_nonstr_iter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.params.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseParam</span>
 
-<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Box&quot;</span><span class="p">]</span>
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Box"</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="Box">
 <a class="viewcode-back" href="../../../api/generated/pygmt.params.Box.html#pygmt.params.Box">[docs]</a>
 <span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Box</span><span class="p">(</span><span class="n">BaseParam</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Class for specifying the box around GMT embellishments.</span>
 
 <span class="sd">    Examples</span>
@@ -181,9 +184,9 @@
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; from pygmt.params import Box</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">    &gt;&gt;&gt; fig.logo(box=Box(pen=&quot;1p&quot;, radius=&quot;5p&quot;, shade_offset=(&quot;5p&quot;, &quot;5p&quot;)))</span>
+<span class="sd">    &gt;&gt;&gt; fig.logo(box=Box(pen="1p", radius="5p", shade_offset=("5p", "5p")))</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1">#: Set clearances between the embellishment and the box border. It can be either a</span>
     <span class="c1">#: scalar value or a sequence of two/four values.</span>
@@ -196,7 +199,7 @@
     <span class="c1">#: Fill for the box [Default is no fill].</span>
     <span class="n">fill</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="c1">#: Gap between the outer and inner borders [Default is ``&quot;2p&quot;``].</span>
+    <span class="c1">#: Gap between the outer and inner borders [Default is ``"2p"``].</span>
     <span class="n">inner_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">#: Pen attributes for the inner border [Default to :gmt-term:`MAP_DEFAULT_PEN`].</span>
@@ -206,25 +209,25 @@
     <span class="n">pen</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1">#: Draw a rounded rectangular border instead of sharp. Passing a value with unit to</span>
-    <span class="c1">#: control the corner radius [Default is ``&quot;6p&quot;``].</span>
+    <span class="c1">#: control the corner radius [Default is ``"6p"``].</span>
     <span class="n">radius</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1">#: Place an offset background shaded region behind the box. A sequence of two values</span>
     <span class="c1">#: (dx, dy) indicates the shift relative to the foreground frame [Default is</span>
-    <span class="c1">#: ``(&quot;4p&quot;, &quot;-4p&quot;)``].</span>
+    <span class="c1">#: ``("4p", "-4p")``].</span>
     <span class="n">shade_offset</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="c1">#: Fill for the shaded region [Default is ``&quot;gray50&quot;``].</span>
+    <span class="c1">#: Fill for the shaded region [Default is ``"gray50"``].</span>
     <span class="n">shade_fill</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Validate the parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># inner_pen is required when inner_gap is set.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_gap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_pen</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTParameterError</span><span class="p">(</span>
-                <span class="n">required</span><span class="o">=</span><span class="s2">&quot;inner_pen&quot;</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Required when &#39;inner_gap&#39; is set.&quot;</span>
+                <span class="n">required</span><span class="o">=</span><span class="s2">"inner_pen"</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s2">"Required when 'inner_gap' is set."</span>
             <span class="p">)</span>
 
         <span class="c1"># shade_offset must be a sequence of two values or None.</span>
@@ -233,37 +236,37 @@
         <span class="p">):</span>
             <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">shade_offset</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;value for parameter &#39;shade_offset&#39;&quot;</span><span class="p">,</span>
-                <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Must be a sequence of two values (dx, dy) or None.&quot;</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"value for parameter 'shade_offset'"</span><span class="p">,</span>
+                <span class="n">reason</span><span class="o">=</span><span class="s2">"Must be a sequence of two values (dx, dy) or None."</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_innerborder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Inner border of the box, formatted as a list of 1-2 values, or None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inner_gap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_pen</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span> <span class="ow">or</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_shade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Shading for the box, formatted as a list of 1-3 values, or None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">_shade_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shade_offset</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="o">*</span><span class="n">_shade_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shade_fill</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span> <span class="ow">or</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Aliases for the parameter.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clearance</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+c&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+g&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_innerborder</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;inner_gap/inner_pen&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+i&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+p&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;radius&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+r&quot;</span><span class="p">),</span>
-            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shade</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;shade_offset/shade_fill&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;+s&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clearance</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"clearance"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+c"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"fill"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+g"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_innerborder</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"inner_gap/inner_pen"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+i"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"pen"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+p"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"radius"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+r"</span><span class="p">),</span>
+            <span class="n">Alias</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shade</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"shade_offset/shade_fill"</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">"+s"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"/"</span><span class="p">),</span>
         <span class="p">]</span></div>
 
 </pre></div>
@@ -277,9 +280,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

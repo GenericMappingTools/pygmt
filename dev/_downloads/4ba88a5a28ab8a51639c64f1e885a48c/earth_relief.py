@@ -91,7 +91,7 @@ fig.show()
 #
 # The example below uses data with a 10 arc-minutes resolution, and plots it on a
 # 15-centimeters-wide figure with a Mercator projection and a CPT set to *geo*.
-# ``frame=Axis(annot=True)`` is used to add a frame with annotations to the figure.
+# ``frame=Axis(annot=True)`` is used to add a frame with annotations to the map.
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()

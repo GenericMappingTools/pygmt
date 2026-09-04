@@ -20,16 +20,16 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/contributing.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/documentation_options.js?v=bca195e8"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=ccdb6887"></script>
       <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Maintainers Guide" href="maintenance.html" />
-    <link rel="prev" title="PyGMT Team" href="team.html" />
+    <link rel="prev" title="Changelog" href="changes.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -85,9 +85,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -96,17 +102,15 @@
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributors Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ways-to-contribute">Ways to Contribute</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ways-to-contribute-documentation-and-or-code">Ways to Contribute Documentation and/or Code</a></li>
@@ -157,7 +161,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#testing-your-code">Testing your Code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#testing-plots">Testing Plots</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-mpl-image-compare">Using mpl_image_compare</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-data-version-control-dvc-to-manage-test-images">Using Data Version Control (dvc) to Manage Test Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-git-large-file-storage-lfs-to-manage-test-images">Using Git Large File Storage (LFS) to Manage Test Images</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#using-check-figures-equal">Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code></a></li>
 </ul>
 </li>
@@ -166,22 +170,21 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -285,7 +288,7 @@ will report the equivalent GMT commands as one of the debug messages.</p></li>
 <li><p>Either append all messages from running your script to your GitHub issue, or
 filter the messages to include only the GMT-equivalent commands using a command
 such as:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F&#39;: &#39; &#39;$2==&quot;GMT_Call_Command string&quot; {print $3}&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script.</p>
@@ -366,9 +369,10 @@ integrated separately.</p></li>
 </li>
 <li><p>How to write and submit a PR</p>
 <ul>
-<li><p>Use underscores for all Python (*.py) files as per
-<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, not hyphens. Directory names
-should also use underscores instead of hyphens.</p></li>
+<li><p>Use underscores, not hyphens, in the names of all files and directories, as per
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> for Python (*.py) files. A few
+exceptions are allowed (e.g., <code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>) and are listed
+in the <a class="reference internal" href="#.github/workflows/style_checks.yaml"><span class="xref myst">style checks</span></a> workflow.</p></li>
 <li><p>Describe what your PR changes and <em>why</em> this is a good thing. Be as
 specific as you can. The PR description is how we keep track of the changes
 made to the project over time.</p></li>
@@ -437,7 +441,7 @@ If you have any trouble, leave a comment in the PR or
 <a class="reference internal" href="#contributing-code"><span class="std std-ref">contributing code</span></a>. A local PyGMT development environment
 is not needed for <a class="reference internal" href="#editing-the-documentation-on-github"><span class="std std-ref">editing the documentation on GitHub</span></a>.</p>
 <p>We highly recommend using <a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge3">Miniforge</a>
-and the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> package manager to install and manage your Python packages.
+and the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager to install and manage your Python packages.
 It will make your life a lot easier!</p>
 <p>The repository includes a virtual environment file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> with the
 specification for all development requirements to build and test the project.
@@ -445,7 +449,7 @@ In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:</p>
 <ul class="simple">
 <li><p>git (for cloning the repo and tracking changes in code)</p></li>
-<li><p>dvc (for downloading baseline images used in tests)</p></li>
+<li><p><a class="reference external" href="https://git-lfs.com">Git LFS</a> (for downloading baseline images used in tests)</p></li>
 <li><p>pytest-mpl (for checking that generated plots match the baseline)</p></li>
 <li><p>sphinx-gallery (for building the gallery example page)</p></li>
 </ul>
@@ -455,12 +459,12 @@ Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository to create a new conda
 environment from the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--file<span class="w"> </span>environment.yml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--file<span class="w"> </span>environment.yml
 </pre></div>
 </div>
 <p>Before building and testing the project, you have to activate the environment
 (you’ll need to do this every time you start a new terminal):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>activate<span class="w"> </span>pygmt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>pygmt
 </pre></div>
 </div>
 <p>We have a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/Makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>
@@ -494,7 +498,7 @@ and markdown <code class="docutils literal notranslate"><span class="pre">*.md</
 <p>The documentation is written primarily in
 <a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> and built by
 <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a>. Please refer to
-<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.7/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a>
 section.</p>
@@ -563,7 +567,7 @@ begin with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;
 <code class="docutils literal notranslate"><span class="pre">__doctest_skip__</span> <span class="pre">=</span> <span class="pre">[&quot;function_name&quot;]</span></code> to the top of the module.</p>
 <p><strong>Inline code example</strong></p>
 <p>Below the import statements at the top of the file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;function_name&quot;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"function_name"</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>At the end of the function’s docstring:</p>
@@ -686,9 +690,9 @@ to <a class="reference external" href="https://www.pygmt.org/latest/install.html
 <li><p><code>:gmt-term:`GMT_PARAMETER`</code></p></li>
 </ul>
 <p>An example would be using
-<code>:gmt-docs:`makecpt.html`</code> to link to <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.6/makecpt.html">https://docs.generic-mapping-tools.org/6.6/makecpt.html</a>.
+<code>:gmt-docs:`makecpt.html`</code> to link to <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.7/makecpt.html">https://docs.generic-mapping-tools.org/6.7/makecpt.html</a>.
 For GMT configuration parameters, an example is
-<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
+<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
 <p>Sphinx will create a link to the automatically generated page for that
 function/class/module/method.</p>
 </section>
@@ -835,9 +839,9 @@ pandas, and xarray objects and the virtual file mechanism.</p>
 If you’re not sure how to do this or are having trouble, submit your pull request
 anyway.
 We will help you create the tests and sort out any kind of problem during code review.</p>
-<p>Pull the baseline images, run the tests, and calculate test coverage using:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
-dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+<p>Pull the latest changes (including baseline images), run the tests, and calculate
+test coverage using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git pull
 make test
 </pre></div>
 </div>
@@ -875,11 +879,11 @@ If your test created a <code class="docutils literal notranslate"><span class="p
 returning the <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">mpl_image_compare</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_my_plotting_case</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Test that my plotting method works.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"W15c"</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </pre></div>
 </div>
@@ -897,72 +901,35 @@ Visually inspect the one corresponding to your test function.
 If it’s correct, copy it (and only it) to <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code>.
 When you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> the next time, your test should be executed and
 passing.</p>
-<p>Don’t forget to commit the baseline image as well!
-The images should be pushed up into a remote repository using <code class="docutils literal notranslate"><span class="pre">dvc</span></code> (instead of
-<code class="docutils literal notranslate"><span class="pre">git</span></code>) as will be explained in the next section.</p>
+<p>Don’t forget to commit the baseline image as well! Baseline images are tracked with
+Git LFS, as explained in the next section.</p>
 </section>
-<section id="using-data-version-control-dvc-to-manage-test-images">
-<h4>Using Data Version Control (<a class="reference external" href="https://dvc.org">dvc</a>) to Manage Test Images<a class="headerlink" href="#using-data-version-control-dvc-to-manage-test-images" title="Link to this heading"></a></h4>
-<p>As the baseline images are quite large blob files that can change often (e.g.
-with new GMT versions), it is not ideal to store them in <code class="docutils literal notranslate"><span class="pre">git</span></code> (which is meant
-for tracking plain text files). Instead, we will use <a class="reference external" href="https://dvc.org"><code class="docutils literal notranslate"><span class="pre">dvc</span></code></a>
-which is like <code class="docutils literal notranslate"><span class="pre">git</span></code> but for data. What <code class="docutils literal notranslate"><span class="pre">dvc</span></code> does is to store the hash (md5sum)
-of a file. For example, given an image file like <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span></code> will
-generate a <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> plain text file containing the hash of the
-image. This <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> file can be stored as usual on GitHub, while
-the <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code> file can be stored separately on our <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote at
-<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt">https://dagshub.com/GenericMappingTools/pygmt</a>.</p>
-<p>To <strong>pull</strong> or sync files from the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote to your local repository, use
-the commands below. Note how <code class="docutils literal notranslate"><span class="pre">dvc</span></code> commands are very similar to <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
-dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+<section id="using-git-large-file-storage-lfs-to-manage-test-images">
+<h4>Using <a class="reference external" href="https://git-lfs.com">Git Large File Storage (LFS)</a> to Manage Test Images<a class="headerlink" href="#using-git-large-file-storage-lfs-to-manage-test-images" title="Link to this heading"></a></h4>
+<p>As the baseline images are quite large blob files that can change often (e.g., with new
+GMT versions), they are managed with Git LFS rather than regular Git objects.</p>
+<p>You need to run the following command once to set up Git LFS on your machine:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git lfs install
 </pre></div>
 </div>
-<p>Once the sync/download is complete, you should notice two things. There will be
-images stored in the <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>) and
-these images are technically reflinks/symlinks/copies of the files under the
-<code class="docutils literal notranslate"><span class="pre">.dvc/cache</span></code> folder. You can now run the image comparison test suite as per
-usual.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest pygmt/tests/test_logo.py  # run only one test
-make test  # run the entire test suite
-</pre></div>
-</div>
-<p>To <strong>push</strong> or sync changes from your local repository up to the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote
-at DAGsHub, you will first need to set up authentication using the commands
-below. This only needs to be done once, i.e. the first time you contribute a
-test image to the PyGMT project.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc remote modify upstream --local auth basic
-dvc remote modify upstream --local user &quot;$DAGSHUB_USER&quot;
-dvc remote modify upstream --local password &quot;$DAGSHUB_PASS&quot;
-</pre></div>
-</div>
-<p>The configuration will be stored inside your <code class="docutils literal notranslate"><span class="pre">.dvc/config.local</span></code> file. Note
-that the $DAGSHUB_PASS token can be generated at
-<a class="reference external" href="https://dagshub.com/user/settings/tokens">https://dagshub.com/user/settings/tokens</a>
-after creating a DAGsHub account (can be linked to your GitHub account). Once
-you have an account set up, please ask one of the PyGMT maintainers to add you
-as a collaborator at
-<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration</a>
-before proceeding with the next steps.</p>
-<p>The entire workflow for generating or modifying baseline test images can be
-summarized as follows:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Sync with both git and dvc remotes
+<p>After that, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">pull</span></code> download the baseline images automatically. If
+Git LFS downloads were deliberately skipped, run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">lfs</span> <span class="pre">pull</span></code> to download the missing
+images. The images in <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code> can then be used by the image-comparison
+tests as usual.</p>
+<p>The entire workflow for generating or modifying baseline test images can be summarized
+as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Sync Git; Git LFS objects are downloaded automatically
 git pull
-dvc pull
 
 # Generate new baseline images
 pytest --mpl-generate-path=baseline pygmt/tests/test_logo.py
 mv baseline/*.png pygmt/tests/baseline/
 
-# Generate hash for baseline image and stage the *.dvc file in git
-dvc status  # Check which files need to be added to dvc
-dvc add pygmt/tests/baseline/test_logo.png
-git add pygmt/tests/baseline/test_logo.png.dvc
+# Stage the Git LFS-tracked baseline image
+git add pygmt/tests/baseline/test_logo.png
 
-# Commit changes and push to both the git and dvc remotes
-git commit -m &quot;Add test_logo.png into DVC&quot;
-dvc status --remote upstream  # Report which files will be pushed to the dvc remote
-dvc push  # Run before git push to enable automated testing with the new images
+# Commit and push; Git LFS uploads the image automatically
+git commit -m "Add test_logo.png baseline image"
 git push
 </pre></div>
 </div>
@@ -976,12 +943,12 @@ image, and checks for the Root Mean Square (RMS) error between the two.
 Here’s an example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@check_figures_equal</span><span class="p">()</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_my_plotting_case</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Test that my plotting method works.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">Figure</span><span class="p">()</span>
-    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">)</span>
-    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gmt/geo&quot;</span><span class="p">)</span>
+    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">"@earth_relief_01d_g"</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"W120/15c"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gmt/geo"</span><span class="p">)</span>
+    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"W120/15c"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"gmt/geo"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span>
 </pre></div>
 </div>
@@ -995,7 +962,7 @@ Here’s an example:</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="team.html" class="btn btn-neutral float-left" title="PyGMT Team" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changes.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="maintenance.html" class="btn btn-neutral float-right" title="Maintainers Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -1003,9 +970,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 

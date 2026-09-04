@@ -10,8 +10,9 @@ equally spaced sinusoids. The scale is true along latitude 49°16'.
 
 **ks**\ [*lon0/*]\ *scale* or **Ks**\ [*lon0/*]\ *width*
 
-The projection is set with **ks** or **Ks**. The central meridian is set with
-the optional *lon0*, and the figure size is set with *scale* or *width*.
+- **ks** or **Ks**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

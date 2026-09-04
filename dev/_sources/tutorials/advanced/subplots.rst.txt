@@ -95,9 +95,9 @@ example:
 
 will define our figure to have a 2 row and 3 column grid layout.
 ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm wide by
-6 cm high. Using ``frame=Frame(axes="lrtb")`` allows us to customize the map frame for
-all subplots instead of setting them individually. The figure layout will look like
-the following:
+6 cm high. Using ``frame=Frame(axes="lrtb")`` allows us to customize the plot frame
+for all subplots instead of setting them individually. The figure layout will look
+like the following:
 
 .. GENERATED FROM PYTHON SOURCE LINES 57-70
 
@@ -211,9 +211,9 @@ parameters to fine-tune some details of the figure creation:
 - ``title="My Subplot Heading"``: Adds a title on top of the whole figure.
 
 Notice that each subplot was set to use a linear projection ``"X?"``. Usually, we need
-to specify the width and height of the map frame, but it is also possible to use a
+to specify the width and height of the plot frame, but it is also possible to use a
 question mark ``"?"`` to let GMT decide automatically on what is the most appropriate
-width/height for each subplot's map frame.
+width/height for each subplot's frame.
 
 .. GENERATED FROM PYTHON SOURCE LINES 136-148
 
@@ -373,7 +373,7 @@ to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.591 seconds)
+   **Total running time of the script:** (0 minutes 0.598 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_subplots.py:

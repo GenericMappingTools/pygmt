@@ -19,16 +19,16 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=15d0b9f1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=eff37dcc" />
 
   
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org//dev/_modules/pygmt/src/psconvert.html" />
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=e3ca22a0"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/documentation_options.js?v=bca195e8"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
       <script src="../../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -82,9 +82,15 @@
     
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">PyGMT Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../presentations.html">Presentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -93,35 +99,32 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<p class="caption" role="heading"><span class="caption-text">Reference Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
 </ul>
 
 
     
         <p class="caption">
-            <span class="caption-text">Getting help and contributing</span>
+            <span class="caption-text">Getting help</span>
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> GMT Forum</a></li>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/issues"><i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)</a></li>
             
-                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
-            
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-handshake-o fa-fw"></i> Code of Conduct</a></li>
             
         </ul>
     
@@ -154,9 +157,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pygmt.src.psconvert</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">psconvert - Convert [E]PS file(s) to other formats using Ghostscript.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -169,18 +172,18 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;resize&quot;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="s2">&quot;bb_style&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;anti_aliasing&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">"crop"</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">"resize"</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="s2">"bb_style"</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">"fmt"</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="s2">"anti_aliasing"</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">psconvert</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">gs_option</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">gs_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span> <span class="s2">&quot;timing&quot;</span><span class="p">,</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;compat&quot;</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">]</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"quiet"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">,</span> <span class="s2">"warning"</span><span class="p">,</span> <span class="s2">"timing"</span><span class="p">,</span> <span class="s2">"info"</span><span class="p">,</span> <span class="s2">"compat"</span><span class="p">,</span> <span class="s2">"debug"</span><span class="p">]</span>
     <span class="o">|</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""</span>
 <span class="sd">    Convert [E]PS file(s) to other formats using Ghostscript.</span>
 
 <span class="sd">    Converts one or more PostScript files to other formats (BMP, EPS, JPEG,</span>
@@ -230,9 +233,9 @@
 <span class="sd">        Adjust the BoundingBox and HiResBoundingBox by scaling and/or</span>
 <span class="sd">        adding margins. Append **+m** to specify extra margins to extend</span>
 <span class="sd">        the bounding box. Give either one (uniform), two (x and y) or four</span>
-<span class="sd">        (individual sides) margins; append unit [Default is set by</span>
-<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the</span>
-<span class="sd">        output image to exactly *width* units. The default unit is set by</span>
+<span class="sd">        (individual sides) margins; append a :ref:`dimension unit &lt;dimension-units&gt;`</span>
+<span class="sd">        [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to</span>
+<span class="sd">        resize the output image to exactly *width* units. The default unit is set by</span>
 <span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or</span>
 <span class="sd">        impose different width and height (**Note**: This may change the</span>
 <span class="sd">        image aspect ratio). What happens here is that Ghostscript will do</span>
@@ -248,14 +251,14 @@
 <span class="sd">        towards black (100%) [no fading, 0]. Append **+g**\ *paint* to</span>
 <span class="sd">        paint the BoundingBox behind the illustration and append **+p**\</span>
 <span class="sd">        [*pen*] to draw the BoundingBox outline (append a pen or accept</span>
-<span class="sd">        the default pen of ``&quot;0.25p,black,solid&quot;``). **Note**: If both **+g** and</span>
+<span class="sd">        the default pen of ``"0.25p,black,solid"``). **Note**: If both **+g** and</span>
 <span class="sd">        **+f** are used then we use *paint* as the fade color instead of</span>
 <span class="sd">        black. Append **+i** to enforce gray-shades by using ICC profiles.</span>
 <span class="sd">    anti_aliasing : str</span>
 <span class="sd">        [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].</span>
 <span class="sd">        Set the anti-aliasing options for **g**\ raphics or **t**\ ext.</span>
 <span class="sd">        Append the size of the subsample box (1, 2, or 4) [Default is</span>
-<span class="sd">        ``&quot;4&quot;``]. [Default is no anti-aliasing (same as bits = 1).]</span>
+<span class="sd">        ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]</span>
 <span class="sd">    fmt : str</span>
 <span class="sd">        Set the output format, where **b** means BMP, **e** means EPS,</span>
 <span class="sd">        **E** means EPS with PageSize command, **f** means PDF, **F** means</span>
@@ -269,37 +272,37 @@
 <span class="sd">        file from the list of input PS or PDF files. It requires the</span>
 <span class="sd">        ``prefix`` parameter.</span>
 <span class="sd">    $verbose</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
+<span class="sd">    """</span>
     <span class="c1"># Default cropping the figure to True</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"A"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">"A"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">""</span>
 
-    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">}:</span>
+    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">""</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">}:</span>
         <span class="k">raise</span> <span class="n">GMTValueError</span><span class="p">(</span>
             <span class="n">prefix</span><span class="p">,</span>
-            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;output file name&quot;</span><span class="p">,</span>
-            <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Parameter &#39;prefix&#39; can&#39;t be None, bool, or an empty string.&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">"output file name"</span><span class="p">,</span>
+            <span class="n">reason</span><span class="o">=</span><span class="s2">"Parameter 'prefix' can't be None, bool, or an empty string."</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c1"># Check if the parent directory exists</span>
     <span class="n">prefix_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>  <span class="c1"># type: ignore[arg-type]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">prefix_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No such directory: </span><span class="si">{</span><span class="n">prefix_path</span><span class="si">!r}</span><span class="s2">, please create it first.&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"No such directory: </span><span class="si">{</span><span class="n">prefix_path</span><span class="si">!r}</span><span class="s2">, please create it first."</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">aliasdict</span> <span class="o">=</span> <span class="n">AliasSystem</span><span class="p">(</span>
-        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">gs_option</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gs_option&quot;</span><span class="p">),</span>
-        <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">),</span>
-        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">),</span>
-        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">gs_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gs_path&quot;</span><span class="p">),</span>
+        <span class="n">C</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">gs_option</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"gs_option"</span><span class="p">),</span>
+        <span class="n">E</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">dpi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"dpi"</span><span class="p">),</span>
+        <span class="n">F</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"prefix"</span><span class="p">),</span>
+        <span class="n">G</span><span class="o">=</span><span class="n">Alias</span><span class="p">(</span><span class="n">gs_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"gs_path"</span><span class="p">),</span>
     <span class="p">)</span><span class="o">.</span><span class="n">add_common</span><span class="p">(</span>
         <span class="n">V</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">aliasdict</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">))</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">"psconvert"</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">aliasdict</span><span class="p">))</span>
 </pre></div>
 
            </div>
@@ -311,9 +314,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2026, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e3fd63ef6">e3fd63ef</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/8d2e1c0ee">8d2e1c0e</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 15, 2026.
+      <span class="lastupdated">Last updated on Sep 04, 2026.
       </span></p>
   </div>
 
