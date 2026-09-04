@@ -114,8 +114,8 @@ def histogram(
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
     cumulative
-        Draw a cumulative histogram. Setting it to ``"reversed"`` to compute the
-        reversed cumulative histogram instead.
+        Draw a cumulative histogram. Set it to ``"reverse"`` to compute the reverse
+        cumulative histogram instead.
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
@@ -174,7 +174,7 @@ def histogram(
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         G=Alias(fill, name="fill"),
-        Q=Alias(cumulative, name="cumalative", mapping={"reversed": "r"}),
+        Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
