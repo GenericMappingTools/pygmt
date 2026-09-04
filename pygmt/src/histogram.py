@@ -99,7 +99,7 @@ def histogram(
         either an alternative width in data units, or the user may append a
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
-        Shift all bars along the axis by *offset*. It may be given in data units of plot
+        Shift all bars along the axis by a constant value. It may be given in data units of plot
         dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
