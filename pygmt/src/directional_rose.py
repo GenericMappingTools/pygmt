@@ -8,6 +8,7 @@ from typing import Literal
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Perspective, Position
 from pygmt.src._common import _parse_position
@@ -22,6 +23,7 @@ def directional_rose(
     width: float | str | None = None,
     fancy: Literal[1, 2, 3] | bool = False,
     labels: Sequence[str] | bool = False,
+    upright_labels: bool = False,
     box: Box | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -63,6 +65,10 @@ def directional_rose(
         string to skip a specific label. If set to ``True``, default labels are used
         (``["W", "E", "S", "N"]`` for a fancy rose and ``["", "", "", "N"]`` for a
         simple rose).
+    upright_labels
+        Force the labels to be upright (more readable from the south) if the projection
+        has extensive rotation of the directions. Requires ``fancy`` and ``labels``
+        to be set.
     box
         Draw a background box behind the directional rose. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -84,13 +90,19 @@ def directional_rose(
     # Set the default position to "TR" to be consistent with the behavior in GMT 6.7.0
     position = _parse_position(position, default=Position("TR", cstype="inside"))
 
+    if upright_labels and not (fancy and labels):
+        raise GMTParameterError(
+            required=["fancy", "labels"],
+            reason="Both are required when 'upright_labels' is set.",
+        )
+
     aliasdict = AliasSystem(
         F=Alias(box, name="box"),
         Td=[
             Alias(position, name="position"),
             Alias(width, name="width", prefix="+w"),
-            Alias(fancy, name="fancy", prefix="+f"),
             Alias(labels, name="labels", prefix="+l", sep=",", size=4),
+            Alias(fancy, name="fancy", prefix="+F" if upright_labels else "+f"),
         ],
     ).add_common(
         V=verbose,
