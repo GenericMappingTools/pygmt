@@ -116,9 +116,6 @@ jobs:
           persist-credentials: false
           lfs: false
 
-      - name: Checkout the Git LFS (i.e., the baseline images) objects
-        uses: $/.github/actions/checkout-lfs
-
       - name: Get current week number of year
         id: date
         run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
@@ -147,6 +144,9 @@ jobs:
             pytest-doctestplus
             pytest-mpl
             pytest-rerunfailures
+
+      - name: Checkout the Git LFS (i.e., the baseline images) objects
+        uses: $/.github/actions/checkout-lfs
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
