@@ -65,6 +65,7 @@ jobs:
             '^\.github/ISSUE_TEMPLATE/[0-9]+-'
             '^doc/_static/'
             '^pygmt/tests/baseline/'
+            '^\.github/actions/'
             '^\.github/workflows/'
           )
           git ls-files | grep '-' | grep -v -E "$(IFS='|'; echo "${allowed[*]}")" > output.txt || true
