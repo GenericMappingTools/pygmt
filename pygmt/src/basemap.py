@@ -9,7 +9,7 @@ from typing import Literal
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, is_given
-from pygmt.params import Axis, Box, Frame
+from pygmt.params import Axis, Box, Frame, Perspective
 
 
 @fmt_docstring
@@ -28,7 +28,7 @@ def basemap(
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     coltypes: str | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
