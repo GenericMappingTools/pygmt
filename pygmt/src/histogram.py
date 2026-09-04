@@ -30,7 +30,6 @@ from pygmt.params import Axis, Frame
     S="stairs",
     T="series",
     W="pen",
-    Z="histtype",
     b="binary",
     d="nodata",
     e="find",
@@ -45,6 +44,9 @@ def histogram(
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
+    histtype: Literal[
+        "counts", "freq", "log_count", "log_freq", "log10_count", "log10_freq"
+    ] = "counts",
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -68,6 +70,7 @@ def histogram(
        - J = projection
        - R = region
        - V = verbose
+       - Z = histtype
        - c = panel
        - i = incols
        - p = perspective
@@ -130,19 +133,15 @@ def histogram(
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    histtype : int or str
-        [*type*][**+w**].
-        Choose between 6 types of histograms:
+    histtype
+        The histogram type to plot:
 
-        * 0 = counts [Default]
-        * 1 = frequency_percent
-        * 2 = log (1.0 + count)
-        * 3 = log (1.0 + frequency_percent)
-        * 4 = log10 (1.0 + count)
-        * 5 = log10 (1.0 + frequency_percent).
-
-        To use weights provided as a second data column instead of pure counts,
-        append **+w**.
+        - ``"counts"``: counts [Default]
+        - ``"freq"``: frequency_percent
+        - ``"log_count"``: log (1.0 + count)
+        - ``"log_freq"``: log (1.0 + frequency_percent)
+        - ``"log10_count"``: log10 (1.0 + count)
+        - ``"log10_freq"``: log10 (1.0 + frequency_percent
     $projection
     $region
     $frame
@@ -169,6 +168,18 @@ def histogram(
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        Z=Alias(
+            histtype,
+            name="histtype",
+            mapping={
+                "counts": "0",
+                "freq": "1",
+                "log_count": "2",
+                "log_freq": "3",
+                "log10_count": "4",
+                "log10_freq": "5",
+            },
+        ),
     ).add_common(
         B=frame,
         J=projection,
