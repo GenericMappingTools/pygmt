@@ -173,8 +173,8 @@ def image(
                 ),
             )
         msg = (
-            "The 'bitcolor' parameter has been deprecated since v0.20.0 and will be "
-            "removed in v0.24.0. Use 'bgcolor', 'fgcolor' or 'transparent_color' "
+            "The 'bitcolor' parameter has been deprecated since 0.20.0 and will be "
+            "removed in 0.24.0. Use 'bgcolor', 'fgcolor' or 'transparent_color' "
             "instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
