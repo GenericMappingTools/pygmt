@@ -118,8 +118,8 @@ def image(
         box properties.
     bgcolor
     fgcolor
-        For 1-bit images, set the background and foreground colors [Default is black and
-        white, respectively]. Setting either to an empty string makes those pixels
+        For 1-bit images, set the background and foreground colors [Default is the
+        image's own colors]. Setting either to an empty string makes those pixels
         transparent. Cannot be both empty.
     transparent_color
         For color images, set a single color that should be made transparent.
@@ -165,12 +165,6 @@ def image(
 
     # TODO(PyGMT>=0.24.0): Remove the deprecated "bitcolor" parameter.
     if bitcolor is not None:
-        msg = (
-            "The 'bitcolor' parameter has been deprecated since v0.20.0 and will be "
-            "removed in v0.24.0. Use 'bgcolor', 'fgcolor' or 'transparent_color' "
-            "instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
         if any(v is not None for v in [bgcolor, fgcolor, transparent_color]):
             raise GMTParameterError(
                 conflicts_with=(
@@ -178,6 +172,12 @@ def image(
                     ["bgcolor", "fgcolor", "transparent_color"],
                 ),
             )
+        msg = (
+            "The 'bitcolor' parameter has been deprecated since v0.20.0 and will be "
+            "removed in v0.24.0. Use 'bgcolor', 'fgcolor' or 'transparent_color' "
+            "instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     # 'bgcolor' and 'fgcolor' cannot both be empty.
     if bgcolor == "" and fgcolor == "":
