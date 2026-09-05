@@ -8,6 +8,7 @@ from typing import Literal
 from pygmt._typing import PathLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Frame
 
@@ -19,9 +20,30 @@ def sac(
     pen: str | None = None,
     time_window: Sequence[float] | bool = False,
     offset: float | Sequence[float] | None = None,
-    profile: str | None = None,
+    profile: Literal[
+        "azimuth",
+        "back_azimuth",
+        "distance_in_km",
+        "distance_in_degree",
+        "trace_number",
+        "user0",
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7",
+        "user8",
+        "user9",
+    ]
+    | None = None,
+    trace_number: int | None = None,
     preprocess: str | None = None,
-    fill: str | Sequence[str] | bool = False,
+    positive_fill: str | None = None,
+    negative_fill: str | None = None,
+    fill_zero: float | None = None,
+    fill_time_window: Sequence[float] | None = None,
     amplitude_scale: float | str | Sequence[float | str] | None = None,
     vertical: bool = False,
     time_scale: float | str | None = None,
@@ -70,9 +92,9 @@ def sac(
        - B = frame
        - C = time_window
        - D = offset
-       - E = profile
+       - E = profile, trace_number
        - F = preprocess
-       - G = fill
+       - G = positive_fill, negative_fill, fill_zero, fill_time_window
        - J = projection
        - M = amplitude_scale
        - Q = vertical
@@ -101,25 +123,28 @@ def sac(
         Offset the seismogram positions by the given amounts *dx*[/ *dy*]
         [Default is no offset]. If *dy* is not given, it is set equal to *dx*.
     profile
-        Choose the profile type, i.e., the type of the y axis. Use ``a`` for
-        azimuth, ``b`` for back-azimuth, ``k`` for epicentral distance in km,
-        ``d`` for epicentral distance in degrees, ``n`` for trace number (the
-        first trace is numbered *n*, e.g., ``n0``), and ``u`` for user-defined
-        profile (the y positions are determined by the SAC header variable
-        ``usern``, e.g., ``u0``).
+        Choose the profile type, i.e., the type of the y axis. Choose from
+        ``"azimuth"``, ``"back_azimuth"``, ``"distance_in_km"``,
+        ``"distance_in_degree"``, ``"trace_number"``, or ``"user0"`` to
+        ``"user9"``. User-defined profiles use the corresponding SAC header
+        variable, e.g., ``"user0"`` uses ``user0``.
+    trace_number
+        Set the number of the first trace for a trace-number profile. If not
+        specified, the first trace is numbered 0.
     preprocess
         Preprocess the data before plotting. Use ``i`` for integral, ``q`` for
         square, and ``r`` for removing the mean value. The letters can repeat
         multiple times, and the order controls the processing order, e.g.,
         ``"rii"`` converts acceleration to displacement.
-    fill
-        Paint the positive or negative portion of the traces. Use ``p``/``n`` to
-        paint the positive/negative portion [Default paints the positive
-        portion], ``+g`` *fill* to set the fill color [Default is ``"black"``],
-        ``+z`` *zero* to define the zero line, and ``+t`` *t0*/*t1* to paint a
-        time window only. Can be repeated to paint the positive and negative
-        portions separately, e.g., ``["p+gblack", "n+gred"]``. Set to ``True``
-        to paint the positive portion with the default fill.
+    positive_fill
+        Set the color or pattern for filling the positive portion of the traces.
+    negative_fill
+        Set the color or pattern for filling the negative portion of the traces.
+    fill_zero
+        Set the zero line for ``positive_fill`` and ``negative_fill``.
+    fill_time_window
+        Set the time window *t0*/*t1* for ``positive_fill`` and
+        ``negative_fill``.
     amplitude_scale
         Set the vertical scaling of the traces.
 
@@ -157,12 +182,58 @@ def sac(
     $perspective
     $transparency
     """
+    if profile is not None and trace_number is not None:
+        raise GMTValueError(
+            [profile, trace_number],
+            description="parameters 'profile' and 'trace_number'",
+            reason="Only one can be specified.",
+        )
+
+    profile_mapping = {
+        "azimuth": "a",
+        "back_azimuth": "b",
+        "distance_in_km": "k",
+        "distance_in_degree": "d",
+        "trace_number": "n",
+        **{f"user{number}": f"u{number}" for number in range(10)},
+    }
+    profile_alias = (
+        Alias(trace_number, name="trace_number", prefix="n")
+        if trace_number is not None
+        else Alias(profile, name="profile", mapping=profile_mapping)
+    )
+
+    fill_modifiers = "".join(
+        modifier
+        for modifier in (
+            Alias(fill_zero, name="fill_zero", prefix="+z")._value,
+            Alias(
+                fill_time_window,
+                name="fill_time_window",
+                prefix="+t",
+                sep="/",
+                size=2,
+            )._value,
+        )
+        if modifier is not None
+    )
+    fill_options = [
+        f"p+g{positive_fill}{fill_modifiers}" if positive_fill is not None else None,
+        f"n+g{negative_fill}{fill_modifiers}" if negative_fill is not None else None,
+    ]
+    if fill_modifiers and not any(fill_options):
+        raise GMTValueError(
+            [fill_zero, fill_time_window],
+            description="parameters 'fill_zero' and 'fill_time_window'",
+            reason="At least one of 'positive_fill' or 'negative_fill' must be specified.",
+        )
+
     aliasdict = AliasSystem(
         C=Alias(time_window, name="time_window", sep="/", size=2),
         D=Alias(offset, name="offset", sep="/", size=(1, 2)),
-        E=Alias(profile, name="profile"),
+        E=profile_alias,
         F=Alias(preprocess, name="preprocess"),
-        G=Alias(fill, name="fill"),
+        G=Alias([option for option in fill_options if option is not None], name="fill"),
         M=Alias(amplitude_scale, name="amplitude_scale", sep="/", size=(1, 2)),
         Q=Alias(vertical, name="vertical"),
         S=Alias(time_scale, name="time_scale"),

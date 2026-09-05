@@ -99,7 +99,8 @@ def test_sac_fill_positive_negative():
     fig = Figure()
     fig.sac(
         data=SAC_DATA,
-        fill=["p+gblack", "n+gred"],
+        positive_fill="black",
+        negative_fill="red",
         preprocess="r",
         region=[9, 20, -2, 2],
         projection="X15c/5c",
@@ -138,7 +139,7 @@ def test_sac_fill():
     fig = Figure()
     fig.sac(
         data=SAC_DATA,
-        fill="+ggray",
+        positive_fill="gray",
         region=[9, 20, -2, 2],
         projection="X15c/5c",
         frame=True,
@@ -174,7 +175,7 @@ def test_sac_profile():
     fig = Figure()
     fig.sac(
         data=SAC_DATA,
-        profile="n1",
+        trace_number=1,
         region=[9, 20, -1, 3],
         projection="X15c/5c",
         frame=True,
