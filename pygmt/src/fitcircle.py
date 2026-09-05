@@ -16,7 +16,7 @@ def fitcircle(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
-    norm: Literal["absolutes", "squares"] = "squares",
+    norm: Literal[1, 2] = 2,
     small_circle: bool | float = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
@@ -30,7 +30,7 @@ def fitcircle(
     of the input positions, and the pole to the great circle which best fits
     the input positions.
 
-    Setting ``norm`` to ``"absolutes"`` approximates the minimization of the
+    Setting ``norm`` to ``1`` (L1 norm) approximates the minimization of the
     sum of absolute values of cosines of angular distances. This solution
     finds the mean position as the Fisher average of the data, and the pole
     position as the Fisher average of the cross-products between the mean
@@ -38,7 +38,7 @@ def fitcircle(
     proportion to their distance from the mean, analogous to the "leverage"
     of distant points in linear regression in the plane.
 
-    Setting ``norm`` to ``"squares"`` approximates the minimization of the
+    Setting ``norm`` to ``2`` (L2 norm) approximates the minimization of the
     sum of squares of cosines of angular distances. It creates a 3 by 3
     matrix of sums of squares of components of the data vectors. The
     eigenvectors of this matrix give the mean and pole locations. This
@@ -76,8 +76,8 @@ def fitcircle(
     x/y : 1-D arrays
         Arrays of x and y coordinates of the data points.
     norm
-        Specify the desired norm, either ``"absolutes"`` or ``"squares"``
-        [Default is ``"squares"``].
+        Specify the desired norm, either ``1`` (L1 norm, least absolute
+        deviation) or ``2`` (L2 norm, least squares) [Default is ``2``].
     small_circle
         Attempt to fit a small circle instead of a great circle. The pole will be
         constrained to lie on the great circle connecting the pole of the best-fit great

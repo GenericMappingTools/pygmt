@@ -23,9 +23,9 @@ def fixture_data():
 @pytest.mark.benchmark
 def test_fitcircle_absolutes(data):
     """
-    Test fitcircle with norm="absolutes".
+    Test fitcircle with norm=1.
     """
-    result = fitcircle(data=data, norm="absolutes")
+    result = fitcircle(data=data, norm=1)
     assert isinstance(result, dict)
     assert set(result.keys()) == {"flat_mean", "mean", "north_pole", "south_pole"}
     npt.assert_allclose(result["flat_mean"], (330.243649573, -18.3910128205))
@@ -36,16 +36,16 @@ def test_fitcircle_absolutes(data):
 
 def test_fitcircle_squares(data):
     """
-    Test fitcircle with norm="squares", which is also the default.
+    Test fitcircle with norm=2, which is also the default.
     """
-    result = fitcircle(data=data, norm="squares")
+    result = fitcircle(data=data, norm=2)
     assert isinstance(result, dict)
     assert set(result.keys()) == {"flat_mean", "mean", "north_pole", "south_pole"}
     npt.assert_allclose(result["flat_mean"], (330.243649573, -18.3910128205))
     npt.assert_allclose(result["mean"], (330.163207808, -18.4067882988))
     npt.assert_allclose(result["north_pole"], (52.7449849947, 21.2046833116))
     npt.assert_allclose(result["south_pole"], (232.744984995, -21.2046833116))
-    assert fitcircle(data=data) == result  # norm="squares" is the default
+    assert fitcircle(data=data) == result  # norm=2 is the default
 
 
 def test_fitcircle_small_circle(data):
@@ -53,7 +53,7 @@ def test_fitcircle_small_circle(data):
     Test that fitcircle can fit a small circle instead of a great circle, and
     that the returned dict includes the small-circle keys.
     """
-    result = fitcircle(data=data, norm="squares", small_circle=True)
+    result = fitcircle(data=data, norm=2, small_circle=True)
     assert isinstance(result, dict)
     assert set(result.keys()) == {
         "flat_mean",
@@ -70,6 +70,6 @@ def test_fitcircle_input_xy(data):
     """
     Run fitcircle by passing in x/y as input.
     """
-    result = fitcircle(x=data.longitude, y=data.latitude, norm="absolutes")
+    result = fitcircle(x=data.longitude, y=data.latitude, norm=1)
     assert isinstance(result, dict)
     npt.assert_allclose(result["flat_mean"], (330.243649573, -18.3910128205))
