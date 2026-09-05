@@ -105,7 +105,7 @@ def fitcircle(
           tuple)
     """
     aliasdict = AliasSystem(
-        L=Alias(norm, name="norm", mapping={"absolutes": 1, "squares": 2}),
+        L=Alias(norm, name="norm"),
         S=Alias(small_circle, name="small_circle"),
     ).add_common(
         V=verbose,
