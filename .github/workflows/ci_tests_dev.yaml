@@ -64,7 +64,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9 # v3.1.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
@@ -105,8 +105,14 @@ jobs:
           path: 'gmt'
           persist-credentials: false
 
-      # Build GMT from source on Linux/macOS, script is adapted from
-      # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
+      - name: Set up MSVC environment (Windows)
+        if: runner.os == 'Windows'
+        uses: TheMrMilchmann/setup-msvc-dev@368ef7d1ee4d1171b31d4a7f67f4d954f903f5a9 # v4.1.0
+        with:
+          arch: x64
+
+      # Build GMT from source.
+      # Script is adapted from https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
       - name: Build GMT from source
         shell: bash
         run: |
@@ -114,7 +120,6 @@ jobs:
           mkdir build
           cd build
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cmd.exe /c "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
             CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt/Library"
           else
             CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt"
@@ -151,14 +156,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package

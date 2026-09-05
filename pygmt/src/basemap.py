@@ -8,12 +8,11 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given
 from pygmt.params import Axis, Box, Frame
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def basemap(
     self,
     projection: str | None = None,
@@ -21,13 +20,14 @@ def basemap(
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
-    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
-    | bool = False,
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
     box: Box | str | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | Sequence[int] | bool = False,
+    coltypes: str | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -35,17 +35,17 @@ def basemap(
     """
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several map
-    projections are available, and separate tick-mark intervals for axis annotation,
-    ticking, and gridlines can be specified.
+    Creates a basic or fancy basemap with axes, fill, and title. Several map projections
+    are available, and separate tick-mark intervals for axis annotation, ticks, and
+    gridlines can be specified.
 
     If not in subplot mode (see :meth:`pygmt.Figure.subplot`), at least one of the
     parameters ``frame``, ``map_scale``, ``rose``, or ``compass`` must be specified.
 
     .. note::
 
-        Parameters ``map_scale``, ``rose``, and ``compass`` are deprecated since
-        v0.19.0 in favor of the dedicated higher-level methods:
+        Parameters ``map_scale``, ``rose``, and ``compass`` are deprecated since 0.19.0
+        in favor of the dedicated higher-level methods:
 
         - :meth:`pygmt.Figure.scalebar`: Add a scale bar on the plot.
         - :meth:`pygmt.Figure.directional_rose`: Add a directional rose on the plot.
@@ -58,7 +58,11 @@ def basemap(
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - B = frame
        - F = box
        - J = projection
@@ -70,6 +74,7 @@ def basemap(
        - Tm = compass
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -85,7 +90,7 @@ def basemap(
     map_scale
         Draw a map scale bar on the plot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.scalebar` instead. This parameter is maintained
             for backward compatibility and accepts raw GMT CLI strings for the ``-L``
@@ -93,7 +98,7 @@ def basemap(
     compass
         Draw a map magnetic rose on the map.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.magnetic_rose` instead. This parameter is maintained
             for backward compatibility and accepts raw GMT CLI strings for the ``-Tm``
@@ -101,7 +106,7 @@ def basemap(
     rose
         Draw a map directional rose on the map.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use :meth:`pygmt.Figure.directional_rose` instead. This parameter is
             maintained for backward compatibility and accepts raw GMT CLI strings for
@@ -109,7 +114,7 @@ def basemap(
     box
         Draw a background box behind the scalebar, directional rose, or magnetic rose.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
             Use the ``box`` parameter in :meth:`pygmt.Figure.scalebar`,
             :meth:`pygmt.Figure.directional_rose`, or :meth:`pygmt.Figure.magnetic_rose`
@@ -120,7 +125,9 @@ def basemap(
             parameters.
     $verbose
     $panel
-    $coltypes
+    coltypes
+        Specify the types of the coordinates given via ``region``. See
+        :gmt-docs:`gmt.html#f-full` for details.
     $perspective
     $transparency
 
@@ -147,7 +154,7 @@ def basemap(
     ):
         if is_given(value):
             warnings.warn(
-                f"The {name!r} parameter has been deprecated since v0.19.0. Use {recommendation!r} instead.",
+                f"The {name!r} parameter has been deprecated since 0.19.0. Use {recommendation!r} instead.",
                 category=FutureWarning,
                 stacklevel=2,
             )
@@ -165,6 +172,7 @@ def basemap(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )

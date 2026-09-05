@@ -9,17 +9,17 @@ from pygmt._typing import PathLike
 from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
-from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, data_kind, fmt_docstring
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def grdpaste(
     grid1: PathLike | xr.DataArray,
     grid2: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -36,9 +36,14 @@ def grdpaste(
 
     Full GMT docs at :gmt-docs:`grdpaste.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - G = outgrid
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -73,7 +78,7 @@ def grdpaste(
             reason="Both input grids must be of the same type (file or xarray.DataArray).",
         )
 
-    aliasdict = AliasSystem().add_common(V=verbose)
+    aliasdict = AliasSystem().add_common(V=verbose, f=coltypes)
     aliasdict.merge(kwargs)
 
     with Session() as lib:

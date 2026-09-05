@@ -62,7 +62,7 @@ COMMON_DOCSTRINGS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "coltypes": r"""
-        coltypes : str
+        coltypes
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or geographical
             data). Full documentation is at :gmt-docs:`gmt.html#f-full`.""",
@@ -570,29 +570,29 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
+            # timestamp (U) was deprecated since 0.9.0 and removed in 0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
+                        "Parameters 'U' and 'timestamp' are no longer supported since 0.12.0. "
                         "Use Figure.timestamp() instead."
                     )
                 )
 
-            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
+            # xshift (X) was deprecated since 0.8.0 and removed in 0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                        "Parameters 'X' and 'xshift' are no longer supported since 0.12.0. "
                         "Use Figure.shift_origin(xshift=...) instead."
                     )
                 )
 
-            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
+            # yshift (Y) was deprecated since 0.8.0 and removed in 0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
                 raise GMTParameterError(
                     reason=(
-                        "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                        "Parameters 'Y' and 'yshift' are no longer supported since 0.12.0. "
                         "Use Figure.shift_origin(yshift=...) instead."
                     )
                 )
@@ -792,9 +792,9 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     Examples
     --------
-    >>> @deprecate_parameter("sizes", "size", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("colors", "color", "v0.0.0", "v9.9.9")
-    ... @deprecate_parameter("infile", "data", "v0.0.0", "v9.9.9")
+    >>> @deprecate_parameter("sizes", "size", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("colors", "color", "0.0.0", "9.9.9")
+    ... @deprecate_parameter("infile", "data", "0.0.0", "9.9.9")
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")

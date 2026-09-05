@@ -24,7 +24,6 @@ from pygmt.helpers import (
     L="force_scan",
     M="minmax_pos",
     T="nearest_multiple",
-    f="coltypes",
 )
 def grdinfo(
     grid: PathLike | xr.DataArray,
@@ -33,6 +32,7 @@ def grdinfo(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> str:
     r"""
@@ -47,6 +47,7 @@ def grdinfo(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -128,6 +129,7 @@ def grdinfo(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 

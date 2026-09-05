@@ -67,6 +67,10 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+    env:
+      # Tectonic cache directory.
+      # See https://tectonic-typesetting.github.io/book/latest/getting-started/first-document.html#cache.
+      TECTONIC_CACHE_DIR: ${{ github.workspace }}/.tectonic-cache
 
     steps:
       # Checkout current git repository
@@ -83,7 +87,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9 # v3.1.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
@@ -119,14 +123,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package
@@ -146,6 +143,15 @@ jobs:
             exit 0
           fi
           exit "${exit_code}"
+
+      - name: Cache tectonic packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0 # zizmor: ignore[cache-poisoning]
+        with:
+          path: ${{ env.TECTONIC_CACHE_DIR }}
+          # Cache is persistent for one week, same as the micromamba environment cache.
+          key: tectonic-${{ runner.os }}-${{ steps.date.outputs.date }}
+          # Fall back to the most recent cache so tectonic only downloads what's missing.
+          restore-keys: tectonic-${{ runner.os }}-
 
       - name: Build the PDF documentation
         env:

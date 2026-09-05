@@ -10,7 +10,7 @@ import ctypes as ctp
 import io
 import sys
 from collections.abc import Callable, Generator, Sequence
-from typing import Literal
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -286,7 +286,7 @@ class Session:
         return value
 
     def get_libgmt_func(
-        self, name: str, argtypes: list | None = None, restype=None
+        self, name: str, argtypes: list | None = None, restype: Any = ctp.c_int
     ) -> Callable:
         """
         Get a ctypes function from the libgmt shared library.
@@ -302,9 +302,10 @@ class Session:
         argtypes
             List of ctypes types used to convert the Python input arguments for the API
             function.
-        restype : ctypes type
-            The ctypes type used to convert the input returned by the function into a
-            Python type.
+        restype
+            The ctypes type used to convert the value returned by the function into a
+            Python type [Default is :class:`ctypes.c_int`]. Use ``None`` for functions
+            that return void.
 
         Returns
         -------
@@ -322,13 +323,10 @@ class Session:
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
-        if not hasattr(self, "_libgmt"):
-            self._libgmt = _libgmt
-        function = getattr(self._libgmt, name)
+        function = getattr(_libgmt, name)
         if argtypes is not None:
             function.argtypes = argtypes
-        if restype is not None:
-            function.restype = restype
+        function.restype = restype
         return function
 
     def create(self, name: str) -> None:
@@ -548,25 +546,36 @@ class Session:
         --------
         >>> with Session() as lib:
         ...     lib.call_module(
-        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve"]
+        ...         "basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf", "-Ve", "-fg"]
         ...     )
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
         ...     verbose = lib.get_common("V")
+        ...     coltypes = lib.get_common("f")
         ...     lib.call_module("plot", ["-T", "-Xw+1i", "-Yh-1i"])
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
-        >>> print(region, projection, timestamp, verbose, xshift, yshift)
-        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> print(region, projection, timestamp, verbose, coltypes, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 0 6.0 1.5
         >>> with Session() as lib:
         ...     lib.call_module("basemap", ["-R0/10/10/15", "-JX5i/2.5i", "-Baf"])
         ...     lib.get_common("A")
         Traceback (most recent call last):
         ...
         pygmt.exceptions.GMTValueError: Invalid GMT common option: 'A'. Expected ...
+        >>> with Session() as lib:
+        ...     lib.get_common("BI")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: 'BI'. Expected ...
+        >>> with Session() as lib:
+        ...     lib.get_common("")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTValueError: Invalid GMT common option: ''. Expected ...
         """
-        valid_options = "BIJRUVXYabfghinoprst:"
+        valid_options = tuple("BIJRUVXYabfghinoprst:")
         if option not in valid_options:
             raise GMTValueError(
                 option, description="GMT common option", choices=valid_options
@@ -577,20 +586,22 @@ class Session:
             argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
             restype=ctp.c_int,
         )
-        value = np.empty(6, np.float64)  # numpy array to store the value of the option
+        value = np.empty(6, np.float64)  # Array to store the value of the option
         status = c_get_common(
             self.session_pointer,
             ord(option),
             value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
         )
 
-        if status == self["GMT_NOTSET"]:  # GMT_NOTSET (-1) means the option is not set
+        # Option was not set, so return False.
+        if status == self["GMT_NOTSET"]:
             return False
-        if status == 0:  # Option is set and no other value is returned.
-            return True
 
-        # Otherwise, option is set and values are returned.
+        # Option was set. Return values depend on the option.
         match option:
+            case "B" | "J" | "U" | "g" | "n" | "p" | "s":
+                # For these options, status is 0 when the option is set.
+                return True
             case "I" | "R" | "t":
                 # Option values (in double type) are returned via the 'value' array.
                 # 'status' is number of valid values in the array.
@@ -645,14 +656,14 @@ class Session:
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
             # quotation marks. This is the preferred way to pass arguments to the GMT
-            # API and is used for PyGMT >= v0.12.0.
+            # API and is used for PyGMT>=0.12.0.
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
         elif isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
             # In this way, we need to correctly handle option arguments that contain
-            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # whitespaces or quotation marks. It's used in PyGMT<=0.11.0 but is no
             # longer recommended.
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
@@ -1971,6 +1982,12 @@ class Session:
         family
             The integer value for the family of the virtual file.
 
+        Raises
+        ------
+        GMTCLibError
+            If the virtual file is not found, i.e., ``vfname`` is not a valid virtual
+            file name.
+
         Examples
         --------
         >>> from pygmt.clib import Session
@@ -1978,13 +1995,23 @@ class Session:
         ...     with lib.virtualfile_out(kind="dataset") as vfile:
         ...         family = lib.inquire_virtualfile(vfile)
         ...         assert family == lib["GMT_IS_DATASET"]
+        >>> with Session() as lib:
+        ...     lib.inquire_virtualfile("not-a-virtual-file")
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTCLibError: Failed to inquire the family of virtual file ...
         """
         c_inquire_virtualfile = self.get_libgmt_func(
             "GMT_Inquire_VirtualFile",
             argtypes=[ctp.c_void_p, ctp.c_char_p],
             restype=ctp.c_int,
         )
-        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+        family = c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
+        if family not in {self[name] for name in FAMILIES}:
+            msg = f"Failed to inquire the family of virtual file {vfname!r}."
+            raise GMTCLibError(msg)
+        return family
 
     def read_virtualfile(
         self,
