@@ -203,20 +203,22 @@ def sac(
         else Alias(profile, name="profile", mapping=profile_mapping)
     )
 
-    fill_modifiers = "".join(
-        modifier
-        for modifier in (
-            Alias(fill_zero, name="fill_zero", prefix="+z")._value,
-            Alias(
-                fill_time_window,
-                name="fill_time_window",
-                prefix="+t",
-                sep="/",
-                size=2,
-            )._value,
-        )
-        if modifier is not None
-    )
+    fill_modifier_values: list[str] = []
+    for modifier in (
+        Alias(fill_zero, name="fill_zero", prefix="+z")._value,
+        Alias(
+            fill_time_window,
+            name="fill_time_window",
+            prefix="+t",
+            sep="/",
+            size=2,
+        )._value,
+    ):
+        if modifier is not None:
+            if not isinstance(modifier, str):
+                raise GMTValueError(modifier, description="fill modifier")
+            fill_modifier_values.append(modifier)
+    fill_modifiers = "".join(fill_modifier_values)
     fill_options = [
         f"p+g{positive_fill}{fill_modifiers}" if positive_fill is not None else None,
         f"n+g{negative_fill}{fill_modifiers}" if negative_fill is not None else None,
