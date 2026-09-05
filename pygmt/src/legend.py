@@ -131,9 +131,7 @@ def legend(
     if height is not None and width is None:
         width = 0
 
-    kind = data_kind(spec)
-    if kind not in {"empty", "file", "stringio"}:
-        raise GMTTypeError(type(spec))
+    kind = data_kind(spec, check_kind=("empty", "file", "stringio"))
     if kind == "file" and is_nonstr_iter(spec):
         raise GMTTypeError(
             type(spec), reason="Only one legend specification file is allowed."
@@ -161,7 +159,7 @@ def legend(
 
     self._activate_figure()
     with Session() as lib:
-        with lib.virtualfile_in(data=spec, required=False) as vintbl:
+        with lib.virtualfile_in(data=spec, required=False, kind=kind) as vintbl:
             lib.call_module(
                 module="legend", args=build_arg_list(aliasdict, infile=vintbl)
             )

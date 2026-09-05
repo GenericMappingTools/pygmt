@@ -224,6 +224,7 @@ def plot3d(  # ruff: ignore[too-many-branches]
     # parameter.
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
+        kind = "vectors"
         data = {"x": x, "y": y, "z": z}
         # Parameters for vector styles
         if (
@@ -294,7 +295,7 @@ def plot3d(  # ruff: ignore[too-many-branches]
 
     self._activate_figure()
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
+        with lib.virtualfile_in(data=data, mincols=3, kind=kind) as vintbl:
             lib.call_module(
                 module="plot3d", args=build_arg_list(aliasdict, infile=vintbl)
             )
