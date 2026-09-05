@@ -116,7 +116,6 @@ def cache_data() -> None:
         "@RidgeTest.prj",
         "@RidgeTest.shp",
         "@RidgeTest.shx",
-        "@sat_03.txt",
         "@SOEST_block4.png",
         "@Table_5_11.txt",
         "@Table_5_11_mean.xyz",
@@ -127,6 +126,7 @@ def cache_data() -> None:
         "@hotspots.txt",
         "@mars370d.txt",
         "@ridge.txt",
+        "@sat_03.txt",
         "@srtm_tiles.nc",  # Needed for earth relief 03s and 01s data.
         "@static_earth_relief.nc",
         "@ternary.txt",
