@@ -36,8 +36,7 @@ def sac(
         "user7",
         "user8",
         "user9",
-    ]
-    | None = None,
+    ] = "trace_number",
     trace_number: int = 0,
     preprocess: str | None = None,
     positive_fill: str | None = None,
@@ -128,10 +127,11 @@ def sac(
         ``"azimuth"``, ``"back_azimuth"``, ``"distance_in_km"``,
         ``"distance_in_degree"``, ``"trace_number"``, or ``"user0"`` to
         ``"user9"``. User-defined profiles use the corresponding SAC header
-        variable, e.g., ``"user0"`` uses ``user0``.
+        variable, e.g., ``"user0"`` uses ``user0``. [Default is
+        ``"trace_number"``].
     trace_number
-        Set the number of the first trace for a trace-number profile. If not
-        specified, the first trace is numbered 0.
+        Set the number of the first trace when ``profile="trace_number"``.
+        [Default is 0].
     preprocess
         Preprocess the data before plotting. Use ``i`` for integral, ``q`` for
         square, and ``r`` for removing the mean value. The letters can repeat
@@ -183,13 +183,6 @@ def sac(
     $perspective
     $transparency
     """
-    if profile is not None and trace_number is not None:
-        raise GMTValueError(
-            [profile, trace_number],
-            description="parameters 'profile' and 'trace_number'",
-            reason="Only one can be specified.",
-        )
-
     profile_mapping = {
         "azimuth": "a",
         "back_azimuth": "b",
