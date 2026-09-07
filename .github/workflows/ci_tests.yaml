@@ -143,6 +143,7 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
+            pytest-randomly
             pytest-rerunfailures
 
       - name: Checkout the Git LFS (i.e., the baseline images) objects
