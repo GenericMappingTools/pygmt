@@ -114,10 +114,11 @@ def sac(
     pen
         Set pen attributes for all traces [Default is ``"0.25p,black,solid"``].
     time_window
+        (*t0*, *t1*).
         Read and plot seismograms in the time window between *t0* and *t1* only,
         where *t0* and *t1* are relative to the reference time (see
         ``time_reference``). If no reference time is set, the reference time in
-        the SAC header is used. Set to ``True`` to determine *t0*/*t1* from the
+        the SAC header is used. Set to ``True`` to determine *t0* and *t1* from the
         *xmin*/*xmax* of the ``region`` parameter.
     offset
         Offset the seismogram positions by the given amounts *dx*[/ *dy*]
