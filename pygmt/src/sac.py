@@ -36,7 +36,8 @@ def sac(
         "user7",
         "user8",
         "user9",
-    ] = "trace_number",
+    ]
+    | None = None,
     trace_number: int = 0,
     preprocess: str | None = None,
     positive_fill: str | None = None,
@@ -127,8 +128,7 @@ def sac(
         ``"azimuth"``, ``"back_azimuth"``, ``"distance_in_km"``,
         ``"distance_in_degree"``, ``"trace_number"``, or ``"user0"`` to
         ``"user9"``. User-defined profiles use the corresponding SAC header
-        variable, e.g., ``"user0"`` uses ``user0``. [Default is
-        ``"trace_number"``].
+        variable, e.g., ``"user0"`` uses ``user0``.
     trace_number
         Set the number of the first trace when ``profile="trace_number"``.
         [Default is 0].

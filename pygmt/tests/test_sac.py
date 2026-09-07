@@ -175,6 +175,7 @@ def test_sac_profile():
     fig = Figure()
     fig.sac(
         data=SAC_DATA,
+        profile="trace_number",
         trace_number=1,
         region=[9, 20, -1, 3],
         projection="X15c/5c",
