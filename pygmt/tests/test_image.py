@@ -145,13 +145,8 @@ def test_image_bitcolor_conflict():
     """
     fig = Figure()
     with pytest.raises(GMTParameterError):
-        with pytest.warns(FutureWarning):
-            fig.image(imagefile="@circuit.png", bitcolor="red+b", bgcolor="blue")
+        fig.image(imagefile="@circuit.png", bitcolor="red+b", bgcolor="blue")
     with pytest.raises(GMTParameterError):
-        with pytest.warns(FutureWarning):
-            fig.image(imagefile="@circuit.png", bitcolor="red+b", fgcolor="blue")
+        fig.image(imagefile="@circuit.png", bitcolor="red+b", fgcolor="blue")
     with pytest.raises(GMTParameterError):
-        with pytest.warns(FutureWarning):
-            fig.image(
-                imagefile="@circuit.png", bitcolor="red+b", transparent_color="blue"
-            )
+        fig.image(imagefile="@circuit.png", bitcolor="red+b", transparent_color="blue")
