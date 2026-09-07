@@ -198,11 +198,6 @@ def sac(
         "trace_number": f"n{trace_number}",
         **{f"user{number}": f"u{number}" for number in range(10)},
     }
-    profile_alias = (
-        Alias(trace_number, name="trace_number", prefix="n")
-        if trace_number is not None
-        else Alias(profile, name="profile", mapping=profile_mapping)
-    )
 
     fill_modifier_values: list[str] = []
     for modifier in (
