@@ -44,7 +44,7 @@ def histogram(
     pen: str | None = None,
     fill: str | None = None,
     horizontal: bool = False,
-    extreme: Literal["low", "high", "both"] | None = None,
+    extreme: Literal["first", "last", "both"] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
