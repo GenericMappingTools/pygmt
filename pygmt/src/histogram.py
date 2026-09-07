@@ -20,7 +20,6 @@ from pygmt.params import Axis, Frame
 
 @fmt_docstring
 @use_alias(
-    A="horizontal",
     D="annotate",
     F="center",
     L="extreme",
@@ -45,6 +44,7 @@ def histogram(
     cmap: str | bool = False,
     pen: str | None = None,
     fill: str | None = None,
+    horizontal: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -62,6 +62,7 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     $aliases
+       - A = horizontal
        - B = frame
        - C = cmap
        - E = bar_width, **+o**: bar_offset
@@ -127,7 +128,7 @@ def histogram(
     stairs : bool
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
-    horizontal : bool
+    horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
@@ -168,6 +169,7 @@ def histogram(
         )
 
     aliasdict = AliasSystem(
+        A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
