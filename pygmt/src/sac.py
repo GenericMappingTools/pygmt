@@ -195,7 +195,7 @@ def sac(
         "back_azimuth": "b",
         "distance_in_km": "k",
         "distance_in_degree": "d",
-        "trace_number": "n",
+        "trace_number": f"n{trace_number}",
         **{f"user{number}": f"u{number}" for number in range(10)},
     }
     profile_alias = (
