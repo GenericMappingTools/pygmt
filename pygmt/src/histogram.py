@@ -22,7 +22,6 @@ from pygmt.params import Axis, Frame
 @use_alias(
     D="annotate",
     F="center",
-    L="extreme",
     N="distribution",
     Q="cumulative",
     S="stairs",
@@ -45,6 +44,7 @@ def histogram(
     pen: str | None = None,
     fill: str | None = None,
     horizontal: bool = False,
+    extreme: Literal["low", "high", "both"] | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -68,6 +68,7 @@ def histogram(
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
+       - L = extreme
        - R = region
        - V = verbose
        - W = pen
@@ -117,14 +118,13 @@ def histogram(
         [**r**].
         Draw a cumulative histogram by passing ``True``. Use **r** to display
         a reverse cumulative histogram.
-    extreme : str
-        **l**\|\ **h**\|\ **b**.
-        The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``. By default, these values are ignored.
-        Append **b** to let these values be included in the first or last
-        bins. To only include extreme values below first bin into the first
-        bin, use **l**, and to only include extreme values above the last bin
-        into that last bin, use **h**.
+    extreme
+        Handle extreme values that fall outside the range set by ``series``. By default,
+        these values are ignored. Valid values are:
+
+        - ``"first"``: only include extreme values below first bin into the first bin
+        - ``"last"``: only include extreme values above the last bin into that last bin
+        - ``"both"``:  include extreme values into the first or last bins
     stairs : bool
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
@@ -176,6 +176,9 @@ def histogram(
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         G=Alias(fill, name="fill"),
+        L=Alias(
+            extreme, name="extreme", mapping={"first": "l", "last": "h", "both": "b"}
+        ),
         W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
