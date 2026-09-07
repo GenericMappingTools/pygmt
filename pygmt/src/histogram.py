@@ -115,8 +115,8 @@ def histogram(
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
     cumulative
-        Draw a cumulative histogram. Set it to ``"reverse"`` to draw the reverse
-        cumulative histogram instead.
+        Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
+        a reverse cumulative histogram instead.
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
