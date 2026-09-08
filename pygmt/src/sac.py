@@ -38,7 +38,7 @@ def sac(
         "user9",
     ]
     | None = None,
-    trace_number: int = 0,
+    trace_number_start: int = 0,
     preprocess: str | None = None,
     positive_fill: str | None = None,
     negative_fill: str | None = None,
