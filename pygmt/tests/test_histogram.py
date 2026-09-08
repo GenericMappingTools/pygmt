@@ -5,7 +5,7 @@ Test Figure.histogram.
 import pandas as pd
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.params import Axis
 
 
@@ -50,4 +50,60 @@ def test_histogram_baroffset(data):
             frame=Axis(annot=True),
             fill="green",
             bar_offset=0.25,
+        )
+
+
+@pytest.mark.mpl_image_compare(filename="test_histogram_alignment.png")
+def test_histogram_alignment(data):
+    """
+    Test the alignment parameter.
+    """
+    kwargs = {
+        "data": data,
+        "projection": "X10c/10c",
+        "region": [0, 10, 0, 8],
+        "series": 1,
+        "frame": Axis(annot=True),
+        "pen": "1p,blue",
+    }
+    fig = Figure()
+    fig.histogram(alignment="left", **kwargs)
+    fig.shift_origin(xshift="w+1c")
+    fig.histogram(alignment="center", **kwargs)
+    return fig
+
+
+# TODO(PyGMT>=0.22.0): Remove when the deprecated "center" parameter is removed.
+@pytest.mark.mpl_image_compare(filename="test_histogram_alignment.png")
+def test_histogram_deprecated_center(data):
+    """
+    Test the deprecated "center" parameter.
+    """
+    kwargs = {
+        "data": data,
+        "projection": "X10c/10c",
+        "region": [0, 10, 0, 8],
+        "series": 1,
+        "frame": Axis(annot=True),
+        "pen": "1p,blue",
+    }
+    fig = Figure()
+    fig.histogram(**kwargs)
+    fig.shift_origin(xshift="w+1c")
+    fig.histogram(center=True, **kwargs)
+    return fig
+
+
+def test_histogram_align_invalid(data):
+    """
+    Test that an invalid align value raises an exception.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError):
+        fig.histogram(
+            data=data,
+            projection="X10c/10c",
+            region=[0, 9, 0, 8],
+            series=1,
+            alignment="bogus",
         )

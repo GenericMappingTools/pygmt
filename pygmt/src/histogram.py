@@ -8,9 +8,10 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -19,9 +20,10 @@ from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.22.0): Remove the deprecated "center" parameter.
+@deprecate_parameter("center", "alignment", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
-    F="center",
     L="extreme",
     N="distribution",
     T="series",
@@ -45,6 +47,7 @@ def histogram(
     horizontal: bool = False,
     stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
+    alignment: Literal["left", "center"] = "left",
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -66,6 +69,7 @@ def histogram(
        - B = frame
        - C = cmap
        - E = bar_width, **+o**: bar_offset
+       - F = alignment
        - G = fill
        - J = projection
        - Q = cumulative
@@ -104,8 +108,12 @@ def histogram(
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
         of plot dimension units by appending the relevant unit.
-    center : bool
-        Center bin on each value. [Default is left edge].
+    alignment
+        Alignment of the bins relative to the bin boundaries created by ``series``.
+        Valid values are:
+
+        - ``"left"``: each boundary is the left edge of a bin [Default]
+        - ``"center"``: each boundary is the center of a bin
     distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
@@ -169,6 +177,16 @@ def histogram(
             required="bar_width", reason="Required when 'bar_offset' is set."
         )
 
+    # TODO(PyGMT>=0.22.0): Remove "True" from the alignment check.
+    # True is added to support the deprecated "center" parameter.
+    if alignment not in {"left", "center", True}:
+        raise GMTValueError(
+            alignment,
+            description="value for parameter 'alignment'",
+            choices=("left", "center"),
+        )
+    _alignment = alignment in {"center", True}
+
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
@@ -176,6 +194,7 @@ def histogram(
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        F=Alias(_alignment, name="alignment"),
         G=Alias(fill, name="fill"),
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
