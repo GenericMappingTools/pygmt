@@ -121,8 +121,9 @@ def sac(
         the SAC header is used. Set to ``True`` to determine *t0* and *t1* from the
         *xmin*/*xmax* of the ``region`` parameter.
     offset
-        Offset the seismogram positions by the given amounts *dx*[/ *dy*]
-        [Default is no offset]. If *dy* is not given, it is set equal to *dx*.
+        *offset* or (*offset_x*, *offset_y*).
+        Offset the seismogram positions by *offset_x* and *offset_y* [Default is no offset].
+        If a single value *offset* is given, *offset_x* = *offset_y* = *offset*. 
     profile
         Choose the profile type, i.e., the type of the y axis. Choose from
         ``"azimuth"``, ``"back_azimuth"``, ``"distance_in_km"``,
