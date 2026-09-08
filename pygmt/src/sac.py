@@ -39,7 +39,7 @@ def sac(
     ]
     | None = None,
     trace_number_start: int = 0,
-    preprocess: str | None = None,
+    preprocess: Sequence[Literal["integral", "square", "demean"]] | None = None,
     positive_fill: str | None = None,
     negative_fill: str | None = None,
     fill_zero: float | None = None,
@@ -122,8 +122,9 @@ def sac(
         *xmin*/*xmax* of the ``region`` parameter.
     offset
         *offset* or (*offset_x*, *offset_y*).
-        Offset the seismogram positions by *offset_x* and *offset_y* [Default is no offset].
-        If a single value *offset* is given, *offset_x* = *offset_y* = *offset*. 
+        Offset the seismogram positions by *offset_x* and *offset_y*
+        [Default is no offset]. If a single value *offset* is given,
+        *offset_x* = *offset_y* = *offset*.
     profile
         Choose the profile type, i.e., the type of the y axis. Choose from
         ``"azimuth"``, ``"back_azimuth"``, ``"distance_in_km"``,
@@ -134,10 +135,10 @@ def sac(
         Set the number of the first trace when ``profile="trace_number"``.
         [Default is 0].
     preprocess
-        Preprocess the data before plotting. Use ``i`` for integral, ``q`` for
-        square, and ``r`` for removing the mean value. The letters can repeat
-        multiple times, and the order controls the processing order, e.g.,
-        ``"rii"`` converts acceleration to displacement.
+        Preprocess the data before plotting. Choose from ``"integral"``,
+        ``"square"``, and ``"demean"``. Operations are applied in the given
+        order and can be repeated, e.g., ``["demean", "integral", "integral"]``
+        converts acceleration to displacement.
     positive_fill
         Set the color or pattern for filling the positive portion of the traces.
     negative_fill
@@ -185,6 +186,20 @@ def sac(
     $transparency
     """
 
+    preprocess_value = None
+    if preprocess:
+        preprocess_values: list[str] = []
+        for operation in preprocess:
+            value = Alias(
+                operation,
+                name="preprocess",
+                mapping={"integral": "i", "square": "q", "demean": "r"},
+            )._value
+            if not isinstance(value, str):
+                raise GMTValueError(value, description="preprocess operation")
+            preprocess_values.append(value)
+        preprocess_value = "".join(preprocess_values)
+
     fill_modifier_values: list[str] = []
     for modifier in (
         Alias(fill_zero, name="fill_zero", prefix="+z")._value,
@@ -227,7 +242,7 @@ def sac(
                 **{f"user{number}": f"u{number}" for number in range(10)},
             },
         ),
-        F=Alias(preprocess, name="preprocess"),
+        F=Alias(preprocess_value, name="preprocess"),
         G=Alias([option for option in fill_options if option is not None], name="fill"),
         M=Alias(amplitude_scale, name="amplitude_scale", sep="/", size=(1, 2)),
         Q=Alias(vertical, name="vertical"),

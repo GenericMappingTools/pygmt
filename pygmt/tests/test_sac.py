@@ -101,7 +101,7 @@ def test_sac_fill_positive_negative():
         data=SAC_DATA,
         positive_fill="black",
         negative_fill="red",
-        preprocess="r",
+        preprocess=["demean"],
         region=[9, 20, -2, 2],
         projection="X15c/5c",
         frame=True,
