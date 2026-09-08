@@ -183,14 +183,6 @@ def sac(
     $perspective
     $transparency
     """
-    profile_mapping = {
-        "azimuth": "a",
-        "back_azimuth": "b",
-        "distance_in_km": "k",
-        "distance_in_degree": "d",
-        "trace_number": f"n{trace_number}",
-        **{f"user{number}": f"u{number}" for number in range(10)},
-    }
 
     fill_modifier_values: list[str] = []
     for modifier in (
