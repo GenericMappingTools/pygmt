@@ -214,7 +214,7 @@ def sac(
 
     aliasdict = AliasSystem(
         C=Alias(time_window, name="time_window", sep="/", size=2),
-        D=Alias(offset, name="offset", sep="/", size=(1, 2)),
+        D=Alias(offset, name="offset", sep="/", size=2),
         E=Alias(
             profile,
             name="profile",
