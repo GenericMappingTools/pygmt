@@ -92,7 +92,7 @@ def sac(
        - B = frame
        - C = time_window
        - D = offset
-       - E = profile, trace_number
+       - E = profile, trace_number_start
        - F = preprocess
        - G = positive_fill, negative_fill, fill_zero, fill_time_window
        - J = projection
@@ -129,7 +129,7 @@ def sac(
         ``"distance_in_degree"``, ``"trace_number"``, or ``"user0"`` to
         ``"user9"``. User-defined profiles use the corresponding SAC header
         variable, e.g., ``"user0"`` uses ``user0``.
-    trace_number
+    trace_number_start
         Set the number of the first trace when ``profile="trace_number"``.
         [Default is 0].
     preprocess
@@ -214,14 +214,18 @@ def sac(
     aliasdict = AliasSystem(
         C=Alias(time_window, name="time_window", sep="/", size=2),
         D=Alias(offset, name="offset", sep="/", size=(1, 2)),
-        E=Alias(profile, name="profile", mapping={
-            "azimuth": "a",
-            "back_azimuth": "b",
-            "distance_in_km": "k",
-            "distance_in_degree": "d",
-            "trace_number": f"n{trace_number}",
-            **{f"user{number}": f"u{number}" for number in range(10)},
-        }),
+        E=Alias(
+            profile,
+            name="profile",
+            mapping={
+                "azimuth": "a",
+                "back_azimuth": "b",
+                "distance_in_km": "k",
+                "distance_in_degree": "d",
+                "trace_number": f"n{trace_number_start}",
+                **{f"user{number}": f"u{number}" for number in range(10)},
+            },
+        ),
         F=Alias(preprocess, name="preprocess"),
         G=Alias([option for option in fill_options if option is not None], name="fill"),
         M=Alias(amplitude_scale, name="amplitude_scale", sep="/", size=(1, 2)),
