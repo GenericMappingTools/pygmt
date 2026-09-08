@@ -214,7 +214,14 @@ def sac(
     aliasdict = AliasSystem(
         C=Alias(time_window, name="time_window", sep="/", size=2),
         D=Alias(offset, name="offset", sep="/", size=(1, 2)),
-        E=Alias(profile, name="profile", mapping=profile_mapping),
+        E=Alias(profile, name="profile", mapping={
+            "azimuth": "a",
+            "back_azimuth": "b",
+            "distance_in_km": "k",
+            "distance_in_degree": "d",
+            "trace_number": f"n{trace_number}",
+            **{f"user{number}": f"u{number}" for number in range(10)},
+        }),
         F=Alias(preprocess, name="preprocess"),
         G=Alias([option for option in fill_options if option is not None], name="fill"),
         M=Alias(amplitude_scale, name="amplitude_scale", sep="/", size=(1, 2)),
