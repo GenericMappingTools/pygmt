@@ -87,15 +87,16 @@ def histogram(
         [Default is no outline].
     fill
         Set color or pattern for filling bars [Default is no fill]. Set it to one of the
-        two special values to fill bars by looking up the color from ``cmap`` instead of
-        a constant color:
+        two special values to fill bars by looking up the color from a CPT instead of a
+        constant color:
 
         - ``"position"``: look up the color using the mid-coordinate of the bin. This is
           the default when ``cmap`` is set.
         - ``"value"``: look up the color using the bin value, i.e., the bar count or
           frequency.
 
-        The special values require ``cmap``, and can't be used with ``fill``.
+        The special values require a CPT (either the current CPT or explicitely set by
+        ``cmap``), and can't be used with ``fill``.
     $cmap
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
