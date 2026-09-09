@@ -337,6 +337,7 @@ def meca(
         automatically. The color of the compressive quadrants is determined by the
         z-value (i.e., event depth or the third column for an input file). This setting
         also applies to the fill of the circle defined via ``offset``.
+
         .. note::
            For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as
            ``cmap=True`` is ignored. For details, please see the upstream GMT
