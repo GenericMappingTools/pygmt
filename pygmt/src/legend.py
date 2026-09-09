@@ -11,14 +11,14 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_iter
-from pygmt.params import Axis, Box, Frame, Position
+from pygmt.params import Axis, Box, Frame, LegendSpec, Position
 from pygmt.src._common import _parse_position
 
 
 @fmt_docstring
 def legend(
     self,
-    spec: PathLike | io.StringIO | None = None,
+    spec: PathLike | io.StringIO | LegendSpec | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     width: float | str | None = None,
     height: float | str | None = None,
@@ -71,6 +71,7 @@ def legend(
           file
         - Path to the legend specification file
         - A :class:`io.StringIO` object containing the legend specification
+        - A :class:`pygmt.params.LegendSpec` object built up record by record
 
         See :gmt-docs:`legend.html` for the definition of the legend specification.
     position
@@ -130,6 +131,10 @@ def legend(
     # Set width to 0 (auto calculated) if height is given but width is not.
     if height is not None and width is None:
         width = 0
+
+    # A LegendSpec is passed to GMT as its rendered specification.
+    if isinstance(spec, LegendSpec):
+        spec = spec.to_stringio()
 
     kind = data_kind(spec)
     if kind not in {"empty", "file", "stringio"}:
