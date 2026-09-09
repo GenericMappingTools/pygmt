@@ -12,7 +12,7 @@ import numpy as np
 from pygmt._typing import AnchorCode, PathLike
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import GMTTempFile, fmt_docstring
-from pygmt.params import Box, Position
+from pygmt.params import Box, Perspective, Position
 
 __doctest_skip__ = ["pygmtlogo"]
 
@@ -41,7 +41,7 @@ def _create_logo(  # ruff: ignore[too-many-statements]
     }[wordmark]
 
     # Rotation around z-axis by 30 degrees counter-clockwise placed in the center.
-    perspective = "30+w0/0"
+    perspective = Perspective(azimuth=30, refpoint=(0, 0))
 
     # Radii (make sure that r4-r5 == r2-r3)
     r0, r1, r2, r3, r4, r5 = size * np.array([128, 112, 75, 61, 53, 39]) / 128
