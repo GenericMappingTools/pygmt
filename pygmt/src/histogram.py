@@ -185,7 +185,7 @@ def histogram(
         case "value":
             _fill_color, _fill_lookup = None, "+b"
         case _:
-            _fill_color, _fill_lookup = fill, None
+            _fill_color, _fill_lookup = fill, None  # type: ignore[assignment]
     if _fill_color is not None and is_given(cmap):
         raise GMTParameterError(
             at_most_one=["cmap", "fill"],

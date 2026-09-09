@@ -80,6 +80,7 @@ def test_histogram_fill(data):
     fig.colorbar(frame=True)
     return fig
 
+
 @pytest.mark.mpl_image_compare(filename="test_histogram_fill.png")
 def test_histogram_fill_old_cmap_syntax(data):
     """
