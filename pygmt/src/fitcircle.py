@@ -104,6 +104,9 @@ def fitcircle(
           from the small circle pole to the small circle (a ``float``, not a
           tuple)
     """
+    if norm not in {1, 2}:
+        raise GMTValueError(norm, description="norm", choices={1, 2})
+
     aliasdict = AliasSystem(
         L=Alias(norm, name="norm"),
         S=Alias(small_circle, name="small_circle"),
