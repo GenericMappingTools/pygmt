@@ -1,5 +1,0 @@
-outs:
-- md5: b73351d7d37e5d56fbcab6d46132026a
-  size: 54026
-  path: test_grdcontour_slice.png
-  hash: md5

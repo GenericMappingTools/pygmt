@@ -14,7 +14,6 @@ from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     use_alias,
 )
@@ -116,26 +115,8 @@ def _auto_offset(spec) -> bool:
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'labelbox' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
-@deprecate_parameter("labelbox", "label_box", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter(
-    "extensionfill", "extension_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter(
-    "compressionfill", "compression_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@use_alias(
-    A="offset",
-    C="cmap",
-    E="extension_fill",
-    Fr="label_box",
-    G="compression_fill",
-    L="outline",
-    T="nodal",
-    W="pen",
-)
-def meca(  # noqa: PLR0913
+@use_alias(A="offset", Fr="label_box", L="outline", T="nodal")
+def meca(
     self,
     spec: PathLike | TableLike,
     scale,
@@ -147,6 +128,10 @@ def meca(  # noqa: PLR0913
     plot_longitude: float | Sequence[float] | None = None,
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
+    cmap: str | None = None,
+    extension_fill: str | None = None,
+    compression_fill: str | None = None,
+    pen: str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -211,11 +196,15 @@ def meca(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
+       - E = extension_fill
+       - G = compression_fill
        - J = projection
        - N = no_clip
        - R = region
        - S = scale/convention/component
        - V = verbose
+       - W = pen
        - c = panel
        - p = perspective
        - t = transparency
@@ -314,12 +303,12 @@ def meca(  # noqa: PLR0913
         set the pen attributes for this feature [Default is set via ``pen``]. The fill
         of the circle is set via ``compression_fill`` or ``cmap``, i.e., corresponds to
         the fill of the compressive quadrants.
-    compression_fill : str
+    compression_fill
         Set color or pattern for filling compressive quadrants [Default is ``"black"``].
         This setting also applies to the fill of the circle defined via ``offset``.
-    extension_fill : str
+    extension_fill
         Set color or pattern for filling extensive quadrants [Default is ``"white"``].
-    pen : str
+    pen
         Set (default) pen attributes for all lines related to the beachball [Default is
         ``"0.25p,black,solid"``]. This setting applies to ``outline``, ``nodal``, and
         ``offset``, unless overruled by arguments passed to those parameters. Draws the
@@ -342,7 +331,7 @@ def meca(  # noqa: PLR0913
         For double couple mechanisms, ``nodal`` renders the beachball transparent by
         drawing only the nodal planes and the circumference. For non-double couple
         mechanisms, ``nodal=0`` overlays best double couple transparently.
-    cmap : str
+    cmap
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those colors
         automatically. The color of the compressive quadrants is determined by the
@@ -359,7 +348,6 @@ def meca(  # noqa: PLR0913
     $perspective
     $transparency
     """
-    self._activate_figure()
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)
     # Preprocess the input data.
@@ -382,7 +370,11 @@ def meca(  # noqa: PLR0913
     kwargs["S"] = f"{_convention.code}{scale}"
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
+        E=Alias(extension_fill, name="extension_fill"),
+        G=Alias(compression_fill, name="compression_fill"),
         N=Alias(no_clip, name="no_clip"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,
@@ -394,6 +386,7 @@ def meca(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
             lib.call_module(

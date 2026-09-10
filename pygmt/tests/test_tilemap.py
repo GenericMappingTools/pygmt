@@ -2,7 +2,7 @@
 Test Figure.tilemap.
 """
 
-import importlib
+import importlib.util
 from unittest.mock import patch
 
 import pytest

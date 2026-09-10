@@ -2,7 +2,7 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 
-import importlib
+import importlib.util
 from pathlib import Path
 
 import pytest

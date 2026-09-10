@@ -16,7 +16,7 @@ __doctest_skip__ = ["fill_between"]
 
 
 @fmt_docstring
-def fill_between(  # noqa: PLR0913
+def fill_between(
     self,
     x: Sequence[float],
     y: Sequence[float],
@@ -113,7 +113,6 @@ def fill_between(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
     _x = np.atleast_1d(x)
     _y = np.atleast_1d(y)
     _y2 = np.atleast_1d(y2)
@@ -177,6 +176,7 @@ def fill_between(  # noqa: PLR0913
         t=transparency,
     )
 
+    self._activate_figure()
     with Session() as lib:
         if _x2 is not None:
             with (

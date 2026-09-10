@@ -1,4 +1,0 @@
-[core]
-    remote = upstream
-['remote "upstream"']
-    url = https://dagshub.com/GenericMappingTools/pygmt.dvc

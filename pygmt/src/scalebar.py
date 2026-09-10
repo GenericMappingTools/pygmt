@@ -16,7 +16,7 @@ __doctest_skip__ = ["scalebar"]
 
 
 @fmt_docstring
-def scalebar(  # noqa: PLR0913
+def scalebar(
     self,
     length: float | str,
     height: float | str | None = None,
@@ -41,10 +41,10 @@ def scalebar(  # noqa: PLR0913
     ----------
     length
         Length of the scale bar in kilometers. Append a suffix to specify another unit.
-        Valid units are: **e**: meters; **f**: feet; **k**: kilometers; **M**: statute
-        miles; **n**: nautical miles; **u**: US survey feet.
+        Supported units are: **e**, **f**, **k**, **M**, **n**, and **u**. See
+        :ref:`distance-units` for meanings of the units.
     height
-        Height of the scale bar [Default is ``"5p"``]. Only works when ``fancy=True``.
+        Height of the scale bar [Default is ``"5p"``].
     position
         Position of the scale bar on the plot. It can be specified in multiple ways:
 
@@ -71,19 +71,20 @@ def scalebar(  # noqa: PLR0913
         [Default is ``"km"``]. Requires ``fancy=True``.
     label_alignment
         Alignment of the scale bar label. Choose from ``"left"``, ``"right"``,
-        ``"top"``, or ``"bottom"`` [Default is ``"top"``].
+        ``"top"``, or ``"bottom"`` [Default is ``"top"`` for horizontal scale bars and
+        ``"right"`` for vertical scale bars].
     fancy
         If ``True``, draw a "fancy" scale bar, which is a segmented bar with alternating
-        black and white rectangles. If ``False``, draw a plain scale bar. Only supported
-        for non-Cartesian projections.
+        black and white rectangles. If ``False``, draw a plain scale bar. Doesn't work
+        for Cartesian projections for GMT<6.7.0.
     unit
         If ``True``, append the unit to all distance annotations along the scale. For a
         plain scale, this will instead select the unit to be appended to the distance
         length. The unit is determined from the suffix provided to the ``length``
         parameter or defaults to ``"km"``.
     vertical
-        If ``True``, plot a vertical rather than a horizontal scale. Only
-        supported for Cartesian projections.
+        If ``True``, plot a vertical rather than a horizontal scale. Only supported for
+        Cartesian projections.
     box
         Draw a background box behind the scale bar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box
@@ -109,7 +110,6 @@ def scalebar(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
     position = _parse_position(position, default=Position("BL", offset=(0.2, 0.4)))
 
     aliasdict = AliasSystem(
@@ -140,6 +140,7 @@ def scalebar(  # noqa: PLR0913
     if height is not None:
         confdict["MAP_SCALE_HEIGHT"] = height
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(
             module="basemap", args=build_arg_list(aliasdict, confdict=confdict)

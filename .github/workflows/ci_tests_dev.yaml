@@ -18,6 +18,7 @@ on:
     types: [ opened, reopened, labeled, synchronize ]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests_dev.yaml'
   workflow_dispatch:
   # Schedule tests on Monday/Wednesday/Friday
@@ -51,11 +52,12 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
+          lfs: false
 
       - name: Get current week number of year
         id: date
@@ -63,7 +65,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
@@ -76,7 +78,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript=10.07.1
+            ghostscript=10.08.0
             glib
             hdf5
             libblas
@@ -97,15 +99,21 @@ jobs:
 
       # Checkout current GMT repository
       - name: Checkout the GMT source from ${{ matrix.gmt_git_ref }} branch
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
           path: 'gmt'
           persist-credentials: false
 
-      # Build GMT from source on Linux/macOS, script is adapted from
-      # https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
+      - name: Set up MSVC environment (Windows)
+        if: runner.os == 'Windows'
+        uses: TheMrMilchmann/setup-msvc-dev@368ef7d1ee4d1171b31d4a7f67f4d954f903f5a9 # v4.1.0
+        with:
+          arch: x64
+
+      # Build GMT from source.
+      # Script is adapted from https://github.com/GenericMappingTools/gmt/blob/6.5.0/ci/build-gmt.sh
       - name: Build GMT from source
         shell: bash
         run: |
@@ -113,7 +121,6 @@ jobs:
           mkdir build
           cd build
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cmd.exe /c "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
             CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt/Library"
           else
             CMAKE_PREFIX_PATH="$MAMBA_ROOT_PREFIX/envs/pygmt"
@@ -140,7 +147,7 @@ jobs:
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray packaging \
-                        build contextily dvc geopandas ipython pyarrow rioxarray \
+                        build contextily geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
                         netCDF4 sphinx-gallery
 
@@ -148,35 +155,12 @@ jobs:
       - name: List installed packages
         run: micromamba list
 
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        id: dvc-pull
-        continue-on-error: true
-        run: |
-          dvc remote modify upstream url https://${DAGSHUB_TOKEN}@dagshub.com/GenericMappingTools/pygmt.dvc --local
-          dvc pull --no-run-cache --verbose && ls -lhR pygmt/tests/baseline/
-        env:
-          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-
-      - name: Download DVC cache as artifacts from GitHub
-        if: steps.dvc-pull.outcome == 'failure'
-        run: |
-          rm -rvf .dvc/cache/
-          gh run download --name dvc-cache --dir .dvc/cache/
-          dvc checkout --verbose
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Checkout the Git LFS (i.e., the baseline images) objects
+        uses: $/.github/actions/checkout-lfs
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package

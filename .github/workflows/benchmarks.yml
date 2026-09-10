@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -48,14 +48,14 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            gmt=6.6.0
+            gmt=6.7.0
             python=3.14
             numpy
             pandas
@@ -69,14 +69,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package
@@ -84,7 +77,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@a4a36bb07c0638b0b4ca52bf1f3dad1b4289e52f # v4.18.1
+        uses: CodSpeedHQ/action@373d6868929f444bc08d901fd0eb0ad52a8875ea # v5.2.1
         env:
           GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         with:

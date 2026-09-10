@@ -28,11 +28,10 @@ from pygmt.params import Axis, Frame
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     l="label",
 )
-def contour(  # noqa: PLR0913
+def contour(
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -48,6 +47,7 @@ def contour(  # noqa: PLR0913
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +67,7 @@ def contour(  # noqa: PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -151,8 +152,6 @@ def contour(  # noqa: PLR0913
     $perspective
     $transparency
     """
-    self._activate_figure()
-
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -172,12 +171,14 @@ def contour(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

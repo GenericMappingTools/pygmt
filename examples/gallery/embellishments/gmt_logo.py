@@ -2,7 +2,8 @@
 GMT logo
 ========
 
-The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a figure.
+The :meth:`pygmt.Figure.logo` method allows to place the GMT logo on a plot.
+For plotting the PyGMT logo, see :doc:`PyGMT logo </gallery/embellishments/pygmtlogo>`.
 """
 
 # %%

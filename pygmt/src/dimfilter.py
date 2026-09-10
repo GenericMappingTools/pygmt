@@ -47,6 +47,10 @@ def dimfilter(
 
     Full GMT docs at :gmt-docs:`dimfilter.html`.
 
+    **Reference**: Kim, S.-S., & Wessel, P. (2008). Directional median filtering for
+    regional-residual separation of bathymetry. *Geochemistry, Geophysics, Geosystems*,
+    9(3), 2007GC001850. https://doi.org/10.1029/2007GC001850
+
     $aliases
        - G = outgrid
        - I = spacing
@@ -110,7 +114,7 @@ def dimfilter(
         *x_inc*, *y_inc* are **not** integer multiples of the old ones (in the
         input data), filtering will be considerably slower. [Default is same
         as the input.]
-    region : str or list
+    region
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Define the region of the output points [Default is the same as the input].
     $verbose

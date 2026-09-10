@@ -11,7 +11,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -20,20 +19,14 @@ from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'barwidth' parameter.
-@deprecate_parameter("barwidth", "bar_width", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
-    A="horizontal",
-    C="cmap",
     D="annotate",
     F="center",
-    G="fill",
     L="extreme",
     N="distribution",
     Q="cumulative",
     S="stairs",
     T="series",
-    W="pen",
     Z="histtype",
     b="binary",
     d="nodata",
@@ -43,11 +36,15 @@ from pygmt.params import Axis, Frame
     w="wrap",
 )
 @kwargs_to_strings(T="sequence")
-def histogram(  # noqa: PLR0913
+def histogram(
     self,
     data: PathLike | TableLike,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
+    cmap: str | bool = False,
+    pen: str | None = None,
+    fill: str | None = None,
+    horizontal: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -65,11 +62,15 @@ def histogram(  # noqa: PLR0913
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     $aliases
+       - A = horizontal
        - B = frame
-       - E = bar_width, bar_offset
+       - C = cmap
+       - E = bar_width, **+o**: bar_offset
+       - G = fill
        - J = projection
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - i = incols
        - p = perspective
@@ -81,9 +82,11 @@ def histogram(  # noqa: PLR0913
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     $cmap
-    fill : str
+    pen
+        Draw bar outline (or stair-case curve) using the specified pen thickness
+        [Default is no outline].
+    fill
          Set color or pattern for filling bars [Default is no fill].
-    $pen
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -93,12 +96,11 @@ def histogram(  # noqa: PLR0913
         label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
     bar_width
-        Use an alternative histogram bar width than the default set via
-        ``series``. Give either an alternative width in data units, or the user
-        may append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
-        fixed dimension instead.
+        Use an alternative histogram bar width than the default set via ``series``. Give
+        either an alternative width in data units, or the user may append a
+        :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
-        Shift all bars along the axis by *offset*. It may be given in data units
+        Shift all bars along the axis by a constant value. It may be given in data units
         of plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
@@ -126,7 +128,7 @@ def histogram(  # noqa: PLR0913
     stairs : bool
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
-    horizontal : bool
+    horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
@@ -161,18 +163,20 @@ def histogram(  # noqa: PLR0913
     $transparency
     $wrap
     """
-    self._activate_figure()
-
     if bar_offset is not None and bar_width is None:
         raise GMTParameterError(
             required="bar_width", reason="Required when 'bar_offset' is set."
         )
 
     aliasdict = AliasSystem(
+        A=Alias(horizontal, name="horizontal"),
+        C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        G=Alias(fill, name="fill"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,
@@ -185,6 +189,7 @@ def histogram(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

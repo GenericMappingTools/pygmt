@@ -13,26 +13,14 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_given,
-    use_alias,
 )
 
 __doctest_skip__ = ["grdfill"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*fill' parameters.
-@deprecate_parameter(
-    "constantfill", "constant_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter("gridfill", "grid_fill", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter(
-    "neighborfill", "neighbor_fill", "v0.18.0", remove_version="v0.20.0"
-)
-@deprecate_parameter("splinefill", "spline_fill", "v0.18.0", remove_version="v0.20.0")
-@use_alias(f="coltypes")
 def grdfill(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -45,6 +33,7 @@ def grdfill(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | np.ndarray | None:
     r"""
@@ -58,7 +47,11 @@ def grdfill(
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - Ac = constant_fill
        - Ag = grid_fill
        - An = neighbor_fill
@@ -68,6 +61,7 @@ def grdfill(
        - N = hole
        - R = region
        - V = verbose
+       - f = coltypes
 
     Parameters
     ----------
@@ -148,6 +142,7 @@ def grdfill(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 

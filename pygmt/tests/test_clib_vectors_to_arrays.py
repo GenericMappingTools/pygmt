@@ -3,7 +3,7 @@ Test the vectors_to_arrays function in the clib.conversion module.
 """
 
 import datetime
-import importlib
+import importlib.util
 
 import numpy as np
 import numpy.testing as npt

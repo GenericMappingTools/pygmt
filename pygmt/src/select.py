@@ -12,7 +12,6 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -23,12 +22,7 @@ __doctest_skip__ = ["select"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'mask' parameter.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'gridmask' parameter.
-@deprecate_parameter("mask", "mask_values", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("gridmask", "mask_grid", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
-    A="area_thresh",
     C="dist2pt",
     F="polygon",
     G="mask_grid",
@@ -39,7 +33,6 @@ __doctest_skip__ = ["select"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     s="skiprows",
@@ -53,12 +46,14 @@ def select(
     resolution: Literal[
         "auto", "full", "high", "intermediate", "low", "crude", None
     ] = None,
+    area_thresh: float | str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -83,10 +78,12 @@ def select(
     Full GMT docs at :gmt-docs:`gmtselect.html`.
 
     $aliases
+       - A = area_thresh
        - D = resolution
        - J = projection
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
 
@@ -226,6 +223,7 @@ def select(
         column_names = data.columns.to_list()
 
     aliasdict = AliasSystem(
+        A=Alias(area_thresh, name="area_thresh"),
         D=Alias(
             resolution,
             name="resolution",
@@ -242,6 +240,7 @@ def select(
         J=projection,
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
     )

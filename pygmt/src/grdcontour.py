@@ -11,7 +11,6 @@ from pygmt.alias import AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -23,7 +22,6 @@ __doctest_skip__ = ["grdcontour"]
 
 
 @fmt_docstring
-@deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
     C="levels",
@@ -33,7 +31,6 @@ __doctest_skip__ = ["grdcontour"]
     S="resample",
     W="pen",
     l="label",
-    f="coltypes",
 )
 @kwargs_to_strings(L="sequence")
 def grdcontour(
@@ -47,6 +44,7 @@ def grdcontour(
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -62,6 +60,7 @@ def grdcontour(
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -150,14 +149,12 @@ def grdcontour(
     ...     annotation=1000,
     ...     # Add a frame for the plot
     ...     frame=Axis(annot=True),
-    ...     # Set the projection to Mercator for the 10 cm figure
+    ...     # Set the projection to Mercator, and the plot width to 10 centimeters
     ...     projection="M10c",
     ... )
     >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -175,11 +172,13 @@ def grdcontour(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(

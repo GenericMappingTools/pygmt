@@ -17,18 +17,17 @@ __doctest_skip__ = ["grdimage"]
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="img_in",
     E="dpi",
     G="bitcolor",
     I="shading",
     Q="nan_transparent",
     n="interpolation",
-    f="coltypes",
 )
-def grdimage(  # noqa: PLR0913
+def grdimage(
     self,
     grid: PathLike | xr.DataArray,
+    cmap: str | bool = False,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -40,6 +39,7 @@ def grdimage(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -77,12 +77,14 @@ def grdimage(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - M = monochrome
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
        - x = cores
@@ -175,8 +177,6 @@ def grdimage(  # noqa: PLR0913
     >>> # show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
         msg = (
@@ -186,6 +186,7 @@ def grdimage(  # noqa: PLR0913
         raise NotImplementedError(msg)
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
@@ -194,12 +195,14 @@ def grdimage(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
         x=cores,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

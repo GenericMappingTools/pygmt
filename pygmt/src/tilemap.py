@@ -20,7 +20,7 @@ except ImportError:
 
 @fmt_docstring
 @use_alias(E="dpi", I="shading", Q="nan_transparent")
-def tilemap(  # noqa: PLR0913
+def tilemap(
     self,
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
@@ -29,6 +29,7 @@ def tilemap(  # noqa: PLR0913
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    headers: dict[str, str] | None = None,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -89,7 +90,7 @@ def tilemap(  # noqa: PLR0913
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
           URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
-          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+          ``https://tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -108,11 +109,17 @@ def tilemap(  # noqa: PLR0913
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
+    headers
+        HTTP headers to include with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. When supported by
+        ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
+        ``PyGMT/X.Y.Z (+https://www.pygmt.org)``.
+
+        .. note::
+           Requires ``contextily>=1.7.0``.
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
     """
-    self._activate_figure()
-
     raster = load_tile_map(
         region=region,
         zoom=zoom,
@@ -122,6 +129,7 @@ def tilemap(  # noqa: PLR0913
         wait=wait,
         max_retries=max_retries,
         zoom_adjust=zoom_adjust,
+        headers=headers,
     )
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
@@ -145,6 +153,7 @@ def tilemap(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(
