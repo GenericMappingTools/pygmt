@@ -8,12 +8,11 @@ from typing import Literal
 
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given
 from pygmt.params import Axis, Box, Frame
 
 
 @fmt_docstring
-@use_alias(f="coltypes")
 def basemap(
     self,
     projection: str | None = None,
@@ -21,13 +20,14 @@ def basemap(
     zsize: float | str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
-    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
-    | bool = False,
     map_scale: str | None = None,
     compass: str | None = None,
     rose: str | None = None,
     box: Box | str | bool = False,
+    verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
+    | bool = False,
     panel: int | Sequence[int] | bool = False,
+    coltypes: str | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     **kwargs,
@@ -35,9 +35,9 @@ def basemap(
     """
     Plot base maps and frames.
 
-    Creates a basic or fancy basemap with axes, fill, and titles. Several map
-    projections are available, and separate tick-mark intervals for axis annotation,
-    ticking, and gridlines can be specified.
+    Creates a basic or fancy basemap with axes, fill, and title. Several map projections
+    are available, and separate tick-mark intervals for axis annotation, ticks, and
+    gridlines can be specified.
 
     If not in subplot mode (see :meth:`pygmt.Figure.subplot`), at least one of the
     parameters ``frame``, ``map_scale``, ``rose``, or ``compass`` must be specified.
@@ -58,7 +58,11 @@ def basemap(
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    $aliases
+    **Aliases**
+
+    .. hlist::
+       :columns: 3
+
        - B = frame
        - F = box
        - J = projection
@@ -70,6 +74,7 @@ def basemap(
        - Tm = compass
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -120,7 +125,9 @@ def basemap(
             parameters.
     $verbose
     $panel
-    $coltypes
+    coltypes
+        Specify the types of the coordinates given via ``region``. See
+        :gmt-docs:`gmt.html#f-full` for details.
     $perspective
     $transparency
 
@@ -165,6 +172,7 @@ def basemap(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )

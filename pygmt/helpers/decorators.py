@@ -62,7 +62,7 @@ COMMON_DOCSTRINGS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "coltypes": r"""
-        coltypes : str
+        coltypes
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or geographical
             data). Full documentation is at :gmt-docs:`gmt.html#f-full`.""",

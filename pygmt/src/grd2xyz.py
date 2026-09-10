@@ -29,7 +29,6 @@ __doctest_skip__ = ["grd2xyz"]
     Z="convention",
     b="binary",
     d="nodata",
-    f="coltypes",
     h="header",
     s="skiprows",
 )
@@ -41,6 +40,7 @@ def grd2xyz(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -54,6 +54,7 @@ def grd2xyz(
     $aliases
        - R = region
        - V = verbose
+       - f = coltypes
        - o = outcols
 
     Parameters
@@ -164,6 +165,7 @@ def grd2xyz(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         o=outcols,
     )
     aliasdict.merge(kwargs)
