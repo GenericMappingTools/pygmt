@@ -9,8 +9,9 @@ equally spaced elliptical arcs. The scale is true along latitude 40°30'.
 
 **kf**\ [*lon0/*]\ *scale* or **Kf**\ [*lon0/*]\ *width*
 
-The projection is set with **kf** or **Kf**. The central meridian is set with
-the optional *lon0*, and the figure size is set with *scale* or *width*.
+- **kf** or **Kf**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

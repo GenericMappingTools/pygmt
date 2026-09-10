@@ -16,7 +16,6 @@ communication tools we use.
 ### As a Contributor
 
 - Add to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
-- Add as a collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt) (gives 'write' permission to dvc remote storage)
 - Add as a member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
@@ -30,7 +29,6 @@ communication tools we use.
 ### As an Administrator
 
 - Add to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
-- Add as an admin on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt)
 - Add as a maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 **Note**: When a maintainer is no longer active (no activity in one year), we will mirror
@@ -97,14 +95,12 @@ workflow files for more details.
 
 - `benchmarks.yml`: Benchmark the execution speed of tests to track performance of PyGMT functions
 - `cache_data.yaml`: Cache GMT remote data files and upload as artifacts
-- `cache_dvc.yaml`: Cache baseline images tracked by DVC and upload as artifacts
 - `check-links.yml`: Check links in the repository and documentation
 - `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
 - `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
 - `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
 - `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
 - `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
-- `dvc-diff.yml`: Report changes in test images
 - `format-command.yml`: Format the codes using slash command
 - `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
 - `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
@@ -150,9 +146,9 @@ patch release.
 ## Backwards Compatibility and Deprecation Policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change until
-the v1.0.0 release. Versioning in PyGMT is based on the
-[semantic versioning specification](https://semver.org/spec/v2.0.0.html)
-(i.e., v*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
+the 1.0.0 release. Versioning in PyGMT is based on the
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (i.e.,
+*MAJOR*.*MINOR*.*PATCH*). Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
 - Incompatible changes are only allowed in major and minor releases, not in patch releases.
@@ -179,15 +175,15 @@ Here is an example:
 ```python
 # TODO(PyGMT>=0.6.0): Remove the deprecated "columns" parameter.
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
+@deprecate_parameter("columns", "incols", "0.4.0", remove_version="0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
 @kwargs_to_strings(R="sequence", i="sequence_comma")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
 
-In this case, the old parameter name `columns` is deprecated since v0.4.0, and will be
-fully removed in v0.6.0. The new parameter name is `incols`.
+In this case, the old parameter name `columns` is deprecated since 0.4.0, and will be
+fully removed in 0.6.0. The new parameter name is `incols`.
 
 ### TODO comments
 

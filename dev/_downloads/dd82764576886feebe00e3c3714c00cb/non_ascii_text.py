@@ -1,4 +1,4 @@
-# ruff: noqa: RUF001,RUF003
+# ruff: file-ignore[ambiguous-unicode-character-string, ambiguous-unicode-character-comment]
 """
 Typesetting non-ASCII text
 --------------------------

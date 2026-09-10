@@ -11,11 +11,12 @@ locations relative to the projection center.
 **e**\ *lon0/lat0*\ [*/horizon*]\ */scale* or
 **E**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-The projection type is set with **e** or **E**. *lon0/lat0* specifies the
-projection center, and the optional parameter *horizon* specifies the maximum
-distance to the projection center (i.e. the visible portion of the rest of the
-world map) in degrees <= 180° (default 180°). The size of the figure is set by
-*scale* or *width*.
+- **e** or **E**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: The maximum distance from the projection center to the edge of the
+  map (i.e. the visible portion of the rest of the world map) in degrees
+  (<= 180°) [Optional, default is 180°].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%
