@@ -166,7 +166,7 @@ def show_versions(file: TextIO | None = sys.stdout) -> None:
     lines.extend([f"  {key}: {val}" for key, val in sys_info.items()])
     lines.append("Dependency information:")
     lines.extend([f"  {key}: {val}" for key, val in dep_version.items()])
-    lines.append("GMT library information:")
+    lines.append("GMT information:")
     lines.extend([f"  {key}: {val}" for key, val in _get_clib_info().items()])
 
     if warnmsg := _check_ghostscript_version(dep_version["ghostscript"]):
