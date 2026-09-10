@@ -23,7 +23,6 @@ __doctest_skip__ = ["nearneighbor"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     w="wrap",
@@ -40,6 +39,7 @@ def nearneighbor(
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -83,6 +83,7 @@ def nearneighbor(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - r = registration
 
@@ -158,6 +159,7 @@ def nearneighbor(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         r=registration,
     )

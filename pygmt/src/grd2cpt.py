@@ -92,8 +92,8 @@ def grd2cpt(
        - N = no_bg
        - Q = log
        - R = region
-       - Z = continuous
        - V = verbose
+       - Z = continuous
 
     Parameters
     ----------

@@ -361,6 +361,8 @@ class AliasSystem(UserDict):
                     )
                 case "c":
                     alias = Alias(value, name="panel", sep=",", size=2)
+                case "f":
+                    alias = Alias(value, name="coltypes")
                 case "i":
                     alias = Alias(value, name="incols", sep=",")
                 case "r":

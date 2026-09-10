@@ -25,7 +25,6 @@ __doctest_skip__ = ["surface"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     i="incols",
     w="wrap",
@@ -41,6 +40,7 @@ def surface(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -84,6 +84,7 @@ def surface(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - r = registration
 
     Parameters
@@ -174,6 +175,7 @@ def surface(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         r=registration,
     )
     aliasdict.merge(kwargs)
