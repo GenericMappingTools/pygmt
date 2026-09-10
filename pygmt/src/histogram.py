@@ -20,16 +20,13 @@ from pygmt.params import Axis, Frame
 
 @fmt_docstring
 @use_alias(
-    A="horizontal",
     D="annotate",
     F="center",
-    G="fill",
     L="extreme",
     N="distribution",
     Q="cumulative",
     S="stairs",
     T="series",
-    W="pen",
     Z="histtype",
     b="binary",
     d="nodata",
@@ -45,6 +42,9 @@ def histogram(
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
+    pen: str | None = None,
+    fill: str | None = None,
+    horizontal: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -62,12 +62,15 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     $aliases
+       - A = horizontal
        - B = frame
        - C = cmap
-       - E = bar_width, bar_offset
+       - E = bar_width, **+o**: bar_offset
+       - G = fill
        - J = projection
        - R = region
        - V = verbose
+       - W = pen
        - c = panel
        - i = incols
        - p = perspective
@@ -79,9 +82,11 @@ def histogram(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     $cmap
-    fill : str
+    pen
+        Draw bar outline (or stair-case curve) using the specified pen thickness
+        [Default is no outline].
+    fill
          Set color or pattern for filling bars [Default is no fill].
-    $pen
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -95,7 +100,7 @@ def histogram(
         either an alternative width in data units, or the user may append a
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
-        Shift all bars along the axis by *offset*. It may be given in data units
+        Shift all bars along the axis by a constant value. It may be given in data units
         of plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
@@ -123,7 +128,7 @@ def histogram(
     stairs : bool
         Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
-    horizontal : bool
+    horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
@@ -164,11 +169,14 @@ def histogram(
         )
 
     aliasdict = AliasSystem(
+        A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        G=Alias(fill, name="fill"),
+        W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
         J=projection,

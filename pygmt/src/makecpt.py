@@ -79,8 +79,8 @@ def makecpt(
        - M = overrule_bg
        - N = no_bg
        - Q = log
-       - Z = continuous
        - V = verbose
+       - Z = continuous
 
     Parameters
     ----------

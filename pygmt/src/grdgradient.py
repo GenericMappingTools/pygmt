@@ -70,7 +70,7 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 
 
 @fmt_docstring
-@use_alias(D="direction", Q="tiles", S="slope_file", f="coltypes", n="interpolation")
+@use_alias(D="direction", Q="tiles", S="slope_file", n="interpolation")
 def grdgradient(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -84,6 +84,7 @@ def grdgradient(
     region: Sequence[float | str] | str | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -100,6 +101,7 @@ def grdgradient(
        - G = outgrid
        - R = region
        - V = verbose
+       - f = coltypes
 
     .. hlist::
        :columns: 1
@@ -251,6 +253,7 @@ def grdgradient(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 

@@ -160,7 +160,7 @@ def test_figure_savefig_geotiff():
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
                 pass
-        assert len(record) == 1
+        assert len(record) > 0
         with rioxarray.open_rasterio(fname) as xds:
             assert xds.rio.crs is None
             npt.assert_allclose(

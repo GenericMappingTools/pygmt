@@ -21,7 +21,6 @@ from pygmt.src._common import _parse_position
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     w="wrap",
@@ -47,6 +46,7 @@ def wiggle(
     label: str | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +67,7 @@ def wiggle(
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -157,6 +158,7 @@ def wiggle(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,

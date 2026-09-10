@@ -71,19 +71,20 @@ def scalebar(
         [Default is ``"km"``]. Requires ``fancy=True``.
     label_alignment
         Alignment of the scale bar label. Choose from ``"left"``, ``"right"``,
-        ``"top"``, or ``"bottom"`` [Default is ``"top"``].
+        ``"top"``, or ``"bottom"`` [Default is ``"top"`` for horizontal scale bars and
+        ``"right"`` for vertical scale bars].
     fancy
         If ``True``, draw a "fancy" scale bar, which is a segmented bar with alternating
-        black and white rectangles. If ``False``, draw a plain scale bar. Only supported
-        for non-Cartesian projections.
+        black and white rectangles. If ``False``, draw a plain scale bar. Doesn't work
+        for Cartesian projections for GMT<6.7.0.
     unit
         If ``True``, append the unit to all distance annotations along the scale. For a
         plain scale, this will instead select the unit to be appended to the distance
         length. The unit is determined from the suffix provided to the ``length``
         parameter or defaults to ``"km"``.
     vertical
-        If ``True``, plot a vertical rather than a horizontal scale. Only
-        supported for Cartesian projections.
+        If ``True``, plot a vertical rather than a horizontal scale. Only supported for
+        Cartesian projections.
     box
         Draw a background box behind the scale bar. If set to ``True``, a simple
         rectangular box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box

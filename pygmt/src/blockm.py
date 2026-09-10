@@ -77,7 +77,6 @@ def _blockm(
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     w="wrap",
 )
@@ -96,6 +95,7 @@ def blockmean(
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -117,6 +117,7 @@ def blockmean(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
        - r = registration
@@ -180,6 +181,7 @@ def blockmean(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
         r=registration,
@@ -199,9 +201,7 @@ def blockmean(
 
 
 @fmt_docstring
-@use_alias(
-    a="aspatial", b="binary", d="nodata", e="find", f="coltypes", h="header", w="wrap"
-)
+@use_alias(a="aspatial", b="binary", d="nodata", e="find", h="header", w="wrap")
 def blockmedian(
     data: PathLike | TableLike | None = None,
     x=None,
@@ -217,6 +217,7 @@ def blockmedian(
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -238,6 +239,7 @@ def blockmedian(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
        - r = registration
@@ -295,6 +297,7 @@ def blockmedian(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
         r=registration,
@@ -319,7 +322,6 @@ def blockmedian(
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     w="wrap",
 )
@@ -338,6 +340,7 @@ def blockmode(
     incols: int | str | Sequence[int | str] | None = None,
     outcols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -359,6 +362,7 @@ def blockmode(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - o = outcols
        - r = registration
@@ -414,6 +418,7 @@ def blockmode(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         o=outcols,
         r=registration,
