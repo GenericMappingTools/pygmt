@@ -115,8 +115,7 @@ def fitcircle(
     )
     aliasdict.merge(kwargs)
 
-    # "c" (small-circle pole and colatitude) is only valid with -S; GMT errors
-    # ("Cannot select c without setting -S") if "c" is requested without it.
+    # "c" (small-circle pole and colatitude) is only valid with -S.
     aliasdict["F"] = "fmnsc" if is_given(small_circle) else "fmns"
 
     with Session() as lib:
