@@ -7,6 +7,7 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
+from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.helpers.utils import is_given
 
@@ -25,10 +26,10 @@ def fitcircle(
     """
     Find mean position and great or small circle fit to points on sphere.
 
-    This method takes (longitude, latitude) values and converts them to Cartesian
-    three-vectors on the unit sphere. Then two locations are found: the mean
-    of the input positions, and the pole to the great circle which best fits
-    the input positions.
+    This method takes (longitude, latitude) values and converts them to 
+    Cartesian three-vectors on the unit sphere. Then two locations are 
+    found: the mean of the input positions, and the pole to the great 
+    circle which best fits the input positions.
 
     Setting ``norm`` to ``1`` (L1 norm) approximates the minimization of the
     sum of absolute values of cosines of angular distances. This solution
