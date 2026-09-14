@@ -25,7 +25,6 @@ from pygmt.params import Axis, Frame
     F="center",
     L="extreme",
     N="distribution",
-    S="stairs",
     T="series",
     Z="histtype",
     b="binary",
@@ -45,6 +44,7 @@ def histogram(
     pen: str | None = None,
     fill: str | Literal["position", "value"] | None = None,
     horizontal: bool = False,
+    stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -71,6 +71,7 @@ def histogram(
        - J = projection
        - Q = cumulative
        - R = region
+       - S = stairs
        - V = verbose
        - W = pen
        - c = panel
@@ -136,9 +137,9 @@ def histogram(
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
-    stairs : bool
-        Draw a stairs-step diagram which does not include the internal bars
-        of the default histogram.
+    stairs
+        Draw a stairs-step diagram which does not include the internal bars of the
+        default histogram.
     horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
@@ -205,6 +206,7 @@ def histogram(
         ],
         G=Alias(_fill_color, name="fill"),
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
+        S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,
