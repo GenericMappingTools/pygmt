@@ -126,6 +126,7 @@ def cache_data() -> None:
         "@hotspots.txt",
         "@mars370d.txt",
         "@ridge.txt",
+        "@sat_03.txt",
         "@srtm_tiles.nc",  # Needed for earth relief 03s and 01s data.
         "@static_earth_relief.nc",
         "@ternary.txt",
