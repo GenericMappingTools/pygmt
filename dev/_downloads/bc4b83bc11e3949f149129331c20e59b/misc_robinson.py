@@ -13,8 +13,9 @@ National Geographic Society.
 
 **n**\ [*lon0/*]\ *scale* or **N**\ [*lon0/*]\ *width*
 
-The projection is set with **n** or **N**. The central meridian is set with the
-optional *lon0*, and the figure size is set with *scale* or *width*.
+- **n** or **N**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *scale* or *width*: Sets the map size.
 
 .. rubric:: Footnotes
 

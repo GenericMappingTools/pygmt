@@ -4,8 +4,9 @@ Cartesian linear
 
 **X**\ *width*\ [/*height*] or **x**\ *x-scale*\ [/*y-scale*]
 
-Give the *width* of the figure and the optional *height*. The lowercase version
-**x** is similar to **X** but expects an *x-scale* and an optional *y-scale*.
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
 
 The Cartesian linear projection is primarily designed for regular floating point
 data. To plot geographical data in a linear projection, see the upstream GMT
