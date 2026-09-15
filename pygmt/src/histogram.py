@@ -20,13 +20,10 @@ from pygmt.params import Axis, Frame, Perspective
 
 @fmt_docstring
 @use_alias(
-    A="horizontal",
     D="annotate",
     F="center",
     L="extreme",
     N="distribution",
-    Q="cumulative",
-    S="stairs",
     T="series",
     Z="histtype",
     b="binary",
@@ -45,6 +42,9 @@ def histogram(
     cmap: str | bool = False,
     pen: str | None = None,
     fill: str | None = None,
+    horizontal: bool = False,
+    stairs: bool = False,
+    cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -62,12 +62,15 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     $aliases
+       - A = horizontal
        - B = frame
        - C = cmap
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
+       - Q = cumulative
        - R = region
+       - S = stairs
        - V = verbose
        - W = pen
        - c = panel
@@ -112,10 +115,9 @@ def histogram(
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
-    cumulative : bool or str
-        [**r**].
-        Draw a cumulative histogram by passing ``True``. Use **r** to display
-        a reverse cumulative histogram.
+    cumulative
+        Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
+        a reverse cumulative histogram instead.
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
@@ -124,10 +126,10 @@ def histogram(
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
-    stairs : bool
-        Draw a stairs-step diagram which does not include the internal bars
-        of the default histogram.
-    horizontal : bool
+    stairs
+        Draw a stairs-step diagram which does not include the internal bars of the
+        default histogram.
+    horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
@@ -168,12 +170,15 @@ def histogram(
         )
 
     aliasdict = AliasSystem(
+        A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         G=Alias(fill, name="fill"),
+        Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
+        S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,

@@ -132,8 +132,9 @@ our tests. This way, the *main* branch is always stable.
 * How to write and submit a PR
   - Use underscores, not hyphens, in the names of all files and directories, as per
     [PEP8](https://www.python.org/dev/peps/pep-0008/) for Python (\*.py) files. A few
-    exceptions are allowed (e.g., `.pre-commit-config.yaml`) and are listed
-    in the [style checks](.github/workflows/style_checks.yaml) workflow.
+    exceptions are allowed (e.g., `.pre-commit-config.yaml`) and are listed in the
+    [style checks](https://github.com/GenericMappingTools/pygmt/blob/main/.github/workflows/style_checks.yaml)
+    workflow.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.
