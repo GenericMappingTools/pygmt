@@ -101,7 +101,7 @@ def histogram(
         - ``"value"``: look up the color using the bin value, i.e., the bar count or
           frequency.
 
-        The special values require a CPT (either the current CPT or explicitely set by
+        The special values require a CPT (either the current CPT or explicitly set by
         ``cmap``), and can't be used with ``fill``.
     $cmap
     annotate : bool or str
