@@ -11,6 +11,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -19,6 +20,8 @@ from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
+@deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
     F="center",
@@ -42,7 +45,7 @@ def histogram(
     pen: str | None = None,
     fill: str | None = None,
     horizontal: bool = False,
-    extreme: Literal["first", "last", "both"] | None = None,
+    out_range: Literal["first", "last", "both"] | None = None,
     stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
@@ -68,7 +71,7 @@ def histogram(
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
-       - L = extreme
+       - L = out_range
        - Q = cumulative
        - R = region
        - S = stairs
@@ -116,13 +119,13 @@ def histogram(
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
-    extreme
-        Handle extreme values that fall outside the range set by ``series``. By default,
-        these values are ignored. Valid values are:
+    out_range
+        Handle values that fall outside the range set by ``series``. By default, these
+        values are ignored. Valid values are:
 
-        - ``"first"``: only include extreme values below first bin into the first bin
-        - ``"last"``: only include extreme values above the last bin into that last bin
-        - ``"both"``:  include extreme values into the first or last bins
+        - ``"first"``: only include values below first bin into the first bin
+        - ``"last"``: only include values above the last bin into that last bin
+        - ``"both"``: include values into the first or last bins
     cumulative
         Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
         a reverse cumulative histogram instead.
@@ -178,7 +181,9 @@ def histogram(
         ],
         G=Alias(fill, name="fill"),
         L=Alias(
-            extreme, name="extreme", mapping={"first": "l", "last": "h", "both": "b"}
+            out_range,
+            name="out_range",
+            mapping={"first": "l", "last": "h", "both": "b"},
         ),
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
