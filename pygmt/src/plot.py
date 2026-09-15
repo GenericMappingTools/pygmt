@@ -16,7 +16,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 from pygmt.src._common import _data_geometry_is_point
 
 
@@ -58,7 +58,7 @@ def plot(  # ruff: ignore[too-many-branches]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     coltypes: str | None = None,
     **kwargs,

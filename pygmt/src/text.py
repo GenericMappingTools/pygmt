@@ -19,7 +19,7 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Perspective
 
 
 @fmt_docstring
@@ -51,7 +51,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     coltypes: str | None = None,
     **kwargs,
