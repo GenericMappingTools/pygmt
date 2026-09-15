@@ -11,6 +11,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     is_given,
     kwargs_to_strings,
@@ -20,10 +21,11 @@ from pygmt.params import Axis, Frame
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
+@deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
     F="center",
-    L="extreme",
     N="distribution",
     T="series",
     Z="histtype",
@@ -44,6 +46,7 @@ def histogram(
     pen: str | None = None,
     fill: str | Literal["position", "value"] | None = None,
     horizontal: bool = False,
+    out_range: Literal["first", "last", "both"] | None = None,
     stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
@@ -69,6 +72,7 @@ def histogram(
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
+       - L = out_range
        - Q = cumulative
        - R = region
        - S = stairs
@@ -126,17 +130,16 @@ def histogram(
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
+    out_range
+        Handle values that fall outside the range set by ``series``. By default, these
+        values are ignored. Valid values are:
+
+        - ``"first"``: only include values below first bin into the first bin
+        - ``"last"``: only include values above the last bin into that last bin
+        - ``"both"``: include values into the first or last bins
     cumulative
         Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
         a reverse cumulative histogram instead.
-    extreme : str
-        **l**\|\ **h**\|\ **b**.
-        The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``. By default, these values are ignored.
-        Append **b** to let these values be included in the first or last
-        bins. To only include extreme values below first bin into the first
-        bin, use **l**, and to only include extreme values above the last bin
-        into that last bin, use **h**.
     stairs
         Draw a stairs-step diagram which does not include the internal bars of the
         default histogram.
@@ -205,6 +208,11 @@ def histogram(
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         G=Alias(_fill_color, name="fill"),
+        L=Alias(
+            out_range,
+            name="out_range",
+            mapping={"first": "l", "last": "h", "both": "b"},
+        ),
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
