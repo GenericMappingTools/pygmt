@@ -18,6 +18,8 @@ from pygmt.helpers import (
 )
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["histogram"]
+
 
 @fmt_docstring
 # TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
@@ -166,6 +168,18 @@ def histogram(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # Generate random data from a normal distribution
+    >>> rng = np.random.default_rng(seed=100)
+    >>> data = rng.normal(loc=100, scale=25, size=1024)
+    >>> fig = pygmt.Figure()
+    >>> fig.histogram(data=data, frame=True, series=5, fill="red3", pen="1p")
+    >>> fig.show()
     """
     if bar_offset is not None and bar_width is None:
         raise GMTParameterError(
