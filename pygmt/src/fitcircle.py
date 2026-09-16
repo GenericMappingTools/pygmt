@@ -25,33 +25,30 @@ def fitcircle(
     """
     Find mean position and great or small circle fit to points on sphere.
 
-    This method takes (longitude, latitude) values and converts them to 
-    Cartesian three-vectors on the unit sphere. Then two locations are 
-    found: the mean of the input positions, and the pole to the great 
-    circle which best fits the input positions.
+    This method takes (longitude, latitude) values and reports the mean position and the
+    pole to the great circle which best fits the input positions.
 
-    Setting ``norm`` to ``1`` (L1 norm) approximates the minimization of the
-    sum of absolute values of cosines of angular distances. This solution
-    finds the mean position as the Fisher average of the data, and the pole
-    position as the Fisher average of the cross-products between the mean
-    and the data. Averaging cross-products gives weight to points in
-    proportion to their distance from the mean, analogous to the "leverage"
-    of distant points in linear regression in the plane.
+    Two methods are available to find the mean and pole positions, depending on the
+    value of the ``norm`` parameter.
 
-    Setting ``norm`` to ``2`` (L2 norm) approximates the minimization of the
-    sum of squares of cosines of angular distances. It creates a 3 by 3
-    matrix of sums of squares of components of the data vectors. The
-    eigenvectors of this matrix give the mean and pole locations. This
-    method may be more subject to roundoff errors when there are thousands
-    of data. The pole is given by the eigenvector corresponding to the
-    smallest eigenvalue; it is the least-well represented factor in the data
-    and is not easily estimated by either method.
+    - ``norm=1`` (L1 norm) approximates the minimization of the sum of absolute values
+      of cosines of angular distances. This solution finds the mean position as the
+      Fisher average of the data, and the pole position as the Fisher average of the
+      cross-products between the mean and the data. Averaging cross-products gives
+      weight to points in proportion to their distance from the mean, analogous to the
+      "leverage" of distant points in linear regression in the plane.
+    - ``norm=2`` (L2 norm) approximates the minimization of the sum of squares of
+      cosines of cosines of angular distances. It creates a 3 by 3 matrix of sums of
+      squares of components of the data vectors. The eigenvectors of this matrix give
+      the mean and pole locations. This method may be more subject to roundoff errors
+      when there are thousands of data. The pole is given by the eigenvector
+      corresponding to the smallest eigenvalue; it is the least-well represented factor
+      in the data and is not easily estimated by either method.
 
-    When the data are closely grouped along a great circle both solutions
-    are similar. If the data have large dispersion, the pole to the great
-    circle will be less well determined than the mean. Compare both
-    solutions as a qualitative check by calling :func:`pygmt.fitcircle`
-    twice, once for each ``norm``.
+    When the data are closely grouped along a great circle both solutions are similar.
+    If the data have large dispersion, the pole to the great circle will be less well
+    determined than the mean. Compare both solutions as a qualitative check by calling
+    :func:`pygmt.fitcircle`twice, once for each ``norm``.
 
     Takes a matrix, (x, y) pairs, or a file name as input.
 
