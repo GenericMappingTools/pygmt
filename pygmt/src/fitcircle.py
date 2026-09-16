@@ -97,9 +97,8 @@ def fitcircle(
         If ``small_circle`` is set, two more keys are added:
 
         - ``"small_circle_pole"``: the small circle pole
-        - ``"small_circle_distance"``: the colatitude/distance in degrees
-          from the small circle pole to the small circle (a ``float``, not a
-          tuple)
+        - ``"small_circle_distance"``: the colatitude/distance in degrees from the small 
+          circle pole to the small circle (a ``float``, not a tuple)
     """
     if norm not in {1, 2}:
         raise GMTValueError(norm, description="norm", choices={1, 2})
