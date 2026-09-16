@@ -8,8 +8,7 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
-from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.helpers.utils import is_given
+from pygmt.helpers import build_arg_list, fmt_docstring, is_given
 
 
 @fmt_docstring
