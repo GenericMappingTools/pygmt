@@ -71,6 +71,8 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
     ['-N+p1p,blue']
     >>> parse(distribution="1")
     ['-N1']
+    >>> parse(distribution=True)
+    ['-N']
 
     >>> # But the legacy syntax cannot be mixed with 'distribution_pen'.
     >>> parse(distribution="0+p1p,blue", distribution_pen="1p,red")
