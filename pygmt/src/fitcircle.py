@@ -89,8 +89,8 @@ def fitcircle(
         ``(longitude, latitude)`` tuple:
 
         - ``"flat_mean"``: the flat Earth mean position
-        - ``"mean"``: the mean position (Fisher or eigenvalue method,
-          depending on ``norm``)
+        - ``"mean"``: the mean position (Fisher or eigenvalue method, depending on
+          ``norm``)
         - ``"north_pole"``: the north hemisphere great circle pole
         - ``"south_pole"``: the south hemisphere great circle pole
 
