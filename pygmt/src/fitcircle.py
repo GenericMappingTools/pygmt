@@ -73,8 +73,8 @@ def fitcircle(
     x/y : 1-D arrays
         Arrays of x and y coordinates of the data points.
     norm
-        Specify the desired norm, either ``1`` (L1 norm, least absolute
-        deviation) or ``2`` (L2 norm, least squares) [Default is ``2``].
+        Specify the desired norm, either ``1`` (L1 norm, least absolute deviation) or 
+        ``2`` (L2 norm, least squares) [Default is ``2``].
     small_circle
         Attempt to fit a small circle instead of a great circle. The pole will be
         constrained to lie on the great circle connecting the pole of the best-fit great
