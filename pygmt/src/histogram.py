@@ -26,7 +26,6 @@ __doctest_skip__ = ["histogram"]
 @deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
-    F="center",
     N="distribution",
     T="series",
     Z="histtype",
@@ -47,6 +46,7 @@ def histogram(
     pen: str | None = None,
     fill: str | None = None,
     horizontal: bool = False,
+    center: bool = False,
     out_range: Literal["first", "last", "both"] | None = None,
     stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
@@ -110,8 +110,9 @@ def histogram(
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
         of plot dimension units by appending the relevant unit.
-    center : bool
-        Center bin on each value. [Default is left edge].
+    center
+        Center bin on each value specified via ``series`` [Default uses the values to
+        define the left edge of each bin].
     distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
@@ -193,6 +194,7 @@ def histogram(
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        F=Alias(center, name="center"),
         G=Alias(fill, name="fill"),
         L=Alias(
             out_range,
