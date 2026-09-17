@@ -109,7 +109,7 @@ def histogram(
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
-        of plot dimension units by appending the relevant unit.
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     center
         Center bin on each value specified via ``series`` [Default uses the values to
         define the left edge of each bin].
