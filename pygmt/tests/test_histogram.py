@@ -76,7 +76,7 @@ def test_histogram_baroffset(data):
         fig.histogram(
             data=data,
             projection="X10c/10c",
-            region=[0, 10, 0, 6],
+            region=[0, 9, 0, 6],
             series=1,
             frame=Axis(annot=True),
             fill="green",
