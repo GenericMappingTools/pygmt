@@ -44,6 +44,11 @@ def logo(
     By default, the GMT logo is 2 inches wide and 1 inch high and will be positioned
     relative to the current plot origin.
 
+    See Also
+    --------
+    pygmt.Figure.pygmtlogo
+        Plot the PyGMT logo.
+
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
     **Aliases:**
@@ -96,11 +101,6 @@ def logo(
     $panel
     $perspective
     $transparency
-
-    See Also
-    --------
-    pygmt.Figure.pygmtlogo
-        Plot the PyGMT logo.
 
     Examples
     --------
