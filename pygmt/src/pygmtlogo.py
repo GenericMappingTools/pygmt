@@ -303,6 +303,11 @@ def pygmtlogo(
     the compass. By default, the PyGMT logo is plotted without wordmark, with a size of
     2 centimeters for the circular version of the icon.
 
+    See Also
+    --------
+    pygmt.Figure.logo
+        Plot the GMT logo.
+
     Parameters
     ----------
     shape
@@ -346,11 +351,6 @@ def pygmtlogo(
     $panel
     $perspective
     $transparency
-
-    See Also
-    --------
-    pygmt.Figure.logo
-        Plot the GMT logo.
 
     Examples
     --------
