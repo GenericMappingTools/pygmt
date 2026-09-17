@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, ClassVar, Literal
 
 from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
-from pygmt.helpers import is_given
+from pygmt.helpers import is_given, is_nonstr_iter
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -395,3 +395,51 @@ def _parse_position(
                 ),
             )
     return position
+
+
+def _parse_series(
+    series: float | str | Sequence[float] | None = None,
+) -> str | Literal[True] | None:
+    """
+    Parse the "series" parameter for array creation.
+
+    The rules are:
+
+    - A list/tuple of three values is interpreted as *min*/*max*/*inc* (joined by "/")
+    - Other iterables are interpreted as comma-separated values, and are expected to be
+      passed via a virtual file
+    - Other values are converted to a string
+
+    Parameters
+    ----------
+    series
+        The ``series`` parameter to parse.
+
+    Returns
+    -------
+    series
+        A string to be passed to GMT, the sequence if the values must be passed via a
+        virtual file, or ``None`` if not given.
+
+    Examples
+    --------
+    >>> _parse_series()
+    >>> _parse_series(1)
+    '1'
+    >>> _parse_series("0/9/1")
+    '0/9/1'
+    >>> _parse_series([0, 9, 1])
+    '0/9/1'
+    >>> _parse_series((0, 9, 1))
+    '0/9/1'
+    >>> _parse_series([0, 1, 2, 3, 5])
+    [0, 1, 2, 3, 5]
+    >>> import numpy as np
+    >>> _parse_series(np.arange(1, 10, 1))
+    array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    """
+    if isinstance(series, (list, tuple)) and len(series) == 3:
+        return "/".join(str(item) for item in series)
+    if is_nonstr_iter(series):
+        return series
+    return str(series) if series is not None else None

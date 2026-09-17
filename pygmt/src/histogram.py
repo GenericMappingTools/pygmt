@@ -13,10 +13,10 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Axis, Frame
+from pygmt.src._common import _parse_series
 
 __doctest_skip__ = ["histogram"]
 
@@ -27,7 +27,6 @@ __doctest_skip__ = ["histogram"]
 @use_alias(
     D="annotate",
     N="distribution",
-    T="series",
     Z="histtype",
     b="binary",
     d="nodata",
@@ -36,12 +35,12 @@ __doctest_skip__ = ["histogram"]
     l="label",
     w="wrap",
 )
-@kwargs_to_strings(T="sequence")
 def histogram(
     self,
     data: PathLike | TableLike,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
+    series: float | str | Sequence[float] | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
     fill: str | None = None,
@@ -77,6 +76,7 @@ def histogram(
        - Q = cumulative
        - R = region
        - S = stairs
+       - T = series
        - V = verbose
        - W = pen
        - c = panel
@@ -89,6 +89,15 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
+    series
+        Set the histogram binning. It can take one of four forms:
+
+        - A list/tuple of three values to set the minimum, maximum, and increment for
+          the binning.
+        - A single float value to set the bin increment only, with the minimum and
+          maximum automatically determined from the data or ``region``.
+        - A sequence of any other length to set the bin boundaries explicitly.
+        - A string for any GMT CLI syntax.
     $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
@@ -139,9 +148,6 @@ def histogram(
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
-    series : int, str, or list
-        [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
-        Set the interval for the width of each bar in the histogram.
     histtype : int or str
         [*type*][**+w**].
         Choose between 6 types of histograms:
@@ -186,7 +192,6 @@ def histogram(
         raise GMTParameterError(
             required="bar_width", reason="Required when 'bar_offset' is set."
         )
-
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
@@ -218,7 +223,15 @@ def histogram(
 
     self._activate_figure()
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_in(
+                check_kind="vector",
+                data=_parse_series(series),
+                required=False,
+            ) as vseries,
+        ):
+            aliasdict["T"] = vseries
             lib.call_module(
                 module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )
