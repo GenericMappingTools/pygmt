@@ -17,7 +17,7 @@ This tutorial is split into three parts:
 
 - Make a static map
 - Make an interactive map
-- Add a grid for Earth relief
+- Add a grid for the earth relief
 """
 
 # %%
@@ -36,7 +36,7 @@ pn.extension()
 #
 # The `Orthographic projection
 # <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
-# can be used to show the Earth as a globe. Land and water masses are
+# can be used to show Earth as a globe. Land and water masses are
 # filled with colors via the ``land`` and  ``water`` parameters of
 # :meth:`pygmt.Figure.coast`, respectively. Coastlines are added using the
 # ``shorelines`` parameter.
@@ -61,7 +61,7 @@ fig.show()
 # Make an interactive map
 # -----------------------
 #
-# To generate a rotation of the Earth around the vertical axis, the central
+# To generate a rotation of Earth around the vertical axis, the central
 # longitude of the Orthographic projection is varied iteratively in steps of
 # 10 degrees. The library ``Panel`` is used to create an interactive dashboard
 # with a slider (works only in a notebook environment, e.g., Jupyter notebook).
@@ -98,13 +98,13 @@ pn.Column(slider_lon, view)
 
 
 # %%
-# Add a grid for Earth relief
-# ---------------------------
+# Add a grid for the earth relief
+# -------------------------------
 #
 # Instead of using colors as fill for the land and water masses a grid can be
-# displayed. Here, the Earth relief is shown by color-coding the elevation.
+# displayed. Here, the earth relief is shown by color-coding the elevation.
 
-# Download a grid for Earth relief with a resolution of 10 arc-minutes
+# Download a grid for the earth relief with a resolution of 10 arc-minutes
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m")
 
 # Create a slider
