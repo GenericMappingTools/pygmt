@@ -399,15 +399,15 @@ def _parse_position(
 
 def _parse_series(
     series: float | str | Sequence[float] | None = None,
-) -> str | Literal[True] | None:
+) -> str | Sequence[float] | None:
     """
     Parse the "series" parameter for array creation.
 
     The rules are:
 
     - A list/tuple of three values is interpreted as *min*/*max*/*inc* (joined by "/")
-    - Other iterables are interpreted as comma-separated values, and are expected to be
-      passed via a virtual file
+    - Other iterables are interpreted as comma-separated values, and should be passed
+      via a virtual file, because GMT can't deal with very long CLI arguments
     - Other values are converted to a string
 
     Parameters
