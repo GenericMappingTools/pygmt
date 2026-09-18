@@ -2,6 +2,7 @@
 Test Figure.histogram.
 """
 
+import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure
@@ -30,6 +31,23 @@ def test_histogram(data):
         projection="X10c/10c",
         region=[0, 9, 0, 6],
         series=1,
+        frame=Axis(annot=True),
+        fill="green",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_histogram.png")
+def test_histogram_series_nparray(data):
+    """
+    Test plotting a histogram with bin boundaries passed as a numpy array.
+    """
+    fig = Figure()
+    fig.histogram(
+        data=data,
+        projection="X10c/10c",
+        region=[0, 9, 0, 6],
+        series=np.arange(0, 10),
         frame=Axis(annot=True),
         fill="green",
     )
