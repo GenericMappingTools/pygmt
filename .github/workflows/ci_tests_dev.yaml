@@ -12,8 +12,10 @@
 name: GMT Dev Tests
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches:
+      - main
+      - gmt-in
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
     paths:
