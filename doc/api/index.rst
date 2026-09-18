@@ -216,6 +216,7 @@ Class-style Parameters
     Axis
     Box
     Frame
+    LegendSpec
     Pattern
     Position
 
