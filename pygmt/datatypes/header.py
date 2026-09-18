@@ -108,8 +108,10 @@ class _GMT_GRID_HEADER(ctp.Structure):  # ruff: ignore[invalid-class-name]
         # Below are items used internally by GMT
         # Number of data points (n_columns * n_rows) [paddings are excluded]
         ("nm", ctp.c_size_t),
-        # Actual number of items (not bytes) required to hold this grid (mx * my),
-        # per band (for images)
+        # Actual number of items (not bytes) required to hold one layer of this grid,
+        # paddings included. size >= mx * my, rounded up to an even number.
+        # For images and cubes this is also the stride between bands/layers, i.e.,
+        # band/layer k starts at offset k * size.
         ("size", ctp.c_size_t),
         # Bits per data value (e.g., 32 for ints/floats; 8 for bytes).
         # Only used for ERSI ArcInfo ASCII Exchange grids.
@@ -121,7 +123,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # ruff: ignore[invalid-class-name]
         ("complex_mode", ctp.c_uint),
         # Grid format
         ("type", ctp.c_uint),
-        # Number of bands [1]. Used with GMT_IMAGE containers
+        # Number of bands for GMT_IMAGE or number of layers for GMT_CUBE [1].
         ("n_bands", ctp.c_uint),
         # Actual x-dimension in memory. mx = n_columns + pad[0] + pad[1]
         ("mx", ctp.c_uint),
