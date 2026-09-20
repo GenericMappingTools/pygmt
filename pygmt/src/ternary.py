@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.params.frame import _Axes
 
 
@@ -113,7 +113,7 @@ def ternary(
     self,
     data: PathLike | TableLike,
     cmap: str | bool = False,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     width: float | str | None = None,
     pen: str | None = None,
     alabel: str | None = None,

@@ -19,7 +19,7 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 
 @fmt_docstring
@@ -40,7 +40,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     text: str | StringArrayTypes | None = None,
     angle: float | Sequence[float] | bool = False,
     font: str | StringArrayTypes | bool = False,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     pen: str | None = None,
     justify: bool | AnchorCode | Sequence[AnchorCode] | None = None,
     offset: Sequence[float | str] | str | None = None,
