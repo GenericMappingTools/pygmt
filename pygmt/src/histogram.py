@@ -13,10 +13,11 @@ from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
+    is_given,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 __doctest_skip__ = ["histogram"]
 
@@ -44,7 +45,7 @@ def histogram(
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | Literal["position", "value"] | None = None,
     horizontal: bool = False,
     center: bool = False,
     out_range: Literal["first", "last", "both"] | None = None,
@@ -69,7 +70,7 @@ def histogram(
     $aliases
        - A = horizontal
        - B = frame
-       - C = cmap
+       - C = cmap, **+b**: fill
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
@@ -89,12 +90,22 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
-    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
     fill
-         Set color or pattern for filling bars [Default is no fill].
+        Set color or pattern for filling bars [Default is no fill]. Set it to one of the
+        two special values to fill bars by looking up the color from a CPT instead of a
+        constant color:
+
+        - ``"position"``: look up the color using the mid-coordinate of the bin. This is
+          the default when ``cmap`` is set.
+        - ``"value"``: look up the color using the bin value, i.e., the bar count or
+          frequency.
+
+        The special values require a CPT (either the current CPT or explicitly set by
+        ``cmap``), and can't be used with ``fill``.
+    $cmap
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -187,15 +198,32 @@ def histogram(
             required="bar_width", reason="Required when 'bar_offset' is set."
         )
 
+    # "position" and "value" are special values that fill bars by values and cmap.
+    match fill:
+        case "position":
+            _fill_color, _fill_lookup = None, ""
+        case "value":
+            _fill_color, _fill_lookup = None, "+b"
+        case _:
+            _fill_color, _fill_lookup = fill, None  # type: ignore[assignment]
+    if _fill_color is not None and is_given(cmap):
+        raise GMTParameterError(
+            at_most_one=["cmap", "fill"],
+            reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
+        )
+
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
-        C=Alias(cmap, name="cmap"),
+        C=[
+            Alias(cmap, name="cmap"),
+            Alias(_fill_lookup, name="fill"),
+        ],
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         F=Alias(center, name="center"),
-        G=Alias(fill, name="fill"),
+        G=Alias(_fill_color, name="fill"),
         L=Alias(
             out_range,
             name="out_range",
