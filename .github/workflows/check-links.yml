@@ -26,13 +26,13 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         path: repository
         persist-credentials: false
 
     - name: Checkout the documentation
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         ref: gh-pages
         path: documentation
@@ -69,6 +69,7 @@ jobs:
           --exclude "^https://www.pygmt.org/%7B%7Bpath%7D%7D"
           --exclude "^https://www.researchgate.net/"
           --exclude "^https://stackoverflow.com/a/69170441"
+          --exclude "^https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png"
           "repository/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"

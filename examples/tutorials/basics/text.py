@@ -153,7 +153,7 @@ fig.show()
 # ----------------------------
 #
 # It is also possible to add text labels via an external input file containing ``x``,
-# ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
+# ``y``, and ``text`` columns. Additionally, columns to set the ``angle``, ``font``,
 # and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
@@ -162,7 +162,7 @@ fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file with region / sea names:
 # - longitude (x) and latitude (y) coordinates are in the first two columns
-# - angle, font, and justify muss be present in this order in the next three columns
+# - angle, font, and justify must be present in this order in the next three columns
 # - the text to be printed is given in the last column
 with Path.open("examples.txt", "w") as f:
     f.write("114.00  0.50   0 15p,Helvetica-Bold,white CM BORNEO\n")

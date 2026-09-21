@@ -53,8 +53,8 @@ def solar(
        - V = verbose
        - W = pen
        - c = panel
-       - t = transparency
        - p = perspective
+       - t = transparency
 
     Parameters
     ----------

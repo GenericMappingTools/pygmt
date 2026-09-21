@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     E="error_bar",
     F="connection",
@@ -37,13 +36,12 @@ from pygmt.src._common import _data_geometry_is_point
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     l="label",
     w="wrap",
 )
-def plot(  # noqa: PLR0912
+def plot(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +49,7 @@ def plot(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -61,6 +60,7 @@ def plot(  # noqa: PLR0912
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -89,10 +89,12 @@ def plot(  # noqa: PLR0912
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -303,12 +305,14 @@ def plot(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
     ).add_common(
         B=frame,
         R=region,
         J=projection,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,

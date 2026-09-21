@@ -3,6 +3,7 @@ prune ci
 prune doc*
 prune examples*
 prune pygmt/tests*
+exclude .gitattributes
 exclude .gitignore
 exclude .pre-commit-config.yaml
 exclude .readthedocs.yaml

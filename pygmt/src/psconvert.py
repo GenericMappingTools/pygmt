@@ -74,9 +74,9 @@ def psconvert(
         Adjust the BoundingBox and HiResBoundingBox by scaling and/or
         adding margins. Append **+m** to specify extra margins to extend
         the bounding box. Give either one (uniform), two (x and y) or four
-        (individual sides) margins; append unit [Default is set by
-        :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
-        output image to exactly *width* units. The default unit is set by
+        (individual sides) margins; append a :ref:`dimension unit <dimension-units>`
+        [Default is set by :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to
+        resize the output image to exactly *width* units. The default unit is set by
         :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
         impose different width and height (**Note**: This may change the
         image aspect ratio). What happens here is that Ghostscript will do

@@ -9,7 +9,7 @@ from typing import ClassVar
 from pygmt.clib import Session
 
 
-class config:  # noqa: N801
+class config:  # ruff: ignore[invalid-class-name]
     """
     Change GMT default settings globally or locally.
 

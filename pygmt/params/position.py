@@ -20,7 +20,7 @@ class Position(BaseParam):
     """
     Class for positioning embellishments on a plot.
 
-    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_anchor.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.7/_images/GMT_anchor.png
        :width: 600 px
        :align: center
 
@@ -54,7 +54,7 @@ class Position(BaseParam):
 
     ``cstype="plotcoords"`` Plot Coordinates
         Use plot coordinates as distances from the lower-left plot origin. Specify
-        ``refpoint`` as (*x*, *y*) with units (e.g., inches, centimeters, points).
+        ``refpoint`` as (*x*, *y*) with a :ref:`dimension unit <dimension-units>`.
         Useful for precise layout control.
 
         **Example:** ``refpoint=("2c", "2.5c"), cstype="plotcoords"``

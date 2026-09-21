@@ -12,7 +12,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -24,8 +23,6 @@ __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'margin' parameter.
-@deprecate_parameter("margin", "clearance", "v0.18.0", remove_version="v0.20.0")
 @use_alias(C="clearance")
 @kwargs_to_strings(C="sequence")
 @contextlib.contextmanager

@@ -130,9 +130,11 @@ our tests. This way, the *main* branch is always stable.
     integrated separately.
   - Bug fixes should be submitted in separate PRs.
 * How to write and submit a PR
-  - Use underscores for all Python (\*.py) files as per
-    [PEP8](https://www.python.org/dev/peps/pep-0008/), not hyphens. Directory names
-    should also use underscores instead of hyphens.
+  - Use underscores, not hyphens, in the names of all files and directories, as per
+    [PEP8](https://www.python.org/dev/peps/pep-0008/) for Python (\*.py) files. A few
+    exceptions are allowed (e.g., `.pre-commit-config.yaml`) and are listed in the
+    [style checks](https://github.com/GenericMappingTools/pygmt/blob/main/.github/workflows/style_checks.yaml)
+    workflow.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.
@@ -189,7 +191,7 @@ These steps for setting up your environment are necessary for
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
 We highly recommend using [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
-and the `mamba` package manager to install and manage your Python packages.
+and the `conda` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
 The repository includes a virtual environment file `environment.yml` with the
@@ -210,14 +212,14 @@ Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-mamba env create --file environment.yml
+conda env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
 (you'll need to do this every time you start a new terminal):
 
 ```bash
-mamba activate pygmt
+conda activate pygmt
 ```
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)

@@ -10,9 +10,11 @@ visit the {gmt-docs}`GMT Technical Reference <reference.html>`.
 
 common_parameters.md
 projections.md
+units.md
 fonts.md
 text_formatting.md
 encodings.md
 justification_codes.md
 environment_variables.md
+array_dtypes.md
 ```

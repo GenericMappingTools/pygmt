@@ -22,7 +22,7 @@ from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
 
-def _alias_option_A(  # noqa: N802
+def _alias_option_A(  # ruff: ignore[invalid-function-name]
     tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,
@@ -231,7 +231,7 @@ def subplot(
     autolabel
         Specify automatic tag of each subplot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
            Use the parameters ``tag``, ``tag_position``, ``tag_box``,
            ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
@@ -359,7 +359,7 @@ def subplot(
 @fmt_docstring
 @contextlib.contextmanager
 # TODO(PyGMT>=0.23.0): Remove the deprecated 'fixedlabel' parameter.
-@deprecate_parameter("fixedlabel", "tag", "v0.19.0", remove_version="v0.23.0")
+@deprecate_parameter("fixedlabel", "tag", "0.19.0", remove_version="0.23.0")
 @use_alias(C="clearance")
 def set_panel(
     self,

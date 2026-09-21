@@ -40,15 +40,16 @@ assignees: ''
 
 - [ ] At the [PyGMT release page on GitHub](https://github.com/GenericMappingTools/pygmt/releases):
   - [ ] Edit the draft release notes with the finalized changelog
-  - [ ] Set the tag version and release title to vX.Y.Z
+  - [ ] Set the tag version and release title to `vX.Y.Z`
   - [ ] Make a release by clicking the 'Publish Release' button, this will automatically create a tag too
 - [ ] Verify that [all workflows triggered by the release](https://github.com/GenericMappingTools/pygmt/actions?query=event%3Arelease) pass
   - [ ] The latest version is correct on [PyPI](https://pypi.org/project/pygmt/)
   - [ ] The latest version is correct on https://www.pygmt.org/latest/
   - [ ] The [release page](https://github.com/GenericMappingTools/pygmt/releases) has five assets, including `baseline-images.zip`, `pygmt-docs.zip` and `pygmt-docs.pdf`
 - [ ] Upload to Zenodo:
-  - [ ] Download pygmt-X.Y.Z.zip (listed as Source code (zip); rename it to pygmt-vX.Y.Z.zip) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit
+  - [ ] Download pygmt-X.Y.Z.zip (listed as Source code (zip)) and baseline-images.zip from the release page, and upload the two zip files to https://zenodo.org/deposit
   - [ ] Ensure they are filed under the correct reserved DOI
+  - [ ] Ensure the `version` field is `X.Y.Z` (without leading `v`)
   - [ ] Update authorship information based on `CITATION.cff`
 
 **After release**:

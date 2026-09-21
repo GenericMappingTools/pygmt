@@ -38,7 +38,7 @@ class GMTCLibNoSessionError(GMTCLibError):
     """
 
 
-class GMTInvalidInput(GMTError):  # noqa: N818
+class GMTInvalidInput(GMTError):  # ruff: ignore[error-suffix-on-exception-name]
     """
     Raised when the input of a function/method is invalid.
     """
@@ -50,7 +50,7 @@ class GMTVersionError(GMTError):
     """
 
 
-class GMTImageComparisonFailure(AssertionError):  # noqa: N818
+class GMTImageComparisonFailure(AssertionError):  # ruff: ignore[error-suffix-on-exception-name]
     """
     Raised when a comparison between two images fails.
     """
@@ -99,7 +99,7 @@ class GMTValueError(GMTError, ValueError):
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTValueError: Invalid value: 'invalid'. Explain why it's invalid.
-    """  # noqa: W505
+    """  # ruff: ignore[doc-line-too-long]
 
     def __init__(
         self,

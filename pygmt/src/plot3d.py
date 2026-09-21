@@ -22,7 +22,6 @@ from pygmt.src._common import _data_geometry_is_point
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     G="fill",
     I="intensity",
@@ -36,13 +35,12 @@ from pygmt.src._common import _data_geometry_is_point
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     l="label",
     w="wrap",
 )
-def plot3d(  # noqa: PLR0912
+def plot3d(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +49,7 @@ def plot3d(  # noqa: PLR0912
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -63,6 +62,7 @@ def plot3d(  # noqa: PLR0912
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -91,12 +91,14 @@ def plot3d(  # noqa: PLR0912
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -274,6 +276,7 @@ def plot3d(  # noqa: PLR0912
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
     ).add_common(
@@ -282,6 +285,7 @@ def plot3d(  # noqa: PLR0912
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,

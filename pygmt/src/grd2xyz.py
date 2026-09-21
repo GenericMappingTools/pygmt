@@ -29,7 +29,6 @@ __doctest_skip__ = ["grd2xyz"]
     Z="convention",
     b="binary",
     d="nodata",
-    f="coltypes",
     h="header",
     s="skiprows",
 )
@@ -41,6 +40,7 @@ def grd2xyz(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     outcols: int | str | Sequence[int | str] | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -54,6 +54,7 @@ def grd2xyz(
     $aliases
        - R = region
        - V = verbose
+       - f = coltypes
        - o = outcols
 
     Parameters
@@ -76,8 +77,8 @@ def grd2xyz(
         this is simply the product of the *x* and *y* increments (except for
         gridline-registered grids at all sides [half] and corners [quarter]).
         For geographic grids we default to a length unit of **k**. Change
-        this by appending **+u**\ *unit*. For such grids, the area
-        varies with latitude and also sees special cases for
+        this by appending **+u**\ *unit* (see :ref:`distance-units`). For such grids,
+        the area varies with latitude and also sees special cases for
         gridline-registered layouts at sides, corners, and poles.
     convention : str
         [*flags*].
@@ -164,6 +165,7 @@ def grd2xyz(
     aliasdict = AliasSystem().add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         o=outcols,
     )
     aliasdict.merge(kwargs)

@@ -92,7 +92,7 @@ def _build_frame(
     return Frame(xaxis=xaxis, yaxis=yaxis)
 
 
-def _alias_option_D(  # noqa: N802
+def _alias_option_D(  # ruff: ignore[invalid-function-name]
     position=None,
     length=None,
     width=None,
@@ -220,7 +220,7 @@ def _alias_option_D(  # noqa: N802
     ]
 
 
-def _alias_option_N(dpi=None):  # noqa: N802
+def _alias_option_N(dpi=None):  # ruff: ignore[invalid-function-name]
     """
     Return an Alias object for the colorbar encoding setting.
 
@@ -241,9 +241,10 @@ def _alias_option_N(dpi=None):  # noqa: N802
 
 
 @fmt_docstring
-@use_alias(C="cmap", L="equalsize", Z="zfile")
+@use_alias(L="equalsize", Z="zfile")
 def colorbar(
     self,
+    cmap: str | bool = False,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
     width: float | str | None = None,
@@ -306,6 +307,7 @@ def colorbar(
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     $aliases
+       - C = cmap
        - F = box
        - G = truncate
        - I = shading
@@ -499,6 +501,7 @@ def colorbar(
     )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         D=_alias_option_D(
             position=position,
             length=length,

@@ -28,7 +28,6 @@ from pygmt.params import Axis, Frame
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     l="label",
 )
@@ -48,6 +47,7 @@ def contour(
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +67,7 @@ def contour(
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -170,6 +171,7 @@ def contour(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,

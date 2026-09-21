@@ -3,10 +3,11 @@
 We are an international team dedicated to building a Pythonic API for the Generic Mapping
 Tools (GMT).
 
-All are welcome to become involved with the PyGMT project! For more information about how
-to get involved, see the [](contributing.md). A more complete list of contributors
-is available in the [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
-file in the source repository.
+PyGMT is a community developed project. All are welcome! For more information about how
+to get involved, see the [](contributing.md). A more complete list of contributors and a
+definition of the term "PyGMT Developers" is available in the
+[`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file in
+the source repository.
 
 Distinguished Contributors are recognized for their substantial contributions to PyGMT,
 which may include code, documentation, pull request review, triaging, forum responses,

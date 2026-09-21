@@ -17,18 +17,17 @@ __doctest_skip__ = ["grdimage"]
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="img_in",
     E="dpi",
     G="bitcolor",
     I="shading",
     Q="nan_transparent",
     n="interpolation",
-    f="coltypes",
 )
 def grdimage(
     self,
     grid: PathLike | xr.DataArray,
+    cmap: str | bool = False,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -40,6 +39,7 @@ def grdimage(
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -77,12 +77,14 @@ def grdimage(
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - M = monochrome
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
        - x = cores
@@ -184,6 +186,7 @@ def grdimage(
         raise NotImplementedError(msg)
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
@@ -192,6 +195,7 @@ def grdimage(
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
         x=cores,

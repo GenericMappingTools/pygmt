@@ -67,11 +67,15 @@ jobs:
     defaults:
       run:
         shell: bash -l {0}
+    env:
+      # Tectonic cache directory.
+      # See https://tectonic-typesetting.github.io/book/latest/getting-started/first-document.html#cache.
+      TECTONIC_CACHE_DIR: ${{ github.workspace }}/.tectonic-cache
 
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -83,7 +87,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@d7c9bd84e824b79d2af72a2d4196c7f4300d3476 # v3.0.0
+        uses: mamba-org/setup-micromamba@f457c30a868e4760d3a6fcea5f25dc655b8edf39 # v3.2.1
         with:
           environment-name: pygmt
           cache-environment: true
@@ -91,8 +95,8 @@ jobs:
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=3.14
-            gmt=6.6.0
-            ghostscript=10.07.1
+            gmt=6.7.0
+            ghostscript=10.08.0
             numpy
             pandas
             xarray
@@ -115,18 +119,11 @@ jobs:
             sphinx_rtd_theme
             cairosvg
             sphinxcontrib-svg2pdfconverter
-            tectonic=0.15
+            tectonic
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download cached files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package
@@ -146,6 +143,15 @@ jobs:
             exit 0
           fi
           exit "${exit_code}"
+
+      - name: Cache tectonic packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0 # zizmor: ignore[cache-poisoning]
+        with:
+          path: ${{ env.TECTONIC_CACHE_DIR }}
+          # Cache is persistent for one week, same as the micromamba environment cache.
+          key: tectonic-${{ runner.os }}-${{ steps.date.outputs.date }}
+          # Fall back to the most recent cache so tectonic only downloads what's missing.
+          restore-keys: tectonic-${{ runner.os }}-
 
       - name: Build the PDF documentation
         env:
@@ -186,7 +192,7 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
