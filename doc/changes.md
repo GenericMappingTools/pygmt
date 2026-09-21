@@ -97,14 +97,14 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Xingchen He](https://github.com/Chuan1937)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [@Bingtagui404](https://github.com/Bingtagui404)
-* [Max Jones](https://github.com/maxrjones)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Xingchen He](https://github.com/Chuan1937),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[@Bingtagui404](https://github.com/Bingtagui404),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -184,12 +184,12 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Xingchen He](https://github.com/Chuan1937)
-* [Will Schlitzer](https://github.com/willschlitzer)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Xingchen He](https://github.com/Chuan1937),
+[Will Schlitzer](https://github.com/willschlitzer)
 
 ---
 
@@ -256,10 +256,10 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -313,11 +313,11 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Federico Esteban](https://github.com/Esteban82)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Michael Grund](https://github.com/michaelgrund),
+[Federico Esteban](https://github.com/Esteban82)
 
 ---
 
@@ -369,10 +369,10 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -390,7 +390,7 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
+[Dongdong Tian](https://github.com/seisman)
 
 ---
 
@@ -415,8 +415,8 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14)
 
 ---
 
@@ -515,12 +515,12 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jiayuan Yao](https://github.com/core-man)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jiayuan Yao](https://github.com/core-man)
 
 ---
 
@@ -604,11 +604,11 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Andre L. Belem](https://github.com/andrebelem)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Andre L. Belem](https://github.com/andrebelem)
 
 ---
 
@@ -697,10 +697,10 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14)
 
 ---
 
@@ -810,11 +810,11 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Max Jones](https://github.com/maxrjones)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -896,12 +896,12 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Jing-Hui Tong](https://github.com/jhtong33)
-* [Max Jones](https://github.com/maxrjones)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Jing-Hui Tong](https://github.com/jhtong33),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -981,13 +981,13 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jing-Hui Tong](https://github.com/jhtong33)
-* [Max Jones](https://github.com/maxrjones)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jing-Hui Tong](https://github.com/jhtong33),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -1085,12 +1085,12 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -1156,14 +1156,14 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Andre L. Belem](https://github.com/andrebelem)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Max Jones](https://github.com/maxrjones)
-* [Jack Beagley](https://github.com/jackbeagley)
-* [Michael Grund](https://github.com/michaelgrund)
+[Dongdong Tian](https://github.com/seisman),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Andre L. Belem](https://github.com/andrebelem),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Max Jones](https://github.com/maxrjones),
+[Jack Beagley](https://github.com/jackbeagley),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -1196,11 +1196,11 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Max Jones](https://github.com/maxrjones)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
+[Dongdong Tian](https://github.com/seisman),
+[Max Jones](https://github.com/maxrjones),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer)
 
 ---
 
@@ -1288,12 +1288,12 @@
 
 ### Contributors
 
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Max Jones](https://github.com/maxrjones)
-* [Dongdong Tian](https://github.com/seisman)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Julius Busecke](https://github.com/jbusecke)
+[Will Schlitzer](https://github.com/willschlitzer),
+[Max Jones](https://github.com/maxrjones),
+[Dongdong Tian](https://github.com/seisman),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Julius Busecke](https://github.com/jbusecke)
 
 ---
 
@@ -1397,21 +1397,21 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
-* [Yohai Magen](https://github.com/yohaimagen)
-* [Amanda Leaman](https://github.com/arleaman)
-* [@daroari](https://github.com/daroari)
-* [@obaney](https://github.com/obaney)
-* [@srijac](https://github.com/srijac)
-* Andrés Ignacio Torres
-* [Becky Salvage](https://github.com/BeckySalvage)
-* [Claudio Satriano](https://github.com/claudiodsf)
-* [Jamie J Quinn](https://github.com/JamieJQuinn)
-* [@carocamargo](https://github.com/carocamargo)
+[Dongdong Tian](https://github.com/seisman),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones),
+[Yohai Magen](https://github.com/yohaimagen),
+[Amanda Leaman](https://github.com/arleaman),
+[@daroari](https://github.com/daroari),
+[@obaney](https://github.com/obaney),
+[@srijac](https://github.com/srijac),
+Andrés Ignacio Torres,
+[Becky Salvage](https://github.com/BeckySalvage),
+[Claudio Satriano](https://github.com/claudiodsf),
+[Jamie J Quinn](https://github.com/JamieJQuinn),
+[@carocamargo](https://github.com/carocamargo)
 
 ----
 
@@ -1452,16 +1452,16 @@
 
 ### Contributors
 
-* [Max Jones](https://github.com/maxrjones)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Yohai Magen](https://github.com/yohaimagen)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Dongdong Tian](https://github.com/seisman)
-* [Kadatatlu Kishore](https://github.com/osdev-in)
-* [@sean0921](https://github.com/sean0921)
-* [Soham Banerjee](https://github.com/soham4abc)
+[Max Jones](https://github.com/maxrjones),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Yohai Magen](https://github.com/yohaimagen),
+[Jiayuan Yao](https://github.com/core-man),
+[Dongdong Tian](https://github.com/seisman),
+[Kadatatlu Kishore](https://github.com/osdev-in),
+[@sean0921](https://github.com/sean0921),
+[Soham Banerjee](https://github.com/soham4abc)
 
 ----
 
@@ -1569,26 +1569,26 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Max Jones](https://github.com/maxrjones)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Abhishek Anant](https://github.com/noturshek)
-* [Claire Klima](https://github.com/cklima616)
-* [Megan Munzek](https://github.com/munzekm)
-* [Michael Neumann](https://github.com/MichaeINeumann)
-* [Nathan Loria](https://github.com/Nathandloria)
-* [Noor Buchi](https://github.com/noorbuchi)
-* [Shivani chauhan](https://github.com/xdshivani)
-* [@alperen-kilic](https://github.com/alperen-kilic)
-* [Loïc Houpert](https://github.com/lhoupert)
-* [Emily McMullan](https://github.com/eemcmullan)
-* [Lawrence Qupty](https://github.com/Lawqup)
-* [Matthew Tankersley](https://github.com/mdtanker)
-* [@shahid-0](https://github.com/shahid-0)
-* [Vitor Gratiere Torres](https://github.com/vitorgt)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Max Jones](https://github.com/maxrjones),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jiayuan Yao](https://github.com/core-man),
+[Abhishek Anant](https://github.com/noturshek),
+[Claire Klima](https://github.com/cklima616),
+[Megan Munzek](https://github.com/munzekm),
+[Michael Neumann](https://github.com/MichaeINeumann),
+[Nathan Loria](https://github.com/Nathandloria),
+[Noor Buchi](https://github.com/noorbuchi),
+[Shivani chauhan](https://github.com/xdshivani),
+[@alperen-kilic](https://github.com/alperen-kilic),
+[Loïc Houpert](https://github.com/lhoupert),
+[Emily McMullan](https://github.com/eemcmullan),
+[Lawrence Qupty](https://github.com/Lawqup),
+[Matthew Tankersley](https://github.com/mdtanker),
+[@shahid-0](https://github.com/shahid-0),
+[Vitor Gratiere Torres](https://github.com/vitorgt)
 
 ----
 
@@ -1648,16 +1648,16 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Liam Toney](https://github.com/liamtoney)
-* [Kathryn Materna](https://github.com/kmaterna)
-* [Alicia Ngoc Diep Ha](https://github.com/aliciaha1997)
-* [Tawanda Moyo](https://github.com/tawandamoyo)
+[Dongdong Tian](https://github.com/seisman),
+[Jiayuan Yao](https://github.com/core-man),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Liam Toney](https://github.com/liamtoney),
+[Kathryn Materna](https://github.com/kmaterna),
+[Alicia Ngoc Diep Ha](https://github.com/aliciaha1997),
+[Tawanda Moyo](https://github.com/tawandamoyo)
 
 ----
 
@@ -1756,12 +1756,12 @@
 
 ### Contributors
 
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Liam Toney](https://github.com/liamtoney)
-* [Max Jones](https://github.com/maxrjones)
+[Will Schlitzer](https://github.com/willschlitzer),
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Liam Toney](https://github.com/liamtoney),
+[Max Jones](https://github.com/maxrjones)
 
 ----
 
@@ -1832,10 +1832,10 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Conor Bacon](https://github.com/hemmelig)
-* [carocamargo](https://github.com/carocamargo)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Conor Bacon](https://github.com/hemmelig),
+[carocamargo](https://github.com/carocamargo)
 
 ----
 
@@ -1901,10 +1901,10 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Tyler Newton](https://github.com/tjnewton)
-* [Liam Toney](https://github.com/liamtoney)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Tyler Newton](https://github.com/tjnewton),
+[Liam Toney](https://github.com/liamtoney)
 
 ----
 
@@ -1951,9 +1951,9 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Liam Toney](https://github.com/liamtoney)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Liam Toney](https://github.com/liamtoney)
 
 ----
 
@@ -1988,9 +1988,9 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Jason K. Moore](https://github.com/moorepants)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Jason K. Moore](https://github.com/moorepants)
 
 ----
 
@@ -2075,13 +2075,13 @@
 
 ### Contributors
 
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Leonardo Uieda](https://github.com/leouieda)
-* [Liam Toney](https://github.com/liamtoney)
-* [Brook Tozer](https://github.com/btozer)
-* [Claudio Satriano](https://github.com/claudiodsf)
-* [Cody Woodson](https://github.com/Dovacody)
-* [Mark Wieczorek](https://github.com/MarkWieczorek)
-* [Philipp Loose](https://github.com/phloose)
-* [Kathryn Materna](https://github.com/kmaterna)
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Leonardo Uieda](https://github.com/leouieda),
+[Liam Toney](https://github.com/liamtoney),
+[Brook Tozer](https://github.com/btozer),
+[Claudio Satriano](https://github.com/claudiodsf),
+[Cody Woodson](https://github.com/Dovacody),
+[Mark Wieczorek](https://github.com/MarkWieczorek),
+[Philipp Loose](https://github.com/phloose),
+[Kathryn Materna](https://github.com/kmaterna)
