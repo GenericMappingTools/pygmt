@@ -37,7 +37,7 @@ in the source repository.
 as detailed in the [](maintenance.md). New Active Maintainers are selected and voted by
 current Active Maintainers before each release.*
 
-:::::{grid} 5
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Dongdong Tian
 :padding: 1
