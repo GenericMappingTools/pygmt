@@ -2,15 +2,15 @@
 
 We are an international team dedicated to building a Pythonic API for the Generic
 Mapping Tools (GMT). PyGMT is a community developed project. All are welcome! For more
-information about how to get involved, see the [](contributing.md). A more complete list 
+information about how to get involved, see the [](contributing.md). A more complete list
 of contributors and a definition of the term "PyGMT Developers" is available in the
-[`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file 
+[`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
 in the source repository.
 
 
 ## Founders
 
-:::::{grid} 5
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Leonardo Uieda
 :padding: 1
@@ -83,7 +83,7 @@ Distinguished Contributors are selected and voted by current Active Maintainers 
 each release. Maintainers that are inactive for more than one year will also be moved to
 Distinguished Contributors.*
 
-:::::{grid} 5
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Max Jones
 :padding: 1
