@@ -14,6 +14,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Box, Frame, Perspective, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["image"]
+
 
 @fmt_docstring
 def image(
@@ -152,6 +154,25 @@ def image(
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    >>> import pygmt
+    >>> from pygmt.params import Box
+
+    Plot a raster image at its original size (based on the default dpi):
+
+    >>> fig = pygmt.Figure()
+    >>> fig.image("@circuit.png")
+    >>> fig.show()
+
+    Place the image at the Top Right corner of an existing basemap, scale it to a
+    width of 3 centimeters, and draw a box around it:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.image("@circuit.png", position="TR", width="3c", box=Box(pen="thin,blue"))
+    >>> fig.show()
     """
     position = _parse_position(
         position,
