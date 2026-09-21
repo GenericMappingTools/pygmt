@@ -1,23 +1,13 @@
 # PyGMT Team
 
-We are an international team dedicated to building a Pythonic API for the Generic Mapping
-Tools (GMT).
+We are an international team dedicated to building a Pythonic API for the Generic
+Mapping Tools (GMT). PyGMT is a community developed project. All are welcome! For more
+information about how to get involved, see the [](contributing.md).
 
-PyGMT is a community developed project. All are welcome! For more information about how
-to get involved, see the [](contributing.md). A more complete list of contributors and a
-definition of the term "PyGMT Developers" is available in the
+A more complete list of contributors and a definition of the term "PyGMT Developers" is
+available in the
 [`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file in
 the source repository.
-
-Distinguished Contributors are recognized for their substantial contributions to PyGMT,
-which may include code, documentation, pull request review, triaging, forum responses,
-community building and engagement, outreach, and inclusion and diversity. Maintainers
-are recognized for their responsibilities in maintaining the project, as detailed in
-the [](maintenance.md).
-
-New Distinguished Contributors and Active Maintainers are selected and voted by current
-Active Maintainers before each release. Maintainers that are inactive for more than one
-year will be moved to Distinguished Contributors.
 
 
 ## Founders
@@ -44,6 +34,10 @@ year will be moved to Distinguished Contributors.
 
 
 ## Active Maintainers
+
+*Active Maintainers are recognized for their responsibilities in maintaining the project,
+as detailed in the [](maintenance.md). New Active Maintainers are selected and voted by
+current Active Maintainers before each release.*
 
 :::::{grid} 5
 
@@ -83,6 +77,13 @@ year will be moved to Distinguished Contributors.
 
 
 ## Distinguished Contributors
+
+*Distinguished Contributors are recognized for their substantial contributions to PyGMT,
+which may include code, documentation, pull request review, triaging, forum responses,
+community building and engagement, outreach, and inclusion and diversity. New
+Distinguished Contributors are selected and voted by current Active Maintainers before
+each release. Maintainers that are inactive for more than one year will also be moved to
+Distinguished Contributors.*
 
 :::::{grid} 5
 
