@@ -5,8 +5,8 @@ file_format: mystnb
 # Installing
 
 :::{note}
-The [Quickstart](#quickstart) section provides the fastest way to install PyGMT, whereas
-the following sections provide more detailed, step-by-step instructions for users who
+The [Quickstart](#quickstart) section just below provides the fastest way to install PyGMT, whereas
+the following sections afterward provide more detailed, step-by-step instructions for users who
 may have different setups or want to install the latest development version.
 :::
 
