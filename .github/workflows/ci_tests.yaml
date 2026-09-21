@@ -29,11 +29,13 @@ on:
     branches: [ main ]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - 'pygmt/**'
+      - '.github/actions/checkout-lfs/action.yml'
       - '.github/workflows/ci_tests.yaml'
   workflow_dispatch:
   release:
@@ -75,9 +77,9 @@ jobs:
         include:
           # Python 3.12 + core packages (minimum supported versions) + optional packages (minimum supported versions if any)
           - python-version: '3.12'
-            numpy-version: '2.1'
+            numpy-version: '2.2'
             pandas-version: '=2.3'
-            xarray-version: '=2024.7'
+            xarray-version: '=2024.10'
             optional-packages: ' contextily geopandas ipython pyarrow-core rioxarray netCDF4 sphinx-gallery'
           # Python 3.14 + core packages (latest versions) + optional packages
           - python-version: '3.14'
@@ -112,7 +114,7 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
           persist-credentials: false
-          lfs: true
+          lfs: false
 
       - name: Get current week number of year
         id: date
@@ -129,7 +131,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.7.0
-            ghostscript=10.07.1
+            ghostscript=10.08.0
             numpy=${{ matrix.numpy-version }}
             pandas${{ matrix.pandas-version }}
             xarray${{ matrix.xarray-version }}
@@ -143,16 +145,12 @@ jobs:
             pytest-mpl
             pytest-rerunfailures
 
+      - name: Checkout the Git LFS (i.e., the baseline images) objects
+        uses: $/.github/actions/checkout-lfs
+
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        run: |
-          # Download files to ~/.gmt directory and list them
-          gh run download --name gmt-cache --dir ~/.gmt/
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-        env:
-          GH_TOKEN: ${{ github.token }}
+        uses: $/.github/actions/download-gmt-cache
 
       # Install the package that we want to test
       - name: Install the package

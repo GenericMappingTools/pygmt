@@ -11,25 +11,23 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["histogram"]
+
 
 @fmt_docstring
+# TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
+@deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
-    A="horizontal",
     D="annotate",
-    F="center",
-    G="fill",
-    L="extreme",
     N="distribution",
-    Q="cumulative",
-    S="stairs",
     T="series",
-    W="pen",
     b="binary",
     d="nodata",
     e="find",
@@ -41,12 +39,19 @@ from pygmt.params import Axis, Frame
 def histogram(
     self,
     data: PathLike | TableLike,
-    bar_width: float | str | None = None,
-    bar_offset: float | str | None = None,
-    cmap: str | bool = False,
     histtype: Literal[
         "counts", "freq", "log_count", "log_freq", "log10_count", "log10_freq"
     ] = "counts",
+    bar_width: float | str | None = None,
+    bar_offset: float | str | None = None,
+    cmap: str | bool = False,
+    pen: str | None = None,
+    fill: str | None = None,
+    horizontal: bool = False,
+    center: bool = False,
+    out_range: Literal["first", "last", "both"] | None = None,
+    stairs: bool = False,
+    cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -64,13 +69,19 @@ def histogram(
     Full GMT docs at :gmt-docs:`histogram.html`.
 
     $aliases
+       - A = horizontal
        - B = frame
        - C = cmap
-       - E = bar_width, bar_offset
+       - E = bar_width, **+o**: bar_offset
+       - G = fill
        - J = projection
+       - L = out_range
+       - Q = cumulative
        - R = region
+       - S = stairs
        - V = verbose
-       - Z = histtype
+       - W = pen
+       - Z = histtype, **+w**: weight
        - c = panel
        - i = incols
        - p = perspective
@@ -81,10 +92,21 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
+    histtype
+        The histogram type to plot:
+
+        - ``"counts"``: counts [Default]
+        - ``"percent"``: frequency_percent
+        - ``"log_count"``: log (1.0 + count)
+        - ``"log_percent"``: log (1.0 + frequency_percent)
+        - ``"log10_count"``: log10 (1.0 + count)
+        - ``"log10_percent"``: log10 (1.0 + frequency_percent
     $cmap
-    fill : str
+    pen
+        Draw bar outline (or stair-case curve) using the specified pen thickness
+        [Default is no outline].
+    fill
          Set color or pattern for filling bars [Default is no fill].
-    $pen
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents. Append any of the
@@ -98,10 +120,11 @@ def histogram(
         either an alternative width in data units, or the user may append a
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
-        Shift all bars along the axis by *offset*. It may be given in data units
-        of plot dimension units by appending the relevant unit.
-    center : bool
-        Center bin on each value. [Default is left edge].
+        Shift all bars along the axis by a constant value. It may be given in data units
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
+    center
+        Center bin on each value specified via ``series`` [Default uses the values to
+        define the left edge of each bin].
     distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
@@ -111,37 +134,26 @@ def histogram(
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
-    cumulative : bool or str
-        [**r**].
-        Draw a cumulative histogram by passing ``True``. Use **r** to display
-        a reverse cumulative histogram.
-    extreme : str
-        **l**\|\ **h**\|\ **b**.
-        The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``. By default, these values are ignored.
-        Append **b** to let these values be included in the first or last
-        bins. To only include extreme values below first bin into the first
-        bin, use **l**, and to only include extreme values above the last bin
-        into that last bin, use **h**.
-    stairs : bool
-        Draw a stairs-step diagram which does not include the internal bars
-        of the default histogram.
-    horizontal : bool
+    out_range
+        Handle values that fall outside the range set by ``series``. By default, these
+        values are ignored. Valid values are:
+
+        - ``"first"``: only include values below first bin into the first bin
+        - ``"last"``: only include values above the last bin into that last bin
+        - ``"both"``: include values into the first or last bins
+    cumulative
+        Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
+        a reverse cumulative histogram instead.
+    stairs
+        Draw a stairs-step diagram which does not include the internal bars of the
+        default histogram.
+    horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    histtype
-        The histogram type to plot:
-
-        - ``"counts"``: counts [Default]
-        - ``"freq"``: frequency_percent
-        - ``"log_count"``: log (1.0 + count)
-        - ``"log_freq"``: log (1.0 + frequency_percent)
-        - ``"log10_count"``: log10 (1.0 + count)
-        - ``"log10_freq"``: log10 (1.0 + frequency_percent
     $projection
     $region
     $frame
@@ -156,6 +168,18 @@ def histogram(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # Generate random data from a normal distribution
+    >>> rng = np.random.default_rng(seed=100)
+    >>> data = rng.normal(loc=100, scale=25, size=1024)
+    >>> fig = pygmt.Figure()
+    >>> fig.histogram(data=data, frame=True, series=5, fill="red3", pen="1p")
+    >>> fig.show()
     """
     if bar_offset is not None and bar_width is None:
         raise GMTParameterError(
@@ -163,21 +187,32 @@ def histogram(
         )
 
     aliasdict = AliasSystem(
+        A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        F=Alias(center, name="center"),
+        G=Alias(fill, name="fill"),
+        L=Alias(
+            out_range,
+            name="out_range",
+            mapping={"first": "l", "last": "h", "both": "b"},
+        ),
+        Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
+        S=Alias(stairs, name="stairs"),
+        W=Alias(pen, name="pen"),
         Z=Alias(
             histtype,
             name="histtype",
             mapping={
                 "counts": "0",
-                "freq": "1",
+                "percent": "1",
                 "log_count": "2",
-                "log_freq": "3",
+                "log_percent": "3",
                 "log10_count": "4",
-                "log10_freq": "5",
+                "log10_percent": "5",
             },
         ),
     ).add_common(
