@@ -16,7 +16,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 __doctest_skip__ = ["histogram"]
 
@@ -44,7 +44,7 @@ def histogram(
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     horizontal: bool = False,
     center: bool = False,
     out_range: Literal["first", "last", "both"] | None = None,
