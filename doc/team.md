@@ -33,9 +33,9 @@ in the source repository.
 
 ## Active Maintainers
 
-*Active Maintainers are recognized for their responsibilities in maintaining the project,
-as detailed in the [](maintenance.md). New Active Maintainers are selected and voted by
-current Active Maintainers before each release.*
+*Active maintainers are recognized for their responsibilities in maintaining the project,
+as detailed in the [](maintenance.md). New active maintainers are selected and voted by
+the currently active maintainers before each release.*
 
 :::::{grid} 2 3 3 5
 
@@ -76,12 +76,12 @@ current Active Maintainers before each release.*
 
 ## Distinguished Contributors
 
-*Distinguished Contributors are recognized for their substantial contributions to PyGMT,
+*Distinguished contributors are recognized for their substantial contributions to PyGMT,
 which may include code, documentation, pull request review, triaging, forum responses,
 community building and engagement, outreach, and inclusion and diversity. New
-Distinguished Contributors are selected and voted by current Active Maintainers before
+distinguished contributors are selected and voted by the currently active maintainers before
 each release. Maintainers that are inactive for more than one year will also be moved to
-Distinguished Contributors.*
+distinguished contributors.*
 
 :::::{grid} 2 3 3 5
 
