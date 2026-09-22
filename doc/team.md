@@ -25,7 +25,7 @@ in the source repository.
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/26473567?v=4
 
-[@PaulWessel](https://github.com/PaulWessel)
+[Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel)
 ::::
 
 :::::
