@@ -40,8 +40,8 @@ def histogram(
     self,
     data: PathLike | TableLike,
     histtype: Literal[
-        "counts", "freq", "log_count", "log_freq", "log10_count", "log10_freq"
-    ] = "counts",
+        "count", "percent", "log_count", "log_percent", "log10_count", "log10_percent"
+    ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
@@ -207,7 +207,7 @@ def histogram(
             histtype,
             name="histtype",
             mapping={
-                "counts": "0",
+                "count": "0",
                 "percent": "1",
                 "log_count": "2",
                 "log_percent": "3",
