@@ -95,7 +95,7 @@ def histogram(
     histtype
         The histogram type to plot:
 
-        - ``"counts"``: counts [Default]
+        - ``"count"``: counts [Default]
         - ``"percent"``: frequency_percent
         - ``"log_count"``: log (1.0 + count)
         - ``"log_percent"``: log (1.0 + frequency_percent)
