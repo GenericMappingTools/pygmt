@@ -17,7 +17,7 @@ from pygmt.helpers import (
     fmt_docstring,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.src._common import _FocalMechanismConvention
 
 
@@ -129,8 +129,8 @@ def meca(
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
     cmap: str | None = None,
-    extension_fill: str | None = None,
-    compression_fill: str | None = None,
+    extension_fill: str | Pattern | None = None,
+    compression_fill: str | Pattern | None = None,
     pen: str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
