@@ -1,8 +1,6 @@
 # PyGMT Ecosystem
 
-PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
-line program that provides a wide range of tools for manipulating geospatial data and
-making publication-quality maps and figures. It integrates well with the
+It integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
 fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
 raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
