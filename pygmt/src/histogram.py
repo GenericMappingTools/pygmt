@@ -207,12 +207,12 @@ def histogram(
             histtype,
             name="histtype",
             mapping={
-                "count": "0",
-                "percent": "1",
-                "log_count": "2",
-                "log_percent": "3",
-                "log10_count": "4",
-                "log10_percent": "5",
+                "count": 0,
+                "percent": 1,
+                "log_count": 2,
+                "log_percent": 3,
+                "log10_count": 4,
+                "log10_percent": 5,
             },
         ),
     ).add_common(
