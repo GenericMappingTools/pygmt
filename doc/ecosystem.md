@@ -1,10 +1,13 @@
 # PyGMT Ecosystem
 
-It integrates well with the
+The PyGMT ecosystem consists of the packages that PyGMT depends on and the packages that
+depend on PyGMT. Besides [GMT][] itself, PyGMT integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
 fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
 raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
-several optional packages to provide additional functionality for users.
+several optional packages to provide additional functionality for users. In turn, a
+growing number of packages build on PyGMT for geospatial data processing, analysis, and
+visualization.
 
 ![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
@@ -120,6 +123,7 @@ If your package relies on PyGMT, please
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
+[gmt]: https://www.generic-mapping-tools.org/
 [ipython]: https://ipython.org/
 [matplotlib]: https://matplotlib.org/
 [numpy]: https://numpy.org/
