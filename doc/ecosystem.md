@@ -78,7 +78,7 @@ _Asterisk (*) after the package name indicates the package is a required depende
    now. Support for Duration types and GeoArrow geometry types is still a work in
    progress. For more details, see
    [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
-```
+   ```
 
 ## Packages depending on PyGMT
 
