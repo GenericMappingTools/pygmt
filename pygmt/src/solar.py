@@ -72,7 +72,7 @@ def solar(
         Set the date and time for the terminator calculation. It can be provided as a
         string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
         time can be specified in UTC or with a UTC offset of any precision [Default is
-        thencurrent UTC date and time].
+        the current UTC date and time].
     fill
         Set color or pattern for filling terminators [Default is no fill].
     pen
