@@ -112,9 +112,9 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0  # Fetch all history so that setuptools-scm works.
-          filter: tree:0  # Treeless clone to avoid downloading trees/blobs.
-          lfs: false
+          filter: tree:0  # But skip trees/blobs of old commits (~590 MB) that aren't needed.
           persist-credentials: false
+          lfs: false
 
       - name: Get current week number of year
         id: date
