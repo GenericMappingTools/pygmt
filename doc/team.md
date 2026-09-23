@@ -1,28 +1,16 @@
 # PyGMT Team
 
-We are an international team dedicated to building a Pythonic API for the Generic Mapping
-Tools (GMT).
-
-PyGMT is a community developed project. All are welcome! For more information about how
-to get involved, see the [](contributing.md). A more complete list of contributors and a
-definition of the term "PyGMT Developers" is available in the
-[`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file in
-the source repository.
-
-Distinguished Contributors are recognized for their substantial contributions to PyGMT,
-which may include code, documentation, pull request review, triaging, forum responses,
-community building and engagement, outreach, and inclusion and diversity. Maintainers
-are recognized for their responsibilities in maintaining the project, as detailed in
-the [](maintenance.md).
-
-New Distinguished Contributors and Active Maintainers are selected and voted by current
-Active Maintainers before each release. Maintainers that are inactive for more than one
-year will be moved to Distinguished Contributors.
+We are an international team dedicated to building a Pythonic API for the Generic
+Mapping Tools (GMT). PyGMT is a community developed project. All are welcome! For more
+information about how to get involved, see the [](contributing.md). A more complete list
+of contributors and a definition of the term "PyGMT Developers" is available in the
+[`AUTHORS.md`](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file
+in the source repository.
 
 
 ## Founders
 
-:::::{grid} 5
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Leonardo Uieda
 :padding: 1
@@ -37,7 +25,7 @@ year will be moved to Distinguished Contributors.
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/26473567?v=4
 
-[@PaulWessel](https://github.com/PaulWessel)
+[Paul Wessel](https://en.wikipedia.org/wiki/Pål_Wessel)
 ::::
 
 :::::
@@ -45,7 +33,11 @@ year will be moved to Distinguished Contributors.
 
 ## Active Maintainers
 
-:::::{grid} 5
+*Active maintainers are recognized for their responsibilities in maintaining the project,
+as detailed in the [](maintenance.md). New active maintainers are selected and voted by
+the currently active maintainers before each release.*
+
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Dongdong Tian
 :padding: 1
@@ -84,7 +76,14 @@ year will be moved to Distinguished Contributors.
 
 ## Distinguished Contributors
 
-:::::{grid} 5
+*Distinguished contributors are recognized for their substantial contributions to PyGMT,
+which may include code, documentation, pull request review, triaging, forum responses,
+community building and engagement, outreach, and inclusion and diversity. New
+distinguished contributors are selected and voted by the currently active maintainers before
+each release. Maintainers that are inactive for more than one year will also be moved to
+distinguished contributors.*
+
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Max Jones
 :padding: 1

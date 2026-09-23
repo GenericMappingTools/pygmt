@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 __doctest_skip__ = ["solar"]
 
@@ -20,7 +20,7 @@ def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     pen: str | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
