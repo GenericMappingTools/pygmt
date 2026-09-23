@@ -62,11 +62,10 @@ jobs:
             packaging
             python-build
 
-      # Install the package that we want to test
       - name: Install the package
         run: |
           python -m build --sdist
-          python -m pip install dist/*
+          python -m pip install dist/*.tar.gz
 
       # Download remote files
       - name: Download remote data
