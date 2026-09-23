@@ -10,21 +10,14 @@ from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import (
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Box, Position
-from pygmt.src._common import _parse_position
+from pygmt.src._common import _parse_clearance, _parse_position
 
 __doctest_skip__ = ["inset"]
 
 
 @fmt_docstring
-@use_alias(C="clearance")
-@kwargs_to_strings(C="sequence")
 @contextlib.contextmanager
 def inset(
     self,
@@ -32,6 +25,7 @@ def inset(
     width: float | str | None = None,
     height: float | str | None = None,
     box: Box | bool = False,
+    clearance: float | str | Sequence[float | str] | None = None,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -49,7 +43,12 @@ def inset(
 
     Full GMT docs at :gmt-docs:`inset.html`.
 
-    $aliases
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
+       - C = clearance
        - D = position, **+w**: width/height
        - F = box
        - J = projection
@@ -79,19 +78,20 @@ def inset(
         box is drawn using :gmt-term:`MAP_FRAME_PEN`. To customize the box appearance,
         pass a :class:`pygmt.params.Box` object to control style, fill, pen, and other
         box properties.
-    clearance : float, str, or list
-        This is clearance that is added around the inside of the inset.
-        Plotting will take place within the inner region only. The margins
-        can be a single value, a pair of values separated (for setting
-        separate horizontal and vertical margins), or the full set of four
-        margins (for setting separate left, right, bottom, and top
-        margins). When passing multiple values, it can be either a list or
-        a string with the values separated by forward
-        slashes [Default is no margins].
+    clearance
+        Clearance that is added around the inside of the inset. Plotting will take place
+        within the inner region only. The clearance can be specified as either:
+
+        - a single value (for same clearance on all sides). E.g., ``"1c"``.
+        - a pair of values (for separate horizontal and vertical clearances). E.g.,
+          ``("1c", "2c")``.
+        - a set of four values (for separate left, right, bottom, and top clearances).
+          E.g., ``("1c", 0, "2c", 0)``.
+
+        [Default is no clearance].
     no_clip
         Do **not** clip features extruding outside the inset frame boundaries [Default
         is ``False``].
-
     $projection
     $region
     $verbose
@@ -145,6 +145,7 @@ def inset(
             Alias(width, name="width", prefix="+w"),  # +wwidth/height
             Alias(height, name="height", prefix="/"),
         ],
+        C=Alias(_parse_clearance(clearance), name="clearance"),
         F=Alias(box, name="box"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
