@@ -3,6 +3,7 @@ Type aliases for type hints.
 """
 
 import contextlib
+import datetime
 import importlib
 import os
 from collections.abc import Sequence
@@ -14,6 +15,9 @@ import xarray as xr
 
 # Anchor codes
 AnchorCode = Literal["TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"]
+
+# Datetime-like scalars accepted by pandas.to_datetime.
+DatetimeLike = str | datetime.date | datetime.datetime | np.datetime64 | pd.Timestamp
 
 # String array types
 StringArrayTypes = Sequence[str] | np.ndarray

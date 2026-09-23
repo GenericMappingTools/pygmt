@@ -30,9 +30,9 @@ for terminator in ["day_night", "civil", "nautical", "astronomical"]:
     fig.solar(
         terminator=terminator,
         terminator_datetime=reference_time,
-        # Set the fill for the night area to navy blue with 85 % transparency
+        # Set the fill for the night area to navy blue with 85% transparency
         fill="navyblue@85",
-        pen="0.5p",  # Set the outline to be 0.5-point thick
+        pen="0.5p",  # Set the terminator line to be 0.5-point thick
     )
 
 fig.show()
