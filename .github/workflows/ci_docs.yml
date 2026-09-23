@@ -178,9 +178,9 @@ jobs:
           name: artifact-pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
 
-      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
+      - name: Copy the HTML ZIP archive and PDF to the html folder
         run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
-        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
+        if: (github.event_name == 'push' || github.event_name == 'release') && matrix.os == 'ubuntu-latest'
 
       - name: Upload the HTML ZIP archive and PDF as release assets
         run: gh release upload ${REF_NAME} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
