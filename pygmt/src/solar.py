@@ -117,8 +117,7 @@ def solar(
             _datetime = pd.to_datetime(terminator_datetime)
         except ValueError as verr:
             raise GMTValueError(terminator_datetime, description="datetime") from verr
-        # Convert a timezone-aware datetime to UTC as a workaround for GMT's upstream
-        # bug at https://github.com/GenericMappingTools/gmt/issues/9220.
+        # Convert a timezone-aware datetime to UTC, before passing to GMT.
         if _datetime.tzinfo is not None:
             _datetime = _datetime.tz_convert("UTC")
         datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
