@@ -71,6 +71,19 @@ Plotting raster data
     Figure.image
     Figure.tilemap
 
+Clipping
+~~~~~~~~
+
+.. autosummary::
+    :toctree: generated
+
+    Figure.clip_land
+    Figure.clip_water
+    Figure.clip_dcw
+    Figure.clip_solar
+    Figure.clip_polygon
+    Figure.clip_mask
+
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
 
