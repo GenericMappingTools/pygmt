@@ -71,10 +71,8 @@ def solar(
     terminator_datetime : str or datetime object
         Set the date and time for the terminator calculation. It can be provided as a
         string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
-        time can be specified in UTC or using a UTC offset. The offset must be an
-        integer number of hours (e.g., -8 or +5); fractional hours are truncated
-        towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
-        current UTC date and time].
+        time can be specified in UTC or with a UTC offset of any precision [Default is
+        the current UTC date and time].
     fill
         Set color or pattern for filling terminators [Default is no fill].
     pen
@@ -113,18 +111,16 @@ def solar(
     >>> # show the plot
     >>> fig.show()
     """
-    datetime_string, datetime_timezone = None, None
+    datetime_string = None
     if terminator_datetime:
         try:
             _datetime = pd.to_datetime(terminator_datetime)
-            datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
-            # GMT's solar module uses the C 'atoi' function to parse the timezone
-            # offset. Ensure the offset is an integer number of hours (e.g., -8 or +5).
-            # Fractional hours (e.g., -8.5 or +5.5) are truncated towards zero.
-            if utcoffset := _datetime.utcoffset():
-                datetime_timezone = int(utcoffset.total_seconds() / 3600)
         except ValueError as verr:
             raise GMTValueError(terminator_datetime, description="datetime") from verr
+        # Convert a timezone-aware datetime to UTC, before passing to GMT.
+        if _datetime.tzinfo is not None:
+            _datetime = _datetime.tz_convert("UTC")
+        datetime_string = _datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
     aliasdict = AliasSystem(
         G=Alias(fill, name="fill"),
@@ -140,7 +136,6 @@ def solar(
                 },
             ),
             Alias(datetime_string, name="terminator_datetime", prefix="+d"),
-            Alias(datetime_timezone, name="terminator_timezone", prefix="+z"),
         ],
         W=Alias(pen, name="pen"),
     ).add_common(
