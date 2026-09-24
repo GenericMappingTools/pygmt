@@ -21,8 +21,9 @@ The following are the ways in which individuals who have contributed will be rec
 ## The `AUTHORS.md` file
 
 The `AUTHORS.md` file lists PyGMT Developers. Anyone who has contributed a pull request
-to the project is welcome to add themselves to the file. This file lives in the
-repository and is packaged with distributions. This is an optional process.
+(without AI assistance) to the project is welcome to add themselves to the file. This
+file lives in the repository and is packaged with distributions. This is an optional
+process.
 
 ## The PyGMT Team
 
@@ -35,13 +36,13 @@ many ways in the project's history.
 ## Changelog for each release
 
 Every time we make a release, everyone who has made a contribution (commits or PR
-reviews) to the repository since the previous release will be mentioned in the changelog.
-If their full name is available on GitHub, we will use it. Otherwise, we will use the
-GitHub handle. This is a way of saying "Thank you".
+reviews) to the repository (with or without AI-assistance), since the previous release
+will be mentioned in the changelog. If their full name is available on GitHub, we will
+use it. Otherwise, we will use their GitHub handle. This is a way of saying "Thank you".
 
 ## Authorship on Zenodo archives of releases
 
-Anyone who has contributed to the repository (i.e., appears on `git log`) will be
+Anyone who has contributed to the repository (i.e., appears on `git log`) may be
 invited to be an author on the Zenodo archive of new releases.
 
 To be included as an author, you *must* add the following to the `AUTHORS.md` file of
@@ -51,9 +52,9 @@ the repository:
 2. [ORCID](https://orcid.org) (optional)
 3. Affiliation (if omitted, we will use "Unaffiliated")
 
-The order of authors will be defined by the number of contributions (including commits
-and PR reviews) to the repository
-(`git shortlog -sne --group=author --group=trailer:co-authored-by`).
+The order of authors will be defined by the number of non-AI-assisted contributions
+(including commits and PR reviews) to the repository
+(`git shortlog -sne --group=author --group=trailer:co-authored-by --invert-grep --grep=Assisted-by`).
 The order can also be changed on a case-by-case basis. The most common reasons for
 case-by-case changes are contributions to the PyGMT project that do not relate to
 commit numbers, including developing PyGMT lessons such as the
