@@ -6,12 +6,13 @@ Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import datetime
 
+from packaging.version import Version
 from pygmt import __commit__, __version__
 from pygmt._show_versions import _get_dep_specifier
 from pygmt.sphinx_gallery import PyGMTScraper
 
 # Is a development version or not.
-isdev = "dev" in __version__ or __version__ == "unknown"
+isdev = Version(__version__).is_devrelease
 # Some variables.
 repository = "GenericMappingTools/pygmt"
 repository_url = f"https://github.com/{repository}"
