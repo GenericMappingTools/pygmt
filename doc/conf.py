@@ -15,7 +15,7 @@ isdev = "dev" in __version__ or __version__ == "unknown"
 # Some variables.
 repository = "GenericMappingTools/pygmt"
 repository_url = f"https://github.com/{repository}"
-doc_url = "https://pygmt.org/"
+doc_url = "https://www.pygmt.org"
 if __commit__:
     commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
 else:
