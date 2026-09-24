@@ -449,16 +449,16 @@ def _parse_clearance(
         return clearance
 
     # Return as it if it's already a sequence of side directives.
-    for value in clearance:
+    for value in clearance:  # type: ignore[union-attr]
         if isinstance(value, str) and value[0] in "xywesn":
             return clearance
 
     # A sequence of two or four values is expected.
-    if len(clearance) not in {2, 4}:
+    if len(clearance) not in {2, 4}:  # type: ignore[arg-type]
         raise GMTValueError(
             clearance,
             description="value for parameter 'clearance'",
             reason="Expect a single value or a sequence of two or four values.",
         )
-    sides = {2: "xy", 4: "wesn"}[len(clearance)]
-    return [f"{side}{value}" for side, value in zip(sides, clearance, strict=True)]
+    sides = {2: "xy", 4: "wesn"}[len(clearance)]  # type: ignore[arg-type]
+    return [f"{side}{value}" for side, value in zip(sides, clearance, strict=True)]  # type: ignore[arg-type]
