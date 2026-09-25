@@ -28,7 +28,6 @@ __doctest_skip__ = ["histogram"]
     D="annotate",
     N="distribution",
     T="series",
-    Z="histtype",
     b="binary",
     d="nodata",
     e="find",
@@ -40,6 +39,9 @@ __doctest_skip__ = ["histogram"]
 def histogram(
     self,
     data: PathLike | TableLike,
+    histtype: Literal[
+        "count", "percent", "log_count", "log_percent", "log10_count", "log10_percent"
+    ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
@@ -79,6 +81,7 @@ def histogram(
        - S = stairs
        - V = verbose
        - W = pen
+       - Z = histtype, **+w**: weight
        - c = panel
        - i = incols
        - p = perspective
@@ -89,6 +92,15 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
+    histtype
+        The histogram type to plot:
+
+        - ``"count"``: counts [Default]
+        - ``"percent"``: frequency_percent
+        - ``"log_count"``: log (1.0 + count)
+        - ``"log_percent"``: log (1.0 + frequency_percent)
+        - ``"log10_count"``: log10 (1.0 + count)
+        - ``"log10_percent"``: log10 (1.0 + frequency_percent
     $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
@@ -142,19 +154,6 @@ def histogram(
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    histtype : int or str
-        [*type*][**+w**].
-        Choose between 6 types of histograms:
-
-        * 0 = counts [Default]
-        * 1 = frequency_percent
-        * 2 = log (1.0 + count)
-        * 3 = log (1.0 + frequency_percent)
-        * 4 = log10 (1.0 + count)
-        * 5 = log10 (1.0 + frequency_percent).
-
-        To use weights provided as a second data column instead of pure counts,
-        append **+w**.
     $projection
     $region
     $frame
@@ -204,6 +203,18 @@ def histogram(
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
+        Z=Alias(
+            histtype,
+            name="histtype",
+            mapping={
+                "count": 0,
+                "percent": 1,
+                "log_count": 2,
+                "log_percent": 3,
+                "log10_count": 4,
+                "log10_percent": 5,
+            },
+        ),
     ).add_common(
         B=frame,
         J=projection,
