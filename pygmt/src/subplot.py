@@ -19,7 +19,7 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.params import Axis, Box, Frame, Position
-from pygmt.src._common import _parse_position
+from pygmt.src._common import _parse_clearance, _parse_position
 
 
 def _alias_option_A(  # ruff: ignore[invalid-function-name]
@@ -129,7 +129,7 @@ def _alias_option_A(  # ruff: ignore[invalid-function-name]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
+@use_alias(Ff="figsize", Fs="subsize", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
 def subplot(
     self,
@@ -142,6 +142,7 @@ def subplot(
     tag_number_style: Literal["arabic", "roman", "Roman"] | None = None,
     tag_font: str | None = None,
     autolabel: str | bool = False,
+    clearance: float | str | Sequence[float | str] | None = None,
     margins: float | str | Sequence[float | str] | None = None,
     title: str | None = None,
     projection: str | None = None,
@@ -164,6 +165,7 @@ def subplot(
 
     $aliases
        - B = frame
+       - C = clearance
        - J = projection
        - M = margins
        - R = region
@@ -235,18 +237,18 @@ def subplot(
 
            Use the parameters ``tag``, ``tag_position``, ``tag_box``,
            ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
-    clearance : str or list
-        [*side*]\ *clearance*.
-        Reserve a space of dimension *clearance* between the margin and the
-        subplot on the specified side, using *side* values from **w**, **e**,
-        **s**, or **n**; or **x** for both **w** and **e**; or **y** for both
-        **s** and **n**. No *side* means all sides (i.e. ``clearance="1c"``
-        would set a clearance of 1 cm on all sides). The option is repeatable
-        to set aside space on more than one side (e.g.
-        ``clearance=["w1c", "s2c"]`` would set a clearance of 1 cm on west
-        side and 2 cm on south side). Such space will be left untouched by
-        the main plotting but can be accessed by methods that plot
-        scales, bars, text, etc.
+    clearance
+        Reserve a space between the margin and the subplot. Such space will be left
+        untouched by the main plotting but can be accessed by methods that plot scales,
+        bars, text, etc. The clearance can be specified as either:
+
+        - a single value (for same clearance on all sides). E.g., ``"1c"``.
+        - a pair of values (for separate horizontal and vertical clearances). E.g.,
+          ``("1c", "2c")``.
+        - a set of four values (for separate left, right, bottom, and top clearances).
+          E.g., ``("1c", 0, "2c", 0)``.
+
+        [Default is no clearance].
     margins
         Margin space that is added between neighboring subplots (i.e., the interior
         margins) in addition to the automatic space added for tick marks, annotations,
@@ -318,6 +320,7 @@ def subplot(
             tag_orientation=tag_orientation,
             autolabel=autolabel,
         ),
+        C=Alias(_parse_clearance(clearance), name="clearance"),
         M=Alias(margins, name="margins", sep="/", size=(2, 4)),
         T=Alias(title, name="title"),
     ).add_common(
@@ -360,11 +363,11 @@ def subplot(
 @contextlib.contextmanager
 # TODO(PyGMT>=0.23.0): Remove the deprecated 'fixedlabel' parameter.
 @deprecate_parameter("fixedlabel", "tag", "0.19.0", remove_version="0.23.0")
-@use_alias(C="clearance")
 def set_panel(
     self,
     panel: int | Sequence[int] | None = None,
     tag: str | None = None,
+    clearance: float | str | Sequence[float | str] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     **kwargs,
@@ -380,8 +383,13 @@ def set_panel(
     both dimensions then you must specify ``projection="x"`` [The default
     ``projection="X"`` will fill the subplot by using unequal scales].
 
-    $aliases
+    **Aliases:**
+
+    .. hlist::
+       :columns: 3
+
        - A = tag
+       - C = clearance
        - V = verbose
 
     Parameters
@@ -400,21 +408,25 @@ def set_panel(
         Tag for the current subplot. It overrides the automatic tag set by the
         :meth:`pygmt.Figure.subplot` method. Use ``tag="-"`` to skip the tag for this
         panel.
-    clearance : str or list
-        [*side*]\ *clearance*.
-        Reserve a space of dimension *clearance* between the margin and the
-        subplot on the specified side, using *side* values from **w**, **e**,
-        **s**, or **n**. The option is repeatable to set aside space on more
-        than one side (e.g. ``clearance=["w1c", "s2c"]`` would set a clearance
-        of 1 cm on west side and 2 cm on south side). Such space will be left
-        untouched by the main plotting but can be accessed by methods that
-        plot scales, bars, text, etc. This setting overrides the common
-        clearances set by ``clearance`` in the initial
-        :meth:`pygmt.Figure.subplot` call.
+    clearance
+        Reserve a space between the margin and the current subplot. Such space will be
+        left untouched by the main plotting but can be accessed by methods that plot
+        scales, bars, text, etc. The clearance can be specified as either:
 
+        - a single value (for same clearance on all sides). E.g., ``"1c"``.
+        - a pair of values (for separate horizontal and vertical clearances). E.g.,
+          ``("1c", "2c")``.
+        - a set of four values (for separate left, right, bottom, and top clearances).
+          E.g., ``("1c", 0, "2c", 0)``.
+
+        This setting overrides the common clearances set by ``clearance`` in the initial
+        :meth:`pygmt.Figure.subplot` call.
     $verbose
     """
-    aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
+    aliasdict = AliasSystem(
+        A=Alias(tag, name="tag"),
+        C=Alias(_parse_clearance(clearance), name="clearance"),
+    ).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
     args = ["set"]
