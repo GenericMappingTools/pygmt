@@ -15,7 +15,7 @@ import numpy as np
 from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.helpers.utils import is_nonstr_iter
 
-COMMON_DOCSTRINGS = {
+COMMON_PARAMETERS = {
     "area_thresh": r"""
         area_thresh
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
@@ -383,6 +383,15 @@ COMMON_DOCSTRINGS = {
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
 }
 
+COMMON_DOCSTRINGS = {
+    "table_classes": (
+        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
+        "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
+        "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
+        "    tabular data"
+    ),
+}
+
 
 def fmt_docstring(module_func):
     r"""
@@ -465,14 +474,9 @@ def fmt_docstring(module_func):
             aliases.append(f"   - {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table_classes"] = (
-        ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
-        "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
-        "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
-        "    tabular data"
-    )
+    filler_text.update(COMMON_DOCSTRINGS)
 
-    for marker, text in COMMON_DOCSTRINGS.items():
+    for marker, text in COMMON_PARAMETERS.items():
         # Remove the indentation and the first line break from the multiline
         # strings so that it doesn't mess up the original docstring
         filler_text[marker] = textwrap.dedent(text.lstrip("\n"))
