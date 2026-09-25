@@ -1,0 +1,13 @@
+pygmt.binstats
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: binstats
+
+.. minigallery:: pygmt.binstats
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

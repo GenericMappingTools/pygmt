@@ -1,0 +1,13 @@
+pygmt.clib.Session.virtualfile\_from\_stringio
+==============================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.virtualfile_from_stringio
+
+.. minigallery:: pygmt.clib.Session.virtualfile_from_stringio
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

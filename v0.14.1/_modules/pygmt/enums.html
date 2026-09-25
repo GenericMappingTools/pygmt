@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.enums &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/enums.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=911007c9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.14.1
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.enums</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.enums</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Enumerations for PyGMT.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntEnum</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">GridFormat</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum for the GMT grid format ID.</span>
+
+<span class="sd">    These enums are defined in &#39;gmt_grdio.h&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Unknown grid format</span>
+    <span class="n">BF</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1">#: GMT native, C-binary format (32-bit float)</span>
+    <span class="n">BS</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1">#: GMT native, C-binary format (16-bit integer)</span>
+    <span class="n">RB</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1">#: SUN rasterfile format (8-bit standard)</span>
+    <span class="n">BB</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1">#: GMT native, C-binary format (8-bit integer)</span>
+    <span class="n">BM</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1">#: GMT native, C-binary format (bit-mask)</span>
+    <span class="n">SF</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1">#: Golden Software Surfer format 6 (32-bit float)</span>
+    <span class="n">CB</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1">#: GMT netCDF format (8-bit integer, deprecated)</span>
+    <span class="n">CS</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1">#: GMT netCDF format (16-bit integer, deprecated)</span>
+    <span class="n">CI</span> <span class="o">=</span> <span class="mi">9</span>  <span class="c1">#: GMT netCDF format (32-bit integer, deprecated)</span>
+    <span class="n">CF</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1">#: GMT netCDF format (32-bit float, deprecated)</span>
+    <span class="n">CD</span> <span class="o">=</span> <span class="mi">11</span>  <span class="c1">#: GMT netCDF format (64-bit float, deprecated)</span>
+    <span class="n">RF</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1">#: GEODAS grid format GRD98 (NGDC)</span>
+    <span class="n">BI</span> <span class="o">=</span> <span class="mi">13</span>  <span class="c1">#: GMT native, C-binary format (32-bit integer)</span>
+    <span class="n">BD</span> <span class="o">=</span> <span class="mi">14</span>  <span class="c1">#: GMT native, C-binary format (64-bit float)</span>
+    <span class="n">NB</span> <span class="o">=</span> <span class="mi">15</span>  <span class="c1">#: GMT netCDF format (8-bit integer)</span>
+    <span class="n">NS</span> <span class="o">=</span> <span class="mi">16</span>  <span class="c1">#: GMT netCDF format (16-bit integer)</span>
+    <span class="n">NI</span> <span class="o">=</span> <span class="mi">17</span>  <span class="c1">#: GMT netCDF format (32-bit integer)</span>
+    <span class="n">NF</span> <span class="o">=</span> <span class="mi">18</span>  <span class="c1">#: GMT netCDF format (32-bit float)</span>
+    <span class="n">ND</span> <span class="o">=</span> <span class="mi">19</span>  <span class="c1">#: GMT netCDF format (64-bit float)</span>
+    <span class="n">SD</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1">#: Golden Software Surfer format 7 (64-bit float, read-only)</span>
+    <span class="n">AF</span> <span class="o">=</span> <span class="mi">21</span>  <span class="c1">#: Atlantic Geoscience Center format AGC (32-bit float)</span>
+    <span class="n">GD</span> <span class="o">=</span> <span class="mi">22</span>  <span class="c1">#: Import through GDAL</span>
+    <span class="n">EI</span> <span class="o">=</span> <span class="mi">23</span>  <span class="c1">#: ESRI Arc/Info ASCII Grid Interchange format (ASCII integer)</span>
+    <span class="n">EF</span> <span class="o">=</span> <span class="mi">24</span>  <span class="c1">#: ESRI Arc/Info ASCII Grid Interchange format (ASCII float)</span>
+
+
+<div class="viewcode-block" id="GridRegistration">
+<a class="viewcode-back" href="../../api/generated/pygmt.enums.GridRegistration.html#pygmt.enums.GridRegistration">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GridRegistration</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum for the grid registration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">GRIDLINE</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Gridline registration</span>
+    <span class="n">PIXEL</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1">#: Pixel registration</span></div>
+
+
+
+<div class="viewcode-block" id="GridType">
+<a class="viewcode-back" href="../../api/generated/pygmt.enums.GridType.html#pygmt.enums.GridType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GridType</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enum for the grid type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">CARTESIAN</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1">#: Cartesian grid</span>
+    <span class="n">GEOGRAPHIC</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1">#: Geographic grid</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.14.1">v0.14.1</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Feb 01, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

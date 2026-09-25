@@ -1,0 +1,13 @@
+pygmt.Figure.timestamp
+======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.timestamp
+
+.. minigallery:: pygmt.Figure.timestamp
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

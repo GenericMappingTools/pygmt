@@ -1,0 +1,12 @@
+pygmt.Figure.ternary
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.ternary
+
+.. include:: backreferences/pygmt.Figure.ternary.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

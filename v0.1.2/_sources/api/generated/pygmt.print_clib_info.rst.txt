@@ -1,0 +1,11 @@
+pygmt.print\_clib\_info
+=======================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: print_clib_info
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

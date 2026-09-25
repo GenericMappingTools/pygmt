@@ -1,0 +1,13 @@
+pygmt.Figure.contour
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.contour
+
+.. minigallery:: pygmt.Figure.contour
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

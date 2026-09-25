@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Contributors Guide &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/contributing.html" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=bb33721e"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=ccdb6887"></script>
+        <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Maintainers Guide" href="maintenance.html" />
+    <link rel="prev" title="PyGMT Team" href="team.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="team.html">PyGMT Team</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributors Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ways-to-contribute">Ways to Contribute</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ways-to-contribute-documentation-and-or-code">Ways to Contribute Documentation and/or Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ways-to-contribute-feedback">Ways to Contribute Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ways-to-contribute-to-community-building">Ways to Contribute to Community Building</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#providing-feedback">Providing Feedback</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reporting-a-bug">Reporting a Bug</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#reporting-upstream-bugs">Reporting Upstream Bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-a-feature-request">Submitting a Feature Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-general-comments-questions">Submitting General Comments/Questions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#general-guidelines">General Guidelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resources-for-new-contributors">Resources for New Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pull-request-workflow">Pull Request Workflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-guidelines-for-making-a-pull-request-pr">General Guidelines for Making a Pull Request (PR):</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#general-process-for-pull-request-review">General Process for Pull Request Review:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-your-environment">Setting up your Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-documentation">Contributing Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pygmt-documentation-overview">PyGMT Documentation Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-the-documentation-on-github">Editing the Documentation on GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-the-documentation-locally">Editing the Documentation Locally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-example-code">Adding example code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-gallery-plots">Contributing Gallery Plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-tutorials">Contributing Tutorials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editing-the-api-documentation">Editing the API Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#standards-for-example-code">Standards for Example Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-referencing-with-sphinx">Cross-referencing with Sphinx</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-code">Contributing Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pygmt-code-overview">PyGMT Code Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-style">Code Style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-your-code">Testing your Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-plots">Testing Plots</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-mpl-image-compare">Using mpl_image_compare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-data-version-control-dvc-to-manage-test-images">Using Data Version Control (dvc) to Manage Test Images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-check-figures-equal">Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributors Guide</li>
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/contributing.md"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributors-guide">
+<h1>Contributors Guide<a class="headerlink" href="#contributors-guide" title="Link to this heading"></a></h1>
+<p>This is a community driven project and everyone is welcome to contribute.</p>
+<p>The project is hosted at the
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt">PyGMT GitHub repository</a>.</p>
+<p>The goal is to maintain a diverse community that’s pleasant for everyone.
+<strong>Please be considerate and respectful of others</strong>. Everyone must abide by our
+<a class="reference external" href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>
+and we encourage all to read it carefully.</p>
+<section id="ways-to-contribute">
+<h2>Ways to Contribute<a class="headerlink" href="#ways-to-contribute" title="Link to this heading"></a></h2>
+<section id="ways-to-contribute-documentation-and-or-code">
+<h3>Ways to Contribute Documentation and/or Code<a class="headerlink" href="#ways-to-contribute-documentation-and-or-code" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Tackle any issue that you wish! Some issues are labeled as <strong>“good first issue”</strong> to
+indicate that they are beginner friendly, meaning that they don’t require extensive
+knowledge of the project.</p></li>
+<li><p>Make a tutorial or gallery example of how to do something.</p></li>
+<li><p>Improve the API documentation.</p></li>
+<li><p>Contribute code! This can be code that you already have and it doesn’t need to be
+perfect! We will help you clean things up, test it, etc.</p></li>
+</ul>
+</section>
+<section id="ways-to-contribute-feedback">
+<h3>Ways to Contribute Feedback<a class="headerlink" href="#ways-to-contribute-feedback" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Provide feedback about how we can improve the project or about your particular use
+case. Open an <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issue</a> with
+feature requests or bug fixes, or post general comments/questions on the
+<a class="reference external" href="https://forum.generic-mapping-tools.org">forum</a>.</p></li>
+<li><p>Help triage issues, or give a “thumbs up” on issues that others reported which are
+relevant to you.</p></li>
+</ul>
+</section>
+<section id="ways-to-contribute-to-community-building">
+<h3>Ways to Contribute to Community Building<a class="headerlink" href="#ways-to-contribute-to-community-building" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Participate and answer questions on the <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11">PyGMT forum Q&amp;A</a>.</p></li>
+<li><p>Participate in discussions at the quarterly PyGMT Community Meetings, which are
+announced on the <a class="reference external" href="https://forum.generic-mapping-tools.org/c/governance/9">forum governance page</a>.</p></li>
+<li><p>Cite PyGMT when using the project.</p></li>
+<li><p>Spread the word about PyGMT or star the project!</p></li>
+</ul>
+</section>
+</section>
+<section id="providing-feedback">
+<h2>Providing Feedback<a class="headerlink" href="#providing-feedback" title="Link to this heading"></a></h2>
+<section id="reporting-a-bug">
+<h3>Reporting a Bug<a class="headerlink" href="#reporting-a-bug" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Find the <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues"><em>Issues</em></a> tab on the
+top of the GitHub repository and click <em>New issue</em>.</p></li>
+<li><p>Click on <em>Get started</em> next to <em>Bug report</em>.</p></li>
+<li><p><strong>Please try to fill out the template with as much detail as you can</strong>.</p></li>
+<li><p>After submitting your bug report, try to answer any follow up questions about the bug
+as best as you can.</p></li>
+</ul>
+<section id="reporting-upstream-bugs">
+<h4>Reporting Upstream Bugs<a class="headerlink" href="#reporting-upstream-bugs" title="Link to this heading"></a></h4>
+<p>If you are aware that a bug is caused by an upstream GMT issue rather than a
+PyGMT-specific issue, you can optionally take the following steps to help resolve
+the problem:</p>
+<ul>
+<li><p>Add the line <code class="docutils literal notranslate"><span class="pre">pygmt.config(GMT_VERBOSE=&quot;d&quot;)</span></code> after your import statements, which
+will report the equivalent GMT commands as one of the debug messages.</p></li>
+<li><p>Either append all messages from running your script to your GitHub issue, or
+filter the messages to include only the GMT-equivalent commands using a command
+such as:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F&#39;: &#39; &#39;$2==&quot;GMT_Call_Command string&quot; {print $3}&#39;
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script. Note that this script works only with GMT&gt;=6.4</p>
+</li>
+<li><p>If the bug is produced when passing an in-memory data object (e.g., a
+pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
+data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
+to the PyGMT function instead. In the GitHub issue, please share the results
+for both cases along with your code.</p></li>
+</ul>
+</section>
+</section>
+<section id="submitting-a-feature-request">
+<h3>Submitting a Feature Request<a class="headerlink" href="#submitting-a-feature-request" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Find the <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues"><em>Issues</em></a> tab on the
+top of the GitHub repository and click <em>New issue</em>.</p></li>
+<li><p>Click on <em>Get started</em> next to <em>Feature request</em>.</p></li>
+<li><p><strong>Please try to fill out the template with as much detail as you can</strong>.</p></li>
+<li><p>After submitting your feature request, try to answer any follow up questions as best
+as you can.</p></li>
+</ul>
+</section>
+<section id="submitting-general-comments-questions">
+<h3>Submitting General Comments/Questions<a class="headerlink" href="#submitting-general-comments-questions" title="Link to this heading"></a></h3>
+<p>There are several pages on the <a class="reference external" href="https://forum.generic-mapping-tools.org/">Community Forum</a>
+where you can submit general comments and/or questions:</p>
+<ul class="simple">
+<li><p>For questions about using PyGMT, select <em>New Topic</em> from the
+<a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11">PyGMT Q&amp;A Page</a>.</p></li>
+<li><p>For general comments, select <em>New Topic</em> from the
+<a class="reference external" href="https://forum.generic-mapping-tools.org/c/lounge/6">Lounge Page</a>.</p></li>
+<li><p>To share your work, select <em>New Topic</em> from the
+<a class="reference external" href="https://forum.generic-mapping-tools.org/c/Show-your-nice-example-script/10">Showcase Page</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="general-guidelines">
+<h2>General Guidelines<a class="headerlink" href="#general-guidelines" title="Link to this heading"></a></h2>
+<section id="resources-for-new-contributors">
+<h3>Resources for New Contributors<a class="headerlink" href="#resources-for-new-contributors" title="Link to this heading"></a></h3>
+<p>Please take a look at these resources to learn about Git and pull requests (don’t
+hesitate to <a class="reference internal" href="#getting-help"><span class="std std-ref">ask questions</span></a>):</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opensource.guide/how-to-contribute/">How to Contribute to Open Source</a>.</p></li>
+<li><p><a class="reference external" href="http://www.asmeurer.com/git-workflow/">Git Workflow Tutorial</a> by Aaron Meurer.</p></li>
+<li><p><a class="reference external" href="https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github">How to Contribute to an Open Source Project on GitHub</a>.</p></li>
+</ul>
+</section>
+<section id="getting-help">
+<h3>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h3>
+<p>Discussion often happens on GitHub issues and pull requests. In addition, there is a
+<a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a> for
+the project where you can ask questions.</p>
+</section>
+<section id="pull-request-workflow">
+<h3>Pull Request Workflow<a class="headerlink" href="#pull-request-workflow" title="Link to this heading"></a></h3>
+<p>We follow the <a class="reference external" href="http://www.asmeurer.com/git-workflow">git pull request workflow</a>
+to make changes to our codebase. Every change made goes through a pull request, even
+our own, so that our
+<a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_integration">continuous integration</a>
+services have a chance to check that the code is up to standards and passes all
+our tests. This way, the <em>main</em> branch is always stable.</p>
+<section id="general-guidelines-for-making-a-pull-request-pr">
+<h4>General Guidelines for Making a Pull Request (PR):<a class="headerlink" href="#general-guidelines-for-making-a-pull-request-pr" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>What should be included in a PR</p>
+<ul>
+<li><p>Have a quick look at the titles of all the existing issues first. If there
+is already an issue that matches your PR, leave a comment there to let us
+know what you plan to do. Otherwise, <strong>open an issue</strong> describing what you
+want to do.</p></li>
+<li><p>Each pull request should consist of a <strong>small</strong> and logical collection of
+changes; larger changes should be broken down into smaller parts and
+integrated separately.</p></li>
+<li><p>Bug fixes should be submitted in separate PRs.</p></li>
+</ul>
+</li>
+<li><p>How to write and submit a PR</p>
+<ul>
+<li><p>Use underscores for all Python (*.py) files as per
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, not hyphens. Directory
+names should also use underscores instead of hyphens.</p></li>
+<li><p>Describe what your PR changes and <em>why</em> this is a good thing. Be as
+specific as you can. The PR description is how we keep track of the changes
+made to the project over time.</p></li>
+<li><p>Do not commit changes to files that are irrelevant to your feature or
+bugfix (e.g.: <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>, IDE project files, etc).</p></li>
+<li><p>Write descriptive commit messages. Chris Beams has written a
+<a class="reference external" href="https://chris.beams.io/posts/git-commit/">guide</a> on how to write good
+commit messages.</p></li>
+</ul>
+</li>
+<li><p>PR review</p>
+<ul>
+<li><p>Be willing to accept criticism and work on improving your code; we don’t
+want to break other users’ code, so care must be taken not to introduce
+bugs.</p></li>
+<li><p>Be aware that the pull request review process is not immediate, and is
+generally proportional to the size of the pull request.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="general-process-for-pull-request-review">
+<h4>General Process for Pull Request Review:<a class="headerlink" href="#general-process-for-pull-request-review" title="Link to this heading"></a></h4>
+<p>After you’ve submitted a pull request, you should expect to hear at least a
+comment within a couple of days. We may suggest some changes, improvements or
+alternative implementation details.</p>
+<p>To increase the chances of getting your pull request accepted quickly, try to:</p>
+<ul class="simple">
+<li><p>Submit a friendly PR</p>
+<ul>
+<li><p>Write a good and detailed description of what the PR does.</p></li>
+<li><p>Write some documentation for your code (docstrings) and leave comments
+explaining the <em>reason</em> behind non-obvious things.</p></li>
+<li><p>Write tests for the code you wrote/modified if needed.
+Please refer to <a class="reference internal" href="#testing-your-code"><span class="std std-ref">Testing your code</span></a> or
+<a class="reference internal" href="#testing-plots"><span class="std std-ref">Testing plots</span></a>.</p></li>
+<li><p>Include an example of new features in the gallery or tutorials.
+Please refer to <a class="reference internal" href="#contributing-gallery-plots"><span class="std std-ref">Gallery plots</span></a>
+or <a class="reference internal" href="#contributing-tutorials"><span class="std std-ref">Tutorials</span></a>.</p></li>
+</ul>
+</li>
+<li><p>Have a good coding style</p>
+<ul>
+<li><p>Use readable code, as it is better than clever code (even with comments).</p></li>
+<li><p>Follow the <a class="reference external" href="http://pep8.org">PEP8</a> style guide for code and the
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">NumPy style guide</a>
+for docstrings. Please refer to <a class="reference internal" href="#code-style"><span class="std std-ref">Code style</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Pull requests will automatically have tests run by GitHub Actions.
+This includes running both the unit tests as well as code linters.
+GitHub will show the status of these checks on the pull request.
+Try to get them all passing (green).
+If you have any trouble, leave a comment in the PR or
+<a class="reference internal" href="#getting-help"><span class="std std-ref">get in touch</span></a>.</p>
+</section>
+</section>
+</section>
+<section id="setting-up-your-environment">
+<h2>Setting up your Environment<a class="headerlink" href="#setting-up-your-environment" title="Link to this heading"></a></h2>
+<p>These steps for setting up your environment are necessary for
+<a class="reference internal" href="#editing-the-documentation-locally"><span class="std std-ref">editing the documentation locally</span></a> and
+<a class="reference internal" href="#contributing-code"><span class="std std-ref">contributing code</span></a>. A local PyGMT development environment
+is not needed for <a class="reference internal" href="#editing-the-documentation-on-github"><span class="std std-ref">editing the documentation on GitHub</span></a>.</p>
+<p>We highly recommend using <a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge3">Miniforge</a>
+and the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> package manager to install and manage your Python packages.
+It will make your life a lot easier!</p>
+<p>The repository includes a virtual environment file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> with the
+specification for all development requirements to build and test the project.
+In particular, these are some of the key development dependencies you will need
+to install to build the documentation and run the unit tests locally:</p>
+<ul class="simple">
+<li><p>git (for cloning the repo and tracking changes in code)</p></li>
+<li><p>dvc (for downloading baseline images used in tests)</p></li>
+<li><p>pytest-mpl (for checking that generated plots match the baseline)</p></li>
+<li><p>sphinx-gallery (for building the gallery example page)</p></li>
+</ul>
+<p>See the <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/environment.yml"><code class="docutils literal notranslate"><span class="pre">environment.yml</span></code></a>
+file for the full list of dependencies and the environment name (<code class="docutils literal notranslate"><span class="pre">pygmt</span></code>).
+Once you have forked and cloned the repository to your local machine, you can
+use this file to create an isolated environment on which you can work.
+Run the following on the base of the repository to create a new conda
+environment from the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>--file<span class="w"> </span>environment.yml
+</pre></div>
+</div>
+<p>Before building and testing the project, you have to activate the environment
+(you’ll need to do this every time you start a new terminal):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>activate<span class="w"> </span>pygmt
+</pre></div>
+</div>
+<p>We have a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/Makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>
+that provides commands for installing, running the tests and coverage analysis,
+running linters, etc. If you don’t want to use <code class="docutils literal notranslate"><span class="pre">make</span></code>, open the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> and
+copy the commands you want to run.</p>
+<p>To install the current source code into your testing environment, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install<span class="w">  </span><span class="c1"># on Linux/macOS</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>-e<span class="w"> </span>.<span class="w">  </span><span class="c1"># on Windows</span>
+</pre></div>
+</div>
+<p>This installs your project in <em>editable</em> mode, meaning that changes made to the source
+code will be available when you import the package (even if you’re on a different
+directory).</p>
+</section>
+<section id="contributing-documentation">
+<h2>Contributing Documentation<a class="headerlink" href="#contributing-documentation" title="Link to this heading"></a></h2>
+<section id="pygmt-documentation-overview">
+<h3>PyGMT Documentation Overview<a class="headerlink" href="#pygmt-documentation-overview" title="Link to this heading"></a></h3>
+<p>There are four main components to PyGMT’s documentation:</p>
+<ul class="simple">
+<li><p>Gallery examples, with source code in Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code> files under the
+<code class="docutils literal notranslate"><span class="pre">examples/gallery/</span></code> folder.</p></li>
+<li><p>Tutorial examples, with source code in Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code> files under the
+<code class="docutils literal notranslate"><span class="pre">examples/tutorials/</span></code> folder.</p></li>
+<li><p>API documentation, with source code in the docstrings in Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code>
+files under the <code class="docutils literal notranslate"><span class="pre">pygmt/src/</span></code> and <code class="docutils literal notranslate"><span class="pre">pygmt/datasets/</span></code> folders.</p></li>
+<li><p>Getting started/developer documentation, with source text in ReST <code class="docutils literal notranslate"><span class="pre">*.rst</span></code>
+and markdown <code class="docutils literal notranslate"><span class="pre">*.md</span></code> files under the <code class="docutils literal notranslate"><span class="pre">doc/</span></code> folder.</p></li>
+</ul>
+<p>The documentation is written primarily in
+<a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> and built by
+<a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>. Please refer to
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
+if you are new to reStructuredText. When contributing documentation, be sure to
+follow the general guidelines in the <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a>
+section.</p>
+<p>There are two primary ways to edit the PyGMT documentation:</p>
+<ul class="simple">
+<li><p>For simple documentation changes, you can easily
+<a class="reference internal" href="#editing-the-documentation-on-github"><span class="std std-ref">edit the documentation on GitHub</span></a>.
+This only requires you to have a GitHub account.</p></li>
+<li><p>For more complicated changes, you can
+<a class="reference internal" href="#editing-the-documentation-locally"><span class="std std-ref">edit the documentation locally</span></a>.
+In order to build the documentation locally, you first need to
+<a class="reference internal" href="#setting-up-your-environment"><span class="std std-ref">set up your environment</span></a>.</p></li>
+</ul>
+</section>
+<section id="editing-the-documentation-on-github">
+<h3>Editing the Documentation on GitHub<a class="headerlink" href="#editing-the-documentation-on-github" title="Link to this heading"></a></h3>
+<p>If you’re browsing the documentation and notice a typo or something that could be
+improved, please consider letting us know by <a class="reference internal" href="#reporting-a-bug"><span class="std std-ref">creating an issue</span></a> or
+(even better) submitting a fix.</p>
+<p>You can submit fixes to the documentation pages completely online without having to
+download and install anything:</p>
+<ol class="arabic simple">
+<li><p>On each documentation page, there should be an “Improve This Page” link at the very
+top.</p></li>
+<li><p>Click on that link to open the respective source file (usually an <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file in the
+<code class="docutils literal notranslate"><span class="pre">doc/</span></code> folder or a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> folder) on GitHub for editing online
+(you’ll need a GitHub account).</p></li>
+<li><p>Make your desired changes.</p></li>
+<li><p>When you’re done, scroll to the bottom of the page.</p></li>
+<li><p>Fill out the two fields under “Commit changes”: the first is a short title describing
+your fixes; the second is a more detailed description of the changes. Try to be as
+detailed as possible and describe <em>why</em> you changed something.</p></li>
+<li><p>Choose “Create a new branch for this commit and start a pull request” and
+click on the “Propose changes” button to open a pull request.</p></li>
+<li><p>The pull request will run the GMT automated tests and make a preview deployment.
+You can see how your change looks in the PyGMT documentation by clicking the
+“Details” button of the “docs/readthedocs.org:pygmt-dev” status check,
+after the building has finished (usually 10-15 minutes after the pull request was created).</p></li>
+<li><p>We’ll review your pull request, recommend changes if necessary, and then merge
+them in if everything is OK.</p></li>
+<li><p>Done!</p></li>
+</ol>
+<p>Alternatively, you can make the changes offline to the files in the <code class="docutils literal notranslate"><span class="pre">doc</span></code> folder or the
+example scripts. See <a class="reference internal" href="#editing-the-documentation-locally"><span class="std std-ref">editing the documentation locally</span></a>
+for instructions.</p>
+</section>
+<section id="editing-the-documentation-locally">
+<h3>Editing the Documentation Locally<a class="headerlink" href="#editing-the-documentation-locally" title="Link to this heading"></a></h3>
+<p>For more extensive changes, you can edit the documentation in your cloned repository
+and build the documentation to preview changes before submitting a pull request. First,
+follow the <a class="reference internal" href="#setting-up-your-environment"><span class="std std-ref">setting up your environment</span></a> instructions.
+After making your changes, you can build the HTML files from sources using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>doc
+make<span class="w"> </span>all
+</pre></div>
+</div>
+<p>This will build the HTML files in <code class="docutils literal notranslate"><span class="pre">doc/_build/html</span></code>.
+Open <code class="docutils literal notranslate"><span class="pre">doc/_build/html/index.html</span></code> in your browser to view the pages. Follow the
+<a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a> to submit your changes for review.</p>
+</section>
+<section id="adding-example-code">
+<h3>Adding example code<a class="headerlink" href="#adding-example-code" title="Link to this heading"></a></h3>
+<p>Many of the PyGMT functions have example code in their documentation. To contribute an
+example, add an “Example” header and put the example code below it. Have all lines
+begin with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>.  To keep this example code from being run during testing, add the code
+<code class="docutils literal notranslate"><span class="pre">__doctest_skip__</span> <span class="pre">=</span> <span class="pre">[&quot;function_name&quot;]</span></code> to the top of the module.</p>
+<p><strong>Inline code example</strong></p>
+<p>Below the import statements at the top of the file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;function_name&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>At the end of the function’s docstring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Example</span>
+<span class="o">-------</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Comment describing what is happening</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Code</span> <span class="n">example</span>
+</pre></div>
+</div>
+</section>
+<section id="contributing-gallery-plots">
+<h3>Contributing Gallery Plots<a class="headerlink" href="#contributing-gallery-plots" title="Link to this heading"></a></h3>
+<p>The gallery and tutorials are managed by
+<a class="reference external" href="https://sphinx-gallery.readthedocs.io/">sphinx-gallery</a>.
+The source files for the example gallery are <code class="docutils literal notranslate"><span class="pre">.py</span></code> scripts in <code class="docutils literal notranslate"><span class="pre">examples/gallery/</span></code> that
+generate one or more figures. They are executed automatically by sphinx-gallery when
+the <a class="reference internal" href="#editing-the-documentation-locally"><span class="std std-ref">documentation is built</span></a>. The output is gathered and
+assembled into the gallery.</p>
+<p>You can <strong>add a new</strong> plot by placing a new <code class="docutils literal notranslate"><span class="pre">.py</span></code> file in one of the folders inside the
+<code class="docutils literal notranslate"><span class="pre">examples/gallery</span></code> folder of the repository. See the other examples to get an idea for the
+format.</p>
+<p>General guidelines for making a good gallery plot:</p>
+<ul class="simple">
+<li><p>Examples should highlight a single feature/command. Good: <em>how to add a label to
+a colorbar</em>. Bad: <em>how to add a label to the colorbar and use two different CPTs and
+use subplots</em>.</p></li>
+<li><p>Try to make the example as simple as possible. Good: <em>use only commands that are
+required to show the feature you want to highlight</em>. Bad: <em>use advanced/complex Python
+features to make the code smaller</em>.</p></li>
+<li><p>Use a sample dataset from <code class="docutils literal notranslate"><span class="pre">pygmt.datasets</span></code> if you need to plot data. If a suitable
+dataset isn’t available, open an issue requesting one and we’ll work together to add
+it.</p></li>
+<li><p>Add comments to explain things that aren’t obvious from reading the code. Good: <em>Use a
+Mercator projection and make the plot 15 centimeters wide</em>. Bad: <em>Draw coastlines and
+plot the data</em>.</p></li>
+<li><p>Describe the feature that you’re showcasing and link to other relevant parts of the
+documentation.</p></li>
+<li><p>SI units should be used in the example code for gallery plots.</p></li>
+</ul>
+</section>
+<section id="contributing-tutorials">
+<h3>Contributing Tutorials<a class="headerlink" href="#contributing-tutorials" title="Link to this heading"></a></h3>
+<p>The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
+<code class="docutils literal notranslate"><span class="pre">.py</span></code> files in the <code class="docutils literal notranslate"><span class="pre">examples/tutorials</span></code> folder of the repository. To add a new tutorial:</p>
+<ul class="simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file in the <code class="docutils literal notranslate"><span class="pre">examples/tutorials/advanced</span></code> folder.</p></li>
+<li><p>Write the tutorial in “notebook” style with code mixed with paragraphs explaining what
+is being done. See the other tutorials for the format.</p></li>
+<li><p>Choose the most representative figure as the thumbnail figure by adding the comment
+line <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">sphinx_gallery_thumbnail_number</span> <span class="pre">=</span> <span class="pre">&lt;fig_number&gt;</span></code> at the end of the tutorial.
+The <em>fig_number</em> starts from 1.</p></li>
+</ul>
+<p>Guidelines for a good tutorial:</p>
+<ul class="simple">
+<li><p>Each tutorial should focus on a particular set of tasks that a user might want to
+accomplish: plotting grids, interpolation, configuring the frame, projections, etc.</p></li>
+<li><p>The tutorial code should be as simple as possible. Avoid using advanced/complex Python
+features or abbreviations.</p></li>
+<li><p>Explain the options and features in as much detail as possible. The gallery has
+concise examples while the tutorials are detailed and full of text.</p></li>
+<li><p>SI units should be used in the example code for tutorial plots.</p></li>
+</ul>
+<p>Note that the <code>pygmt.Figure.show</code> method needs to be called for a plot
+to be inserted into the documentation.</p>
+</section>
+<section id="editing-the-api-documentation">
+<h3>Editing the API Documentation<a class="headerlink" href="#editing-the-api-documentation" title="Link to this heading"></a></h3>
+<p>The API documentation is built from the docstrings in the Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code> files under
+the <code class="docutils literal notranslate"><span class="pre">pygmt/src/</span></code> and <code class="docutils literal notranslate"><span class="pre">pygmt/datasets/</span></code> folders. <strong>All docstrings</strong> should follow the
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard">NumPy style guide</a>.
+All functions/classes/methods should have docstrings with a full description of all
+arguments and return values.</p>
+<p>While the maximum line length for code is automatically set by ruff, docstrings
+must be formatted manually. To play nicely with Jupyter and IPython, <strong>keep docstrings
+limited to 88 characters</strong> per line.</p>
+</section>
+<section id="standards-for-example-code">
+<h3>Standards for Example Code<a class="headerlink" href="#standards-for-example-code" title="Link to this heading"></a></h3>
+<p>When editing documentation, use the following standards to demonstrate the example code:</p>
+<ol class="arabic simple">
+<li><p>Python arguments, such as import statements, Boolean expressions, and function
+arguments should be wrapped as <code class="docutils literal notranslate"><span class="pre">code</span></code> by using `` on both sides of the code.
+Examples: ``import pygmt`` results in <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pygmt</span></code>, ``True`` results in <code class="docutils literal notranslate"><span class="pre">True</span></code>,
+``style=”v”`` results in <code class="docutils literal notranslate"><span class="pre">style=&quot;v&quot;</span></code>.</p></li>
+<li><p>Literal GMT arguments should be <strong>bold</strong> by wrapping the arguments with **
+(two asterisks) on both sides. The argument description should be in <em>italicized</em>
+with * (single asterisk) on both sides.
+Examples: <code class="docutils literal notranslate"><span class="pre">**+l**\</span> <span class="pre">*label*</span></code> results in <strong>+l</strong><em>label</em>, <code class="docutils literal notranslate"><span class="pre">**05m**</span></code> results in <strong>05m</strong>.</p></li>
+<li><p>Optional arguments are wrapped with [ ] (square brackets).</p></li>
+<li><p>Arguments that are mutually exclusive are separated with a | (bar) to denote “or”.</p></li>
+<li><p>Default arguments for parameters and configuration settings are wrapped
+with [ ] (square brackets) with the prefix “Default is”. Example: [Default is
+<strong>p</strong>].</p></li>
+</ol>
+</section>
+<section id="cross-referencing-with-sphinx">
+<h3>Cross-referencing with Sphinx<a class="headerlink" href="#cross-referencing-with-sphinx" title="Link to this heading"></a></h3>
+<p>The API reference is manually assembled in <code class="docutils literal notranslate"><span class="pre">doc/api/index.rst</span></code>.
+The <em>autodoc</em> sphinx extension will automatically create pages for each
+function/class/module/method listed there.</p>
+<p>You can reference functions, classes, modules, and methods from anywhere
+(including docstrings) using:</p>
+<ul class="simple">
+<li><p><code>:func:`package.module.function`</code></p></li>
+<li><p><code>:class:`package.module.class`</code></p></li>
+<li><p><code>:meth:`package.module.method`</code></p></li>
+<li><p><code>:mod:`package.module`</code></p></li>
+</ul>
+<p>An example would be to use
+<code>:meth:`pygmt.Figure.grdview`</code> to link
+to <a class="reference external" href="https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html">https://www.pygmt.org/latest/api/generated/pygmt.Figure.grdview.html</a>.
+PyGMT documentation that is not a class, method,
+or module can be linked with <code>:doc:`Any Link Text &lt;/path/to/the/file&gt;`</code>.
+For example, <code>:doc:`Install instructions &lt;/install&gt;`</code> links
+to <a class="reference external" href="https://www.pygmt.org/latest/install.html">https://www.pygmt.org/latest/install.html</a>.</p>
+<p>Linking to the GMT documentation and GMT configuration parameters can be done using:</p>
+<ul class="simple">
+<li><p><code>:gmt-docs:`page_name.html`</code></p></li>
+<li><p><code>:gmt-term:`GMT_PARAMETER`</code></p></li>
+</ul>
+<p>An example would be using
+<code>:gmt-docs:`makecpt.html`</code> to link to <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/makecpt.html">https://docs.generic-mapping-tools.org/6.5/makecpt.html</a>.
+For GMT configuration parameters, an example is
+<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
+<p>Sphinx will create a link to the automatically generated page for that
+function/class/module/method.</p>
+</section>
+</section>
+<section id="contributing-code">
+<h2>Contributing Code<a class="headerlink" href="#contributing-code" title="Link to this heading"></a></h2>
+<section id="pygmt-code-overview">
+<h3>PyGMT Code Overview<a class="headerlink" href="#pygmt-code-overview" title="Link to this heading"></a></h3>
+<p>The source code for PyGMT is located in the <code class="docutils literal notranslate"><span class="pre">pygmt/</span></code> directory. When contributing
+code, be sure to follow the general guidelines in the
+<a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a> section.</p>
+</section>
+<section id="code-style">
+<h3>Code Style<a class="headerlink" href="#code-style" title="Link to this heading"></a></h3>
+<p>We use the <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> tool to format the code, so we
+don’t have to think about it. It loosely follow the <a class="reference external" href="http://pep8.org">PEP8</a> guide
+but with a few differences. Regardless, you won’t have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>format
+</pre></div>
+</div>
+<p>For consistency, we also use <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> hooks to enforce UNIX-style line endings
+(<code class="docutils literal notranslate"><span class="pre">\n</span></code>) and file permission 644 (<code class="docutils literal notranslate"><span class="pre">-rw-r--r--</span></code>) throughout the whole project.
+Don’t worry if you forget to do it. Our continuous integration systems will
+warn us and you can make a new commit with the formatted code.
+Even better, you can just write <code class="docutils literal notranslate"><span class="pre">/format</span></code> in the first line of any comment in a
+pull request to lint the code automatically.</p>
+<p>When wrapping a new alias, use an underscore to separate words bridged by vowels
+(aeiou), such as <code class="docutils literal notranslate"><span class="pre">no_skip</span></code> and <code class="docutils literal notranslate"><span class="pre">z_only</span></code>. Do not use an underscore to separate
+words bridged only by consonants, such as <code class="docutils literal notranslate"><span class="pre">distcalc</span></code>, and <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>. This
+convention is not applied by the code checking tools, but the PyGMT maintainers
+will comment on any pull requests as needed.</p>
+<p>When working on a tutorial or a gallery plot, it is good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code> as code block separators (please
+refer to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/2660">issue #2660</a>
+for the discussions) and require at least one separator in all example files.</p>
+<p>We also use <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> to check the quality of the code
+and quickly catch common errors.</p>
+<p>The <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/Makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>
+contains rules for running the linter checks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check<span class="w">   </span><span class="c1"># Runs ruff in check mode</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-your-code">
+<h3>Testing your Code<a class="headerlink" href="#testing-your-code" title="Link to this heading"></a></h3>
+<p>Automated testing helps ensure that our code is as free of bugs as it can be.
+It also lets us know immediately if a change we make breaks any other part of the code.</p>
+<p>All of our test code and data are stored in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subpackage.
+We use the <a class="reference external" href="https://pytest.org/">pytest</a> framework to run the test suite.</p>
+<p>Please write tests for your code so that we can be sure that it won’t break any of the
+existing functionality.
+Tests also help us be confident that we won’t break your code in the future.</p>
+<p>When writing tests, don’t test everything that the GMT function already tests, such as
+the every unique combination arguments. An exception to this would be the most popular
+methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
+The highest priority for tests should be the Python-specific code, such as numpy,
+pandas, and xarray objects and the virtualfile mechanism.</p>
+<p>If you’re <strong>new to testing</strong>, see existing test files for examples of things to do.
+<strong>Don’t let the tests keep you from submitting your contribution!</strong>
+If you’re not sure how to do this or are having trouble, submit your pull request
+anyway.
+We will help you create the tests and sort out any kind of problem during code review.</p>
+<p>Pull the baseline images, run the tests, and calculate test coverage using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
+dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+make test
+</pre></div>
+</div>
+<p>The coverage report will let you know which lines of code are touched by the tests.
+If all the tests pass, you can view the coverage reports by opening <code class="docutils literal notranslate"><span class="pre">htmlcov/index.html</span></code>
+in your browser. <strong>Strive to get 100% coverage for the lines you changed.</strong>
+It’s OK if you can’t or don’t know how to test something.
+Leave a comment in the PR and we’ll help you out.</p>
+<p>You can also run tests in just one test script using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest pygmt/tests/NAME_OF_TEST_FILE.py
+</pre></div>
+</div>
+<p>or run tests which contain names that match a specific keyword expression:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest -k KEYWORD pygmt/tests
+</pre></div>
+</div>
+</section>
+<section id="testing-plots">
+<h3>Testing Plots<a class="headerlink" href="#testing-plots" title="Link to this heading"></a></h3>
+<p>Writing an image-based test is only slightly more difficult than a simple test.
+The main consideration is that you must specify the “baseline” or reference
+image, and compare it with a “generated” or test image. This is handled using
+the <em>decorator</em> functions <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.mpl_image_compare</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;check_figures_equal</span></code>
+whose usage are further described below.</p>
+<section id="using-mpl-image-compare">
+<h4>Using mpl_image_compare<a class="headerlink" href="#using-mpl-image-compare" title="Link to this heading"></a></h4>
+<blockquote>
+<div><p><strong>This is the preferred way to test plots whenever possible.</strong></p>
+</div></blockquote>
+<p>This method uses the <a class="reference external" href="https://github.com/matplotlib/pytest-mpl">pytest-mpl</a>
+plug-in to test plot generating code.
+Every time the tests are run, <code class="docutils literal notranslate"><span class="pre">pytest-mpl</span></code> compares the generated plots with known
+correct ones stored in <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code>.
+If your test created a <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object, you can test it by adding a <em>decorator</em> and
+returning the <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">mpl_image_compare</span>
+<span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test that my plotting method works.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span>
+</pre></div>
+</div>
+<p>Your test function <strong>must</strong> return the <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object and you can only
+test one figure per function.</p>
+<p>Before you can run your test, you’ll need to generate a <em>baseline</em> (a correct
+version) of your plot.
+Run the following from the repository root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>--mpl-generate-path<span class="o">=</span>baseline<span class="w"> </span>pygmt/tests/NAME_OF_TEST_FILE.py
+</pre></div>
+</div>
+<p>This will create a <code class="docutils literal notranslate"><span class="pre">baseline</span></code> folder with all the plots generated in your test
+file.
+Visually inspect the one corresponding to your test function.
+If it’s correct, copy it (and only it) to <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code>.
+When you run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> the next time, your test should be executed and
+passing.</p>
+<p>Don’t forget to commit the baseline image as well!
+The images should be pushed up into a remote repository using <code class="docutils literal notranslate"><span class="pre">dvc</span></code> (instead of
+<code class="docutils literal notranslate"><span class="pre">git</span></code>) as will be explained in the next section.</p>
+</section>
+<section id="using-data-version-control-dvc-to-manage-test-images">
+<h4>Using Data Version Control (<a class="reference external" href="https://dvc.org">dvc</a>) to Manage Test Images<a class="headerlink" href="#using-data-version-control-dvc-to-manage-test-images" title="Link to this heading"></a></h4>
+<p>As the baseline images are quite large blob files that can change often (e.g.
+with new GMT versions), it is not ideal to store them in <code class="docutils literal notranslate"><span class="pre">git</span></code> (which is meant
+for tracking plain text files). Instead, we will use <a class="reference external" href="https://dvc.org"><code class="docutils literal notranslate"><span class="pre">dvc</span></code></a>
+which is like <code class="docutils literal notranslate"><span class="pre">git</span></code> but for data. What <code class="docutils literal notranslate"><span class="pre">dvc</span></code> does is to store the hash (md5sum)
+of a file. For example, given an image file like <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>, <code class="docutils literal notranslate"><span class="pre">dvc</span></code> will
+generate a <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> plain text file containing the hash of the
+image. This <code class="docutils literal notranslate"><span class="pre">test_logo.png.dvc</span></code> file can be stored as usual on GitHub, while
+the <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code> file can be stored separately on our <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote at
+<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt">https://dagshub.com/GenericMappingTools/pygmt</a>.</p>
+<p>To <strong>pull</strong> or sync files from the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote to your local repository, use
+the commands below. Note how <code class="docutils literal notranslate"><span class="pre">dvc</span></code> commands are very similar to <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc status  # should report any files &#39;not_in_cache&#39;
+dvc pull  # pull down files from DVC remote cache (fetch + checkout)
+</pre></div>
+</div>
+<p>Once the sync/download is complete, you should notice two things. There will be
+images stored in the <code class="docutils literal notranslate"><span class="pre">pygmt/tests/baseline</span></code> folder (e.g. <code class="docutils literal notranslate"><span class="pre">test_logo.png</span></code>) and
+these images are technically reflinks/symlinks/copies of the files under the
+<code class="docutils literal notranslate"><span class="pre">.dvc/cache</span></code> folder. You can now run the image comparison test suite as per
+usual.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pytest pygmt/tests/test_logo.py  # run only one test
+make test  # run the entire test suite
+</pre></div>
+</div>
+<p>To <strong>push</strong> or sync changes from your local repository up to the <code class="docutils literal notranslate"><span class="pre">dvc</span></code> remote
+at DAGsHub, you will first need to set up authentication using the commands
+below. This only needs to be done once, i.e. the first time you contribute a
+test image to the PyGMT project.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>dvc remote modify upstream --local auth basic
+dvc remote modify upstream --local user &quot;$DAGSHUB_USER&quot;
+dvc remote modify upstream --local password &quot;$DAGSHUB_PASS&quot;
+</pre></div>
+</div>
+<p>The configuration will be stored inside your <code class="docutils literal notranslate"><span class="pre">.dvc/config.local</span></code> file. Note
+that the $DAGSHUB_PASS token can be generated at
+<a class="reference external" href="https://dagshub.com/user/settings/tokens">https://dagshub.com/user/settings/tokens</a>
+after creating a DAGsHub account (can be linked to your GitHub account). Once
+you have an account set up, please ask one of the PyGMT maintainers to add you
+as a collaborator at
+<a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration</a>
+before proceeding with the next steps.</p>
+<p>The entire workflow for generating or modifying baseline test images can be
+summarized as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Sync with both git and dvc remotes
+git pull
+dvc pull
+
+# Generate new baseline images
+pytest --mpl-generate-path=baseline pygmt/tests/test_logo.py
+mv baseline/*.png pygmt/tests/baseline/
+
+# Generate hash for baseline image and stage the *.dvc file in git
+dvc status  # Check which files need to be added to dvc
+dvc add pygmt/tests/baseline/test_logo.png
+git add pygmt/tests/baseline/test_logo.png.dvc
+
+# Commit changes and push to both the git and dvc remotes
+git commit -m &quot;Add test_logo.png into DVC&quot;
+dvc status --remote upstream  # Report which files will be pushed to the dvc remote
+dvc push  # Run before git push to enable automated testing with the new images
+git push
+</pre></div>
+</div>
+</section>
+<section id="using-check-figures-equal">
+<h4>Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code><a class="headerlink" href="#using-check-figures-equal" title="Link to this heading"></a></h4>
+<p>This approach draws the same figure using two different methods (the reference
+method and the tested method), and checks that both of them are the same.
+It takes two <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> objects (<code class="docutils literal notranslate"><span class="pre">fig_ref</span></code> and <code class="docutils literal notranslate"><span class="pre">fig_test</span></code>), generates a png
+image, and checks for the Root Mean Square (RMS) error between the two.
+Here’s an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@check_figures_equal</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test that my plotting method works.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">Figure</span><span class="p">()</span>
+    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="team.html" class="btn btn-neutral float-left" title="PyGMT Team" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="maintenance.html" class="btn btn-neutral float-right" title="Maintainers Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

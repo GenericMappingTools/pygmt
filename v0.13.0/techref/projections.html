@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>GMT Map Projections &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/techref/projections.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supported Fonts" href="fonts.html" />
+    <link rel="prev" title="Technical Reference" href="index.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Technical Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">GMT Map Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fonts.html">Supported Fonts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encodings.html">Supported Encodings and Non-ASCII Characters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Technical Reference</a></li>
+      <li class="breadcrumb-item active">GMT Map Projections</li>
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/techref/projections.md"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gmt-map-projections">
+<h1>GMT Map Projections<a class="headerlink" href="#gmt-map-projections" title="Link to this heading"></a></h1>
+<p>The table below shows the projection codes for the 31 GMT map projections:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>PyGMT Projection Argument</p></th>
+<th class="head"><p>Projection Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>A</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_lambert.html"><span class="doc">Lambert azimuthal equal area</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>B</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/conic/conic_albers.html"><span class="doc">Albers conic equal area</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>C</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_cassini.html"><span class="doc">Cassini cylindrical</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Cyl_stere</strong>/[lon<sub>0</sub>/[lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_stereographic.html"><span class="doc">Cylindrical stereographic</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>D</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/conic/conic_equidistant.html"><span class="doc">Equidistant conic</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>E</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_equidistant.html"><span class="doc">Azimuthal equidistant</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>F</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_gnomonic.html"><span class="doc">Azimuthal gnomonic</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>G</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_orthographic.html"><span class="doc">Azimuthal orthographic</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>G</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>width</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth</em>/<em>vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>]</p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_general_perspective.html"><span class="doc">General perspective</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>H</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_hammer.html"><span class="doc">Hammer equal area</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>I</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_sinusoidal.html"><span class="doc">Sinusoidal equal area</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>J</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_miller.html"><span class="doc">Miller cylindrical</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kf</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_eckertIV.html"><span class="doc">Eckert IV equal area</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ks</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_eckertVI.html"><span class="doc">Eckert VI equal area</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>L</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/conic/conic_lambert.html"><span class="doc">Lambert conic conformal</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M</strong>[lon<sub>0</sub>/[lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_mercator.html"><span class="doc">Mercator cylindrical</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>N</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_robinson.html"><span class="doc">Robinson</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Oa</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>azimuth</em>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_oblique_mercator_1.html"><span class="doc">Oblique Mercator, 1: origin and azimuth</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Ob</strong>lon<sub>0</sub>/lat<sub>0</sub>/lon<sub>1</sub>/lat<sub>1</sub>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_oblique_mercator_2.html"><span class="doc">Oblique Mercator, 2: two points</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Oc</strong>lon<sub>0</sub>/lat<sub>0</sub>/lon<sub>p</sub>/lat<sub>p</sub>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_oblique_mercator_3.html"><span class="doc">Oblique Mercator, 3: origin and pole</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>P</strong><em>width</em>[<strong>+a</strong>][<strong>+f</strong>[<strong>e</strong>|<strong>p</strong>|<em>radius</em>]][<strong>+r</strong><em>offset</em>][<strong>+t</strong><em>origin</em>][<strong>+z</strong>[<strong>p</strong>|<em>radius</em>]]</p></td>
+<td><p><a class="reference internal" href="../projections/nongeo/polar.html"><span class="doc">Polar</span></a> [azimuthal] (<span class="math notranslate nohighlight">\(\theta, r\)</span>) (or cylindrical)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Poly</strong>/[lon<sub>0</sub>/[lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/conic/polyconic.html"><span class="doc">Polyconic</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Q</strong>[lon<sub>0</sub>/[lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_equidistant.html"><span class="doc">Equidistant cylindrica</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>R</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_winkel_tripel.html"><span class="doc">Winkel Tripel</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>S</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/azim/azim_general_stereographic.html"><span class="doc">General stereographic</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>T</strong>lon<sub>0</sub>[/lat<sub>0</sub>]/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_transverse_mercator.html"><span class="doc">Transverse Mercator</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>U</strong><em>zone</em>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_universal_transverse_mercator.html"><span class="doc">Universal Transverse Mercator (UTM)</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>V</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_van_der_grinten.html"><span class="doc">Van der Grinten</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>W</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/misc/misc_mollweide.html"><span class="doc">Mollweide</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>X</strong><em>width</em>[<strong>l</strong>|<strong>p</strong><em>exp</em>|<strong>T</strong>|<strong>t</strong>][/<em>height</em>[<strong>l</strong>|<strong>p</strong><em>exp</em>|<strong>T</strong>|<strong>t</strong>]][<strong>d</strong>]</p></td>
+<td><p><a class="reference internal" href="../projections/nongeo/cartesian_linear.html"><span class="doc">Linear</span></a>, <a class="reference internal" href="../projections/nongeo/cartesian_logarithmic.html"><span class="doc">logarithmic</span></a>, <a class="reference internal" href="../projections/nongeo/cartesian_power.html"><span class="doc">power</span></a>, and time</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Y</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>width</em></p></td>
+<td><p><a class="reference internal" href="../projections/cyl/cyl_equal_area.html"><span class="doc">Cylindrical equal area</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Technical Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fonts.html" class="btn btn-neutral float-right" title="Supported Fonts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

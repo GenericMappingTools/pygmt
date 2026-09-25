@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.project &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.project.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.select" href="pygmt.select.html" />
+    <link rel="prev" title="pygmt.nearneighbor" href="pygmt.nearneighbor.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#operations-on-tabular-data">Operations on tabular data</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.binstats.html">pygmt.binstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.blockmean.html">pygmt.blockmean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.filter1d.html">pygmt.filter1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.triangulate.html">pygmt.triangulate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.triangulate.regular_grid.html">pygmt.triangulate.regular_grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.triangulate.delaunay_triples.html">pygmt.triangulate.delaunay_triples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#operations-on-raster-data">Operations on raster data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#crossover-analysis-with-x2sys">Crossover analysis with x2sys</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.project</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.project&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-project">
+<h1>pygmt.project<a class="headerlink" href="#pygmt-project" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygmt.project">
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pandas'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/project.html#project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.project" title="Link to this definition"></a></dt>
+<dd><p>Project data onto lines or great circles, or generate tracks.</p>
+<p>Project reads arbitrary <span class="math notranslate nohighlight">\((x, y [, z])\)</span> data and returns any
+combination of <span class="math notranslate nohighlight">\((x, y, z, p, q, r, s)\)</span>, where <span class="math notranslate nohighlight">\((p, q)\)</span> are the
+coordinates in the projection, <span class="math notranslate nohighlight">\((r, s)\)</span> is the position in the
+<span class="math notranslate nohighlight">\((x, y)\)</span> coordinate system of the point on the profile (<span class="math notranslate nohighlight">\(q = 0\)</span>
+path) closest to <span class="math notranslate nohighlight">\((x, y)\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> is all remaining columns in
+the input (beyond the required <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> columns).</p>
+<p>Alternatively, <code class="docutils literal notranslate"><span class="pre">project</span></code> may be used to generate
+<span class="math notranslate nohighlight">\((r, s, p)\)</span> triplets at equal increments along a profile using the
+<code class="docutils literal notranslate"><span class="pre">generate</span></code> parameter. In this case, the value of <code class="docutils literal notranslate"><span class="pre">data</span></code> is ignored
+(you can use, e.g., <code class="docutils literal notranslate"><span class="pre">data=None</span></code>).</p>
+<p>Projections are defined in any (but only) one of three ways:</p>
+<ol class="arabic simple">
+<li><p>By a <code class="docutils literal notranslate"><span class="pre">center</span></code> and an <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> in degrees clockwise from North.</p></li>
+<li><p>By a <code class="docutils literal notranslate"><span class="pre">center</span></code> and <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> of the projection path.</p></li>
+<li><p>By a <code class="docutils literal notranslate"><span class="pre">center</span></code> and a <code class="docutils literal notranslate"><span class="pre">pole</span></code> position.</p></li>
+</ol>
+<p>To spherically project data along a great circle path, an oblique
+coordinate system is created which has its equator along that path, and the
+zero meridian through the Center. Then the oblique longitude (<span class="math notranslate nohighlight">\(p\)</span>)
+corresponds to the distance from the Center along the great circle, and the
+oblique latitude (<span class="math notranslate nohighlight">\(q\)</span>) corresponds to the distance perpendicular to
+the great circle path. When moving in the increasing (<span class="math notranslate nohighlight">\(p\)</span>) direction,
+(toward B or in the azimuth direction), the positive (<span class="math notranslate nohighlight">\(q\)</span>) direction
+is to your left. If a Pole has been specified, then the positive
+(<span class="math notranslate nohighlight">\(q\)</span>) direction is toward the pole.</p>
+<p>To specify an oblique projection, use the <code class="docutils literal notranslate"><span class="pre">pole</span></code> parameter to set
+the pole. Then the equator of the projection is already determined and the
+<code class="docutils literal notranslate"><span class="pre">center</span></code> parameter is used to locate the <span class="math notranslate nohighlight">\(p = 0\)</span> meridian. The
+center <em>cx/cy</em> will be taken as a point through which the <span class="math notranslate nohighlight">\(p = 0\)</span>
+meridian passes. If you do not care to choose a particular point, use the
+South pole (<em>cx</em> = 0, <em>cy</em> = -90).</p>
+<p>Data can be selectively windowed by using the <code class="docutils literal notranslate"><span class="pre">length</span></code> and <code class="docutils literal notranslate"><span class="pre">width</span></code>
+parameters. If <code class="docutils literal notranslate"><span class="pre">width</span></code> is used, the projection width is set to use only
+data with <span class="math notranslate nohighlight">\(w_{min} &lt; q &lt; w_{max}\)</span>. If <code class="docutils literal notranslate"><span class="pre">length</span></code> is set, then
+the length is set to use only those data with
+<span class="math notranslate nohighlight">\(l_{min} &lt; p &lt; l_{max}\)</span>. If the <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> parameter
+has been used to define the projection, then <code class="docutils literal notranslate"><span class="pre">length=&quot;w&quot;</span></code> may be used to
+window the length of the projection to exactly the span from O to B.</p>
+<p>Flat Earth (Cartesian) coordinate transformations can also be made. Set
+<code class="docutils literal notranslate"><span class="pre">flat_earth=True</span></code> and remember that azimuth is clockwise from North (the
+y axis), NOT the usual cartesian theta, which is counterclockwise from the
+x axis. azimuth = 90 - theta.</p>
+<p>No assumptions are made regarding the units for
+<span class="math notranslate nohighlight">\(x, y, r, s, p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}\)</span>.
+If <code class="docutils literal notranslate"><span class="pre">unit</span></code> is selected, map units are assumed and <span class="math notranslate nohighlight">\(x, y, r, s\)</span> must
+be in degrees and
+<span class="math notranslate nohighlight">\(p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}\)</span>
+will be in km.</p>
+<p>Calculations of specific great-circle and geodesic distances or for
+back-azimuths or azimuths are better done using <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/mapproject">https://docs.generic-mapping-tools.org/6.5/mapproject</a> as
+project is strictly spherical.</p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/project.html">https://docs.generic-mapping-tools.org/6.5/project.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>A = azimuth</p></li>
+<li><p>C = center</p></li>
+<li><p>E = endpoint</p></li>
+<li><p>F = convention</p></li>
+<li><p>G = generate</p></li>
+<li><p>L = length</p></li>
+<li><p>N = flat_earth</p></li>
+<li><p>Q = unit</p></li>
+<li><p>S = sort</p></li>
+<li><p>T = pole</p></li>
+<li><p>V = verbose</p></li>
+<li><p>W = width</p></li>
+<li><p>Z = ellipse</p></li>
+<li><p>f = coltypes</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.3.1.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><em>geopandas.GeoDataFrame</em></a>) – Pass in (x, y, z) or (longitude, latitude, elevation) values by
+providing a file name to an ASCII data table, a 2-D
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+tabular data.</p></li>
+<li><p><strong>output_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>, <code class="docutils literal notranslate"><span class="pre">'numpy'</span></code>, <code class="docutils literal notranslate"><span class="pre">'file'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'pandas'</span></code>) – <p>Desired output type of the result data.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> will return a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> will return a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> will save the result to the file specified by the <code class="docutils literal notranslate"><span class="pre">outfile</span></code>
+parameter.</p></li>
+</ul>
+</p></li>
+<li><p><strong>outfile</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – File name for saving the result data. Required if <code class="docutils literal notranslate"><span class="pre">output_type=&quot;file&quot;</span></code>.
+If specified, <code class="docutils literal notranslate"><span class="pre">output_type</span></code> will be forced to be <code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>.</p></li>
+<li><p><strong>center</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>cx</em>/<em>cy</em>.
+Set the origin of the projection, in Definition 1 or 2. If
+Definition 3 is used, then <em>cx/cy</em> are the coordinates of a
+point through which the oblique zero meridian (<span class="math notranslate nohighlight">\(p = 0\)</span>) should
+pass. The <em>cx/cy</em> is not required to be 90 degrees from the pole.</p></li>
+<li><p><strong>azimuth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Define the azimuth of the projection (Definition 1).</p></li>
+<li><p><strong>endpoint</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>bx</em>/<em>by</em>.
+Define the end point of the projection path (Definition 2).</p></li>
+<li><p><strong>convention</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Specify the desired output using any combination of <strong>xyzpqrs</strong>, in
+any order [Default is <strong>xypqrsz</strong>]. Do not space between the letters.
+Use lower case. The output will be columns of values corresponding to
+your <code class="docutils literal notranslate"><span class="pre">convention</span></code>. The <strong>z</strong> flag is special and refers to all
+numerical columns beyond the leading <strong>x</strong> and <strong>y</strong> in your input
+record. The <strong>z</strong> flag also includes any trailing text (which is
+placed at the end of the record regardless of the order of <strong>z</strong> in
+<code class="docutils literal notranslate"><span class="pre">convention</span></code>). <strong>Note</strong>: If <code class="docutils literal notranslate"><span class="pre">generate</span></code> is True, then the output
+order is hardwired to be <strong>rsp</strong> and <code class="docutils literal notranslate"><span class="pre">convention</span></code> is not allowed.</p></li>
+<li><p><strong>generate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>dist</em> [/<em>colat</em>][<strong>+c</strong>|<strong>h</strong>].
+Create <span class="math notranslate nohighlight">\((r, s, p)\)</span> output data every <em>dist</em> units of <span class="math notranslate nohighlight">\(p\)</span>
+(See <code class="docutils literal notranslate"><span class="pre">unit</span></code> parameter). Alternatively, append <em>/colat</em> for a small
+circle instead [Default is a colatitude of 90, i.e., a great circle].
+If setting a pole with <code class="docutils literal notranslate"><span class="pre">pole</span></code> and you want the small circle to go
+through <em>cx</em>/<em>cy</em>, append <strong>+c</strong> to compute the required colatitude.
+Use <code class="docutils literal notranslate"><span class="pre">center</span></code> and <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> to generate a circle that goes
+through the center and end point. Note, in this case the center and
+end point cannot be farther apart than <span class="math notranslate nohighlight">\(2|\mbox{colat}|\)</span>.
+Finally, if you append <strong>+h</strong> then we will report the position of
+the pole as part of the segment header [Default is no header].
+<strong>Note</strong>: No input is read and the value of <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">z</span></code> is ignored if <code class="docutils literal notranslate"><span class="pre">generate</span></code> is used.</p></li>
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<strong>w</strong>|<em>l_min</em>/<em>l_max</em>].
+Project only those data whose <em>p</em> coordinate is
+within <span class="math notranslate nohighlight">\(l_{min} &lt; p &lt; l_{max}\)</span>. If <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> has been set,
+then you may alternatively use <strong>w</strong> to stay within the distance from
+<code class="docutils literal notranslate"><span class="pre">center</span></code> to <code class="docutils literal notranslate"><span class="pre">endpoint</span></code>.</p></li>
+<li><p><strong>flat_earth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Make a Cartesian coordinate transformation in the plane.
+[Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>; plane created with spherical trigonometry.]</p></li>
+<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Set units for <span class="math notranslate nohighlight">\(x, y, r, s\)</span> to degrees and
+<span class="math notranslate nohighlight">\(p, q, dist, l_{min}, l_{max}, w_{min}, w_{max}\)</span> to km.
+[Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>; all arguments use the same units]</p></li>
+<li><p><strong>sort</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Sort the output into increasing <span class="math notranslate nohighlight">\(p\)</span> order. Useful when projecting
+random data into a sequential profile.</p></li>
+<li><p><strong>pole</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>px</em>/<em>py</em>.
+Set the position of the rotation pole of the projection.
+(Definition 3).</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>w_min</em>/<em>w_max</em>.
+Project only those data whose <span class="math notranslate nohighlight">\(q\)</span> coordinate is
+within <span class="math notranslate nohighlight">\(w_{min} &lt; q &lt; w_{max}\)</span>.</p></li>
+<li><p><strong>ellipse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>major</em>/<em>minor</em>/<em>azimuth</em> [<strong>+e</strong>|<strong>n</strong>].
+Used in conjunction with <code class="docutils literal notranslate"><span class="pre">center</span></code> (sets its center) and <code class="docutils literal notranslate"><span class="pre">generate</span></code>
+(sets the distance increment) to create the coordinates of an ellipse
+with <em>major</em> and <em>minor</em> axes given in km (unless <code class="docutils literal notranslate"><span class="pre">flat_earth</span></code> is
+given for a Cartesian ellipse) and the <em>azimuth</em> of the major axis in
+degrees. Append <strong>+e</strong> to adjust the increment set via <code class="docutils literal notranslate"><span class="pre">generate</span></code> so
+that the the ellipse has equal distance increments [Default uses the
+given increment and closes the ellipse].  Instead, append <strong>+n</strong> to set
+a specific number of unique equidistant data via <code class="docutils literal notranslate"><span class="pre">generate</span></code>. For
+degenerate ellipses you can just supply a single <em>diameter</em> instead.  A
+geographic diameter may be specified in any desired unit other than km
+by appending the unit (e.g., 3-D for degrees) [Default is km];
+the increment is assumed to be in the same unit.  <strong>Note</strong>:
+For the Cartesian ellipse (which requires <code class="docutils literal notranslate"><span class="pre">flat_earth</span></code>), the
+<em>direction</em> is counter-clockwise from the horizontal instead of an
+<em>azimuth</em>.</p></li>
+<li><p><strong>coltypes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>i</strong>|<strong>o</strong>]<em>colinfo</em>.
+Specify data types of input and/or output columns (time or
+geographical data). Full documentation is at
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#f-full</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p><em>ret</em> – Return type depends on <code class="docutils literal notranslate"><span class="pre">outfile</span></code> and <code class="docutils literal notranslate"><span class="pre">output_type</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (output will be stored in file set by
+<code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set
+(depends on <code class="docutils literal notranslate"><span class="pre">output_type</span></code>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-pygmt-project">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.project</span></code><a class="headerlink" href="#examples-using-pygmt-project" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points..."><img alt="" src="../../_images/sphx_glr_great_circles_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a d..."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.nearneighbor.html" class="btn btn-neutral float-left" title="pygmt.nearneighbor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.select.html" class="btn btn-neutral float-right" title="pygmt.select" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

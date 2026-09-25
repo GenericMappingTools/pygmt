@@ -1,0 +1,13 @@
+pygmt.grdvolume
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdvolume
+
+.. minigallery:: pygmt.grdvolume
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

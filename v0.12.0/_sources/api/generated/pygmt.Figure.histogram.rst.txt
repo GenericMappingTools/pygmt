@@ -1,0 +1,13 @@
+pygmt.Figure.histogram
+======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.histogram
+
+.. minigallery:: pygmt.Figure.histogram
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

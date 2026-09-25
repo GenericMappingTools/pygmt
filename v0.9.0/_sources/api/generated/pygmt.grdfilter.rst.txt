@@ -1,0 +1,13 @@
+pygmt.grdfilter
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdfilter
+
+.. minigallery:: pygmt.grdfilter
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

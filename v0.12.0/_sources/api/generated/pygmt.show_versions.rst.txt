@@ -1,0 +1,13 @@
+pygmt.show\_versions
+====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: show_versions
+
+.. minigallery:: pygmt.show_versions
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

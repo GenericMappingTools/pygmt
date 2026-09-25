@@ -1,0 +1,12 @@
+pygmt.Figure.solar
+==================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.solar
+
+.. include:: backreferences/pygmt.Figure.solar.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

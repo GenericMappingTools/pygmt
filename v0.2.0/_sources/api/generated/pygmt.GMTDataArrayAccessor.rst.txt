@@ -1,0 +1,19 @@
+pygmt.GMTDataArrayAccessor
+==========================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: GMTDataArrayAccessor
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+
+.. include:: backreferences/pygmt.GMTDataArrayAccessor.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.grdcut
+============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdcut
+
+.. minigallery:: pygmt.grdcut
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

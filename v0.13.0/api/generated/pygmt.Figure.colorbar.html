@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.Figure.colorbar &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.Figure.colorbar.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.inset" href="pygmt.Figure.inset.html" />
+    <link rel="prev" title="pygmt.Figure.coast" href="pygmt.Figure.coast.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.inset.html">pygmt.Figure.inset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#saving-and-displaying-the-figure">Saving and displaying the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-the-display-settings">Configuring the display settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#color-palette-table-generation">Color palette table generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.Figure.colorbar</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure.colorbar&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-figure-colorbar">
+<h1>pygmt.Figure.colorbar<a class="headerlink" href="#pygmt-figure-colorbar" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.Figure.colorbar">
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">colorbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equalsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.colorbar" title="Link to this definition"></a></dt>
+<dd><p>Plot colorbars on figures.</p>
+<p>Both horizontal and vertical colorbars are supported. For CPTs with
+gradational colors (i.e., the lower and upper boundary of an interval
+have different colors) we will interpolate to give a continuous scale.
+Variations in intensity due to shading/illumination may be displayed by
+setting the <code class="docutils literal notranslate"><span class="pre">shading</span></code> parameter. Colors may be spaced according to a
+linear scale, all be equal size, or by providing a file with individual
+tile widths.</p>
+<p>Full option list at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/colorbar.html">https://docs.generic-mapping-tools.org/6.5/colorbar.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>B = frame</p></li>
+<li><p>C = cmap</p></li>
+<li><p>D = position</p></li>
+<li><p>F = box</p></li>
+<li><p>G = truncate</p></li>
+<li><p>I = shading</p></li>
+<li><p>J = projection</p></li>
+<li><p>L = equalsize</p></li>
+<li><p>Q = log</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>W = scale</p></li>
+<li><p>Z = zfile</p></li>
+<li><p>c = panel</p></li>
+<li><p>p = perspective</p></li>
+<li><p>t = transparency</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Set colorbar boundary frame, labels, and axes attributes.</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – File name of a CPT file or a series of comma-separated colors
+(e.g., <em>color1</em>,<em>color2</em>,<em>color3</em>) to build a linear continuous
+CPT from those colors automatically.</p></li>
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em>[<strong>+w</strong><em>length</em>[/<em>width</em>]][<strong>+e</strong>[<strong>b</strong>|<strong>f</strong>][<em>length</em>]][<strong>+h</strong>|<strong>v</strong>][<strong>+j</strong><em>justify</em>][<strong>+m</strong>[<strong>a</strong>|<strong>c</strong>|<strong>l</strong>|<strong>u</strong>]][<strong>+n</strong>[<em>txt</em>]][<strong>+o</strong><em>dx</em>[/<em>dy</em>]].
+Define the reference point on the map for the color scale using one of
+four coordinate systems: (1) Use <strong>g</strong> for map (user) coordinates, (2)
+use <strong>j</strong> or <strong>J</strong> for setting <em>refpoint</em> via a 2-character
+justification code that refers to the (invisible) map domain rectangle,
+(3) use <strong>n</strong> for normalized (0-1) coordinates, or (4) use <strong>x</strong> for
+plot coordinates (inches, cm, etc.). All but <strong>x</strong> requires both
+<code class="docutils literal notranslate"><span class="pre">region</span></code> and <code class="docutils literal notranslate"><span class="pre">projection</span></code> to be specified. Append <strong>+w</strong> followed
+by the length and width of the colorbar. If width is not specified
+then it is set to 4% of the given length. Give a negative length to
+reverse the scale bar. Append <strong>+h</strong> to get a horizontal scale
+[Default is vertical (<strong>+v</strong>)]. By default, the anchor point on the
+scale is assumed to be the bottom left corner (<strong>BL</strong>), but this can
+be changed by appending <strong>+j</strong> followed by a 2-character
+justification code <em>justify</em>.</p></li>
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular border around the color scale.
+Alternatively, specify a different pen with <strong>+p</strong><em>pen</em>. Add
+<strong>+g</strong><em>fill</em> to fill the scale panel [Default is no fill]. Append
+<strong>+c</strong><em>clearance</em> where <em>clearance</em> is either gap, xgap/ygap, or
+lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
+y-direction, or individual side spacings between scale and border.
+Append <strong>+i</strong> to draw a secondary, inner border as well. We use a
+uniform gap between borders of 2p and the <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_DEFAULTS_PEN">MAP_DEFAULTS_PEN</a>
+unless other values are specified. Append <strong>+r</strong> to draw rounded
+rectangular borders instead, with a 6p corner radius. You can override
+this radius by appending another value. Finally, append <strong>+s</strong> to draw
+an offset background shaded region. Here, <em>dx/dy</em> indicates the shift
+relative to the foreground frame [Default is <code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and shade
+sets the fill style to use for shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>zlo</em>/<em>zhi</em>.
+Truncate the incoming CPT so that the lowest and highest z-levels are
+to <em>zlo</em> and <em>zhi</em>. If one of these equal NaN then we leave that end of
+the CPT alone. The truncation takes place before the plotting.</p></li>
+<li><p><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Multiply all z-values in the CPT by the provided scale. By default,
+the CPT is used as is.</p></li>
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Add illumination effects. Passing a single numerical value sets the
+range of intensities from -value to +value. If not specified, 1 is
+used. Alternatively, set <code class="docutils literal notranslate"><span class="pre">shading=[low,</span> <span class="pre">high]</span></code> to specify an
+asymmetric intensity range from <em>low</em> to <em>high</em>. [Default is no
+illumination].</p></li>
+<li><p><strong>equalsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>i</strong>][<em>gap</em>].
+Equal-sized color rectangles. By default, the rectangles are scaled
+according to the z-range in the CPT (see also <code class="docutils literal notranslate"><span class="pre">zfile</span></code>). If <em>gap</em> is
+appended and the CPT is discrete each annotation is centered on each
+rectangle, using the lower boundary z-value for the annotation. If
+<strong>i</strong> is prepended the interval range is annotated instead. If
+<code class="docutils literal notranslate"><span class="pre">shading</span></code> is used each rectangle will have its constant color
+modified by the specified intensity.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Select logarithmic scale and power of ten annotations. All z-values
+in the CPT will be converted to p = log10(z) and only integer p-values
+will be annotated using the 10^p format [Default is linear scale].</p></li>
+<li><p><strong>zfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – File with colorbar-width per color entry. By default, the width of the
+entry is scaled to the color range, i.e., z = 0-100 gives twice the
+width as z = 100-150 (see also <code class="docutils literal notranslate"><span class="pre">equalsize</span></code>). <strong>Note</strong>: The widths
+may be in plot distance units or given as relative fractions and will
+be automatically scaled so that the sum of the widths equals the
+requested colorbar length.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>panel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<em>row,col</em>|<em>index</em>].
+Select a specific subplot panel. Only allowed when in subplot
+mode. Use <code class="docutils literal notranslate"><span class="pre">panel=True</span></code> to advance to the next panel in the
+selected order. Instead of <em>row,col</em> you may also give a scalar
+value <em>index</em> which depends on the order you set via <code class="docutils literal notranslate"><span class="pre">autolabel</span></code>
+when the subplot was defined. <strong>Note</strong>: <em>row</em>, <em>col</em>, and <em>index</em>
+all start at 0.</p></li>
+<li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
+Select perspective view and set the azimuth and elevation angle of
+the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
+<a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#perspective-full</a>.</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
+[Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
+Only visible when PDF or raster format output is selected.
+Only the PNG format selection adds a transparency layer
+in the image (for further processing).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a new figure instance with pygmt.Figure()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a basemap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Call the colorbar method for the plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="c1"># Set cmap to the &quot;roma&quot; CPT</span>
+<span class="gp">... </span>    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="c1"># Label the x-axis &quot;Velocity&quot; and the y-axis &quot;m/s&quot;</span>
+<span class="gp">... </span>    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Show the plot</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="examples-using-pygmt-figure-colorbar">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code><a class="headerlink" href="#examples-using-pygmt-figure-colorbar" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are stored in a geopandas.GeoDataFrame object. Use geopandas.read_file to load data from any supported OGR format such as a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also use a full URL pointing to your desired data source. Then, pass the geopandas.GeoDataFrame as an argument to the data parameter of pygmt.Figure.plot, and style the geometry using the pen parameter. To fill the polygons based on a corresponding column you need to set fill=&quot;+z&quot; as well as select the appropriate column using the aspatial parameter as shown in the example below."><img alt="" src="../../_images/sphx_glr_choropleth_map_thumb.png" />
+<p><a class="reference internal" href="../../gallery/maps/choropleth_map.html#sphx-glr-gallery-maps-choropleth-map-py"><span class="std std-ref">Choropleth map</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Choropleth map</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assigned with the pen parameter."><img alt="" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can be used to plot symbols which are color-coded by categories. In the example below, we show how the Palmer Penguins dataset can be visualized. Here, we can pass the individual categories included in the &quot;species&quot; column directly to the fill parameter via fill=df.species.cat.codes.astype(int). Additionally, we have to set cmap=True. A desired colormap can be selected via the pygmt.makecpt function."><img alt="" src="../../_images/sphx_glr_points_categorical_thumb.png" />
+<p><a class="reference internal" href="../../gallery/symbols/points_categorical.html#sphx-glr-gallery-symbols-points-categorical-py"><span class="std std-ref">Color points by categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Color points by categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown below we will see how to calculate a hillshade map based on a Data Elevation Model (DEM). As input pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file, calculates the respective gradient and returns it as an xarray.DataArray object. We will use the radiance parameter in order to set the illumination source direction and altitude."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradient gets an xarray.DataArray object or a path string to a grid file. It then calculates the respective gradient and returns an xarray.DataArray object. The example below sets two main parameters:"><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown below we set all elevation values (grid points) smaller than 0 m (in general the bathymetric part of the grid) to a common value of -2000 m via the below parameter."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdlandmask function allows setting all nodes on land or water to a specified value using the maskvalues parameter."><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a desired survey line. In this example, the elevation is extracted from a grid provided via pygmt.datasets.load_earth_relief. The figure consists of two parts, a map of the elevation in the study area showing the survey line and a Cartesian plot showing the elevation along the survey line."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we show how the Iris flower dataset can be visualized using a perspective 3-D plot. The region parameter has to include the x, y, z axis limits in the form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically using pygmt.info. To plot the z-axis frame, set frame as a minimum to something like frame=[&quot;WsNeZ&quot;, &quot;zaf&quot;]. Use perspective to control the azimuth and elevation angle of the view, and zscale to adjust the vertical exaggeration factor."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D scatter plots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D scatter plots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the data as an xarray.DataArray with the coordinate vectors x and y defined. Note that the perspective parameter here controls the azimuth and elevation angle of the view. We provide a list of two arguments to frame - the first argument specifies the x- and y-axes frame attributes and the second argument, prepended with &quot;z&quot;, specifies the z-axis frame attributes. Specifying the same scale for the projection and zscale parameters ensures equal axis scaling. The shading parameter specifies illumination; here we choose an azimuth of 45° with shading=&quot;+a45&quot;."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.ternary method can draw ternary diagrams. The example shows how to plot circles with a diameter of 0.1 centimeters (``style=&quot;c0.1c&quot;``) on a 10-centimeters-wide (``width=&quot;10c&quot;``) ternary diagram at the positions listed in the first three columns of the sample dataset rock_compositions, with default annotations and gridline spacings, using the specified labeling defined via alabel, blabel, and clabel. Points are colored based on the values given in the fourth columns of the sample dataset via cmap=True."><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
+<p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimensions are defined via the spacing parameter. The following examples show how to calculate the averages of the given values inside each bin and how to report the number of points inside each bin."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
+<p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Blockmean</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap parameter. A full list of available color palette tables can be found at reference/cpts.html. Use the frame parameter to add labels to the x and y axes of the colorbar by appending +l followed by the desired text. To add and adjust the annotations (a) and ticks (f) append the letter followed by the desired interval. The placement of the colorbar is set via the position parameter. There are the following options:"><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Colorbar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better understand how GMT modern mode maintains several levels of colormaps, please refer to reference/features.html#gmt-modern-mode-hierarchical-levels for details."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plotting methods of the pygmt.Figure class contain."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is packaged with GMT to try this out. PyGMT provides access to these datasets through the pygmt.datasets package. If you don&#x27;t have the data files already, they are automatically downloaded and saved to a cache directory the first time you use them (usually ~/.gmt/cache)."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting data points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="It can be visually appealing to &quot;drape&quot; a dataset over a topographic surface. This can be accomplished using the drapegrid parameter of pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_draping_on_3d_surface_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/draping_on_3d_surface.html#sphx-glr-tutorials-advanced-draping-on-3d-surface-py"><span class="std std-ref">Draping a dataset on top of a topographic surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Draping a dataset on top of a topographic surface</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interactive parts of this tutorial will not work. You can     use the button &quot;Download Jupyter notebook&quot; at the bottom of this page     to download this script as a Jupyter notebook."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative distribution function."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT provides the pygmt.datasets.load_earth_relief function to download the Earth relief data from the GMT remote server and load as an xarray.DataArray object. The data can then be plotted using the pygmt.Figure.grdimage method."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote dataset hosted by GMT, using the method pygmt.datasets.load_earth_relief. It will use the pygmt.Figure.grdimage, pygmt.Figure.grdcontour, pygmt.Figure.colorbar, and pygmt.Figure.coast methods for plotting."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+<p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
+  <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.Figure.coast.html" class="btn btn-neutral float-left" title="pygmt.Figure.coast" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.inset.html" class="btn btn-neutral float-right" title="pygmt.Figure.inset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

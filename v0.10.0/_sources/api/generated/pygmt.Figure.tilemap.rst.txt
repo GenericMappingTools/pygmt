@@ -1,0 +1,13 @@
+pygmt.Figure.tilemap
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.tilemap
+
+.. minigallery:: pygmt.Figure.tilemap
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

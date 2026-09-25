@@ -1,0 +1,12 @@
+pygmt.grdclip
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdclip
+
+.. include:: backreferences/pygmt.grdclip.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

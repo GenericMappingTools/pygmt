@@ -1,0 +1,13 @@
+pygmt.Figure.solar
+==================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.solar
+
+.. minigallery:: pygmt.Figure.solar
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

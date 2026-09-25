@@ -1,0 +1,13 @@
+pygmt.x2sys\_cross
+==================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: x2sys_cross
+
+.. minigallery:: pygmt.x2sys_cross
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

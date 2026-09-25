@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Colorbar &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/gallery/embellishments/colorbar.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Day-night terminator line and twilights" href="solar.html" />
+    <link rel="prev" title="Scatter plot with histograms" href="../histograms/scatter_and_histograms.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Colorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solar.html">Day-night terminator line and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inset.html">Inset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
+      <li class="breadcrumb-item active">Colorbar</li>
+    <li class="source-link">
+        
+            
+                
+                
+                
+                    
+                
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/gallery/embellishments/colorbar.py"
+                       class="fa fa-github"> Improve this page</a>
+                
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-embellishments-colorbar-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="colorbar">
+<span id="sphx-glr-gallery-embellishments-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar.
+The colormap is set via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. A full list of available
+color palette tables can be found at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/cpts.html">https://docs.generic-mapping-tools.org/6.5/reference/cpts.html</a>.
+Use the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter to add labels to the <strong>x</strong> and <strong>y</strong> axes
+of the colorbar by appending <strong>+l</strong> followed by the desired text. To add
+and adjust the annotations (<strong>a</strong>) and ticks (<strong>f</strong>) append the letter
+followed by the desired interval. The placement of the colorbar is set
+via the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter. There are the following options:</p>
+<ul class="simple">
+<li><p><strong>j/J</strong>: placed inside/outside the plot bounding box using any 2-character
+combination of vertical (<strong>T</strong>op, <strong>M</strong>iddle, <strong>B</strong>ottom) and
+horizontal (<strong>L</strong>eft, <strong>C</strong>enter, <strong>R</strong>ight) alignment codes, e.g.
+<code class="docutils literal notranslate"><span class="pre">position=&quot;jTR&quot;</span></code> for Top Right.</p></li>
+<li><p><strong>g</strong>: using map coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;g170/-45&quot;</span></code> for longitude
+170° East, latitude 45° South.</p></li>
+<li><p><strong>x</strong>: using paper coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;x5c/7c&quot;</span></code> for 5 cm, 7 cm
+from anchor point.</p></li>
+<li><p><strong>n</strong>: using normalized (0-1) coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;n0.4/0.8&quot;</span></code>.</p></li>
+</ul>
+<p>Note that the anchor point defaults to Bottom Left (<strong>BL</strong>). Append <code class="docutils literal notranslate"><span class="pre">+h</span></code> to
+<code class="docutils literal notranslate"><span class="pre">position</span></code> to get a horizontal colorbar instead of a vertical one (<code class="docutils literal notranslate"><span class="pre">+v</span></code>).</p>
+<img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+
+<a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne+tColorbars&quot;</span><span class="p">])</span>
+
+<span class="c1"># ============</span>
+<span class="c1"># Create a colorbar designed for seismic tomography - roma</span>
+<span class="c1"># Colorbar is placed at Bottom Center (BC) by default if no position is given</span>
+<span class="c1"># Add quantity and unit as labels (&quot;+l&quot;) to the x and y axes</span>
+<span class="c1"># Add annotations (&quot;+a&quot;) in steps of 0.5 and ticks (&quot;+f&quot;) in steps of 0.1</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa0.5f0.1+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
+
+<span class="c1"># ============</span>
+<span class="c1"># Create a colorbar showing the scientific rainbow - batlow</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;batlow&quot;</span><span class="p">,</span>
+    <span class="c1"># Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,</span>
+    <span class="c1"># with a length/width (+w) of 4 cm by 0.5 cm, and plotted horizontally (+h)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;g0.3/8.7+w4c/0.5c+h&quot;</span><span class="p">,</span>
+    <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lTemperature&quot;</span><span class="p">,</span> <span class="s2">&quot;y+l°C&quot;</span><span class="p">],</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># ============</span>
+<span class="c1"># Create a colorbar suitable for surface topography - oleron</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;oleron&quot;</span><span class="p">,</span>
+    <span class="c1"># Colorbar placed outside the plot bounding box (J) at Middle Right (MR),</span>
+    <span class="c1"># offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,</span>
+    <span class="c1"># with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;JMR+o1c/0c+w7c/0.5c+n+mc&quot;</span><span class="p">,</span>
+    <span class="c1"># Note that the label &#39;Elevation&#39; is moved to the opposite side and plotted</span>
+    <span class="c1"># vertically as a column of text using &#39;+mc&#39; in the position parameter</span>
+    <span class="c1"># above</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">],</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># ============</span>
+<span class="c1"># Create a colorbar suitable for categorical data - hawaii</span>
+<span class="c1"># Set up the colormap</span>
+<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hawaii&quot;</span><span class="p">,</span>
+    <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># Comma-separated string for the annotations of the colorbar</span>
+    <span class="n">color_model</span><span class="o">=</span><span class="s2">&quot;+cA,B,C,D&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Plot the colorbar</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use colormap set up above</span>
+    <span class="c1"># Colorbar placed inside the plot bounding box (j) in the Bottom Left (BL) corner,</span>
+    <span class="c1"># with an offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from the anchor</span>
+    <span class="c1"># point, and plotted horizontally (+h)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+o0.5c/0.8c+h&quot;</span><span class="p">,</span>
+    <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Divide colorbar into equal-sized rectangles</span>
+    <span class="n">equalsize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.170 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbar-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/ef6bc1f26c32366408d403de81db1e34/colorbar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">colorbar.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/edef33eec4c45691a58d918ed356bec2/colorbar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbar.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/c532e75e8edabe1b91fdc81616ca48a9/colorbar.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">colorbar.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../histograms/scatter_and_histograms.html" class="btn btn-neutral float-left" title="Scatter plot with histograms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solar.html" class="btn btn-neutral float-right" title="Day-night terminator line and twilights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

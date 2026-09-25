@@ -1,0 +1,13 @@
+pygmt.blockmode
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: blockmode
+
+.. minigallery:: pygmt.blockmode
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

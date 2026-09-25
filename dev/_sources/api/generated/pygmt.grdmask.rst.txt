@@ -1,0 +1,13 @@
+pygmt.grdmask
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdmask
+
+.. minigallery:: pygmt.grdmask
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.grd2xyz
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grd2xyz
+
+.. minigallery:: pygmt.grd2xyz
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

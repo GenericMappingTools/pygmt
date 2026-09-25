@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_grid_sg_execution_times:
+
+Computation times
+=================
+**00:06.131** total execution time for **gallery_grid** files:
+
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_grid_grdview_surface.py` (``grdview_surface.py``) | 00:04.904 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_grid_track_sampling.py` (``track_sampling.py``)   | 00:01.227 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+

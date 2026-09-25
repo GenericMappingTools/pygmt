@@ -1,0 +1,12 @@
+pygmt.grdsample
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdsample
+
+.. include:: backreferences/pygmt.grdsample.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

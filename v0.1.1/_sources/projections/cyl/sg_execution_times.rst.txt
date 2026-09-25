@@ -1,0 +1,16 @@
+
+:orphan:
+
+.. _sphx_glr_projections_cyl_sg_execution_times:
+
+Computation times
+=================
+**00:03.505** total execution time for **projections_cyl** files:
+
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)             | 00:01.569 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)           | 00:01.003 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``) | 00:00.932 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+

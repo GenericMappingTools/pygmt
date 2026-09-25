@@ -1,0 +1,13 @@
+pygmt.Figure.directional\_rose
+==============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.directional_rose
+
+.. minigallery:: pygmt.Figure.directional_rose
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

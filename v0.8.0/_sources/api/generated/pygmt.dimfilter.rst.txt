@@ -1,0 +1,12 @@
+pygmt.dimfilter
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: dimfilter
+
+.. include:: backreferences/pygmt.dimfilter.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

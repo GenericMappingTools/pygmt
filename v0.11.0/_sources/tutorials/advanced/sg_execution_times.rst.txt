@@ -1,0 +1,67 @@
+
+:orphan:
+
+.. _sphx_glr_tutorials_advanced_sg_execution_times:
+
+
+Computation times
+=================
+**00:14.897** total execution time for 11 files **from tutorials/advanced**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``vectors.py``)
+     - 00:02.521
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
+     - 00:02.075
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``working_with_panel.py``)
+     - 00:01.926
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``contour_map.py``)
+     - 00:01.454
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py` (``cartesian_histograms.py``)
+     - 00:01.283
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_date_time_charts.py` (``date_time_charts.py``)
+     - 00:01.280
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``earth_relief.py``)
+     - 00:01.223
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``insets.py``)
+     - 00:00.995
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``3d_perspective_image.py``)
+     - 00:00.964
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``subplots.py``)
+     - 00:00.621
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``configuration.py``)
+     - 00:00.555
+     - 0.0

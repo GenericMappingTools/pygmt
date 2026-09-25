@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PyGMT is a library for processing geospatial and geophysical data and making</span>
+<span class="sd">publication-quality maps and figures. It provides a Pythonic interface for the Generic</span>
+<span class="sd">Mapping Tools (GMT), a command-line program widely used across the Earth, Ocean, and</span>
+<span class="sd">Planetary sciences and beyond. Besides making GMT more accessible to new users, PyGMT</span>
+<span class="sd">aims to provide integration with the PyData ecosystem as well as support for rich</span>
+<span class="sd">display in Jupyter notebooks.</span>
+
+<span class="sd">Main Features</span>
+<span class="sd">-------------</span>
+<span class="sd">Here are just a few of the things that PyGMT does well:</span>
+
+<span class="sd">  - Easy handling of individual types of data like Cartesian, geographic, or</span>
+<span class="sd">    time-series data.</span>
+<span class="sd">  - Processing of (geo)spatial data including gridding, filtering, and masking.</span>
+<span class="sd">  - Plotting of a large spectrum of objects on figures including</span>
+<span class="sd">    lines, vectors, polygons, and symbols (pre-defined and customized).</span>
+<span class="sd">  - Generating publication-quality illustrations and making animations.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">version</span>
+
+<span class="c1"># Get semantic version through setuptools-scm</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
+<span class="n">__commit__</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;+g&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;+g&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 0ab3cd78</span>
+
+<span class="c1"># Import modules to make the high-level GMT Python API</span>
+<span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">pygmt.accessors</span> <span class="kn">import</span> <span class="n">GMTDataArrayAccessor</span>
+<span class="kn">from</span> <span class="nn">pygmt.figure</span> <span class="kn">import</span> <span class="n">Figure</span><span class="p">,</span> <span class="n">set_display</span>
+<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
+<span class="kn">from</span> <span class="nn">pygmt.session_management</span> <span class="kn">import</span> <span class="n">begin</span> <span class="k">as</span> <span class="n">_begin</span>
+<span class="kn">from</span> <span class="nn">pygmt.session_management</span> <span class="kn">import</span> <span class="n">end</span> <span class="k">as</span> <span class="n">_end</span>
+<span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">binstats</span><span class="p">,</span>
+    <span class="n">blockmean</span><span class="p">,</span>
+    <span class="n">blockmedian</span><span class="p">,</span>
+    <span class="n">blockmode</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">,</span>
+    <span class="n">dimfilter</span><span class="p">,</span>
+    <span class="n">filter1d</span><span class="p">,</span>
+    <span class="n">grd2cpt</span><span class="p">,</span>
+    <span class="n">grd2xyz</span><span class="p">,</span>
+    <span class="n">grdclip</span><span class="p">,</span>
+    <span class="n">grdcut</span><span class="p">,</span>
+    <span class="n">grdfill</span><span class="p">,</span>
+    <span class="n">grdfilter</span><span class="p">,</span>
+    <span class="n">grdgradient</span><span class="p">,</span>
+    <span class="n">grdhisteq</span><span class="p">,</span>
+    <span class="n">grdinfo</span><span class="p">,</span>
+    <span class="n">grdlandmask</span><span class="p">,</span>
+    <span class="n">grdproject</span><span class="p">,</span>
+    <span class="n">grdsample</span><span class="p">,</span>
+    <span class="n">grdtrack</span><span class="p">,</span>
+    <span class="n">grdvolume</span><span class="p">,</span>
+    <span class="n">info</span><span class="p">,</span>
+    <span class="n">makecpt</span><span class="p">,</span>
+    <span class="n">nearneighbor</span><span class="p">,</span>
+    <span class="n">project</span><span class="p">,</span>
+    <span class="n">select</span><span class="p">,</span>
+    <span class="n">sph2grd</span><span class="p">,</span>
+    <span class="n">sphdistance</span><span class="p">,</span>
+    <span class="n">sphinterpolate</span><span class="p">,</span>
+    <span class="n">surface</span><span class="p">,</span>
+    <span class="n">triangulate</span><span class="p">,</span>
+    <span class="n">which</span><span class="p">,</span>
+    <span class="n">x2sys_cross</span><span class="p">,</span>
+    <span class="n">x2sys_init</span><span class="p">,</span>
+    <span class="n">xyz2grd</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Start our global modern mode session</span>
+<span class="n">_begin</span><span class="p">()</span>
+<span class="c1"># Tell Python to run _end when shutting down</span>
+<span class="n">_atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_end</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="print_clib_info">
+<a class="viewcode-back" href="../api/generated/pygmt.print_clib_info.html#pygmt.print_clib_info">[docs]</a>
+<span class="k">def</span> <span class="nf">print_clib_info</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print information about the GMT shared library that we can find.</span>
+
+<span class="sd">    Includes the GMT version, default values for parameters, the path to the</span>
+<span class="sd">    ``libgmt`` shared library, and GMT directories.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="show_versions">
+<a class="viewcode-back" href="../api/generated/pygmt.show_versions.html#pygmt.show_versions">[docs]</a>
+<span class="k">def</span> <span class="nf">show_versions</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print various dependency versions which are useful when submitting bug reports.</span>
+
+<span class="sd">    This includes information about:</span>
+
+<span class="sd">    - PyGMT itself</span>
+<span class="sd">    - System information (Python version, Operating System)</span>
+<span class="sd">    - Core dependency versions (NumPy, Pandas, Xarray, etc)</span>
+<span class="sd">    - GMT library information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">importlib</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="kn">import</span> <span class="nn">subprocess</span>
+
+    <span class="kn">from</span> <span class="nn">packaging.requirements</span> <span class="kn">import</span> <span class="n">Requirement</span>
+
+    <span class="k">def</span> <span class="nf">_get_module_version</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get version information of a Python module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">modname</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+                <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">modname</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">module</span><span class="o">.</span><span class="n">__version__</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">module</span><span class="o">.</span><span class="n">version</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_ghostscript_version</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get ghostscript version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">os_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span>
+        <span class="k">if</span> <span class="n">os_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;freebsd&quot;</span><span class="p">,</span> <span class="s2">&quot;darwin&quot;</span><span class="p">)):</span>
+            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gs&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">os_name</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+            <span class="n">cmds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;gswin64c.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;gswin32c.exe&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">for</span> <span class="n">gs_cmd</span> <span class="ow">in</span> <span class="n">cmds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">gsfullpath</span> <span class="o">:=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">gs_cmd</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">gsfullpath</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">sys_info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
+        <span class="s2">&quot;executable&quot;</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>
+        <span class="s2">&quot;machine&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
+    <span class="p">}</span>
+
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PyGMT information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  version: </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sys_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dependency information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">modname</span> <span class="ow">in</span> <span class="n">deps</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">modname</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">_get_module_version</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ghostscript: </span><span class="si">{</span><span class="n">_get_ghostscript_version</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="n">print_clib_info</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

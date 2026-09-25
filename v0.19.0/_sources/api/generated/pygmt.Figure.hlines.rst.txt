@@ -1,0 +1,13 @@
+pygmt.Figure.hlines
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.hlines
+
+.. minigallery:: pygmt.Figure.hlines
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

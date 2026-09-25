@@ -1,0 +1,10 @@
+pygmt.Figure.grdcontour
+=======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdcontour
+
+.. raw:: html
+
+      <div style='clear:both'></div>
