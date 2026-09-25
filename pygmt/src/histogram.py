@@ -6,13 +6,14 @@ from collections.abc import Sequence
 from typing import Literal
 
 from pygmt._typing import PathLike, TableLike
-from pygmt.alias import Alias, AliasSystem
+from pygmt.alias import Alias, AliasSystem, _to_string
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
     deprecate_parameter,
     fmt_docstring,
+    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
@@ -21,12 +22,121 @@ from pygmt.params import Axis, Frame, Pattern
 __doctest_skip__ = ["histogram"]
 
 
+def _alias_option_N(  # ruff: ignore[invalid-function-name]
+    distribution=None, distribution_pen=None
+):
+    """
+    Helper function to create the alias for the -N option.
+
+    The ``-N`` option may be repeated to draw several distribution curves, so
+    ``distribution`` also accepts a sequence of modes. ``distribution_pen`` is either a
+    single pen, used for every curve, or one pen per curve.
+
+    Examples
+    --------
+    >>> def parse(**kwargs):
+    ...     return build_arg_list(AliasSystem(N=_alias_option_N(**kwargs)))
+    >>> parse()
+    []
+    >>> # A single curve
+    >>> parse(distribution="mean")
+    ['-N0']
+    >>> parse(distribution="median", distribution_pen="1p,blue")
+    ['-N1+p1p,blue']
+
+    >>> # Multiple curves
+    >>> parse(distribution=["mean", "lms"])
+    ['-N0', '-N2']
+
+    >>> # A single pen is used for every curve
+    >>> parse(distribution=["mean", "lms"], distribution_pen="1p,red")
+    ['-N0+p1p,red', '-N2+p1p,red']
+
+    >>> # Several curves, each with its own pen
+    >>> parse(
+    ...     distribution=["mean", "median", "lms"],
+    ...     distribution_pen=["1p,red", "1p,blue", "1p,green"],
+    ... )
+    ['-N0+p1p,red', '-N1+p1p,blue', '-N2+p1p,green']
+
+    >>> # A pen alone without distribution is ignored.
+    >>> parse(distribution_pen="1p,red")
+    []
+
+    >>> # Backward compatibility: the legacy syntax combines the mode and the pen into
+    >>> # a single string, and is passed through as is.
+    >>> parse(distribution="0+p1p,blue")
+    ['-N0+p1p,blue']
+    >>> parse(distribution=["0+p1p,blue", "1+p1p,red"])
+    ['-N0+p1p,blue', '-N1+p1p,red']
+    >>> parse(distribution="+p1p,blue")
+    ['-N+p1p,blue']
+    >>> parse(distribution="1")
+    ['-N1']
+    >>> parse(distribution=True)
+    ['-N']
+
+    >>> # But the legacy syntax cannot be mixed with 'distribution_pen'.
+    >>> parse(distribution="0+p1p,blue", distribution_pen="1p,red")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTParameterError: Conflicting parameters: 'distribution_pen' ...
+
+    >>> parse(distribution="invalid")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid value for parameter 'distribution': ...
+
+    >>> parse(distribution=["mean", "lms"], distribution_pen=["1p,red"])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTParameterError: 'distribution_pen' must be a single pen or ...
+    """
+    # Do nothing if distribution is not specified. Ignoring distribution_pen.
+    if distribution is None:
+        return Alias(None, name="distribution")
+
+    modes = distribution if is_nonstr_iter(distribution) else [distribution]
+    # The legacy syntax gives the mode and the pen as a single string (e.g., "1+p1p,red"
+    # or "+p1p,red"), or the mode as a string (e.g. "1"). Pass it as is.
+    if any(isinstance(mode, str) and ("+" in mode or mode.isdigit()) for mode in modes):
+        if distribution_pen is not None:
+            raise GMTParameterError(
+                conflicts_with=("distribution_pen", ["distribution"]),
+                reason="'distribution' is using the legacy syntax.",
+            )
+        return Alias(distribution, name="distribution")
+
+    pens = (
+        distribution_pen
+        if is_nonstr_iter(distribution_pen)
+        else [distribution_pen] * len(modes)
+    )
+    if len(pens) != len(modes):
+        raise GMTParameterError(
+            reason=(
+                "'distribution_pen' must be a single pen or one pen per curve, but "
+                f"got {len(pens)} pen(s) for {len(modes)} curve(s)."
+            )
+        )
+
+    values = []
+    for mode, pen in zip(modes, pens, strict=True):
+        _mode = _to_string(
+            mode, mapping={"mean": 0, "median": 1, "lms": 2}, name="distribution"
+        )
+        _pen = _to_string(pen, prefix="+p", name="distribution_pen")
+        if _mode is None:  # e.g. distribution=False means no curve at all.
+            continue
+        values.append(_mode if _pen is None else f"{_mode}{_pen}")
+    return Alias(values, name="distribution")
+
+
 @fmt_docstring
 # TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
 @deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
-    N="distribution",
     T="series",
     Z="histtype",
     b="binary",
@@ -47,6 +157,10 @@ def histogram(
     fill: str | Pattern | None = None,
     horizontal: bool = False,
     center: bool = False,
+    distribution: Literal["mean", "median", "lms"]
+    | Sequence[Literal["mean", "median", "lms"]]
+    | None = None,
+    distribution_pen: str | Sequence[str] | None = None,
     out_range: Literal["first", "last", "both"] | None = None,
     stairs: bool = False,
     cumulative: bool | Literal["reverse"] = False,
@@ -74,6 +188,7 @@ def histogram(
        - G = fill
        - J = projection
        - L = out_range
+       - N = distribution, **+p**: distribution_pen
        - Q = cumulative
        - R = region
        - S = stairs
@@ -109,19 +224,28 @@ def histogram(
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
-        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
+        of plot dimension units by appending the relevant unit.
     center
         Center bin on each value specified via ``series`` [Default uses the values to
         define the left edge of each bin].
-    distribution : bool, float, or str
-        [*mode*][**+p**\ *pen*].
-        Draw the equivalent normal distribution; append desired
-        *pen* [Default is ``"0.25p,black,solid"``].
-        The *mode* selects which central location and scale to use:
+    distribution
+        Draw the equivalent normal distribution. Select which central location and scale
+        to use:
 
-        * 0 = mean and standard deviation [Default];
-        * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
-        * 2 = LMS (least median of squares) mode and scale.
+        - ``"mean"``: mean and standard deviation
+        - ``"median"``: median and L1 scale (1.4826 \* median absolute deviation)
+        - ``"lms"``: least median of squares (LMS) mode and scale
+
+        Pass a sequence of modes to draw several curves at once, e.g.,
+        ``["mean", "lms"]``.
+
+        **Note**: If ``wrap`` is used, only ``"mean"`` is available and the circular
+        von Mises distribution is determined instead.
+    distribution_pen
+        Pen used to draw the distribution curve [Default is ``"0.25p,black,solid"``].
+        Pass a sequence of pens to use a different pen for each curve; a single pen is
+        used for all of them. If ``distribution`` is not set, this parameter is ignored.
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     out_range
         Handle values that fall outside the range set by ``series``. By default, these
         values are ignored. Valid values are:
@@ -201,6 +325,7 @@ def histogram(
             name="out_range",
             mapping={"first": "l", "last": "h", "both": "b"},
         ),
+        N=_alias_option_N(distribution, distribution_pen),
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
