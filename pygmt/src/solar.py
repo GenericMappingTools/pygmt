@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from typing import Literal
 
 import pandas as pd
+from pygmt._typing import DatetimeLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
@@ -19,7 +20,7 @@ __doctest_skip__ = ["solar"]
 def solar(
     self,
     terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
-    terminator_datetime=None,
+    terminator_datetime: DatetimeLike | None = None,
     fill: str | Pattern | None = None,
     pen: str | None = None,
     projection: str | None = None,
@@ -32,11 +33,11 @@ def solar(
     transparency: float | None = None,
     **kwargs,
 ):
-    r"""
+    """
     Plot day-night terminators and other sunlight parameters.
 
-    This method plots the day-night terminator. Alternatively, it can plot the
-    terminators for civil twilight, nautical twilight, or astronomical twilight.
+    This method can plot the day-night terminator, and the civil, nautical, and
+    astronomical twilights.
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
@@ -68,13 +69,13 @@ def solar(
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
         types of twilight.
-    terminator_datetime : str or datetime object
+    terminator_datetime
         Set the date and time for the terminator calculation. It can be provided as a
         string or any datetime-like object recognized by :func:`pandas.to_datetime`. The
         time can be specified in UTC or using a UTC offset. The offset must be an
-        integer number of hours (e.g., -8 or +5); fractional hours are truncated
-        towards zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the
-        current UTC date and time].
+        integer number of hours (e.g., -8 or +5); fractional hours are truncated towards
+        zero (e.g., -8.5 becomes -8 and +5.5 becomes +5). [Default is the current UTC
+        date and time].
     fill
         Set color or pattern for filling terminators [Default is no fill].
     pen
@@ -89,28 +90,32 @@ def solar(
 
     Example
     -------
-    >>> # import the Python module "datetime"
-    >>> import datetime
+
+    Plot the day-night terminator at the current UTC date and time.
+
     >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
+    >>> fig.solar()
+    >>> fig.show()
+
+    Plot the astronomical twilight at 8:52:18 on June 24, 1997 (time in UTC), with the
+    night-section filled with navyblue at 75% transparency.
+
+    >>> import datetime
     >>> # create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
     >>> date = datetime.datetime(
     ...     year=1997, month=6, day=24, hour=8, minute=52, second=18
     ... )
-    >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # create a map of the Earth with the coast method
     >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
     >>> fig.solar(
-    ...     # set the terminator to "day_night"
-    ...     terminator="day_night",
-    ...     # pass the datetime object
+    ...     terminator="astronomical",
     ...     terminator_datetime=date,
-    ...     # fill the night-section with navyblue at 75% transparency
+    ...     # Fill the night-section with navyblue at 75% transparency
     ...     fill="navyblue@75",
-    ...     # draw the terminator with a 1-point black line
-    ...     pen="1p,black",
+    ...     pen="1p,black",  # Draw the terminator with a 1-point black line
     ... )
-    >>> # show the plot
     >>> fig.show()
     """
     datetime_string, datetime_timezone = None, None
