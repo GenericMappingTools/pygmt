@@ -17,7 +17,7 @@ _The PyGMT ecosystem. This figure was originally published in the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) in G-Cubed. The full publication is
 released under CC BY-NC 4.0. No modifications were made._
 
-_Asterisk (*) after the package name indicates the package is a required dependency of PyGMT._
+_An asterisk (*) after the package name indicates the package is a required dependency of PyGMT._
 
 [NumPy][]*
 :  The fundamental package for scientific computing in Python, providing a
@@ -26,7 +26,7 @@ _Asterisk (*) after the package name indicates the package is a required depende
 
 [pandas][]*
 :  A Python package providing fast, flexible, and expressive data structures designed to
-   make working with "relational" or "labeled" data easy and intuitive.
+   make working with tabular data easy and intuitive.
 
 [xarray][]*
 :  A Python package that introduces labels in the form of dimensions, coordinates, and
@@ -46,9 +46,9 @@ _Asterisk (*) after the package name indicates the package is a required depende
    {class}`geopandas.GeoSeries`, in data processing and plotting functions/methods.
 
 [contextily][]
-:  A small Python package to retrieve tile maps from the internet. It can add those
-   tiles as basemap to matplotlib figures or write tile maps to disk into geospatial
-   raster files. In PyGMT, {func}`pygmt.datasets.load_tile_map` and
+:  A small Python package to retrieve tile maps from the internet. These tiles can
+   be added as background of a map or saved to disk into geospatial raster files.
+   In PyGMT, {func}`pygmt.datasets.load_tile_map` and
    {meth}`pygmt.Figure.tilemap` rely on it.
 
 [rioxarray][]
@@ -66,6 +66,7 @@ _Asterisk (*) after the package name indicates the package is a required depende
    We're working towards avoiding temporary files when processing/plotting multi-band
    rasters in [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
    ```
+
 [PyArrow][]
 :  The Python bindings for [Apache Arrow][], a development platform for in-memory analytics
    that specifies a standardized language-independent columnar memory format for flat and
