@@ -17,7 +17,8 @@ _The PyGMT ecosystem. This figure was originally published in the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) in G-Cubed. The full publication is
 released under CC BY-NC 4.0. No modifications were made._
 
-_An asterisk (*) after the package name indicates the package is a required dependency of PyGMT._
+_An asterisk (*) after the package name indicates the package is a required dependency
+of PyGMT._
 
 [NumPy][]*
 :  The fundamental package for scientific computing in Python, providing a
@@ -46,10 +47,9 @@ _An asterisk (*) after the package name indicates the package is a required depe
    {class}`geopandas.GeoSeries`, in data processing and plotting functions/methods.
 
 [contextily][]
-:  A small Python package to retrieve tile maps from the internet. These tiles can
-   be added as background of a map or saved to disk into geospatial raster files.
-   In PyGMT, {func}`pygmt.datasets.load_tile_map` and
-   {meth}`pygmt.Figure.tilemap` rely on it.
+:  A small Python package to retrieve tile maps from the internet. These tiles can be
+   added as background of a map or saved to disk into geospatial raster files. In PyGMT,
+   {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` rely on it.
 
 [rioxarray][]
 :  A geospatial [xarray][] extension powered by [rasterio][], enabling seamless reading,
