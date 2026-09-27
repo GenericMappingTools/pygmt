@@ -126,6 +126,7 @@ myst_heading_anchors = 4  # Auto-generate header anchors with MyST parser
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
+    "deflist",  # Allow definition lists
     "substitution",  # Allow substitutions
 ]
 # Enable substitutions using {{ key }} in the Markdown files
