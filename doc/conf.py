@@ -5,7 +5,9 @@ Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import datetime
+import re
 
+from docutils import nodes
 from packaging.version import Version
 from pygmt import __commit__, __version__
 from pygmt._show_versions import _get_dep_specifier
@@ -245,3 +247,24 @@ latex_engine = "xelatex"
 latex_documents = [
     (root_doc, "pygmt.tex", "The PyGMT Documentation", author, "manual", True)
 ]
+
+
+def remove_emojis(app, doctree, docname):  # ruff: ignore[unused-function-argument]
+    """
+    Remove emojis from the LaTeX/PDF output since the default fonts don't cover them.
+    """
+    # Emojis (U+1F300 to U+1FAFF, with optional variation selector and trailing space).
+    _emoji_regex = re.compile(r"[\U0001F300-\U0001FAFF]\uFE0F?\s?")
+
+    if app.builder.format != "latex":
+        return
+    for node in list(doctree.findall(nodes.Text)):
+        if _emoji_regex.search(node):
+            node.parent.replace(node, nodes.Text(_emoji_regex.sub("", node)))
+
+
+def setup(app):
+    """
+    Sphinx extension entry point.
+    """
+    app.connect("doctree-resolved", remove_emojis)
