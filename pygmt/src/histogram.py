@@ -49,7 +49,7 @@ def _alias_option_D(  # ruff: ignore[invalid-function-name]
     >>> # annot_* parameters are ignored if annot is not set
     >>> parse(annot_position="top")
     """
-    # Ignore any annot_* parameters if annot is not set.
+    # Ignore any annot_* parameter if annot is not set.
     if not annot:
         return Alias(False, name="annot")
 
