@@ -19,9 +19,7 @@ repository_url = f"https://github.com/{repository}"
 doc_url = "https://www.pygmt.org"
 # Version information shown in the footer, e.g., "Release 0.19.0" or "Commit 0ab3cd78".
 if isdev:
-    version_info = (
-        f'Commit <a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
-    )
+    version_info = f'Commit <a href="{repository_url}/commit/{__commit__[:8]}">{__commit__[:8]}</a>'
 else:
     version_info = f'Release <a href="{repository_url}/releases/tag/v{__version__}">{__version__}</a>'
 
