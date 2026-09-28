@@ -6,10 +6,12 @@ from collections.abc import Sequence
 
 import numpy as np
 from pygmt.exceptions import GMTValueError
+from pygmt.helpers import fmt_docstring
 
 __doctest_skip__ = ["hlines"]
 
 
+@fmt_docstring
 def hlines(
     self,
     y: float | Sequence[float],
@@ -18,6 +20,7 @@ def hlines(
     pen: str | None = None,
     label: str | None = None,
     no_clip: bool = False,
+    panel: int | Sequence[int] | bool = False,
     perspective: str | bool | None = None,
 ):
     """
@@ -61,6 +64,7 @@ def hlines(
     no_clip
         Do **not** clip lines outside the plot region. Only makes sense in the Cartesian
         coordinate system. [Default is ``False`` to clip lines at the plot region.]
+    $panel
     perspective
         Select perspective view and set the azimuth and elevation angle of the
         viewpoint. Refer to :meth:`pygmt.Figure.plot` for details.
@@ -134,6 +138,7 @@ def hlines(
             pen=pen,
             label=_label,
             no_clip=no_clip,
+            panel=panel,
             perspective=perspective,
             straight_line="x",
         )
