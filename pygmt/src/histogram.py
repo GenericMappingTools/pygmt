@@ -158,7 +158,7 @@ def histogram(
         ``annot`` is not set.
     annot_position
         Position of the annotations relative to the bars. Valid values are ``"top"`` and
-          ``"bottom"`` [Default is ``"top"``].
+        ``"bottom"``.
     annot_font
         Font of the annotations [Default is :gmt-term:`FONT_ANNOT_PRIMARY`].
     annot_offset
