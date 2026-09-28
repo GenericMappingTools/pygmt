@@ -16,11 +16,12 @@ from packaging.requirements import Requirement
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
-# Get semantic version through setuptools-scm
-__version__ = version("pygmt")  # e.g., 0.1.2.dev3+g0ab3cd78
-__commit__ = (  # 0ab3cd78
-    __version__.rsplit(sep="+g", maxsplit=1)[-1] if "+g" in __version__ else ""
-)
+# Get semantic version through setuptools-scm, in one of the following forms:
+# - <major>.<minor>.<micro> (e.g., 0.1.2)
+# - <major>.<minor>.<micro>.devN+<local> (e.g., 0.1.2.dev3+g0ab3cd78)
+__version__ = version("pygmt")
+# The local version label is "g<commit>" or "g<commit>.d<date>" for a dirty tree.
+__commit__ = (Version(__version__).local or "")[1:]  # e.g., 0ab3cd78
 
 
 def _get_clib_info() -> dict[str, str]:
