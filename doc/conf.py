@@ -248,10 +248,10 @@ latex_elements = {
     # small cards, instead of one full-width profile picture per page.
     "preamble": r"""
 \newenvironment{sphinxclassteam-grid}{%
-  \par\centering\small
+  \par\raggedright\setlength{\parindent}{0pt}\small
   \newenvironment{sphinxclasssd-col}%
-    {\hspace{0.01\linewidth}\begin{minipage}[t]{0.18\linewidth}\centering}%
-    {\end{minipage}\hspace{0.01\linewidth}\ignorespacesafterend}%
+    {\begin{minipage}[t]{0.18\linewidth}\centering}%
+    {\end{minipage}\hspace{0.025\linewidth}\ignorespacesafterend}%
   \newenvironment{sphinxclasssd-card-title}{}{\par}%
 }{\par\medskip}
 """,
