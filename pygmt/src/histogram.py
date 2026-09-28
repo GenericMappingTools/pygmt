@@ -23,7 +23,7 @@ __doctest_skip__ = ["histogram"]
 
 def _alias_option_D(  # ruff: ignore[invalid-function-name]
     annot: bool = False,
-    annot_position: Literal["top", "bottom"] = "top",
+    annot_position: Literal["start", "end"] = "end",
     annot_font: str | None = None,
     annot_offset: float | str | None = None,
     annot_orientation: Literal["horizontal", "vertical"] = "horizontal",
@@ -58,7 +58,7 @@ def _alias_option_D(  # ruff: ignore[invalid-function-name]
         Alias(
             annot_position,
             name="annot_position",
-            mapping={"top": "", "bottom": "+b"},
+            mapping={"start": "+b", "end": ""},
         ),
         Alias(annot_font, name="annot_font", prefix="+f"),
         Alias(annot_offset, name="annot_offset", prefix="+o"),
@@ -96,7 +96,7 @@ def histogram(
     pen: str | None = None,
     fill: str | Pattern | None = None,
     annot: bool = False,
-    annot_position: Literal["top", "bottom"] = "top",
+    annot_position: Literal["start", "end"] = "end",
     annot_font: str | None = None,
     annot_offset: float | str | None = None,
     annot_orientation: Literal["horizontal", "vertical"] = "horizontal",
@@ -157,8 +157,8 @@ def histogram(
         ``annot_*`` parameters control how the annotations look and are ignored if
         ``annot`` is not set.
     annot_position
-        Position of the annotations relative to the bars. Valid values are ``"top"`` and
-        ``"bottom"``.
+        Position of the annotations relative to the bars. Valid values are ``"start"``
+        and ``"end"``.
     annot_font
         Font of the annotations [Default is :gmt-term:`FONT_ANNOT_PRIMARY`].
     annot_offset
