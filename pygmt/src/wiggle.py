@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame, Position
+from pygmt.params import Axis, Frame, Pattern, Position
 from pygmt.src._common import _parse_position
 
 
@@ -34,8 +34,8 @@ def wiggle(
     position: Position | Sequence[float | str] | AnchorCode | None = None,
     length: float | str | None = None,
     label_alignment: Literal["left", "right"] | None = None,
-    positive_fill: str | None = None,
-    negative_fill: str | None = None,
+    positive_fill: str | Pattern | None = None,
+    negative_fill: str | Pattern | None = None,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,

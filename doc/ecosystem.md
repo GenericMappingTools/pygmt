@@ -1,12 +1,15 @@
 # PyGMT Ecosystem
 
-PyGMT provides a Python interface to the Generic Mapping Tools (GMT), which is a command
-line program that provides a wide range of tools for manipulating geospatial data and
-making publication-quality maps and figures. It integrates well with the
+The PyGMT ecosystem consists of the packages that PyGMT depends on and the packages that
+depend on PyGMT. Besides [GMT][] itself, PyGMT integrates well with the
 [scientific Python ecosystem](https://scientific-python.org/), with [NumPy][] for its
 fundamental array data structure, [pandas][] for tabular data I/O and [xarray][] for
 raster grids/images/cubes I/O. In addition to these core dependencies, it also relies on
-several optional packages to provide additional functionality for users.
+several optional packages to provide additional functionality for users. In turn, a
+growing number of packages build on PyGMT for geospatial data processing, analysis, and
+visualization.
+
+## PyGMT dependencies
 
 ![](https://github.com/user-attachments/assets/2e36bd3e-d8ae-4399-b7c0-af614cb414fb)
 
@@ -14,96 +17,69 @@ _The PyGMT ecosystem. This figure was originally published in the
 [PyGMT paper](https://doi.org/10.1029/2026GC013105) in G-Cubed. The full publication is
 released under CC BY-NC 4.0. No modifications were made._
 
+_An asterisk (*) after the package name indicates the package is a required dependency
+of PyGMT._
 
-## PyGMT dependencies
+[NumPy][]*
+:  The fundamental package for scientific computing in Python, providing a
+   multidimensional array object and an assortment of routines for fast operations on
+   arrays.
 
-_Asterisk (*) after the package name indicates the package is a required dependency of PyGMT._
+[pandas][]*
+:  A Python package providing fast, flexible, and expressive data structures designed to
+   make working with tabular data easy and intuitive.
 
-### NumPy*
+[xarray][]*
+:  A Python package that introduces labels in the form of dimensions, coordinates, and
+   attributes on top of raw NumPy-like arrays, which allows for more intuitive, more
+   concise, and less error-prone user experience.
 
-[NumPy][] is the fundamental package for scientific computing in Python. It is a Python
-library that provides a multidimensional array object, various derived objects (such as
-masked arrays and matrices), and an assortment of routines for fast operations on arrays,
-including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete
-Fourier transforms, basic linear algebra, basic statistical operations, random simulation
-and much more.
+[IPython][]
+:  A rich toolkit for using Python interactively, including a powerful interactive
+   Python shell and a Jupyter kernel to work with Python code in Jupyter notebooks and
+   other interactive frontends. PyGMT relies on it to provide a rich interactive
+   experience in Jupyter notebooks.
 
-### pandas*
+[GeoPandas][]
+:  A Python package that extends the datatypes used by [pandas][] to allow spatial
+   operations on geometric types. PyGMT doesn't directly rely on it, but supports its
+   two main data structures, {class}`geopandas.GeoDataFrame` and
+   {class}`geopandas.GeoSeries`, in data processing and plotting functions/methods.
 
-[pandas][] is a Python package providing fast, flexible, and expressive data structures
-designed to make working with "relational" or "labeled" data both easy and intuitive.
-It aims to be the fundamental high-level building block for doing practical, real-world
-data analysis in Python.
+[contextily][]
+:  A small Python package to retrieve tile maps from the internet. These tiles can be
+   added as background of a map or saved to disk into geospatial raster files. In PyGMT,
+   {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` rely on it.
 
-### xarray*
+[rioxarray][]
+:  A geospatial [xarray][] extension powered by [rasterio][], enabling seamless reading,
+   writing, and manipulation of multi-dimensional arrays with geospatial attributes such
+   as coordinate reference systems (CRS) and spatial extent (bounds). PyGMT relies on it
+   in in several aspects:
 
-[xarray][] is an open source project and Python package that introduces labels in the
-form of dimensions, coordinates, and attributes on top of raw NumPy-like arrays, which
-allows for more intuitive, more concise, and less error-prone user experience.
+   1. To save multi-band rasters to temporary files in GeoTIFF format, to support
+      processing and plotting 3-D {class}`xarray.DataArray` images.
+   2. To write CRS information to the {class}`xarray.DataArray` objects.
+   3. To reproject raster tiles to the target CRS in {func}`pygmt.datasets.load_tile_map`.
 
-### IPython
+   ```{note}
+   We're working towards avoiding temporary files when processing/plotting multi-band
+   rasters in [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
+   ```
 
-[IPython][] provides a rich toolkit to help you make the most of using Python
-interactively. Its main components are a powerful interactive Python shell and a Jupyter
-kernel to work with Python code in Jupyter notebooks and other interactive frontends.
+[PyArrow][]
+:  The Python bindings for [Apache Arrow][], a development platform for in-memory analytics
+   that specifies a standardized language-independent columnar memory format for flat and
+   hierarchical data, organized for efficient analytic operations on modern hardware.
 
-PyGMT relies on IPython to provide a rich interactive experience in Jupyter notebooks.
-
-### GeoPandas
-
-[GeoPandas][] is an open source project to make working with geospatial data in Python
-easier. GeoPandas extends the datatypes used by [pandas][] to allow spatial operations
-on geometric types. Geometric operations are performed by [Shapely][]. GeoPandas further
-depends on [pyogrio][] for file access and [Matplotlib][] for plotting.
-
-PyGMT doesn't directly rely on GeoPandas, but provides support of GeoPandas's two main
-data structure, {class}`geopandas.GeoDataFrame` and {class}`geopandas.GeoSeries`, which
-can be directly used in data processing and plotting functions/methods of PyGMT.
-
-### contextily
-
-[contextily][] is a small Python package to retrieve tile maps from the internet. It can
-add those tiles as basemap to matplotlib figures or write tile maps to disk into
-geospatial raster files.
-
-In PyGMT, {func}`pygmt.datasets.load_tile_map` and {meth}`pygmt.Figure.tilemap` rely on it.
-
-### rioxarray
-
-[rioxarray][] is a geospatial [xarray][] extension powered by [rasterio][]. Built on top
-of rasterio, it enables seamless reading, writing, and manipulation of multi-dimensional
-arrays with geospatial attributes such as coordinate reference systems (CRS) and spatial
-extent (bounds).
-
-PyGMT relies on [rioxarray][] in several aspects:
-
-1. To save multi-band rasters to temporary files in GeoTIFF format, to support processing
-   and plotting 3-D {class}`xarray.DataArray` images.
-2. To write CRS information to the {class}`xarray.DataArray` objects.
-3. To reproject raster tiles to the target CRS in {func}`pygmt.datasets.load_tile_map`.
-
-```{note}
-We're working towards avoiding temporary files when processing/plotting multi-band
-rasters in [PR #3468](https://github.com/GenericMappingTools/pygmt/pull/3468).
-```
-
-### PyArrow
-
-[Apache Arrow][] is a development platform for in-memory analytics. It contains a set of
-technologies that enable big data systems to process and move data fast. It specifies a
-standardized language-independent columnar memory format for flat and hierarchical data,
-organized for efficient analytic operations on modern hardware. The Arrow Python bindings
-(also named "[PyArrow][]") have first-class integration with NumPy, pandas, and built-in
-Python objects. They are based on the C++ implementation of Arrow.
-
-```{note}
-If you have [PyArrow][] installed, PyGMT does have some initial support for
-`pandas.Series` and `pandas.DataFrame` objects with Apache Arrow-backed arrays.
-Specifically, only uint/int/float, date32/date64 and string types are supported for now.
-Support for Duration types and GeoArrow geometry types is still a work in progress. For
-more details, see
-[issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
-```
+   ```{note}
+   If you have [PyArrow][] installed, PyGMT does have some initial support for
+   `pandas.Series` and `pandas.DataFrame` objects with Apache Arrow-backed arrays.
+   Specifically, only uint/int/float, date32/date64 and string types are supported for
+   now. Support for Duration types and GeoArrow geometry types is still a work in
+   progress. For more details, see
+   [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+   ```
 
 ## Packages depending on PyGMT
 
@@ -122,13 +98,12 @@ If your package relies on PyGMT, please
 [apache arrow]: https://arrow.apache.org/
 [contextily]: https://contextily.readthedocs.io/
 [geopandas]: https://geopandas.org/
+[gmt]: https://www.generic-mapping-tools.org/
 [ipython]: https://ipython.org/
-[matplotlib]: https://matplotlib.org/
 [numpy]: https://numpy.org/
 [pandas]: https://pandas.pydata.org/
 [pyarrow]: https://arrow.apache.org/docs/python/
 [pyogrio]: https://pyogrio.readthedocs.io/
 [rasterio]: https://rasterio.readthedocs.io/
 [rioxarray]: https://corteva.github.io/rioxarray/
-[shapely]: https://shapely.readthedocs.io/
 [xarray]: https://xarray.pydata.org/
