@@ -11,6 +11,7 @@ in the source repository.
 ## Founders
 
 :::::{grid} 2 3 3 5
+:class-container: team-grid
 
 ::::{grid-item-card} Leonardo Uieda
 :padding: 1
@@ -38,6 +39,7 @@ as detailed in the [](maintenance.md). New active maintainers are selected and v
 the currently active maintainers before each release.*
 
 :::::{grid} 2 3 3 5
+:class-container: team-grid
 
 ::::{grid-item-card} Dongdong Tian
 :padding: 1
@@ -84,6 +86,7 @@ each release. Maintainers that are inactive for more than one year will also be 
 distinguished contributors.*
 
 :::::{grid} 2 3 3 5
+:class-container: team-grid
 
 ::::{grid-item-card} Max Jones
 :padding: 1
