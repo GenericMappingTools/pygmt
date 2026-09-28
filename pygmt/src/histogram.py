@@ -39,7 +39,7 @@ def _alias_option_D(  # ruff: ignore[invalid-function-name]
     ''
     >>> parse(
     ...     annot=True,
-    ...     annot_position="bottom",
+    ...     annot_position="start",
     ...     annot_font="12p,Helvetica-Bold",
     ...     annot_offset="6p",
     ...     annot_orientation="vertical",
@@ -47,7 +47,7 @@ def _alias_option_D(  # ruff: ignore[invalid-function-name]
     '+b+f12p,Helvetica-Bold+o6p+r'
 
     >>> # annot_* parameters are ignored if annot is not set
-    >>> parse(annot_position="top")
+    >>> parse(annot_position="start")
     """
     # Ignore any annot_* parameter if annot is not set.
     if not annot:
