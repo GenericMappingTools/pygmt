@@ -166,7 +166,7 @@ def histogram(
         :ref:`dimension unit <dimension-units>` [Default is ``"6p"``].
     annot_orientation
         Orientation of the annotations. Valid values are ``"horizontal"`` and
-        ``"vertical"`` [Default is ``"horizontal"``].
+        ``"vertical"``.
     bar_width
         Use an alternative histogram bar width than the default set via ``series``. Give
         either an alternative width in data units, or the user may append a
