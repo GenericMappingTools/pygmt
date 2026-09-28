@@ -91,7 +91,9 @@ def solar(
 
     Plot the day-night terminator at the current UTC date and time.
 
+    >>> import datetime
     >>> import pygmt
+
     >>> fig = pygmt.Figure()
     >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
     >>> fig.solar()
@@ -101,7 +103,7 @@ def solar(
     night-section filled with navyblue at 75% transparency.
 
     >>> import datetime
-    >>> # create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
+    >>> # Create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
     >>> date = datetime.datetime(
     ...     year=1997, month=6, day=24, hour=8, minute=52, second=18
     ... )
