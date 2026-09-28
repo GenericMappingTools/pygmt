@@ -243,6 +243,19 @@ html_context = {
 
 # Options for LaTeX output.
 latex_engine = "xelatex"
+latex_elements = {
+    # Lay out the team member cards (grids with the "team-grid" class) in rows of five
+    # small cards, instead of one full-width profile picture per page.
+    "preamble": r"""
+\newenvironment{sphinxclassteam-grid}{%
+  \par\raggedright\setlength{\parindent}{0pt}\small
+  \newenvironment{sphinxclasssd-col}%
+    {\begin{minipage}[t]{0.18\linewidth}\centering}%
+    {\end{minipage}\hspace{0.025\linewidth}\ignorespacesafterend}%
+  \newenvironment{sphinxclasssd-card-title}{}{\par}%
+}{\par\medskip}
+""",
+}
 latex_documents = [
     (root_doc, "pygmt.tex", "The PyGMT Documentation", author, "manual", True)
 ]
