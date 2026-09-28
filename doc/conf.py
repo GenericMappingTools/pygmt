@@ -17,12 +17,13 @@ isdev = Version(__version__).is_devrelease
 repository = "GenericMappingTools/pygmt"
 repository_url = f"https://github.com/{repository}"
 doc_url = "https://www.pygmt.org"
-if __commit__:
-    commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
-else:
-    commit_link = (
-        f'<a href="{repository_url}/releases/tag/v{__version__}">v{__version__}</a>'
+# Version information shown in the footer, e.g., "Release 0.19.0" or "Commit 0ab3cd78".
+if isdev:
+    version_info = (
+        f'Commit <a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
     )
+else:
+    version_info = f'Release <a href="{repository_url}/releases/tag/v{__version__}">{__version__}</a>'
 
 # Projection information.
 project = "PyGMT"
@@ -237,7 +238,7 @@ html_context = {
     ),
     "github_repo": repository,
     "github_version": "main",
-    "commit": commit_link,
+    "version_info": version_info,
 }
 
 # Options for LaTeX output.
