@@ -5,7 +5,9 @@ Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 import datetime
+import re
 
+from docutils import nodes
 from packaging.version import Version
 from pygmt import __commit__, __version__
 from pygmt._show_versions import _get_dep_specifier
@@ -17,12 +19,11 @@ isdev = Version(__version__).is_devrelease
 repository = "GenericMappingTools/pygmt"
 repository_url = f"https://github.com/{repository}"
 doc_url = "https://www.pygmt.org"
-if __commit__:
-    commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
+# Version information shown in the footer, e.g., "Release 0.19.0" or "Commit 0ab3cd78".
+if isdev:
+    version_info = f'Commit <a href="{repository_url}/commit/{__commit__[:8]}">{__commit__[:8]}</a>'
 else:
-    commit_link = (
-        f'<a href="{repository_url}/releases/tag/v{__version__}">v{__version__}</a>'
-    )
+    version_info = f'Release <a href="{repository_url}/releases/tag/v{__version__}">{__version__}</a>'
 
 # Projection information.
 project = "PyGMT"
@@ -237,11 +238,45 @@ html_context = {
     ),
     "github_repo": repository,
     "github_version": "main",
-    "commit": commit_link,
+    "version_info": version_info,
 }
 
 # Options for LaTeX output.
 latex_engine = "xelatex"
+latex_elements = {
+    # Lay out the team member cards (grids with the "team-grid" class) in rows of five
+    # small cards, instead of one full-width profile picture per page.
+    "preamble": r"""
+\newenvironment{sphinxclassteam-grid}{%
+  \par\raggedright\setlength{\parindent}{0pt}\small
+  \newenvironment{sphinxclasssd-col}%
+    {\begin{minipage}[t]{0.18\linewidth}\centering}%
+    {\end{minipage}\hspace{0.025\linewidth}\ignorespacesafterend}%
+  \newenvironment{sphinxclasssd-card-title}{}{\par}%
+}{\par\medskip}
+""",
+}
 latex_documents = [
     (root_doc, "pygmt.tex", "The PyGMT Documentation", author, "manual", True)
 ]
+
+
+def remove_emojis(app, doctree, docname):  # ruff: ignore[unused-function-argument]
+    """
+    Remove emojis from the LaTeX/PDF output since the default fonts don't cover them.
+    """
+    # Emojis (U+1F300 to U+1FAFF, with optional variation selector and trailing space).
+    _emoji_regex = re.compile(r"[\U0001F300-\U0001FAFF]\uFE0F?\s?")
+
+    if app.builder.format != "latex":
+        return
+    for node in list(doctree.findall(nodes.Text)):
+        if _emoji_regex.search(node):
+            node.parent.replace(node, nodes.Text(_emoji_regex.sub("", node)))
+
+
+def setup(app):
+    """
+    Sphinx extension entry point.
+    """
+    app.connect("doctree-resolved", remove_emojis)
