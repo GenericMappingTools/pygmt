@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 __doctest_skip__ = ["fill_between"]
 
@@ -22,17 +22,17 @@ def fill_between(
     y: Sequence[float],
     y2: float | Sequence[float] = 0,
     x2: Sequence[float] | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
+    fill2: str | Pattern | None = None,
     pen: str | None = None,
-    label: str | None = None,
-    fill2: str | None = None,
     pen2: str | None = None,
+    label: str | None = None,
     label2: str | None = None,
     legend_pen: bool | str = False,
+    no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
-    no_clip: bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,

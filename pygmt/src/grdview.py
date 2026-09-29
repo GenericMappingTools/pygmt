@@ -17,7 +17,7 @@ from pygmt.helpers import (
     is_given,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
@@ -127,10 +127,10 @@ def grdview(
     nan_transparent: bool = False,
     monochrome: bool = False,
     contour_pen: str | None = None,
-    mesh_fill: str | None = None,
+    mesh_fill: str | Pattern | None = None,
     mesh_pen: str | None = None,
     plane: float | bool = False,
-    facade_fill: str | None = None,
+    facade_fill: str | Pattern | None = None,
     facade_pen: str | None = None,
     projection: str | None = None,
     smooth: int | None = None,
