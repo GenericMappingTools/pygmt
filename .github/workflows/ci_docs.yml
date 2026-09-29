@@ -77,8 +77,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
           persist-credentials: false
 
       - name: Get current week number of year
@@ -180,9 +178,9 @@ jobs:
           name: artifact-pygmt-docs-pdf
           path: doc/_build/pygmt-docs.pdf
 
-      - name: Copy the HTML ZIP archive and PDF to the html folder for dev version
+      - name: Copy the HTML ZIP archive and PDF to the html folder
         run: cp -v doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf doc/_build/html/
-        if: github.event_name == 'push' && matrix.os == 'ubuntu-latest'
+        if: (github.event_name == 'push' || github.event_name == 'release') && matrix.os == 'ubuntu-latest'
 
       - name: Upload the HTML ZIP archive and PDF as release assets
         run: gh release upload ${REF_NAME} doc/_build/pygmt-docs.zip doc/_build/pygmt-docs.pdf
@@ -197,8 +195,6 @@ jobs:
           ref: gh-pages
           # Checkout to this folder instead of the current one
           path: deploy
-          # Download the entire history
-          fetch-depth: 0
           persist-credentials: true
         if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
 
