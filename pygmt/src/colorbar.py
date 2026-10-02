@@ -272,6 +272,7 @@ def colorbar(
     scale: float | None = None,
     monochrome: bool = False,
     dpi: int | None = None,
+    no_font_scaling: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -294,15 +295,17 @@ def colorbar(
     tile widths.
 
     .. note::
-       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
-       and y-label are scaled based on the width of the colorbar following
-       :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize via the
+      By default, the fontsizes of the colorbar annotations, label, and unit
+      are scaled based on the width of the colorbar following
+       :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize use the
        GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
        :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
-       :gmt-term:`FONT`) users have to divide the desired fontsize by the value
-       calculated with the formula given above before passing it to the default
-       parameters. To only affect fontsizes related to the colorbar, the
-       defaults can be changed locally only using ``with pygmt.config(...):``.
+       :gmt-term:`FONT`)
+       For GMT >=6.7.0, users should use ``no_font_scaling = True`` to turn off
+       the automatic fontsize scaling.
+       For GMT 6.5.0 - 6.6.0, users have to divide the desired fontsize by the
+       value calculated with the formula given above before passing it to the
+       default parameters.
 
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
@@ -310,6 +313,7 @@ def colorbar(
        - C = cmap
        - F = box
        - G = truncate
+       - H = no_font_scaling
        - I = shading
        - J = projection
        - M = monochrome
@@ -463,6 +467,10 @@ def colorbar(
 
         If not specified, GMT uses its default encoding behavior, and the default dpi
         is 600 if the colorbar is drawn as image.
+    no_font_scaling
+        By default, the font sizes used for the colorbar are scaled automatically
+        based on the length of the colorbar. Set this parameter to ``True`` to
+        turn off the automatic scaling [Requires GMT>=6.7.0].
     $projection
     $region
     $verbose
@@ -518,6 +526,7 @@ def colorbar(
         ),
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
+        H=Alias(no_font_scaling, name="no_font_scaling"),
         I=Alias(shading, name="shading", sep="/", size=2),
         M=Alias(monochrome, name="monochrome"),
         N=_alias_option_N(dpi=dpi),
