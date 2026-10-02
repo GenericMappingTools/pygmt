@@ -13,6 +13,33 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 from pygmt.params import Axis, Frame
 
 
+def _alias_option_F(  # ruff: ignore[invalid-function-name]
+    preprocess: Sequence[Literal["integral", "square", "demean"]] | None = None,
+) -> list[Alias]:
+    """
+    Helper function to create the alias list for the -F option.
+
+    Examples
+    --------
+    >>> def parse(preprocess):
+    ...     return AliasSystem(F=_alias_option_F(preprocess)).get("F")
+    >>> parse(["integral", "square", "demean"])
+    'iqr'
+    >>> parse(["demean", "integral", "integral"])
+    'rii'
+    >>> parse(None) is None
+    True
+    """
+    return [
+        Alias(
+            operation,
+            name="preprocess",
+            mapping={"integral": "i", "square": "q", "demean": "r"},
+        )
+        for operation in preprocess or ()
+    ]
+
+
 @fmt_docstring
 def sac(
     self,
@@ -186,20 +213,6 @@ def sac(
     $transparency
     """
 
-    preprocess_value = None
-    if preprocess:
-        preprocess_values: list[str] = []
-        for operation in preprocess:
-            value = Alias(
-                operation,
-                name="preprocess",
-                mapping={"integral": "i", "square": "q", "demean": "r"},
-            )._value
-            if not isinstance(value, str):
-                raise GMTValueError(value, description="preprocess operation")
-            preprocess_values.append(value)
-        preprocess_value = "".join(preprocess_values)
-
     fill_modifier_values: list[str] = []
     for modifier in (
         Alias(fill_zero, name="fill_zero", prefix="+z")._value,
@@ -242,7 +255,7 @@ def sac(
                 **{f"user{number}": f"u{number}" for number in range(10)},
             },
         ),
-        F=Alias(preprocess_value, name="preprocess"),
+        F=_alias_option_F(preprocess),
         G=Alias([option for option in fill_options if option is not None], name="fill"),
         M=Alias(amplitude_scale, name="amplitude_scale", sep="/", size=(1, 2)),
         Q=Alias(vertical, name="vertical"),
