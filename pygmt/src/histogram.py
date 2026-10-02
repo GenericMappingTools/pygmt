@@ -288,7 +288,7 @@ def histogram(
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
-        of plot dimension units by appending the relevant unit.
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     center
         Center bin on each value specified via ``series`` [Default uses the values to
         define the left edge of each bin].
@@ -342,7 +342,6 @@ def histogram(
         Pen used to draw the distribution curve [Default is ``"0.25p,black,solid"``].
         Pass a sequence of pens to use a different pen for each curve; a single pen is
         used for all of them. If ``distribution`` is not set, this parameter is ignored.
-        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     $projection
     $region
     $frame
