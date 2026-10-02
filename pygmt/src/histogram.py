@@ -22,6 +22,55 @@ from pygmt.params import Axis, Frame, Pattern
 __doctest_skip__ = ["histogram"]
 
 
+def _alias_option_D(  # ruff: ignore[invalid-function-name]
+    annot: bool = False,
+    annot_position: Literal["start", "end"] = "end",
+    annot_font: str | None = None,
+    annot_offset: float | str | None = None,
+    annot_orientation: Literal["horizontal", "vertical"] = "horizontal",
+):
+    """
+    Helper function to build the -D option for the histogram module.
+
+    >>> def parse(**kwargs):
+    ...     return AliasSystem(D=_alias_option_D(**kwargs)).get("D")
+
+    >>> parse(annot=False)
+    >>> parse(annot=True)
+    ''
+    >>> parse(
+    ...     annot=True,
+    ...     annot_position="start",
+    ...     annot_font="12p,Helvetica-Bold",
+    ...     annot_offset="6p",
+    ...     annot_orientation="vertical",
+    ... )
+    '+b+f12p,Helvetica-Bold+o6p+r'
+
+    >>> # annot_* parameters are ignored if annot is not set
+    >>> parse(annot_position="start")
+    """
+    # Ignore any annot_* parameter if annot is not set.
+    if not annot:
+        return Alias(False, name="annot")
+
+    # If annot is set, return a list of Alias objects for the annot_* parameters.
+    return [
+        Alias(
+            annot_position,
+            name="annot_position",
+            mapping={"start": "+b", "end": ""},
+        ),
+        Alias(annot_font, name="annot_font", prefix="+f"),
+        Alias(annot_offset, name="annot_offset", prefix="+o"),
+        Alias(
+            annot_orientation,
+            name="annot_orientation",
+            mapping={"horizontal": "", "vertical": "+r"},
+        ),
+    ]
+
+
 def _alias_option_N(  # ruff: ignore[invalid-function-name]
     distribution=None, distribution_pen=None
 ):
@@ -134,9 +183,10 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 
 @fmt_docstring
 # TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
+# TODO(PyGMT>=0.22.0): Remove the deprecated "annotate" parameter.
 @deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
+@deprecate_parameter("annotate", "annot", "0.20.0", remove_version="0.22.0")
 @use_alias(
-    D="annotate",
     T="series",
     Z="histtype",
     b="binary",
@@ -155,15 +205,20 @@ def histogram(
     cmap: str | bool = False,
     pen: str | None = None,
     fill: str | Pattern | None = None,
+    annot: bool = False,
+    annot_position: Literal["start", "end"] = "end",
+    annot_font: str | None = None,
+    annot_offset: float | str | None = None,
+    annot_orientation: Literal["horizontal", "vertical"] = "horizontal",
     horizontal: bool = False,
     center: bool = False,
+    out_range: Literal["first", "last", "both"] | None = None,
+    stairs: bool = False,
+    cumulative: bool | Literal["reverse"] = False,
     distribution: Literal["mean", "median", "lms"]
     | Sequence[Literal["mean", "median", "lms"]]
     | None = None,
     distribution_pen: str | Sequence[str] | None = None,
-    out_range: Literal["first", "last", "both"] | None = None,
-    stairs: bool = False,
-    cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -184,6 +239,8 @@ def histogram(
        - A = horizontal
        - B = frame
        - C = cmap
+       - D = annot, **+b**: annot_position, **+f**: annot_font, **+o**: annot_offset,
+         **+r**: annot_orientation
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
@@ -210,14 +267,21 @@ def histogram(
         [Default is no outline].
     fill
          Set color or pattern for filling bars [Default is no fill].
-    annotate : bool or str
-        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
-        Annotate each bar with the count it represents. Append any of the
-        following modifiers: Use **+b** to place the labels beneath the bars
-        instead of above; use **+f** to change to another font than the default
-        annotation font; use **+o** to change the offset between bar and
-        label [Default is ``"6p"``]; use **+r** to rotate the labels from
-        horizontal to vertical.
+    annot
+        If ``True``, annotate each bar with the value it represents. The remaining
+        ``annot_*`` parameters control how the annotations look and are ignored if
+        ``annot`` is not set.
+    annot_position
+        Position of the annotations relative to the bars. Valid values are ``"start"``
+        and ``"end"``.
+    annot_font
+        Font of the annotations [Default is :gmt-term:`FONT_ANNOT_PRIMARY`].
+    annot_offset
+        Offset between a bar and its annotation, with an optional
+        :ref:`dimension unit <dimension-units>` [Default is ``"6p"``].
+    annot_orientation
+        Orientation of the annotations. Valid values are ``"horizontal"`` and
+        ``"vertical"``.
     bar_width
         Use an alternative histogram bar width than the default set via ``series``. Give
         either an alternative width in data units, or the user may append a
@@ -228,24 +292,6 @@ def histogram(
     center
         Center bin on each value specified via ``series`` [Default uses the values to
         define the left edge of each bin].
-    distribution
-        Draw the equivalent normal distribution. Select which central location and scale
-        to use:
-
-        - ``"mean"``: mean and standard deviation
-        - ``"median"``: median and L1 scale (1.4826 \* median absolute deviation)
-        - ``"lms"``: least median of squares (LMS) mode and scale
-
-        Pass a sequence of modes to draw several curves at once, e.g.,
-        ``["mean", "lms"]``.
-
-        **Note**: If ``wrap`` is used, only ``"mean"`` is available and the circular
-        von Mises distribution is determined instead.
-    distribution_pen
-        Pen used to draw the distribution curve [Default is ``"0.25p,black,solid"``].
-        Pass a sequence of pens to use a different pen for each curve; a single pen is
-        used for all of them. If ``distribution`` is not set, this parameter is ignored.
-        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     out_range
         Handle values that fall outside the range set by ``series``. By default, these
         values are ignored. Valid values are:
@@ -279,6 +325,24 @@ def histogram(
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
+    distribution
+        Draw the equivalent normal distribution. Select which central location and scale
+        to use:
+
+        - ``"mean"``: mean and standard deviation
+        - ``"median"``: median and L1 scale (1.4826 \* median absolute deviation)
+        - ``"lms"``: least median of squares (LMS) mode and scale
+
+        Pass a sequence of modes to draw several curves at once, e.g.,
+        ``["mean", "lms"]``.
+
+        **Note**: If ``wrap`` is used, only ``"mean"`` is available and the circular
+        von Mises distribution is determined instead.
+    distribution_pen
+        Pen used to draw the distribution curve [Default is ``"0.25p,black,solid"``].
+        Pass a sequence of pens to use a different pen for each curve; a single pen is
+        used for all of them. If ``distribution`` is not set, this parameter is ignored.
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
     $projection
     $region
     $frame
@@ -314,6 +378,13 @@ def histogram(
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
         C=Alias(cmap, name="cmap"),
+        D=_alias_option_D(
+            annot=annot,
+            annot_position=annot_position,
+            annot_font=annot_font,
+            annot_offset=annot_offset,
+            annot_orientation=annot_orientation,
+        ),
         E=[
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
