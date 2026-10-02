@@ -95,16 +95,15 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.18.0...v0.19.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Xingchen He](https://github.com/Chuan1937)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [@Bingtagui404](https://github.com/Bingtagui404)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Xingchen He](https://github.com/Chuan1937),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[@Bingtagui404](https://github.com/Bingtagui404),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -182,14 +181,13 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.17.0...v0.18.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Xingchen He](https://github.com/Chuan1937)
-* [Will Schlitzer](https://github.com/willschlitzer)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Xingchen He](https://github.com/Chuan1937),
+[Will Schlitzer](https://github.com/willschlitzer)
 
 ---
 
@@ -254,12 +252,11 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.16.0...v0.17.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -311,13 +308,12 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.15.0...v0.16.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Federico Esteban](https://github.com/Esteban82)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Michael Grund](https://github.com/michaelgrund),
+[Federico Esteban](https://github.com/Esteban82)
 
 ---
 
@@ -367,12 +363,11 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.0...v0.15.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -388,9 +383,8 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.1...v0.14.2>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman)
 
 ---
 
@@ -413,10 +407,9 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.14.0...v0.14.1>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14)
 
 ---
 
@@ -513,14 +506,13 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.13.0...v0.14.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jiayuan Yao](https://github.com/core-man)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jiayuan Yao](https://github.com/core-man)
 
 ---
 
@@ -602,13 +594,12 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.12.0...v0.13.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Andre L. Belem](https://github.com/andrebelem)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Andre L. Belem](https://github.com/andrebelem)
 
 ---
 
@@ -695,12 +686,11 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.11.0...v0.12.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14)
 
 ---
 
@@ -808,13 +798,12 @@
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.10.0...v0.11.0>
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -894,14 +883,13 @@
 * CI: Add detailed descriptions in the workflow files and update maintainer guides ([#2496](https://github.com/GenericMappingTools/pygmt/pull/2496))
 * Add private function _validate_data_input to validate input data ([#2595](https://github.com/GenericMappingTools/pygmt/pull/2595))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Jing-Hui Tong](https://github.com/jhtong33)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Jing-Hui Tong](https://github.com/jhtong33),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -979,15 +967,14 @@
 * Remove --sdist --wheel flags from the build command ([#2420](https://github.com/GenericMappingTools/pygmt/pull/2420))
 * Replace ModuleNotFoundError with the more general ImportError ([#2441](https://github.com/GenericMappingTools/pygmt/pull/2441))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jing-Hui Tong](https://github.com/jhtong33)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jing-Hui Tong](https://github.com/jhtong33),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -1083,14 +1070,13 @@
 * Refactor grdview and grdimage to use virtualfile_from_data ([#1988](https://github.com/GenericMappingTools/pygmt/pull/1988))
 * Use the org-wide code of conduct ([#2020](https://github.com/GenericMappingTools/pygmt/pull/2020))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones)
 
 ---
 
@@ -1154,16 +1140,15 @@
 * Run GMT Dev Tests on Monday, Wednesday and Friday only ([#1922](https://github.com/GenericMappingTools/pygmt/pull/1922))
 * Update GMT Dev Tests workflow to test on macOS-12 and ubuntu-22.04 ([#1918](https://github.com/GenericMappingTools/pygmt/pull/1918))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Andre L. Belem](https://github.com/andrebelem)
-* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Max Jones](https://github.com/maxrjones)
-* [Jack Beagley](https://github.com/jackbeagley)
-* [Michael Grund](https://github.com/michaelgrund)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Andre L. Belem](https://github.com/andrebelem),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich),
+[Max Jones](https://github.com/maxrjones),
+[Jack Beagley](https://github.com/jackbeagley),
+[Michael Grund](https://github.com/michaelgrund)
 
 ---
 
@@ -1194,13 +1179,12 @@
 * Use the build package to build sdist and wheel distributions ([#1823](https://github.com/GenericMappingTools/pygmt/pull/1823))
 * Let slash command /test-gmt-dev report job URL ([#1866](https://github.com/GenericMappingTools/pygmt/pull/1866))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Max Jones](https://github.com/maxrjones)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Max Jones](https://github.com/maxrjones),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer)
 
 ---
 
@@ -1286,14 +1270,13 @@
 * Use pytest-doctestplus to skip some inline doctests ([#1790](https://github.com/GenericMappingTools/pygmt/pull/1790))
 * Use Python 3.10 in Continuous Integration tests ([#1577](https://github.com/GenericMappingTools/pygmt/pull/1577))
 
-### Contributors
-
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Max Jones](https://github.com/maxrjones)
-* [Dongdong Tian](https://github.com/seisman)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Julius Busecke](https://github.com/jbusecke)
+**Contributors**:
+[Will Schlitzer](https://github.com/willschlitzer),
+[Max Jones](https://github.com/maxrjones),
+[Dongdong Tian](https://github.com/seisman),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Julius Busecke](https://github.com/jbusecke)
 
 ---
 
@@ -1395,23 +1378,22 @@
 * Remove deprecated codecov dependency from CI ([#1494](https://github.com/GenericMappingTools/pygmt/pull/1494))
 * Add the use of Flake8 to check examples and fix warnings ([#1477](https://github.com/GenericMappingTools/pygmt/pull/1477))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
-* [Yohai Magen](https://github.com/yohaimagen)
-* [Amanda Leaman](https://github.com/arleaman)
-* [@daroari](https://github.com/daroari)
-* [@obaney](https://github.com/obaney)
-* [@srijac](https://github.com/srijac)
-* Andrés Ignacio Torres
-* [Becky Salvage](https://github.com/BeckySalvage)
-* [Claudio Satriano](https://github.com/claudiodsf)
-* [Jamie J Quinn](https://github.com/JamieJQuinn)
-* [@carocamargo](https://github.com/carocamargo)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones),
+[Yohai Magen](https://github.com/yohaimagen),
+[Amanda Leaman](https://github.com/arleaman),
+[@daroari](https://github.com/daroari),
+[@obaney](https://github.com/obaney),
+[@srijac](https://github.com/srijac),
+Andrés Ignacio Torres,
+[Becky Salvage](https://github.com/BeckySalvage),
+[Claudio Satriano](https://github.com/claudiodsf),
+[Jamie J Quinn](https://github.com/JamieJQuinn),
+[@carocamargo](https://github.com/carocamargo)
 
 ----
 
@@ -1450,18 +1432,17 @@
 * Add tomli as a dependency in GMT Dev Tests ([#1401](https://github.com/GenericMappingTools/pygmt/pull/1401))
 * NEP29: Test PyGMT on NumPy 1.21 ([#1355](https://github.com/GenericMappingTools/pygmt/pull/1355))
 
-### Contributors
-
-* [Max Jones](https://github.com/maxrjones)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Yohai Magen](https://github.com/yohaimagen)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Dongdong Tian](https://github.com/seisman)
-* [Kadatatlu Kishore](https://github.com/osdev-in)
-* [@sean0921](https://github.com/sean0921)
-* [Soham Banerjee](https://github.com/soham4abc)
+**Contributors**:
+[Max Jones](https://github.com/maxrjones),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Michael Grund](https://github.com/michaelgrund),
+[Wei Ji Leong](https://github.com/weiji14),
+[Yohai Magen](https://github.com/yohaimagen),
+[Jiayuan Yao](https://github.com/core-man),
+[Dongdong Tian](https://github.com/seisman),
+[Kadatatlu Kishore](https://github.com/osdev-in),
+[@sean0921](https://github.com/sean0921),
+[Soham Banerjee](https://github.com/soham4abc)
 
 ----
 
@@ -1567,28 +1548,27 @@
 * Initialize data version control for managing test images ([#1036](https://github.com/GenericMappingTools/pygmt/pull/1036))
 * Separate workflows for running tests and building documentation ([#1033](https://github.com/GenericMappingTools/pygmt/pull/1033))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Max Jones](https://github.com/maxrjones)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Abhishek Anant](https://github.com/noturshek)
-* [Claire Klima](https://github.com/cklima616)
-* [Megan Munzek](https://github.com/munzekm)
-* [Michael Neumann](https://github.com/MichaeINeumann)
-* [Nathan Loria](https://github.com/Nathandloria)
-* [Noor Buchi](https://github.com/noorbuchi)
-* [Shivani chauhan](https://github.com/xdshivani)
-* [@alperen-kilic](https://github.com/alperen-kilic)
-* [Loïc Houpert](https://github.com/lhoupert)
-* [Emily McMullan](https://github.com/eemcmullan)
-* [Lawrence Qupty](https://github.com/Lawqup)
-* [Matthew Tankersley](https://github.com/mdtanker)
-* [@shahid-0](https://github.com/shahid-0)
-* [Vitor Gratiere Torres](https://github.com/vitorgt)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Max Jones](https://github.com/maxrjones),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Jiayuan Yao](https://github.com/core-man),
+[Abhishek Anant](https://github.com/noturshek),
+[Claire Klima](https://github.com/cklima616),
+[Megan Munzek](https://github.com/munzekm),
+[Michael Neumann](https://github.com/MichaeINeumann),
+[Nathan Loria](https://github.com/Nathandloria),
+[Noor Buchi](https://github.com/noorbuchi),
+[Shivani chauhan](https://github.com/xdshivani),
+[@alperen-kilic](https://github.com/alperen-kilic),
+[Loïc Houpert](https://github.com/lhoupert),
+[Emily McMullan](https://github.com/eemcmullan),
+[Lawrence Qupty](https://github.com/Lawqup),
+[Matthew Tankersley](https://github.com/mdtanker),
+[@shahid-0](https://github.com/shahid-0),
+[Vitor Gratiere Torres](https://github.com/vitorgt)
 
 ----
 
@@ -1646,18 +1626,17 @@
 * Ensure proper non-dev version string when publishing to PyPI ([#900](https://github.com/GenericMappingTools/pygmt/pull/900))
 * Run tests in a single CI job (Ubuntu + Python 3.9) for draft PRs ([#906](https://github.com/GenericMappingTools/pygmt/pull/906))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Jiayuan Yao](https://github.com/core-man)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Max Jones](https://github.com/maxrjones)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Liam Toney](https://github.com/liamtoney)
-* [Kathryn Materna](https://github.com/kmaterna)
-* [Alicia Ngoc Diep Ha](https://github.com/aliciaha1997)
-* [Tawanda Moyo](https://github.com/tawandamoyo)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Jiayuan Yao](https://github.com/core-man),
+[Wei Ji Leong](https://github.com/weiji14),
+[Max Jones](https://github.com/maxrjones),
+[Michael Grund](https://github.com/michaelgrund),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Liam Toney](https://github.com/liamtoney),
+[Kathryn Materna](https://github.com/kmaterna),
+[Alicia Ngoc Diep Ha](https://github.com/aliciaha1997),
+[Tawanda Moyo](https://github.com/tawandamoyo)
 
 ----
 
@@ -1754,14 +1733,13 @@
 * Add a test for Figure.basemap map_scale ([#739](https://github.com/GenericMappingTools/pygmt/pull/739))
 * Use args_in_kwargs for Figure.basemap error raising ([#797](https://github.com/GenericMappingTools/pygmt/pull/797))
 
-### Contributors
-
-* [Will Schlitzer](https://github.com/willschlitzer)
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Michael Grund](https://github.com/michaelgrund)
-* [Liam Toney](https://github.com/liamtoney)
-* [Max Jones](https://github.com/maxrjones)
+**Contributors**:
+[Will Schlitzer](https://github.com/willschlitzer),
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Michael Grund](https://github.com/michaelgrund),
+[Liam Toney](https://github.com/liamtoney),
+[Max Jones](https://github.com/maxrjones)
 
 ----
 
@@ -1830,12 +1808,11 @@
 * Improve Makefile to clean ``__pycache__`` directory recursively ([#611](https://github.com/GenericMappingTools/pygmt/pull/611))
 * Update release process and checklist template ([#602](https://github.com/GenericMappingTools/pygmt/pull/602))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Conor Bacon](https://github.com/hemmelig)
-* [carocamargo](https://github.com/carocamargo)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Conor Bacon](https://github.com/hemmelig),
+[carocamargo](https://github.com/carocamargo)
 
 ----
 
@@ -1899,12 +1876,11 @@
 * Let pytest generate both HTML and XML coverage reports ([#512](https://github.com/GenericMappingTools/pygmt/pull/512))
 * Run Continuous Integration tests on GitHub Actions ([#475](https://github.com/GenericMappingTools/pygmt/pull/475))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Tyler Newton](https://github.com/tjnewton)
-* [Liam Toney](https://github.com/liamtoney)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Tyler Newton](https://github.com/tjnewton),
+[Liam Toney](https://github.com/liamtoney)
 
 ----
 
@@ -1949,11 +1925,10 @@
 * Update baseline images for updates of earth relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
 * Simplify PyGMT Release process ([#446](https://github.com/GenericMappingTools/pygmt/pull/446))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Liam Toney](https://github.com/liamtoney)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Liam Toney](https://github.com/liamtoney)
 
 ----
 
@@ -1986,11 +1961,10 @@
 * Finalize fixes on Windows test suite for v0.1.1 ([#441](https://github.com/GenericMappingTools/pygmt/pull/441))
 * Cache test data on Azure Pipelines ([#438](https://github.com/GenericMappingTools/pygmt/pull/438))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Jason K. Moore](https://github.com/moorepants)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Jason K. Moore](https://github.com/moorepants)
 
 ----
 
@@ -2073,15 +2047,14 @@
 * Remove require.js since WorldWind was dropped ([#278](https://github.com/GenericMappingTools/pygmt/pull/278))
 * Remove Web WorldWind support ([#275](https://github.com/GenericMappingTools/pygmt/pull/275))
 
-### Contributors
-
-* [Dongdong Tian](https://github.com/seisman)
-* [Wei Ji Leong](https://github.com/weiji14)
-* [Leonardo Uieda](https://github.com/leouieda)
-* [Liam Toney](https://github.com/liamtoney)
-* [Brook Tozer](https://github.com/btozer)
-* [Claudio Satriano](https://github.com/claudiodsf)
-* [Cody Woodson](https://github.com/Dovacody)
-* [Mark Wieczorek](https://github.com/MarkWieczorek)
-* [Philipp Loose](https://github.com/phloose)
-* [Kathryn Materna](https://github.com/kmaterna)
+**Contributors**:
+[Dongdong Tian](https://github.com/seisman),
+[Wei Ji Leong](https://github.com/weiji14),
+[Leonardo Uieda](https://github.com/leouieda),
+[Liam Toney](https://github.com/liamtoney),
+[Brook Tozer](https://github.com/btozer),
+[Claudio Satriano](https://github.com/claudiodsf),
+[Cody Woodson](https://github.com/Dovacody),
+[Mark Wieczorek](https://github.com/MarkWieczorek),
+[Philipp Loose](https://github.com/phloose),
+[Kathryn Materna](https://github.com/kmaterna)

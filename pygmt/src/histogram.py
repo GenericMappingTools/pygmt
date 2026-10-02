@@ -11,21 +11,22 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
+
+__doctest_skip__ = ["histogram"]
 
 
 @fmt_docstring
+# TODO(PyGMT>=0.22.0): Remove the deprecated "extreme" parameter.
+@deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @use_alias(
     D="annotate",
-    F="center",
-    L="extreme",
     N="distribution",
-    Q="cumulative",
-    S="stairs",
     T="series",
     Z="histtype",
     b="binary",
@@ -43,8 +44,12 @@ def histogram(
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     horizontal: bool = False,
+    center: bool = False,
+    out_range: Literal["first", "last", "both"] | None = None,
+    stairs: bool = False,
+    cumulative: bool | Literal["reverse"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -68,7 +73,10 @@ def histogram(
        - E = bar_width, **+o**: bar_offset
        - G = fill
        - J = projection
+       - L = out_range
+       - Q = cumulative
        - R = region
+       - S = stairs
        - V = verbose
        - W = pen
        - c = panel
@@ -101,9 +109,10 @@ def histogram(
         :ref:`dimension unit <dimension-units>` for a fixed dimension instead.
     bar_offset
         Shift all bars along the axis by a constant value. It may be given in data units
-        of plot dimension units by appending the relevant unit.
-    center : bool
-        Center bin on each value. [Default is left edge].
+        of plot dimension units by appending the relevant unit. Requires ``bar_width``.
+    center
+        Center bin on each value specified via ``series`` [Default uses the values to
+        define the left edge of each bin].
     distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
@@ -113,21 +122,19 @@ def histogram(
         * 0 = mean and standard deviation [Default];
         * 1 = median and L1 scale (1.4826 \* median absolute deviation; MAD);
         * 2 = LMS (least median of squares) mode and scale.
-    cumulative : bool or str
-        [**r**].
-        Draw a cumulative histogram by passing ``True``. Use **r** to display
-        a reverse cumulative histogram.
-    extreme : str
-        **l**\|\ **h**\|\ **b**.
-        The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``. By default, these values are ignored.
-        Append **b** to let these values be included in the first or last
-        bins. To only include extreme values below first bin into the first
-        bin, use **l**, and to only include extreme values above the last bin
-        into that last bin, use **h**.
-    stairs : bool
-        Draw a stairs-step diagram which does not include the internal bars
-        of the default histogram.
+    out_range
+        Handle values that fall outside the range set by ``series``. By default, these
+        values are ignored. Valid values are:
+
+        - ``"first"``: only include values below first bin into the first bin
+        - ``"last"``: only include values above the last bin into that last bin
+        - ``"both"``: include values into the first or last bins
+    cumulative
+        Pass ``True`` to draw a cumulative histogram, or set it to ``"reverse"`` to draw
+        a reverse cumulative histogram instead.
+    stairs
+        Draw a stairs-step diagram which does not include the internal bars of the
+        default histogram.
     horizontal
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
@@ -162,6 +169,18 @@ def histogram(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # Generate random data from a normal distribution
+    >>> rng = np.random.default_rng(seed=100)
+    >>> data = rng.normal(loc=100, scale=25, size=1024)
+    >>> fig = pygmt.Figure()
+    >>> fig.histogram(data=data, frame=True, series=5, fill="red3", pen="1p")
+    >>> fig.show()
     """
     if bar_offset is not None and bar_width is None:
         raise GMTParameterError(
@@ -175,7 +194,15 @@ def histogram(
             Alias(bar_width, name="bar_width"),
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
+        F=Alias(center, name="center"),
         G=Alias(fill, name="fill"),
+        L=Alias(
+            out_range,
+            name="out_range",
+            mapping={"first": "l", "last": "h", "both": "b"},
+        ),
+        Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
+        S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
     ).add_common(
         B=frame,

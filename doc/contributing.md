@@ -132,8 +132,9 @@ our tests. This way, the *main* branch is always stable.
 * How to write and submit a PR
   - Use underscores, not hyphens, in the names of all files and directories, as per
     [PEP8](https://www.python.org/dev/peps/pep-0008/) for Python (\*.py) files. A few
-    exceptions are allowed (e.g., `.pre-commit-config.yaml`) and are listed
-    in the [style checks](.github/workflows/style_checks.yaml) workflow.
+    exceptions are allowed (e.g., `.pre-commit-config.yaml`) and are listed in the
+    [style checks](https://github.com/GenericMappingTools/pygmt/blob/main/.github/workflows/style_checks.yaml)
+    workflow.
   - Describe what your PR changes and *why* this is a good thing. Be as
     specific as you can. The PR description is how we keep track of the changes
     made to the project over time.
@@ -577,14 +578,14 @@ After the initial implementation, missing aliases can be added in separate PRs:
 * Select a suitable alias for each GMT option, following the guidelines in the
   [code style](#code-style) section. Before creating a new alias, check:
 
-  - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
+  - whether the parameter is listed in the `COMMON_PARAMETERS` dictionary in
     `pygmt/helpers/decorators.py`
   - whether other wrapped GMT modules have a similar parameter
   - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
 * Add the alias to the `AliasSystem` class and the function signature.
 * Add the alias and description to the parameters section of the docstring, using the
   `fmt_docstring` decorator to add descriptions for parameters included in the
-  `COMMON_DOCSTRINGS` dictionary.
+  `COMMON_PARAMETERS` dictionary.
 
 ### Testing your Code
 
