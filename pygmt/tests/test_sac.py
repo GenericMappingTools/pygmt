@@ -8,6 +8,7 @@ import pytest
 from packaging.version import Version
 from pygmt import Figure
 from pygmt.clib import __gmt_version__
+from pygmt.exceptions import GMTValueError
 
 SAC_DATA = Path(__file__).parent / "data" / "seis.sac"
 
@@ -140,12 +141,30 @@ def test_sac_fill():
     fig.sac(
         data=SAC_DATA,
         positive_fill="gray",
+        # A zero baseline and the full plot time range match the default fill.
+        fill_zero=0,
+        fill_time_window=[9, 20],
         region=[9, 20, -2, 2],
         projection="X15c/5c",
         frame=True,
         pen="0.5p,red",
     )
     return fig
+
+
+def test_sac_invalid_fill():
+    """
+    Test that invalid fill parameters raise an error.
+    """
+    fig = Figure()
+    # Fill modifiers require a positive or negative fill.
+    with pytest.raises(GMTValueError):
+        fig.sac(data=SAC_DATA, fill_zero=0)
+    with pytest.raises(GMTValueError):
+        fig.sac(data=SAC_DATA, fill_time_window=[10, 18])
+    # The fill zero line must be a single value.
+    with pytest.raises(GMTValueError):
+        fig.sac(data=SAC_DATA, positive_fill="gray", fill_zero=[0, 1])
 
 
 @XFAIL_GMT_LE_6_6
