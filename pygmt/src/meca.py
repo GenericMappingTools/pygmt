@@ -361,8 +361,8 @@ def meca(
     >>> fig.meca(
     ...     spec={"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
     ...     scale="1c",
-    ...     longitude=-123,
-    ...     latitude=48,
+    ...     longitude=-124.3,
+    ...     latitude=48.1,
     ...     depth=12.0,
     ... )
     >>> fig.show()
