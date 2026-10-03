@@ -254,8 +254,8 @@ def plot(  # ruff: ignore[too-many-branches]
 
     Examples
     --------
-    Plot a line connecting the data points and then plot the data points as red
-    circles:
+    Plot a blue line connecting the data points and then plot the data points as
+    red circles on top:
 
     >>> import pygmt
     >>> x = [1, 3, 5, 7, 9]
