@@ -211,7 +211,7 @@ def ternary(
     ... )
     >>> fig = pygmt.Figure()
     >>> fig.ternary(
-    ...     data,
+    ...     data=data,
     ...     region=[0, 100, 0, 100, 0, 100],
     ...     width="8c",
     ...     style="c0.2c",
