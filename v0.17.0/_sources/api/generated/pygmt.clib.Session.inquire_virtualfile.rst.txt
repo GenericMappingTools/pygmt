@@ -1,0 +1,13 @@
+pygmt.clib.Session.inquire\_virtualfile
+=======================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.inquire_virtualfile
+
+.. minigallery:: pygmt.clib.Session.inquire_virtualfile
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

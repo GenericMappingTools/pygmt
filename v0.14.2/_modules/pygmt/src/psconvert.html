@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.psconvert &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=845ca4e4" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/psconvert.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=a6e88da3"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.14.2
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.src.psconvert</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.psconvert</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">psconvert - Convert [E]PS file(s) to other formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+
+
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;gs_option&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;gs_path&quot;</span><span class="p">,</span>
+    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;resize&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;bb_style&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;anti_aliasing&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert [E]PS file(s) to other formats.</span>
+
+<span class="sd">    Converts one or more PostScript files to other formats (BMP, EPS, JPEG,</span>
+<span class="sd">    PDF, PNG, PPM, TIFF) using Ghostscript.</span>
+
+<span class="sd">    If no input files are given, will convert the current active figure</span>
+<span class="sd">    (see :class:`pygmt.Figure`). In this case, an output name must be given</span>
+<span class="sd">    using parameter ``prefix``.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`psconvert.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    crop : str or bool</span>
+<span class="sd">        Adjust the BoundingBox and HiResBoundingBox to the minimum</span>
+<span class="sd">        required by the image content. Default is ``True``. Append **+u** to</span>
+<span class="sd">        first remove any GMT-produced time-stamps. Append **+r** to</span>
+<span class="sd">        *round* the HighResBoundingBox instead of using the ``ceil``</span>
+<span class="sd">        function. This is going against Adobe Law but can be useful when</span>
+<span class="sd">        creating very small images where the difference of one pixel</span>
+<span class="sd">        might matter. If ``verbose`` is used we also report the</span>
+<span class="sd">        dimensions of the final illustration.</span>
+<span class="sd">    gs_path : str</span>
+<span class="sd">        Full path to the Ghostscript executable.</span>
+<span class="sd">    gs_option : str</span>
+<span class="sd">        Specify a single, custom option that will be passed on to</span>
+<span class="sd">        Ghostscript as is.</span>
+<span class="sd">    dpi : int</span>
+<span class="sd">        Set raster resolution in dpi. Default is 720 for PDF, 300 for</span>
+<span class="sd">        others.</span>
+<span class="sd">    prefix : str</span>
+<span class="sd">        Force the output file name. By default output names are constructed</span>
+<span class="sd">        using the input names as base, which are appended with an</span>
+<span class="sd">        appropriate extension. Use this option to provide a different name,</span>
+<span class="sd">        but without extension. Extension is still determined automatically.</span>
+<span class="sd">    resize : str</span>
+<span class="sd">        [**+m**\ *margins*][**+s**\ [**m**]\ *width*\</span>
+<span class="sd">        [/\ *height*]][**+S**\ *scale*].</span>
+<span class="sd">        Adjust the BoundingBox and HiResBoundingBox by scaling and/or</span>
+<span class="sd">        adding margins. Append **+m** to specify extra margins to extend</span>
+<span class="sd">        the bounding box. Give either one (uniform), two (x and y) or four</span>
+<span class="sd">        (individual sides) margins; append unit [Default is set by</span>
+<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the</span>
+<span class="sd">        output image to exactly *width* units. The default unit is set by</span>
+<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or</span>
+<span class="sd">        impose different width and height (**Note**: This may change the</span>
+<span class="sd">        image aspect ratio). What happens here is that Ghostscript will do</span>
+<span class="sd">        the re-interpolation work and the final image will retain the DPI</span>
+<span class="sd">        resolution set by ``dpi``.  Append **+sm** to set a maximum size</span>
+<span class="sd">        and the new *width* is only imposed if the original figure width</span>
+<span class="sd">        exceeds it. Append /\ *height* to also impose a maximum height in</span>
+<span class="sd">        addition to the width. Alternatively, append **+S**\ *scale* to</span>
+<span class="sd">        scale the image by a constant factor.</span>
+<span class="sd">    bb_style : str</span>
+<span class="sd">        Set optional BoundingBox fill color, fading, or draw the outline</span>
+<span class="sd">        of the BoundingBox. Append **+f**\ *fade* to fade the entire plot</span>
+<span class="sd">        towards black (100%) [no fading, 0]. Append **+g**\ *paint* to</span>
+<span class="sd">        paint the BoundingBox behind the illustration and append **+p**\</span>
+<span class="sd">        [*pen*] to draw the BoundingBox outline (append a pen or accept</span>
+<span class="sd">        the default pen of ``&quot;0.25p,black,solid&quot;``). **Note**: If both **+g** and</span>
+<span class="sd">        **+f** are used then we use *paint* as the fade color instead of</span>
+<span class="sd">        black. Append **+i** to enforce gray-shades by using ICC profiles.</span>
+<span class="sd">    anti_aliasing : str</span>
+<span class="sd">        [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].</span>
+<span class="sd">        Set the anti-aliasing options for **g**\ raphics or **t**\ ext.</span>
+<span class="sd">        Append the size of the subsample box (1, 2, or 4) [Default is</span>
+<span class="sd">        ``&quot;4&quot;``]. [Default is no anti-aliasing (same as bits = 1).]</span>
+<span class="sd">    fmt : str</span>
+<span class="sd">        Set the output format, where **b** means BMP, **e** means EPS,</span>
+<span class="sd">        **E** means EPS with PageSize command, **f** means PDF, **F** means</span>
+<span class="sd">        multi-page PDF, **j** means JPEG, **g** means PNG, **G** means</span>
+<span class="sd">        transparent PNG (untouched regions are transparent), **m** means</span>
+<span class="sd">        PPM, and **t** means TIFF [Default is JPEG]. To</span>
+<span class="sd">        **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in</span>
+<span class="sd">        order to get a monochrome (grayscale) image. The EPS format can be</span>
+<span class="sd">        combined with any of the other formats. For example, **ef** creates</span>
+<span class="sd">        both an EPS and a PDF file. Using **F** creates a multi-page PDF</span>
+<span class="sd">        file from the list of input PS or PDF files. It requires the</span>
+<span class="sd">        ``prefix`` parameter.</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># Default cropping the figure to True</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">prefix</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">}:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The &#39;prefix&#39; parameter must be specified with a valid value.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Check if the parent directory exists</span>
+    <span class="n">prefix_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">prefix_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No such directory: &#39;</span><span class="si">{</span><span class="n">prefix_path</span><span class="si">}</span><span class="s2">&#39;, please create it first.&quot;</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.14.2">v0.14.2</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Feb 14, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

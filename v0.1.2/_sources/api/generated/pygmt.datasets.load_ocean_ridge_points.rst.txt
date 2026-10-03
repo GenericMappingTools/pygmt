@@ -1,0 +1,11 @@
+pygmt.datasets.load\_ocean\_ridge\_points
+=========================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_ocean_ridge_points
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

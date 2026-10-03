@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Projections &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/projections/index.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=f930bc37"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Azimuthal Equidistant" href="azim/azim_equidistant.html" />
+    <link rel="prev" title="Timestamp" href="../gallery/embellishments/timestamp.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Projections</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#azimuthal-projections">Azimuthal Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_equidistant.html">Azimuthal Equidistant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_general_perspective.html">General Perspective</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_general_stereographic.html">General Stereographic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_gnomonic.html">Gnomonic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_lambert.html">Lambert Azimuthal Equal Area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_orthographic.html">Orthographic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conic-projections">Conic Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_albers.html">Albers Conic Equal Area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_equidistant.html">Equidistant conic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_lambert.html">Lambert Conic Conformal Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/polyconic.html">Polyconic Projection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cylindric-projections">Cylindric Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_cassini.html">Cassini Cylindrical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_stereographic.html">Cylindrical Stereographic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_equal_area.html">Cylindrical equal-area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_equidistant.html">Cylindrical equidistant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_mercator.html">Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_miller.html">Miller cylindrical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_oblique_mercator_1.html">Oblique Mercator, 1: origin and azimuth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_oblique_mercator_2.html">Oblique Mercator, 2: two points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_oblique_mercator_3.html">Oblique Mercator, 3: origin and pole</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_transverse_mercator.html">Transverse Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_universal_transverse_mercator.html">Universal Transverse Mercator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous-projections">Miscellaneous Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_eckertIV.html">Eckert IV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_eckertVI.html">Eckert VI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_hammer.html">Hammer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_mollweide.html">Mollweide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_robinson.html">Robinson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_sinusoidal.html">Sinusoidal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_van_der_grinten.html">Van der Grinten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_winkel_tripel.html">Winkel Tripel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#non-geographic-projections">Non-geographic Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_linear.html">Cartesian linear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_logarithmic.html">Cartesian logarithmic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_power.html">Cartesian power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/polar.html">Polar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Projections</li>
+    <li class="source-link">
+        
+            
+                
+                
+                
+                    
+                
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/projections/README.txt"
+                       class="fa fa-github"> Improve this page</a>
+                
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="projections">
+<h1>Projections<a class="headerlink" href="#projections" title="Link to this heading"></a></h1>
+<p>PyGMT supports many map projections; see <a class="reference internal" href="../techref/projections.html"><span class="doc">GMT Map Projections</span></a> for an overview.
+Use the <code class="docutils literal notranslate"><span class="pre">projection</span></code> parameter to specify which one you want to use in all plotting
+methods. The projection is specified by a one-letter code along with (sometimes optional)
+reference longitude and latitude and the width of the map (for example,
+<strong>A</strong><em>lon0/lat0</em>[<em>/horizon</em>]<em>/width</em>). The map height is determined based on the
+region and projection.</p>
+<p>These are all the available projections:</p>
+<div class="sphx-glr-thumbnails"></div><section id="azimuthal-projections">
+<h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displayed in correct proportions. Also directions measured from the projection center are correct. It is very useful for a global view on locations that lie within a certain distance or for comparing distances of different locations relative to the projection center."><img alt="" src="../_images/sphx_glr_azim_equidistant_thumb.png" />
+<p><a class="reference internal" href="azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Azimuthal Equidistant</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space. In a full view of the earth one third of its surface area can be seen."><img alt="" src="../_images/sphx_glr_azim_general_perspective_thumb.png" />
+<p><a class="reference internal" href="azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></p>
+  <div class="sphx-glr-thumbnail-title">General Perspective</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection center in one of the poles. Then meridians appear as straight lines and cross latitudes at a right angle. Unlike the azimuthal equidistant projection, the distances in this projection are not displayed in correct proportions. It is often used as a hemisphere map like the Lambert Azimuthal Equal Area projection."><img alt="" src="../_images/sphx_glr_azim_general_stereographic_thumb.png" />
+<p><a class="reference internal" href="azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">General Stereographic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the Earth. As a consequence great circles (orthodromes) on the surface of the Earth are displayed as straight lines, which makes it suitable for distance estimation for navigational purposes. It is neither conformal nor equal-area and the distortion increases greatly with distance to the projection center. It follows that the scope of application is restricted to a small area around the projection center (at a maximum of 60°)."><img alt="" src="../_images/sphx_glr_azim_gnomonic_thumb.png" />
+<p><a class="reference internal" href="azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Gnomonic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapping large regions like continents and hemispheres. It is an azimuthal, equal-area projection, but is not perspective. Distortion is zero at the center of the projection, and increases radially away from this point."><img alt="" src="../_images/sphx_glr_azim_lambert_thumb.png" />
+<p><a class="reference internal" href="azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Lambert Azimuthal Equal Area</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the point of perspective lies in infinite distance. It is therefore often used to give the appearance of a globe viewed from outer space, were one hemisphere can be seen as a whole. It is neither conformal nor equal-area and the distortion increases near the edges."><img alt="" src="../_images/sphx_glr_azim_orthographic_thumb.png" />
+<p><a class="reference internal" href="azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Orthographic</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="conic-projections">
+<h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions of large east-west extent, in particular the United States. It is a conic, equal-area projection, in which parallels are unequally spaced arcs of concentric circles, more closely spaced at the north and south edges of the map. Meridians, on the other hand, are equally spaced radii about a common center, and cut the parallels at right angles. Distortion in scale and shape vanishes along the two standard parallels. Between them, the scale along parallels is too small; beyond them it is too large. The opposite is true for the scale along meridians."><img alt="" src="../_images/sphx_glr_conic_albers_thumb.png" />
+<p><a class="reference internal" href="conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Albers Conic Equal Area</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about A.D. 150. It is neither conformal or equal-area, but serves as a compromise between them. The scale is true along all meridians and the standard parallels."><img alt="" src="../_images/sphx_glr_conic_equidistant_thumb.png" />
+<p><a class="reference internal" href="conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Equidistant conic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772) and has been used extensively for mapping of regions with predominantly east-west orientation, just like the Albers projection. Unlike the Albers projection, Lambert&#x27;s conformal projection is not equal-area. The parallels are arcs of circles with a common origin, and meridians are the equally spaced radii of these circles. As with Albers projection, it is only the two standard parallels that are distortion-free."><img alt="" src="../_images/sphx_glr_conic_lambert_thumb.png" />
+<p><a class="reference internal" href="conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert Conic Conformal Projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Lambert Conic Conformal Projection</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, was introduced shortly before 1820 by the Swiss-American cartographer Ferdinand Rodulph Hassler (1770-1843). As head of the Survey of the Coast, he was looking for a projection that would give the least distortion for mapping the coast of the United States. The projection acquired its name from the construction of each parallel, which is achieved by projecting the parallel onto the cone while it is rolled around the globe, along the central meridian, tangent to that parallel. As a consequence, the projection involves many cones rather than a single one used in regular conic projections."><img alt="" src="../_images/sphx_glr_polyconic_thumb.png" />
+<p><a class="reference internal" href="conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic Projection</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Polyconic Projection</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="cylindric-projections">
+<h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the survey of France. It is occasionally called Cassini-Soldner since the latter provided the more accurate mathematical analysis that led to the development of the ellipsoidal formulae. The projection is neither conformal nor equal-area, and behaves as a compromise between the two end-members. The distortion is zero along the central meridian. It is best suited for mapping regions of north-south extent. The central meridian, each meridian 90° away, and equator are straight lines; all other meridians and parallels are complex curves."><img alt="" src="../_images/sphx_glr_cyl_cassini_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cassini Cylindrical</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical projections, but are still used because of their relative simplicity and their ability to overcome some of the downsides of other cylindrical projections, like extreme distortions of the higher latitudes. The stereographic projections are perspective projections, projecting the sphere onto a cylinder in the direction of the antipodal point on the equator. The cylinder crosses the sphere at two standard parallels, equidistant from the equator."><img alt="" src="../_images/sphx_glr_cyl_stereographic_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical Stereographic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is selected as the standard parallel. However, they are all equal area and hence non-conformal. All meridians and parallels are straight lines."><img alt="" src="../_images/sphx_glr_cyl_equal_area_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical equal-area</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The most common form is the Plate Carrée projection, where the scaling of longitudes and latitudes is the same. All meridians and parallels are straight lines."><img alt="" src="../_images/sphx_glr_cyl_equidistant_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical equidistant</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better known as Gerardus Mercator, who presented it in 1569. The projection is a cylindrical and conformal, with no distortion along the equator. A major navigational feature of the projection is that a line of constant azimuth is straight. Such a line is called a rhumb line or loxodrome. Thus, to sail from one point to another one only had to connect the points with a straight line, determine the azimuth of the line, and keep this constant course for the entire voyage. The Mercator projection has been used extensively for world maps in which the distortion towards the polar regions grows rather large."><img alt="" src="../_images/sphx_glr_cyl_mercator_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Mercator</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Society in 1942, is neither equal nor conformal. All meridians and parallels are straight lines. The projection was designed to be a compromise between Mercator and other cylindrical projections. Specifically, Miller spaced the parallels by using Mercator&#x27;s formula with 0.8 times the actual latitude, thus avoiding the singular poles; the result was then divided by 0.8."><img alt="" src="../_images/sphx_glr_cyl_miller_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Miller cylindrical</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_oblique_mercator_1.html#sphx-glr-projections-cyl-cyl-oblique-mercator-1-py"><span class="std std-ref">Oblique Mercator, 1: origin and azimuth</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 1: origin and azimuth</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_oblique_mercator_2.html#sphx-glr-projections-cyl-cyl-oblique-mercator-2-py"><span class="std std-ref">Oblique Mercator, 2: two points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 2: two points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is particularly useful when mapping regions of large lateral extent in an oblique direction. Both parallels and meridians are complex curves. The projection was developed in the early 1900s by several workers."><img alt="" src="../_images/sphx_glr_cyl_oblique_mercator_3_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_oblique_mercator_3.html#sphx-glr-projections-cyl-cyl-oblique-mercator-3-py"><span class="std std-ref">Oblique Mercator, 3: origin and pole</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Oblique Mercator, 3: origin and pole</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the cylinder touches a meridian along which there is no distortion. The distortion increases away from the central meridian and goes to infinity at 90° from center. The central meridian, each meridian 90° away from the center, and equator are straight lines; other parallels and meridians are complex curves."><img alt="" src="../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Transverse Mercator</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Merctor &lt;/projections/cyl/cyl_transverse_mercator&gt; is the Universal Transverse Mercator (UTM) which was adopted by the US Army for large-scale military maps. Here, the globe is divided into 60 zones between 84°S and 84°N, most of which are 6° (in longitude) wide. Each of these UTM zones have their unique central meridian. Furthermore, each zone is divided into latitude bands but these are not needed to specify the projection for most cases. See Figure Universal Transverse Mercator &lt;GMT_utm_zones&gt; for all zone designations."><img alt="" src="../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
+<p><a class="reference internal" href="cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="miscellaneous-projections">
+<h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection. Central meridian and all parallels are straight lines; other meridians are equally spaced elliptical arcs. The scale is true along latitude 40°30&#x27;."><img alt="" src="../_images/sphx_glr_misc_eckertIV_thumb.png" />
+<p><a class="reference internal" href="misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Eckert IV</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection. Central meridian and all parallels are straight lines; other meridians are equally spaced sinusoids. The scale is true along latitude 49°16&#x27;."><img alt="" src="../_images/sphx_glr_misc_eckertVI_thumb.png" />
+<p><a class="reference internal" href="misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Eckert VI</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer in 1892, is also known as Hammer-Aitoff (the Aitoff projection looks similar, but is not equal-area). The border is an ellipse, equator and central meridian are straight lines, while other parallels and meridians are complex curves."><img alt="" src="../_images/sphx_glr_misc_hammer_thumb.png" />
+<p><a class="reference internal" href="misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Hammer</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and astronomer Karl Brandan Mollweide in 1805. Parallels are unequally spaced straight lines with the meridians being equally spaced elliptical arcs. The scale is only true along latitudes 40°44&#x27; north and south. The projection is used mainly for global maps showing data distributions. It is occasionally referenced under the name homalographic projection."><img alt="" src="../_images/sphx_glr_misc_mollweide_thumb.png" />
+<p><a class="reference internal" href="misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Mollweide</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robinson in 1963, is a modified cylindrical projection that is neither conformal nor equal-area. Central meridian and all parallels are straight lines; other meridians are curved. It uses lookup tables rather than analytic expressions to make the world map &quot;look&quot; right [#f1]_. The scale is true along latitudes 38° north and south. The projection was originally developed for use by Rand McNally and is currently used by the National Geographic Society."><img alt="" src="../_images/sphx_glr_misc_robinson_thumb.png" />
+<p><a class="reference internal" href="misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Robinson</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been used since the mid-16th century. It has also been called the &quot;Equal-area Mercator&quot; projection. The central meridian is a straight line; all other meridians are sinusoidal curves. Parallels are all equally spaced straight lines, with scale being true along all parallels (and central meridian)."><img alt="" src="../_images/sphx_glr_misc_sinusoidal_thumb.png" />
+<p><a class="reference internal" href="misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sinusoidal</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equal-area nor conformal. Central meridian and Equator are straight lines; other meridians are arcs of circles. The scale is true along the Equator only. Its main use is to show the entire world enclosed in a circle."><img alt="" src="../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
+<p><a class="reference internal" href="misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Van der Grinten</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel made a projection that was to strike a compromise between the properties of three elements (area, angle and distance). The German word &quot;tripel&quot; refers to this junction of where each of these elements are least distorted when plotting global maps. The projection was popularized when Bartholomew and Son started to use it in its world-renowned &quot;The Times Atlas of the World&quot; in the mid-20th century. In 1998, the National Geographic Society made the Winkel Tripel as its map projection of choice for global maps."><img alt="" src="../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
+<p><a class="reference internal" href="misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Winkel Tripel</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="non-geographic-projections">
+<h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [/height] or x\ x-scale\ [/y-scale]"><img alt="" src="../_images/sphx_glr_cartesian_linear_thumb.png" />
+<p><a class="reference internal" href="nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian linear</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [l][/height\ [l]] or x\ x-scale\ [l][/y-scale\ [l]]"><img alt="" src="../_images/sphx_glr_cartesian_logarithmic_thumb.png" />
+<p><a class="reference internal" href="nongeo/cartesian_logarithmic.html#sphx-glr-projections-nongeo-cartesian-logarithmic-py"><span class="std std-ref">Cartesian logarithmic</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian logarithmic</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [p\ pvalue][/height\ [p\ pvalue]] or x\ x-scale\ [p\ pvalue][/y-scale\ [p\ pvalue]]"><img alt="" src="../_images/sphx_glr_cartesian_power_thumb.png" />
+<p><a class="reference internal" href="nongeo/cartesian_power.html#sphx-glr-projections-nongeo-cartesian-power-py"><span class="std std-ref">Cartesian power</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian power</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius r)."><img alt="" src="../_images/sphx_glr_polar_thumb.png" />
+<p><a class="reference internal" href="nongeo/polar.html#sphx-glr-projections-nongeo-polar-py"><span class="std std-ref">Polar</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Polar</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gallery/embellishments/timestamp.html" class="btn btn-neutral float-left" title="Timestamp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="azim/azim_equidistant.html" class="btn btn-neutral float-right" title="Azimuthal Equidistant" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

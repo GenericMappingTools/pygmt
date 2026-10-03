@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.grdimage &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/grdimage.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.src.grdimage</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.grdimage</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">grdimage - Plot grids or images.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdimage&quot;</span><span class="p">]</span>
+
+
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;img_in&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;bitcolor&quot;</span><span class="p">,</span>
+    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;monochrome&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;nan_transparent&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
+    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
+    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
+    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
+    <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;cores&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">grdimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Project and plot grids or images.</span>
+
+<span class="sd">    Reads a 2-D grid file and produces a gray-shaded (or colored) map by</span>
+<span class="sd">    building a rectangular image and assigning pixels a gray-shade (or color)</span>
+<span class="sd">    based on the z-value and the CPT file. Optionally, illumination may be</span>
+<span class="sd">    added by providing a file with intensities in the (-1,+1) range or</span>
+<span class="sd">    instructions to derive intensities from the input data grid. Values outside</span>
+<span class="sd">    this range will be clipped. Such intensity files can be created from the</span>
+<span class="sd">    grid using :func:`pygmt.grdgradient` and, optionally, modified by</span>
+<span class="sd">    :gmt-docs:`grdmath.html` or :class:`pygmt.grdhisteq`. Alternatively, pass</span>
+<span class="sd">    *image* which can be an image file (geo-referenced or not). In this case</span>
+<span class="sd">    the image can optionally be illuminated with the file provided via the</span>
+<span class="sd">    ``shading`` parameter. Here, if image has no coordinates then those of the</span>
+<span class="sd">    intensity file will be used.</span>
+
+<span class="sd">    When using map projections, the grid is first resampled on a new</span>
+<span class="sd">    rectangular grid with the same dimensions. Higher resolution images can</span>
+<span class="sd">    be obtained by using the ``dpi`` parameter. To obtain the resampled value</span>
+<span class="sd">    (and hence shade or color) of each map pixel, its location is inversely</span>
+<span class="sd">    projected back onto the input grid after which a value is interpolated</span>
+<span class="sd">    between the surrounding input grid values. By default bi-cubic</span>
+<span class="sd">    interpolation is used. Aliasing is avoided by also forward projecting</span>
+<span class="sd">    the input grid nodes. If two or more nodes are projected onto the same</span>
+<span class="sd">    pixel, their average will dominate in the calculation of the pixel</span>
+<span class="sd">    value. Interpolation and aliasing is controlled with the</span>
+<span class="sd">    ``interpolation`` parameter.</span>
+
+<span class="sd">    The ``region`` parameter can be used to select a map region larger or</span>
+<span class="sd">    smaller than that implied by the extent of the grid.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`grdimage.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    {grid}</span>
+<span class="sd">    {frame}</span>
+<span class="sd">    {cmap}</span>
+<span class="sd">    img_in : str</span>
+<span class="sd">        [**r**].</span>
+<span class="sd">        GMT will automatically detect standard image files (Geotiff, TIFF,</span>
+<span class="sd">        JPG, PNG, GIF, etc.) and will read those via GDAL. For very obscure</span>
+<span class="sd">        image formats you may need to explicitly set ``img_in``, which</span>
+<span class="sd">        specifies that the grid is in fact an image file to be read via</span>
+<span class="sd">        GDAL. Append **r** to assign the region specified by ``region``</span>
+<span class="sd">        to the image. For example, if you have used ``region=&quot;d&quot;`` then</span>
+<span class="sd">        the image will be assigned a global domain. This mode allows you</span>
+<span class="sd">        to project a raw image (an image without referencing coordinates).</span>
+<span class="sd">    dpi : int</span>
+<span class="sd">        [**i**\|\ *dpi*].</span>
+<span class="sd">        Set the resolution of the projected grid that will be created if a</span>
+<span class="sd">        map projection other than Linear or Mercator was selected [Default</span>
+<span class="sd">        is ``100`` dpi]. By default, the projected grid will be of the</span>
+<span class="sd">        same size (rows and columns) as the input file. Specify **i** to</span>
+<span class="sd">        use the PostScript image operator to interpolate the image at the</span>
+<span class="sd">        device resolution.</span>
+<span class="sd">    bitcolor : str</span>
+<span class="sd">        *color*\ [**+b**\|\ **f**\].</span>
+<span class="sd">        This parameter only applies when a resulting 1-bit image otherwise</span>
+<span class="sd">        would consist of only two colors: black (0) and white (255). If so,</span>
+<span class="sd">        this parameter will instead use the image as a transparent mask and</span>
+<span class="sd">        paint the mask with the given color. Append **+b** to paint the</span>
+<span class="sd">        background pixels (1) or **+f** for the foreground pixels</span>
+<span class="sd">        [Default is **+f**].</span>
+<span class="sd">    shading : str or xarray.DataArray</span>
+<span class="sd">        [*intensfile*\|\ *intensity*\|\ *modifiers*].</span>
+<span class="sd">        Give the name of a grid file or a DataArray with intensities in the</span>
+<span class="sd">        (-1,+1) range, or a constant intensity to apply everywhere (affects the</span>
+<span class="sd">        ambient light). Alternatively, derive an intensity grid from the input</span>
+<span class="sd">        data grid via a call to :func:`pygmt.grdgradient`; append</span>
+<span class="sd">        **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify</span>
+<span class="sd">        azimuth, intensity, and ambient arguments for that function, or just</span>
+<span class="sd">        give **+d** to select the default arguments (``+a-45+nt1+m0``). If you</span>
+<span class="sd">        want a more specific intensity scenario then run</span>
+<span class="sd">        :func:`pygmt.grdgradient` separately first. If we should derive</span>
+<span class="sd">        intensities from another file than grid, specify the file with</span>
+<span class="sd">        suitable modifiers [Default is no illumination]. **Note**: If the</span>
+<span class="sd">        input data represent an *image* then an *intensfile* or constant</span>
+<span class="sd">        *intensity* must be provided.</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    monochrome : bool</span>
+<span class="sd">        Force conversion to monochrome image using the (television) YIQ</span>
+<span class="sd">        transformation. Cannot be used with ``nan_transparent``.</span>
+<span class="sd">    no_clip : bool</span>
+<span class="sd">        Do **not** clip the image at the frame boundaries (only relevant</span>
+<span class="sd">        for non-rectangular maps) [Default is ``False``].</span>
+<span class="sd">    nan_transparent : bool or str</span>
+<span class="sd">        [**+z**\ *value*][*color*]</span>
+<span class="sd">        Make grid nodes with z = NaN transparent, using the color-masking</span>
+<span class="sd">        feature in PostScript Level 3 (the PS device must support PS Level</span>
+<span class="sd">        3). If the input is a grid, use **+z** to select another grid value</span>
+<span class="sd">        than NaN. If input is instead an image, append an alternate *color* to</span>
+<span class="sd">        select another pixel value to be transparent [Default is ``&quot;black&quot;``].</span>
+<span class="sd">    {region}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    {panel}</span>
+<span class="sd">    {coltypes}</span>
+<span class="sd">    {interpolation}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">    {cores}</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # create a new plot with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # pass in the grid and set the CPT to &quot;geo&quot;</span>
+<span class="sd">    &gt;&gt;&gt; # set the projection to Mollweide and the size to 10 cm</span>
+<span class="sd">    &gt;&gt;&gt; fig.grdimage(grid=grid, cmap=&quot;geo&quot;, projection=&quot;W10c&quot;, frame=&quot;ag&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # show the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Do not support -A option</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;img_out&quot;</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="s2">&quot;Parameter &#39;img_out&#39;/&#39;A&#39; is not implemented. &quot;</span>
+            <span class="s2">&quot;Please consider submitting a feature request to us.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="p">(</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">),</span> <span class="n">required_data</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">vshadegrid</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vshadegrid</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdimage&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

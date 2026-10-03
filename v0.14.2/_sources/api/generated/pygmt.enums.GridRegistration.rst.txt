@@ -1,0 +1,8 @@
+pygmt.enums.GridRegistration
+============================
+
+.. currentmodule:: pygmt.enums
+
+.. autoclass:: GridRegistration
+    :members:
+    :member-order: bysource

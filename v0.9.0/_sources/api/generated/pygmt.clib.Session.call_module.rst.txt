@@ -1,0 +1,13 @@
+pygmt.clib.Session.call\_module
+===============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.call_module
+
+.. minigallery:: pygmt.clib.Session.call_module
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

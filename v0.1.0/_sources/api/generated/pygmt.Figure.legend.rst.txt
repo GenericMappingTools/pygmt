@@ -1,0 +1,10 @@
+pygmt.Figure.legend
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.legend
+
+.. raw:: html
+
+      <div style='clear:both'></div>

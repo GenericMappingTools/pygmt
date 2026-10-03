@@ -1,0 +1,12 @@
+pygmt.clib.Session.open\_virtual\_file
+======================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.open_virtual_file
+
+.. include:: backreferences/pygmt.clib.Session.open_virtual_file.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

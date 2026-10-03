@@ -1,0 +1,13 @@
+pygmt.datasets.load\_earth\_mean\_dynamic\_topography
+=====================================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_mean_dynamic_topography
+
+.. minigallery:: pygmt.datasets.load_earth_mean_dynamic_topography
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

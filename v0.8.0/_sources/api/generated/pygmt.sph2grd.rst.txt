@@ -1,0 +1,12 @@
+pygmt.sph2grd
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: sph2grd
+
+.. include:: backreferences/pygmt.sph2grd.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

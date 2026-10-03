@@ -1,0 +1,12 @@
+pygmt.grdgradient
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdgradient
+
+.. include:: backreferences/pygmt.grdgradient.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

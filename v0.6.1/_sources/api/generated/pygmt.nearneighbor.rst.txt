@@ -1,0 +1,12 @@
+pygmt.nearneighbor
+==================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: nearneighbor
+
+.. include:: backreferences/pygmt.nearneighbor.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

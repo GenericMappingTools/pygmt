@@ -1,0 +1,290 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Plotting data points\n",
+    "\n",
+    "This tutorial will show you how to plot data points with GMT/Python.\n",
+    "\n",
+    "Start by importing the `gmt` Python package:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import gmt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Cartesian plots\n",
+    "\n",
+    "The `gmt.Figure` class has a `plot` method for displaying points and lines. Let's make a Cartesian x, y plot using some random data generated using numpy:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# See the random number generator so we always \n",
+    "# get the same numbers\n",
+    "np.random.seed(42)\n",
+    "ndata = 100\n",
+    "region = [150, 240, -10, 60]\n",
+    "# Create some fake distribution of points and a measured value\n",
+    "x = np.random.uniform(region[0], region[1], ndata)\n",
+    "y = np.random.uniform(region[2], region[3], ndata)\n",
+    "magnitude = np.random.uniform(1, 5, size=ndata)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can plot the data using `Figure.plot` and the Cartesian projection `X`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "# Create a 6x6 inch basemap using the data region\n",
+    "fig.basemap(region=region, projection='X6i', frame=True)\n",
+    "# Plot using triangles (i) of 0.3 cm\n",
+    "fig.plot(x, y, style='i0.3c', color='black')\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can make the size of the markers follow the fake \"magnitude\" values by passing in the argument `sizes` to `Figure.plot`. We'll need to scale the magnitude so that it will reflect the size in centimeters."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.basemap(region=region, projection='X6i', frame=True)\n",
+    "fig.plot(x, y, style='ic', color='black', sizes=magnitude/10)\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Plotting directly from a file\n",
+    "\n",
+    "Sometimes you'll have data in a file that you just want to plot without having to load it into Python. You can use the `data` argument of `Figure.plot` to specify the file name instead `x` and `y`. GMT will take care of loading your data and plotting."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Save our fake data to a file.\n",
+    "np.savetxt('first-steps-data.txt', \n",
+    "           np.transpose([x, y, magnitude]))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `columns` argument controls which columns are used as x, y, color, and size, respectively. GMT allows some basic operations on the column values before plotting. For example, adding `sVALUE` to a column index will multiply it by that value before plotting."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.basemap(region=region, projection='X6i', frame=True)\n",
+    "fig.plot(data='first-steps-data.txt', style='cc', color='red', \n",
+    "         columns=[0, 1, '2s0.1'])\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Making maps using sample data\n",
+    "\n",
+    "GMT shines when plotting data on a map. We can use some **sample data** that is packaged with GMT to try this out. They can be accessed using special file names that begin with an `@` symbol, for example `@tut_quakes.ngdc`. You can supply these names as the `data` argument in `Figure.plot` and other plotting functions. If you don't have the files already, they are automatically downloaded by GMT and saved to a cache directory (usually `~/.gmt/cache`).\n",
+    "\n",
+    "The `gmt.datasets` package allows easy access to these data files as Python data types. For example, we can access the sample dataset of tsunami generating earthquakes around Japan (`@tut_quakes.ngdc`) as a `pandas.DataFrame` using the `datasets.load_japan_quakes` function:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from gmt.datasets import load_japan_quakes\n",
+    "\n",
+    "quakes = load_japan_quakes()\n",
+    "quakes.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The functions returns to us the data in a `pandas.Dataframe` object that contains the date, hypocenter coordinates, and magnitude of the earthquakes.\n",
+    "\n",
+    "Let's make a local Mercator map of the epicenter coordinates. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "quakes_region = [quakes.longitude.min() - 1, quakes.longitude.max() + 1,\n",
+    "                 quakes.latitude.min() - 1, quakes.latitude.max() + 1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.coast(region=quakes_region, projection='M6i', frame=True, \n",
+    "          land='black', water='skyblue')\n",
+    "fig.plot(x=quakes.longitude, y=quakes.latitude, \n",
+    "         style='c0.3c', color='white', pen='black')\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As before, we can map the size of the markers to the earthquake magnitude. Because the magnitude is on a logarithmic scale, it helps to show the differences by scaling the values using a power law."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.coast(region=quakes_region, projection='M6i', frame=True, \n",
+    "          land='black', water='skyblue')\n",
+    "fig.plot(x=quakes.longitude, y=quakes.latitude, \n",
+    "         sizes=0.02*(2**quakes.magnitude),\n",
+    "         style='cc', color='white', pen='black')\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We can also map the colors of the markers to the depths by passing an array to the `color` argument and providing a colormap name (`cmap`). We can even use the new matplotlib colormap `\"viridis\"`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.coast(region=quakes_region, projection='M6i', frame=True, \n",
+    "          land='black', water='skyblue')\n",
+    "fig.plot(x=quakes.longitude, y=quakes.latitude, \n",
+    "         sizes=0.02*2**quakes.magnitude,\n",
+    "         color=quakes.depth_km/quakes.depth_km.max(),\n",
+    "         cmap='viridis', style='cc', pen='black')\n",
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Interactive map previews"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Let's preview this map using the **interactive globe**. In this case, we don't need the frame or color in the oceans. We must also use a **Cartesian projection** (X) and degrees (d) for plot units so that the figure can be aligned with the globe."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()\n",
+    "fig.coast(region=quakes_region, projection='X6id/6id', land='gray')\n",
+    "fig.plot(x=quakes.longitude, y=quakes.latitude, \n",
+    "         sizes=0.02*2**quakes.magnitude,\n",
+    "         color=quakes.depth_km/quakes.depth_km.max(),\n",
+    "         cmap='viridis', style='cc', pen='black')\n",
+    "fig.show(method='globe')"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

@@ -1,0 +1,13 @@
+pygmt.grdinfo
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdinfo
+
+.. minigallery:: pygmt.grdinfo
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

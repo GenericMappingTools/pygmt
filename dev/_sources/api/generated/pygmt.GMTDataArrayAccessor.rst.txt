@@ -1,0 +1,75 @@
+pygmt.GMTDataArrayAccessor
+==========================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: GMTDataArrayAccessor
+
+
+.. rubric:: Attributes
+
+
+.. autoattribute::
+    GMTDataArrayAccessor.gtype
+
+.. autoattribute::
+    GMTDataArrayAccessor.registration
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    :toctree:
+    
+    
+    
+    
+    GMTDataArrayAccessor.clip
+    
+    
+    
+    GMTDataArrayAccessor.cut
+    
+    
+    
+    GMTDataArrayAccessor.dimfilter
+    
+    
+    
+    GMTDataArrayAccessor.fill
+    
+    
+    
+    GMTDataArrayAccessor.filter
+    
+    
+    
+    GMTDataArrayAccessor.gradient
+    
+    
+    
+    GMTDataArrayAccessor.histeq
+    
+    
+    
+    GMTDataArrayAccessor.project
+    
+    
+    
+    GMTDataArrayAccessor.sample
+    
+    
+    
+    GMTDataArrayAccessor.track
+    
+    
+
+
+.. minigallery:: pygmt.GMTDataArrayAccessor
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

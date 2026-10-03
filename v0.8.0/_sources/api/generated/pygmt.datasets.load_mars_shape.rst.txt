@@ -1,0 +1,12 @@
+pygmt.datasets.load\_mars\_shape
+================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_mars_shape
+
+.. include:: backreferences/pygmt.datasets.load_mars_shape.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
