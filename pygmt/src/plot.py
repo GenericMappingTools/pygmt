@@ -19,6 +19,8 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
+__doctest_skip__ = ["plot"]
+
 
 @fmt_docstring
 @use_alias(
@@ -249,6 +251,20 @@ def plot(  # ruff: ignore[too-many-branches]
         Plot horizontal lines.
     pygmt.Figure.vlines
         Plot vertical lines.
+
+    Examples
+    --------
+    Plot a line connecting the data points and then plot the data points as red
+    circles:
+
+    >>> import pygmt
+    >>> x = [1, 3, 5, 7, 9]
+    >>> y = [2, 6, 4, 8, 5]
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.plot(x=x, y=y, pen="1p,blue")
+    >>> fig.plot(x=x, y=y, style="c0.3c", fill="red", pen="0.5p,black")
+    >>> fig.show()
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
