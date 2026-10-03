@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, ClassVar, Literal
 
 from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
-from pygmt.helpers import is_given
+from pygmt.helpers import is_given, is_nonstr_iter
 from pygmt.params.position import Position
 from pygmt.src.which import which
 
@@ -395,3 +395,70 @@ def _parse_position(
                 ),
             )
     return position
+
+
+def _parse_clearance(
+    clearance: float | str | Sequence[float | str] | None,
+) -> float | str | Sequence[float | str] | None:
+    """
+    Parse the "clearance" parameter for the -C option of inset and subplot.
+
+    In GMT, there are two ways to specify clearances/margins:
+
+    - Using side directives (e.g., ``-Cw1c -Cs2c``) for specific sides.
+    - Using a single value or slash-separated two or four values.
+
+    ``inset -C`` support both, while ``subplot -C`` only supports side directives.
+
+    To be consistent with other clearance/margin parameters, PyGMT recommends the
+    slash-separated syntax for specifying clearances. This function takes both syntax
+    as input and converts it to the side-directive syntax.
+
+    Parameters
+    ----------
+    clearance
+        The clearance argument to parse.
+
+    Returns
+    -------
+    clearance
+        The parsed clearance, i.e., a single value, or a sequence of side directives.
+
+    Examples
+    --------
+    >>> _parse_clearance(None)
+    >>> _parse_clearance(0.2)
+    0.2
+    >>> _parse_clearance("1c")
+    '1c'
+    >>> _parse_clearance((1, 2))
+    ['x1', 'y2']
+    >>> _parse_clearance(("1c", "2c"))
+    ['x1c', 'y2c']
+    >>> _parse_clearance(("1c", 0, "2c", 0))
+    ['w1c', 'e0', 's2c', 'n0']
+    >>> _parse_clearance(["w1", "e2", "s3"])
+    ['w1', 'e2', 's3']
+    >>> _parse_clearance((1, 2, 3))
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTValueError: Invalid value for parameter 'clearance': ...
+    """
+    # Return as it if it's not a sequence (e.g., None or a single value)
+    if not is_nonstr_iter(clearance):
+        return clearance
+
+    # Return as it if it's already a sequence of side directives.
+    for value in clearance:  # type: ignore[union-attr]
+        if isinstance(value, str) and value[0] in "xywesn":
+            return clearance
+
+    # A sequence of two or four values is expected.
+    if len(clearance) not in {2, 4}:  # type: ignore[arg-type]
+        raise GMTValueError(
+            clearance,
+            description="value for parameter 'clearance'",
+            reason="Expect a single value or a sequence of two or four values.",
+        )
+    sides = {2: "xy", 4: "wesn"}[len(clearance)]  # type: ignore[arg-type]
+    return [f"{side}{value}" for side, value in zip(sides, clearance, strict=True)]  # type: ignore[arg-type]
