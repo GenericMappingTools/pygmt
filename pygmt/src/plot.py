@@ -263,7 +263,7 @@ def plot(  # ruff: ignore[too-many-branches]
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     >>> fig.plot(x=x, y=y, pen="1p,blue")
-    >>> fig.plot(x=x, y=y, style="c0.3c", fill="red", pen="0.5p,black")
+    >>> fig.plot(x=x, y=y, style="c0.3c", fill="cyan", pen="0.5p,black")
     >>> fig.show()
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
