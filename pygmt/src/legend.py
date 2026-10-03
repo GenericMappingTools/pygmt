@@ -120,11 +120,10 @@ def legend(
 
     Examples
     --------
-    >>> import pygmt
-    >>> from pygmt.params import Box, Position
-
     Create a legend automatically from the plotted symbols and lines that have labels:
 
+    >>> import pygmt
+    >>> from pygmt.params import Box, Position
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     >>> fig.plot(x=[2, 5, 8], y=[3, 6, 4], style="c0.3c", fill="red", label="Circles")
