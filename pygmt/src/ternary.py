@@ -13,6 +13,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame, Pattern
 from pygmt.params.frame import _Axes
 
+__doctest_skip__ = ["ternary"]
+
 
 def _ternary_frame(frame):
     """
@@ -196,6 +198,31 @@ def ternary(
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    Plot five data points as red circles on a ternary diagram:
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>> data = np.array(
+    ...     [[20, 30, 50], [60, 20, 20], [33, 33, 34], [10, 70, 20], [45, 10, 45]]
+    ... )
+    >>> fig = pygmt.Figure()
+    >>> fig.ternary(
+    ...     data,
+    ...     region=[0, 100, 0, 100, 0, 100],
+    ...     width="8c",
+    ...     style="c0.2c",
+    ...     fill="red",
+    ...     pen="0.5p",
+    ...     alabel="A",
+    ...     blabel="B",
+    ...     clabel="C",
+    ...     frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    ... )
+    >>> fig.show()
     """
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
