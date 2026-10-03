@@ -21,6 +21,8 @@ from pygmt.helpers import (
 )
 from pygmt.params import Axis, Frame, Pattern
 
+__doctest_skip__ = ["text"]
+
 
 @fmt_docstring
 @use_alias(
