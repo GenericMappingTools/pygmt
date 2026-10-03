@@ -193,6 +193,19 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     --------
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
+
+    Examples
+    --------
+    >>> import pygmt
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
+    >>> fig.text(text="PyGMT", position="MC", font="20p,13,blue")
+    >>> fig.show()
+
+    >>> xxx
+
+    >>> xxx
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
