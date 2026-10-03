@@ -12,6 +12,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame, Pattern, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["wiggle"]
+
 
 @fmt_docstring
 @use_alias(
