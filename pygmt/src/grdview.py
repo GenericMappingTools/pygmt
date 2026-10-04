@@ -253,8 +253,8 @@ def grdview(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> from pygmt.params import Axis, Frame
     >>> # Load the 30 arc-minutes grid with "gridline" registration in a given region

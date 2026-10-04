@@ -146,8 +146,8 @@ def xyz2grd(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import numpy as np
     >>> import pygmt
     >>> # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,

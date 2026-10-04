@@ -86,8 +86,8 @@ def solar(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
 
     Plot the day-night terminator at the current UTC date and time.
 

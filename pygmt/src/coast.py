@@ -24,8 +24,8 @@ def _alias_option_C(lakes=None, river_lakes=None):  # ruff: ignore[invalid-funct
     """
     Helper function to create the alias list for the -C option.
 
-    Example
-    -------
+    Examples
+    --------
     >>> def parse(**kwargs):
     ...     return AliasSystem(C=_alias_option_C(**kwargs)).get("C")
     >>> parse()
@@ -274,8 +274,8 @@ def coast(
     pygmt.Figure.scalebar
         Add a scale bar.
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> from pygmt.params import Axis
     >>> # Create a new plot with pygmt.Figure()
