@@ -79,7 +79,7 @@ html.writer-html5 .rst-content dl.field-list {
     display: initial;
 }
 
-/* Add a grey box around parameters similar to sphinx_rtd_theme v4.x.x) */
+/* Add a grey box around nested definitions (e.g., class members) similar to sphinx_rtd_theme v4.x.x */
 .rst-content dl:not(.docutils) dl dt {
     margin-bottom: 4px;
     border: none;
@@ -98,6 +98,32 @@ html.writer-html5 .rst-content dl.field-list {
     border-top: solid 3px #6ab0de;
     padding: 6px;
     position: relative;
+}
+
+/*
+ * Render the headings of field lists (e.g., "Parameters", "Returns") in the same style
+ * as rubrics (e.g., "Examples", "Notes"), overriding the grey box defined above.
+ */
+.rst-content dl:not(.docutils) dl.field-list > dt {
+    display: block;
+    margin: 0 0 12px 0;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 1.05em;
+    font-weight: 700;
+    line-height: inherit;
+}
+
+/* Add space between consecutive fields (e.g., between "Parameters" and "Returns") */
+.rst-content dl:not(.docutils) dl.field-list > dd + dt {
+    margin-top: 24px;
+}
+
+/* Remove the trailing colon from the field list headings, like the rubrics */
+.rst-content dl.field-list > dt .colon {
+    display: none;
 }
 
 /* Remove the padding from the Parameters table */
