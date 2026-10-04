@@ -304,7 +304,7 @@ def subplot(
     --------
     Create a figure with two subplots in one row, showing regional maps of Japan and New
     Zealand in the Mercator projection. The subplots are tagged as "a)" and "b)" at the
-    Top Left corner outside each map frame. The ``?`` in ``projection`` means the width
+    Top Left corner outside each map frame. The ``"?"`` in ``projection`` means the width
     of each map is automatically determined from the subplot dimensions:
 
     >>> import pygmt
@@ -316,7 +316,7 @@ def subplot(
     ...     figsize=("15c", "6c"),
     ...     tag=True,
     ...     tag_position=Position("TL", cstype="outside"),
-    ...     margins="1c",
+    ...     margins="0.5c",
     ... ):
     ...     fig.coast(
     ...         region=[128, 146, 30, 46],
