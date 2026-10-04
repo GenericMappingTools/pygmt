@@ -97,10 +97,6 @@ html.writer-html5 .rst-content dl.field-list {
     position: relative;
 }
 
-.rst-content .highlight > pre {
-    font-size: 14px;
-}
-
 .source-link {
     float: right;
 }
