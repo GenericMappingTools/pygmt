@@ -454,7 +454,8 @@ def fmt_docstring(module_func):
         *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
-    .. rubric:: Aliases
+    Aliases
+    -------
     <BLANKLINE>
     .. hlist::
        :columns: 3
@@ -466,7 +467,7 @@ def fmt_docstring(module_func):
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
-        aliases = [".. rubric:: Aliases\n"]
+        aliases = ["Aliases\n-------\n"]
         aliases.append(".. hlist::")
         aliases.append("   :columns: 3\n")
         for arg in sorted(module_func.aliases):

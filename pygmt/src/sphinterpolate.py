@@ -35,7 +35,8 @@ def sphinterpolate(
 
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    .. rubric:: Aliases
+    Aliases
+    -------
 
     .. hlist:
        :columns: 2

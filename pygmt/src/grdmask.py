@@ -139,7 +139,8 @@ def grdmask(
 
     Full GMT docs at :gmt-docs:`grdmask.html`.
 
-    .. rubric:: Aliases
+    Aliases
+    -------
 
     .. hlist::
        :columns: 3

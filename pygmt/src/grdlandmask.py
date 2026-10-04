@@ -44,7 +44,8 @@ def grdlandmask(
     Full GMT docs at :gmt-docs:`grdlandmask.html`.
 
 
-    .. rubric:: Aliases
+    Aliases
+    -------
 
     .. hlist::
        :columns: 3

@@ -41,7 +41,8 @@ def choropleth(
     as an attribute field (e.g. a :class:`geopandas.GeoDataFrame`), or an OGR_GMT file
     containing the geometry and data to plot.
 
-    .. rubric:: Aliases
+    Aliases
+    -------
 
     .. hlist::
        :columns: 3

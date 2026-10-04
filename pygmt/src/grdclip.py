@@ -45,7 +45,8 @@ def grdclip(
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
-    .. rubric:: Aliases
+    Aliases
+    -------
 
     .. hlist::
        :columns: 3
