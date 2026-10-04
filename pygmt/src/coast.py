@@ -276,6 +276,8 @@ def coast(
 
     Example
     -------
+    Plot a map with coastlines, land, water, and other features.
+
     >>> import pygmt
     >>> from pygmt.params import Axis
     >>> fig = pygmt.Figure()

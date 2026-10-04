@@ -253,8 +253,10 @@ def grdview(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
+    Create a 3-D surface plot of the Earth's relief.
+
     >>> import pygmt
     >>> from pygmt.params import Axis, Frame
     >>> # Load the 30 arc-minutes grid with "gridline" registration in a given region
