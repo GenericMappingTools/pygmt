@@ -12,6 +12,8 @@ from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame, Pattern, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["wiggle"]
+
 
 @fmt_docstring
 @use_alias(
@@ -129,6 +131,31 @@ def wiggle(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import pygmt
+    >>>
+    >>> x = np.arange(-7, 7, 0.01)
+    >>> y = np.zeros(x.size)
+    >>> z = np.exp(-((x / 2) ** 2)) * np.sin(2 * np.pi * x)
+    >>>
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-8, 10, -1, 1], projection="X10c/5c", frame=True)
+    >>> fig.wiggle(
+    ...     x=x,
+    ...     y=y,
+    ...     z=z,
+    ...     scale="0.5c",
+    ...     length=1,
+    ...     position="RM",
+    ...     pen="0.5p,",
+    ...     positive_fill="lightorange",
+    ...     negative_fill="lightgray",
+    ...     track="0.5p,red",
+    ... )
+    >>> fig.show()
     """
     position = _parse_position(
         position,
