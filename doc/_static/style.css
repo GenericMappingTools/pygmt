@@ -97,11 +97,6 @@ html.writer-html5 .rst-content dl.field-list {
     position: relative;
 }
 
-/* Remove the padding from the Parameters table */
-.rst-content table.field-list .field-name {
-    padding-left: 0px;
-}
-
 /* Lign up the Parameters section with the descriptions */
 .rst-content table.field-list td {
     padding-top: 8px;
