@@ -112,7 +112,7 @@ def grdfilter(
 
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3

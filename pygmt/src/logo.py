@@ -46,7 +46,7 @@ def logo(
 
     Full GMT docs at :gmt-docs:`gmtlogo.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3

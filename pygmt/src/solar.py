@@ -41,7 +41,7 @@ def solar(
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3

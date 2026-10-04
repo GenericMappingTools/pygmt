@@ -47,7 +47,7 @@ def grdfill(
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3

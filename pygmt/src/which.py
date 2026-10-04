@@ -34,7 +34,7 @@ def which(
 
     Full GMT docs at :gmt-docs:`gmtwhich.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3

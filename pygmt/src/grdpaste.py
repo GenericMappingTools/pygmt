@@ -36,7 +36,7 @@ def grdpaste(
 
     Full GMT docs at :gmt-docs:`grdpaste.html`.
 
-    **Aliases**
+    .. rubric:: Aliases
 
     .. hlist::
        :columns: 3
