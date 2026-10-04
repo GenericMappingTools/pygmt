@@ -130,29 +130,20 @@ def grdcontour(
     -------
     >>> import pygmt
     >>> from pygmt.params import Axis
-    >>> # Load the 15 arc-minutes grid with "gridline" registration in the
-    >>> # specified region
+    >>> # Load the 15 arc-minutes grid with "gridline" registration in a given region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="15m",
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
-    >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create the contour plot
     >>> fig.grdcontour(
-    ...     # Pass in the grid downloaded above
-    ...     grid=grid,
-    ...     # Set the interval for contour lines at 250 meters
-    ...     levels=250,
-    ...     # Set the interval for annotated contour lines at 1,000 meters
-    ...     annotation=1000,
-    ...     # Add a frame for the plot
+    ...     grid=grid,s
+    ...     levels=250,  # Set the interval for contour lines
+    ...     annotation=1000,  # Set the interval for annotated contour lines
     ...     frame=Axis(annot=True),
-    ...     # Set the projection to Mercator, and the plot width to 10 centimeters
     ...     projection="M10c",
     ... )
-    >>> # Show the plot
     >>> fig.show()
     """
     # Specify levels for the annotation and levels parameters.

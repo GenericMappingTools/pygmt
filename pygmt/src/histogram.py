@@ -236,6 +236,7 @@ def histogram(
 
     Examples
     --------
+    Plot a histogram of randomly generated data with custom fill color and pen style.
 
     >>> import numpy as np
     >>> import pygmt

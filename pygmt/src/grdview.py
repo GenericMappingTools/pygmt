@@ -263,27 +263,20 @@ def grdview(
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
-    >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create the contour plot
     >>> fig.grdview(
-    ...     # Pass in the grid downloaded above
     ...     grid=grid,
     ...     # Set the perspective to an azimuth of 130° and an elevation of 30°
-    ...     perspective=[130, 30],
+    ...     perspective=(130, 30),
     ...     # Add a frame to the x- and y-axes
     ...     # Specify annotations on the south and east borders of the plot
     ...     frame=Frame(axes="wSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
     ...     # Set the projection of the 2-D map to Mercator with a 10 cm width
     ...     projection="M10c",
-    ...     # Set the vertical scale (z-axis) to 2 cm
-    ...     zsize="2c",
-    ...     # Set "surface plot" to color the surface via a CPT
-    ...     surftype="surface",
-    ...     # Specify CPT to "geo"
-    ...     cmap="gmt/geo",
+    ...     zsize="2c",  # Set the vertical scale (z-axis) to 2 cm
+    ...     surftype="surface",  # Set "surface plot" to color the surface via a CPT
+    ...     cmap="gmt/geo",  # Specify CPT to "geo"
     ... )
-    >>> # Show the plot
     >>> fig.show()
     """
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set

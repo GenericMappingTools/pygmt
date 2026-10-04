@@ -472,14 +472,12 @@ def colorbar(
 
     Example
     -------
+    Add a colorbar with a specified colormap, label, and unit on a plot.
+
     >>> import pygmt
-    >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create a basemap
     >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
-    >>> # Call the colorbar method for the plot
     >>> fig.colorbar(cmap="SCM/roma", label="Velocity", unit="m/s")
-    >>> # Show the plot
     >>> fig.show()
     """
     position = _parse_position(
