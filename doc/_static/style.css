@@ -71,12 +71,12 @@ p {
     margin-bottom: 10px;
 }
 
-/* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
+/* Format parameters section similar to sphinx_rtd_theme v0.4.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
 }
 
-/* Add a grey box around parameters similar to sphinx_rtd_theme v4.x.x) */
+/* Add a grey box around parameters similar to sphinx_rtd_theme v0.4.x */
 .rst-content dl:not(.docutils) dl dt {
     margin-bottom: 4px;
     border: none;
