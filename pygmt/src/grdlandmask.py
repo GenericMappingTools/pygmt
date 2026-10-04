@@ -46,7 +46,6 @@ def grdlandmask(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

@@ -141,7 +141,6 @@ def grdmask(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

@@ -47,7 +47,6 @@ def grdclip(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

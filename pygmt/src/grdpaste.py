@@ -38,7 +38,6 @@ def grdpaste(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

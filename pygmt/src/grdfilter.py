@@ -114,7 +114,6 @@ def grdfilter(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

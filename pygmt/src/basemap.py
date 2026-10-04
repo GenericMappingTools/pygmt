@@ -60,7 +60,6 @@ def basemap(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

@@ -48,7 +48,6 @@ def logo(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

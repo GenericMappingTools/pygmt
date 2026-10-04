@@ -37,8 +37,7 @@ def sphinterpolate(
 
     Aliases
     -------
-
-    .. hlist:
+    .. hlist::
        :columns: 2
 
        - G = outgrid

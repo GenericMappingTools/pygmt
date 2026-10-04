@@ -43,7 +43,6 @@ def choropleth(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

@@ -43,7 +43,6 @@ def solar(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

@@ -50,7 +50,6 @@ def legend(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

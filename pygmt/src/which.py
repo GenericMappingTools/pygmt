@@ -36,7 +36,6 @@ def which(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

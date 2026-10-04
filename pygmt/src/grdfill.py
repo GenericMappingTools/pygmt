@@ -49,7 +49,6 @@ def grdfill(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 

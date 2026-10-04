@@ -63,7 +63,6 @@ def image(
 
     Aliases
     -------
-
     .. hlist::
        :columns: 3
 
