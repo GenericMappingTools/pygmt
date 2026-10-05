@@ -213,12 +213,14 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     ... )
     >>> fig.show()
 
-    Place the text using x- and y-coordinates; add an offset of 0.2 centimeters in both x-
-    and y directions.
+    Place the text using x- and y-coordinates; add an offset of 0.2 centimeters in both
+    x- and y directions.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", x=0, y=2, offset=(0.2, 0.2), font="20p,13,blue", box=True)
+    >>> fig.text(
+    ...     text="PyGMT", x=0, y=2, offset=(0.2, 0.2), font="20p,13,blue", box=True
+    ... )
     >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
