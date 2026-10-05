@@ -1,6 +1,8 @@
 :::{title} Home
 :::
 
+A random changes to trigger the ReadTheDocs build.
+
 <!-- Reference: https://sphinx-design.readthedocs.io/en/rtd-theme/index.html -->
 <!-- Add and center the PyGMT logo image -->
 ::::{div} sd-d-flex-row sd-align-major-center

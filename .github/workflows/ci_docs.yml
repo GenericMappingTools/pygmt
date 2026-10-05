@@ -142,6 +142,14 @@ jobs:
           fi
           exit "${exit_code}"
 
+      - name: Upload the documentation to ReadTheDocs for PR preview
+        uses: readthedocs/upload-action@f1f5bac5fc97073927100367d8a5bb22587e1e16 # main
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && matrix.os == 'ubuntu-latest'
+        with:
+          token: ${{ secrets.READTHEDOCS_TOKEN }}
+          project-slug: pygmt-dev
+          html: doc/_build/html
+
       - name: Cache tectonic packages
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0 # zizmor: ignore[cache-poisoning]
         with:
@@ -171,7 +179,7 @@ jobs:
           mv latex/pygmt.pdf pygmt-docs.pdf
           cd ../..
 
-      - name: Upload PDF as artifact for previewing on pull requests
+      - name: Upload PDF as artifact for PR preview
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
         with:
