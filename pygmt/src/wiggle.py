@@ -9,7 +9,7 @@ from pygmt._typing import AnchorCode, PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame, Pattern, Position
+from pygmt.params import Axis, Frame, Pattern, Perspective, Position
 from pygmt.src._common import _parse_position
 
 __doctest_skip__ = ["wiggle"]
@@ -46,7 +46,7 @@ def wiggle(
     panel: int | Sequence[int] | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     label: str | None = None,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     coltypes: str | None = None,
     **kwargs,
