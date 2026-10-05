@@ -199,7 +199,6 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     Examples
     --------
     >>> import pygmt
-    >>> from pygmt.params import Position
 
     Plot the text "PyGMT" in the Center Middle using the font AvantGarde-Book
     in color blue and size 20 points; and add a box.
@@ -208,7 +207,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
     >>> fig.text(
     ...     text="PyGMT",
-    ...     position=Position("MC", cstype="inside"),
+    ...     position="MC",
     ...     font="20p,13,blue",
     ...     box=True,
     ... )
@@ -219,7 +218,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
     >>> fig.text(
-    ...     text="PyGMT", position=Position((0, 2), cstype="mapcoords", anchor="ML")
+    ...     text="PyGMT", x=0, y=2, cstype="mapcoords", anchor="ML")
     ... )
     >>> fig.show()
     """
