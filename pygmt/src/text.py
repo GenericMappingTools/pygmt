@@ -206,14 +206,21 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", position=Position("MC", cstype="inside"), font="20p,13,blue", box=True)
+    >>> fig.text(
+    ...     text="PyGMT",
+    ...     position=Position("MC", cstype="inside"),
+    ...     font="20p,13,blue",
+    ...     box=True,
+    ... )
     >>> fig.show()
 
     Place the text based on map coordinates with the Middle Left point as anchor.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", position=Position((0, 2), cstype="mapcoords", anchor="ML"))
+    >>> fig.text(
+    ...     text="PyGMT", position=Position((0, 2), cstype="mapcoords", anchor="ML")
+    ... )
     >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
