@@ -217,9 +217,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(
-    ...     text="PyGMT", x=0, y=2, cstype="mapcoords", anchor="ML")
-    ... )
+    >>> fig.text(text="PyGMT", x=0, y=2, font="20p,13,blue", box=True)
     >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
