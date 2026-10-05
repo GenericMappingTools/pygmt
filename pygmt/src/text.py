@@ -201,7 +201,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     >>> import pygmt
 
     Plot the text "PyGMT" using the font AvantGarde-Book in blue and 20 points.
-    Place the text at Middle Center. Add a box with a 1 point thick black outline.
+    Place the text at Middle Center. Add a box with a 1-point thick black outline.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
@@ -221,7 +221,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     ...     y=-3,
     ...     offset=(1, 1),
     ...     font="20p,AvantGarde-Book,blue",
-    ...     fiil="tan",
+    ...     fill="tan",
     ... )
     >>> fig.show()
     """
