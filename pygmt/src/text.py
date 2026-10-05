@@ -206,10 +206,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
     >>> fig.text(
-    ...     text="PyGMT",
-    ...     position="MC",
-    ...     font="20p,13,blue",
-    ...     box=True,
+    ...     text="PyGMT", position="MC", font="20p,13,blue", pen=True
     ... )
     >>> fig.show()
 
@@ -219,7 +216,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
     >>> fig.text(
-    ...     text="PyGMT", x=0, y=2, offset=(0.2, 0.2), font="20p,13,blue", box=True
+    ...     text="PyGMT", x=0, y=2, offset=(0.2, 0.2), font="20p,13,blue", pen=True
     ... )
     >>> fig.show()
     """
