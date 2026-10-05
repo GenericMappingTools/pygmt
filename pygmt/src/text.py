@@ -210,8 +210,8 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     ... )
     >>> fig.show()
 
-    Place the text using x- and y-coordinates and add an offset of 1 centimeter in both
-    x- and y directions. Add a box with tan fill.
+    Place the text using x- and y-coordinates with an offset of 1 centimeter in both x-
+    and y directions. Add a box with tan fill.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
