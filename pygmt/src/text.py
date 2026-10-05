@@ -199,15 +199,22 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     Examples
     --------
     >>> import pygmt
+    >>> from pygmt.params import Position
+
+    Plot the text "PyGMT" in the Center Middle using the font AvantGarde-Book
+    in color blue and size 20 points; and add a box.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", position="MC", font="20p,13,blue")
+    >>> fig.text(text="PyGMT", position=Position("MC", cstype="inside"), font="20p,13,blue", box=True)
     >>> fig.show()
 
-    >>> xxx
+    Place the text based on map coordinates with the Middle Left point as anchor.
 
-    >>> xxx
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
+    >>> fig.text(text="PyGMT", position=Position((0, 2), cstype="mapcoords", anchor="ML"))
+    >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (
