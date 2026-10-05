@@ -200,20 +200,29 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     --------
     >>> import pygmt
 
-    Plot the text "PyGMT" using the font AvantGarde-Book in color blue and size 20 points.
-    Place the text at the Middle Center. Add a box with an 1 point thick black outline.
+    Plot the text "PyGMT" using the font AvantGarde-Book in blue and 20 points.
+    Place the text at Middle Center. Add a box with a 1 point thick black outline.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", position="MC", font="20p,13,blue", pen="1p,black")
+    >>> fig.text(
+    ...     text="PyGMT", position="MC", font="20p,AvantGarde-Book,blue", pen="1p,black"
+    ... )
     >>> fig.show()
 
     Place the text using x- and y-coordinates and add an offset of 1 centimeter in both
-    x- and y directions. Add a box with gray fill.
+    x- and y directions. Add a box with tan fill.
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
-    >>> fig.text(text="PyGMT", x=0, y=-3, offset=(1, 1), font="20p,13,blue", fiil="gray")
+    >>> fig.text(
+    ...     text="PyGMT",
+    ...     x=0,
+    ...     y=-3,
+    ...     offset=(1, 1),
+    ...     font="20p,AvantGarde-Book,blue",
+    ...     fiil="tan",
+    ... )
     >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
