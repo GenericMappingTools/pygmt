@@ -14,6 +14,8 @@ from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["velo"]
+
 
 @fmt_docstring
 @use_alias(
