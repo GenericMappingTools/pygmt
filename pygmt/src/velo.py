@@ -251,6 +251,41 @@ def velo(
     $incols
     $perspective
     $transparency
+
+    Examples
+    --------
+    XXX
+
+    >>> import pandas as pd
+    >>> import pygmt
+    >>>
+    >>> df = pd.DataFrame(
+    >>>    data={
+    ...     "x": [2, -2],
+    ...     "y": [0, -1],
+    ...     "east_velocity": [4, 6],
+    ...     "north_velocity": [6, 2],
+    ...     "east_sigma": [3, 4],
+    ...     "north_sigma": [3, 1],
+    ...     "correlation_EN": [0.5, -0.5],
+    ...     "SITE": ["4x6", "6x2"],
+    ...     }
+    ... )
+    >>>
+    >>> fig = pygmt.Figure()
+    >>> fig.velo(
+    ...     data=df,
+    ...     region=[-5, 5, -5, 5],
+    ...     projection="X10c",
+    ...     frame=True,
+    ...     spec="e0.2/0.39+f12",
+    ...     uncertainty_fill="bisque",
+    ...     pen="1p,brown",
+    ...     line=True,
+    ...     vector="0.5c+p1p+e+gred",
+    ... )
+    >>>
+    >>> fig.show()
     """
     if kwargs.get("S") is None:
         raise GMTParameterError(required="spec")
