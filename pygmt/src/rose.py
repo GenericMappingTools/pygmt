@@ -11,6 +11,8 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["rose"]
+
 
 @fmt_docstring
 @use_alias(
