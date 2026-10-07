@@ -209,6 +209,50 @@ def rose(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+    XXXX
+
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>>
+    >>> # Load sample compilation of fracture lengths and azimuth as
+    >>> # hypothetically digitized from geological maps
+    >>> data = pygmt.datasets.load_sample_data(name="fractures")
+    >>> # OR use some random numbers
+
+    XXX
+
+    >>> fig = pygmt.Figure()
+    >>> fig.rose(
+    ...     data=data,
+    ...     region=[0, 1, 0, 360],
+    ...     diameter="7.5c",
+    ...     sector="5",
+    ...     norm=True,
+    ...     frame=True,
+    ...     fill="bisque",
+    ...     pen="1p,brown",
+    ... )
+    >>> fig.show()
+
+    XXX
+
+    >>> fig = pygmt.Figure()
+    >>> fig.rose(
+    ...     length=data.length,
+    ...     azimuth=data.azimuth,
+    ...     region=[0, 1, 0, 360],
+    ...     diameter="7.5c",
+    ...     sector="10+r",
+    ...     norm=True,
+    ...     fill="bisque",
+    ...     frame=Frame(xaxis=Axis(grid=0.2), yaxis=Axis(grid=30)),
+    ...     pen="1p,brown",
+    ... )
+    >>> fig.show()
+
     """
     aliasdict = AliasSystem(C=Alias(cmap, name="cmap")).add_common(
         B=frame,
