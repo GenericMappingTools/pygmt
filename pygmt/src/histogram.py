@@ -264,7 +264,7 @@ def histogram(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     weights
-        Weight the data instead of counting them [Default is ``False``, i.e., pure
+        Use weighted counts instead of pure counts [Default is ``False``, i.e., pure
         counts are used]. It can be:
 
         - ``True``: Weights are provided in the second column of ``data``, if ``data``
@@ -324,7 +324,8 @@ def histogram(
         Set the interval for the width of each bar in the histogram.
     histtype : int or str
         [*type*].
-        Choose between 6 types of histograms:
+        By default, pure counts are determined. To get weighted counts, use the ``weights``
+        parameter. Choose between 6 types of histograms:
 
         * 0 = counts [Default]
         * 1 = frequency_percent
@@ -333,7 +334,6 @@ def histogram(
         * 4 = log10 (1.0 + count)
         * 5 = log10 (1.0 + frequency_percent).
 
-        To use weights instead of pure counts, use the ``weights`` parameter.
     distribution
         Draw the equivalent normal distribution. Select which central location and scale
         to use:
