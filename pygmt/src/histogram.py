@@ -324,7 +324,7 @@ def histogram(
         Set the interval for the width of each bar in the histogram.
     histtype : int or str
         [*type*].
-        By default, pure counts are determined. To get weighted counts, use the 
+        By default, pure counts are determined. To get weighted counts, use the
         ``weights`` parameter. Choose between 6 types of histograms:
 
         * 0 = counts [Default]
