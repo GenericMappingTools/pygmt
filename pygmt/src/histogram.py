@@ -264,7 +264,7 @@ def histogram(
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     weights
-        Weight the data instead of counting them. Default is ``False``, i.e., pure
+        Weight the data instead of counting them [Default is ``False``, i.e., pure
         counts are used]. It can be:
 
         - ``True``: Weights are provided in the second column of ``data``, if ``data``
