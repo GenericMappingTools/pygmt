@@ -21,6 +21,8 @@ from pygmt.helpers import (
 )
 from pygmt.params import Axis, Frame, Pattern
 
+__doctest_skip__ = ["text"]
+
 
 @fmt_docstring
 @use_alias(
@@ -193,6 +195,35 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     --------
     pygmt.Figure.paragraph
         Typeset one or multiple paragraphs.
+
+    Examples
+    --------
+    >>> import pygmt
+
+    Plot the text "PyGMT" using the font AvantGarde-Book in blue and 20 points.
+    Place the text at Middle Center. Add a box with a 1-point thick black outline.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
+    >>> fig.text(
+    ...     text="PyGMT", position="MC", font="20p,AvantGarde-Book,blue", pen="1p,black"
+    ... )
+    >>> fig.show()
+
+    Place the text using x- and y-coordinates with an offset of 1 centimeter in both x-
+    and y directions. Add a box with tan fill.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-5, 5, -5, 5], projection="X5c/2c", frame=True)
+    >>> fig.text(
+    ...     text="PyGMT",
+    ...     x=0,
+    ...     y=-3,
+    ...     offset=(1, 1),
+    ...     font="20p,AvantGarde-Book,blue",
+    ...     fill="tan",
+    ... )
+    >>> fig.show()
     """
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if (

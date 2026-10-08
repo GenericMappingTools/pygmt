@@ -14,6 +14,8 @@ from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_it
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
+__doctest__skip__ = ["legend"]
+
 
 @fmt_docstring
 def legend(
@@ -115,6 +117,23 @@ def legend(
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    Create a legend automatically from the plotted symbols and lines that have labels:
+
+    >>> import pygmt
+    >>> from pygmt.params import Box, Position
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.plot(x=[2, 5, 8], y=[3, 6, 4], style="c0.3c", fill="red", label="Circles")
+    >>> fig.plot(x=[2, 5, 8], y=[7, 2, 8], pen="1p,blue", label="Line")
+    >>> fig.legend(
+    ...     position=Position("BL", offset=0.2),
+    ...     width="4c",
+    ...     box=Box(pen="1p,gray30", fill="lightyellow", radius="4p"),
+    ... )
+    >>> fig.show()
     """
     # Set default box if both position and box are not given.
     # The default position will be set later in _parse_position().

@@ -180,7 +180,7 @@ pygmt.show_versions()
 fig = pygmt.Figure()
 fig.basemap(projection="R7c", region=[0, 360, -90, 90], frame=True)
 fig.coast(land="tan", water="lightblue")
-fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
+fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red", transparency=75)
 fig.show()
 ```
 
