@@ -8,9 +8,10 @@ from typing import Literal
 from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem, _to_string
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
+from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
+    data_kind,
     deprecate_parameter,
     fmt_docstring,
     is_given,
@@ -201,6 +202,7 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 def histogram(
     self,
     data: PathLike | TableLike,
+    weights: bool | Sequence[float] = False,
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
@@ -262,6 +264,14 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
+    weights
+        Use weighted counts instead of pure counts [Default is ``False``, i.e., pure
+        counts are used]. It can be:
+
+        - ``True``: Weights are provided in the second column of ``data``, if ``data``
+          is a file name or a 2-D sequence.
+        - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
+          sequence of values.
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
@@ -324,8 +334,9 @@ def histogram(
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
     histtype : int or str
-        [*type*][**+w**].
-        Choose between 6 types of histograms:
+        [*type*].
+        By default, pure counts are determined. To get weighted counts, use the
+        ``weights`` parameter. Choose between 6 types of histograms:
 
         * 0 = counts [Default]
         * 1 = frequency_percent
@@ -334,8 +345,6 @@ def histogram(
         * 4 = log10 (1.0 + count)
         * 5 = log10 (1.0 + frequency_percent).
 
-        To use weights provided as a second data column instead of pure counts,
-        append **+w**.
     distribution
         Draw the equivalent normal distribution. Select which central location and scale
         to use:
@@ -399,6 +408,16 @@ def histogram(
             reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
         )
 
+    # weights can be given as a 1-D array, or as a boolean to indicate that the second
+    # column of data contains weights. If weights is an array, then data must be a 1-D
+    # sequence of values.
+    _weight_is_array = is_nonstr_iter(weights)
+    if data_kind(data) == "file" and _weight_is_array:
+        raise GMTTypeError(
+            type(weights),
+            reason="'weights' must be boolean when 'data' is a file name.",
+        )
+
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
         C=[
@@ -438,10 +457,13 @@ def histogram(
         t=transparency,
     )
     aliasdict.merge(kwargs)
+    if weights is not False:
+        aliasdict["Z"] = f"{aliasdict.get('Z', '')}+w"
 
     self._activate_figure()
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+        vfargs = {"x": data, "y": weights} if _weight_is_array else {"data": data}
+        with lib.virtualfile_in(check_kind="vector", **vfargs) as vintbl:
             lib.call_module(
                 module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )
