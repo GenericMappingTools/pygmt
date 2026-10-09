@@ -35,9 +35,9 @@ def sphinterpolate(
 
     Full GMT docs at :gmt-docs:`sphinterpolate.html`.
 
-    **Aliases:**
-
-    .. hlist:
+    Aliases
+    -------
+    .. hlist::
        :columns: 2
 
        - G = outgrid
