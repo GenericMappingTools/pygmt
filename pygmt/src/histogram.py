@@ -14,6 +14,7 @@ from pygmt.helpers import (
     data_kind,
     deprecate_parameter,
     fmt_docstring,
+    is_given,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
@@ -206,7 +207,7 @@ def histogram(
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
-    fill: str | Pattern | None = None,
+    fill: str | Pattern | Literal["position", "value"] | None = None,
     annot: bool = False,
     annot_position: Literal["start", "end"] = "end",
     annot_font: str | None = None,
@@ -240,7 +241,7 @@ def histogram(
     $aliases
        - A = horizontal
        - B = frame
-       - C = cmap
+       - C = cmap, **+b**: fill
        - D = annot, **+b**: annot_position, **+f**: annot_font, **+o**: annot_offset,
          **+r**: annot_orientation
        - E = bar_width, **+o**: bar_offset
@@ -271,12 +272,22 @@ def histogram(
           is a file name or a 2-D sequence.
         - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
           sequence of values.
-    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
     fill
-         Set color or pattern for filling bars [Default is no fill].
+        Set color or pattern for filling bars [Default is no fill]. Set it to one of the
+        two special values to fill bars by looking up the color from a CPT instead of a
+        constant color:
+
+        - ``"position"``: look up the color using the mid-coordinate of the bin. This is
+          the default when ``cmap`` is set.
+        - ``"value"``: look up the color using the bin value, i.e., the bar count or
+          frequency.
+
+        The special values require a CPT (either the current CPT or explicitly set by
+        ``cmap``), and can't be used with ``fill``.
+    $cmap
     annot
         If ``True``, annotate each bar with the value it represents. The remaining
         ``annot_*`` parameters control how the annotations look and are ignored if
@@ -383,6 +394,20 @@ def histogram(
             required="bar_width", reason="Required when 'bar_offset' is set."
         )
 
+    # "position" and "value" are special values that fill bars by values and cmap.
+    match fill:
+        case "position":
+            _fill_color, _fill_lookup = None, ""
+        case "value":
+            _fill_color, _fill_lookup = None, "+b"
+        case _:
+            _fill_color, _fill_lookup = fill, None  # type: ignore[assignment]
+    if _fill_color is not None and is_given(cmap):
+        raise GMTParameterError(
+            at_most_one=["cmap", "fill"],
+            reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
+        )
+
     # weights can be given as a 1-D array, or as a boolean to indicate that the second
     # column of data contains weights. If weights is an array, then data must be a 1-D
     # sequence of values.
@@ -395,7 +420,10 @@ def histogram(
 
     aliasdict = AliasSystem(
         A=Alias(horizontal, name="horizontal"),
-        C=Alias(cmap, name="cmap"),
+        C=[
+            Alias(cmap, name="cmap"),
+            Alias(_fill_lookup, name="fill"),
+        ],
         D=_alias_option_D(
             annot=annot,
             annot_position=annot_position,
@@ -408,7 +436,7 @@ def histogram(
             Alias(bar_offset, name="bar_offset", prefix="+o"),
         ],
         F=Alias(center, name="center"),
-        G=Alias(fill, name="fill"),
+        G=Alias(_fill_color, name="fill"),
         L=Alias(
             out_range,
             name="out_range",
