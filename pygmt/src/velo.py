@@ -263,15 +263,15 @@ def velo(
     >>>
     >>> # Setup some dummy data as pandas DataFrame with two entries.
     >>> df = pd.DataFrame(
-    >>>    data={
-    ...     "x": [2, -2],
-    ...     "y": [0, -1],
-    ...     "east_velocity": [4, 6],
-    ...     "north_velocity": [6, 2],
-    ...     "east_sigma": [3, 4],
-    ...     "north_sigma": [3, 1],
-    ...     "correlation_EN": [0.5, -0.5],
-    ...     "SITE": ["4x6", "6x2"],
+    ...     data={
+    ...         "x": [2, -2],
+    ...         "y": [0, -1],
+    ...         "east_velocity": [4, 6],
+    ...         "north_velocity": [6, 2],
+    ...         "east_sigma": [3, 4],
+    ...         "north_sigma": [3, 1],
+    ...         "correlation_EN": [0.5, -0.5],
+    ...         "SITE": ["4x6", "6x2"],
     ...     }
     ... )
     >>>
