@@ -261,6 +261,7 @@ def velo(
     >>> import pandas as pd
     >>> import pygmt
     >>>
+    >>> # Setup some dummy data as pandas DataFrame.
     >>> df = pd.DataFrame(
     >>>    data={
     ...     "x": [2, -2],
@@ -280,11 +281,11 @@ def velo(
     ...     region=[-5, 5, -5, 5],
     ...     projection="X10c",
     ...     frame=True,
-    ...     spec="e0.2/0.39+f12",
+    ...     spec="e0.2/0.39+f10",
     ...     uncertainty_fill="bisque",
-    ...     pen="1p,brown",
-    ...     line=True,
-    ...     vector="0.5c+p1p+e+gred",
+    ...     pen="1p,magenta",
+    ...     line="darkbrown",
+    ...     vector="0.5c+p1p+e+gpurple",
     ... )
     >>>
     >>> fig.show()
