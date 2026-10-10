@@ -156,8 +156,8 @@ def contour(
 
     Examples
     --------
-    Plot contours every 20 units and annotate every other contour (i.e., every 40
-    units) from data points given as three 1-D arrays:
+    Plot contours every 20 units and annotate every other contour (i.e., every 40 units)
+    from data points given as three 1-D arrays:
 
     >>> import numpy as np
     >>> import pygmt

@@ -88,7 +88,6 @@ def solar(
 
     Examples
     --------
-
     Plot the day-night terminator at the current UTC date and time.
 
     >>> import datetime
