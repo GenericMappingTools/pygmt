@@ -261,7 +261,7 @@ def velo(
     >>> import pandas as pd
     >>> import pygmt
     >>>
-    >>> # Setup some dummy data as pandas DataFrame.
+    >>> # Setup some dummy data as pandas DataFrame with two entries.
     >>> df = pd.DataFrame(
     >>>    data={
     ...     "x": [2, -2],
