@@ -4,7 +4,7 @@ Sphinx documentation configuration file.
 Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
-import datetime
+import datetime as dt
 import re
 
 from docutils import nodes
@@ -28,7 +28,7 @@ else:
 # Projection information.
 project = "PyGMT"
 author = "The PyGMT Developers"
-copyright = f"2017-{datetime.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
+copyright = f"2017-{dt.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
 
