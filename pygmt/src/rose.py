@@ -214,17 +214,14 @@ def rose(
 
     Examples
     --------
-    XXXX
+    Load a dataset on fracture lengths and azimuths into a pandas DataFrame.
 
     >>> import pygmt
     >>> from pygmt.params import Axis, Frame
     >>>
-    >>> # Load sample compilation of fracture lengths and azimuth as
-    >>> # hypothetically digitized from geological maps
     >>> data = pygmt.datasets.load_sample_data(name="fractures")
-    >>> # OR use some random numbers
 
-    XXX
+    Create a sector diagram.
 
     >>> fig = pygmt.Figure()
     >>> fig.rose(
@@ -239,7 +236,7 @@ def rose(
     ... )
     >>> fig.show()
 
-    XXX
+    Create a rose diagram.
 
     >>> fig = pygmt.Figure()
     >>> fig.rose(
