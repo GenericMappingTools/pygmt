@@ -2,7 +2,7 @@
 Test Figure.plot.
 """
 
-import datetime
+import datetime as dt
 from pathlib import Path
 
 import numpy as np
@@ -482,7 +482,7 @@ def test_plot_datetime():
     fig.plot(x=x, y=y, style="a0.2c", pen="1p")
 
     # the Python built-in datetime and date
-    x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1, 0, 0, 0)]
+    x = [dt.date(2018, 1, 1), dt.datetime(2019, 1, 1, 0, 0, 0)]
     y = [8.5, 9.5]
     fig.plot(x=x, y=y, style="i0.2c", pen="1p")
 
