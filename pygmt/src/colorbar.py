@@ -470,8 +470,8 @@ def colorbar(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
     Add a colorbar with a specified colormap, label, and unit on a plot.
 
     >>> import pygmt

@@ -58,8 +58,8 @@ def basemap(
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    **Aliases**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 

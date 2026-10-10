@@ -113,6 +113,8 @@ intersphinx_mapping = {
 # Render the return argument and attribute lists in the same way as the parameter lists.
 napoleon_use_rtype = False
 napoleon_use_ivar = True
+# Custom docstring sections, rendered in the same way as the "Examples" section.
+napoleon_custom_sections = ["Aliases"]
 
 # Options for sphinx-copybutton.
 # Reference: https://sphinx-copybutton.readthedocs.io

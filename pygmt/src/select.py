@@ -207,8 +207,8 @@ def select(
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> ship_data = pygmt.datasets.load_sample_data(name="bathymetry")

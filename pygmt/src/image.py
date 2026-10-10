@@ -61,8 +61,8 @@ def image(
 
     Full GMT docs at :gmt-docs:`image.html`.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 

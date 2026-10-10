@@ -158,8 +158,8 @@ def grdimage(
     $transparency
     $cores
 
-    Example
-    -------
+    Examples
+    --------
     Plot the global Earth relief using a Mollweide projection.
 
     >>> import pygmt

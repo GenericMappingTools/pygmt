@@ -41,8 +41,8 @@ def solar(
 
     Full GMT docs at :gmt-docs:`solar.html`.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -86,8 +86,8 @@ def solar(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
     Plot the day-night terminator at the current UTC date and time.
 
     >>> import datetime
