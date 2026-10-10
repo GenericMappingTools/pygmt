@@ -22,7 +22,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 """
 
 # %%
-import datetime
+import datetime as dt
 
 import numpy as np
 import pandas as pd
@@ -36,7 +36,7 @@ fig = pygmt.Figure()
 # 0 to 10 on the y-axis
 fig.basemap(
     projection="X15c/5c",
-    region=[datetime.date(2010, 1, 1), datetime.date(2020, 6, 1), 0, 10],
+    region=[dt.date(2010, 1, 1), dt.date(2020, 6, 1), 0, 10],
     frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True)),
 )
 
@@ -63,7 +63,7 @@ y = [7, 8, 9]
 fig.plot(x=x, y=y, style="a0.4c", pen="1p", fill="dodgerblue")
 
 # the Python built-in datetime and date
-x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 6, 1, 20, 5, 45)]
+x = [dt.date(2018, 1, 1), dt.datetime(2019, 6, 1, 20, 5, 45)]
 y = [6.5, 4.5]
 fig.plot(x=x, y=y, style="i0.4c", pen="1p", fill="seagreen")
 
