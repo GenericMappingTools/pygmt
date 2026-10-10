@@ -140,8 +140,9 @@ def nearneighbor(
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
-    Example
-    -------
+
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a sample dataset of bathymetric x, y, and z values
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")

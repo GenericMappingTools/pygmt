@@ -111,8 +111,8 @@ def grdlandmask(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Create a landmask grid with a longitude range of 125° E to 130° E, a
     >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree

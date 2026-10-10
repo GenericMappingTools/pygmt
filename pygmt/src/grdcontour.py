@@ -126,8 +126,8 @@ def grdcontour(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> from pygmt.params import Axis
     >>> # Load the 15 arc-minutes grid with "gridline" registration in the

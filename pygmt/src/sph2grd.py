@@ -71,8 +71,8 @@ def sph2grd(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Create a new grid from the remote file "EGM96_to_36.txt",
     >>> # set the grid spacing to 1 arc-degree, and the region to global ("g")

@@ -191,8 +191,8 @@ def grdmask(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> import numpy as np
     >>> # Create a simple polygon as a triangle

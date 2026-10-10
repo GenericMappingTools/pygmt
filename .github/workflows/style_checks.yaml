@@ -76,3 +76,14 @@ jobs:
             rm output.txt
             exit $nfiles
           fi
+
+      - name: Ensure "Examples" instead of "Example" is used as the docstring heading
+        run: |
+          git ls-files '*.py' | xargs grep --line-number -E '^\s*Example\s*$' > output.txt || true
+          nlines=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nlines > 0 ]]; then
+            echo "Use 'Examples' instead of 'Example' as the docstring heading in following lines:"
+            cat output.txt
+            rm output.txt
+            exit $nlines
+          fi

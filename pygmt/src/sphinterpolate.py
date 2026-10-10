@@ -65,8 +65,8 @@ def sphinterpolate(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a table of Mars with longitude/latitude/radius columns
     >>> mars_shape = pygmt.datasets.load_sample_data(name="mars_shape")

@@ -470,8 +470,8 @@ def colorbar(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
