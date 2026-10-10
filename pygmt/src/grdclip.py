@@ -45,8 +45,8 @@ def grdclip(
 
     Full GMT docs at :gmt-docs:`grdclip.html`.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -91,8 +91,8 @@ def grdclip(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load the 30 arc-minutes Earth relief grid, with a longitude range of 10° E to
     >>> # 30° E, and a latitude range of 15° N to 25° N

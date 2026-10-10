@@ -128,8 +128,8 @@ def dimfilter(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a grid of Earth relief data
     >>> grid = pygmt.datasets.load_earth_relief()

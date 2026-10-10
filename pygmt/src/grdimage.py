@@ -158,8 +158,8 @@ def grdimage(
     $transparency
     $cores
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> from pygmt.params import Axis
     >>> # load the 30 arc-minutes grid with "gridline" registration
