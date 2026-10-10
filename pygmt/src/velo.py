@@ -256,7 +256,7 @@ def velo(
 
     Examples
     --------
-    XXX
+    Plot mean velocity arrows and confidence ellipses.
 
     >>> import pandas as pd
     >>> import pygmt
