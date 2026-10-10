@@ -1,0 +1,13 @@
+pygmt.triangulate.regular\_grid
+===============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: triangulate.regular_grid
+
+.. minigallery:: pygmt.triangulate.regular_grid
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

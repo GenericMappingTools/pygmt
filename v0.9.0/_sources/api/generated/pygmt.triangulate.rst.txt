@@ -1,0 +1,32 @@
+pygmt.triangulate
+=================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: triangulate
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    triangulate.delaunay_triples
+    
+    
+    
+    triangulate.regular_grid
+    
+    
+
+
+.. minigallery:: pygmt.triangulate
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

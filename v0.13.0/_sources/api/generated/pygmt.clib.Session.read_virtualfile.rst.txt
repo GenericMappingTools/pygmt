@@ -1,0 +1,13 @@
+pygmt.clib.Session.read\_virtualfile
+====================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.read_virtualfile
+
+.. minigallery:: pygmt.clib.Session.read_virtualfile
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

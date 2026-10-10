@@ -1,0 +1,11 @@
+pygmt.test
+==========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: test
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

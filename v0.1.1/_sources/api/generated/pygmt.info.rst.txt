@@ -1,0 +1,11 @@
+pygmt.info
+==========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: info
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

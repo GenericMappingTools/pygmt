@@ -1,0 +1,13 @@
+pygmt.nearneighbor
+==================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: nearneighbor
+
+.. minigallery:: pygmt.nearneighbor
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

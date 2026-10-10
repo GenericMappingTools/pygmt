@@ -1,0 +1,39 @@
+r"""
+Mercator projection
+===================
+
+The Mercator projection takes its name from the Flemish cartographer Gheert
+Cremer, better known as Gerardus Mercator, who presented it in 1569. The
+projection is a cylindrical and conformal, with no distortion along the
+equator. A major navigational feature of the projection is that a line of
+constant azimuth is straight. Such a line is called a rhumb line or loxodrome.
+Thus, to sail from one point to another one only had to connect the points with
+a straight line, determine the azimuth of the line, and keep this constant
+course for the entire voyage. The Mercator projection has been used extensively
+for world maps in which the distortion towards the polar regions grows
+rather large.
+
+**m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
+
+- **m** or **M**: Sets the projection type.
+- *lon0*: Sets the central meridian [Optional].
+- *lat0*: Sets the standard parallel [Optional]. When supplied, *lon0* must be
+  supplied as well.
+- *scale* or *width*: Sets the map size.
+"""
+
+# %%
+import pygmt
+from pygmt.params import Axis
+
+fig = pygmt.Figure()
+fig.coast(
+    region=[0, 360, -80, 80],
+    projection="M0/0/12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="gray80",
+    water="steelblue",
+)
+fig.show()
+
+# sphinx_gallery_tags = ["conformal"]

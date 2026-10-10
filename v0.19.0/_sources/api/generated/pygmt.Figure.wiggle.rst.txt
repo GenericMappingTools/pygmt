@@ -1,0 +1,13 @@
+pygmt.Figure.wiggle
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.wiggle
+
+.. minigallery:: pygmt.Figure.wiggle
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

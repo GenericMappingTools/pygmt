@@ -1,0 +1,15 @@
+pygmt.params.Axis
+=================
+
+.. currentmodule:: pygmt.params
+
+.. autoclass:: Axis
+    :members:
+    :member-order: bysource
+
+.. minigallery:: pygmt.params.Axis
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

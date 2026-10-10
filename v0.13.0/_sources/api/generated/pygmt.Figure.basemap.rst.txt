@@ -1,0 +1,13 @@
+pygmt.Figure.basemap
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.basemap
+
+.. minigallery:: pygmt.Figure.basemap
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

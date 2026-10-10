@@ -1,0 +1,13 @@
+pygmt.Figure.savefig
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.savefig
+
+.. minigallery:: pygmt.Figure.savefig
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

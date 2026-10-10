@@ -1,0 +1,70 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_symbols_sg_execution_times:
+
+
+Computation times
+=================
+**00:03.208** total execution time for 12 files **from gallery/symbols**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_symbols_points_cities.py` (``points_cities.py``)
+     - 00:00.794
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``multi_parameter_symbols.py``)
+     - 00:00.433
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points_categorical.py` (``points_categorical.py``)
+     - 00:00.343
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``patterns.py``)
+     - 00:00.240
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_scatter.py` (``scatter.py``)
+     - 00:00.238
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_bars.py` (``bars.py``)
+     - 00:00.218
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_basic_symbols.py` (``basic_symbols.py``)
+     - 00:00.186
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``points_transparency.py``)
+     - 00:00.179
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points.py` (``points.py``)
+     - 00:00.166
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``custom_symbols.py``)
+     - 00:00.146
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_text_symbols.py` (``text_symbols.py``)
+     - 00:00.136
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``datetime_inputs.py``)
+     - 00:00.127
+     - 0.0

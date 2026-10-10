@@ -1,0 +1,13 @@
+pygmt.GMTDataArrayAccessor.gradient
+===================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTDataArrayAccessor.gradient
+
+.. minigallery:: pygmt.GMTDataArrayAccessor.gradient
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

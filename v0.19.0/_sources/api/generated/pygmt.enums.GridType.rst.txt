@@ -1,0 +1,8 @@
+pygmt.enums.GridType
+====================
+
+.. currentmodule:: pygmt.enums
+
+.. autoclass:: GridType
+    :members:
+    :member-order: bysource

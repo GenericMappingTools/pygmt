@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Scale bar &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/gallery/embellishments/scalebar.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Timestamp" href="timestamp.html" />
+    <link rel="prev" title="Multiple colormaps" href="colorbars_multiple.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#d-plots">3D Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#seismology-and-geodesy">Seismology and geodesy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#base-maps">Base maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#histograms">Histograms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="colorbar.html">Colorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solar.html">Day-night terminator line and twilights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inset.html">Inset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inset_rectangle_region.html">Inset map showing a rectangular region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Scale bar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
+      <li class="breadcrumb-item active">Scale bar</li>
+    <li class="source-link">
+        
+            
+                
+                
+                
+                    
+                
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/gallery/embellishments/scalebar.py"
+                       class="fa fa-github"> Improve this page</a>
+                
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-embellishments-scalebar-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="scale-bar">
+<span id="sphx-glr-gallery-embellishments-scalebar-py"></span><h1>Scale bar<a class="headerlink" href="#scale-bar" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">map_scale</span></code> parameter of the <a class="reference internal" href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a> and
+<a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> methods is used to add a scale bar to a map.
+This example shows how such a scale bar can be customized:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>position: <strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>. Set the position
+of the reference point. Choose from</p>
+<ul>
+<li><p><strong>g</strong>: Give map coordinates as <em>longitude</em>/<em>latitude</em>.</p></li>
+<li><p><strong>j</strong>|<strong>J</strong>: Specify a two-character (order independent) code.
+Choose from vertical <strong>T</strong>(op), <strong>M</strong>(iddle), or <strong>B</strong>(ottom) and
+horizontal <strong>L</strong>(eft), <strong>C</strong>(entre), or <strong>R</strong>(ight). Lower / upper
+case <strong>j</strong> / <strong>J</strong> mean inside / outside of the map bounding box.</p></li>
+<li><p><strong>n</strong>: Give normalized bounding box coordinates as <em>nx</em>/<em>ny</em>.</p></li>
+<li><p><strong>x</strong>: Give plot coordinates as <em>x</em>/<em>y</em>.</p></li>
+</ul>
+</li>
+<li><p>length: <strong>+w</strong>. Give a distance value, and, optionally a distance unit.
+Choose from <strong>e</strong> (meters), <strong>f</strong> (feet), <strong>k</strong> (kilometers) [Default],
+<strong>M</strong> (statute miles), <strong>n</strong> (nautical miles), or <strong>u</strong> (US survey feet).</p></li>
+<li><p>origin: <strong>+c</strong>[<em>slon</em>/]<em>slat</em>. Control where on the map the scale bar
+applies. If <strong>+c</strong> is not given the reference point is used. If only
+<strong>+c</strong> is appended the middle of the map is used. Note that <em>slon</em> is only
+optional for projections with constant scale along parallels, e.g.,
+Mercator projection.</p></li>
+<li><p>justify: <strong>+j</strong>. Set the anchor point. Specify a two-character (order
+independent) code. Choose from vertical <strong>T</strong>(op), <strong>M</strong>(iddle), or
+<strong>B</strong>(ottom) and horizontal <strong>L</strong>(eft), <strong>C</strong>(entre), or <strong>R</strong>(ight).</p></li>
+<li><p>offset: <strong>+o</strong><em>offset</em> or <strong>+o</strong><em>xoffset</em>/<em>yoffset</em>. Give either a
+common shift or individual shifts in x (longitude) and y (latitude)
+directions.</p></li>
+<li><p>height: Use <a class="extlink-gmt-term reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-MAP_SCALE_HEIGHT">MAP_SCALE_HEIGHT</a> via <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>.</p></li>
+<li><p>fancy style: <strong>+f</strong>. Get a scale bar that looks like train tracks.</p></li>
+<li><p>unit: <strong>+u</strong>. Add the distance unit given via <strong>+w</strong> to the single
+distance values.</p></li>
+<li><p>label: <strong>+l</strong>. Add the distance unit given via <strong>+w</strong> as label. Append
+text to get a customized label instead.</p></li>
+<li><p>alignment: <strong>+a</strong>. Set the label alignment. Choose from <strong>t</strong>(op)
+[Default], <strong>b</strong>(ottom), <strong>l</strong>(eft), or <strong>r</strong>(ight).</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+
+<span class="c1"># Create a new Figure instance</span>
+<a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+
+<span class="c1"># Mercator projection with 10 centimeters width</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M0/0/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">])</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Top Left: Add a plain scale bar</span>
+<span class="c1"># It is placed based on geographic coordinates (g) 42° West and 1° South,</span>
+<span class="c1"># applies at the reference point (+c is not given), and represents a</span>
+<span class="c1"># length (+w) of 500 kilometers</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;g-42/-1+w500k&quot;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Top Right: Add a fancy scale bar</span>
+<span class="c1"># It is placed based on normalized bounding box coordinates (n)</span>
+<span class="c1"># Use a fancy style (+f) to get a scale bar that looks like train tracks</span>
+<span class="c1"># Add the distance unit (+u) to the single distance values</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;n0.8/0.95+w500k+f+u&quot;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Bottom Left: Add a thick scale bar</span>
+<span class="c1"># Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies</span>
+<span class="c1"># only to the code within the &quot;with&quot; statement)</span>
+<span class="c1"># It applies (+c) at the middle of the map (no location is appended to +c)</span>
+<span class="c1"># Without appending text, +l adds the distance unit as label</span>
+<span class="k">with</span> <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_SCALE_HEIGHT</span><span class="o">=</span><span class="s2">&quot;10p&quot;</span><span class="p">):</span>
+    <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;n0.2/0.15+c+w500k+f+l&quot;</span><span class="p">)</span>
+
+<span class="c1"># -----------------------------------------------------------------------------</span>
+<span class="c1"># Bottom Right: Add a scale bar valid for a specific location</span>
+<span class="c1"># It is placed at BottomRight (j) using MiddleRight as anchor point (+j) with</span>
+<span class="c1"># an offset (+o) of 1 centimeter in both x and y directions</span>
+<span class="c1"># It applies (+c) at -7° South, add a customized label by appending text to +l</span>
+<a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;jBR+jMR+o1c/1c+c-7+w500k+f+u+lvalid at 7° S&quot;</span><span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_scalebar_001.png" srcset="../../_images/sphx_glr_scalebar_001.png" alt="scalebar" class = "sphx-glr-single-img"/><p>The <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter allows surrounding the scale bar. This can be useful
+when adding a scale bar to a colorful map. To fill the box, append <strong>+g</strong>
+with the desired color (or pattern). The outline of the box can be adjusted
+by appending <strong>+p</strong> with the desired thickness, color, and style. To force
+rounded edges append <strong>+r</strong> with the desired radius.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new Figure instance</span>
+<a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+
+<a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
+    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">45</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span>
+    <span class="n">land</span><span class="o">=</span><span class="s2">&quot;tan&quot;</span><span class="p">,</span>
+    <span class="n">water</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span>
+    <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WSne&quot;</span><span class="p">,</span> <span class="s2">&quot;af&quot;</span><span class="p">],</span>
+    <span class="c1"># Set the label alignment (+a) to right (r)</span>
+    <span class="n">map_scale</span><span class="o">=</span><span class="s2">&quot;jBL+o1c/1c+c-7+w500k+f+lkm+ar&quot;</span><span class="p">,</span>
+    <span class="c1"># Fill the box in white with a transparency of 30 percent, add a solid</span>
+    <span class="c1"># outline in darkgray (gray30) with a thickness of 0.5 points, and use</span>
+    <span class="c1"># rounded edges with a radius of 3 points</span>
+    <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+gwhite@30+p0.5p,gray30,solid+r3p&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_scalebar_002.png" srcset="../../_images/sphx_glr_scalebar_002.png" alt="scalebar" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.332 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-scalebar-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/004f6d23a04369ca0db9c83de3b6182d/scalebar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">scalebar.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/14bf5efed31d1ef2d72f869862efeeba/scalebar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">scalebar.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/120a7be7b845664f208e256f570dee0b/scalebar.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">scalebar.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="colorbars_multiple.html" class="btn btn-neutral float-left" title="Multiple colormaps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="timestamp.html" class="btn btn-neutral float-right" title="Timestamp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

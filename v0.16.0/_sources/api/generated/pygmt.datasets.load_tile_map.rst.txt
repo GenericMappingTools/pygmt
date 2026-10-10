@@ -1,0 +1,13 @@
+pygmt.datasets.load\_tile\_map
+==============================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_tile_map
+
+.. minigallery:: pygmt.datasets.load_tile_map
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

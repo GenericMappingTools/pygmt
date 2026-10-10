@@ -1,0 +1,13 @@
+pygmt.clib.Session.get\_libgmt\_func
+====================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.get_libgmt_func
+
+.. minigallery:: pygmt.clib.Session.get_libgmt_func
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

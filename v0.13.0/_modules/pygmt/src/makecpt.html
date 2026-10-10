@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.makecpt &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/makecpt.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.src.makecpt</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.makecpt</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">makecpt - Make GMT color palette tables.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+
+
+<div class="viewcode-block" id="makecpt">
+<a class="viewcode-back" href="../../../api/generated/pygmt.makecpt.html#pygmt.makecpt">[docs]</a>
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;background&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;color_model&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
+    <span class="n">H</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
+    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">,</span>
+    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;overrule_bg&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_bg&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;series&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;categorical&quot;</span><span class="p">,</span>
+    <span class="n">Ww</span><span class="o">=</span><span class="s2">&quot;cyclic&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;continuous&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">makecpt</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make GMT color palette tables.</span>
+
+<span class="sd">    This function will help you to make static color palette tables (CPTs).</span>
+<span class="sd">    By default, the CPT will be saved as the current CPT of the session,</span>
+<span class="sd">    figure, subplot, panel, or inset depending on which level</span>
+<span class="sd">    :func:`pygmt.makecpt` is called (for details on how GMT modern mode</span>
+<span class="sd">    maintains different levels of colormaps please see</span>
+<span class="sd">    :gmt-docs:`reference/features.html#gmt-modern-mode-hierarchical-levels`).</span>
+<span class="sd">    You can use ``output`` to save the CPT to a file.</span>
+<span class="sd">    You define an equidistant</span>
+<span class="sd">    set of contour intervals or pass your own z-table or list, and create a new</span>
+<span class="sd">    CPT based on an existing master (dynamic) CPT. The resulting CPT can be</span>
+<span class="sd">    reversed relative to the master cpt, and can be made continuous or</span>
+<span class="sd">    discrete. For color tables beyond the standard GMT offerings, visit</span>
+<span class="sd">    `cpt-city &lt;http://www.seaviewsensing.com/pub/cpt-city/&gt;`_ and</span>
+<span class="sd">    `Scientific Colour-Maps &lt;http://www.fabiocrameri.ch/colourmaps.php&gt;`_.</span>
+
+<span class="sd">    The CPT includes three additional colors beyond the range of z-values.</span>
+<span class="sd">    These are the background color (B) assigned to values lower than the lowest</span>
+<span class="sd">    *z*-value, the foreground color (F) assigned to values higher than the</span>
+<span class="sd">    highest *z*-value, and the NaN color (N) painted wherever values are</span>
+<span class="sd">    undefined.</span>
+
+<span class="sd">    If the master CPT includes B, F, and N entries, these will be copied into</span>
+<span class="sd">    the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
+<span class="sd">    :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the</span>
+<span class="sd">    :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file will be used. This</span>
+<span class="sd">    default behavior can be overruled using the parameters ``background``,</span>
+<span class="sd">    ``overrule_bg`` or ``no_bg``.</span>
+
+<span class="sd">    The color model (RGB, HSV or CMYK) of the palette created by</span>
+<span class="sd">    :func:`pygmt.makecpt` will be the same as specified in the header of the</span>
+<span class="sd">    master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the</span>
+<span class="sd">    master CPT, the :gmt-term:`COLOR_MODEL` specified in the</span>
+<span class="sd">    :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file will be used.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`makecpt.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    transparency : str</span>
+<span class="sd">        Set a constant level of transparency (0-100) for all color slices.</span>
+<span class="sd">        Append **+a** to also affect the foreground, background, and NaN</span>
+<span class="sd">        colors [Default is no transparency, i.e., ``0`` (opaque)].</span>
+<span class="sd">    cmap : str</span>
+<span class="sd">        Select the master color palette table (CPT) to use in the</span>
+<span class="sd">        interpolation. Full list of built-in color palette tables can be found</span>
+<span class="sd">        at :gmt-docs:`reference/cpts.html#built-in-color-palette-tables-cpt`.</span>
+<span class="sd">    background : bool or str</span>
+<span class="sd">        Select the back- and foreground colors to match the colors for lowest</span>
+<span class="sd">        and highest *z*-values in the output CPT [Default (``background=True``</span>
+<span class="sd">        or ``background=&quot;o&quot;``) uses the colors specified in the master file, or</span>
+<span class="sd">        those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
+<span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use</span>
+<span class="sd">        ``background=&quot;i&quot;`` to match the colors for the lowest and highest</span>
+<span class="sd">        values in the input (instead of the output) CPT.</span>
+<span class="sd">    color_model : str</span>
+<span class="sd">        [**R**\|\ **r**\|\ **h**\|\ **c**]\</span>
+<span class="sd">        [**+c**\ [*label*\|\ *start*\ [**-**]]].</span>
+<span class="sd">        Force output CPT to be written with r/g/b codes, gray-scale values or</span>
+<span class="sd">        color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes</span>
+<span class="sd">        (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append</span>
+<span class="sd">        **+c** to write discrete palettes in categorical format. If *label* is</span>
+<span class="sd">        appended then we create labels for each category to be used when the</span>
+<span class="sd">        CPT is plotted. The *label* may be a comma-separated list of category</span>
+<span class="sd">        names (you can skip a category by not giving a name), or give</span>
+<span class="sd">        *start*, where we automatically build monotonically increasing</span>
+<span class="sd">        labels from *start* (a single letter or an integer). Additionally</span>
+<span class="sd">        append **-** to build ranges *start*-*start+1* as labels instead.</span>
+<span class="sd">    series : list or str</span>
+<span class="sd">        [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].</span>
+<span class="sd">        Define the range of the new CPT by giving the lowest and highest</span>
+<span class="sd">        z-value (and optionally an interval). If this is not given, the</span>
+<span class="sd">        existing range in the master CPT will be used intact. The values</span>
+<span class="sd">        produced defines the color slice boundaries. If **+n** is used it</span>
+<span class="sd">        refers to the number of such boundaries and not the number of slices.</span>
+<span class="sd">        For details on array creation, see</span>
+<span class="sd">        :gmt-docs:`makecpt.html#generate-1d-array`.</span>
+<span class="sd">    truncate : list or str</span>
+<span class="sd">        *zlow/zhigh*.</span>
+<span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are</span>
+<span class="sd">        to *zlow* and *zhigh*. If one of these equal NaN then we leave that</span>
+<span class="sd">        end of the CPT alone. The truncation takes place before any resampling.</span>
+<span class="sd">        See also :gmt-docs:`reference/features.html#manipulating-cpts`.</span>
+<span class="sd">    output : str</span>
+<span class="sd">        Optional. The file name with extension .cpt to store the generated CPT</span>
+<span class="sd">        file. If not given or ``False`` [Default], saves the CPT as the current</span>
+<span class="sd">        CPT of the session, figure, subplot, panel, or inset depending on which</span>
+<span class="sd">        level :func:`pygmt.makecpt` is called.</span>
+<span class="sd">    reverse : str</span>
+<span class="sd">        Set this to ``True`` or **c** [Default] to reverse the sense of color</span>
+<span class="sd">        progression in the master CPT. Set this to **z** to reverse the sign</span>
+<span class="sd">        of z-values in the color table. Note that this change of z-direction</span>
+<span class="sd">        happens before ``truncate`` and ``series`` values are used so the</span>
+<span class="sd">        latter must be compatible with the changed z-range. See also</span>
+<span class="sd">        :gmt-docs:`reference/features.html#manipulating-cpts`.</span>
+<span class="sd">    overrule_bg : str</span>
+<span class="sd">        Overrule background, foreground, and NaN colors specified in the master</span>
+<span class="sd">        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
+<span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in</span>
+<span class="sd">        the :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file. When combined with</span>
+<span class="sd">        ``background``, only :gmt-term:`COLOR_NAN` is considered.</span>
+<span class="sd">    no_bg : bool</span>
+<span class="sd">        Do not write out the background, foreground, and NaN-color fields</span>
+<span class="sd">        [Default will write them, i.e. ``no_bg=False``].</span>
+<span class="sd">    log : bool</span>
+<span class="sd">        For logarithmic interpolation scheme with input given as logarithms.</span>
+<span class="sd">        Expects input z-values provided via ``series`` to be log10(*z*),</span>
+<span class="sd">        assigns colors, and writes out *z*.</span>
+<span class="sd">    continuous : bool</span>
+<span class="sd">        Force a continuous CPT when building from a list of colors and a list</span>
+<span class="sd">        of z-values [Default is None, i.e. discrete values].</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    categorical : bool</span>
+<span class="sd">        Do not interpolate the input color table but pick the output colors</span>
+<span class="sd">        starting at the beginning of the color table, until colors for all</span>
+<span class="sd">        intervals are assigned. This is particularly useful in combination with</span>
+<span class="sd">        a categorical color table, like ``cmap=&quot;categorical&quot;``.</span>
+<span class="sd">    cyclic : bool</span>
+<span class="sd">        Produce a wrapped (cyclic) color table that endlessly repeats its</span>
+<span class="sd">        range. Note that ``cyclic=True`` cannot be set together with</span>
+<span class="sd">        ``categorical=True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Ww&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Set only categorical or cyclic to True, not both.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">output</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;makecpt&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">output</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

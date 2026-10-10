@@ -1,0 +1,62 @@
+"""
+Clipping grid values
+====================
+
+The :func:`pygmt.grdclip` function allows to clip defined ranges of grid values. In the
+example shown below we set all elevation values (grid points) smaller than 0 m (in
+general the bathymetric part of the grid) to a common value of -2000 m via the ``below``
+parameter.
+"""
+
+# %%
+import pygmt
+from pygmt.params import Axis, Frame, Position
+
+fig = pygmt.Figure()
+
+# Define region of interest around Iceland
+region = [-28, -10, 62, 68]
+
+# Load sample grid (3 arc-minutes global relief) in target area
+grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
+
+# Plot original grid
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=Frame(
+        axes="WSne",
+        title="original grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
+)
+fig.grdimage(grid=grid, cmap="SCM/oleron")
+
+# Shift plot origin of the second map by "width of the first map + 0.5 cm"
+# in x-direction
+fig.shift_origin(xshift="w+0.5c")
+
+# Set all grid points < 0 m to a value of -2000 m.
+grid = pygmt.grdclip(grid, below=[0, -2000])
+
+# Plot clipped grid
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=Frame(
+        axes="wSne",
+        title="clipped grid",
+        xaxis=Axis(annot=5, tick=1),
+        yaxis=Axis(annot=2, tick=1),
+    ),
+)
+fig.grdimage(grid=grid)
+fig.colorbar(
+    label="Elevation",
+    unit="m",
+    position=Position("MR", cstype="outside", offset=(0.5, 0)),
+    length=8,
+)
+
+fig.show()

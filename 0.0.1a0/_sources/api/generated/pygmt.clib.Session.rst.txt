@@ -1,0 +1,10 @@
+pygmt.clib.Session
+==================
+
+.. currentmodule:: pygmt.clib
+
+.. autoclass:: Session
+
+.. raw:: html
+
+     <div style='clear:both'></div>

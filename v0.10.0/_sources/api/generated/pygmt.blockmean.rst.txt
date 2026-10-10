@@ -1,0 +1,13 @@
+pygmt.blockmean
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: blockmean
+
+.. minigallery:: pygmt.blockmean
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

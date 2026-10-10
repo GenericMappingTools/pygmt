@@ -1,0 +1,13 @@
+pygmt.Figure.psconvert
+======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.psconvert
+
+.. minigallery:: pygmt.Figure.psconvert
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

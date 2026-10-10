@@ -1,0 +1,13 @@
+pygmt.GMTDataArrayAccessor.fill
+===============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTDataArrayAccessor.fill
+
+.. minigallery:: pygmt.GMTDataArrayAccessor.fill
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

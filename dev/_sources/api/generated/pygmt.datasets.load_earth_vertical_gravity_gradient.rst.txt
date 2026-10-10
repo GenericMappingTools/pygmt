@@ -1,0 +1,13 @@
+pygmt.datasets.load\_earth\_vertical\_gravity\_gradient
+=======================================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_vertical_gravity_gradient
+
+.. minigallery:: pygmt.datasets.load_earth_vertical_gravity_gradient
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
