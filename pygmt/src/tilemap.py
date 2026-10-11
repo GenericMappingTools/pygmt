@@ -127,8 +127,8 @@ def tilemap(
     >>> import contextily
     >>> import pygmt
 
-    Plot a tile map of Honolulu, Hawaii using the default OpenStreetMap Humanitarian
-    web tiles:
+    Plot a tile map of Honolulu, Hawaii using the default OpenStreetMap Humanitarian web
+    tiles:
 
     >>> fig = pygmt.Figure()
     >>> fig.tilemap(

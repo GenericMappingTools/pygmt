@@ -47,8 +47,8 @@ def grdfill(
 
     Full GMT docs at :gmt-docs:`grdfill.html`.
 
-    **Aliases**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -101,8 +101,8 @@ def grdfill(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     Fill holes in a bathymetric grid with a constant value of 20.
 
     >>> import pygmt

@@ -48,8 +48,8 @@ def legend(
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 

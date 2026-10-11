@@ -106,8 +106,8 @@ class grdhisteq:  # ruff: ignore[invalid-class-name]
             - :class:`xarray.DataArray` if ``outgrid`` is ``None``
             - ``None`` if ``outgrid`` is a str (grid output is stored in ``outgrid``)
 
-        Example
-        -------
+        Examples
+        --------
         >>> import pygmt
         >>> # Load a grid of @earth_relief_30m data, with a longitude range
         >>> # of 10°E to 30°E, and a latitude range of 15°N to 25°N
@@ -203,8 +203,8 @@ class grdhisteq:  # ruff: ignore[invalid-class-name]
             - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not
               set (depends on ``output_type``)
 
-        Example
-        -------
+        Examples
+        --------
         >>> import pygmt
         >>> # Load a grid of @earth_relief_30m data, with a longitude range of
         >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
