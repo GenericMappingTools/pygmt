@@ -256,7 +256,7 @@ def histogram(
        - S = stairs
        - V = verbose
        - W = pen
-       - Z = histtype, **+w**: weight
+       - Z = histtype, **+w**: weights
        - c = panel
        - i = incols
        - p = perspective
@@ -276,14 +276,15 @@ def histogram(
         - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
           sequence of values.
     histtype
-        The histogram type to plot:
+        The quantity each bar represents:
 
-        - ``"count"``: counts [Default]
-        - ``"percent"``: frequency_percent
-        - ``"log_count"``: log (1.0 + count)
-        - ``"log_percent"``: log (1.0 + frequency_percent)
-        - ``"log10_count"``: log10 (1.0 + count)
-        - ``"log10_percent"``: log10 (1.0 + frequency_percent
+        - ``"count"``: number of values in the bin [Default]
+        - ``"percent"``: percentage of values in the bin, i.e., the bar heights sum
+          to 100
+        - ``"log_count"``: natural logarithm of (1 + count)
+        - ``"log_percent"``: natural logarithm of (1 + percent)
+        - ``"log10_count"``: base-10 logarithm of (1 + count)
+        - ``"log10_percent"``: base-10 logarithm of (1 + percent)
     $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
