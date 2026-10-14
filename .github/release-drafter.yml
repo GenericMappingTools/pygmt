@@ -65,10 +65,8 @@ template: |
 
   **Full Changelog**: <https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION>
 
-  ### Contributors
-
+  **Contributors**:
   $CONTRIBUTORS
 
-  ### New Contributors
-
+  **New Contributors**:
   $NEW_CONTRIBUTORS

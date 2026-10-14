@@ -578,14 +578,14 @@ After the initial implementation, missing aliases can be added in separate PRs:
 * Select a suitable alias for each GMT option, following the guidelines in the
   [code style](#code-style) section. Before creating a new alias, check:
 
-  - whether the parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
+  - whether the parameter is listed in the `COMMON_PARAMETERS` dictionary in
     `pygmt/helpers/decorators.py`
   - whether other wrapped GMT modules have a similar parameter
   - whether [GMT.jl](https://www.generic-mapping-tools.org/GMTjl_doc/) has defined an alias
 * Add the alias to the `AliasSystem` class and the function signature.
 * Add the alias and description to the parameters section of the docstring, using the
   `fmt_docstring` decorator to add descriptions for parameters included in the
-  `COMMON_DOCSTRINGS` dictionary.
+  `COMMON_PARAMETERS` dictionary.
 
 ### Testing your Code
 
