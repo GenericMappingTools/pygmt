@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Maintainers Guide &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/maintenance.html" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=cae63847"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=ccdb6887"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Contributors Guide" href="contributing.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Maintainers Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#as-a-contributor">As a Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#as-a-maintainer">As a Maintainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#as-an-administrator">As an Administrator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#branches">Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-github-issues">Managing GitHub Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and Merging Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-documentation">Continuous Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies-policy">Dependencies Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards Compatibility and Deprecation Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-a-release">Making a Release</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#updating-the-changelog">Updating the Changelog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pushing-to-pypi-and-updating-the-documentation">Pushing to PyPI and Updating the Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archiving-on-zenodo">Archiving on Zenodo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-the-conda-package">Updating the Conda Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Maintainers Guide</li>
+    <li class="source-link">
+        
+            
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/maintenance.md"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="maintainers-guide">
+<h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Link to this heading"></a></h1>
+<p>This page contains instructions for project maintainers about how our setup works,
+making releases, creating packages, etc.</p>
+<p>If you want to make a contribution to the project, see the
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
+instead.</p>
+<section id="onboarding-access-checklist">
+<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Link to this heading"></a></h2>
+<p>Note that anyone can contribute to PyGMT, even without being added to the
+<a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams">GenericMappingTools team</a>.
+The onboarding items below are for people who would like to make regular
+contributions, and could benefit from extra permissions to the developer and
+communication tools we use.</p>
+<section id="as-a-contributor">
+<h3>As a Contributor<a class="headerlink" href="#as-a-contributor" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a> (gives ‘write’ permission to the repository)</p></li>
+<li><p>Added as a collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
+<li><p>Added to the <a class="reference external" href="https://pygmtdevs.slack.com">PyGMT devs Slack channel</a> (for casual conversations)</p></li>
+<li><p>Added to the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Added as a member on <a class="reference external" href="https://hackmd.io/&#64;pygmt">HackMD</a> (for draft announcements) [optional]</p></li>
+</ul>
+</section>
+<section id="as-a-maintainer">
+<h3>As a Maintainer<a class="headerlink" href="#as-a-maintainer" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
+<li><p>Update the role on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Added as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
+<li><p>Added as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
+<li><p>Added as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
+</ul>
+</section>
+<section id="as-an-administrator">
+<h3>As an Administrator<a class="headerlink" href="#as-an-administrator" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-admin">pygmt-admin team</a> (gives ‘admin’ permission to the repository)</p></li>
+<li><p>Added as an admin on <a class="reference external" href="https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a></p></li>
+<li><p>Added as a maintainer on <a class="reference external" href="https://pypi.org/project/pygmt/">PyPI</a> and <a class="reference external" href="https://test.pypi.org/project/pygmt">Test PyPI</a> [optional]</p></li>
+</ul>
+</section>
+</section>
+<section id="branches">
+<h2>Branches<a class="headerlink" href="#branches" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><em>main</em>: Always tested and ready to become a new version. Don’t push directly to this
+branch. Make a new branch and submit a pull request instead.</p></li>
+<li><p><em>gh-pages</em>: Holds the HTML documentation and is served by GitHub. Pages for the main
+branch are in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder. Pages for each release are in their own folders.
+<strong>Automatically updated by GitHub Actions</strong> so you shouldn’t have to make commits here.</p></li>
+</ul>
+</section>
+<section id="managing-github-issues">
+<h2>Managing GitHub Issues<a class="headerlink" href="#managing-github-issues" title="Link to this heading"></a></h2>
+<p>A few guidelines for managing GitHub issues:</p>
+<ul class="simple">
+<li><p>Assign <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/labels">labels</a> and the expected
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/milestones">milestone</a> to issues as
+appropriate.</p></li>
+<li><p>When people request to work on an open issue, either assign the issue to that person
+and post a comment about the assignment or explain why you are not assigning the
+issue to them and, if possible, recommend other issues for them to work on.</p></li>
+<li><p>People with write access should self-assign issues and/or comment on the issues that
+they will address.</p></li>
+<li><p>For upstream bugs, close the issue after an upstream release fixes the bug. If
+possible, post a comment when an upstream PR is merged that fixes the problem, and
+consider adding a regression test for serious bugs.</p></li>
+</ul>
+</section>
+<section id="reviewing-and-merging-pull-requests">
+<h2>Reviewing and Merging Pull Requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Link to this heading"></a></h2>
+<p>A few guidelines for reviewing:</p>
+<ul class="simple">
+<li><p>Always <strong>be polite</strong> and give constructive feedback.</p></li>
+<li><p>Welcome new users and thank them for their time, even if we don’t plan on merging the
+PR.</p></li>
+<li><p>Don’t be harsh with code style or performance. If the code is bad, either (1) merge
+the pull request and open a new one fixing the code and pinging the original submitter
+or (2) comment on the PR detailing how the code could be improved. Both ways are
+focused on showing the contributor <strong>how to write good code</strong>, not shaming them.</p></li>
+</ul>
+<p>Pull requests should be <strong>squash merged</strong>.
+This means that all commits will be collapsed into one.
+The main advantages of this are:</p>
+<ul class="simple">
+<li><p>Eliminates experimental commits or commits to undo previous changes.</p></li>
+<li><p>Makes sure every commit on the main branch passes the tests and has a defined purpose.</p></li>
+<li><p>The maintainer writes the final commit message, so we can make sure it’s good and
+descriptive.</p></li>
+</ul>
+</section>
+<section id="continuous-integration">
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
+<p>We use GitHub Actions continuous integration (CI) services to build, test and
+manage the project on Linux, macOS and Windows. The GitHub Actions CI are
+controlled by workflow files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>. Here we briefly
+summarize the functions of the workflows. Please refer to the comments in the
+workflow files for more details.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">benchmarks.yml</span></code>: Benchmarks the execution speed of tests to track performance of PyGMT functions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code>: Cache GMT remote data files and uplodas as artifacts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check-links.yml</span></code>: Check links in the repository and documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code>: Build documentation on Linux/macOS/Windows and deploy to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_doctest.yaml</span></code>: Run all doctests on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code>: Run regular PyGMT tests on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code>: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_legacy.yaml</span></code>: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dvc-diff.yml</span></code>: Report changes in test images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format-command.yml</span></code>: Format the codes using slash command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code>: Publish archives to PyPI and TestPyPI</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-baseline-images.yml</span></code>: Upload the ZIP archive of baseline images as a release asset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code>: Draft the next release notes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slash-command-dispatch.yml</span></code>: Support slash commands in pull requests</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code>: Code lint and style checks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type_checks.yml</span></code>: Static type checks</p></li>
+</ul>
+</section>
+<section id="continuous-documentation">
+<h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Link to this heading"></a></h2>
+<p>We use the <a class="reference external" href="https://readthedocs.org/">ReadtheDocs</a> service to preview changes
+made to our documentation website every time we make a commit in a pull request.
+The service has a configuration file <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>, with a list of options
+to change the default behaviour at <a class="reference external" href="https://docs.readthedocs.io/en/stable/config-file/index.html">https://docs.readthedocs.io/en/stable/config-file/index.html</a>.</p>
+</section>
+<section id="dependencies-policy">
+<h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Link to this heading"></a></h2>
+<p>PyGMT has adopted <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> alongside the
+rest of the Scientific Python ecosystem, and therefore:</p>
+<ul class="simple">
+<li><p>Support for Python versions be dropped 3 years after their initial release.</p></li>
+<li><p>Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+their initial release.</p></li>
+</ul>
+<p>Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
+after their initial release.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> key should be set to the minimum supported
+version of Python. Minimum supported versions of GMT, Python and core package
+dependencies should be adjusted upward on every major and minor release, but never on a
+patch release.</p>
+</section>
+<section id="backwards-compatibility-and-deprecation-policy">
+<h2>Backwards Compatibility and Deprecation Policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Link to this heading"></a></h2>
+<p>PyGMT is still undergoing rapid development. All of the API is subject to change
+until the v1.0.0 release. Versioning in PyGMT is based on the
+<a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a>
+(i.e., v<em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>).
+Basic policy for backwards compatibility:</p>
+<ul class="simple">
+<li><p>Any incompatible changes should go through the deprecation process below.</p></li>
+<li><p>Incompatible changes are only allowed in major and minor releases, not in
+patch releases.</p></li>
+<li><p>Incompatible changes should be documented in the release notes.</p></li>
+</ul>
+<p>When making incompatible changes, we should follow the process:</p>
+<ul class="simple">
+<li><p>Discuss whether the incompatible changes are necessary on GitHub.</p></li>
+<li><p>Make the changes in a backwards compatible way, and raise a <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>
+warning for the old usage. At least one test using the old usage should be added.</p></li>
+<li><p>The warning message should clearly explain the changes and include the versions
+in which the old usage is deprecated and is expected to be removed.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> warning should appear for 2-4 minor versions, depending on
+the impact of the changes. It means the deprecation period usually lasts
+3-12 months.</p></li>
+<li><p>Remove the old usage and warning when reaching the declared version.</p></li>
+</ul>
+<p>To rename a function parameter, add the <code class="docutils literal notranslate"><span class="pre">&#64;deprecate_parameter</span></code> decorator near
+the top after the <code class="docutils literal notranslate"><span class="pre">&#64;fmt_docstring</span></code> decorator but before the <code class="docutils literal notranslate"><span class="pre">&#64;use_alias</span></code>
+decorator (if those two exist). Here is an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="s2">&quot;incols&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.4.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.6.0&quot;</span><span class="p">)</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>In this case, the old parameter name <code class="docutils literal notranslate"><span class="pre">columns</span></code> is deprecated since v0.4.0, and
+will be fully removed in v0.6.0. The new parameter name is <code class="docutils literal notranslate"><span class="pre">incols</span></code>.</p>
+</section>
+<section id="making-a-release">
+<h2>Making a Release<a class="headerlink" href="#making-a-release" title="Link to this heading"></a></h2>
+<p>We try to automate the release process as much as possible.
+GitHub Actions workflow handles publishing new releases to PyPI and updating the documentation.
+The version number is set automatically using <a class="reference external" href="https://pypi.org/project/setuptools-scm/">setuptools_scm</a>
+based information obtained from git.
+There are a few steps that still must be done manually, though.</p>
+<section id="updating-the-changelog">
+<h3>Updating the Changelog<a class="headerlink" href="#updating-the-changelog" title="Link to this heading"></a></h3>
+<p>The <a class="reference external" href="https://github.com/release-drafter/release-drafter">Release Drafter</a> GitHub Action
+will automatically keep a draft changelog at
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a>, adding a new entry
+every time a pull request (with a proper label) is merged into the main branch.
+This release drafter tool has two configuration files, one for the GitHub Action
+at <code class="docutils literal notranslate"><span class="pre">.github/workflows/release-drafter.yml</span></code>, and one for the changelog template
+at <code class="docutils literal notranslate"><span class="pre">.github/release-drafter.yml</span></code>. Configuration settings can be found at
+<a class="reference external" href="https://github.com/release-drafter/release-drafter">https://github.com/release-drafter/release-drafter</a>.</p>
+<p>The drafted release notes are not perfect, so we will need to tidy it prior to
+publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="doc">Changelog</span></a>.</p>
+<ol class="arabic">
+<li><p>Go to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a> and click on the
+‘Edit’ button next to the current draft release note. Copy the text of the
+automatically drafted release notes under the ‘Write’ tab to
+<code class="docutils literal notranslate"><span class="pre">doc/changes.md</span></code>. Add a section separator <code class="docutils literal notranslate"><span class="pre">---</span></code> between the new and old
+changelog sections.</p></li>
+<li><p>Update the DOI badge in the changelog. Remember to replace the DOI number
+inside the badge url.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;.svg)](https://doi.org/10.5281/zenodo.&lt;INSERT-DOI-HERE&gt;)
+</pre></div>
+</div>
+</li>
+<li><p>Open a new pull request using the title ‘Changelog entry for vX.Y.Z’ with
+the updated release notes, so that other people can help to review and
+collaborate on the changelog curation process described next.</p></li>
+<li><p>Edit the change list to remove any trivial changes (updates to the README,
+typo fixes, CI configuration, test updates due to GMT releases, etc).</p></li>
+<li><p>Sort the items within each section (i.e., New Features, Enhancements, etc.)
+such that similar items are located near each other (e.g., new wrapped
+modules and methods, gallery examples, API docs changes) and entries within each group
+are alphabetical.</p></li>
+<li><p>Move a few important items from the main sections to the Highlights section.</p></li>
+<li><p>Edit the list of people who contributed to the release, linking to their
+GitHub accounts. Sort their names by the number of commits made since the
+last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">doc/minversions.md</span></code> with new information on the new release version,
+including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
+and core package dependencies (NumPy/Pandas/Xarray). Follow
+<a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> for updates.</p></li>
+<li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and
+<code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes, including the
+DOI, release date, and version information. Please also follow
+guidelines in <code class="docutils literal notranslate"><span class="pre">AUTHORSHIP.md</span></code> for updating the author list in the BibTeX.
+More information about the <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> specification can be found at
+<a class="reference external" href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md</a>.</p></li>
+</ol>
+</section>
+<section id="pushing-to-pypi-and-updating-the-documentation">
+<h3>Pushing to PyPI and Updating the Documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Link to this heading"></a></h3>
+<p>After the changelog is updated, making a release can be done by going to
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a>, editing the draft release,
+and clicking on publish. A git tag will also be created, make sure that this
+tag is a proper version number (following <a class="reference external" href="https://semver.org/">Semantic Versioning</a>)
+with a leading <code class="docutils literal notranslate"><span class="pre">v</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">v0.2.1</span></code>).</p>
+<p>Once the release/tag is created, this should trigger GitHub Actions to do all the work for us.
+A new source distribution will be uploaded to PyPI, a new folder with the documentation
+HTML will be pushed to <em>gh-pages</em>, and the <code class="docutils literal notranslate"><span class="pre">latest</span></code> link will be updated to point to
+this new folder.</p>
+</section>
+<section id="archiving-on-zenodo">
+<h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Link to this heading"></a></h3>
+<p>Grab both the source code and baseline images ZIP files from the GitHub release page
+and upload them to Zenodo using the previously reserved DOI.</p>
+</section>
+<section id="updating-the-conda-package">
+<h3>Updating the Conda Package<a class="headerlink" href="#updating-the-conda-package" title="Link to this heading"></a></h3>
+<p>When a new version is released on PyPI, conda-forge’s bot automatically creates version
+updates for the feedstock. In most cases, the maintainers can simply merge that PR.</p>
+<p>If changes need to be done manually, you can:</p>
+<ol class="arabic simple">
+<li><p>Fork the <a class="reference external" href="https://github.com/conda-forge/pygmt-feedstock">pygmt feedstock repository</a> if
+you haven’t already. If you have a fork, update it.</p></li>
+<li><p>Update the version number and sha256 hash on <code class="docutils literal notranslate"><span class="pre">recipe/meta.yaml</span></code>. You can get the hash
+from the <a class="reference external" href="https://pypi.org/project/pygmt/#files">PyPI “Download files” section</a>.</p></li>
+<li><p>Add or remove any new dependencies (most are probably only <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies).</p></li>
+<li><p>Make sure the minimum support versions of all dependencies are correctly pinned.</p></li>
+<li><p>Make a new branch, commit, and push the changes <strong>to your personal fork</strong>.</p></li>
+<li><p>Create a PR against the original feedstock main.</p></li>
+<li><p>Once the CI tests pass, merge the PR or ask a maintainer to do so.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributors Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

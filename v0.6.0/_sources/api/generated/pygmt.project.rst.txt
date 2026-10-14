@@ -1,0 +1,12 @@
+pygmt.project
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: project
+
+.. include:: backreferences/pygmt.project.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

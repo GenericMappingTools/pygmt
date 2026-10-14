@@ -1,0 +1,61 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_embellishments_sg_execution_times:
+
+
+Computation times
+=================
+**00:02.645** total execution time for 9 files **from gallery/embellishments**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)
+     - 00:00.474
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)
+     - 00:00.357
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``)
+     - 00:00.331
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``scalebar.py``)
+     - 00:00.331
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)
+     - 00:00.328
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)
+     - 00:00.315
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)
+     - 00:00.208
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)
+     - 00:00.162
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)
+     - 00:00.139
+     - 0.0

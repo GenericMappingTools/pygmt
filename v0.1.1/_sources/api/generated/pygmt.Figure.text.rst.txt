@@ -1,0 +1,10 @@
+pygmt.Figure.text
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.text
+
+.. raw:: html
+
+      <div style='clear:both'></div>

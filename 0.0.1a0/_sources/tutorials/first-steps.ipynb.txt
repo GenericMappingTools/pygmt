@@ -1,0 +1,194 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# First Steps with GMT/Python\n",
+    "\n",
+    "\n",
+    "This tutorial will get you started with the basic usage of GMT/Python.\n",
+    "Some of the examples shown here are from the [GMT Tutorial](http://gmt.soest.hawaii.edu/doc/latest/GMT_Tutorial.html#session-one).\n",
+    "\n",
+    "## Loading the library\n",
+    "\n",
+    "The GMT modules are available as functions and classes in the `gmt` Python package. \n",
+    "So we'll start by importing it:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import gmt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Our first map\n",
+    "\n",
+    "All figure generation in GMT/Python is handled by the `gmt.Figure` class. \n",
+    "It has methods to add layers to your figure, like a basemap, coastlines, and data."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We start a new figure by creating an instance of `gmt.Figure`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig = gmt.Figure()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We add elements to the figure using its methods. For example, lets add the coastlines of Central America to a 6 inch wide map using the Mercator projection (`M`). Our figure will also have a nice frame with automatic ticks."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig.coast(region=[-90, -70, 0, 20], projection='M6i', land='chocolate', \n",
+    "          frame=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can see a preview of the figure directly in the [Jupyter notebook](http://jupyter.org) using `fig.show()`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To open a PDF preview of the figure using your default PDF viewer use:\n",
+    "\n",
+    "```python\n",
+    "fig.show(method='external')\n",
+    "```\n",
+    "\n",
+    "This is useful when using the Python shell or IPython terminal app. \n",
+    "However, **this command will not interrupt your Python process**. \n",
+    "So using it in a Python script will not work because the script will finish and delete the generated previews.\n",
+    "Use `fig.savefig` to save the figure to a file instead (see below).\n",
+    "\n",
+    "There is also the option of inserting the figure in an **interactive globe** using [NASA's WorldWind Web](https://worldwind.arc.nasa.gov/web/). See option `external='globe'` in the examples below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## A note for experienced GMT users\n",
+    "\n",
+    "You'll probably have noticed several things that are different from classic command-line GMT.\n",
+    "Many of these changes reflect the new GMT [modern execution mode](http://gmt.soest.hawaii.edu/projects/gmt/wiki/Modernization) that will be part of the future 6.0 release.\n",
+    "A few are GMT/Python exclusive (like the long argument names).\n",
+    "\n",
+    "1. The name of method is `coast` instead of `pscoast`. As a general rule, all `ps*` modules had their `ps` removed. The exceptions are: `psxy == plot`, `psxyz == plot3d`, and `psscale == colorbar`.\n",
+    "2. The arguments don't use the GMT 1-letter syntax (R, J, B, etc). Those are still available as aliases and the methods will accept them (see below). \n",
+    "3. Arguments like `region` can take lists instead of strings like `1/2/3/4`. You can still use the string form but the list form is easier in Python.\n",
+    "4. If a GMT argument has no options (like `-B` instead of `-Baf`), use a `True` value instead. An empty string would also be acceptable.\n",
+    "5. There is no output redirecting to a PostScript file. The figure is generated in the background and will only be shown or saved when you ask for it."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We could have generated the figure above using the classic GMT argument names (but not the module names):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig_alias = gmt.Figure()\n",
+    "fig_alias.coast(R='-90/-70/0/20', J='M6i', G='gray', S=\"blue\", B=True)\n",
+    "fig_alias.show()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Saving the figure\n",
+    "\n",
+    "Unlike the GMT command-line interface, **no figure file was generated until you ask for one**.  \n",
+    "That means that `fig.show` won't produce a figure file.\n",
+    "\n",
+    "Use method `fig.savefig` (based on the [matplotlib](https://matplotlib.org/) function) to save your figure:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fig.savefig('first-steps-central-america.png')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you're running a Python script, you can tell `fig.savefig` to open the figure in an external viewer:\n",
+    "\n",
+    "```python\n",
+    "fig.savefig('first-steps-central-america.png', show=True)\n",
+    "```"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

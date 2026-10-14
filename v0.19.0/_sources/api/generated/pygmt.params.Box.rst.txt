@@ -1,0 +1,15 @@
+pygmt.params.Box
+================
+
+.. currentmodule:: pygmt.params
+
+.. autoclass:: Box
+    :members:
+    :member-order: bysource
+
+.. minigallery:: pygmt.params.Box
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

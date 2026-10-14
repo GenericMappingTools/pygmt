@@ -1,0 +1,12 @@
+pygmt.load\_dataarray
+=====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: load_dataarray
+
+.. include:: backreferences/pygmt.load_dataarray.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

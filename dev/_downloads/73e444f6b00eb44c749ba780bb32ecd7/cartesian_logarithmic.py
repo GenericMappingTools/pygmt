@@ -1,0 +1,50 @@
+r"""
+Cartesian logarithmic
+=====================
+
+**X**\ *width*\ [**l**][/*height*\ [**l**]] or
+**x**\ *x-scale*\ [**l**][/*y-scale*\ [**l**]]
+
+- **X** or **x**: Sets the projection type.
+- *width* or *x-scale*: Sets the plot size.
+- *height* or *y-scale*: Sets the plot height [Optional].
+- **l**: Applies a logarithmic transformation to an axis. Append it after the
+  corresponding size argument [Optional].
+"""
+
+# %%
+import numpy as np
+import pygmt
+from pygmt.params import Axis, Frame
+
+# Create a list of x-values 0-100
+xline = np.arange(0, 101)
+# Create a list of y-values that are the square root of the x-values
+yline = xline**0.5
+# Create a list of x-values for every 10 in 0-100
+xpoints = np.arange(0, 101, 10)
+# Create a list of y-values that are the square root of the x-values
+ypoints = xpoints**0.5
+
+fig = pygmt.Figure()
+fig.basemap(
+    region=[1, 100, 0, 10],
+    # Set a logarithmic transformation on the x-axis
+    projection="X15cl/10c",
+    # Set the plot's frame and color as well as annotations, ticks, and gridlines
+    frame=Frame(
+        axes="WSne",
+        fill="bisque",
+        xaxis=Axis(annot=2, grid=3),
+        yaxis=Axis(annot=2, tick=1, grid=2),
+    ),
+)
+
+# Set the line thickness to "2p", the color to "black", and the style to "dashed"
+fig.plot(x=xline, y=yline, pen="2p,black,dashed")
+
+# Plot the square root values on top of the line
+# Use squares with a size of 0.3 centimeters, an "orange" fill and a "black" outline
+# Symbols are not clipped if they go off the plot frame
+fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="orange", pen="black", no_clip=True)
+fig.show()
