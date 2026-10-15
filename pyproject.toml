@@ -65,7 +65,7 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 style = ["prek", "ruff>=0.15.22"]
 typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
 test=[
-    "pytest",
+    "pytest>=6.0",
     "pytest-cov",
     "pytest-doctestplus",
     "pytest-mpl",
