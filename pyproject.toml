@@ -62,17 +62,20 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
 [dependency-groups]
-style = ["prek", "ruff>=0.15.22"]
-typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
+style = [
+    "prek",
+    "ruff>=0.15.22",
+]
 test=[
+    "netCDF4",
     "pytest>=6.0",
     "pytest-cov",
     "pytest-doctestplus",
     "pytest-mpl",
     "pytest-rerunfailures",
-    "netCDF4",
     "sphinx-gallery"
 ]
+typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
