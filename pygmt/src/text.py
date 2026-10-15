@@ -234,7 +234,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
         raise GMTParameterError(at_most_one=["textfiles", "position/text", "x/y/text"])
 
     data_is_required = position is None
-    kind = data_kind(textfiles, required=data_is_required)
+    kind = data_kind(textfiles, required=data_is_required, check_kind="vector")
 
     if position is not None:
         if text is None:
@@ -278,6 +278,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     confdict = {}
     data = None
     if kind == "empty":
+        kind = "vectors"
         data = {"x": x, "y": y}
 
         for arg, flag, name in array_args:
@@ -334,7 +335,9 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
-            check_kind="vector", data=textfiles or data, required=data_is_required
+            data=textfiles or data,
+            required=data_is_required,
+            kind=kind,
         ) as vintbl:
             lib.call_module(
                 module="text",
