@@ -92,7 +92,7 @@ jobs:
           # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
-            python=3.14
+            python=3.15
             gmt=6.7.0
             ghostscript=10.08.0
             numpy
