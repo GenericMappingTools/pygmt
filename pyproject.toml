@@ -42,10 +42,6 @@ dependencies = [
 ]
 dynamic = ["version"]
 
-[dependency-groups]
-style = ["prek", "ruff>=0.15.22"]
-typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
-
 [project.optional-dependencies]
 all = [
     "contextily>=1.5",
@@ -64,6 +60,10 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 "Source Code" = "https://github.com/GenericMappingTools/pygmt"
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
+
+[dependency-groups]
+style = ["prek", "ruff>=0.15.22"]
+typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
