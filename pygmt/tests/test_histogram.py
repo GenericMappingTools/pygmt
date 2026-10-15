@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.exceptions import GMTParameterError, GMTTypeError
+from pygmt.exceptions import GMTParameterError, GMTTypeError, GMTValueError
 from pygmt.helpers import GMTTempFile
 from pygmt.params import Axis
 
@@ -219,3 +219,39 @@ def test_histogram_weights_array_invalid_data():
     fig = Figure()
     with pytest.raises(GMTTypeError):
         fig.histogram(data="input.txt", series=1, weights=[0.5, 1.0, 2.0])
+
+
+@pytest.mark.mpl_image_compare(filename="test_histogram_weights.png")
+def test_histogram_histtype_old_syntax(data, weights):
+    """
+    Test the legacy histtype syntax, which appends the "+w" modifier to the type.
+    """
+    kwargs = {
+        "series": 1,
+        "region": [0, 10, 0, 6],
+        "projection": "X8c/5c",
+        "frame": Axis(annot=True),
+        "fill": "lightblue",
+    }
+    _data = np.column_stack([data, weights])
+    fig = Figure()
+    fig.histogram(data=_data, histtype="0+w", **kwargs)
+    return fig
+
+
+def test_histogram_histtype_old_syntax_with_weights(data):
+    """
+    Test that the legacy "+w" syntax cannot be combined with the weights parameter.
+    """
+    fig = Figure()
+    with pytest.raises(GMTParameterError):
+        fig.histogram(data=data, series=1, histtype="0+w", weights=True)
+
+
+def test_histogram_histtype_invalid(data):
+    """
+    Test that an invalid histtype is still rejected, not passed through as legacy.
+    """
+    fig = Figure()
+    with pytest.raises(GMTValueError):
+        fig.histogram(data=data, series=1, histtype="bogus")

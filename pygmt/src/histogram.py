@@ -412,6 +412,17 @@ def histogram(
             reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
         )
 
+    # The legacy syntax gives the histogram type as a string, optionally with the "+w"
+    # modifier (e.g., "1" or "1+w"). Pass such values through to GMT as is.
+    _histtype_is_legacy = isinstance(histtype, str) and (
+        "+" in histtype or histtype.isdigit()
+    )
+    if _histtype_is_legacy and weights is not False:
+        raise GMTParameterError(
+            conflicts_with=("weights", ["histtype"]),
+            reason="'histtype' is using the legacy syntax.",
+        )
+
     # weights can be given as a 1-D array, or as a boolean to indicate that the second
     # column of data contains weights. If weights is an array, then data must be a 1-D
     # sequence of values.
@@ -453,7 +464,9 @@ def histogram(
         Z=Alias(
             histtype,
             name="histtype",
-            mapping={
+            mapping=None
+            if _histtype_is_legacy
+            else {
                 "count": 0,
                 "percent": 1,
                 "log_count": 2,
