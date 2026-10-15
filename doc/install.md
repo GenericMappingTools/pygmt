@@ -99,7 +99,7 @@ Now we can create a new virtual environment with Python and all our dependencies
 installed (we'll call it `pygmt` but feel free to change it to whatever you want):
 
 ```
-conda create --name pygmt python=3.14 numpy pandas xarray packaging gmt
+conda create --name pygmt python=3.15 numpy pandas xarray packaging gmt
 ```
 
 Activate the environment by running the following (**do not forget this step!**):
