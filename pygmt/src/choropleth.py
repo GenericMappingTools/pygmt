@@ -87,6 +87,8 @@ def choropleth(
 
     Examples
     --------
+    Plot a choropleth map of the world based on population estimates.
+
     >>> import geopandas
     >>> import pygmt
     >>> world = geopandas.read_file(

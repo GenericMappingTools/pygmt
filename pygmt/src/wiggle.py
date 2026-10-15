@@ -134,6 +134,8 @@ def wiggle(
 
     Examples
     --------
+    Draw a wiggle plot with positive and negative fills, a track, and a vertical scale.
+
     >>> import numpy as np
     >>> import pygmt
     >>>
