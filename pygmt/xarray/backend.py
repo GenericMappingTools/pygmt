@@ -115,7 +115,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         filename_or_obj: PathLike,
         *,
         drop_variables=None,  # ruff: ignore[unused-method-argument]
-        raster_kind: Literal["grid", "image"],
+        raster_kind: Literal["grid", "image", "cube"],
         region: Sequence[float] | str | None = None,
         # other backend specific keyword arguments
         # `chunks` and `cache` DO NOT go here, they are handled by xarray
@@ -130,19 +130,25 @@ class GMTBackendEntrypoint(BackendEntrypoint):
             that can be read by GMT via the netCDF or GDAL C libraries. See also
             :gmt-docs:`reference/features.html#grid-file-format`.
         raster_kind
-            Whether to read the file as a "grid" (single-band) or "image" (multi-band).
+            Whether to read the file as a "grid" (single-band), "image" (multi-band), or
+            "cube" (stacks of 2-D grids).
         region
             The subregion of the grid or image to load, in the form of a sequence
             [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.
         """
-        if raster_kind not in {"grid", "image"}:
+        if raster_kind not in {"grid", "image", "cube"}:
             raise GMTValueError(
-                raster_kind, description="raster kind", choices=["grid", "image"]
+                raster_kind,
+                description="raster kind",
+                choices=["grid", "image", "cube"],
             )
 
         with Session() as lib:
             with lib.virtualfile_out(kind=raster_kind) as voutfile:
-                kwdict = {"R": region, "T": {"grid": "g", "image": "i"}[raster_kind]}
+                kwdict = {
+                    "R": region,
+                    "T": {"grid": "g", "image": "i", "cube": "u"}[raster_kind],
+                }
                 lib.call_module(
                     module="read",
                     args=[filename_or_obj, voutfile, *build_arg_list(kwdict)],
