@@ -41,6 +41,8 @@ dependencies = [
     "packaging>=24.2",
 ]
 dynamic = ["version"]
+[dependency-groups]
+style = ["prek", "ruff>=0.15.22"]
 
 [project.optional-dependencies]
 all = [
