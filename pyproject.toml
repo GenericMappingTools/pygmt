@@ -64,6 +64,7 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 [dependency-groups]
 style = ["prek", "ruff>=0.15.22"]
 typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
+test=["pytest", "pytest-cov", "pytest-doctestplus", "pytest-mpl", "pytest-rerunfailures", "netCDF4", "sphinx-gallery"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
