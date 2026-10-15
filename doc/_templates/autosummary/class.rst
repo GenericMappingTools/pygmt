@@ -8,8 +8,8 @@
 .. rubric:: Attributes
 
 {% for item in attributes %}
-.. autoattribute::
-    {{ objname }}.{{ item }}
+.. autoattribute:: {{ objname }}.{{ item }}
+    :no-index:
 {% endfor %}
 {% endif %}
 
