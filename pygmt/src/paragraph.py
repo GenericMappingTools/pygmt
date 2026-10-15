@@ -101,6 +101,8 @@ def paragraph(
 
     Examples
     --------
+    Typeset a paragraph of text within a specified width and line spacing on a plot.
+
     >>> import pygmt
     >>>
     >>> fig = pygmt.Figure()

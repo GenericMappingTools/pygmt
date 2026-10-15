@@ -166,8 +166,8 @@ def image(
     >>> fig.image("@circuit.png")
     >>> fig.show()
 
-    Place the image at the Top Right corner of an existing basemap, scale it to a
-    width of 3 centimeters, and draw a box around it:
+    Place the image at the Top Right corner of an existing basemap, scale it to a width
+    of 3 centimeters, and draw a box around it:
 
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)

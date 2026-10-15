@@ -160,21 +160,19 @@ def grdimage(
 
     Examples
     --------
+    Plot the global Earth relief using a Mollweide projection.
+
     >>> import pygmt
     >>> from pygmt.params import Axis
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
-    >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # pass in the grid and set the CPT to "geo"
-    >>> # set the projection to Mollweide and the size to 10 cm
     >>> fig.grdimage(
     ...     grid=grid,
-    ...     cmap="gmt/geo",
-    ...     projection="W10c",
+    ...     cmap="gmt/geo",  # Use the built-in "gmt/geo" CPT
+    ...     projection="W10c",  # Set the Mollweide projection and width of 10 cm
     ...     frame=Axis(annot=True, grid=True),
     ... )
-    >>> # show the plot
     >>> fig.show()
     """
     # Do not support -A option
