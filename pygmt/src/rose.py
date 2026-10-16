@@ -11,6 +11,8 @@ from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["rose"]
+
 
 @fmt_docstring
 @use_alias(
@@ -209,6 +211,47 @@ def rose(
     $perspective
     $transparency
     $wrap
+
+    Examples
+    --------
+    Load a dataset on fracture lengths and azimuths into a pandas DataFrame.
+
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>>
+    >>> data = pygmt.datasets.load_sample_data(name="fractures")
+
+    Create a sector diagram.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.rose(
+    ...     data=data,
+    ...     region=[0, 1, 0, 360],
+    ...     diameter="7.5c",
+    ...     sector="5",
+    ...     norm=True,
+    ...     frame=True,
+    ...     fill="bisque",
+    ...     pen="1p,brown",
+    ... )
+    >>> fig.show()
+
+    Create a rose diagram.
+
+    >>> fig = pygmt.Figure()
+    >>> fig.rose(
+    ...     length=data.length,
+    ...     azimuth=data.azimuth,
+    ...     region=[0, 1, 0, 360],
+    ...     diameter="7.5c",
+    ...     sector="10+r",
+    ...     norm=True,
+    ...     fill="bisque",
+    ...     frame=Frame(xaxis=Axis(grid=0.2), yaxis=Axis(grid=30)),
+    ...     pen="1p,brown",
+    ... )
+    >>> fig.show()
+
     """
     aliasdict = AliasSystem(C=Alias(cmap, name="cmap")).add_common(
         B=frame,
