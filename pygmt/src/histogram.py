@@ -190,7 +190,6 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 @deprecate_parameter("annotate", "annot", "0.20.0", remove_version="0.22.0")
 @use_alias(
     T="series",
-    Z="histtype",
     b="binary",
     d="nodata",
     e="find",
@@ -203,6 +202,9 @@ def histogram(
     self,
     data: PathLike | TableLike,
     weights: bool | Sequence[float] = False,
+    histtype: Literal[
+        "count", "percent", "log_count", "log_percent", "log10_count", "log10_percent"
+    ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
@@ -254,6 +256,7 @@ def histogram(
        - S = stairs
        - V = verbose
        - W = pen
+       - Z = histtype, **+w**: weights
        - c = panel
        - i = incols
        - p = perspective
@@ -272,6 +275,17 @@ def histogram(
           is a file name or a 2-D sequence.
         - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
           sequence of values.
+    histtype
+        The quantity each bar represents:
+
+        - ``"count"``: number of values in the bin [Default]
+        - ``"percent"``: percentage of values in the bin, i.e., the bar heights sum
+          to 100
+        - ``"log_count"``: natural logarithm of (1 + count)
+        - ``"log_percent"``: natural logarithm of (1 + percent)
+        - ``"log10_count"``: base-10 logarithm of (1 + count)
+        - ``"log10_percent"``: base-10 logarithm of (1 + percent)
+    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
@@ -333,18 +347,6 @@ def histogram(
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    histtype : int or str
-        [*type*].
-        By default, pure counts are determined. To get weighted counts, use the
-        ``weights`` parameter. Choose between 6 types of histograms:
-
-        * 0 = counts [Default]
-        * 1 = frequency_percent
-        * 2 = log (1.0 + count)
-        * 3 = log (1.0 + frequency_percent)
-        * 4 = log10 (1.0 + count)
-        * 5 = log10 (1.0 + frequency_percent).
-
     distribution
         Draw the equivalent normal distribution. Select which central location and scale
         to use:
@@ -409,6 +411,17 @@ def histogram(
             reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
         )
 
+    # The legacy syntax gives the histogram type as a string, optionally with the "+w"
+    # modifier (e.g., "1" or "1+w"). Pass such values through to GMT as is.
+    _histtype_is_legacy = isinstance(histtype, str) and (
+        "+" in histtype or histtype.isdigit()
+    )
+    if _histtype_is_legacy and weights is not False:
+        raise GMTParameterError(
+            conflicts_with=("weights", ["histtype"]),
+            reason="'histtype' is using the legacy syntax.",
+        )
+
     # weights can be given as a 1-D array, or as a boolean to indicate that the second
     # column of data contains weights. If weights is an array, then data must be a 1-D
     # sequence of values.
@@ -447,6 +460,20 @@ def histogram(
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
+        Z=Alias(
+            histtype,
+            name="histtype",
+            mapping=None
+            if _histtype_is_legacy
+            else {
+                "count": 0,
+                "percent": 1,
+                "log_count": 2,
+                "log_percent": 3,
+                "log10_count": 4,
+                "log10_percent": 5,
+            },
+        ),
     ).add_common(
         B=frame,
         J=projection,
