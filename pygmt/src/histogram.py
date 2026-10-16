@@ -364,7 +364,6 @@ def histogram(
         Pen used to draw the distribution curve [Default is ``"0.25p,black,solid"``].
         Pass a sequence of pens to use a different pen for each curve; a single pen is
         used for all of them. If ``distribution`` is not set, this parameter is ignored.
-    >>>>>>> main
     $projection
     $region
     $frame
