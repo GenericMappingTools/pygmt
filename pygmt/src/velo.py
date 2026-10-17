@@ -14,6 +14,8 @@ from pygmt.exceptions import GMTParameterError, GMTTypeError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["velo"]
+
 
 @fmt_docstring
 @use_alias(
@@ -251,6 +253,42 @@ def velo(
     $incols
     $perspective
     $transparency
+
+    Examples
+    --------
+    Plot mean velocity arrows and confidence ellipses.
+
+    >>> import pandas as pd
+    >>> import pygmt
+    >>>
+    >>> # Setup some dummy data as pandas DataFrame with two entries.
+    >>> df = pd.DataFrame(
+    ...     data={
+    ...         "x": [2, -2],
+    ...         "y": [0, -1],
+    ...         "east_velocity": [4, 6],
+    ...         "north_velocity": [6, 2],
+    ...         "east_sigma": [3, 4],
+    ...         "north_sigma": [3, 1],
+    ...         "correlation_EN": [0.5, -0.5],
+    ...         "SITE": ["4x6", "6x2"],
+    ...     }
+    ... )
+    >>>
+    >>> fig = pygmt.Figure()
+    >>> fig.velo(
+    ...     data=df,
+    ...     region=[-5, 5, -5, 5],
+    ...     projection="X10c",
+    ...     frame=True,
+    ...     spec="e0.2/0.39+f10",
+    ...     uncertainty_fill="bisque",
+    ...     pen="1p,magenta",
+    ...     line="darkbrown",
+    ...     vector="0.5c+p1p+e+gpurple",
+    ... )
+    >>>
+    >>> fig.show()
     """
     if kwargs.get("S") is None:
         raise GMTParameterError(required="spec")
