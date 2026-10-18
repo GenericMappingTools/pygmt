@@ -221,7 +221,8 @@ def rose(
     >>>
     >>> data = pygmt.datasets.load_sample_data(name="fractures")
 
-    Create a sector diagram.
+    Create a sector diagram with a diameter of 7.5 centimeters. Use a sector width
+    of 5 degrees. Fill the sectors in bisque and outline them in brown.
 
     >>> fig = pygmt.Figure()
     >>> fig.rose(
@@ -236,7 +237,9 @@ def rose(
     ... )
     >>> fig.show()
 
-    Create a rose diagram.
+    Create a rose diagram by appending "+r" to the sector width, here 10 degrees.
+    Add gridlines in steps of 0.2 and 30 degrees for the (normalized) radial and
+    azimuthal coordinates, respectively.
 
     >>> fig = pygmt.Figure()
     >>> fig.rose(
