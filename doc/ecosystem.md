@@ -105,5 +105,5 @@ If your package relies on PyGMT, please
 [pyarrow]: https://arrow.apache.org/docs/python/
 [pyogrio]: https://pyogrio.readthedocs.io/
 [rasterio]: https://rasterio.readthedocs.io/
-[rioxarray]: https://corteva.github.io/rioxarray/
+[rioxarray]: https://vylor.github.io/rioxarray/
 [xarray]: https://xarray.pydata.org/

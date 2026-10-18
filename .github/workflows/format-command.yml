@@ -40,7 +40,7 @@ jobs:
 
       - name: Install formatting tools
         run: |
-          python -m pip install ruff prek
+          python -m pip install --group style
           python -m pip list
 
       # Run "make format" and commit the change to the PR branch
