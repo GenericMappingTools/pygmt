@@ -146,8 +146,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray packaging \
                         build contextily geopandas ipython pyarrow rioxarray \
-                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures \
-                        netCDF4 sphinx-gallery
+                        --group test
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
