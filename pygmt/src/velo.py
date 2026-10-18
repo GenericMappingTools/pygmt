@@ -256,7 +256,11 @@ def velo(
 
     Examples
     --------
-    Plot mean velocity arrows and confidence ellipses.
+    Plot mean velocity arrows with confidence ellipses. Fill the ellipses in bisque and
+    outline them in darkbrown. Color the arrows in magenta and fill their heads in
+    purple. Add the labels with fonsize 10. The velocity arrows are scaled by 0.2 and
+    the 39% confidence limit will give an ellipse which fits inside a rectangle of
+    dimension east_sigma by north_sigma.
 
     >>> import pandas as pd
     >>> import pygmt
