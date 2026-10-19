@@ -275,7 +275,6 @@ def histogram(
           is a file name or a 2-D sequence.
         - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
           sequence of values.
-    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
