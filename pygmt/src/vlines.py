@@ -71,6 +71,9 @@ def vlines(
 
     Examples
     --------
+    Plot several vertical lines at different x-coordinates with varying y-limits and
+    pen styles. Lines are labeled and a legend is displayed.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)

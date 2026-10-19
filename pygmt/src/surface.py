@@ -162,8 +162,8 @@ def surface(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a sample table of topography
     >>> topography = pygmt.datasets.load_sample_data(name="notre_dame_topography")
