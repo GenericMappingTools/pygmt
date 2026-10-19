@@ -4,6 +4,12 @@ file_format: mystnb
 
 # Installing
 
+:::{note}
+The [Quickstart](#quickstart) section just below provides the fastest way to install PyGMT, whereas
+the following sections afterward provide more detailed, step-by-step instructions for users who
+may have different setups or want to install the latest development version.
+:::
+
 ## Quickstart
 
 The fastest way to install PyGMT is with the
@@ -36,12 +42,6 @@ pygmt.show_versions()
 You are now ready to make your first figure! Start by looking at our
 [Intro](intro/index.rst), [Tutorials](tutorials/index.rst), and
 [Gallery](gallery/index.rst). Good luck!
-
-:::{note}
-The sections below provide more detailed, step by step instructions to install and test
-PyGMT for those who may have a slightly different setup or want to install the latest
-development version.
-:::
 
 ## Which Python?
 
@@ -77,7 +77,7 @@ PyGMT depends on GMT and the following Python libraries:
   [IPython](https://ipython.org/),
   [GeoPandas](https://geopandas.org/),
   [contextily](https://contextily.readthedocs.io/),
-  [rioxarray](https://corteva.github.io/rioxarray/),
+  [rioxarray](https://vylor.github.io/rioxarray/),
   [PyArrow](https://arrow.apache.org/docs/python/)
 
 For detailed version requirements, see [](minversions.md).
@@ -99,7 +99,7 @@ Now we can create a new virtual environment with Python and all our dependencies
 installed (we'll call it `pygmt` but feel free to change it to whatever you want):
 
 ```
-conda create --name pygmt python=3.14 numpy pandas xarray packaging gmt
+conda create --name pygmt python=3.15 numpy pandas xarray packaging gmt
 ```
 
 Activate the environment by running the following (**do not forget this step!**):
@@ -180,7 +180,7 @@ pygmt.show_versions()
 fig = pygmt.Figure()
 fig.basemap(projection="R7c", region=[0, 360, -90, 90], frame=True)
 fig.coast(land="tan", water="lightblue")
-fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red@75")
+fig.text(position="MC", text="PyGMT", font="40p,AvantGarde-Book,red", transparency=75)
 fig.show()
 ```
 

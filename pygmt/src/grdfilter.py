@@ -112,8 +112,8 @@ def grdfilter(
 
     Full GMT docs at :gmt-docs:`grdfilter.html`.
 
-    **Aliases**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 

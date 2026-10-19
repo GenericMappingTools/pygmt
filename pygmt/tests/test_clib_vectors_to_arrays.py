@@ -2,7 +2,7 @@
 Test the vectors_to_arrays function in the clib.conversion module.
 """
 
-import datetime
+import datetime as dt
 import importlib.util
 
 import numpy as np
@@ -77,11 +77,11 @@ def test_vectors_to_arrays_pyarrow_datetime():
     """
     vectors = [
         pd.Series(
-            data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
+            data=[dt.date(2020, 1, 1), dt.date(2021, 12, 31)],
             dtype="date32[day][pyarrow]",
         ),
         pd.Series(
-            data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
+            data=[dt.date(2022, 1, 1), dt.date(2023, 12, 31)],
             dtype="date64[ms][pyarrow]",
         ),
     ]

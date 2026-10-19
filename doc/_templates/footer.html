@@ -1,6 +1,35 @@
 {# Import the theme's layout. #}
 {% extends "!footer.html" %}
 
+{#- Replace the theme's "Revision <commit>" with the "version_info" variable from conf.py. #}
+{%- block contentinfo %}
+  <p>
+  {%- if show_copyright %}
+    {%- if hasdoc('copyright') %}
+      {%- trans path=pathto('copyright'), copyright=copyright|e %}&#169; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+    {%- else %}
+      {%- trans copyright=copyright|e %}&#169; Copyright {{ copyright }}.{% endtrans %}
+    {%- endif %}
+  {%- endif %}
+
+  {%- if build_id and build_url %}
+    <span class="build">
+      {#- Translators: Build is a noun, not a verb -#}
+      {%- trans %}Build{% endtrans -%}
+      <a href="{{ build_url }}">{{ build_id }}</a>.
+    </span>
+  {%- elif version_info %}
+    <span class="commit">{{ version_info }}.</span>
+  {%- endif %}
+  {%- if last_updated %}
+    <span class="lastupdated">
+      {%- trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+    </span>
+  {%- endif -%}
+
+  </p>
+{%- endblock %}
+
 {%- block extrafooter %}
 <p>
 Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>

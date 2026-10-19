@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 
 __doctest_skip__ = ["fill_between"]
 
@@ -22,8 +22,8 @@ def fill_between(
     y: Sequence[float],
     y2: float | Sequence[float] = 0,
     x2: Sequence[float] | None = None,
-    fill: str | None = None,
-    fill2: str | None = None,
+    fill: str | Pattern | None = None,
+    fill2: str | Pattern | None = None,
     pen: str | None = None,
     pen2: str | None = None,
     label: str | None = None,
@@ -97,6 +97,9 @@ def fill_between(
 
     Examples
     --------
+    Fill between two curves with specified colors and draw the curves with custom pen
+    styles.
+
     >>> import numpy as np
     >>> import pygmt
     >>> x = np.linspace(0, 2 * np.pi, 200)

@@ -19,6 +19,8 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
+__doctest_skip__ = ["plot3d"]
+
 
 @fmt_docstring
 @use_alias(
@@ -219,6 +221,32 @@ def plot3d(  # ruff: ignore[too-many-branches]
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``/``z``.
     $wrap
+
+    Examples
+    --------
+    Plot a 3-D helix viewed from an azimuth of 135° and an elevation of 30°:
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>> t = np.linspace(0, 6 * np.pi, 200)
+    >>> fig = pygmt.Figure()
+    >>> fig.plot3d(
+    ...     x=np.cos(t),
+    ...     y=np.sin(t),
+    ...     z=t,
+    ...     region=[-1.2, 1.2, -1.2, 1.2, 0, 20],
+    ...     projection="X8c",
+    ...     zsize="6c",
+    ...     perspective=(135, 30),
+    ...     pen="1.5p,blue",
+    ...     frame=Frame(
+    ...         axes="WSneZ",
+    ...         axis=Axis(annot=True, tick=True),
+    ...         zaxis=Axis(annot=True, tick=True),
+    ...     ),
+    ... )
+    >>> fig.show()
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.

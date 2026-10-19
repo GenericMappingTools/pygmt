@@ -18,6 +18,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     non_ascii_to_octal,
 )
+from pygmt.params import Pattern
 
 __doctest_skip__ = ["paragraph"]
 
@@ -33,7 +34,7 @@ def paragraph(
     font: str | None = None,
     angle: float | None = None,
     justify: AnchorCode | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
     tab_width: int = 4,
@@ -100,6 +101,8 @@ def paragraph(
 
     Examples
     --------
+    Typeset a paragraph of text within a specified width and line spacing on a plot.
+
     >>> import pygmt
     >>>
     >>> fig = pygmt.Figure()
