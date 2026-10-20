@@ -203,7 +203,7 @@ def histogram(
     data: PathLike | TableLike,
     weights: bool | Sequence[float] = False,
     histtype: Literal[
-        "count", "percent", "log_count", "log_percent", "log10_count", "log10_percent"
+        "count", "percent", "count_log", "percent_log", "count_log10", "percent_log10"
     ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
@@ -281,10 +281,10 @@ def histogram(
         - ``"count"``: number of values in the bin [Default]
         - ``"percent"``: percentage of values in the bin, i.e., the bar heights sum
           to 100
-        - ``"log_count"``: natural logarithm of (1 + count)
-        - ``"log_percent"``: natural logarithm of (1 + percent)
-        - ``"log10_count"``: base-10 logarithm of (1 + count)
-        - ``"log10_percent"``: base-10 logarithm of (1 + percent)
+        - ``"count_log"``: natural logarithm of (1 + count)
+        - ``"percent_log"``: natural logarithm of (1 + percent)
+        - ``"count_log10"``: base-10 logarithm of (1 + count)
+        - ``"percent_log10"``: base-10 logarithm of (1 + percent)
     $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
@@ -468,10 +468,10 @@ def histogram(
             else {
                 "count": 0,
                 "percent": 1,
-                "log_count": 2,
-                "log_percent": 3,
-                "log10_count": 4,
-                "log10_percent": 5,
+                "count_log": 2,
+                "percent_log": 3,
+                "count_log10": 4,
+                "percent_log10": 5,
             },
         ),
     ).add_common(
