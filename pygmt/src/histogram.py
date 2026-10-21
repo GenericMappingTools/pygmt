@@ -114,8 +114,8 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
     >>> parse(distribution_pen="1p,red")
     []
 
-    >>> # Backward compatibility: the legacy syntax combines the mode and the pen into
-    >>> # a single string, and is passed through as is.
+    >>> # Backward compatibility: the old syntax combines the mode and the pen into a
+    >>> # single string, and is passed through as is.
     >>> parse(distribution="0+p1p,blue")
     ['-N0+p1p,blue']
     >>> parse(distribution=["0+p1p,blue", "1+p1p,red"])
@@ -127,7 +127,7 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
     >>> parse(distribution=True)
     ['-N']
 
-    >>> # But the legacy syntax cannot be mixed with 'distribution_pen'.
+    >>> # The old syntax cannot be mixed with 'distribution_pen'.
     >>> parse(distribution="0+p1p,blue", distribution_pen="1p,red")
     Traceback (most recent call last):
         ...
@@ -148,13 +148,13 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
         return Alias(None, name="distribution")
 
     modes = distribution if is_nonstr_iter(distribution) else [distribution]
-    # The legacy syntax gives the mode and the pen as a single string (e.g., "1+p1p,red"
+    # The old syntax gives the mode and the pen as a single string (e.g., "1+p1p,red"
     # or "+p1p,red"), or the mode as a string (e.g. "1"). Pass it as is.
     if any(isinstance(mode, str) and ("+" in mode or mode.isdigit()) for mode in modes):
         if distribution_pen is not None:
             raise GMTParameterError(
                 conflicts_with=("distribution_pen", ["distribution"]),
-                reason="'distribution' is using the legacy syntax.",
+                reason="'distribution' is using the old syntax.",
             )
         return Alias(distribution, name="distribution")
 
@@ -411,15 +411,15 @@ def histogram(
             reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
         )
 
-    # The legacy syntax gives the histogram type as a string, optionally with the "+w"
+    # The old syntax gives the histogram type as a string, optionally with the "+w"
     # modifier (e.g., "1" or "1+w"). Pass such values through to GMT as is.
-    _histtype_is_legacy = isinstance(histtype, str) and (
+    _old_histtype_syntax = isinstance(histtype, str) and (
         "+" in histtype or histtype.isdigit()
     )
-    if _histtype_is_legacy and weights is not False:
+    if _old_histtype_syntax and weights is not False:
         raise GMTParameterError(
             conflicts_with=("weights", ["histtype"]),
-            reason="'histtype' is using the legacy syntax.",
+            reason="'histtype' is using the old syntax.",
         )
 
     # weights can be given as a 1-D array, or as a boolean to indicate that the second
@@ -464,7 +464,7 @@ def histogram(
             histtype,
             name="histtype",
             mapping=None
-            if _histtype_is_legacy
+            if _old_histtype_syntax
             else {
                 "count": 0,
                 "percent": 1,
