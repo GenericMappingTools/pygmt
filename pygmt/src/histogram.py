@@ -114,8 +114,8 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
     >>> parse(distribution_pen="1p,red")
     []
 
-    >>> # Backward compatibility: the legacy syntax combines the mode and the pen into
-    >>> # a single string, and is passed through as is.
+    >>> # Backward compatibility: the old syntax combines the mode and the pen into a
+    >>> # single string, and is passed through as is.
     >>> parse(distribution="0+p1p,blue")
     ['-N0+p1p,blue']
     >>> parse(distribution=["0+p1p,blue", "1+p1p,red"])
@@ -127,7 +127,7 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
     >>> parse(distribution=True)
     ['-N']
 
-    >>> # But the legacy syntax cannot be mixed with 'distribution_pen'.
+    >>> # The old syntax cannot be mixed with 'distribution_pen'.
     >>> parse(distribution="0+p1p,blue", distribution_pen="1p,red")
     Traceback (most recent call last):
         ...
@@ -148,13 +148,13 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
         return Alias(None, name="distribution")
 
     modes = distribution if is_nonstr_iter(distribution) else [distribution]
-    # The legacy syntax gives the mode and the pen as a single string (e.g., "1+p1p,red"
+    # The old syntax gives the mode and the pen as a single string (e.g., "1+p1p,red"
     # or "+p1p,red"), or the mode as a string (e.g. "1"). Pass it as is.
     if any(isinstance(mode, str) and ("+" in mode or mode.isdigit()) for mode in modes):
         if distribution_pen is not None:
             raise GMTParameterError(
                 conflicts_with=("distribution_pen", ["distribution"]),
-                reason="'distribution' is using the legacy syntax.",
+                reason="'distribution' is using the old syntax.",
             )
         return Alias(distribution, name="distribution")
 
@@ -190,7 +190,6 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 @deprecate_parameter("annotate", "annot", "0.20.0", remove_version="0.22.0")
 @use_alias(
     T="series",
-    Z="histtype",
     b="binary",
     d="nodata",
     e="find",
@@ -203,6 +202,9 @@ def histogram(
     self,
     data: PathLike | TableLike,
     weights: bool | Sequence[float] = False,
+    histtype: Literal[
+        "count", "percent", "count_log", "percent_log", "count_log10", "percent_log10"
+    ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
     cmap: str | bool = False,
@@ -254,6 +256,7 @@ def histogram(
        - S = stairs
        - V = verbose
        - W = pen
+       - Z = histtype, **+w**: weights
        - c = panel
        - i = incols
        - p = perspective
@@ -272,6 +275,17 @@ def histogram(
           is a file name or a 2-D sequence.
         - A 1-D array of weights, one per data point, requiring that ``data`` is a 1-D
           sequence of values.
+    histtype
+        The quantity each bar represents:
+
+        - ``"count"``: number of values in the bin [Default]
+        - ``"percent"``: percentage of values in the bin, i.e., the bar heights sum
+          to 100
+        - ``"count_log"``: natural logarithm of (1 + count)
+        - ``"percent_log"``: natural logarithm of (1 + percent)
+        - ``"count_log10"``: base-10 logarithm of (1 + count)
+        - ``"percent_log10"``: base-10 logarithm of (1 + percent)
+    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
@@ -333,18 +347,6 @@ def histogram(
     series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
-    histtype : int or str
-        [*type*].
-        By default, pure counts are determined. To get weighted counts, use the
-        ``weights`` parameter. Choose between 6 types of histograms:
-
-        * 0 = counts [Default]
-        * 1 = frequency_percent
-        * 2 = log (1.0 + count)
-        * 3 = log (1.0 + frequency_percent)
-        * 4 = log10 (1.0 + count)
-        * 5 = log10 (1.0 + frequency_percent).
-
     distribution
         Draw the equivalent normal distribution. Select which central location and scale
         to use:
@@ -409,6 +411,17 @@ def histogram(
             reason="Cannot use 'cmap' when 'fill' is a constant color or pattern.",
         )
 
+    # The old syntax gives the histogram type as a string, optionally with the "+w"
+    # modifier (e.g., "1" or "1+w"). Pass such values through to GMT as is.
+    _old_histtype_syntax = isinstance(histtype, str) and (
+        "+" in histtype or histtype.isdigit()
+    )
+    if _old_histtype_syntax and weights is not False:
+        raise GMTParameterError(
+            conflicts_with=("weights", ["histtype"]),
+            reason="'histtype' is using the old syntax.",
+        )
+
     # weights can be given as a 1-D array, or as a boolean to indicate that the second
     # column of data contains weights. If weights is an array, then data must be a 1-D
     # sequence of values.
@@ -447,6 +460,20 @@ def histogram(
         Q=Alias(cumulative, name="cumulative", mapping={"reverse": "r"}),
         S=Alias(stairs, name="stairs"),
         W=Alias(pen, name="pen"),
+        Z=Alias(
+            histtype,
+            name="histtype",
+            mapping=None
+            if _old_histtype_syntax
+            else {
+                "count": 0,
+                "percent": 1,
+                "count_log": 2,
+                "percent_log": 3,
+                "count_log10": 4,
+                "percent_log10": 5,
+            },
+        ),
     ).add_common(
         B=frame,
         J=projection,
