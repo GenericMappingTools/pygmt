@@ -2,7 +2,7 @@
 Test Figure.solar.
 """
 
-import datetime
+import datetime as dt
 
 import pytest
 from packaging.version import Version
@@ -39,7 +39,7 @@ def test_solar_terminators():
     "terminator_datetime",
     [
         pytest.param("1990-02-17 04:25:00", id="terminator_datetime_string"),
-        datetime.datetime(year=1990, month=2, day=17, hour=4, minute=25, second=0),
+        dt.datetime(year=1990, month=2, day=17, hour=4, minute=25, second=0),
     ],
 )
 def test_solar_set_terminator_datetime(terminator_datetime):
@@ -104,14 +104,14 @@ def test_solar_terminator_datetime_timezone():
     fig.solar(terminator_datetime="2020-01-01T01:02:03+01:00", pen="1p,red")
     fig.solar(terminator_datetime="2020-01-01T01:02:03-01:00", pen="1p,blue")
     fig.solar(
-        terminator_datetime=datetime.datetime(
-            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=2))
+        terminator_datetime=dt.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=dt.timezone(dt.timedelta(hours=2))
         ),
         pen="1p,lightred",
     )
     fig.solar(
-        terminator_datetime=datetime.datetime(
-            2020, 1, 1, 1, 2, 3, tzinfo=datetime.timezone(datetime.timedelta(hours=-2))
+        terminator_datetime=dt.datetime(
+            2020, 1, 1, 1, 2, 3, tzinfo=dt.timezone(dt.timedelta(hours=-2))
         ),
         pen="1p,lightblue",
     )

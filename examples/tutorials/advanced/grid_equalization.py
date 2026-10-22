@@ -58,7 +58,7 @@ with fig.subplot(
                 yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
             ),
             cmap=True,
-            histtype=1,
+            histtype="percent",
             pen="1p,black",
         )
         fig.colorbar(
@@ -135,7 +135,7 @@ with fig.subplot(
                 yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
             ),
             cmap=True,
-            histtype=1,
+            histtype="percent",
             pen="1p,black",
             center=True,
         )
@@ -194,7 +194,7 @@ with fig.subplot(
                 yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
             ),
             cmap=True,
-            histtype=1,
+            histtype="percent",
             pen="1p,black",
         )
         fig.colorbar(
@@ -269,7 +269,7 @@ with fig.subplot(
                 yaxis=Axis(annot=True, tick=True, label="Percent frequency"),
             ),
             cmap=True,
-            histtype=1,
+            histtype="percent",
             pen="1p,black",
             center=True,
         )

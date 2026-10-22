@@ -24,8 +24,8 @@ def _alias_option_C(lakes=None, river_lakes=None):  # ruff: ignore[invalid-funct
     """
     Helper function to create the alias list for the -C option.
 
-    Example
-    -------
+    Examples
+    --------
     >>> def parse(**kwargs):
     ...     return AliasSystem(C=_alias_option_C(**kwargs)).get("C")
     >>> parse()
@@ -274,28 +274,21 @@ def coast(
     pygmt.Figure.scalebar
         Add a scale bar.
 
-    Example
-    -------
+    Examples
+    --------
+    Plot a map with coastlines, land, water, and other features.
+
     >>> import pygmt
     >>> from pygmt.params import Axis
-    >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Call the coast method for the plot
-    >>> fig.coast(
-    ...     # Set the projection to Mercator, and the plot width to 10 centimeters
-    ...     projection="M10c",
-    ...     # Set the region of the plot
-    ...     region=[-10, 30, 30, 60],
-    ...     # Set the frame of the plot, here annotations and major ticks
+    >>> fig.coast()
+    ...     projection="M10c",  # Set the Mercator projection and width to 10 cm
+    ...     region=[-10, 30, 30, 60],  # Set the map region
     ...     frame=Axis(annot=True),
-    ...     # Set the color of the land to "darkgreen"
-    ...     land="darkgreen",
-    ...     # Set the color of the water to "lightblue"
-    ...     water="lightblue",
-    ...     # Draw national borders with a 1-point black line
-    ...     borders="1/1p,black",
+    ...     land="darkgreen",  # Set the color of the land area
+    ...     water="lightblue",  # Set the color of the water area
+    ...     borders="1/1p,black",  # Draw national borders with a 1-point black line
     ... )
-    >>> # Show the plot
     >>> fig.show()
     """
     if (

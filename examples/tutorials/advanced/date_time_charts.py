@@ -13,7 +13,7 @@ datetime objects.
 """
 
 # %%
-import datetime
+import datetime as dt
 
 import numpy as np
 import pandas as pd
@@ -32,17 +32,17 @@ from pygmt.params import Axis, Frame
 # data points are plotted as circles with a diameter of 0.3 centimeters.
 
 x = [
-    datetime.date(2010, 6, 1),
-    datetime.date(2011, 6, 1),
-    datetime.date(2012, 6, 1),
-    datetime.date(2013, 6, 1),
+    dt.date(2010, 6, 1),
+    dt.date(2011, 6, 1),
+    dt.date(2012, 6, 1),
+    dt.date(2013, 6, 1),
 ]
 y = [1, 2, 3, 5]
 
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
-    region=[datetime.date(2010, 1, 1), datetime.date(2014, 12, 1), 0, 6],
+    region=[dt.date(2010, 1, 1), dt.date(2014, 12, 1), 0, 6],
     frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=x,
     y=y,
@@ -64,10 +64,10 @@ fig.show()
 #   the ``style`` parameter
 
 x = [
-    datetime.datetime(2021, 1, 1, 3, 45, 1),
-    datetime.datetime(2021, 1, 1, 6, 15, 1),
-    datetime.datetime(2021, 1, 1, 13, 30, 1),
-    datetime.datetime(2021, 1, 1, 20, 30, 1),
+    dt.datetime(2021, 1, 1, 3, 45, 1),
+    dt.datetime(2021, 1, 1, 6, 15, 1),
+    dt.datetime(2021, 1, 1, 13, 30, 1),
+    dt.datetime(2021, 1, 1, 20, 30, 1),
 ]
 y = [5, 3, 1, 2]
 
@@ -75,8 +75,8 @@ fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
     region=[
-        datetime.datetime(2021, 1, 1, 0, 0, 0),
-        datetime.datetime(2021, 1, 2, 0, 0, 0),
+        dt.datetime(2021, 1, 1, 0, 0, 0),
+        dt.datetime(2021, 1, 2, 0, 0, 0),
         0,
         6,
     ],
@@ -139,13 +139,13 @@ fig.show()
 # different sources, meaning conversions do not need to take place between ISO and
 # datetime in order to create valid plots.
 
-x = ["2020-02-01", "2020-06-04", "2020-10-04", datetime.datetime(2021, 1, 15)]
+x = ["2020-02-01", "2020-06-04", "2020-10-04", dt.datetime(2021, 1, 15)]
 y = [1.3, 2.2, 4.1, 3]
 
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
-    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 3, 1), 0, 6],
+    region=[dt.datetime(2020, 1, 1), dt.datetime(2021, 3, 1), 0, 6],
     frame=Frame(axes="WSen", axis=Axis(annot=True, tick=True, grid=True)),
     x=x,
     y=y,
@@ -175,7 +175,7 @@ y = [4, 5, 6, 8, 6, 3, 5]
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
-    region=[datetime.datetime(2017, 12, 31), datetime.datetime(2019, 12, 31), 0, 10],
+    region=[dt.datetime(2017, 12, 31), dt.datetime(2019, 12, 31), 0, 10],
     frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
@@ -203,7 +203,7 @@ y = [4, 7, 5, 6]
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
-    region=[datetime.datetime(2020, 1, 1), datetime.datetime(2021, 4, 1), 0, 10],
+    region=[dt.datetime(2020, 1, 1), dt.datetime(2021, 4, 1), 0, 10],
     frame=Frame(axes="WSen", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
@@ -231,7 +231,7 @@ y = [2, 7, 5]
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/10c",
-    region=[datetime.datetime(2010, 1, 1), datetime.datetime(2012, 6, 1), 0, 10],
+    region=[dt.datetime(2010, 1, 1), dt.datetime(2012, 6, 1), 0, 10],
     frame=Frame(axes="WS", axis=Axis(annot=True, grid=True)),
     x=x,
     y=y,
@@ -308,7 +308,7 @@ fig = pygmt.Figure()
 with pygmt.config(FORMAT_DATE_MAP="o"):
     fig.plot(
         projection="X15c/10c",
-        region=[datetime.datetime(2013, 5, 1), datetime.datetime(2013, 5, 25), 0, 10],
+        region=[dt.datetime(2013, 5, 1), dt.datetime(2013, 5, 25), 0, 10],
         frame=Frame(
             axes="WS",
             xaxis=Axis(annot="5d"),
@@ -345,8 +345,8 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
     fig.plot(
         projection="X15c/10c",
         region=[
-            datetime.datetime(2021, 4, 14, 23, 0, 0),
-            datetime.datetime(2021, 4, 17),
+            dt.datetime(2021, 4, 14, 23, 0, 0),
+            dt.datetime(2021, 4, 17),
             0,
             10,
         ],
