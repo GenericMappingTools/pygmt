@@ -36,7 +36,7 @@ PyGMT depends on GMT and the following Python libraries:
 - **Required**:
   [NumPy](https://numpy.org/),
   [pandas](https://pandas.pydata.org/),
-  [xarray](https://xarray.pydata.org/),
+  [xarray](https://xarray.dev/),
   [packaging](https://packaging.pypa.io/en/stable/)
 - **Optional**:
   [IPython](https://ipython.org/),
