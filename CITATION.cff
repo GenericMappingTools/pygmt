@@ -49,7 +49,7 @@ authors:
     family-names: Materna
     affiliation: 'US Geological Survey, USA'
     orcid: 'https://orcid.org/0000-0002-6687-980X'
-  - given-names: Andre
+  - given-names: Andre L.
     family-names: Belem
     affiliation: 'Fluminense Federal University, Brazil'
     orcid: 'https://orcid.org/0000-0002-8865-6180'
@@ -101,7 +101,7 @@ preferred-citation:
       orcid: 'https://orcid.org/0000-0002-8566-0619'
     - given-names: Wei Ji
       family-names: Leong
-      affiliation: 'Development Seed, USA'
+      affiliation: 'Development Seed, New Zealand'
       orcid: 'https://orcid.org/0000-0003-2354-1988'
     - given-names: Michael
       family-names: Grund
@@ -127,6 +127,6 @@ preferred-citation:
   journal: 'Geochemistry, Geophysics, Geosystems'
   volume: 27
   issue: 7
-  article-number: e2026GC013105
+  start: e2026GC013105
   year: 2026
   doi: 10.1029/2026GC013105
