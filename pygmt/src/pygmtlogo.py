@@ -296,12 +296,15 @@ def pygmtlogo(
        :align: center
        :width: 400px
 
-    The design of the logo is kindly provided by `@sfrooti <https://github.com/sfrooti>`_
-    and consists of a visual and the wordmark "PyGMT". The outer shape (in Python blue)
-    represents Earth, with compass lines (in Python yellow) surrounding the letters
-    "GMT" (in the red used for the GMT logo). The letter "T" aligns with the needle of
-    the compass. By default, the PyGMT logo is plotted without wordmark, with a size of
-    2 centimeters for the circular version of the icon.
+    The logo was designed by `@sfrooti <https://github.com/sfrooti>`_, licensed under
+    `CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/deed/>`_ and modified by the
+    PyGMT Team.
+
+    The logo consists of a visual and the wordmark "PyGMT". The outer shape (in Python
+    blue) represents Earth, with compass lines (in Python yellow) surrounding the
+    letters "GMT" (in the red used for the GMT logo). The letter "T" aligns with the
+    needle of the compass. By default, the PyGMT logo is plotted without wordmark, with
+    a size of 2 centimeters for the circular version of the icon.
 
     Parameters
     ----------
