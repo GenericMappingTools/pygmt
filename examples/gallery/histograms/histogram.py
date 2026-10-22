@@ -4,7 +4,7 @@ Histogram
 
 The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of
-each bar. The type of the histogram (frequency count or percentage) can be
+each bar. The quantity each bar represents (a count or a percentage) can be
 selected via the ``histtype`` parameter.
 """
 
@@ -39,8 +39,6 @@ fig.histogram(
     fill="red3",
     # Use the pen parameter to draw the outlines with a width of 1 point
     pen="1p",
-    # Choose histogram type 0, i.e., counts [Default]
-    histtype=0,
 )
 
 fig.show()

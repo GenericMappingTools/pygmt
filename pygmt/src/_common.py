@@ -441,5 +441,5 @@ def _parse_series(
     if isinstance(series, (list, tuple)) and len(series) == 3:
         return "/".join(str(item) for item in series)
     if is_nonstr_iter(series):
-        return series
+        return series  # type:ignore[return-value]
     return str(series) if series is not None else None
