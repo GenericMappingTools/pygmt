@@ -106,4 +106,4 @@ If your package relies on PyGMT, please
 [pyogrio]: https://pyogrio.readthedocs.io/
 [rasterio]: https://rasterio.readthedocs.io/
 [rioxarray]: https://vylor.github.io/rioxarray/
-[xarray]: https://xarray.pydata.org/
+[xarray]: https://xarray.dev/
