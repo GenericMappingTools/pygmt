@@ -17,6 +17,7 @@ from pygmt.helpers import (
     build_arg_list,
     kwargs_to_strings,
     launch_external_viewer,
+    sequence_join,
     unique_name,
 )
 from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
@@ -149,6 +150,15 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
+
+
+def test_sequence_join_strings_with_spaces():
+    """
+    Test that sequence_join keeps strings containing spaces as they are.
+    """
+    assert sequence_join(["W", "E", "S", "Pole Nord"], sep=",", size=4) == (
+        "W,E,S,Pole Nord"
+    )
 
 
 def test_skip_if_no():

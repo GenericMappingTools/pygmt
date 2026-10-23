@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import datetime as dt
 import io
 import os
 import shutil
@@ -922,7 +923,9 @@ def sequence_join(
         for item in value:
             if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
                 _values.append(str(item.astype(int)))
-            elif " " in str(item):
+            elif isinstance(item, dt.date) or np.issubdtype(
+                np.asarray(item).dtype, np.datetime64
+            ):
                 _values.append(
                     np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
                 )
