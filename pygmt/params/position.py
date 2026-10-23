@@ -180,7 +180,10 @@ class Position(BaseParam):
                         reason="Expect a sequence of two values.",
                     )
             case "inside" | "outside":
-                if self.refpoint not in _valid_anchors:
+                if (
+                    not isinstance(self.refpoint, str)
+                    or self.refpoint not in _valid_anchors
+                ):
                     raise GMTValueError(
                         self.refpoint,
                         description="reference point",
