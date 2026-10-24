@@ -7,6 +7,7 @@ from collections.abc import Sequence
 import numpy as np
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import fmt_docstring
+from pygmt.params import Perspective
 
 __doctest_skip__ = ["vlines"]
 
@@ -21,7 +22,7 @@ def vlines(
     label: str | None = None,
     no_clip: bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: str | bool | None = None,
+    perspective: Perspective | float | Sequence[float] | bool | None = None,
 ):
     """
     Plot one or multiple vertical line(s).

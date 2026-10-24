@@ -10,7 +10,7 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame, Pattern
+from pygmt.params import Axis, Frame, Pattern, Perspective
 from pygmt.params.frame import _Axes
 
 __doctest_skip__ = ["ternary"]
@@ -127,7 +127,7 @@ def ternary(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):

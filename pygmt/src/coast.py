@@ -15,7 +15,7 @@ from pygmt.helpers import (
     is_nonstr_iter,
     use_alias,
 )
-from pygmt.params import Axis, Box, Frame
+from pygmt.params import Axis, Box, Frame, Perspective
 
 __doctest_skip__ = ["coast"]
 
@@ -90,7 +90,7 @@ def coast(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | None = None,
     **kwargs,
 ):
