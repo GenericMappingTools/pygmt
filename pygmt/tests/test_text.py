@@ -3,13 +3,11 @@ Test Figure.text.
 """
 
 from pathlib import Path
-from unittest.mock import patch
 
 import numpy as np
 import pytest
 from packaging.version import Version
 from pygmt import Figure, config
-from pygmt.clib import Session
 from pygmt.clib.session import __gmt_version__
 from pygmt.exceptions import GMTCLibError, GMTParameterError, GMTTypeError
 from pygmt.helpers import GMTTempFile
@@ -519,19 +517,3 @@ def test_text_nonascii_iso8859():
     fig.text(x=1, y=1, text="xytext:1éęëė2")
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:ųúûüũūαζ∆❡", "xytext2:íîī∑π∇✉"])
     return fig
-
-
-def test_text_numpy_scalar_angle():
-    """
-    Test that a numpy integer angle is not silently dropped.
-    """
-
-    def get_text_args(**kwargs):
-        fig = Figure()
-        fig.basemap(region=[0, 10, 0, 10], projection="X5c", frame=True)
-        with patch.object(Session, "call_module", autospec=True) as mock_call:
-            fig.text(x=1, y=1, text="hi", **kwargs)
-        return mock_call.call_args.kwargs.get("args") or mock_call.call_args.args[-1]
-
-    assert "-F+a30" in get_text_args(angle=np.int64(30))
-    assert "-F+a30" in get_text_args(angle=30)

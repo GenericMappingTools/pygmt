@@ -2,7 +2,6 @@
 Test the Pattern class.
 """
 
-import numpy as np
 import pytest
 from pygmt.exceptions import GMTValueError
 from pygmt.params import Pattern
@@ -52,13 +51,3 @@ def test_pattern_invalid_colors():
     """
     with pytest.raises(GMTValueError):
         _ = str(Pattern(10, fgcolor="", bgcolor=""))
-
-
-def test_pattern_numpy_integer_and_bool():
-    """
-    Test that numpy integers are valid pattern numbers but booleans are not.
-    """
-    assert str(Pattern(np.int64(15))) == "p15"
-    assert str(Pattern(np.int32(90), invert=True)) == "P90"
-    with pytest.raises(GMTValueError):
-        Pattern(True)

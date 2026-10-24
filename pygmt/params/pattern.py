@@ -3,7 +3,6 @@ The Pattern class for specifying bit and hachure patterns.
 """
 
 import dataclasses
-from numbers import Integral
 
 from pygmt._typing import PathLike
 from pygmt.alias import Alias
@@ -81,11 +80,7 @@ class Pattern(BaseParam):
         # Integer pattern number must be in the range 1-90.
         if not (
             isinstance(self.pattern, PathLike)
-            or (
-                isinstance(self.pattern, Integral)
-                and not isinstance(self.pattern, bool)
-                and 1 <= self.pattern <= 90
-            )
+            or (isinstance(self.pattern, int) and 1 <= self.pattern <= 90)
         ):
             raise GMTValueError(
                 self.pattern,
