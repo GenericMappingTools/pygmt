@@ -4,6 +4,7 @@ Test pygmt.binstats.
 
 from pathlib import Path
 
+import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import binstats
@@ -91,3 +92,22 @@ def test_binstats_quantile():
     npt.assert_allclose(temp_grid.min(), 53)
     npt.assert_allclose(temp_grid.median(), 543664.5)
     npt.assert_allclose(temp_grid.mean(), 1661363.6)
+
+
+def test_binstats_quantile_value_numpy_scalars():
+    """
+    Test that numpy scalars are accepted as quantile_value but booleans are not.
+    """
+    data = np.random.default_rng(0).random((100, 3)) * 10
+    kwargs = {
+        "data": data,
+        "region": [0, 10, 0, 10],
+        "spacing": 5,
+        "search_radius": 5,
+        "statistic": "quantile",
+    }
+    expected = binstats(quantile_value=50, **kwargs)
+    for value in (np.int64(50), np.float32(50.0), np.float64(50.0)):
+        npt.assert_allclose(binstats(quantile_value=value, **kwargs), expected)
+    with pytest.raises(GMTTypeError):
+        binstats(quantile_value=True, **kwargs)
