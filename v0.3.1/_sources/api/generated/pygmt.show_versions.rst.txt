@@ -1,0 +1,12 @@
+pygmt.show\_versions
+====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: show_versions
+
+.. include:: backreferences/pygmt.show_versions.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

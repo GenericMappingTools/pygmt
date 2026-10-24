@@ -1,0 +1,12 @@
+pygmt.grdtrack
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdtrack
+
+.. include:: backreferences/pygmt.grdtrack.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

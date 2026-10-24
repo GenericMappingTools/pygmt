@@ -1,0 +1,404 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>pygmt.datasets.earth_relief &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.3.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/subplots.html">Making subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
+        
+      <li>pygmt.datasets.earth_relief</li>
+    
+    
+    <li class="source-link">
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pygmt.datasets.earth_relief</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function to download the Earth relief datasets from the GMT data server, and</span>
+<span class="sd">load as :class:`xarray.DataArray`.</span>
+
+<span class="sd">The grids are available in various resolutions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">kwargs_to_strings</span>
+<span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="n">grdcut</span><span class="p">,</span> <span class="n">which</span>
+
+
+<div class="viewcode-block" id="load_earth_relief"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief">[docs]</a><span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load Earth relief grids (topography and bathymetry) in various resolutions.</span>
+
+<span class="sd">    The grids are downloaded to a user data directory</span>
+<span class="sd">    (usually ``~/.gmt/server/earth/earth_relief/``) the first time you invoke</span>
+<span class="sd">    this function. Afterwards, it will load the grid from the data directory.</span>
+<span class="sd">    So you&#39;ll need an internet connection the first time around.</span>
+
+<span class="sd">    These grids can also be accessed by passing in the file name</span>
+<span class="sd">    **@earth_relief**\_\ *res*\[_\ *reg*] to any grid plotting/processing</span>
+<span class="sd">    function. *res* is the grid resolution (see below), and *reg* is grid</span>
+<span class="sd">    registration type (**p** for pixel registration or *g* for gridline</span>
+<span class="sd">    registration). Refer to :gmt-docs:`datasets/remote-data.html` for more</span>
+<span class="sd">    details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    resolution : str</span>
+<span class="sd">        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for</span>
+<span class="sd">        arc-degree, arc-minute and arc-second. It can be ``&#39;01d&#39;``, ``&#39;30m&#39;``,</span>
+<span class="sd">        ``&#39;20m&#39;``, ``&#39;15m&#39;``, ``&#39;10m&#39;``, ``&#39;06m&#39;``, ``&#39;05m&#39;``, ``&#39;04m&#39;``,</span>
+<span class="sd">        ``&#39;03m&#39;``, ``&#39;02m&#39;``, ``&#39;01m&#39;``, ``&#39;30s&#39;``, ``&#39;15s&#39;``, ``&#39;03s&#39;``,</span>
+<span class="sd">        or ``&#39;01s&#39;``.</span>
+
+<span class="sd">    region : str or list</span>
+<span class="sd">        The subregion of the grid to load. Required for Earth relief grids with</span>
+<span class="sd">        resolutions higher than 5 arc-minute (i.e., ``05m``).</span>
+
+<span class="sd">    registration : str</span>
+<span class="sd">        Grid registration type. Either ``pixel`` for pixel registration or</span>
+<span class="sd">        ``gridline`` for gridline registration. Default is ``None``, where</span>
+<span class="sd">        a pixel-registered grid is returned unless only the</span>
+<span class="sd">        gridline-registered grid is available.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    grid : :class:`xarray.DataArray`</span>
+<span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in</span>
+<span class="sd">        degrees. Relief is in meters.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The :class:`xarray.DataArray` grid doesn&#39;t support slice operation, for</span>
+<span class="sd">    Earth relief data with resolutions higher than &quot;05m&quot;, which are stored as</span>
+<span class="sd">    smaller tiles.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; # load the default grid (pixel-registered 01d grid)</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief()</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30m grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # load high-resolution grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
+<span class="sd">    ...     &quot;05m&quot;, region=[120, 160, 30, 60], registration=&quot;gridline&quot;</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># earth relief data stored as single grids for low resolutions</span>
+    <span class="n">non_tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="s2">&quot;20m&quot;</span><span class="p">,</span> <span class="s2">&quot;15m&quot;</span><span class="p">,</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span> <span class="s2">&quot;06m&quot;</span><span class="p">]</span>
+    <span class="c1"># earth relief data stored as tiles for high resolutions</span>
+    <span class="n">tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;05m&quot;</span><span class="p">,</span> <span class="s2">&quot;04m&quot;</span><span class="p">,</span> <span class="s2">&quot;03m&quot;</span><span class="p">,</span> <span class="s2">&quot;02m&quot;</span><span class="p">,</span> <span class="s2">&quot;01m&quot;</span><span class="p">,</span> <span class="s2">&quot;30s&quot;</span><span class="p">,</span> <span class="s2">&quot;15s&quot;</span><span class="p">,</span> <span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">registration</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># If None, let GMT decide on Pixel/Gridline type</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">registration</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid grid registration: </span><span class="si">{</span><span class="n">registration</span><span class="si">}</span><span class="s2">, should be either &quot;</span>
+            <span class="s2">&quot;&#39;pixel&#39;, &#39;gridline&#39; or None. Default is None, where a &quot;</span>
+            <span class="s2">&quot;pixel-registered grid is returned unless only the &quot;</span>
+            <span class="s2">&quot;gridline-registered grid is available.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">resolution</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span> <span class="o">+</span> <span class="n">tiled_resolutions</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Earth relief resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># different ways to load tiled and non-tiled earth relief data</span>
+    <span class="c1"># Known issue: tiled grids don&#39;t support slice operation</span>
+    <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/524</span>
+    <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span><span class="p">:</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="k">as</span> <span class="n">dataarray</span><span class="p">:</span>
+                <span class="n">grid</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">gmt</span>  <span class="c1"># load GMTDataArray accessor information</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;&#39;region&#39; is required for Earth relief resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">grdcut</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+
+    <span class="c1"># Add some metadata to the grid</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;long_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;elevation relative to the geoid&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;meters&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;vertical_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EMG96&quot;</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;horizontal_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;WGS84&quot;</span>
+    <span class="c1"># Remove the actual range because it gets outdated when indexing the grid,</span>
+    <span class="c1"># which causes problems when exporting it to netCDF for usage on the</span>
+    <span class="c1"># command-line.</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+        <span class="n">grid</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          
+<footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2021, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/v0.3.0">v0.3.0</a></code>.
+        </span>
+      
+
+    </p>
+  </div>
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

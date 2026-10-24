@@ -1,0 +1,10 @@
+pygmt.Figure.colorbar
+=====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.colorbar
+
+.. raw:: html
+
+      <div style='clear:both'></div>

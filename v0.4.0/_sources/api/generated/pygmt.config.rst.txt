@@ -1,0 +1,19 @@
+pygmt.config
+============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: config
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+
+.. include:: backreferences/pygmt.config.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

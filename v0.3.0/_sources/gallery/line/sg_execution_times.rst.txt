@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_line_sg_execution_times:
+
+Computation times
+=================
+**00:06.766** total execution time for **gallery_line** files:
+
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_line_linestyles.py` (``linestyles.py``)           | 00:03.721 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_line_line-custom-cpt.py` (``line-custom-cpt.py``) | 00:03.045 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+

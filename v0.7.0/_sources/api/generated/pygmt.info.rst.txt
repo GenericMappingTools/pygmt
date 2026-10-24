@@ -1,0 +1,12 @@
+pygmt.info
+==========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: info
+
+.. include:: backreferences/pygmt.info.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

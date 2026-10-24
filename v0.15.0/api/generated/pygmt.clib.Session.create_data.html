@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.clib.Session.create_data &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=845ca4e4" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//latest/api/generated/pygmt.clib.Session.create_data.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=44bdc989"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.clib.Session.put_matrix" href="pygmt.clib.Session.put_matrix.html" />
+    <link rel="prev" title="pygmt.clib.Session.get_common" href="pygmt.clib.Session.get_common.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.15.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.html">pygmt.clib.Session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.call_module.html">pygmt.clib.Session.call_module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_in.html">pygmt.clib.Session.virtualfile_in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_out.html">pygmt.clib.Session.virtualfile_out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_dataset.html">pygmt.clib.Session.virtualfile_to_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html">pygmt.clib.Session.virtualfile_to_raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.create.html">pygmt.clib.Session.create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.destroy.html">pygmt.clib.Session.destroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__getitem__.html">pygmt.clib.Session.__getitem__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__enter__.html">pygmt.clib.Session.__enter__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__exit__.html">pygmt.clib.Session.__exit__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_default.html">pygmt.clib.Session.get_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_common.html">pygmt.clib.Session.get_common</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.clib.Session.create_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.clib.Session.create_data"><code class="docutils literal notranslate"><span class="pre">Session.create_data</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_matrix.html">pygmt.clib.Session.put_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_strings.html">pygmt.clib.Session.put_strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_data.html">pygmt.clib.Session.read_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html">pygmt.clib.Session.read_virtualfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.extract_region.html">pygmt.clib.Session.extract_region</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_stringio.html">pygmt.clib.Session.virtualfile_from_stringio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.clib.Session.create_data</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.clib.Session.create_data&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-clib-session-create-data">
+<h1>pygmt.clib.Session.create_data<a class="headerlink" href="#pygmt-clib-session-create-data" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.clib.Session.create_data">
+<span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">create_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GMT_GRID_NODE_REG'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.create_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.create_data" title="Link to this definition"></a></dt>
+<dd><p>Create an empty GMT data container and allocate space to hold data.</p>
+<p>Valid data families and geometries are in <code class="docutils literal notranslate"><span class="pre">FAMILIES</span></code> and <code class="docutils literal notranslate"><span class="pre">GEOMETRIES</span></code>.</p>
+<p>There are two ways to define the dimensions needed to actually allocate memory:</p>
+<ol class="arabic">
+<li><p>Via <code class="docutils literal notranslate"><span class="pre">ranges</span></code>, <code class="docutils literal notranslate"><span class="pre">inc</span></code> and <code class="docutils literal notranslate"><span class="pre">registration</span></code>.</p></li>
+<li><p>Via <code class="docutils literal notranslate"><span class="pre">dim</span></code> and <code class="docutils literal notranslate"><span class="pre">registration</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dim</span></code> contains up to 4 values and they have different meanings for
+different GMT data families:</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">GMT_DATASET</span></code>:</p>
+<ul class="simple">
+<li><p>0: number of tables</p></li>
+<li><p>1: number of segments per table</p></li>
+<li><p>2: number of rows per segment</p></li>
+<li><p>3: number of columns per row</p></li>
+</ul>
+<p>For <code class="docutils literal notranslate"><span class="pre">GMT_VECTOR</span></code>:</p>
+<ul class="simple">
+<li><p>0: number of columns</p></li>
+<li><p>1: number of rows [optional, can be 0 if unknown]</p></li>
+<li><p>2: data type (e.g., <code class="docutils literal notranslate"><span class="pre">GMT_DOUBLE</span></code>) [Will be overwritten by <code class="docutils literal notranslate"><span class="pre">put_vector</span></code>]</p></li>
+</ul>
+<p>For <code class="docutils literal notranslate"><span class="pre">GMT_GRID</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_IMAGE</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_CUBE</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_MATRIX</span></code>:</p>
+<ul class="simple">
+<li><p>0: number of columns</p></li>
+<li><p>1: number of rows</p></li>
+<li><p>2: number of bands or layers [Ignored for <code class="docutils literal notranslate"><span class="pre">GMT_GRID</span></code>]</p></li>
+<li><p>3: data type (e.g., <code class="docutils literal notranslate"><span class="pre">GMT_DOUBLE</span></code>) [For <code class="docutils literal notranslate"><span class="pre">GMT_MATRIX</span></code> only, but will be
+overwritten by <code class="docutils literal notranslate"><span class="pre">put_matrix</span></code>]</p></li>
+</ul>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">inc</span></code> is assumed to be 1.0, and <code class="docutils literal notranslate"><span class="pre">ranges</span></code> is
+[0, dim[0], 0, dim[1]] for pixel registration or
+[0, dim[0]-1.0, 0, dim[1]-1.0] for grid registration.</p>
+</li>
+</ol>
+<p>When creating a grid/image/cube, you can do it in one or two steps:</p>
+<ol class="arabic">
+<li><p>Call this function with <code class="docutils literal notranslate"><span class="pre">mode=&quot;GMT_CONTAINER_AND_DATA&quot;</span></code>. This creates
+a header and allocates a grid or an image</p></li>
+<li><p>Call this function twice:</p>
+<ol class="arabic simple">
+<li><p>First with <code class="docutils literal notranslate"><span class="pre">mode=&quot;GMT_CONTAINER_ONLY&quot;</span></code>, to create a header only and
+compute the dimensions based on other parameters</p></li>
+<li><p>Second with <code class="docutils literal notranslate"><span class="pre">mode=&quot;GMT_DATA_ONLY&quot;</span></code>, to allocate the grid/image/cube
+array based on the dimensions already set. This time, you pass NULL for
+<code class="docutils literal notranslate"><span class="pre">dim</span></code>/<code class="docutils literal notranslate"><span class="pre">ranges</span></code>/<code class="docutils literal notranslate"><span class="pre">inc</span></code>/<code class="docutils literal notranslate"><span class="pre">registration</span></code>/<code class="docutils literal notranslate"><span class="pre">pad</span></code> and let <code class="docutils literal notranslate"><span class="pre">data</span></code> be
+the void pointer returned in the first step.</p></li>
+</ol>
+<p><strong>Note</strong>: This is not implemented yet, since this function doesn’t have the
+<code class="docutils literal notranslate"><span class="pre">data</span></code> parameter.</p>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DATASET&quot;</span></code>). See <code class="docutils literal notranslate"><span class="pre">FAMILIES</span></code>
+for valid names.</p></li>
+<li><p><strong>geometry</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_POINT&quot;</span></code>). See
+<code class="docutils literal notranslate"><span class="pre">GEOMETRIES</span></code> for valid names.</p></li>
+<li><p><strong>mode</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – A valid GMT data mode. See <code class="docutils literal notranslate"><span class="pre">MODES</span></code> for valid names. For
+<code class="docutils literal notranslate"><span class="pre">GMT_IS_DATASET</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_IS_MATRIX</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_IS_VECTOR</span></code>, adding
+<code class="docutils literal notranslate"><span class="pre">GMT_WITH_STRINGS</span></code> to the <code class="docutils literal notranslate"><span class="pre">mode</span></code> will allocate the corresponding arrays
+of string pointers.</p></li>
+<li><p><strong>dim</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The dimensions of the dataset, as explained above. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, will pass in
+the NULL pointer.</p></li>
+<li><p><strong>ranges</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The data extent.</p></li>
+<li><p><strong>inc</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>] | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The increments between points of the dataset.</p></li>
+<li><p><strong>registration</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'GMT_GRID_NODE_REG'</span></code>, <code class="docutils literal notranslate"><span class="pre">'GMT_GRID_PIXEL_REG'</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">'GMT_GRID_NODE_REG'</span></code>) – The node registration. Can be <code class="docutils literal notranslate"><span class="pre">&quot;GMT_GRID_PIXEL_REG&quot;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&quot;GMT_GRID_NODE_REG&quot;</span></code>.</p></li>
+<li><p><strong>pad</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The padding for <code class="docutils literal notranslate"><span class="pre">GMT_IS_GRID</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_IS_IMAGE</span></code>/<code class="docutils literal notranslate"><span class="pre">GMT_IS_CUBE</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">None</span></code>, defaults to <code class="docutils literal notranslate"><span class="pre">&quot;GMT_PAD_DEFAULT&quot;</span></code>.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">GMT_IS_MATRIX</span></code>, it can be:</p>
+<ul>
+<li><p>0: default row/col orientation [Default]</p></li>
+<li><p>1: row-major format (C)</p></li>
+<li><p>2: column-major format (FORTRAN)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">c_void_p</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>data_ptr</em> – A ctypes pointer (an integer) to the allocated GMT data container.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div style='clear:both'></div></section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.clib.Session.get_common.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.get_common" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.clib.Session.put_matrix.html" class="btn btn-neutral float-right" title="pygmt.clib.Session.put_matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.15.0">v0.15.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Mar 31, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

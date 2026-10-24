@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.Figure.inset &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=a51cd8ab" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.Figure.inset.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bb33721e"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.legend" href="pygmt.Figure.legend.html" />
+    <link rel="prev" title="pygmt.Figure.colorbar" href="pygmt.Figure.colorbar.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.13.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.basemap.html">pygmt.Figure.basemap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.coast.html">pygmt.Figure.coast</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.colorbar.html">pygmt.Figure.colorbar</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.inset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.legend.html">pygmt.Figure.legend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#saving-and-displaying-the-figure">Saving and displaying the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-the-display-settings">Configuring the display settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#color-palette-table-generation">Color palette table generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.Figure.inset</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure.inset&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-figure-inset">
+<h1>pygmt.Figure.inset<a class="headerlink" href="#pygmt-figure-inset" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.Figure.inset">
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">inset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.inset" title="Link to this definition"></a></dt>
+<dd><p>Create an inset figure to be placed within a larger figure.</p>
+<p>This method sets the position, frame, and margins for a smaller figure
+inside of the larger figure. Plotting methods that are called within the
+context manager are added to the inset figure.</p>
+<p>Full option list at <a class="extlink-gmt-docs reference external" href="https://docs.generic-mapping-tools.org/6.5/inset.html">https://docs.generic-mapping-tools.org/6.5/inset.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>D = position</p></li>
+<li><p>F = box</p></li>
+<li><p>J = projection</p></li>
+<li><p>M = margin</p></li>
+<li><p>N = no_clip</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <p><em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>]] | [<strong>g</strong>|<strong>j</strong>|<strong>J</strong>|<strong>n</strong>|<strong>x</strong>]<em>refpoint</em><strong>+w</strong><em>width</em>[/<em>height</em>][<strong>+j</strong><em>justify</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]].</p>
+<p><em>This is the only required parameter.</em>
+Define the map inset rectangle on the map. Specify the rectangle
+in one of three ways:</p>
+<p>Append <strong>g</strong><em>lon</em>/<em>lat</em> for map (user) coordinates,
+<strong>j</strong><em>code</em> or <strong>J</strong><em>code</em> for setting the <em>refpoint</em> via a
+2-character justification code that refers to the (invisible)
+projected map bounding box, <strong>n</strong><em>xn</em>/<em>yn</em> for normalized (0-1)
+bounding box coordinates, or <strong>x</strong><em>x</em>/<em>y</em> for plot
+coordinates (inches, centimeters, points, append unit).
+All but <strong>x</strong> requires both <code class="docutils literal notranslate"><span class="pre">region</span></code> and <code class="docutils literal notranslate"><span class="pre">projection</span></code> to be
+specified. You can offset the reference point via
+<strong>+o</strong><em>dx</em>/<em>dy</em> in the direction implied by <em>code</em> or
+<strong>+j</strong><em>justify</em>.</p>
+<p>Alternatively, give <em>west/east/south/north</em> of geographic
+rectangle bounded by parallels and meridians; append <strong>+r</strong> if the
+coordinates instead are the lower left and upper right corners of
+the desired rectangle. (Or, give <em>xmin/xmax/ymin/ymax</em> of bounding
+rectangle in projected coordinates and optionally
+append <strong>+u</strong><em>unit</em> [Default coordinate unit is meters (<strong>e</strong>)].</p>
+<p>Append <strong>+w</strong><em>width</em>[/<em>height</em>] of bounding rectangle or box
+in plot coordinates (inches, centimeters, etc.). By default, the
+anchor point on the scale is assumed to be the bottom left corner
+(<strong>BL</strong>), but this can be changed by appending <strong>+j</strong> followed by
+a 2-character justification code <em>justify</em>.
+<strong>Note</strong>: If <strong>j</strong> is used then <em>justify</em> defaults to the same
+as <em>refpoint</em>, if <strong>J</strong> is used then <em>justify</em> defaults to the
+mirror opposite of <em>refpoint</em>. Specify inset box attributes via
+the <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter [Default is outline only].</p>
+</p></li>
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular box around the map
+inset using the default pen; specify a different pen
+with <strong>+p</strong><em>pen</em>. Add <strong>+g</strong><em>fill</em> to fill the inset box
+[Default is no fill].
+Append <strong>+c</strong><em>clearance</em> where <em>clearance</em> is either
+<em>gap</em>, <em>xgap</em>/<em>ygap</em>, or <em>lgap</em>/<em>rgap</em>/<em>bgap</em>/<em>tgap</em> where these items are uniform, separate in x- and
+y-directions, or individual side spacings between map embellishment
+and border. Append <strong>+i</strong> to draw a secondary, inner border as well.
+We use a uniform <em>gap</em> between borders of 2p and the default pen
+unless other values are specified. Append <strong>+r</strong> to draw rounded
+rectangular borders instead, with a 6p corner radius. You
+can override this radius by appending another value. Append
+<strong>+s</strong> to draw an offset background shaded region. Here, <em>dx</em>/<em>dy</em>
+indicates the shift relative to the foreground frame [Default is
+<code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and <em>shade</em> sets the fill style to use for
+shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
+<li><p><strong>margin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – This is clearance that is added around the inside of the inset.
+Plotting will take place within the inner region only. The margins
+can be a single value, a pair of values separated (for setting
+separate horizontal and vertical margins), or the full set of four
+margins (for setting separate left, right, bottom, and top
+margins). When passing multiple values, it can be either a list or
+a string with the values separated by forward
+slashes [Default is no margins].</p></li>
+<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Do <strong>not</strong> clip features extruding outside the inset frame
+boundaries [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create the larger figure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;MG+r2&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;lightblue&quot;</span><span class="p">,</span> <span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;thin&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use a &quot;with&quot; statement to initialize the inset context manager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Setting the position to top left and a width of 3.5 centimeters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">fig</span><span class="o">.</span><span class="n">inset</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jTL+w3.5c+o0.2c&quot;</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+pgreen&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Map elements under the &quot;with&quot; statement are plotted in the inset</span>
+<span class="gp">... </span>    <span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G47/-20/3.5c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">water</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">dcw</span><span class="o">=</span><span class="s2">&quot;MG+gred&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Map elements outside the &quot;with&quot; statement are plotted in the main</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># figure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">logo</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.2c+w3c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<section id="examples-using-pygmt-figure-inset">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code><a class="headerlink" href="#examples-using-pygmt-figure-inset" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement, and its position, box, offset, and margin parameters are set. Plotting methods called within the with statement are applied to the inset figure."><img alt="" src="../../_images/sphx_glr_inset_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Inset</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called using a with statement, and its position, box, offset, and margin can be customized. Plotting methods called within the with statement plot into the inset figure."><img alt="" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method. After a large figure has been created, call inset using a with statement, and new plot elements will be added to the inset figure instead of the larger figure."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.Figure.colorbar.html" class="btn btn-neutral float-left" title="pygmt.Figure.colorbar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.legend.html" class="btn btn-neutral float-right" title="pygmt.Figure.legend" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.13.0">v0.13.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Sep 05, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

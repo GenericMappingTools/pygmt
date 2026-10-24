@@ -1,0 +1,52 @@
+
+:orphan:
+
+.. _sphx_glr_tutorials_basics_sg_execution_times:
+
+
+Computation times
+=================
+**00:08.758** total execution time for 6 files **from tutorials/basics**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)
+     - 00:03.362
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)
+     - 00:01.797
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``)
+     - 00:01.075
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)
+     - 00:00.930
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)
+     - 00:00.808
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)
+     - 00:00.786
+     - 0.0

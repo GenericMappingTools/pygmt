@@ -1,0 +1,17 @@
+pygmt.config
+============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: config
+
+
+
+
+
+.. minigallery:: pygmt.config
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

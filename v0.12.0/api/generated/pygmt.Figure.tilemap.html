@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.Figure.tilemap &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.Figure.tilemap.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.set_panel" href="pygmt.Figure.set_panel.html" />
+    <link rel="prev" title="pygmt.Figure.image" href="pygmt.Figure.image.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdcontour.html">pygmt.Figure.grdcontour</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdimage.html">pygmt.Figure.grdimage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.tilemap</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#saving-and-displaying-the-figure">Saving and displaying the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-the-display-settings">Configuring the display settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#color-palette-table-generation">Color palette table generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.Figure.tilemap</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure.tilemap&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-figure-tilemap">
+<h1>pygmt.Figure.tilemap<a class="headerlink" href="#pygmt-figure-tilemap" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.Figure.tilemap">
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">tilemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom_adjust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.tilemap" title="Link to this definition"></a></dt>
+<dd><p>Plot an XYZ tile map.</p>
+<p>This method loads XYZ tile maps from a tile server or local file using
+<a class="reference internal" href="pygmt.datasets.load_tile_map.html#pygmt.datasets.load_tile_map" title="pygmt.datasets.load_tile_map"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.datasets.load_tile_map</span></code></a> into a georeferenced form, and plots the tiles
+as a basemap or overlay using <a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a>.</p>
+<p><strong>Note</strong>: By default, standard web map tiles served in a Spherical Mercator
+(EPSG:3857) Cartesian format will be reprojected to a geographic coordinate
+reference system (OGC:WGS84) and plotted with longitude/latitude bounds when
+<code class="docutils literal notranslate"><span class="pre">lonlat=True</span></code>. If reprojection is not desired, please set <code class="docutils literal notranslate"><span class="pre">lonlat=False</span></code> and
+provide Spherical Mercator (EPSG:3857) coordinates to the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter.</p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>B = frame</p></li>
+<li><p>E = dpi</p></li>
+<li><p>I = shading</p></li>
+<li><p>J = projection</p></li>
+<li><p>M = monochrome</p></li>
+<li><p>N = no_clip</p></li>
+<li><p>Q = nan_transparent</p></li>
+<li><p>V = verbose</p></li>
+<li><p>c = panel</p></li>
+<li><p>p = perspective</p></li>
+<li><p>t = transparency</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></span>) – The bounding box of the map in the form of a list [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>,
+<em>ymax</em>]. These coordinates should be in longitude/latitude if <code class="docutils literal notranslate"><span class="pre">lonlat=True</span></code> or
+Spherical Mercator (EPSG:3857) if <code class="docutils literal notranslate"><span class="pre">lonlat=False</span></code>.</p></li>
+<li><p><strong>zoom</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'auto'</span></code>]]</span>, default: <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>) – <p>Level of detail. Higher levels (e.g. <code class="docutils literal notranslate"><span class="pre">22</span></code>) mean a zoom level closer to the
+Earth’s surface, with more tiles covering a smaller geographical area and thus
+more detail. Lower levels (e.g. <code class="docutils literal notranslate"><span class="pre">0</span></code>) mean a zoom level further from the
+Earth’s surface, with less tiles covering a larger geographical area and thus
+less detail. Default is <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> to automatically determine the zoom level
+based on the bounding box region extent.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The maximum possible zoom level may be smaller than <code class="docutils literal notranslate"><span class="pre">22</span></code>, and depends on
+what is supported by the chosen web tile provider source.</p>
+</div>
+</p></li>
+<li><p><strong>source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TileProvider</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The tile source: web tile provider or path to a local file. Provide either:</p>
+<ul>
+<li><p>A web tile provider in the form of a <a class="reference external" href="https://xyzservices.readthedocs.io/en/stable/api.html#xyzservices.TileProvider" title="(in xyzservices v2024.4.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xyzservices.TileProvider</span></code></a> object.
+See <a class="reference external" href="https://contextily.readthedocs.io/en/stable/providers_deepdive.html" title="(in contextily)"><span class="xref std std-doc">Contextily providers</span></a> for a list of
+tile providers. Default is <code class="docutils literal notranslate"><span class="pre">xyzservices.providers.OpenStreetMap.HOT</span></code>, i.e.
+OpenStreetMap Humanitarian web tiles.</p></li>
+<li><p>A web tile provider in the form of a URL. The placeholders for the XYZ in the
+URL need to be <code class="docutils literal notranslate"><span class="pre">{x}</span></code>, <code class="docutils literal notranslate"><span class="pre">{y}</span></code>, <code class="docutils literal notranslate"><span class="pre">{z}</span></code>, respectively. E.g.
+<code class="docutils literal notranslate"><span class="pre">https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</span></code>.</p></li>
+<li><p>A local file path. The file is read with <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/index.html" title="(in rasterio v1.3.10)"><span class="xref std std-doc">rasterio</span></a> and
+all bands are loaded into the basemap. See
+<a class="reference external" href="https://contextily.readthedocs.io/en/stable/working_with_local_files.html" title="(in contextily)"><span>Working with local files</span></a>.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).</p>
+</div>
+</p></li>
+<li><p><strong>lonlat</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, coordinates in <code class="docutils literal notranslate"><span class="pre">region</span></code> are assumed to be Spherical Mercator as
+opposed to longitude/latitude.</p></li>
+<li><p><strong>wait</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">0</span></code>) – If the tile API is rate-limited, the number of seconds to wait between a failed
+request and the next try.</p></li>
+<li><p><strong>max_retries</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">2</span></code>) – Total number of rejected requests allowed before contextily will stop trying to
+fetch more tiles from a rate-limited API.</p></li>
+<li><p><strong>zoom_adjust</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – <p>The amount to adjust a chosen zoom level if it is chosen automatically. Values
+outside of -1 to 1 are not recommended as they can lead to slow execution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">zoom_adjust</span></code> parameter requires <code class="docutils literal notranslate"><span class="pre">contextily&gt;=1.5.0</span></code>.</p>
+</div>
+</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a>) – Extra keyword arguments to pass to <a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ImportError" title="(in Python v3.12)"><strong>ImportError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code> is not installed. Follow
+    <a class="reference external" href="https://corteva.github.io/rioxarray/stable/installation.html" title="(in rioxarray v0.15.5)"><span class="xref std std-doc">install instructions for rioxarray</span></a>, (e.g. via
+    <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">rioxarray</span></code>) before using this function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-pygmt-figure-tilemap">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.tilemap</span></code><a class="headerlink" href="#examples-using-pygmt-figure-tilemap" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.tilemap method allows to plot tiles from a tile server or local file as a base..."><img alt="" src="../../_images/sphx_glr_tilemaps_thumb.png" />
+<p><a class="reference internal" href="../../gallery/maps/tilemaps.html#sphx-glr-gallery-maps-tilemaps-py"><span class="std std-ref">Tile maps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Tile maps</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.Figure.image.html" class="btn btn-neutral float-left" title="pygmt.Figure.image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.set_panel.html" class="btn btn-neutral float-right" title="pygmt.Figure.set_panel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTInvalidInput
+================================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTInvalidInput
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

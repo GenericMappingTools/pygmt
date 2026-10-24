@@ -1,0 +1,13 @@
+pygmt.Figure.show
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.show
+
+.. minigallery:: pygmt.Figure.show
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+pygmt.select
+============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: select
+
+.. include:: backreferences/pygmt.select.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

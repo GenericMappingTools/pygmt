@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.x2sys_init &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.x2sys_init.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.x2sys_cross" href="pygmt.x2sys_cross.html" />
+    <link rel="prev" title="pygmt.grdvolume" href="pygmt.grdvolume.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#operations-on-tabular-data">Operations on tabular data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#operations-on-raster-data">Operations on raster data</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#crossover-analysis-with-x2sys">Crossover analysis with x2sys</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.x2sys_init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.x2sys_init</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.x2sys_init&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-x2sys-init">
+<h1>pygmt.x2sys_init<a class="headerlink" href="#pygmt-x2sys-init" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygmt.x2sys_init">
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">x2sys_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmtfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discontinuity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distcalc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/x2sys_init.html#x2sys_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.x2sys_init" title="Link to this definition"></a></dt>
+<dd><p>Initialize a new x2sys track database.</p>
+<p>Serves as the starting point for x2sys and initializes a set of data bases
+that are particular to one kind of track data. These data, their associated
+data bases, and key parameters are given a short-hand notation called an
+x2sys TAG. The TAG keeps track of settings such as file format, whether the
+data are geographic or not, and the binning resolution for track indices.</p>
+<p>Before you can run <a class="reference internal" href="#pygmt.x2sys_init" title="pygmt.x2sys_init"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.x2sys_init</span></code></a> you must set the environmental
+parameter X2SYS_HOME to a directory where you have write permission, which
+is where x2sys can keep track of your settings.</p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/supplements/x2sys/x2sys_init.html">https://docs.generic-mapping-tools.org/6.5/supplements/x2sys/x2sys_init.html</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>D = fmtfile</p></li>
+<li><p>E = suffix</p></li>
+<li><p>F = force</p></li>
+<li><p>G = discontinuity</p></li>
+<li><p>I = spacing</p></li>
+<li><p>N = units</p></li>
+<li><p>R = region</p></li>
+<li><p>V = verbose</p></li>
+<li><p>W = gap</p></li>
+<li><p>j = distcalc</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The unique name of this data type x2sys TAG.</p></li>
+<li><p><strong>fmtfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Format definition file prefix for this data set (see
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/supplements/x2sys/x2sys_init.html#format-definition-files">GMT’s Format Definition Files</a>
+for more information). Specify full path if the file is not in the
+current directory.</p>
+<p>Some file formats already have definition files premade. These include:</p>
+<ul>
+<li><p><strong>mgd77</strong> (for plain ASCII MGD77 data files)</p></li>
+<li><p><strong>mgd77+</strong> (for enhanced MGD77+ netCDF files)</p></li>
+<li><p><strong>gmt</strong> (for old mgg supplement binary files)</p></li>
+<li><p><strong>xy</strong> (for plain ASCII x, y tables)</p></li>
+<li><p><strong>xyz</strong> (same, with one z-column)</p></li>
+<li><p><strong>geo</strong> (for plain ASCII longitude, latitude files)</p></li>
+<li><p><strong>geoz</strong> (same, with one z-column).</p></li>
+</ul>
+</p></li>
+<li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Specify the file extension (suffix) for these data files. If not
+given we use the format definition file prefix as the suffix (see
+<code class="docutils literal notranslate"><span class="pre">fmtfile</span></code>).</p></li>
+<li><p><strong>discontinuity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <strong>d</strong>|<strong>g</strong>.
+Select geographical coordinates. Append <strong>d</strong> for discontinuity at the
+Dateline (makes longitude go from -180° E to +180° E) or <strong>g</strong> for
+discontinuity at Greenwich (makes longitude go from 0° E to 360° E
+[Default]). If not given we assume the data are Cartesian.</p></li>
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>dx</em>[/<em>dy</em>].
+<em>dx</em> and optionally <em>dy</em> is the grid spacing. Append <strong>m</strong> to
+indicate minutes or <strong>s</strong> to indicate seconds for geographic data.
+These spacings refer to the binning used in the track bin-index data
+base.</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><em>unit</em>.
+Set the units used for distance and speed when requested by other
+programs. Append <strong>d</strong> for distance or <strong>s</strong> for speed, then give the
+desired <em>unit</em> as:</p>
+<ul>
+<li><p><strong>c</strong> - Cartesian userdist or userdist/usertime</p></li>
+<li><p><strong>e</strong> - meters or m/s</p></li>
+<li><p><strong>f</strong> - feet or ft/s</p></li>
+<li><p><strong>k</strong> - kilometers or km/hr</p></li>
+<li><p><strong>m</strong> - miles or mi/hr</p></li>
+<li><p><strong>n</strong> - nautical miles or knots</p></li>
+<li><p><strong>u</strong> - survey feet or sft/s</p></li>
+</ul>
+<p>[Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <code class="docutils literal notranslate"><span class="pre">discontinuity</span></code> is
+set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (e.g., for Cartesian units)].</p>
+</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+<li><p><strong>gap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <strong>t</strong>|<strong>d</strong><em>gap</em>.
+Give <strong>t</strong> or <strong>d</strong> and append the corresponding maximum time gap (in
+user units; this is typically seconds [Default is infinity]), or
+distance (for units, see <code class="docutils literal notranslate"><span class="pre">units</span></code>) gap [Default is infinity]) allowed
+between the two data points immediately on either side of a crossover.
+If these limits are exceeded then a data gap is assumed and no COE will
+be determined.</p></li>
+<li><p><strong>distcalc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p><strong>e</strong>|<strong>f</strong>|<strong>g</strong>.
+Determine how spherical distances are calculated.</p>
+<ul>
+<li><p><strong>e</strong> - Ellipsoidal (or geodesic) mode</p></li>
+<li><p><strong>f</strong> - Flat Earth mode</p></li>
+<li><p><strong>g</strong> - Great circle distance [Default]</p></li>
+</ul>
+<p>All spherical distance calculations depend on the current ellipsoid
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_ELLIPSOID">PROJ_ELLIPSOID</a>), the definition of the mean radius
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_MEAN_RADIUS">PROJ_MEAN_RADIUS</a>), and the specification of latitude type
+(<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_AUX_LATITUDE">PROJ_AUX_LATITUDE</a>). Geodesic distance calculations is also
+controlled by method (<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_GEODESIC">PROJ_GEODESIC</a>).</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div style='clear:both'></div></section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.grdvolume.html" class="btn btn-neutral float-left" title="pygmt.grdvolume" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.x2sys_cross.html" class="btn btn-neutral float-right" title="pygmt.x2sys_cross" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

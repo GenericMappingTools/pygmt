@@ -1,0 +1,12 @@
+pygmt.Figure.plot3d
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.plot3d
+
+.. include:: backreferences/pygmt.Figure.plot3d.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

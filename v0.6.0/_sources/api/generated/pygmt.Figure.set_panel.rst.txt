@@ -1,0 +1,12 @@
+pygmt.Figure.set\_panel
+=======================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.set_panel
+
+.. include:: backreferences/pygmt.Figure.set_panel.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

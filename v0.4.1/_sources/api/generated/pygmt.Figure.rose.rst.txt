@@ -1,0 +1,12 @@
+pygmt.Figure.rose
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.rose
+
+.. include:: backreferences/pygmt.Figure.rose.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

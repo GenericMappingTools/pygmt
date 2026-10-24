@@ -1,0 +1,13 @@
+pygmt.Figure.velo
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.velo
+
+.. minigallery:: pygmt.Figure.velo
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

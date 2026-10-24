@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.x2sys_cross &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/x2sys_cross.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.x2sys_cross</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.x2sys_cross</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">x2sys_cross - Calculate crossovers between track data files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">GMTTempFile</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">unique_name</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">tempfile_from_dftrack</span><span class="p">(</span><span class="n">track</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with</span>
+<span class="sd">    a unique name (to prevent clashes when running x2sys_cross), adding a suffix</span>
+<span class="sd">    extension to the end.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    track : pandas.DataFrame</span>
+<span class="sd">        A table holding track data with coordinate (x, y) or (lon, lat) values,</span>
+<span class="sd">        and (optionally) time (t).</span>
+<span class="sd">    suffix : str</span>
+<span class="sd">        File extension, e.g. xyz, tsv, etc.</span>
+
+<span class="sd">    Yields</span>
+<span class="sd">    ------</span>
+<span class="sd">    tmpfilename : str</span>
+<span class="sd">        A temporary tab-separated value file with a unique name holding the</span>
+<span class="sd">        track data. E.g. &#39;track-1a2b3c4.tsv&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tmpfilename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;track-</span><span class="si">{</span><span class="n">unique_name</span><span class="p">()[:</span><span class="mi">7</span><span class="p">]</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">track</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+            <span class="n">path_or_buf</span><span class="o">=</span><span class="n">tmpfilename</span><span class="p">,</span>
+            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">na_rep</span><span class="o">=</span><span class="s2">&quot;NaN&quot;</span><span class="p">,</span>  <span class="c1"># write a NaN value explicitly instead of a blank string</span>
+            <span class="n">date_format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">Z&quot;</span><span class="p">,</span>  <span class="c1"># ISO8601 format</span>
+        <span class="p">)</span>
+        <span class="k">yield</span> <span class="n">tmpfilename</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">tmpfilename</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="x2sys_cross">
+<a class="viewcode-back" href="../../../api/generated/pygmt.x2sys_cross.html#pygmt.x2sys_cross">[docs]</a>
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;combitable&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;runtimes&quot;</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="s2">&quot;override&quot;</span><span class="p">,</span>
+    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">S</span><span class="o">=</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">,</span>
+    <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;coe&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;numpoints&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;trackvalues&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">x2sys_cross</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate crossovers between track data files.</span>
+
+<span class="sd">    Determines all intersections between (&quot;external cross-overs&quot;) or within</span>
+<span class="sd">    (&quot;internal cross-overs&quot;) tracks (Cartesian or geographic), and report the</span>
+<span class="sd">    time, position, distance along track, heading and speed along each track</span>
+<span class="sd">    segment, and the crossover error (COE) and mean values for all observables.</span>
+<span class="sd">    By default, :func:`pygmt.x2sys_cross` will look for both external and</span>
+<span class="sd">    internal COEs. As an option, you may choose to project all data using one</span>
+<span class="sd">    of the map projections prior to calculating the COE.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`supplements/x2sys/x2sys_cross.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tracks : pandas.DataFrame or str or list</span>
+<span class="sd">        A table or a list of tables with (x, y) or (lon, lat) values in the</span>
+<span class="sd">        first two columns. Track(s) can be provided as pandas DataFrame tables</span>
+<span class="sd">        or file names. Supported file formats are ASCII, native binary, or</span>
+<span class="sd">        COARDS netCDF 1-D data. More columns may also be present.</span>
+
+<span class="sd">        If the file names are missing their file extension, we will append the</span>
+<span class="sd">        suffix specified for this TAG. Track files will be searched for first</span>
+<span class="sd">        in the current directory and second in all directories listed in</span>
+<span class="sd">        $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not</span>
+<span class="sd">        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files</span>
+<span class="sd">        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt</span>
+<span class="sd">        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).</span>
+
+<span class="sd">    outfile : str</span>
+<span class="sd">        Optional. The file name for the output ASCII txt file to store the</span>
+<span class="sd">        table in.</span>
+
+<span class="sd">    tag : str</span>
+<span class="sd">        Specify the x2sys TAG which identifies the attributes of this data</span>
+<span class="sd">        type.</span>
+
+<span class="sd">    combitable : str</span>
+<span class="sd">        Only process the pair-combinations found in the file *combitable*</span>
+<span class="sd">        [Default process all possible combinations among the specified files].</span>
+<span class="sd">        The file *combitable* is created by :gmt-docs:`x2sys_get&#39;s -L option</span>
+<span class="sd">        &lt;supplements/x2sys/x2sys_get.html#l&gt;`.</span>
+
+<span class="sd">    runtimes : bool or str</span>
+<span class="sd">        Compute and append the processing run-time for each pair to the</span>
+<span class="sd">        progress message (use ``runtimes=True``). Pass in a file name (e.g.</span>
+<span class="sd">        ``runtimes=&quot;file.txt&quot;``) to save these run-times to file. The idea here</span>
+<span class="sd">        is to use the knowledge of run-times to split the main process in a</span>
+<span class="sd">        number of sub-processes that can each be launched in a different</span>
+<span class="sd">        processor of your multi-core machine. See the MATLAB function</span>
+<span class="sd">        `split_file4coes.m</span>
+<span class="sd">        &lt;https://github.com/GenericMappingTools/gmt/blob/master/src/x2sys/&gt;`_.</span>
+
+<span class="sd">    override : bool or str</span>
+<span class="sd">        **S**\|\ **N**.</span>
+<span class="sd">        Control how geographic coordinates are handled (Cartesian data are</span>
+<span class="sd">        unaffected). By default, we determine if the data are closer to one</span>
+<span class="sd">        pole than the other, and then we use a cylindrical polar conversion to</span>
+<span class="sd">        avoid problems with longitude jumps. You can turn this off entirely</span>
+<span class="sd">        with ``override`` and then the calculations uses the original data (we</span>
+<span class="sd">        have protections against longitude jumps). However, you can force the</span>
+<span class="sd">        selection of the pole for the projection by appending **S** or **N**</span>
+<span class="sd">        for the south or north pole, respectively. The conversion is used</span>
+<span class="sd">        because the algorithm used to find crossovers is inherently a</span>
+<span class="sd">        Cartesian algorithm that can run into trouble with data that has large</span>
+<span class="sd">        longitudinal range at higher latitudes.</span>
+
+<span class="sd">    interpolation : str</span>
+<span class="sd">        **l**\|\ **a**\|\ **c**.</span>
+<span class="sd">        Sets the interpolation mode for estimating values at the crossover.</span>
+<span class="sd">        Choose among:</span>
+
+<span class="sd">        - **l** - Linear interpolation [Default].</span>
+<span class="sd">        - **a** - Akima spline interpolation.</span>
+<span class="sd">        - **c** - Cubic spline interpolation.</span>
+
+<span class="sd">    coe : str</span>
+<span class="sd">        Use **e** for external COEs only, and **i** for internal COEs only</span>
+<span class="sd">        [Default is all COEs].</span>
+
+<span class="sd">    {region}</span>
+
+<span class="sd">    speed : str or list</span>
+<span class="sd">        **l**\|\ **u**\|\ **h**\ *speed*.</span>
+<span class="sd">        Defines window of track speeds. If speeds are outside this window we do</span>
+<span class="sd">        not calculate a COE. Specify:</span>
+
+<span class="sd">        - **l** sets lower speed [Default is 0].</span>
+<span class="sd">        - **u** sets upper speed [Default is infinity].</span>
+<span class="sd">        - **h** does not limit the speed but sets a lower speed below which</span>
+<span class="sd">          headings will not be computed (i.e., set to NaN) [Default</span>
+<span class="sd">          calculates headings regardless of speed].</span>
+
+<span class="sd">        For example, you can use ``speed=[&quot;l0&quot;, &quot;u10&quot;, &quot;h5&quot;]`` to set a lower</span>
+<span class="sd">        speed of 0, upper speed of 10, and disable heading calculations for</span>
+<span class="sd">        speeds below 5.</span>
+
+<span class="sd">    {verbose}</span>
+
+<span class="sd">    numpoints : int</span>
+<span class="sd">        Give the maximum number of data points on either side of the crossover</span>
+<span class="sd">        to use in the spline interpolation [Default is 3].</span>
+
+<span class="sd">    trackvalues : bool</span>
+<span class="sd">        Report the values of each track at the crossover [Default reports the</span>
+<span class="sd">        crossover value and the mean value].</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    crossover_errors : :class:`pandas.DataFrame` or None</span>
+<span class="sd">        Table containing crossover error information.</span>
+<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
+
+<span class="sd">        - :class:`pandas.DataFrame` with (x, y, ..., etc) if ``outfile`` is not</span>
+<span class="sd">          set</span>
+<span class="sd">        - None if ``outfile`` is set (track output will be stored in the set in</span>
+<span class="sd">          ``outfile``)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="n">file_contexts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
+                <span class="c1"># find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from</span>
+                <span class="c1"># $X2SYS_HOME/TAGNAME/TAGNAME.tag file</span>
+                <span class="n">lastline</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;X2SYS_HOME&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.tag&quot;</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="p">)</span>  <span class="c1"># e.g. &quot;-Dxyz -Etsv -I1/1&quot;</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lastline</span><span class="o">.</span><span class="n">split</span><span class="p">()):</span>  <span class="c1"># sort list alphabetically</span>
+                    <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;-E&quot;</span><span class="p">,</span> <span class="s2">&quot;-D&quot;</span><span class="p">)):</span>  <span class="c1"># prefer -Etsv over -Dxyz</span>
+                        <span class="n">suffix</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># e.g. tsv (1st choice) or xyz (2nd choice)</span>
+
+                <span class="c1"># Save pandas.DataFrame track data to temporary file</span>
+                <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tempfile_from_dftrack</span><span class="p">(</span><span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">track</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span> <span class="k">as</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">file_contexts</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;x2sys_cross&quot;</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fnames</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">),</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Read temporary csv output to a pandas table</span>
+            <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if outfile isn&#39;t set, return pd.DataFrame</span>
+                <span class="c1"># Read the tab-separated ASCII table</span>
+                <span class="n">date_format_kwarg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">{</span><span class="s2">&quot;date_format&quot;</span><span class="p">:</span> <span class="s2">&quot;ISO8601&quot;</span><span class="p">}</span>
+                    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2.0.0&quot;</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="p">{}</span>
+                <span class="p">)</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+                    <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Column names are on 2nd row</span>
+                    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># Skip the 3rd row with a &quot;&gt;&quot;</span>
+                    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># Datetimes on 3rd and 4th column</span>
+                    <span class="o">**</span><span class="n">date_format_kwarg</span><span class="p">,</span>  <span class="c1"># Parse dates in ISO8601 format on pandas&gt;=2</span>
+                <span class="p">)</span>
+                <span class="c1"># Remove the &quot;# &quot; from &quot;# x&quot; in the first column</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]})</span>
+            <span class="k">elif</span> <span class="n">outfile</span> <span class="o">!=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if outfile is set, output in outfile only</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">table</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
