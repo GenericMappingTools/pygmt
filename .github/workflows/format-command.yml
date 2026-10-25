@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: generate-token
         with:
           client-id: ${{ vars.CLIENT_ID }}
@@ -36,11 +36,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: '3.14'
+          python-version: '3.15'
 
       - name: Install formatting tools
         run: |
-          python -m pip install ruff prek
+          python -m pip install --group style
           python -m pip list
 
       # Run "make format" and commit the change to the PR branch

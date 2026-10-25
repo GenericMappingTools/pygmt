@@ -33,11 +33,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: '3.14'
+          python-version: '3.15'
 
       - name: Install packages
         run: |
-          python -m pip install ruff prek
+          python -m pip install --group style
           python -m pip list
 
       - name: Formatting check (Ruff + prek)
@@ -75,4 +75,15 @@ jobs:
             cat output.txt
             rm output.txt
             exit $nfiles
+          fi
+
+      - name: Ensure "Examples" instead of "Example" is used as the docstring heading
+        run: |
+          git ls-files '*.py' | xargs grep --line-number -E '^\s*Example\s*$' > output.txt || true
+          nlines=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nlines > 0 ]]; then
+            echo "Use 'Examples' instead of 'Example' as the docstring heading in following lines:"
+            cat output.txt
+            rm output.txt
+            exit $nlines
           fi
