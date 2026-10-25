@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=80", "setuptools-scm>=10.0.4"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -33,6 +33,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
     "numpy>=2.2",
@@ -61,6 +62,22 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
+[dependency-groups]
+style = [
+    "prek",
+    "ruff>=0.15.22",
+]
+test=[
+    "netCDF4",
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-doctestplus",
+    "pytest-mpl",
+    "pytest-rerunfailures",
+    "sphinx-gallery"
+]
+typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
+
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
@@ -69,6 +86,9 @@ exclude = ["doc"]
 version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
+
+[tool.setuptools_scm.scm.git]
+pre_parse = "fetch_on_shallow"
 
 [tool.codespell]
 ignore-words-list = "astroid,te,tripel,trough"
