@@ -19,7 +19,7 @@ from pygmt.helpers import (
     non_ascii_to_octal,
     use_alias,
 )
-from pygmt.params import Axis, Frame, Pattern
+from pygmt.params import Axis, Frame, Pattern, Perspective
 
 __doctest_skip__ = ["text"]
 
@@ -53,7 +53,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     panel: int | Sequence[int] | bool = False,
-    perspective: float | Sequence[float] | str | bool = False,
+    perspective: Perspective | float | Sequence[float] | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
     coltypes: str | None = None,
     **kwargs,
