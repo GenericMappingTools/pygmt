@@ -17,8 +17,10 @@ from pygmt.helpers import (
     fmt_docstring,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.src._common import _FocalMechanismConvention
+
+__doctest_skip__ = ["meca"]
 
 
 def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvention:
@@ -129,8 +131,8 @@ def meca(
     plot_latitude: float | Sequence[float] | None = None,
     event_name: str | Sequence[str] | None = None,
     cmap: str | None = None,
-    extension_fill: str | None = None,
-    compression_fill: str | None = None,
+    extension_fill: str | Pattern | None = None,
+    compression_fill: str | Pattern | None = None,
     pen: str | None = None,
     no_clip: bool = False,
     projection: str | None = None,
@@ -354,6 +356,23 @@ def meca(
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    Plot a single focal mechanism using the Aki and Richards convention:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-124, -122, 47, 49], projection="M10c", frame=True)
+    >>> fig.coast(land="gray80", water="lightblue", shorelines="0.5p,gray30")
+    >>> fig.meca(
+    ...     spec={"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+    ...     scale="1c",
+    ...     longitude=-124.3,
+    ...     latitude=48.1,
+    ...     depth=12.0,
+    ... )
+    >>> fig.show()
     """
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)

@@ -43,7 +43,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: '3.14'
+          python-version: '3.15'
 
       - name: Install packages
         run: |
@@ -51,7 +51,7 @@ jobs:
           # 1. required packages
           # 2. type checker and stub packages
           # 3. other packages that are used somewhere in PyGMT
-          python -m pip install numpy pandas xarray packaging mypy pandas-stubs pyarrow-stubs
+          python -m pip install numpy pandas xarray packaging --group typing
           python -m pip list
 
       - name: Static type check
