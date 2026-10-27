@@ -182,7 +182,7 @@ def grdview(
     $grid
     cmap
         The name of the color palette table to use.
-    drapegrid
+    drape_grid
         The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on
         top of the grid surface provided by ``grid`` [Default determines colors from
         ``grid``]. Note that ``zscale`` and ``plane`` always refer to ``grid``.
