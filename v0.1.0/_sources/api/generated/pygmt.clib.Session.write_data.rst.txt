@@ -1,0 +1,10 @@
+pygmt.clib.Session.write\_data
+==============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.write_data
+
+.. raw:: html
+
+      <div style='clear:both'></div>

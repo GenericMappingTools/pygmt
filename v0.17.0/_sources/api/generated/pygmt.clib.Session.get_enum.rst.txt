@@ -1,0 +1,13 @@
+pygmt.clib.Session.get\_enum
+============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.get_enum
+
+.. minigallery:: pygmt.clib.Session.get_enum
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

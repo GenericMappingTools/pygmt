@@ -1,0 +1,12 @@
+pygmt.datasets.load\_fractures\_compilation
+===========================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_fractures_compilation
+
+.. include:: backreferences/pygmt.datasets.load_fractures_compilation.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

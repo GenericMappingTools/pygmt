@@ -1,0 +1,12 @@
+pygmt.blockmean
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: blockmean
+
+.. include:: backreferences/pygmt.blockmean.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

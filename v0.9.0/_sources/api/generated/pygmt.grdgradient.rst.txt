@@ -1,0 +1,13 @@
+pygmt.grdgradient
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdgradient
+
+.. minigallery:: pygmt.grdgradient
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

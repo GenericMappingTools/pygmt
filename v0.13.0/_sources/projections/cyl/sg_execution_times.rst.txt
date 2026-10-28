@@ -1,0 +1,67 @@
+
+:orphan:
+
+.. _sphx_glr_projections_cyl_sg_execution_times:
+
+
+Computation times
+=================
+**00:02.380** total execution time for 11 files **from projections/cyl**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)
+     - 00:00.286
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py` (``cyl_oblique_mercator_3.py``)
+     - 00:00.254
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``cyl_miller.py``)
+     - 00:00.234
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``cyl_equal_area.py``)
+     - 00:00.218
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)
+     - 00:00.213
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``cyl_universal_transverse_mercator.py``)
+     - 00:00.212
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``)
+     - 00:00.202
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``cyl_equidistant.py``)
+     - 00:00.199
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``cyl_transverse_mercator.py``)
+     - 00:00.198
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py` (``cyl_oblique_mercator_1.py``)
+     - 00:00.183
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py` (``cyl_oblique_mercator_2.py``)
+     - 00:00.180
+     - 0.0

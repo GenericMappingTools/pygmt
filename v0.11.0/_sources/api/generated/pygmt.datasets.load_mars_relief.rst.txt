@@ -1,0 +1,13 @@
+pygmt.datasets.load\_mars\_relief
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_mars_relief
+
+.. minigallery:: pygmt.datasets.load_mars_relief
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

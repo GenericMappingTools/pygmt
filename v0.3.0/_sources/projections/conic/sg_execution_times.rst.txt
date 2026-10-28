@@ -1,0 +1,18 @@
+
+:orphan:
+
+.. _sphx_glr_projections_conic_sg_execution_times:
+
+Computation times
+=================
+**00:05.191** total execution time for **projections_conic** files:
+
++-----------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_conic_conic_albers.py` (``conic_albers.py``)           | 00:01.561 | 0.0 MB |
++-----------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_conic_conic_lambert.py` (``conic_lambert.py``)         | 00:01.261 | 0.0 MB |
++-----------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_conic_polyconic.py` (``polyconic.py``)                 | 00:01.241 | 0.0 MB |
++-----------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_projections_conic_conic_equidistant.py` (``conic_equidistant.py``) | 00:01.128 | 0.0 MB |
++-----------------------------------------------------------------------------------+-----------+--------+

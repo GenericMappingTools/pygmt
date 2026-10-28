@@ -1,0 +1,10 @@
+pygmt.Figure
+============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: Figure
+
+.. raw:: html
+
+     <div style='clear:both'></div>

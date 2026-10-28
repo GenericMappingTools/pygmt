@@ -1,0 +1,15 @@
+pygmt.params.Frame
+==================
+
+.. currentmodule:: pygmt.params
+
+.. autoclass:: Frame
+    :members:
+    :member-order: bysource
+
+.. minigallery:: pygmt.params.Frame
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
