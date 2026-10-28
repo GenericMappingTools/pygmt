@@ -175,6 +175,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
     $projection
     $region
         *Required if this is the first plot command.*
+    $frame
     $verbose
     $aspatial
     $panel

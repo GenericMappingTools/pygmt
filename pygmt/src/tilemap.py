@@ -119,6 +119,17 @@ def tilemap(
 
         .. note::
            Requires ``contextily>=1.7.0``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+    no_clip
+        Do **not** clip the tiles at the frame boundaries, so that the full extent of
+        the downloaded tiles is plotted [Default is ``False``].
+    $projection
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
 
