@@ -3,6 +3,7 @@ text - Plot or typeset text.
 """
 
 from collections.abc import Sequence
+from numbers import Real
 from typing import Literal
 
 import numpy as np
@@ -272,7 +273,7 @@ def text(  # ruff: ignore[too-many-branches, too-many-statements]
             kwargs["F"] += flag
         elif arg is False:
             pass
-        elif isinstance(arg, int | float | str):
+        elif isinstance(arg, Real | str):
             kwargs["F"] += f"{flag}{arg}"
 
     confdict = {}
