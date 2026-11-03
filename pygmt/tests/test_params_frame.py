@@ -42,6 +42,24 @@ def test_params_frame_only():
     frame = Frame(axes="WSEN", title="My Title", subtitle="My Subtitle", fill="red")
     assert str(frame) == "WSEN+gred+tMy Title+sMy Subtitle"
 
+    frame = Frame(axes="WSrtZ", box=True, wall_pen="1p,red")
+    assert str(frame) == "WSrtZ+b+w1p,red"
+
+    frame = Frame(axes="WSrtZ", yzfill="red", xzfill="green", xyfill="blue")
+    assert str(frame) == "WSrtZ+xred+ygreen+zblue"
+
+    frame = Frame(
+        axes="WSrtZ",
+        box=True,
+        title="My Title",
+        fill="gray",
+        wall_pen="0.5p,black",
+        yzfill="red",
+        xzfill="green",
+        xyfill="blue",
+    )
+    assert str(frame) == "WSrtZ+ggray+tMy Title+b+w0.5p,black+xred+ygreen+zblue"
+
 
 def test_params_frame_axis():
     """
