@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import pandas as pd
 import pytest
 import xarray as xr
 from pygmt import Figure
@@ -17,6 +18,7 @@ from pygmt.helpers import (
     build_arg_list,
     kwargs_to_strings,
     launch_external_viewer,
+    sequence_join,
     unique_name,
 )
 from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
@@ -149,6 +151,21 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
+
+
+def test_sequence_join_strings_with_spaces():
+    """
+    Test that sequence_join handles strings with spaces and datetime-like objects.
+    """
+    assert sequence_join(["W", "E", "S", "North Pole"], sep=",", size=4) == (
+        "W,E,S,North Pole"
+    )
+    assert sequence_join(["2010-01-01 12:00:00", "2010-01-02"], sep="/") == (
+        "2010-01-01T12:00:00/2010-01-02"
+    )
+    assert sequence_join([pd.Timestamp("2010-01-01 12:00:00"), 1], sep="/") == (
+        "2010-01-01T12:00:00.000000/1"
+    )
 
 
 def test_skip_if_no():

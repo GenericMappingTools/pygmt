@@ -923,9 +923,12 @@ def sequence_join(
             if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
                 _values.append(str(item.astype(int)))
             elif " " in str(item):
-                _values.append(
-                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
-                )
+                try:
+                    _values.append(
+                        np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
+                    )
+                except ValueError:  # Not a valid datetime. Assume it's a plain string
+                    _values.append(str(item))
             else:
                 _values.append(str(item))
         return sep.join(_values)  # type: ignore[arg-type]
