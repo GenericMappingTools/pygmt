@@ -156,7 +156,6 @@ def test_args_in_kwargs():
 def test_sequence_join_strings_with_spaces():
     """
     Test that sequence_join handles strings with spaces and datetime-like objects.
-    
     Regression test for https://github.com/GenericMappingTools/pygmt/issues/4960.
     """
     assert sequence_join(["W", "E", "S", "North Pole"], sep=",", size=4) == (

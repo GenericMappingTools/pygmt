@@ -926,7 +926,7 @@ def sequence_join(
                 _value = str(item.astype(int))
             elif " " in _value:  # Likely a datetime-like object.
                 with contextlib.suppress(ValueError):
-                    _value = np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
+                    _value = np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[assignment]
             _values.append(_value)
         return sep.join(_values)  # type: ignore[arg-type]
 
