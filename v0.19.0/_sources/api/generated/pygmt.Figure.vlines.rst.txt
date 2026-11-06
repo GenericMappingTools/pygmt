@@ -1,0 +1,13 @@
+pygmt.Figure.vlines
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.vlines
+
+.. minigallery:: pygmt.Figure.vlines
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

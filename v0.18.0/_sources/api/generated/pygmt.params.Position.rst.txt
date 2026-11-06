@@ -1,0 +1,15 @@
+pygmt.params.Position
+=====================
+
+.. currentmodule:: pygmt.params
+
+.. autoclass:: Position
+    :members:
+    :member-order: bysource
+
+.. minigallery:: pygmt.params.Position
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

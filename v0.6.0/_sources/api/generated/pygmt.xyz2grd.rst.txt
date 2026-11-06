@@ -1,0 +1,12 @@
+pygmt.xyz2grd
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: xyz2grd
+
+.. include:: backreferences/pygmt.xyz2grd.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

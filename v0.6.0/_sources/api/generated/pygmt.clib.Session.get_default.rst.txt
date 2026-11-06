@@ -1,0 +1,12 @@
+pygmt.clib.Session.get\_default
+===============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.get_default
+
+.. include:: backreferences/pygmt.clib.Session.get_default.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

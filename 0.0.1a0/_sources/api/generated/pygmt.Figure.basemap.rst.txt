@@ -1,0 +1,10 @@
+pygmt.Figure.basemap
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.basemap
+
+.. raw:: html
+
+      <div style='clear:both'></div>

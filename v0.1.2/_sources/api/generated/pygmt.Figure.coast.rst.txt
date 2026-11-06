@@ -1,0 +1,10 @@
+pygmt.Figure.coast
+==================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.coast
+
+.. raw:: html
+
+      <div style='clear:both'></div>

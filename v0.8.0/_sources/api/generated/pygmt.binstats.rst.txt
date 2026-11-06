@@ -1,0 +1,12 @@
+pygmt.binstats
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: binstats
+
+.. include:: backreferences/pygmt.binstats.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

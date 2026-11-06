@@ -1,0 +1,12 @@
+pygmt.datasets.load\_earth\_magnetic\_anomaly
+=============================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_magnetic_anomaly
+
+.. include:: backreferences/pygmt.datasets.load_earth_magnetic_anomaly.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

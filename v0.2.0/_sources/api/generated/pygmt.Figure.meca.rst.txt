@@ -1,0 +1,10 @@
+pygmt.Figure.meca
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.meca
+
+.. raw:: html
+
+      <div style='clear:both'></div>

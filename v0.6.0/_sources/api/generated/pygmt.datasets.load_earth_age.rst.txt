@@ -1,0 +1,12 @@
+pygmt.datasets.load\_earth\_age
+===============================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_age
+
+.. include:: backreferences/pygmt.datasets.load_earth_age.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

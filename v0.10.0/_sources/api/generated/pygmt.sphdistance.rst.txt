@@ -1,0 +1,13 @@
+pygmt.sphdistance
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: sphdistance
+
+.. minigallery:: pygmt.sphdistance
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.grdhisteq.compute\_bins
+=============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: grdhisteq.compute_bins
+
+.. minigallery:: pygmt.grdhisteq.compute_bins
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

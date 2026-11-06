@@ -1,0 +1,12 @@
+pygmt.set\_display
+==================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: set_display
+
+.. include:: backreferences/pygmt.set_display.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.datasets.load\_venus\_relief
+==================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_venus_relief
+
+.. minigallery:: pygmt.datasets.load_venus_relief
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

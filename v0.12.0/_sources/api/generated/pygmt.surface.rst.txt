@@ -1,0 +1,13 @@
+pygmt.surface
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: surface
+
+.. minigallery:: pygmt.surface
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

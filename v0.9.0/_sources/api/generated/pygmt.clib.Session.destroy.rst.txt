@@ -1,0 +1,13 @@
+pygmt.clib.Session.destroy
+==========================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.destroy
+
+.. minigallery:: pygmt.clib.Session.destroy
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

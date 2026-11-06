@@ -1,0 +1,71 @@
+"""
+Calculating grid gradient and radiance
+======================================
+
+The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
+In the example shown below we will see how to calculate a hillshade map based
+on a Data Elevation Model (DEM). As input :func:`pygmt.grdgradient` gets
+an :class:`xarray.DataArray` object or a path string to a grid file, calculates
+the respective gradient and returns it as an :class:`xarray.DataArray` object.
+We will use the ``radiance`` parameter in order to set the illumination source
+direction and altitude.
+"""
+
+# %%
+import pygmt
+from pygmt.params import Axis, Frame, Position
+
+# Define region of interest around Yosemite valley
+region = [-119.825, -119.4, 37.6, 37.825]
+
+# Load sample grid (3 arc-seconds global relief) in target area
+grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
+
+# calculate the reflection of a light source projecting from west to east
+# (azimuth of 270 degrees) and at a latitude of 30 degrees from the horizon
+dgrid = pygmt.grdgradient(grid=grid, radiance=[270, 30])
+
+fig = pygmt.Figure()
+# define figure configuration
+pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
+
+# --------------- plotting the original Data Elevation Model -----------
+
+pygmt.makecpt(cmap="gmt/gray", series=[200, 4000, 10])
+fig.grdimage(
+    grid=grid,
+    projection="M12c",
+    frame=Frame(
+        axes="WSrt",
+        title="Original Data Elevation Model",
+        xaxis=Axis(annot=0.1),
+        yaxis=Axis(annot=0.1),
+    ),
+    cmap=True,
+)
+fig.colorbar(
+    position=Position("ML", cstype="outside", offset=(1.4, 0)),
+    length=7,
+    width=0.5,
+    annot=1000,
+    tick=500,
+    label="Elevation",
+    unit="m",
+)
+
+# --------------- plotting the hillshade map -----------
+
+# Shift plot origin of the second map by 12.5 cm in x-direction
+fig.shift_origin(xshift="12.5c")
+
+pygmt.makecpt(cmap="gmt/gray", series=[-1.5, 0.3, 0.01])
+fig.grdimage(
+    grid=dgrid,
+    projection="M12c",
+    frame=Frame(
+        axes="lSEt", title="Hillshade Map", xaxis=Axis(annot=0.1), yaxis=Axis(annot=0.1)
+    ),
+    cmap=True,
+)
+
+fig.show()

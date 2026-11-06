@@ -1,0 +1,13 @@
+pygmt.datasets.list\_sample\_data
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: list_sample_data
+
+.. minigallery:: pygmt.datasets.list_sample_data
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
