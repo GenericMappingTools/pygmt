@@ -75,7 +75,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@f842b9a3ffe213dbb81768fd7f7eeb4dfcf1c369 # v5.4.2
+        uses: CodSpeedHQ/action@78102a468f96d8e0ccb92d0ec49425753fc42062 # v5.6.0
         env:
           GMT_DATA_SERVER: https://opentopography.s3.sdsc.edu/gmtdata
         with:
