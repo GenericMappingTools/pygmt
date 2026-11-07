@@ -46,6 +46,9 @@ def filter1d(
 
     Parameters
     ----------
+    data
+        Pass in either a file name to an ASCII data table, a 2-D
+        $table_classes.
     $output_type
     $outfile
     filter_type : str
