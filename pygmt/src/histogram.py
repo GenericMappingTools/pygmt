@@ -16,10 +16,10 @@ from pygmt.helpers import (
     fmt_docstring,
     is_given,
     is_nonstr_iter,
-    kwargs_to_strings,
     use_alias,
 )
 from pygmt.params import Axis, Frame, Pattern
+from pygmt.src._common import _parse_series
 
 __doctest_skip__ = ["histogram"]
 
@@ -188,16 +188,7 @@ def _alias_option_N(  # ruff: ignore[invalid-function-name]
 # TODO(PyGMT>=0.22.0): Remove the deprecated "annotate" parameter.
 @deprecate_parameter("extreme", "out_range", "0.20.0", remove_version="0.22.0")
 @deprecate_parameter("annotate", "annot", "0.20.0", remove_version="0.22.0")
-@use_alias(
-    T="series",
-    b="binary",
-    d="nodata",
-    e="find",
-    h="header",
-    l="label",
-    w="wrap",
-)
-@kwargs_to_strings(T="sequence")
+@use_alias(b="binary", d="nodata", e="find", h="header", l="label", w="wrap")
 def histogram(
     self,
     data: PathLike | TableLike,
@@ -207,6 +198,7 @@ def histogram(
     ] = "count",
     bar_width: float | str | None = None,
     bar_offset: float | str | None = None,
+    series: float | str | Sequence[float] | None = None,
     cmap: str | bool = False,
     pen: str | None = None,
     fill: str | Pattern | Literal["position", "value"] | None = None,
@@ -254,6 +246,7 @@ def histogram(
        - Q = cumulative
        - R = region
        - S = stairs
+       - T = series
        - V = verbose
        - W = pen
        - Z = histtype, **+w**: weights
@@ -267,6 +260,15 @@ def histogram(
     data
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
+    series
+        Set the histogram binning. It can take one of four forms:
+
+        - A list/tuple of three values to set the minimum, maximum, and increment for
+          the binning.
+        - A single float value to set the bin increment only, with the minimum and
+          maximum automatically determined from the data or ``region``.
+        - A sequence of any other length to set the bin boundaries explicitly.
+        - A string for any GMT CLI syntax.
     weights
         Use weighted counts instead of pure counts [Default is ``False``, i.e., pure
         counts are used]. It can be:
@@ -344,9 +346,6 @@ def histogram(
         Plot the histogram horizontally from x = 0 [Default is vertically from y = 0].
         The plot dimensions remain the same, but the two axes are flipped, i.e., the
         x-axis is plotted vertically and the y-axis is plotted horizontally.
-    series : int, str, or list
-        [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
-        Set the interval for the width of each bar in the histogram.
     distribution
         Draw the equivalent normal distribution. Select which central location and scale
         to use:
@@ -491,7 +490,15 @@ def histogram(
     self._activate_figure()
     with Session() as lib:
         vfargs = {"x": data, "y": weights} if _weight_is_array else {"data": data}
-        with lib.virtualfile_in(check_kind="vector", **vfargs) as vintbl:
+        with (
+            lib.virtualfile_in(check_kind="vector", **vfargs) as vintbl,
+            lib.virtualfile_in(
+                check_kind="vector",
+                data=_parse_series(series),
+                required=False,
+            ) as vseries,
+        ):
+            aliasdict["T"] = vseries
             lib.call_module(
                 module="histogram", args=build_arg_list(aliasdict, infile=vintbl)
             )
