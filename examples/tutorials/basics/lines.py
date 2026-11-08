@@ -101,4 +101,36 @@ fig.plot(x=[1, 8], y=[3, 9], pen="7p,green,-.-")
 
 fig.show()
 
+
+# %%
+# Connect points in different ways
+# --------------------------------
+#
+# By default, consecutive points are connected directly. The
+# ``straight_line`` parameter can instead create right-angle
+# connections. Use ``"x"`` to move along the x-axis first or
+# ``"y"`` to move along the y-axis first.
+
+x = [2, 8]
+y = [2, 8]
+
+fig = pygmt.Figure()
+fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
+
+# Connect the points directly
+fig.plot(x=x, y=y, pen="2p,black", label="Direct")
+
+# Move along the x-axis first, then the y-axis
+fig.plot(x=x, y=y, straight_line="x", pen="2p,red", label="X first")
+
+# Move along the y-axis first, then the x-axis
+fig.plot(x=x, y=y, straight_line="y", pen="2p,blue", label="Y first")
+
+# Mark the original points
+fig.plot(x=x, y=y, style="c0.2c", fill="white", pen="0.5p,black")
+
+fig.legend(position="jBR")
+fig.show()
+
+
 # sphinx_gallery_thumbnail_number = 6
