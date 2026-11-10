@@ -116,7 +116,6 @@ def filter1d(
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
-    
 
     Examples
     --------
