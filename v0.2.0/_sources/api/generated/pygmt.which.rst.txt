@@ -1,0 +1,11 @@
+pygmt.which
+===========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: which
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

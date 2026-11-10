@@ -1,0 +1,11 @@
+pygmt.makecpt
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: makecpt
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

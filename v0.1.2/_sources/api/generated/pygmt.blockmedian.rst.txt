@@ -1,0 +1,11 @@
+pygmt.blockmedian
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: blockmedian
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

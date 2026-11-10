@@ -1,0 +1,12 @@
+pygmt.Figure.basemap
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.basemap
+
+.. include:: backreferences/pygmt.Figure.basemap.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

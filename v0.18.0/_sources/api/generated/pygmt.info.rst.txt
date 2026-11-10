@@ -1,0 +1,13 @@
+pygmt.info
+==========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: info
+
+.. minigallery:: pygmt.info
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

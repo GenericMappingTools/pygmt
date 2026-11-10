@@ -1,0 +1,27 @@
+pygmt.GMTDataArrayAccessor
+==========================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: GMTDataArrayAccessor
+
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    GMTDataArrayAccessor.gtype
+
+.. autoproperty::
+    GMTDataArrayAccessor.registration
+
+
+
+
+
+.. minigallery:: pygmt.GMTDataArrayAccessor
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.Figure.legend
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.legend
+
+.. minigallery:: pygmt.Figure.legend
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

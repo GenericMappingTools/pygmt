@@ -1,0 +1,12 @@
+pygmt.Figure.legend
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.legend
+
+.. include:: backreferences/pygmt.Figure.legend.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
