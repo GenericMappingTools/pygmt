@@ -119,17 +119,13 @@ fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
 
 # Connect the points directly
 fig.plot(x=x, y=y, pen="2p,black", label="Direct")
-
 # Move along the x-axis first, then the y-axis
 fig.plot(x=x, y=y, straight_line="x", pen="2p,red", label="X first")
-
 # Move along the y-axis first, then the x-axis
 fig.plot(x=x, y=y, straight_line="y", pen="2p,blue", label="Y first")
-
 # Mark the original points
 fig.plot(x=x, y=y, style="c0.2c", fill="white", pen="0.5p,black")
-
-fig.legend(position="jBR")
+fig.legend(position="BR")
 fig.show()
 
 
