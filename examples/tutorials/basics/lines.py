@@ -125,6 +125,7 @@ fig.plot(x=x, y=y, straight_line="x", pen="2p,red", label="X first")
 fig.plot(x=x, y=y, straight_line="y", pen="2p,blue", label="Y first")
 # Mark the original points
 fig.plot(x=x, y=y, style="c0.2c", fill="white", pen="0.5p,black")
+
 fig.legend(position="BR")
 fig.show()
 
