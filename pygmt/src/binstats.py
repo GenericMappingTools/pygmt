@@ -3,6 +3,7 @@ binstats - Bin spatial data and determine statistics per bin.
 """
 
 from collections.abc import Sequence
+from numbers import Real
 from typing import Literal
 
 import xarray as xr
@@ -168,7 +169,7 @@ def binstats(
     )
     aliasdict.merge(kwargs)
     if statistic == "quantile":
-        if not isinstance(quantile_value, (int, float)):
+        if not isinstance(quantile_value, Real) or isinstance(quantile_value, bool):
             raise GMTTypeError(
                 quantile_value, reason="quantile_value must be an 'int' or 'float'."
             )
