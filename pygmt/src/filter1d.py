@@ -130,9 +130,6 @@ def filter1d(
     >>> observations = np.array([1.0, 2.0, 4.0, 2.0, 3.0, 6.0, 5.0, 4.0, 3.0, 2.0])
     >>> data = np.column_stack((time, observations))
     >>> filtered = pygmt.filter1d(data=data, filter_type="g3", end=True)
-
-    ... )
-
     """
     if kwargs.get("F") is None:
         raise GMTParameterError(required="filter_type")
