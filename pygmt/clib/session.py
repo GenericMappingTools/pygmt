@@ -1768,6 +1768,7 @@ class Session:
     def virtualfile_in(
         self,
         check_kind=None,
+        kind=None,
         data=None,
         x=None,
         y=None,
@@ -1826,7 +1827,9 @@ class Session:
         ...             print(fout.read().strip())
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, required=required)
+        # Determine the data kind if not given.
+        if kind is None:
+            kind = data_kind(data, required=required, check_kind=check_kind)
         _validate_data_input(
             data=data,
             x=x,
@@ -1836,18 +1839,6 @@ class Session:
             mincols=mincols,
             kind=kind,
         )
-
-        if check_kind:
-            valid_kinds = ("file", "arg") if required is False else ("file",)
-            if check_kind == "raster":
-                valid_kinds += ("grid", "image")
-            elif check_kind == "vector":
-                valid_kinds += ("empty", "matrix", "vectors", "geojson")
-            if kind not in valid_kinds:
-                raise GMTTypeError(
-                    type(data),
-                    reason=f"Unrecognized data type for {check_kind!r} kind.",
-                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
