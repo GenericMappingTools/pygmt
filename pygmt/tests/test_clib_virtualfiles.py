@@ -50,7 +50,7 @@ def test_open_virtualfile(dtypes):
             data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
-            vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
+            vfargs = (family, geometry, "GMT_IN", dataset)
             with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", [vfile, f"->{outfile.name}"])
@@ -68,7 +68,7 @@ def test_open_virtualfile_fails():
     vfargs = (
         "GMT_IS_DATASET|GMT_VIA_MATRIX",
         "GMT_IS_POINT",
-        "GMT_IN|GMT_IS_REFERENCE",
+        "GMT_IN",
         None,
     )
 
