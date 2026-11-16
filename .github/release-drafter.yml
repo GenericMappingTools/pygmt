@@ -36,7 +36,7 @@ change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
 sort-direction: 'ascending'
 replacers:
-  - search: '/@(\w+)?/g'
+  - search: '/@([\w-]+)/g'
     replace: '[@$1](https://github.com/$1)'
   - search: '@Chuan1937'
     replace: 'Xingchen He'
