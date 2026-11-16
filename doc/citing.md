@@ -30,9 +30,9 @@ The BibTeX entry for the PyGMT paper is:
   url          = {https://doi.org/10.1029/2026GC013105},
 }
 ```
-The BibTeX entry for the latest Zenodo archive, i.e., release 0.19.0, of the PyGMT software is:
+The BibTeX entry for the latest Zenodo archive, i.e., release 0.20.0, of the PyGMT software is:
 ```
-@software{pygmt_2026_19398871,
+@software{pygmt_2026_24271916,
   author       = {Tian, Dongdong and
                   Leong, Wei Ji and
                   Fröhlich, Yvonne and
@@ -53,12 +53,12 @@ The BibTeX entry for the latest Zenodo archive, i.e., release 0.19.0, of the PyG
                   Uieda, Leonardo and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = jul,
+  month        = nov,
   year         = 2026,
   publisher    = {Zenodo},
-  version      = {0.19.0},
-  doi          = {10.5281/zenodo.19398871},
-  url          = {https://doi.org/10.5281/zenodo.19398871}
+  version      = {0.20.0},
+  doi          = {10.5281/zenodo.24271916},
+  url          = {https://doi.org/10.5281/zenodo.24271916}
 }
 ```
 To cite a specific version of PyGMT, go to the [Zenodo archive](https://doi.org/10.5281/zenodo.3781524),

@@ -83,11 +83,11 @@ authors:
     orcid: 'https://orcid.org/0000-0001-5708-7336'
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.19398871
+    value: 10.5281/zenodo.24271916
 repository-code: 'https://github.com/GenericMappingTools/pygmt'
 license: BSD-3-Clause
-version: 0.19.0
-date-released: '2026-07-07'
+version: 0.20.0
+date-released: '2026-11-22'
 preferred-citation:
   type: article
   authors:
