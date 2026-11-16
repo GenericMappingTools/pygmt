@@ -88,29 +88,22 @@
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.19.0...v0.20.0>
 
 **Contributors**:
-[@Aayush7788](https://github.com/Aayush7788), 
-[@AisunZa](https://github.com/AisunZa), 
-[@floze](https://github.com/floze-the-genius), 
-[@Johnkothapalli](https://github.com/Johnkothapalli), 
-[@manduinca](https://github.com/manduinca), 
-[@Mohit](https://github.com/Mohit-Ak), 
-[Dongdong Tian](https://github.com/seisman), 
-[@utkarshalpha](https://github.com/utkarshalpha), 
-[Wei Ji Leong](https://github.com/weiji14), 
-[@yogirajh007](https://github.com/yogirajh007), 
-[@yousizaitianqiong](https://github.com/yousizaitianqiong),
+[Dongdong Tian](https://github.com/seisman),
 [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-
-**New Contributors**:
-[@utkarshalpha](https://github.com/utkarshalpha),
+[Wei Ji Leong](https://github.com/weiji14),
+[Will Schlitzer](https://github.com/willschlitzer),
+[Xingchen He](https://github.com/Chuan1937),
 [@Aayush7788](https://github.com/Aayush7788),
+[@AisunZa](https://github.com/AisunZa),
 [@floze](https://github.com/floze-the-genius),
-[@Johnkothapalli](https://github.com/Johnkothapalli), 
-[@yousizaitianqiong](https://github.com/yousizaitianqiong), 
+[@Johnkothapalli](https://github.com/Johnkothapalli),
+[@manduinca](https://github.com/manduinca),
+[@mmporong](https://github.com/mmporong),
+[@Mohit](https://github.com/Mohit-Ak),
+[@tashakaggarwal](https://github.com/tashakaggarwal),
+[@utkarshalpha](https://github.com/utkarshalpha),
 [@yogirajh007](https://github.com/yogirajh007),
-[@Mohit](https://github.com/Mohit-Ak), 
-[@AisunZa](https://github.com/AisunZa), 
-[@manduinca](https://github.com/manduinca)
+[@yousizaitianqiong](https://github.com/yousizaitianqiong)
 
 ---
 
