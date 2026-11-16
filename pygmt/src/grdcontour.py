@@ -138,7 +138,7 @@ def grdcontour(
     ... )
     >>> fig = pygmt.Figure()
     >>> fig.grdcontour(
-    ...     grid=grid,s
+    ...     grid=grid,
     ...     levels=250,  # Set the interval for contour lines
     ...     annotation=1000,  # Set the interval for annotated contour lines
     ...     frame=Axis(annot=True),
