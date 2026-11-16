@@ -281,7 +281,7 @@ def coast(
     >>> import pygmt
     >>> from pygmt.params import Axis
     >>> fig = pygmt.Figure()
-    >>> fig.coast()
+    >>> fig.coast(
     ...     projection="M10c",  # Set the Mercator projection and width to 10 cm
     ...     region=[-10, 30, 30, 60],  # Set the map region
     ...     frame=Axis(annot=True),
