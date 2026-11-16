@@ -1,8 +1,8 @@
 # Changelog
 
-## Release v0.20.0 (20YY/MM/DD)
+## Release v0.20.0 (2026/11/22)
 
-[![Digital Object Identifier for PyGMT v0.20.0](https://img.shields.io/badge/DOI-10.5281/zenodo.3781524-blue)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.20.0](https://img.shields.io/badge/DOI-10.5281/zenodo.24271916-blue)](https://doi.org/10.5281/zenodo.24271916)
 
 ### Highlights
 
@@ -88,18 +88,29 @@
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.19.0...v0.20.0>
 
 **Contributors**:
-[@Aayush7788](https://github.com/Aayush7788), [@AisunZa](https://github.com/AisunZa), [@floze](https://github.com/floze)-the-genius, [@Johnkothapalli](https://github.com/Johnkothapalli), [@manduinca](https://github.com/manduinca), [@Mohit](https://github.com/Mohit)-Ak, [Dongdong Tian](https://github.com/seisman), [@utkarshalpha](https://github.com/utkarshalpha), [Wei Ji Leong](https://github.com/weiji14), [@yogirajh007](https://github.com/yogirajh007), [@yousizaitianqiong](https://github.com/yousizaitianqiong) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+[@Aayush7788](https://github.com/Aayush7788), 
+[@AisunZa](https://github.com/AisunZa), 
+[@floze](https://github.com/floze-the-genius), 
+[@Johnkothapalli](https://github.com/Johnkothapalli), 
+[@manduinca](https://github.com/manduinca), 
+[@Mohit](https://github.com/Mohit-Ak), 
+[Dongdong Tian](https://github.com/seisman), 
+[@utkarshalpha](https://github.com/utkarshalpha), 
+[Wei Ji Leong](https://github.com/weiji14), 
+[@yogirajh007](https://github.com/yogirajh007), 
+[@yousizaitianqiong](https://github.com/yousizaitianqiong),
+[Yvonne Fröhlich](https://github.com/yvonnefroehlich)
 
 **New Contributors**:
-* [@utkarshalpha](https://github.com/utkarshalpha) made their first contribution in #4766
-* [@Aayush7788](https://github.com/Aayush7788) made their first contribution in #4780
-* [@floze](https://github.com/floze)-the-genius made their first contribution in #4826
-* [@Johnkothapalli](https://github.com/Johnkothapalli) made their first contribution in #4827
-* [@yousizaitianqiong](https://github.com/yousizaitianqiong) made their first contribution in #4835
-* [@yogirajh007](https://github.com/yogirajh007) made their first contribution in #4837
-* [@Mohit](https://github.com/Mohit)-Ak made their first contribution in #4961
-* [@AisunZa](https://github.com/AisunZa) made their first contribution in #4971
-* [@manduinca](https://github.com/manduinca) made their first contribution in #4965
+[@utkarshalpha](https://github.com/utkarshalpha),
+[@Aayush7788](https://github.com/Aayush7788),
+[@floze](https://github.com/floze-the-genius),
+[@Johnkothapalli](https://github.com/Johnkothapalli), 
+[@yousizaitianqiong](https://github.com/yousizaitianqiong), 
+[@yogirajh007](https://github.com/yogirajh007),
+[@Mohit](https://github.com/Mohit-Ak), 
+[@AisunZa](https://github.com/AisunZa), 
+[@manduinca](https://github.com/manduinca)
 
 ---
 
