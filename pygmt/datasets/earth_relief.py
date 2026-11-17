@@ -39,7 +39,7 @@ def load_earth_relief(
     use_srtm: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load Earth'S relief datasets (topography and bathymetry) in various resolutions.
+    Load Earth's relief datasets (topography and bathymetry) in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
        :width: 80 %

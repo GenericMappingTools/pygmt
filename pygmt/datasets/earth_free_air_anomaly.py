@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth free-air anomaly and uncertainty datasets from
+Function to download the IGPP Earth's free-air anomaly and uncertainty datasets from
 the GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -23,15 +23,15 @@ def load_earth_free_air_anomaly(
     uncertainty: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth free-air anomaly and uncertainty datasets in various
+    Load the IGPP Earth's free-air anomaly and uncertainty datasets in various
     resolutions.
 
     .. list-table::
        :widths: 50 50
        :header-rows: 1
 
-       * - IGPP Earth free-air anomaly
-         - IGPP Earth free-air anomaly uncertainty
+       * - IGPP Earth's free-air anomaly
+         - IGPP Earth's free-air anomaly uncertainty
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faaerror.jpg
 
@@ -78,13 +78,13 @@ def load_earth_free_air_anomaly(
         ``"gridline"`` for all resolutions except ``"01m"`` which is ``"pixel"``
         only.
     uncertainty
-        By default, the Earth free-air anomaly values are returned. Set to ``True`` to
+        By default, Earth's free-air anomaly values are returned. Set to ``True`` to
         return the related uncertainties instead.
 
     Returns
     -------
     grid
-        The Earth free-air anomaly (uncertainty) grid. Coordinates are latitude and
+        Earth's free-air anomaly (uncertainty) grid. Coordinates are latitude and
         longitude in degrees. Values and uncertainties are in mGal.
 
     Note

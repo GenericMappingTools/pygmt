@@ -1,5 +1,5 @@
 """
-Function to download the Earth magnetic anomaly datasets from the GMT data server, and
+Function to download Earth's magnetic anomaly datasets from the GMT data server, and
 load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -24,7 +24,7 @@ def load_earth_magnetic_anomaly(
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ) -> xr.DataArray:
     r"""
-    Load the Earth magnetic anomaly datasets in various resolutions.
+    Load Earth's magnetic anomaly datasets in various resolutions.
 
     .. list-table::
        :widths: 50 50
@@ -96,7 +96,7 @@ def load_earth_magnetic_anomaly(
     Returns
     -------
     grid
-        The Earth magnetic anomaly grid. Coordinates are latitude and
+        Earth's magnetic anomaly grid. Coordinates are latitude and
         longitude in degrees. Units are in nano Tesla (nT).
 
     Note

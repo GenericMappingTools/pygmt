@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth vertical gravity gradient dataset from the GMT data
+Function to download the IGPP Earth's vertical gravity gradient dataset from the GMT data
 server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -22,13 +22,13 @@ def load_earth_vertical_gravity_gradient(
     registration: Literal["gridline", "pixel", None] = None,
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth vertical gravity gradient dataset in various resolutions.
+    Load the IGPP Earth's vertical gravity gradient dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg
        :width: 80 %
        :align: center
 
-       IGPP Earth vertical gravity gradient dataset.
+       IGPP Earth's vertical gravity gradient dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_vgg/``), and load the dataset as
@@ -72,7 +72,7 @@ def load_earth_vertical_gravity_gradient(
     Returns
     -------
     grid
-        The Earth vertical gravity gradient grid. Coordinates are latitude and
+        Earth's vertical gravity gradient grid. Coordinates are latitude and
         longitude in degrees. Units are in Eotvos.
 
     Note

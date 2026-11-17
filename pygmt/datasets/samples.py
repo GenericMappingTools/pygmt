@@ -199,7 +199,7 @@ def _load_earth_relief_holes() -> xr.DataArray:
     Returns
     -------
     grid
-        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Earth's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
     fname = which("@earth_relief_20m_holes.grd", download="cache")

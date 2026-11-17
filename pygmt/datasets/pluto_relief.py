@@ -1,5 +1,5 @@
 """
-Function to download the Pluto relief dataset from the GMT data server, and load as
+Function to download Pluto's relief dataset from the GMT data server, and load as
 :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -33,13 +33,13 @@ def load_pluto_relief(
     registration: Literal["gridline", "pixel", None] = None,
 ) -> xr.DataArray:
     r"""
-    Load the Pluto relief dataset in various resolutions.
+    Load Pluto's relief dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_pluto_relief.jpg
        :width: 80%
        :align: center
 
-       Pluto relief dataset.
+       Pluto's relief dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/pluto/pluto_relief/``), and load the dataset
@@ -85,7 +85,7 @@ def load_pluto_relief(
     Returns
     -------
     grid
-        The Pluto relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Pluto's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
     Note
