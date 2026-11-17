@@ -111,7 +111,7 @@ fig.show()
 # -----------
 #
 # While the map's colors, projection, and size have been set, the region that is being
-# displayed is not apparent. A frame can be added to annotate the latitude and longitude
+# displayed is not apparent. A frame can be added to annotate the longitude and latitude 
 # of the region.
 #
 # The ``frame`` parameter is used to add a frame to the map. For now, it will be set to
