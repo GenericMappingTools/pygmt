@@ -3,7 +3,7 @@
 ===========================
 
 This tutorial covers the basics of creating a figure using PyGMT - a
-Python wrapper for the Generic Mapping Tools (GMT). It will only use
+Python interface for the Generic Mapping Tools (GMT). It will only use
 the :meth:`pygmt.Figure.coast` method for plotting. Later tutorials will
 address other PyGMT methods.
 """
@@ -97,7 +97,7 @@ fig.show()
 # projections are explained in the :doc:`projection </projections/index>`
 # gallery. For this example, the Mercator projection is set using ``"M"``.
 # The width of the map will be 10 centimeters, as set by ``"10c"``.
-# The map size can also be set in inches using "i" (e.g. a 5-inch wide
+# The map size can also be set in inches using ``"i"`` (e.g. a 5-inch wide
 # Mercator projection would use ``"M5i"``).
 
 fig = pygmt.Figure()
@@ -148,7 +148,7 @@ fig.coast(
     land="lightgreen",
     water="lightblue",
     projection="M10c",
-    frame=Frame(title="Maine"),
+    frame=Frame(axis=True, title="Maine"),
 )
 fig.show()
 
