@@ -11,7 +11,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_edefl_01d():
     """
-    Test some properties of the Earth east-west deflection 01d data.
+    Test some properties of Earth east-west deflection 01d data.
     """
     data = load_earth_deflection(resolution="01d")
     assert data.name == "z"
@@ -58,7 +58,7 @@ def test_earth_edefl_01m_default_registration():
 
 def test_earth_ndefl_01d():
     """
-    Test some properties of the Earth north-south deflection 01d data.
+    Test some properties of Earth's north-south deflection 01d data.
     """
     data = load_earth_deflection(resolution="01d", component="north")
     assert data.name == "z"
@@ -76,7 +76,7 @@ def test_earth_ndefl_01d():
 
 def test_earth_ndefl_01d_with_region():
     """
-    Test loading low-resolution Earth north-south deflection with "region".
+    Test loading low-resolution Earth's north-south deflection with "region".
     """
     data = load_earth_deflection(
         resolution="01d", region=[-10, 10, -5, 5], component="north"

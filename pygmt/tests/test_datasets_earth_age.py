@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_age_01d():
     """
-    Test some properties of the Earth's age 01d data.
+    Test some properties of Earth's age 01d data.
     """
     data = load_earth_age(resolution="01d")
     assert data.name == "z"

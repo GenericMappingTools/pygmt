@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_faa_01d():
     """
-    Test some properties of the Earth's free air anomaly 01d data.
+    Test some properties of Earth's free air anomaly 01d data.
     """
     data = load_earth_free_air_anomaly(resolution="01d")
     assert data.name == "z"

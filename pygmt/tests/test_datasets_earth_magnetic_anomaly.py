@@ -12,7 +12,7 @@ from pygmt.exceptions import GMTValueError
 
 def test_earth_mag_01d():
     """
-    Test some properties of the Earth's magnetic anomaly 01d data.
+    Test some properties of Earth's magnetic anomaly 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d")
     assert data.name == "z"
