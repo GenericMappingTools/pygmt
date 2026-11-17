@@ -72,7 +72,6 @@
 * Figure.tilemap: Add two inline examples ([#4928](https://github.com/GenericMappingTools/pygmt/pull/4928))
 * Figure.velo: Add inline example ([#4944](https://github.com/GenericMappingTools/pygmt/pull/4944))
 * Figure.wiggle: Add an inline example ([#4936](https://github.com/GenericMappingTools/pygmt/pull/4936))
-* Improve the Cartesian histogram tutorial ([#4965](https://github.com/GenericMappingTools/pygmt/pull/4965))
 * Stop recommending mamba in installation guides and error messages ([#4766](https://github.com/GenericMappingTools/pygmt/pull/4766))
 
 ### Maintenance
