@@ -306,8 +306,8 @@ fig.show()
 #
 # For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as ``cmap=True``
 # is ignored. For details, please see the upstream GMT
-# [issue 9176](https://github.com/GenericMappingTools/gmt/issues/9176) and
-# [PR 9177](https://github.com/GenericMappingTools/gmt/pull/9177).
+# `issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
+# `PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
