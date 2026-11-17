@@ -16,7 +16,6 @@ from pygmt.exceptions import GMTTypeError
 from pygmt.helpers import (
     build_arg_list,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     unique_name,
     use_alias,
@@ -59,8 +58,6 @@ def tempfile_from_dftrack(track, suffix):
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'trackvalues' parameter.
-@deprecate_parameter("trackvalues", "track_values", "v0.18.0", remove_version="v0.20.0")
 @use_alias(
     A="combitable",
     C="runtimes",
@@ -92,6 +89,10 @@ def x2sys_cross(
     of the map projections prior to calculating the COE.
 
     Full GMT docs at :gmt-docs:`supplements/x2sys/x2sys_cross.html`.
+
+    **Reference**: Wessel, P. (2010). Tools for analyzing intersecting tracks: The x2sys
+    package. *Computers & Geosciences*, 36(3), 348-354.
+    https://doi.org/10.1016/j.cageo.2009.05.009
 
     $aliases
        - R = region

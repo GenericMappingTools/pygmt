@@ -19,10 +19,11 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
+__doctest_skip__ = ["plot3d"]
+
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     G="fill",
     I="intensity",
@@ -36,13 +37,12 @@ from pygmt.src._common import _data_geometry_is_point
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     l="label",
     w="wrap",
 )
-def plot3d(  # noqa: PLR0912, PLR0913
+def plot3d(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +51,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     zscale: float | str | None = None,
@@ -63,6 +64,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -91,12 +93,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - Jz = zscale
        - JZ = zsize
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -217,11 +221,35 @@ def plot3d(  # noqa: PLR0912, PLR0913
         ``transparency`` can also be a 1-D array to set varying transparency for
         symbols, but this option is only valid if using ``x``/``y``/``z``.
     $wrap
+
+    Examples
+    --------
+    Plot a 3-D helix viewed from an azimuth of 135° and an elevation of 30°:
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>> t = np.linspace(0, 6 * np.pi, 200)
+    >>> fig = pygmt.Figure()
+    >>> fig.plot3d(
+    ...     x=np.cos(t),
+    ...     y=np.sin(t),
+    ...     z=t,
+    ...     region=[-1.2, 1.2, -1.2, 1.2, 0, 20],
+    ...     projection="X8c",
+    ...     zsize="6c",
+    ...     perspective=(135, 30),
+    ...     pen="1.5p,blue",
+    ...     frame=Frame(
+    ...         axes="WSneZ",
+    ...         axis=Axis(annot=True, tick=True),
+    ...         zaxis=Axis(annot=True, tick=True),
+    ...     ),
+    ... )
+    >>> fig.show()
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    self._activate_figure()
-
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
         data = {"x": x, "y": y, "z": z}
@@ -276,6 +304,7 @@ def plot3d(  # noqa: PLR0912, PLR0913
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
         Jz=Alias(zscale, name="zscale"),
         JZ=Alias(zsize, name="zsize"),
     ).add_common(
@@ -284,12 +313,14 @@ def plot3d(  # noqa: PLR0912, PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data, mincols=3) as vintbl:
             lib.call_module(

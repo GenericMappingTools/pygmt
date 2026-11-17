@@ -1,5 +1,9 @@
 [build-system]
-requires = ["setuptools>=77", "setuptools_scm[toml]>=6.2"]
+requires = [
+    "python-sbom[setuptools]>=0.3",
+    "setuptools>=80",
+    "setuptools-scm>=10.0.4"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -33,11 +37,12 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
-    "numpy>=2.1",
+    "numpy>=2.2",
     "pandas>=2.3",
-    "xarray>=2024.7",
+    "xarray>=2024.10",
     "packaging>=24.2",
 ]
 dynamic = ["version"]
@@ -61,6 +66,22 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
+[dependency-groups]
+style = [
+    "prek",
+    "ruff>=0.15.22",
+]
+test=[
+    "netCDF4",
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-doctestplus",
+    "pytest-mpl",
+    "pytest-rerunfailures",
+    "sphinx-gallery"
+]
+typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
+
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
@@ -69,6 +90,9 @@ exclude = ["doc"]
 version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
+
+[tool.setuptools_scm.scm.git]
+pre_parse = "fetch_on_shallow"
 
 [tool.codespell]
 ignore-words-list = "astroid,te,tripel,trough"
@@ -95,6 +119,10 @@ omit = ["*/tests/*", "*pygmt/__init__.py"]
 [tool.mypy]
 exclude = ["pygmt/tests/"]
 ignore_missing_imports = true
+
+[tool.python-sbom]
+supplier = { name = "The PyGMT Developers", url = ["https://pygmt.org"] }
+repository = "https://github.com/GenericMappingTools/pygmt"
 
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
@@ -153,6 +181,8 @@ extend-select = [
     "PLR6201",  # Use a set literal when testing for membership
     "PLW1514",  # {function_name} in text mode without explicit encoding argument
     "RUF027",   # Possible f-string without an f prefix
+    "RUF105",   # Use `# ruff: ignore` rather than `# noqa`
+    "RUF106",   # Rule code used instead of name in suppression comment
 ]
 ignore = [
     "COM812",   # Do not always add the trailing commas
@@ -164,7 +194,6 @@ ignore = [
     "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
-    "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
@@ -179,6 +208,10 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+"*/src/*.py" = [
+    "PLR0913", # Ignore `PLR0913` (too many arguments) in all `src` files
+    "PLR0917", # Ignore `PLR0917` (too many positional arguments) in all `src` files
+]
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
 "examples/**/*.py" = [ # Ignore rules in examples
     "B018",  # Allow useless expressions in Jupyter Notebooks

@@ -4,29 +4,31 @@ Sphinx documentation configuration file.
 Reference: https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
-import datetime
+import datetime as dt
+import re
 
+from docutils import nodes
+from packaging.version import Version
 from pygmt import __commit__, __version__
 from pygmt._show_versions import _get_dep_specifier
 from pygmt.sphinx_gallery import PyGMTScraper
 
 # Is a development version or not.
-isdev = "dev" in __version__ or __version__ == "unknown"
+isdev = Version(__version__).is_devrelease
 # Some variables.
 repository = "GenericMappingTools/pygmt"
 repository_url = f"https://github.com/{repository}"
-doc_url = "https://pygmt.org/"
-if __commit__:
-    commit_link = f'<a href="{repository_url}/commit/{__commit__}">{__commit__[:8]}</a>'
+doc_url = "https://www.pygmt.org"
+# Version information shown in the footer, e.g., "Release 0.19.0" or "Commit 0ab3cd78".
+if isdev:
+    version_info = f'Commit <a href="{repository_url}/commit/{__commit__[:8]}">{__commit__[:8]}</a>'
 else:
-    commit_link = (
-        f'<a href="{repository_url}/releases/tag/{__version__}">{__version__}</a>'
-    )
+    version_info = f'Release <a href="{repository_url}/releases/tag/v{__version__}">{__version__}</a>'
 
 # Projection information.
 project = "PyGMT"
 author = "The PyGMT Developers"
-copyright = f"2017-{datetime.date.today().year}, {author}"  # noqa: A001
+copyright = f"2017-{dt.date.today().year}, {author}"  # ruff: ignore[builtin-variable-shadowing]
 version = "dev" if isdev else __version__
 release = __version__
 
@@ -50,7 +52,7 @@ extensions = [
     "sphinxcontrib.cairosvgconverter",
 ]
 needs_extensions = {
-    "sphinx_gallery.gen_gallery": "0.19",
+    "sphinx_gallery.gen_gallery": "0.21",
 }
 # Options for highlighting.
 pygments_style = "default"
@@ -88,8 +90,8 @@ autosummary_generate = []
 
 # Options for extlinks.
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.6/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.6/gmt.conf#term-%s", "%s"),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.7/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.7/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
@@ -102,7 +104,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
-    "rioxarray": ("https://corteva.github.io/rioxarray/stable/", None),
+    "rioxarray": ("https://vylor.github.io/rioxarray/stable/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
     "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
@@ -111,6 +113,8 @@ intersphinx_mapping = {
 # Render the return argument and attribute lists in the same way as the parameter lists.
 napoleon_use_rtype = False
 napoleon_use_ivar = True
+# Custom docstring sections, rendered in the same way as the "Examples" section.
+napoleon_custom_sections = ["Aliases"]
 
 # Options for sphinx-copybutton.
 # Reference: https://sphinx-copybutton.readthedocs.io
@@ -125,6 +129,7 @@ myst_heading_anchors = 4  # Auto-generate header anchors with MyST parser
 myst_enable_extensions = [
     "attrs_inline",  # Allow inline attributes after images
     "colon_fence",  # Allow code fences using colons
+    "deflist",  # Allow definition lists
     "substitution",  # Allow substitutions
 ]
 # Enable substitutions using {{ key }} in the Markdown files
@@ -211,20 +216,16 @@ html_show_sphinx = False
 html_context = {
     "menu_links": [
         (
-            '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
-        ),
-        (
-            '<i class="fa fa-book fa-fw"></i> License',
-            f"{repository_url}/blob/main/LICENSE.txt",
-        ),
-        (
-            '<i class="fa fa-comment fa-fw"></i> Contact',
+            '<i class="fa fa-comment fa-fw"></i> GMT Forum',
             "https://forum.generic-mapping-tools.org",
         ),
         (
-            '<i class="fa fa-github fa-fw"></i> Source Code',
-            repository_url,
+            '<i class="fa fa-bug fa-fw"></i> Bug Report (GitHub)',
+            f"{repository_url}/issues",
+        ),
+        (
+            '<i class="fa fa-handshake-o fa-fw"></i> Code of Conduct',
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
     ],
     # Custom variables to enable "Improve this page"" and "Download notebook" links
@@ -239,11 +240,45 @@ html_context = {
     ),
     "github_repo": repository,
     "github_version": "main",
-    "commit": commit_link,
+    "version_info": version_info,
 }
 
 # Options for LaTeX output.
 latex_engine = "xelatex"
+latex_elements = {
+    # Lay out the team member cards (grids with the "team-grid" class) in rows of five
+    # small cards, instead of one full-width profile picture per page.
+    "preamble": r"""
+\newenvironment{sphinxclassteam-grid}{%
+  \par\raggedright\setlength{\parindent}{0pt}\small
+  \newenvironment{sphinxclasssd-col}%
+    {\begin{minipage}[t]{0.18\linewidth}\centering}%
+    {\end{minipage}\hspace{0.025\linewidth}\ignorespacesafterend}%
+  \newenvironment{sphinxclasssd-card-title}{}{\par}%
+}{\par\medskip}
+""",
+}
 latex_documents = [
     (root_doc, "pygmt.tex", "The PyGMT Documentation", author, "manual", True)
 ]
+
+
+def remove_emojis(app, doctree, docname):  # ruff: ignore[unused-function-argument]
+    """
+    Remove emojis from the LaTeX/PDF output since the default fonts don't cover them.
+    """
+    # Emojis (U+1F300 to U+1FAFF, with optional variation selector and trailing space).
+    _emoji_regex = re.compile(r"[\U0001F300-\U0001FAFF]\uFE0F?\s?")
+
+    if app.builder.format != "latex":
+        return
+    for node in list(doctree.findall(nodes.Text)):
+        if _emoji_regex.search(node):
+            node.parent.replace(node, nodes.Text(_emoji_regex.sub("", node)))
+
+
+def setup(app):
+    """
+    Sphinx extension entry point.
+    """
+    app.connect("doctree-resolved", remove_emojis)

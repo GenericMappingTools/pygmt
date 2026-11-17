@@ -13,7 +13,7 @@ from pygmt.helpers import GMTTempFile, build_arg_list, fmt_docstring, use_alias
 
 
 @fmt_docstring
-@use_alias(T="nearest_multiple", a="aspatial", f="coltypes")
+@use_alias(T="nearest_multiple", a="aspatial")
 def info(
     data: PathLike | TableLike,
     spacing: Sequence[float] | str | None = None,
@@ -22,6 +22,7 @@ def info(
     registration: Literal["gridline", "pixel"] | bool = False,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> np.ndarray | str:
     r"""
@@ -46,6 +47,7 @@ def info(
        - C = per_column
        - I = spacing
        - V = verbose
+       - f = coltypes
        - i = incols
        - r = registration
 
@@ -88,6 +90,7 @@ def info(
         I=Alias(spacing, name="spacing", sep="/"),
     ).add_common(
         V=verbose,
+        f=coltypes,
         i=incols,
         r=registration,
     )

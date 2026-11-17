@@ -10,8 +10,10 @@ from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTValueError
 from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.params.frame import _Axes
+
+__doctest_skip__ = ["ternary"]
 
 
 def _ternary_frame(frame):
@@ -108,11 +110,12 @@ def _ternary_frame(frame):
 
 
 @fmt_docstring
-@use_alias(C="cmap", S="style")
-def ternary(  # noqa: PLR0913
+@use_alias(S="style")
+def ternary(
     self,
     data: PathLike | TableLike,
-    fill: str | None = None,
+    cmap: str | bool = False,
+    fill: str | Pattern | None = None,
     width: float | str | None = None,
     pen: str | None = None,
     alabel: str | None = None,
@@ -143,6 +146,7 @@ def ternary(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - G = fill
        - JX = width
        - L = alabel/blabel/clabel
@@ -160,10 +164,11 @@ def ternary(  # noqa: PLR0913
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         $table_classes.
     width
-        Width of the ternary diagram. Use a negative width to indicate that positive
-        axes directions be clock-wise [Default lets the **a**, **b**, **c** axes be
+        Set the width of the plot by passing a number followed by a
+        :ref:`dimension unit <dimension-units>`. Use a negative width to indicate that
+        positive axes directions be clock-wise [Default lets the a, b, c axes be
         positive in a counter-clockwise direction].
-    region : str or list
+    region
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
@@ -188,18 +193,43 @@ def ternary(  # noqa: PLR0913
         Set color or pattern for filling of symbols [Default is no fill].
     no_clip
         Do not clip symbols to the ternary diagram [Default plots points whose
-        coordinates are strictly inside the map border].
+        coordinates are strictly inside the plot border].
     $verbose
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    Plot five data points as red circles on a ternary diagram:
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> from pygmt.params import Axis, Frame
+    >>> data = np.array(
+    ...     [[20, 30, 50], [60, 20, 20], [33, 33, 34], [10, 70, 20], [45, 10, 45]]
+    ... )
+    >>> fig = pygmt.Figure()
+    >>> fig.ternary(
+    ...     data=data,
+    ...     region=[0, 100, 0, 100, 0, 100],
+    ...     width="8c",
+    ...     style="c0.2c",
+    ...     fill="red",
+    ...     pen="0.5p",
+    ...     alabel="A",
+    ...     blabel="B",
+    ...     clabel="C",
+    ...     frame=Frame(axis=Axis(annot=True, tick=True, grid=True)),
+    ... )
+    >>> fig.show()
     """
-    self._activate_figure()
     # -Lalabel/blabel/clabel. '-' means skipping the label.
     _labels = [v if v is not None else "-" for v in (alabel, blabel, clabel)]
     labels = _labels if any(v != "-" for v in _labels) else None
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         G=Alias(fill, name="fill"),
         JX=Alias(width, name="width"),
         L=Alias(labels, name="alabel/blabel/clabel", sep="/", size=3),
@@ -215,6 +245,7 @@ def ternary(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

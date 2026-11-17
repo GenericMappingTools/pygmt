@@ -47,6 +47,7 @@ compatibility reasons.
 | PyGMT Version | Documentation | GMT | Python | NumPy | pandas | xarray |
 |---|---|---|---|---|---|---|
 | [Dev][]* | <doc:dev>, [HTML+ZIP](doc:dev/pygmt-docs.zip), [PDF](doc:dev/pygmt-docs.pdf) | {{ requires.gmt }} | {{ requires.python }} | {{ requires.numpy }} | {{ requires.pandas }} | {{ requires.xarray }} |
+| <tag:v0.19.0> | <doc:v0.19.0>, <html:v0.19.0>, <pdf:v0.19.0> | >=6.5.0 | >=3.12 | >=2.1 | >=2.3 | >=2024.7 |
 | <tag:v0.18.0> | <doc:v0.18.0>, <html:v0.18.0>, <pdf:v0.18.0> | >=6.5.0 | >=3.12 | >=2.0 | >=2.2 | >=2024.5 |
 | <tag:v0.17.0> | <doc:v0.17.0>, <html:v0.17.0>, <pdf:v0.17.0> | >=6.5.0 | >=3.11 | >=1.26 | >=2.2 | >=2023.10 |
 | <tag:v0.16.0> | <doc:v0.16.0>, <html:v0.16.0>, <pdf:v0.16.0> | >=6.4.0 | >=3.11 | >=1.26 | >=2.1 | >=2023.07 |

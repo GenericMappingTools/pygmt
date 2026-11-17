@@ -15,7 +15,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring
 __doctest_skip__ = ["grdmask"]
 
 
-def _alias_option_N(  # noqa: N802
+def _alias_option_N(  # ruff: ignore[invalid-function-name]
     outside: float | None = None,
     edge: float | Literal["z", "id"] | None = None,
     inside: float | Literal["z", "id"] | None = None,
@@ -139,8 +139,8 @@ def grdmask(
 
     Full GMT docs at :gmt-docs:`grdmask.html`.
 
-    **Aliases**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -191,8 +191,8 @@ def grdmask(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> import numpy as np
     >>> # Create a simple polygon as a triangle

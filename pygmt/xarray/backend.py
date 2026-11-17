@@ -114,7 +114,7 @@ class GMTBackendEntrypoint(BackendEntrypoint):
         self,
         filename_or_obj: PathLike,
         *,
-        drop_variables=None,  # noqa: ARG002
+        drop_variables=None,  # ruff: ignore[unused-method-argument]
         raster_kind: Literal["grid", "image"],
         region: Sequence[float] | str | None = None,
         # other backend specific keyword arguments
@@ -154,6 +154,6 @@ class GMTBackendEntrypoint(BackendEntrypoint):
                 # Add "source" encoding
                 source: str | list = which(fname=filename_or_obj, verbose="quiet")
                 raster.encoding["source"] = (
-                    sorted(source)[0] if isinstance(source, list) else source
+                    min(source) if isinstance(source, list) else source
                 )
                 return raster.to_dataset()

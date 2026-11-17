@@ -20,7 +20,7 @@ from pygmt.helpers import (
 )
 
 
-class triangulate:  # noqa: N801
+class triangulate:  # ruff: ignore[invalid-class-name]
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
@@ -54,12 +54,11 @@ class triangulate:  # noqa: N801
         b="binary",
         d="nodata",
         e="find",
-        f="coltypes",
         h="header",
         s="skiprows",
         w="wrap",
     )
-    def regular_grid(  # noqa: PLR0913
+    def regular_grid(
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
@@ -74,6 +73,7 @@ class triangulate:  # noqa: N801
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
+        coltypes: str | None = None,
         **kwargs,
     ) -> xr.DataArray | None:
         """
@@ -105,6 +105,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - f = coltypes
            - i = incols
            - r = registration
 
@@ -157,6 +158,7 @@ class triangulate:  # noqa: N801
             R=region,
             J=projection,
             V=verbose,
+            f=coltypes,
             i=incols,
             r=registration,
         )
@@ -181,12 +183,11 @@ class triangulate:  # noqa: N801
         b="binary",
         d="nodata",
         e="find",
-        f="coltypes",
         h="header",
         s="skiprows",
         w="wrap",
     )
-    def delaunay_triples(  # noqa: PLR0913
+    def delaunay_triples(
         data: PathLike | TableLike | None = None,
         x=None,
         y=None,
@@ -203,6 +204,7 @@ class triangulate:  # noqa: N801
         | bool = False,
         incols: int | str | Sequence[int | str] | None = None,
         registration: Literal["gridline", "pixel"] | bool = False,
+        coltypes: str | None = None,
         **kwargs,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -226,6 +228,7 @@ class triangulate:  # noqa: N801
            - J = projection
            - R = region
            - V = verbose
+           - f = coltypes
            - i = incols
            - r = registration
 
@@ -276,6 +279,7 @@ class triangulate:  # noqa: N801
             J=projection,
             R=region,
             V=verbose,
+            f=coltypes,
             i=incols,
             r=registration,
         )

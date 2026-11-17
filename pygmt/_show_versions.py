@@ -16,11 +16,12 @@ from packaging.requirements import Requirement
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__, required_gmt_version
 
-# Get semantic version through setuptools-scm
-__version__ = f"v{version('pygmt')}"  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = (  # 0ab3cd78
-    __version__.rsplit(sep="+g", maxsplit=1)[-1] if "+g" in __version__ else ""
-)
+# Get semantic version through setuptools-scm, in one of the following forms:
+# - <major>.<minor>.<micro> (e.g., 0.1.2)
+# - <major>.<minor>.<micro>.devN+<local> (e.g., 0.1.2.dev3+g0ab3cd78)
+__version__ = version("pygmt")
+# The local version label is "g<commit>" or "g<commit>.d<date>" for a dirty tree.
+__commit__ = (Version(__version__).local or "")[1:]  # e.g., 0ab3cd78
 
 
 def _get_clib_info() -> dict[str, str]:
@@ -93,19 +94,19 @@ def _check_ghostscript_version(gs_version: str | None) -> str | None:
     match Version(gs_version):
         case v if v < Version("9.53"):
             return (
-                f"Ghostscript v{gs_version} is too old and may have serious bugs. "
+                f"Ghostscript {gs_version} is too old and may have serious bugs. "
                 "Please consider upgrading your Ghostscript."
             )
         case v if Version("10.00") <= v < Version("10.02"):
             return (
-                f"Ghostscript v{gs_version} has known bugs. "
-                "Please consider upgrading to version v10.02 or later."
+                f"Ghostscript {gs_version} has known bugs. "
+                "Please consider upgrading to Ghostscript 10.02 or later."
             )
         case v if v >= Version("10.02") and Version(__gmt_version__) < Version("6.5.0"):
             return (
-                f"GMT v{__gmt_version__} doesn't support Ghostscript v{gs_version}. "
+                f"GMT {__gmt_version__} doesn't support Ghostscript {gs_version}. "
                 "Please consider upgrading to GMT>=6.5.0 or downgrading to Ghostscript "
-                "v9.56."
+                "9.56."
             )
     return None
 

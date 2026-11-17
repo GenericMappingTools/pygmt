@@ -3,9 +3,7 @@ PyGMT logo
 ==========
 Beside the :doc:`GMT logo </gallery/embellishments/gmt_logo>`, there is a specific logo
 for PyGMT which can be plotted and added to a figure using
-:meth:`pygmt.Figure.pygmtlogo`. The design of the logo itself is kindly provided by
-`@sfrooti <https://github.com/sfrooti>`_ and consists of an icon and the wordmark
-"PyGMT".
+:meth:`pygmt.Figure.pygmtlogo`.
 
 The visual logo is available in circle and hexagon shapes. It supports both colored and
 monochrome black-and-white palettes, alongside light and dark theme modes, combining to
@@ -27,7 +25,7 @@ fig.show()
 
 
 # %%
-# Via the ``color``, ``theme``, ``shape`` parameters the appereance of the logo can be
+# Via the ``color``, ``theme``, ``shape`` parameters the appearance of the logo can be
 # changed.
 
 fig = pygmt.Figure()
@@ -45,7 +43,7 @@ fig.show()
 
 
 # %%
-# Via the ``wordamrk`` parameter the text "PyGMT" can be added on the right side or at
+# Via the ``wordmark`` parameter the text "PyGMT" can be added on the right side or at
 # the bottom of the visual. Use the ``width`` and ``height`` parameters to adjust the
 # size of the logo.
 

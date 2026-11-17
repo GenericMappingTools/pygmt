@@ -14,9 +14,11 @@ from pygmt.helpers import build_arg_list, data_kind, fmt_docstring, is_nonstr_it
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
+__doctest__skip__ = ["legend"]
+
 
 @fmt_docstring
-def legend(  # noqa: PLR0913
+def legend(
     self,
     spec: PathLike | io.StringIO | None = None,
     position: Position | Sequence[float | str] | AnchorCode | None = None,
@@ -46,13 +48,13 @@ def legend(  # noqa: PLR0913
 
     Full GMT docs at :gmt-docs:`legend.html`.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
-       - D = position, **+w**: width/height, **+l**: line_spacing
        - B = frame
+       - D = position, **+w**: width/height, **+l**: line_spacing
        - F = box
        - J = projection
        - R = region
@@ -93,9 +95,11 @@ def legend(  # noqa: PLR0913
         width. If height is given as percentage then height is recomputed as that
         fraction of the legend width (not plot height).
 
-        **Note:** Currently, the automatic height calculation only works when legend
+        **Note:** Currently, the automatic width calculation only works when legend
         codes **D**, **H**, **L**, **S**, or **V** are used and that the number of
-        symbol columns (**N**) is 1.
+        symbol columns (**N**) is 1. If height is zero or not given, GMT estimates it
+        based on the expected vertical extent of the items to be placed. A legend
+        containing paragraph text may require an explicit height.
     line_spacing
         The line-spacing factor between legend entries in units of the current font size
         [Default is 1.1].
@@ -113,9 +117,24 @@ def legend(  # noqa: PLR0913
     $panel
     $perspective
     $transparency
-    """
-    self._activate_figure()
 
+    Examples
+    --------
+    Create a legend automatically from the plotted symbols and lines that have labels:
+
+    >>> import pygmt
+    >>> from pygmt.params import Box, Position
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.plot(x=[2, 5, 8], y=[3, 6, 4], style="c0.3c", fill="red", label="Circles")
+    >>> fig.plot(x=[2, 5, 8], y=[7, 2, 8], pen="1p,blue", label="Line")
+    >>> fig.legend(
+    ...     position=Position("BL", offset=0.2),
+    ...     width="4c",
+    ...     box=Box(pen="1p,gray30", fill="lightyellow", radius="4p"),
+    ... )
+    >>> fig.show()
+    """
     # Set default box if both position and box are not given.
     # The default position will be set later in _parse_position().
     if kwargs.get("D", position) is None and kwargs.get("F", box) is False:
@@ -159,6 +178,7 @@ def legend(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(data=spec, required=False) as vintbl:
             lib.call_module(

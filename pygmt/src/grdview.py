@@ -13,18 +13,17 @@ from pygmt.clib import Session, __gmt_version__
 from pygmt.exceptions import GMTParameterError
 from pygmt.helpers import (
     build_arg_list,
-    deprecate_parameter,
     fmt_docstring,
     is_given,
     use_alias,
 )
-from pygmt.params import Axis, Frame
+from pygmt.params import Axis, Frame, Pattern
 from pygmt.src.grdinfo import grdinfo
 
 __doctest_skip__ = ["grdview"]
 
 
-def _alias_option_Q(  # noqa: N802
+def _alias_option_Q(  # ruff: ignore[invalid-function-name]
     surftype=None, dpi=None, mesh_fill=None, monochrome=False, nan_transparent=False
 ):
     """
@@ -114,14 +113,8 @@ def _alias_option_Q(  # noqa: N802
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated '*pen' parameters.
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'drapegrid' parameter.
-@deprecate_parameter("contourpen", "contour_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("facadepen", "facade_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("meshpen", "mesh_pen", "v0.18.0", remove_version="v0.20.0")
-@deprecate_parameter("drapegrid", "drape_grid", "v0.18.0", remove_version="v0.20.0")
-@use_alias(I="shading", f="coltypes", n="interpolation")
-def grdview(  # noqa: PLR0913
+@use_alias(I="shading", n="interpolation")
+def grdview(
     self,
     grid: PathLike | xr.DataArray,
     cmap: str | None = None,
@@ -134,10 +127,10 @@ def grdview(  # noqa: PLR0913
     nan_transparent: bool = False,
     monochrome: bool = False,
     contour_pen: str | None = None,
-    mesh_fill: str | None = None,
+    mesh_fill: str | Pattern | None = None,
     mesh_pen: str | None = None,
     plane: float | bool = False,
-    facade_fill: str | None = None,
+    facade_fill: str | Pattern | None = None,
     facade_pen: str | None = None,
     projection: str | None = None,
     smooth: int | None = None,
@@ -150,6 +143,7 @@ def grdview(  # noqa: PLR0913
     panel: int | Sequence[int] | bool = False,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -179,6 +173,7 @@ def grdview(  # noqa: PLR0913
        - Wf = facade_pen
        - Wm = mesh_pen
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
 
@@ -187,7 +182,7 @@ def grdview(  # noqa: PLR0913
     $grid
     cmap
         The name of the color palette table to use.
-    drapegrid
+    drape_grid
         The grid (a file name or a :class:`xarray.DataArray`) or image to be draped on
         top of the grid surface provided by ``grid`` [Default determines colors from
         ``grid``]. Note that ``zscale`` and ``plane`` always refer to ``grid``.
@@ -223,7 +218,7 @@ def grdview(  # noqa: PLR0913
         value in the grid. However, if ``region`` was used to set *zmin/zmax* then
         *zmin* is used if it is less than the grid minimum value. Use ``facade_pen`` and
         ``facade_fill`` to control the appearance of the plane.
-        **Note**: For GMT<=6.6.0, *zmin* set in ``region`` has no effect due to a GMT
+        **Note**: For GMT<=6.7.0, *zmin* set in ``region`` has no effect due to a GMT
         bug.
     facade_fill
         Fill for the frontal facade between the plane specified by ``plane`` and the
@@ -258,8 +253,10 @@ def grdview(  # noqa: PLR0913
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
+    Create a 3-D surface plot of the Earth's relief.
+
     >>> import pygmt
     >>> from pygmt.params import Axis, Frame
     >>> # Load the 30 arc-minutes grid with "gridline" registration in a given region
@@ -268,36 +265,28 @@ def grdview(  # noqa: PLR0913
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
-    >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create the contour plot
     >>> fig.grdview(
-    ...     # Pass in the grid downloaded above
     ...     grid=grid,
     ...     # Set the perspective to an azimuth of 130° and an elevation of 30°
-    ...     perspective=[130, 30],
+    ...     perspective=(130, 30),
     ...     # Add a frame to the x- and y-axes
     ...     # Specify annotations on the south and east borders of the plot
     ...     frame=Frame(axes="wSnE", xaxis=Axis(annot=True), yaxis=Axis(annot=True)),
     ...     # Set the projection of the 2-D map to Mercator with a 10 cm width
     ...     projection="M10c",
-    ...     # Set the vertical scale (z-axis) to 2 cm
-    ...     zsize="2c",
-    ...     # Set "surface plot" to color the surface via a CPT
-    ...     surftype="surface",
-    ...     # Specify CPT to "geo"
-    ...     cmap="gmt/geo",
+    ...     zsize="2c",  # Set the vertical scale (z-axis) to 2 cm
+    ...     surftype="surface",  # Set "surface plot" to color the surface via a CPT
+    ...     cmap="gmt/geo",  # Specify CPT to "geo"
     ... )
-    >>> # Show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Enable 'plane' if 'facade_fill' or 'facade_pen' are set
     if plane is False and (facade_fill is not None or facade_pen is not None):
         plane = True
 
-    # Workaround for GMT bug https://github.com/GenericMappingTools/gmt/pull/8838
+    # Workaround for GMT bugs https://github.com/GenericMappingTools/gmt/pull/8838 and
+    # https://github.com/GenericMappingTools/gmt/pull/9123.
     # Fix the plane value to be the grid minimum if plane=True.
     # Notes:
     # 1. It's the minimum of the grid, not a subset of the grid defined by 'region'.
@@ -305,8 +294,8 @@ def grdview(  # noqa: PLR0913
     #    it is less than the grid minimum value.". We can't add a workaround for this
     #    case since we can't parse zmin/zmax from 'region' if 'region' was set in
     #    previous plotting commands.
-    # TODO(GMT>6.6.0): Remove this workaround.
-    if Version(__gmt_version__) <= Version("6.6.0") and plane is True:
+    # TODO(GMT>6.7.0): Remove this workaround.
+    if Version(__gmt_version__) <= Version("6.7.0") and plane is True:
         plane = grdinfo(grid, per_column=True).split()[4]
 
     aliasdict = AliasSystem(
@@ -334,11 +323,13 @@ def grdview(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

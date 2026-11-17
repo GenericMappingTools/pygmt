@@ -21,8 +21,10 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Box, Frame, Position
 from pygmt.src._common import _parse_position
 
+__doctest_skip__ = ["subplot"]
 
-def _alias_option_A(  # noqa: N802
+
+def _alias_option_A(  # ruff: ignore[invalid-function-name]
     tag: str | bool = False,
     tag_position: AnchorCode | Position | None = None,
     tag_box: Box | None = None,
@@ -131,7 +133,7 @@ def _alias_option_A(  # noqa: N802
 @contextlib.contextmanager
 @use_alias(Ff="figsize", Fs="subsize", C="clearance", SC="sharex", SR="sharey")
 @kwargs_to_strings(Ff="sequence", Fs="sequence")
-def subplot(  # noqa: PLR0913
+def subplot(
     self,
     nrows: int = 1,
     ncols: int = 1,
@@ -231,7 +233,7 @@ def subplot(  # noqa: PLR0913
     autolabel
         Specify automatic tag of each subplot.
 
-        .. deprecated:: v0.19.0
+        .. deprecated:: 0.19.0
 
            Use the parameters ``tag``, ``tag_position``, ``tag_box``,
            ``tag_number_style``, ``tag_orientation``, and ``tag_font`` instead.
@@ -297,9 +299,43 @@ def subplot(  # noqa: PLR0913
     $region
     $frame
     $verbose
-    """
-    self._activate_figure()
 
+    Examples
+    --------
+    Create a figure with two subplots in one row, showing regional maps of Japan and New
+    Zealand in the Mercator projection. The subplots are tagged as "a)" and "b)" at the
+    Top Left corner outside each map frame. The ``"?"`` in ``projection`` means the
+    width of each map is automatically determined from the subplot dimensions:
+
+    >>> import pygmt
+    >>> from pygmt.params import Position
+    >>> fig = pygmt.Figure()
+    >>> with fig.subplot(
+    ...     nrows=1,
+    ...     ncols=2,
+    ...     figsize=("15c", "6c"),
+    ...     tag=True,
+    ...     tag_position=Position("TL", cstype="outside"),
+    ...     margins="0.5c",
+    ... ):
+    ...     fig.coast(
+    ...         region=[128, 146, 30, 46],
+    ...         projection="M?",
+    ...         land="gray",
+    ...         water="lightblue",
+    ...         frame=True,
+    ...         panel=0,
+    ...     )
+    ...     fig.coast(
+    ...         region=[165, 180, -48, -34],
+    ...         projection="M?",
+    ...         land="gray",
+    ...         water="lightblue",
+    ...         frame=True,
+    ...         panel=1,
+    ...     )
+    >>> fig.show()
+    """
     if nrows < 1 or ncols < 1:
         _value = f"{nrows=}, {ncols=}"
         raise GMTValueError(
@@ -337,6 +373,8 @@ def subplot(  # noqa: PLR0913
     # Otherwise, "subplot end" will use the last session, which may cause
     # strange positioning issues for later plotting calls.
     # See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    self._activate_figure()
+
     try:
         with Session() as lib:
             lib.call_module(
@@ -359,7 +397,7 @@ def subplot(  # noqa: PLR0913
 @fmt_docstring
 @contextlib.contextmanager
 # TODO(PyGMT>=0.23.0): Remove the deprecated 'fixedlabel' parameter.
-@deprecate_parameter("fixedlabel", "tag", "v0.19.0", remove_version="v0.23.0")
+@deprecate_parameter("fixedlabel", "tag", "0.19.0", remove_version="0.23.0")
 @use_alias(C="clearance")
 def set_panel(
     self,
@@ -414,8 +452,6 @@ def set_panel(
 
     $verbose
     """
-    self._activate_figure()
-
     aliasdict = AliasSystem(A=Alias(tag, name="tag")).add_common(V=verbose)
     aliasdict.merge(kwargs)
 
@@ -424,6 +460,7 @@ def set_panel(
         args.append(Alias(panel, name="panel", sep=",", size=2)._value)  # type: ignore[arg-type]
     args.extend(build_arg_list(aliasdict))
 
+    self._activate_figure()
     with Session() as lib:
         lib.call_module(module="subplot", args=args)
         yield

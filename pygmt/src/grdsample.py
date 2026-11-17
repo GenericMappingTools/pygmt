@@ -22,8 +22,8 @@ __doctest_skip__ = ["grdsample"]
 
 # TODO(PyGMT>=0.21.0): Remove the deprecated "translate" parameter.
 @fmt_docstring
-@deprecate_parameter("translate", "toggle", "v0.18.0", remove_version="v0.21.0")
-@use_alias(f="coltypes", n="interpolation")
+@deprecate_parameter("translate", "toggle", "0.18.0", remove_version="0.21.0")
+@use_alias(n="interpolation")
 def grdsample(
     grid: PathLike | xr.DataArray,
     outgrid: PathLike | None = None,
@@ -34,6 +34,7 @@ def grdsample(
     | bool = False,
     registration: Literal["gridline", "pixel"] | bool = False,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     """
@@ -65,6 +66,7 @@ def grdsample(
        - R = region
        - T = toggle
        - V = verbose
+       - f = coltypes
        - r = registration
        - x = cores
 
@@ -94,8 +96,8 @@ def grdsample(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
@@ -115,6 +117,7 @@ def grdsample(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         r=registration,
         x=cores,
     )

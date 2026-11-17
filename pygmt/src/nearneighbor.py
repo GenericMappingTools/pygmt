@@ -23,7 +23,6 @@ __doctest_skip__ = ["nearneighbor"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     w="wrap",
@@ -40,6 +39,7 @@ def nearneighbor(
     | bool = False,
     incols: int | str | Sequence[int | str] | None = None,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -62,7 +62,7 @@ def nearneighbor(
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/6.6/_images/GMT_nearneighbor.png
+    .. figure:: https://docs.generic-mapping-tools.org/6.7/_images/GMT_nearneighbor.png
        :width: 300 px
        :align: center
 
@@ -83,6 +83,7 @@ def nearneighbor(
        - I = spacing
        - R = region
        - V = verbose
+       - f = coltypes
        - i = incols
        - r = registration
 
@@ -139,8 +140,9 @@ def nearneighbor(
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
-    Example
-    -------
+
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a sample dataset of bathymetric x, y, and z values
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
@@ -158,6 +160,7 @@ def nearneighbor(
     ).add_common(
         R=region,
         V=verbose,
+        f=coltypes,
         i=incols,
         r=registration,
     )

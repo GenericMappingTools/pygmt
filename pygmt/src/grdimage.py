@@ -17,18 +17,17 @@ __doctest_skip__ = ["grdimage"]
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="img_in",
     E="dpi",
     G="bitcolor",
     I="shading",
     Q="nan_transparent",
     n="interpolation",
-    f="coltypes",
 )
-def grdimage(  # noqa: PLR0913
+def grdimage(
     self,
     grid: PathLike | xr.DataArray,
+    cmap: str | bool = False,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -40,6 +39,7 @@ def grdimage(  # noqa: PLR0913
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
     cores: int | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -77,12 +77,14 @@ def grdimage(  # noqa: PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - M = monochrome
        - N = no_clip
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - p = perspective
        - t = transparency
        - x = cores
@@ -156,27 +158,23 @@ def grdimage(  # noqa: PLR0913
     $transparency
     $cores
 
-    Example
-    -------
+    Examples
+    --------
+    Plot the global Earth relief using a Mollweide projection.
+
     >>> import pygmt
     >>> from pygmt.params import Axis
-    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # Load the 30 arc-minutes grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
-    >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # pass in the grid and set the CPT to "geo"
-    >>> # set the projection to Mollweide and the size to 10 cm
     >>> fig.grdimage(
     ...     grid=grid,
-    ...     cmap="gmt/geo",
-    ...     projection="W10c",
+    ...     cmap="gmt/geo",  # Use the built-in "gmt/geo" CPT
+    ...     projection="W10c",  # Set the Mollweide projection and width of 10 cm
     ...     frame=Axis(annot=True, grid=True),
     ... )
-    >>> # show the plot
     >>> fig.show()
     """
-    self._activate_figure()
-
     # Do not support -A option
     if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
         msg = (
@@ -186,6 +184,7 @@ def grdimage(  # noqa: PLR0913
         raise NotImplementedError(msg)
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         M=Alias(monochrome, name="monochrome"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
@@ -194,12 +193,14 @@ def grdimage(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         p=perspective,
         t=transparency,
         x=cores,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,

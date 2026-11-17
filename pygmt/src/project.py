@@ -27,9 +27,8 @@ from pygmt.helpers import (
     Q="unit",
     S="sort",
     Z="ellipse",
-    f="coltypes",
 )
-def project(  # noqa: PLR0913
+def project(
     data: PathLike | TableLike | None = None,
     x=None,
     y=None,
@@ -44,6 +43,7 @@ def project(  # noqa: PLR0913
     pole: Sequence[float | str] | None = None,
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> pd.DataFrame | np.ndarray | None:
     r"""
@@ -116,8 +116,9 @@ def project(  # noqa: PLR0913
        - E = endpoint
        - L = length
        - T = pole
-       - W = width
        - V = verbose
+       - W = width
+       - f = coltypes
 
     Parameters
     ----------
@@ -125,6 +126,8 @@ def project(  # noqa: PLR0913
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         $table_classes.
+    x/y/z : 1-D arrays
+        Arrays of x- and y-coordinates and z-values of the data points.
     $output_type
     $outfile
     center
@@ -222,9 +225,9 @@ def project(  # noqa: PLR0913
     """
     if kwargs.get("C", center) is None:
         raise GMTParameterError(required="center")
-    if kwargs.get("G") is None and data is None:
+    if kwargs.get("G") is None and data is None and x is None and y is None:
         raise GMTParameterError(
-            required="data", reason="Required unless 'generate' is set."
+            at_least_one=["data", "x/y/z"], reason="Required unless 'generate' is set."
         )
     if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTParameterError(at_most_one=["convention", "generate"])
@@ -253,6 +256,7 @@ def project(  # noqa: PLR0913
         W=Alias(width, name="width", sep="/", size=2),
     ).add_common(
         V=verbose,
+        f=coltypes,
     )
     aliasdict.merge(kwargs)
 
@@ -265,7 +269,7 @@ def project(  # noqa: PLR0913
                 y=y,
                 z=z,
                 mincols=2,
-                required=False,
+                required=aliasdict.get("G") is None,
             ) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):

@@ -11,18 +11,15 @@ from pygmt._typing import PathLike, TableLike
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.exceptions import GMTParameterError, GMTTypeError
-from pygmt.helpers import build_arg_list, deprecate_parameter, fmt_docstring, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, use_alias
 from pygmt.params import Axis, Frame
+
+__doctest_skip__ = ["velo"]
 
 
 @fmt_docstring
-# TODO(PyGMT>=0.20.0): Remove the deprecated 'uncertaintyfill' parameter.
-@deprecate_parameter(
-    "uncertaintyfill", "uncertainty_fill", "v0.18.0", remove_version="v0.20.0"
-)
 @use_alias(
     A="vector",
-    C="cmap",
     D="rescale",
     E="uncertainty_fill",
     G="fill",
@@ -36,9 +33,10 @@ from pygmt.params import Axis, Frame
     e="find",
     h="header",
 )
-def velo(  # noqa : PLR0913
+def velo(
     self,
     data: PathLike | TableLike | None = None,
+    cmap: str | bool = False,
     no_clip: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -67,6 +65,7 @@ def velo(  # noqa : PLR0913
 
     $aliases
        - B = frame
+       - C = cmap
        - J = projection
        - N = no_clip
        - R = region
@@ -88,7 +87,7 @@ def velo(  # noqa : PLR0913
         Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
-        :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
+        :gmt-term:`PROJ_LENGTH_UNIT` unless a :ref:`dimension unit <dimension-units>` is
         appended).
 
         - **e**\ [*velscale*/]\ *confidence*\ [**+f**\ *font*]
@@ -254,9 +253,47 @@ def velo(  # noqa : PLR0913
     $incols
     $perspective
     $transparency
-    """
-    self._activate_figure()
 
+    Examples
+    --------
+    Plot mean velocity arrows with confidence ellipses. Fill the ellipses in bisque and
+    outline them in darkbrown. Color the arrows in magenta and fill their heads in
+    purple. Add the labels with fonsize 10. The velocity arrows are scaled by 0.2 and
+    the 39% confidence limit will give an ellipse which fits inside a rectangle of
+    dimension east_sigma by north_sigma.
+
+    >>> import pandas as pd
+    >>> import pygmt
+    >>>
+    >>> # Setup some dummy data as pandas DataFrame with two entries.
+    >>> df = pd.DataFrame(
+    ...     data={
+    ...         "x": [2, -2],
+    ...         "y": [0, -1],
+    ...         "east_velocity": [4, 6],
+    ...         "north_velocity": [6, 2],
+    ...         "east_sigma": [3, 4],
+    ...         "north_sigma": [3, 1],
+    ...         "correlation_EN": [0.5, -0.5],
+    ...         "SITE": ["4x6", "6x2"],
+    ...     }
+    ... )
+    >>>
+    >>> fig = pygmt.Figure()
+    >>> fig.velo(
+    ...     data=df,
+    ...     region=[-5, 5, -5, 5],
+    ...     projection="X10c",
+    ...     frame=True,
+    ...     spec="e0.2/0.39+f10",
+    ...     uncertainty_fill="bisque",
+    ...     pen="1p,magenta",
+    ...     line="darkbrown",
+    ...     vector="0.5c+p1p+e+gpurple",
+    ... )
+    >>>
+    >>> fig.show()
+    """
     if kwargs.get("S") is None:
         raise GMTParameterError(required="spec")
     if not isinstance(kwargs["S"], str):
@@ -275,6 +312,7 @@ def velo(  # noqa : PLR0913
         )
 
     aliasdict = AliasSystem(
+        C=Alias(cmap, name="cmap"),
         N=Alias(no_clip, name="no_clip"),
     ).add_common(
         B=frame,
@@ -288,6 +326,7 @@ def velo(  # noqa : PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

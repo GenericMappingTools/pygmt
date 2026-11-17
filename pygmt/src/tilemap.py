@@ -17,10 +17,12 @@ try:
 except ImportError:
     TileProvider = None
 
+__doctest_skip__ = ["tilemap"]
+
 
 @fmt_docstring
 @use_alias(E="dpi", I="shading", Q="nan_transparent")
-def tilemap(  # noqa: PLR0913
+def tilemap(
     self,
     region: Sequence[float],
     zoom: int | Literal["auto"] = "auto",
@@ -29,6 +31,7 @@ def tilemap(  # noqa: PLR0913
     wait: int = 0,
     max_retries: int = 2,
     zoom_adjust: int | None = None,
+    headers: dict[str, str] | None = None,
     monochrome: bool = False,
     no_clip: bool = False,
     projection: str | None = None,
@@ -89,7 +92,7 @@ def tilemap(  # noqa: PLR0913
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
           URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
-          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+          ``https://tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
@@ -108,11 +111,55 @@ def tilemap(  # noqa: PLR0913
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
+    headers
+        HTTP headers to include with requests to the tile server. This can be useful
+        for authentication or to set a custom User-Agent. When supported by
+        ``contextily`` (>=1.7.0), PyGMT sets a default ``User-Agent`` header like
+        ``PyGMT/X.Y.Z (+https://www.pygmt.org)``.
+
+        .. note::
+           Requires ``contextily>=1.7.0``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+    no_clip
+        Do **not** clip the tiles at the frame boundaries, so that the full extent of
+        the downloaded tiles is plotted [Default is ``False``].
+    $projection
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
-    """
-    self._activate_figure()
 
+    Examples
+    --------
+    >>> import contextily
+    >>> import pygmt
+
+    Plot a tile map of Honolulu, Hawaii using the default OpenStreetMap Humanitarian web
+    tiles:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.tilemap(
+    ...     region=[-157.84, -157.8, 21.255, 21.285], projection="M12c", frame=True
+    ... )
+    >>> fig.show()
+
+    Use the Esri World Imagery satellite tiles provided via the
+    :doc:`contextily <contextily:index>` library at a specified zoom level:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.tilemap(
+    ...     region=[-157.84, -157.8, 21.255, 21.285],
+    ...     projection="M12c",
+    ...     zoom=14,
+    ...     source=contextily.providers.Esri.WorldImagery,
+    ...     frame=True,
+    ... )
+    >>> fig.show()
+    """
     raster = load_tile_map(
         region=region,
         zoom=zoom,
@@ -122,6 +169,7 @@ def tilemap(  # noqa: PLR0913
         wait=wait,
         max_retries=max_retries,
         zoom_adjust=zoom_adjust,
+        headers=headers,
     )
     if lonlat:
         raster.gmt.gtype = GridType.GEOGRAPHIC
@@ -145,6 +193,7 @@ def tilemap(  # noqa: PLR0913
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=raster) as vingrd:
             lib.call_module(

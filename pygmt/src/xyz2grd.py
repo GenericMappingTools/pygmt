@@ -22,7 +22,6 @@ __doctest_skip__ = ["xyz2grd"]
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     i="incols",
     w="wrap",
@@ -39,6 +38,7 @@ def xyz2grd(
     verbose: Literal["quiet", "error", "warning", "timing", "info", "compat", "debug"]
     | bool = False,
     registration: Literal["gridline", "pixel"] | bool = False,
+    coltypes: str | None = None,
     **kwargs,
 ) -> xr.DataArray | None:
     r"""
@@ -58,6 +58,7 @@ def xyz2grd(
        - J = projection
        - R = region
        - V = verbose
+       - f = coltypes
        - r = registration
 
     Parameters
@@ -145,8 +146,8 @@ def xyz2grd(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import numpy as np
     >>> import pygmt
     >>> # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,
@@ -167,6 +168,7 @@ def xyz2grd(
         J=projection,
         R=region,
         V=verbose,
+        f=coltypes,
         r=registration,
     )
     aliasdict.merge(kwargs)

@@ -1,5 +1,0 @@
-outs:
-- md5: 5dc625ae9ba8a041111cbf3d8864731b
-  size: 112245
-  path: test_grdcontour_labels.png
-  hash: md5

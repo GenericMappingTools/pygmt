@@ -19,10 +19,11 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Frame
 from pygmt.src._common import _data_geometry_is_point
 
+__doctest_skip__ = ["plot"]
+
 
 @fmt_docstring
 @use_alias(
-    C="cmap",
     D="offset",
     E="error_bar",
     F="connection",
@@ -37,13 +38,12 @@ from pygmt.src._common import _data_geometry_is_point
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     g="gap",
     h="header",
     l="label",
     w="wrap",
 )
-def plot(  # noqa: PLR0912, PLR0913
+def plot(  # ruff: ignore[too-many-branches]
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -51,6 +51,7 @@ def plot(  # noqa: PLR0912, PLR0913
     size=None,
     symbol=None,
     direction=None,
+    cmap: str | bool = False,
     straight_line: bool | Literal["x", "y"] = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
@@ -61,6 +62,7 @@ def plot(  # noqa: PLR0912, PLR0913
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | Sequence[float] | bool | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -89,10 +91,12 @@ def plot(  # noqa: PLR0912, PLR0913
     $aliases
        - A = straight_line
        - B = frame
+       - C = cmap
        - J = projection
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -247,11 +251,23 @@ def plot(  # noqa: PLR0912, PLR0913
         Plot horizontal lines.
     pygmt.Figure.vlines
         Plot vertical lines.
+
+    Examples
+    --------
+    Plot a blue line connecting the data points and then plot the data points as red
+    circles on top:
+
+    >>> import pygmt
+    >>> x = [1, 3, 5, 7, 9]
+    >>> y = [2, 6, 4, 8, 5]
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    >>> fig.plot(x=x, y=y, pen="1p,blue")  # Line
+    >>> fig.plot(x=x, y=y, style="c0.3c", fill="cyan", pen="0.5p,black")  # Circle
+    >>> fig.show()
     """
     # TODO(GMT>6.5.0): Remove the note for the upstream bug of the "straight_line"
     # parameter.
-    self._activate_figure()
-
     kind = data_kind(data)
     if kind == "empty":  # Data is given via a series of vectors.
         data = {"x": x, "y": y}
@@ -305,18 +321,21 @@ def plot(  # noqa: PLR0912, PLR0913
 
     aliasdict = AliasSystem(
         A=Alias(straight_line, name="straight_line"),
+        C=Alias(cmap, name="cmap"),
     ).add_common(
         B=frame,
         R=region,
         J=projection,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(

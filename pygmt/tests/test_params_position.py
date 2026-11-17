@@ -59,3 +59,12 @@ def test_params_position_invalid_anchor():
     """
     with pytest.raises(GMTValueError):
         Position((10, 20), cstype="mapcoords", anchor="XX")
+
+
+def test_params_position_unhashable_justification_code():
+    """
+    Test that an unhashable refpoint raises GMTValueError rather than TypeError.
+    """
+    for cstype in ("inside", "outside"):
+        with pytest.raises(GMTValueError):
+            Position(["T", "L"], cstype=cstype)

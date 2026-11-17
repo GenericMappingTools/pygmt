@@ -57,7 +57,6 @@ with fig.shift_origin(yshift=height + 0.25):
         data=x,
         fill=fill,
         pen="0.1p,white",
-        histtype=0,
         series=0.2,
     )
 
@@ -77,7 +76,6 @@ with fig.shift_origin(xshift=width + 0.25):
         data=y,
         fill=fill,
         pen="0.1p,white",
-        histtype=0,
         series=0.2,
     )
 fig.show()

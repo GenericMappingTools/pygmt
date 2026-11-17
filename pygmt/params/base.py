@@ -62,7 +62,7 @@ class BaseParam(ABC):
         """
         self._validate()
 
-    def _validate(self):  # noqa: B027
+    def _validate(self):  # ruff: ignore[empty-method-without-abstract-decorator]
         """
         Validate the parameters of the object.
 

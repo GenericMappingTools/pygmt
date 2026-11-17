@@ -18,12 +18,13 @@ from pygmt.helpers import (
     is_nonstr_iter,
     non_ascii_to_octal,
 )
+from pygmt.params import Pattern
 
 __doctest_skip__ = ["paragraph"]
 
 
 @fmt_docstring
-def paragraph(  # noqa: PLR0913
+def paragraph(
     self,
     x: float | str,
     y: float | str,
@@ -33,7 +34,7 @@ def paragraph(  # noqa: PLR0913
     font: str | None = None,
     angle: float | None = None,
     justify: AnchorCode | None = None,
-    fill: str | None = None,
+    fill: str | Pattern | None = None,
     pen: str | None = None,
     alignment: Literal["left", "center", "right", "justified"] = "left",
     tab_width: int = 4,
@@ -100,6 +101,8 @@ def paragraph(  # noqa: PLR0913
 
     Examples
     --------
+    Typeset a paragraph of text within a specified width and line spacing on a plot.
+
     >>> import pygmt
     >>>
     >>> fig = pygmt.Figure()
@@ -114,8 +117,6 @@ def paragraph(  # noqa: PLR0913
     ... )
     >>> fig.show()
     """
-    self._activate_figure()
-
     _valid_alignments = ("left", "center", "right", "justified")
     if alignment not in _valid_alignments:
         raise GMTValueError(
@@ -156,7 +157,6 @@ def paragraph(  # noqa: PLR0913
         text = re.split(r"\n\s*\n", text)  # type: ignore[arg-type]
     # Join multiple paragraphs with a blank line. Remove trailing whitespaces and
     # newlines in each paragraph, but keep leading whitespaces and tabs for now.
-    # _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     _textstr = sep.join(t.rstrip().replace("\n", "") for t in text)
     # Replace two or more consecutive spaces with \040 (octal for space), and replace
     # tabs with the appropriate number of \040.
@@ -175,6 +175,7 @@ def paragraph(  # noqa: PLR0913
         _textstr = non_ascii_to_octal(_textstr, encoding=encoding)
         confdict["PS_CHAR_ENCODING"] = encoding
 
+    self._activate_figure()
     with Session() as lib:
         with io.StringIO() as buffer:  # Prepare the StringIO input.
             buffer.write(f"> {x} {y} {linespacing} {parwidth} {alignment[0]}\n")

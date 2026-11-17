@@ -7,13 +7,14 @@ typically used for mapping large regions like continents and hemispheres. It is
 an azimuthal, equal-area projection, but is not perspective. Distortion is zero
 at the center of the projection, and increases radially away from this point.
 
-**a**\ *lon0/lat0*\ [*/horizon*\ ]\ */scale*
-or **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*
+**a**\ *lon0/lat0*\ [*/horizon*]\ */scale*
+or **A**\ *lon0/lat0*\ [*/horizon*]\ */width*
 
-**a** or **A** specifies the projection type, and *lon0/lat0* specifies the
-projection center, *horizon* specifies the maximum distance from projection
-center (in degrees, <= 180, default 90), and *scale* or *width* sets the size
-of the figure.
+- **a** or **A**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *horizon*: Sets the maximum distance from the projection center in degrees
+  (<= 180°) [Optional, default is 90°].
+- *scale* or *width*: Sets the map size.
 """
 
 # %%

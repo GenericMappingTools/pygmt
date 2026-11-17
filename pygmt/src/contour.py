@@ -16,6 +16,8 @@ from pygmt.helpers import (
 )
 from pygmt.params import Axis, Frame
 
+__doctest_skip__ = ["contour"]
+
 
 @fmt_docstring
 @use_alias(
@@ -28,11 +30,10 @@ from pygmt.params import Axis, Frame
     b="binary",
     d="nodata",
     e="find",
-    f="coltypes",
     h="header",
     l="label",
 )
-def contour(  # noqa: PLR0913
+def contour(
     self,
     data: PathLike | TableLike | None = None,
     x=None,
@@ -48,6 +49,7 @@ def contour(  # noqa: PLR0913
     incols: int | str | Sequence[int | str] | None = None,
     perspective: float | Sequence[float] | str | bool = False,
     transparency: float | None = None,
+    coltypes: str | None = None,
     **kwargs,
 ):
     r"""
@@ -67,6 +69,7 @@ def contour(  # noqa: PLR0913
        - R = region
        - V = verbose
        - c = panel
+       - f = coltypes
        - i = incols
        - p = perspective
        - t = transparency
@@ -150,9 +153,30 @@ def contour(  # noqa: PLR0913
     $incols
     $perspective
     $transparency
-    """
-    self._activate_figure()
 
+    Examples
+    --------
+    Plot contours every 20 units and annotate every other contour (i.e., every 40 units)
+    from data points given as three 1-D arrays:
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> x, y = np.meshgrid(np.linspace(-10, 10, 41), np.linspace(-10, 10, 41))
+    >>> z = x**2 + y**2
+    >>> fig = pygmt.Figure()
+    >>> fig.contour(
+    ...     x=x.ravel(),
+    ...     y=y.ravel(),
+    ...     z=z.ravel(),
+    ...     region=[-10, 10, -10, 10],
+    ...     projection="X10c",
+    ...     frame=True,
+    ...     levels=20,
+    ...     annotation=40,
+    ...     pen="0.5p",
+    ... )
+    >>> fig.show()
+    """
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
@@ -172,12 +196,14 @@ def contour(  # noqa: PLR0913
         R=region,
         V=verbose,
         c=panel,
+        f=coltypes,
         i=incols,
         p=perspective,
         t=transparency,
     )
     aliasdict.merge(kwargs)
 
+    self._activate_figure()
     with Session() as lib:
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, mincols=3

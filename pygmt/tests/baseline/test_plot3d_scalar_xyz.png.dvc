@@ -1,5 +1,0 @@
-outs:
-- md5: e6139d3463805a58727f0f277b54cd14
-  size: 31643
-  path: test_plot3d_scalar_xyz.png
-  hash: md5

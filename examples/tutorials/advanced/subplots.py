@@ -51,9 +51,9 @@ fig = pygmt.Figure()
 # %%
 # will define our figure to have a 2 row and 3 column grid layout.
 # ``figsize=("15c", "6c")`` defines the overall size of the figure to be 15 cm wide by
-# 6 cm high. Using ``frame=Frame(axes="lrtb")`` allows us to customize the map frame for
-# all subplots instead of setting them individually. The figure layout will look like
-# the following:
+# 6 cm high. Using ``frame=Frame(axes="lrtb")`` allows us to customize the plot frame
+# for all subplots instead of setting them individually. The figure layout will look
+# like the following:
 
 with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame=Frame(axes="lrtb")):
     for i in range(2):  # row number starting from 0
@@ -128,9 +128,9 @@ fig.show()
 # - ``title="My Subplot Heading"``: Adds a title on top of the whole figure.
 #
 # Notice that each subplot was set to use a linear projection ``"X?"``. Usually, we need
-# to specify the width and height of the map frame, but it is also possible to use a
+# to specify the width and height of the plot frame, but it is also possible to use a
 # question mark ``"?"`` to let GMT decide automatically on what is the most appropriate
-# width/height for each subplot's map frame.
+# width/height for each subplot's frame.
 
 # %%
 # .. tip::

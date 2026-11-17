@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import contextlib
 import io
 import os
 import shutil
@@ -43,7 +44,7 @@ Encoding = Literal[
 ]
 
 
-def _validate_data_input(  # noqa: PLR0912
+def _validate_data_input(  # ruff: ignore[too-many-branches]
     data=None, x=None, y=None, z=None, required=True, mincols=2, kind=None
 ) -> None:
     """
@@ -217,7 +218,7 @@ def _contains_apostrophe_or_backtick(argstr: str) -> bool:
     True
     >>> _contains_apostrophe_or_backtick("12AB'`")
     True
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     return "'" in argstr or "`" in argstr
 
 
@@ -452,7 +453,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     '12AB\\340\\341\\342\\343\\344\\345@~\\142@~@%34%\\254@%%@%34%\\255@%%'
     >>> non_ascii_to_octal("'‘’\"“”")
     '\\234\\140\\047"\\216\\217'
-    """  # noqa: RUF002
+    """  # ruff: ignore[ambiguous-unicode-character-docstring]
     # Return the input string if it only contains printable ASCII characters, excluding
     # apostrophe (') and backtick (`).
     if encoding == "ascii" or (
@@ -481,7 +482,7 @@ def non_ascii_to_octal(argstr: str, encoding: Encoding = "ISOLatin1+") -> str:
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(  # noqa: PLR0912
+def build_arg_list(  # ruff: ignore[too-many-branches]
     kwdict: Mapping[str, Any],
     confdict: Mapping[str, Any] | None = None,
     infile: PathLike | Sequence[PathLike] | None = None,
@@ -712,7 +713,7 @@ def launch_external_viewer(fname: PathLike, waiting: float = 0) -> None:
         case "darwin":  # macOS
             subprocess.run([shutil.which("open"), fname], check=False, **run_args)  # type:ignore[call-overload]
         case "win32":  # Windows
-            os.startfile(fname)  # type:ignore[attr-defined] # noqa: S606
+            os.startfile(fname)  # type:ignore[attr-defined] # ruff: ignore[start-process-with-no-shell]
         case _:  # Fall back to the browser if can't recognize the operating system.
             webbrowser.open_new_tab(f"file://{Path(fname).resolve()}")
     if waiting > 0:
@@ -767,7 +768,7 @@ def sequence_join(
     size: int | Sequence[int] | None = None,
     ndim: int = 1,
     name: str | None = None,
-) -> str | list[str] | None | Any:
+) -> str | list[str] | Any | None:
     """
     Join a sequence of values into a string separated by a separator.
 
@@ -920,14 +921,13 @@ def sequence_join(
         # or integer number for timedelta64.
         _values = []
         for item in value:
+            _value = str(item)
             if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
-                _values.append(str(item.astype(int)))
-            elif " " in str(item):
-                _values.append(
-                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
-                )
-            else:
-                _values.append(str(item))
+                _value = str(item.astype(int))
+            elif " " in _value:  # Likely a datetime-like object.
+                with contextlib.suppress(ValueError):
+                    _value = np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[assignment]
+            _values.append(_value)
         return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.

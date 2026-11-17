@@ -2,8 +2,8 @@
 Tile maps
 =========
 
-The :meth:`pygmt.Figure.tilemap` method allows to plot
-tiles from a tile server or local file as a basemap or overlay.
+The :meth:`pygmt.Figure.tilemap` method allows to plot tiles from a tile server or
+local file as a basemap or overlay.
 """
 
 # %%
@@ -15,14 +15,13 @@ fig = pygmt.Figure()
 fig.tilemap(
     region=[-157.84, -157.8, 21.255, 21.285],
     projection="M12c",
-    # Set level of details (0-22)
-    # Higher levels mean a zoom level closer to the Earth's
-    # surface with more tiles covering a smaller
-    # geographic area and thus more details and vice versa
-    # Please note, not all zoom levels are always available
+    # Set level of details (0-22).
+    # Higher levels mean a zoom level closer to the Earth's surface with more tiles
+    # covering a smaller geographic area and thus more details and vice versa.
+    # Please note, not all zoom levels are always available.
     zoom=14,
     # Use tiles from OpenStreetMap tile server
-    source="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    source="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     frame=Axis(annot=True, tick=True, grid=True),
 )
 
@@ -30,9 +29,9 @@ fig.show()
 
 # %%
 # It's also possible to use tiles provided via the
-# `contextily <https://github.com/geopandas/contextily>`__
-# library. See :doc:`Contextily providers <contextily:providers_deepdive>`
-# for a list of possible tilemap options.
+# `contextily <https://github.com/geopandas/contextily>`__ library. See
+# :doc:`Contextily providers <contextily:providers_deepdive>` for a list of possible
+# tilemap options.
 
 fig = pygmt.Figure()
 fig.tilemap(
