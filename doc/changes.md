@@ -46,7 +46,7 @@
 
 ### Bug Fixes
 
-* Figure.directional_rose/Figure.magnetic_rose: Fix compatibility with upcoming GMT 6.7.0 ([#4729](https://github.com/GenericMappingTools/pygmt/pull/4729))
+* Figure.directional_rose/Figure.magnetic_rose: Fix compatibility with GMT 6.7.0 ([#4729](https://github.com/GenericMappingTools/pygmt/pull/4729))
 * Figure.grdview: Fix the default z-plane with GMT 6.7.0 ([#4804](https://github.com/GenericMappingTools/pygmt/pull/4804))
 * Figure.solar: Fix the bug that terminator datetime doesn't support fractional timezone offsets ([#4916](https://github.com/GenericMappingTools/pygmt/pull/4916))
 * Figure.tilemap/pygmt.datasets.tile_map: Set User-Agent to avoid blocked access to OSM tile server ([#4816](https://github.com/GenericMappingTools/pygmt/pull/4816))
