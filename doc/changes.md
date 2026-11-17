@@ -1676,7 +1676,7 @@ Andrés Ignacio Torres,
 * Add authorship policy ([#726](https://github.com/GenericMappingTools/pygmt/pull/726))
 * Update PyGMT development installation instructions ([#865](https://github.com/GenericMappingTools/pygmt/pull/865))
 * Add a tutorial for adding a map title ([#720](https://github.com/GenericMappingTools/pygmt/pull/720))
-* Add a tutorial for plotting Earth relief ([#712](https://github.com/GenericMappingTools/pygmt/pull/712))
+* Add a tutorial for plotting Earth's relief ([#712](https://github.com/GenericMappingTools/pygmt/pull/712))
 * Add a tutorial for 3D perspective image ([#743](https://github.com/GenericMappingTools/pygmt/pull/743))
 * Add a tutorial for contour maps ([#705](https://github.com/GenericMappingTools/pygmt/pull/705))
 * Add a tutorial for plotting lines ([#741](https://github.com/GenericMappingTools/pygmt/pull/741))
@@ -1918,11 +1918,11 @@ Andrés Ignacio Torres,
 ### Maintenance
 
 * Temporarily expect failures for some grdcontour and grdview tests ([#503](https://github.com/GenericMappingTools/pygmt/pull/503))
-* Fix several failures due to updates of earth relief data ([#498](https://github.com/GenericMappingTools/pygmt/pull/498))
+* Fix several failures due to updates of Earth's relief data ([#498](https://github.com/GenericMappingTools/pygmt/pull/498))
 * Unpin pylint version and fix some lint warnings ([#484](https://github.com/GenericMappingTools/pygmt/pull/484))
 * Separate tests of gmtinfo and grdinfo ([#461](https://github.com/GenericMappingTools/pygmt/pull/461))
 * Fix the test for GMT_COMPATIBILITY=6 ([#454](https://github.com/GenericMappingTools/pygmt/pull/454))
-* Update baseline images for updates of earth relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
+* Update baseline images for updates of Earth's relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
 * Simplify PyGMT Release process ([#446](https://github.com/GenericMappingTools/pygmt/pull/446))
 
 **Contributors**:
@@ -2027,7 +2027,7 @@ Andrés Ignacio Torres,
 * Quickfix Zeit Now miniconda installer link to anaconda.com ([#413](https://github.com/GenericMappingTools/pygmt/pull/413))
 * Fix GitHub Pages deployment from Travis ([#410](https://github.com/GenericMappingTools/pygmt/pull/410))
 * Update and clean TravisCI configuration ([#404](https://github.com/GenericMappingTools/pygmt/pull/404))
-* Quickfix min elevation for new SRTM15+V2.1 earth relief grids ([#401](https://github.com/GenericMappingTools/pygmt/pull/401))
+* Quickfix min elevation for new SRTM15+V2.1 Earth's relief grids ([#401](https://github.com/GenericMappingTools/pygmt/pull/401))
 * Wrap docstrings to 79 chars and check with flake8 ([#384](https://github.com/GenericMappingTools/pygmt/pull/384))
 * Update continuous integration scripts to 1.2.0 ([#355](https://github.com/GenericMappingTools/pygmt/pull/355))
 * Use Zeit Now to deploy doc builds from PRs ([#344](https://github.com/GenericMappingTools/pygmt/pull/344))

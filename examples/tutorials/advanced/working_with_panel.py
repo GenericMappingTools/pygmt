@@ -17,7 +17,7 @@ This tutorial is split into three parts:
 
 - Make a static map
 - Make an interactive map
-- Add a grid for the earth relief
+- Add a grid for Earth's relief
 """
 
 # %%
@@ -98,13 +98,13 @@ pn.Column(slider_lon, view)
 
 
 # %%
-# Add a grid for the earth relief
-# -------------------------------
+# Add a grid for Earth's relief
+# -----------------------------
 #
 # Instead of using colors as fill for the land and water masses a grid can be
-# displayed. Here, the earth relief is shown by color-coding the elevation.
+# displayed. Here, Earth's relief is shown by color-coding the elevation.
 
-# Download a grid for the earth relief with a resolution of 10 arc-minutes
+# Download a grid for Earth's relief with a resolution of 10 arc-minutes
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m")
 
 # Create a slider

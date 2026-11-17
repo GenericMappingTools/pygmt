@@ -194,7 +194,7 @@ def _load_maunaloa_co2() -> pd.DataFrame:
 
 def _load_earth_relief_holes() -> xr.DataArray:
     """
-    Load the earth relief grid with some holes.
+    Load Earth's relief grid with some holes.
 
     Returns
     -------

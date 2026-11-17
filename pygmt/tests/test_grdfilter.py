@@ -17,7 +17,7 @@ from pygmt.helpers.testing import load_static_earth_relief
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the static earth relief file.
+    Load the grid data from the static Earth's relief file.
     """
     return load_static_earth_relief()
 

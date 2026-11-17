@@ -1,5 +1,5 @@
 """
-Function to download the Earth relief datasets from the GMT data server, and load as
+Function to download Earth's relief datasets from the GMT data server, and load as
 :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -39,13 +39,13 @@ def load_earth_relief(
     use_srtm: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load the Earth relief datasets (topography and bathymetry) in various resolutions.
+    Load Earth'S relief datasets (topography and bathymetry) in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
        :width: 80 %
        :align: center
 
-       Earth relief datasets (topography and bathymetry).
+       Earth's relief datasets (topography and bathymetry).
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_relief``,
@@ -89,7 +89,7 @@ def load_earth_relief(
         ``"gridline"`` for gridline registration. Default is ``None``, which means
         ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"`` only.
     data_source
-        Select the source for the Earth relief data. Available options are:
+        Select the source for Earth's relief datasets. Available options are:
 
         - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
         - ``"synbath"``: IGPP Earth Relief dataset that uses statistical properties of
@@ -111,7 +111,7 @@ def load_earth_relief(
     Returns
     -------
     grid
-        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Earth's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
     Note
@@ -169,7 +169,7 @@ def load_earth_relief(
     if use_srtm and resolution in srtm_resolutions:
         prefix = "srtm_relief"
 
-    # Choose earth relief dataset name.
+    # Choose Earth's relief dataset name.
     match data_source:
         case "igpp" | "synbath":
             name = "earth_igpp"
