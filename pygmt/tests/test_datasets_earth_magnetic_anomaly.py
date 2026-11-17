@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth magnetic anomaly datasets.
+Test basic functionality for loading Earth's magnetic anomaly datasets.
 """
 
 import numpy as np
@@ -12,7 +12,7 @@ from pygmt.exceptions import GMTValueError
 
 def test_earth_mag_01d():
     """
-    Test some properties of the magnetic anomaly 01d data.
+    Test some properties of the Earth's magnetic anomaly 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d")
     assert data.name == "z"
@@ -30,7 +30,7 @@ def test_earth_mag_01d():
 
 def test_earth_mag_01d_with_region():
     """
-    Test loading low-resolution earth magnetic anomaly with 'region'.
+    Test loading low-resolution Earth's magnetic anomaly with "region".
     """
     data = load_earth_magnetic_anomaly(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
@@ -59,7 +59,7 @@ def test_earth_mag_02m_default_registration():
 
 def test_earth_mag4km_01d():
     """
-    Test some properties of the magnetic anomaly 4km 01d data.
+    Test some properties of Earth's magnetic anomaly 4km 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag2_4km")
     assert data.name == "z"
@@ -77,7 +77,7 @@ def test_earth_mag4km_01d():
 
 def test_earth_mag4km_01d_with_region():
     """
-    Test loading low-resolution earth magnetic anomaly 4km 01d with 'region'.
+    Test loading low-resolution Earth's magnetic anomaly 4km 01d with "region".
     """
     data = load_earth_magnetic_anomaly(
         resolution="01d",
@@ -133,7 +133,7 @@ def test_earth_mag_01d_wdmam():
 
 def test_earth_mag_01d_wdmam_with_region():
     """
-    Test loading low-resolution WDMAM grid with 'region'.
+    Test loading low-resolution WDMAM grid with "region".
     """
     data = load_earth_magnetic_anomaly(
         resolution="01d",
@@ -167,7 +167,7 @@ def test_earth_mag_03m_wdmam_with_region():
 
 def test_earth_mag_data_source_error():
     """
-    Test that an error is raised when an invalid argument is passed to 'data_source'.
+    Test that an error is raised when an invalid argument is passed to "data_source".
     """
     with pytest.raises(GMTValueError):
         load_earth_magnetic_anomaly(resolution="01d", data_source="invalid")

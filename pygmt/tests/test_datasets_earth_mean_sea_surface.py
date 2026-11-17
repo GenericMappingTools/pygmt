@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth mean sea surface datasets.
+Test basic functionality for loading Earth's mean sea surface datasets.
 """
 
 import numpy as np
@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_mss_01d():
     """
-    Test some properties of the Earth mean sea surface 01d data.
+    Test some properties of Earth's mean sea surface 01d data.
     """
     data = load_earth_mean_sea_surface(resolution="01d")
     assert data.name == "z"
@@ -27,7 +27,7 @@ def test_earth_mss_01d():
 
 def test_earth_mss_01d_with_region():
     """
-    Test loading low-resolution Earth mean sea surface with "region".
+    Test loading low-resolution Earth's mean sea surface with "region".
     """
     data = load_earth_mean_sea_surface(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

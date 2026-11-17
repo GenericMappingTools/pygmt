@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Venus relief datasets.
+Test basic functionality for loading Venus' relief datasets.
 """
 
 import numpy as np
@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_venus_relief_01d():
     """
-    Test some properties of the Venus relief 01d data.
+    Test some properties of Venus' relief 01d data.
     """
     data = load_venus_relief(resolution="01d")
     assert data.name == "z"
@@ -27,7 +27,7 @@ def test_venus_relief_01d():
 
 def test_venus_relief_01d_with_region():
     """
-    Test loading low-resolution Venus relief with 'region'.
+    Test loading low-resolution Venus' relief with 'region'.
     """
     data = load_venus_relief(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

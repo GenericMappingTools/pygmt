@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Pluto relief datasets.
+Test basic functionality for loading Pluto's relief datasets.
 """
 
 import numpy as np
@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_pluto_relief_01d():
     """
-    Test some properties of the Pluto relief 01d data.
+    Test some properties of Pluto's relief 01d data.
     """
     data = load_pluto_relief(resolution="01d")
     assert data.name == "z"
@@ -27,7 +27,7 @@ def test_pluto_relief_01d():
 
 def test_pluto_relief_01d_with_region():
     """
-    Test loading low-resolution Pluto relief with 'region'.
+    Test loading low-resolution Pluto's relief with 'region'.
     """
     data = load_pluto_relief(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

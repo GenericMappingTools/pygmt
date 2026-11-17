@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth distance to shoreline datasets.
+Test basic functionality for loading Earth's distance to shoreline datasets.
 """
 
 import numpy as np
@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_dist_01d():
     """
-    Test some properties of the Earth distance to shoreline 01d data.
+    Test some properties of Earth's distance to shoreline 01d data.
     """
     data = load_earth_dist(resolution="01d")
     assert data.name == "z"
@@ -27,7 +27,7 @@ def test_earth_dist_01d():
 
 def test_earth_dist_01d_with_region():
     """
-    Test loading low-resolution Earth distance to shoreline with "region".
+    Test loading low-resolution Earth's distance to shoreline with "region".
     """
     data = load_earth_dist(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

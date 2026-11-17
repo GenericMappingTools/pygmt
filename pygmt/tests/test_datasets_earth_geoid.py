@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth geoid datasets.
+Test basic functionality for loading Earth's geoid datasets.
 """
 
 import numpy as np
@@ -10,7 +10,7 @@ from pygmt.enums import GridRegistration
 
 def test_earth_geoid_01d():
     """
-    Test some properties of the earth geoid 01d data.
+    Test some properties of Earth's geoid 01d data.
     """
     data = load_earth_geoid(resolution="01d")
     assert data.name == "z"
@@ -28,7 +28,7 @@ def test_earth_geoid_01d():
 
 def test_earth_geoid_01d_with_region():
     """
-    Test loading low-resolution earth geoid with 'region'.
+    Test loading low-resolution Earth's geoid with "region".
     """
     data = load_earth_geoid(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
