@@ -61,9 +61,9 @@
 
 * Add a separate documentation for supported plot and distance units ([#4359](https://github.com/GenericMappingTools/pygmt/pull/4359))
 * Add blockmedian and surface gallery example ([#4771](https://github.com/GenericMappingTools/pygmt/pull/4771))
-* DOC: Demonstrate parameter 'straight_line' in tutorial "Plotting lines" ([#4971](https://github.com/GenericMappingTools/pygmt/pull/4971))
-* DOC: Improve tutorial "Cartesian histograms" ([#4965](https://github.com/GenericMappingTools/pygmt/pull/4965))
-* DOC: Document the supported array dtypes ([#3582](https://github.com/GenericMappingTools/pygmt/pull/3582))
+* Demonstrate parameter 'straight_line' in tutorial "Plotting lines" ([#4971](https://github.com/GenericMappingTools/pygmt/pull/4971))
+* Improve tutorial "Cartesian histograms" ([#4965](https://github.com/GenericMappingTools/pygmt/pull/4965))
+* Document the supported array dtypes ([#3582](https://github.com/GenericMappingTools/pygmt/pull/3582))
 * Figuer.ternary: Add an inline example ([#4931](https://github.com/GenericMappingTools/pygmt/pull/4931))
 * Figure.contour: Add an inline example ([#4934](https://github.com/GenericMappingTools/pygmt/pull/4934))
 * Figure.legend: Add an inline example ([#4930](https://github.com/GenericMappingTools/pygmt/pull/4930))
