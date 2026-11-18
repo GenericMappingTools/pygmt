@@ -10,10 +10,11 @@ compressive and extensive quadrants can be filled either with a color or a patte
 the ``compression_fill`` and ``extension_fill`` parameters, respectively. Use the
 ``pen`` parameter to adjust the outline of the beachballs.
 
-For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as ``cmap=True``
-is ignored. For details, please see the upstream GMT
-`issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
-`PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
+.. note::
+   For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as ``cmap=True``
+   is ignored. For details, please see the upstream GMT
+   `issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
+   `PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
 """
 
 # %%

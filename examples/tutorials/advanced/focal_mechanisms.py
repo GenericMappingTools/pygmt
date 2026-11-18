@@ -304,10 +304,11 @@ fig.show()
 # parameter ``cmap`` to pass the desired colormap. Now, the fills of the small circles
 # indicating the event locations are given by the colormap.
 #
-# For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as ``cmap=True``
-# is ignored. For details, please see the upstream GMT
-# `issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
-# `PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
+# .. note::
+#    For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as ``cmap=True``
+#    is ignored. For details, please see the upstream GMT
+#    `issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
+#    `PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
