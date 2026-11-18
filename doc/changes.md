@@ -6,7 +6,11 @@
 
 ### Highlights
 
-*
+* 🎉 Twentieth minor release of PyGMT 🎉
+* Redesign the PyGMT website
+* Refractor `Figure.histogram` for a more Pythonic interface
+* Add several new inline examples and two updated tutorials
+* Add support for Python 3.15
 
 ### Enhancements
 
