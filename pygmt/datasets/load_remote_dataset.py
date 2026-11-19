@@ -386,7 +386,7 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
-        description="NASA Mars (MOLA) relief",
+        description="NASA Mars' (MOLA) relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -430,7 +430,7 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
-        description="USGS Mercury relief",
+        description="USGS Mercury's relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -450,7 +450,7 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
-        description="USGS Pluto relief",
+        description="USGS Pluto's relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -470,7 +470,7 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
-        description="NASA Magellan Venus relief",
+        description="NASA Magellan Venus' relief",
         kind="grid",
         units="meters",
         extra_attributes={},
