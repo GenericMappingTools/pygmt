@@ -38,7 +38,7 @@ region_3d = [*region_2d, grd_relief.min().to_numpy(), grd_relief.max().to_numpy(
 
 # %%
 # The topographic surface is created based on the grid passed to the ``grid`` parameter
-# of :meth:`pygmt.Figure.grdview`; here we use a grid of the Earth relief. To add a
+# of :meth:`pygmt.Figure.grdview`; here we use a grid of Earth's relief. To add a
 # color-coding based on *another* grid we have to pass a second grid to the
 # ``drape_grid`` parameter; here we use a grid of the crustal age. In this case the
 # colormap specified via the ``cmap`` parameter applies to the grid passed to
@@ -107,7 +107,7 @@ with rasterio.open(url_to_image) as dataset:
     drape_grid = xr.DataArray(data, dims=("band", "y", "x"))
 
 # %%
-# Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass an Earth relief
+# Again we create a 3-D plot with :meth:`pygmt.Figure.grdview` and pass Earth's relief
 # grid to the ``grid`` parameter to create the topographic surface. But now we pass the
 # PNG image which was loaded into an :class:`xarray.DataArray` to the ``drape_grid``
 # parameter.

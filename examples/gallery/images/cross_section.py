@@ -30,7 +30,7 @@ fig = pygmt.Figure()
 # Set up basic map using a Mercator projection with a width of 12 centimeters
 fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
-# Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
+# Download grid for Earth's relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
 grid_map = pygmt.datasets.load_earth_relief(resolution="10m", region=region_map)
 

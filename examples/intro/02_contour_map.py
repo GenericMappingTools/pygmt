@@ -2,7 +2,7 @@
 2. Create a contour map
 =======================
 
-This tutorial page covers the basics of creating a figure of the Earth relief, using a
+This tutorial page covers the basics of creating a figure of Earth's relief, using a
 remote dataset hosted by GMT, using the method :meth:`pygmt.datasets.load_earth_relief`.
 It will use the :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
 :meth:`pygmt.Figure.colorbar`, and :meth:`pygmt.Figure.coast` methods for plotting.
@@ -13,8 +13,8 @@ import pygmt
 from pygmt.params import Axis
 
 # %%
-# Loading the Earth relief dataset
-# --------------------------------
+# Loading Earth's relief dataset
+# ------------------------------
 #
 # The first step is to use :meth:`pygmt.datasets.load_earth_relief`. The ``resolution``
 # parameter sets the resolution of the remote grid file, which will affect the
@@ -29,18 +29,18 @@ grid = pygmt.datasets.load_earth_relief(
 
 
 # %%
-# Plotting Earth relief
-# ---------------------
+# Plotting Earth's relief
+# -----------------------
 #
-# To plot Earth relief data, the method :meth:`pygmt.Figure.grdimage` can be used to
+# To plot Earth's relief data, the method :meth:`pygmt.Figure.grdimage` can be used to
 # plot a color-coded figure to display the topography and bathymetry in the grid file.
 # The ``grid`` parameter accepts the input grid, which in this case is the remote file
 # downloaded in the previous step. If the ``region`` parameter is not set, the region
 # boundaries of the input grid are used.
 #
-# The ``cmap`` parameter sets the color palette table (CPT) used for portraying the
-# Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the input grid to relate
-# the Earth relief values to a specific color within the CPT. In this case, the CPT
+# The ``cmap`` parameter sets the color palette table (CPT) used for portraying Earth's
+# relief. The :meth:`pygmt.Figure.grdimage` method uses the input grid to relate
+# Earth's relief values to a specific color within the CPT. In this case, the CPT
 # "oleron" is used; a full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
 fig = pygmt.Figure()
@@ -52,7 +52,7 @@ fig.show()
 # Adding a colorbar
 # -----------------
 #
-# To show how the plotted colors relate to the Earth relief, a colorbar can be added
+# To show how the plotted colors relate to Earth's relief, a colorbar can be added
 # using the :meth:`pygmt.Figure.colorbar` method.
 #
 # To control the annotation and labels on the colorbar, use the ``annot`` parameter to
@@ -126,7 +126,7 @@ fig.show()
 #
 # 3. Create a contour map of São Miguel Island in the Azores; a suggested ``region`` is
 #    ``[-26, -25, 37.5, 38]``. Instead of coloring in ``land``, set ``water`` to
-#    "lightblue" to only display Earth relief information for the land.
+#    "lightblue" to only display Earth's relief information for the land.
 #
 # 4. Try other CPTs, such as "SCM/fes" or "geo".
 
