@@ -10,12 +10,12 @@ The figure below shows the naming of figure elements in PyGMT.
   adding annotations, ticks, gridlines, and axis labels to each axis with
   :class:`pygmt.params.Axis`, e.g., in :meth:`pygmt.Figure.basemap`. Detailed examples
   can be found at :doc:`frame and axes attributes </tutorials/basics/frames>`
-- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen`` or ``style``
-  parameters, respectively
+- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on the parameters
+  ``pen`` or ``style``, respectively
 - :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font`` parameter
   adjusts fontsize, fontstyle, and color
-- :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the
-  ``label`` is given in :meth:`pygmt.Figure.plot`
+- :meth:`pygmt.Figure.legend`: showing the meaning of lines or symbols while
+  the ``label`` is given in :meth:`pygmt.Figure.plot`
 - :meth:`pygmt.Figure.show`: previewing the content added to the current figure instance
 """
 
