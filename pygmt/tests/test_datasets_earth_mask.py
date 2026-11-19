@@ -14,7 +14,7 @@ def test_earth_mask_01d():
     """
     data = load_earth_mask(resolution="01d")
     assert data.name == "z"
-    assert data.attrs["description"] == "GSHHG Earth mask"
+    assert data.attrs["description"] == "GSHHG Earth's mask"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE
