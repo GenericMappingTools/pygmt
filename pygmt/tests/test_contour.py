@@ -39,7 +39,7 @@ def fixture_region():
         and platform.machine() == "x86_64"
         and platform.freedesktop_os_release()["PRETTY_NAME"].startswith("Ubuntu 26.04")
     ),
-    reason="Fails on Linux ARM64 and Ubuntu 26.04 x86_64",
+    reason="Fails on ARM64 and Ubuntu 26.04 x86_64",
 )
 def test_contour_vec(region):
     """
@@ -164,7 +164,7 @@ def test_contour_multiple_levels(region):
         and platform.machine() == "x86_64"
         and platform.freedesktop_os_release()["PRETTY_NAME"].startswith("Ubuntu 26.04")
     ),
-    reason="Fails on Linux ARM64 and Ubuntu 26.04 x86_64",
+    reason="Fails on ARM64 and Ubuntu 26.04 x86_64",
 )
 def test_contour_incols_transposed_data(region):
     """
