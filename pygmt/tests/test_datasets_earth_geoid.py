@@ -15,7 +15,7 @@ def test_earth_geoid_01d():
     data = load_earth_geoid(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "geoid (m)"
-    assert data.attrs["description"] == "EGM2008 Earth geoid"
+    assert data.attrs["description"] == "EGM2008 Earth's geoid"
     assert data.attrs["units"] == "meters"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)

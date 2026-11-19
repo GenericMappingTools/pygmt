@@ -15,7 +15,7 @@ def test_moon_relief_01d():
     data = load_moon_relief(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "USGS Moon (LOLA) relief"
+    assert data.attrs["description"] == "USGS Moon's (LOLA) relief"
     assert data.attrs["units"] == "meters"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE

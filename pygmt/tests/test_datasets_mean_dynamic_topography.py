@@ -14,7 +14,7 @@ def test_earth_mdt_01d():
     """
     data = load_earth_mean_dynamic_topography(resolution="01d")
     assert data.name == "z"
-    assert data.attrs["description"] == "CNES Earth mean dynamic topography"
+    assert data.attrs["description"] == "CNES Earth's mean dynamic topography"
     assert data.attrs["units"] == "meters"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)

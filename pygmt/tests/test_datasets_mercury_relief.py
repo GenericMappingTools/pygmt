@@ -15,7 +15,7 @@ def test_mercury_relief_01d():
     data = load_mercury_relief(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "USGS Mercury relief"
+    assert data.attrs["description"] == "USGS Mercury's relief"
     assert data.attrs["units"] == "meters"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE

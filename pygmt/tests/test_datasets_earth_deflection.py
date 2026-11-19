@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading IGPP Earth east-west and south-north deflection
+Test basic functionality for loading IGPP Earth's east-west and south-north deflection
 datasets.
 """
 
@@ -16,7 +16,7 @@ def test_earth_edefl_01d():
     data = load_earth_deflection(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "edefl (microradians)"
-    assert data.attrs["description"] == "IGPP Earth east-west deflection"
+    assert data.attrs["description"] == "IGPP Earth's east-west deflection"
     assert data.attrs["units"] == "micro-radians"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -29,7 +29,7 @@ def test_earth_edefl_01d():
 
 def test_earth_edefl_01d_with_region():
     """
-    Test loading low-resolution Earth east-west deflection with "region".
+    Test loading low-resolution Earth's east-west deflection with "region".
     """
     data = load_earth_deflection(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
@@ -63,7 +63,7 @@ def test_earth_ndefl_01d():
     data = load_earth_deflection(resolution="01d", component="north")
     assert data.name == "z"
     assert data.attrs["long_name"] == "ndefl (microradians)"
-    assert data.attrs["description"] == "IGPP Earth north-south deflection"
+    assert data.attrs["description"] == "IGPP Earth's north-south deflection"
     assert data.attrs["units"] == "micro-radians"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
