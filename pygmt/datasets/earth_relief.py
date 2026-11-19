@@ -91,13 +91,13 @@ def load_earth_relief(
     data_source
         Select the source for Earth's relief datasets. Available options are:
 
-        - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
-        - ``"synbath"``: IGPP Earth Relief dataset that uses statistical properties of
+        - ``"igpp"``: IGPP Earth's Relief. See :gmt-datasets:`earth-relief.html`.
+        - ``"synbath"``: IGPP Earth's Relief dataset that uses statistical properties of
           young seafloor to provide a more realistic relief of young areas with small
           seamounts.
-        - ``"gebco"``: GEBCO Earth Relief with only observed relief and inferred relief
+        - ``"gebco"``: GEBCO Earth's Relief with only observed relief and inferred relief
           via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
-        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
+        - ``"gebcosi"``: GEBCO Earth's Relief that gives sub-ice (si) elevations.
 
         **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
         ``"03s"`` and ``"01s"``.
@@ -162,7 +162,7 @@ def load_earth_relief(
     if prefix is None:
         raise GMTValueError(
             data_source,
-            description="earth relief data source",
+            description="Earth's relief data source",
             choices=["igpp", "gebco", "gebcosi", "synbath"],
         )
     # Use original land-only SRTM tiles.
