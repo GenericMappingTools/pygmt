@@ -17,6 +17,8 @@ from pygmt.helpers import (
     validate_output_table_type,
 )
 
+__doctest_skip__ = ["filter1d"]
+
 
 @fmt_docstring
 @use_alias(E="end", F="filter_type", N="time_col")
@@ -114,6 +116,20 @@ def filter1d(
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
+
+    Examples
+    --------
+    Apply a Gaussian filter to smooth a noisy time series. The input
+    contains time values in the first column and observations in the
+    second column. Setting ``end=True`` retains the endpoints.
+
+    >>> import numpy as np
+    >>> import pygmt
+    >>> time = np.arange(10.0)
+
+    >>> observations = np.array([1.0, 2.0, 4.0, 2.0, 3.0, 6.0, 5.0, 4.0, 3.0, 2.0])
+    >>> data = np.column_stack((time, observations))
+    >>> filtered = pygmt.filter1d(data=data, filter_type="g3", end=True)
     """
     if kwargs.get("F") is None:
         raise GMTParameterError(required="filter_type")
