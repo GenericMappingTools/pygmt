@@ -43,6 +43,16 @@ def fixture_expected_xrimage():
     return None
 
 
+@pytest.fixture(scope="module", name="expected_xrcube")
+def fixture_expected_xrcube():
+    """
+    The expected xr.DataArray object for the @cube.nc file.
+    """
+    return xr.load_dataarray(
+        which("@cube.nc", download="c"), engine="gmt", raster_kind="cube"
+    )
+
+
 def test_clib_read_data_dataset():
     """
     Test the Session.read_data method for datasets.
@@ -200,6 +210,55 @@ def test_clib_read_data_image_two_steps(expected_xrimage):
 
         if _HAS_RIOXARRAY:  # Full check if rioxarray is installed.
             xr.testing.assert_equal(xrimage, expected_xrimage)
+
+
+def test_clib_read_data_cube(expected_xrcube):
+    """
+    Test the Session.read_data method for cubes.
+    """
+    infile = which("@cube.nc", download="c")
+    with Session() as lib:
+        cube = lib.read_data(infile, kind="cube").contents
+        xrcube = cube.to_xarray()
+        xr.testing.assert_equal(xrcube, expected_xrcube)
+
+
+def test_clib_read_data_cube_two_steps(expected_xrcube):
+    """
+    Test the Session.read_data method for cubes in two steps, first reading the header
+    and then the data.
+    """
+    infile = which("@cube.nc", download="c")
+    with Session() as lib:
+        # Read the header first
+        data_ptr = lib.read_data(infile, kind="cube", mode="GMT_CONTAINER_ONLY")
+        cube = data_ptr.contents
+        header = cube.header.contents
+        assert header.n_rows == 11
+        assert header.n_columns == 11
+        assert header.n_bands == 4
+        assert header.wesn[:] == [0.0, 10.0, 0.0, 10.0]
+        assert header.z_min == 0.0
+        assert header.z_max == 140.0
+        assert not cube.data  # The data is not read yet
+
+        # Read the data
+        lib.read_data(infile, kind="cube", mode="GMT_DATA_ONLY", data=data_ptr)
+
+        # Full check
+        xrcube = data_ptr.contents.to_xarray()
+        xr.testing.assert_equal(xrcube, expected_xrcube)
+
+
+@pytest.mark.parametrize("infile", ["@earth_relief_01d_p", "@earth_day_01d"])
+def test_clib_read_data_cube_actual_grid_or_image(infile):
+    """
+    Test the Session.read_data method for cube, but actually the file is a grid or an
+    image.
+    """
+    with Session() as lib:
+        with pytest.raises(GMTCLibError):
+            lib.read_data(infile, kind="cube", mode="GMT_CONTAINER_ONLY")
 
 
 def test_clib_read_data_fails():
