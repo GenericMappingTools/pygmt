@@ -408,7 +408,7 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
-        description="USGS Moon (LOLA) relief",
+        description="USGS Moon's (LOLA) relief",
         kind="grid",
         units="meters",
         extra_attributes={},
