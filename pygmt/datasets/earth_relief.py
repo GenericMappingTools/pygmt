@@ -95,8 +95,8 @@ def load_earth_relief(
         - ``"synbath"``: IGPP Earth's Relief dataset that uses statistical properties of
           young seafloor to provide a more realistic relief of young areas with small
           seamounts.
-        - ``"gebco"``: GEBCO Earth's Relief with only observed relief and inferred relief
-          via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
+        - ``"gebco"``: GEBCO Earth's Relief with only observed relief and inferred
+          relief via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
         - ``"gebcosi"``: GEBCO Earth's Relief that gives sub-ice (si) elevations.
 
         **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
