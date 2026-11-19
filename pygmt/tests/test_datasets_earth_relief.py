@@ -21,7 +21,7 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "IGPP Earth relief"
+    assert data.attrs["description"] == "IGPP Earth's relief"
     assert data.attrs["units"] == "meters"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
@@ -41,7 +41,7 @@ def test_earth_relief_01d_gebco(data_source):
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "GEBCO Earth relief"
+    assert data.attrs["description"] == "GEBCO Earth's relief"
     assert data.attrs["units"] == "meters"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
