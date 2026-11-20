@@ -5,10 +5,12 @@ colorbar - Plot gray scale or color scale bar.
 from collections.abc import Sequence
 from typing import Literal
 
+from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTValueError
+from pygmt.clib.session import __gmt_version__
+from pygmt.exceptions import GMTValueError, GMTVersionError
 from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
 from pygmt.params import Axis, Box, Frame, Position
@@ -504,6 +506,16 @@ def colorbar(
             "label_as_column": label_as_column,
         },
     )
+
+    # -H was introduced in GMT 6.7.0.
+    # Raise GMT version error in case no_font_scaling is used with GMT < 6.7.0.
+    gmt_version_cb_h = "6.7.0"
+    if (Version(__gmt_version__) < Version(gmt_version_cb_h)) and no_font_scaling:
+        msg = (
+            f"Using parameter 'no_font_scaling' requires GMT version >= {gmt_version_cb_h}. "
+            f"The currently installed GMT version is {__gmt_version__}."
+        )
+        raise GMTVersionError(msg)
 
     aliasdict = AliasSystem(
         C=Alias(cmap, name="cmap"),
