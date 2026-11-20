@@ -26,7 +26,7 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
-# Plot the earth relief grid on Cylindrical Stereographic projection, masking
+# Plot Earth's relief grid on Cylindrical Stereographic projection, masking
 # land areas
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 fig.grdimage(grid=grid, cmap="gmt/gray")

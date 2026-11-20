@@ -14,7 +14,7 @@ from pygmt.params import Axis
 
 fig = pygmt.Figure()
 
-# Load Earth relief data for the entire globe and a subset region
+# Load Earth's relief data for the entire globe and a subset region
 grid_globe = pygmt.datasets.load_earth_relief(resolution="01d")
 subset_region = [-14, 30, 35, 60]
 grid_subset = pygmt.datasets.load_earth_relief(resolution="10m", region=subset_region)

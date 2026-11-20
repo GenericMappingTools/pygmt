@@ -1,5 +1,5 @@
 """
-Function to download the Earth relief datasets from the GMT data server, and load as
+Function to download Earth's relief datasets from the GMT data server, and load as
 :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -39,13 +39,13 @@ def load_earth_relief(
     use_srtm: bool = False,
 ) -> xr.DataArray:
     r"""
-    Load the Earth relief datasets (topography and bathymetry) in various resolutions.
+    Load Earth's relief datasets (topography and bathymetry) in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
        :width: 80 %
        :align: center
 
-       Earth relief datasets (topography and bathymetry).
+       Earth's relief datasets (topography and bathymetry).
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_relief``,
@@ -89,15 +89,15 @@ def load_earth_relief(
         ``"gridline"`` for gridline registration. Default is ``None``, which means
         ``"gridline"`` for all resolutions except ``"15s"`` which is ``"pixel"`` only.
     data_source
-        Select the source for the Earth relief data. Available options are:
+        Select the source for Earth's relief datasets. Available options are:
 
-        - ``"igpp"``: IGPP Earth Relief. See :gmt-datasets:`earth-relief.html`.
-        - ``"synbath"``: IGPP Earth Relief dataset that uses statistical properties of
+        - ``"igpp"``: IGPP Earth's Relief. See :gmt-datasets:`earth-relief.html`.
+        - ``"synbath"``: IGPP Earth's Relief dataset that uses statistical properties of
           young seafloor to provide a more realistic relief of young areas with small
           seamounts.
-        - ``"gebco"``: GEBCO Earth Relief with only observed relief and inferred relief
-          via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
-        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
+        - ``"gebco"``: GEBCO Earth's Relief with only observed relief and inferred
+          relief via altimetric gravity. See :gmt-datasets:`earth-gebco.html`.
+        - ``"gebcosi"``: GEBCO Earth's Relief that gives sub-ice (si) elevations.
 
         **Notes**: Only the ``"igpp"`` data source provides the highest resolutions
         ``"03s"`` and ``"01s"``.
@@ -111,7 +111,7 @@ def load_earth_relief(
     Returns
     -------
     grid
-        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Earth's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
     Note
@@ -162,14 +162,14 @@ def load_earth_relief(
     if prefix is None:
         raise GMTValueError(
             data_source,
-            description="earth relief data source",
+            description="Earth's relief data source",
             choices=["igpp", "gebco", "gebcosi", "synbath"],
         )
     # Use original land-only SRTM tiles.
     if use_srtm and resolution in srtm_resolutions:
         prefix = "srtm_relief"
 
-    # Choose earth relief dataset name.
+    # Choose Earth's relief dataset name.
     match data_source:
         case "igpp" | "synbath":
             name = "earth_igpp"
