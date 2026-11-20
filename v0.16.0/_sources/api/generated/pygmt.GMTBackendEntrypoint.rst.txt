@@ -1,0 +1,54 @@
+pygmt.GMTBackendEntrypoint
+==========================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: GMTBackendEntrypoint
+
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    GMTBackendEntrypoint.description
+
+.. autoproperty::
+    GMTBackendEntrypoint.open_dataset_parameters
+
+.. autoproperty::
+    GMTBackendEntrypoint.url
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    :toctree:
+    
+    
+    
+    
+    GMTBackendEntrypoint.guess_can_open
+    
+    
+    
+    GMTBackendEntrypoint.open_dataset
+    
+    
+    
+    GMTBackendEntrypoint.open_datatree
+    
+    
+    
+    GMTBackendEntrypoint.open_groups_as_dict
+    
+    
+
+
+.. minigallery:: pygmt.GMTBackendEntrypoint
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

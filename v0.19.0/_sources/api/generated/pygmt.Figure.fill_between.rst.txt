@@ -1,0 +1,13 @@
+pygmt.Figure.fill\_between
+==========================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.fill_between
+
+.. minigallery:: pygmt.Figure.fill_between
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

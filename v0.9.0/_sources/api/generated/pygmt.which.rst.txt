@@ -1,0 +1,13 @@
+pygmt.which
+===========
+
+.. currentmodule:: pygmt
+
+.. autofunction:: which
+
+.. minigallery:: pygmt.which
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

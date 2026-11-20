@@ -1,0 +1,10 @@
+pygmt.clib.Session.open\_virtual\_file
+======================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.open_virtual_file
+
+.. raw:: html
+
+      <div style='clear:both'></div>

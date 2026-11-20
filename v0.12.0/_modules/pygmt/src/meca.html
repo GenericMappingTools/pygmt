@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.meca &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/meca.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.meca</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.meca</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">meca - Plot focal mechanisms.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+
+
+<span class="k">def</span> <span class="nf">convention_code</span><span class="p">(</span><span class="n">convention</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine the convention code for focal mechanisms.</span>
+
+<span class="sd">    The convention code can be used in meca&#39;s -S option.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    convention : str</span>
+<span class="sd">        The focal mechanism convention. Can be one of the following:</span>
+
+<span class="sd">        - ``&quot;aki&quot;``: Aki and Richards</span>
+<span class="sd">        - ``&quot;gcmt&quot;``: Global Centroid Moment Tensor</span>
+<span class="sd">        - ``&quot;partial&quot;``: Partial focal mechanism</span>
+<span class="sd">        - ``&quot;mt&quot;``: Moment tensor</span>
+<span class="sd">        - ``&quot;principal_axis&quot;``: Principal axis</span>
+
+<span class="sd">        Single letter convention codes like ``&quot;a&quot;`` and ``&quot;c&quot;`` are also</span>
+<span class="sd">        supported but undocumented.</span>
+
+<span class="sd">    component : str</span>
+<span class="sd">        The component of the focal mechanism. Only used when ``convention`` is</span>
+<span class="sd">        ``&quot;mt&quot;`` or ``&quot;principal_axis&quot;``. Can be one of the following:</span>
+
+<span class="sd">        - ``&quot;full&quot;``: Full moment tensor</span>
+<span class="sd">        - ``&quot;deviatoric&quot;``: Deviatoric moment tensor</span>
+<span class="sd">        - ``&quot;dc&quot;``: Double couple</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The single-letter convention code used in meca&#39;s -S option.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;aki&quot;)</span>
+<span class="sd">    &#39;a&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;gcmt&quot;)</span>
+<span class="sd">    &#39;c&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;partial&quot;)</span>
+<span class="sd">    &#39;p&#39;</span>
+
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;mt&quot;, component=&quot;full&quot;)</span>
+<span class="sd">    &#39;m&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;mt&quot;, component=&quot;deviatoric&quot;)</span>
+<span class="sd">    &#39;z&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;mt&quot;, component=&quot;dc&quot;)</span>
+<span class="sd">    &#39;d&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;principal_axis&quot;, component=&quot;full&quot;)</span>
+<span class="sd">    &#39;x&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;principal_axis&quot;, component=&quot;deviatoric&quot;)</span>
+<span class="sd">    &#39;t&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;principal_axis&quot;, component=&quot;dc&quot;)</span>
+<span class="sd">    &#39;y&#39;</span>
+
+<span class="sd">    &gt;&gt;&gt; for code in [&quot;a&quot;, &quot;c&quot;, &quot;m&quot;, &quot;d&quot;, &quot;z&quot;, &quot;p&quot;, &quot;x&quot;, &quot;y&quot;, &quot;t&quot;]:</span>
+<span class="sd">    ...     assert convention_code(code) == code</span>
+
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;invalid&quot;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    pygmt.exceptions.GMTInvalidInput: Invalid convention &#39;invalid&#39;.</span>
+
+<span class="sd">    &gt;&gt;&gt; convention_code(&quot;mt&quot;, &quot;invalid&quot;)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    pygmt.exceptions.GMTInvalidInput:</span>
+<span class="sd">        Invalid component &#39;invalid&#39; for convention &#39;mt&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Codes for focal mechanism formats determined by &quot;convention&quot;</span>
+    <span class="n">codes1</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;aki&quot;</span><span class="p">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;gcmt&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;partial&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">}</span>
+    <span class="c1"># Codes for focal mechanism formats determined by both &quot;convention&quot; and</span>
+    <span class="c1"># &quot;component&quot;</span>
+    <span class="n">codes2</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mt&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;deviatoric&quot;</span><span class="p">:</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">},</span>
+        <span class="s2">&quot;principal_axis&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;deviatoric&quot;</span><span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="s2">&quot;x&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="n">codes1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">codes1</span><span class="p">[</span><span class="n">convention</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">component</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid component &#39;</span><span class="si">{</span><span class="n">component</span><span class="si">}</span><span class="s2">&#39; for convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">codes2</span><span class="p">[</span><span class="n">convention</span><span class="p">][</span><span class="n">component</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">convention</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">convention</span>
+    <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid convention &#39;</span><span class="si">{</span><span class="n">convention</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">convention_name</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine the name of a focal mechanism convention from its code.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    code : str</span>
+<span class="sd">        The single-letter convention code.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The name of the focal mechanism convention.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; convention_name(&quot;a&quot;)</span>
+<span class="sd">    &#39;aki&#39;</span>
+<span class="sd">    &gt;&gt;&gt; convention_name(&quot;aki&quot;)</span>
+<span class="sd">    &#39;aki&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;aki&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;gcmt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="s2">&quot;partial&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="s2">&quot;mt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="s2">&quot;mt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="s2">&quot;mt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;principal_axis&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;principal_axis&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="s2">&quot;principal_axis&quot;</span><span class="p">,</span>
+    <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">code</span>
+
+
+<span class="k">def</span> <span class="nf">convention_params</span><span class="p">(</span><span class="n">convention</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the list of focal mechanism parameters for a given convention.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    convention : str</span>
+<span class="sd">        The focal mechanism convention. Can be one of the following:</span>
+
+<span class="sd">        - ``&quot;aki&quot;``: Aki and Richards</span>
+<span class="sd">        - ``&quot;gcmt&quot;``: Global Centroid Moment Tensor</span>
+<span class="sd">        - ``&quot;partial&quot;``: Partial focal mechanism</span>
+<span class="sd">        - ``&quot;mt&quot;``: Moment tensor</span>
+<span class="sd">        - ``&quot;principal_axis&quot;``: Principal axis</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        The list of focal mechanism parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;aki&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike&quot;</span><span class="p">,</span> <span class="s2">&quot;dip&quot;</span><span class="p">,</span> <span class="s2">&quot;rake&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;gcmt&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;strike1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dip1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rake1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;strike2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dip2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rake2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mantissa&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;exponent&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;mt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mrr&quot;</span><span class="p">,</span> <span class="s2">&quot;mtt&quot;</span><span class="p">,</span> <span class="s2">&quot;mff&quot;</span><span class="p">,</span> <span class="s2">&quot;mrt&quot;</span><span class="p">,</span> <span class="s2">&quot;mrf&quot;</span><span class="p">,</span> <span class="s2">&quot;mtf&quot;</span><span class="p">,</span> <span class="s2">&quot;exponent&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;partial&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip1&quot;</span><span class="p">,</span> <span class="s2">&quot;strike2&quot;</span><span class="p">,</span> <span class="s2">&quot;fault_type&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;principal_axis&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;t_value&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;t_azimuth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;t_plunge&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;n_value&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;n_azimuth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;n_plunge&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;p_azimuth&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;p_plunge&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;exponent&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">}[</span><span class="n">convention</span><span class="p">]</span>
+
+
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
+    <span class="n">E</span><span class="o">=</span><span class="s2">&quot;extensionfill&quot;</span><span class="p">,</span>
+    <span class="n">Fr</span><span class="o">=</span><span class="s2">&quot;labelbox&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;compressionfill&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;outline&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;nodal&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
+    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
+    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
+    <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">meca</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912, PLR0913, PLR0915</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">spec</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">,</span>
+    <span class="n">convention</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">component</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="n">longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">latitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">plot_longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">plot_latitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">event_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot focal mechanisms.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`supplements/seis/meca.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame</span>
+<span class="sd">        Data that contain focal mechanism parameters.</span>
+
+<span class="sd">        ``spec`` can be specified in either of the following types:</span>
+
+<span class="sd">        - *str*: a file name containing focal mechanism parameters as</span>
+<span class="sd">          columns. The meaning of each column is:</span>
+
+<span class="sd">          - Columns 1 and 2: event longitude and latitude</span>
+<span class="sd">          - Column 3: event depth (in km)</span>
+<span class="sd">          - Columns 4 to 3+n: focal mechanism parameters. The number of columns</span>
+<span class="sd">            *n* depends on the choice of ``convention``, which will be</span>
+<span class="sd">            described below.</span>
+<span class="sd">          - Columns 4+n and 5+n: longitude, latitude at which to place</span>
+<span class="sd">            beachball. Using ``0 0`` will plot the beachball at the longitude,</span>
+<span class="sd">            latitude given in columns 1 and 2. [optional and requires</span>
+<span class="sd">            ``offset=True`` to take effect].</span>
+<span class="sd">          - Text string to appear near the beachball [optional].</span>
+
+<span class="sd">        - *1-D array*: focal mechanism parameters of a single event.</span>
+<span class="sd">          The meanings of columns are the same as above.</span>
+<span class="sd">        - *2-D array*: focal mechanism parameters of multiple events.</span>
+<span class="sd">          The meanings of columns are the same as above.</span>
+<span class="sd">        - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame</span>
+<span class="sd">          column names determine the focal mechanism convention. For</span>
+<span class="sd">          different conventions, the following combination of keys are allowed:</span>
+
+<span class="sd">          - ``&quot;aki&quot;``: *strike, dip, rake, magnitude*</span>
+<span class="sd">          - ``&quot;gcmt&quot;``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*</span>
+<span class="sd">            *exponent*</span>
+<span class="sd">          - ``&quot;mt&quot;``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*</span>
+<span class="sd">          - ``&quot;partial&quot;``: *strike1, dip1, strike2, fault_type, magnitude*</span>
+<span class="sd">          - ``&quot;principal_axis&quot;``: *t_value, t_azimuth, t_plunge, n_value,</span>
+<span class="sd">            n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*</span>
+
+<span class="sd">          A dictionary may contain values for a single focal mechanism or</span>
+<span class="sd">          lists of values for multiple focal mechanisms.</span>
+
+<span class="sd">          Both dictionary and pd.DataFrame may optionally contain</span>
+<span class="sd">          keys/column names: ``latitude``, ``longitude``, ``depth``,</span>
+<span class="sd">          ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.</span>
+
+<span class="sd">        If ``spec`` is either a str, a 1-D array or a 2-D array, the</span>
+<span class="sd">        ``convention`` parameter is required so we know how to interpret the</span>
+<span class="sd">        columns. If ``spec`` is a dictionary or a pd.DataFrame,</span>
+<span class="sd">        ``convention`` is not needed and is ignored if specified.</span>
+<span class="sd">    scale : float or str</span>
+<span class="sd">        *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\</span>
+<span class="sd">        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].</span>
+<span class="sd">        Adjust scaling of the radius of the beachball, which is</span>
+<span class="sd">        proportional to the magnitude. By default, *scale* defines the</span>
+<span class="sd">        size for magnitude = 5 (i.e., scalar seismic moment</span>
+<span class="sd">        M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be</span>
+<span class="sd">        proportional to the seismic moment instead. Use **+s** and give</span>
+<span class="sd">        a *reference* to change the reference magnitude (or moment), and</span>
+<span class="sd">        use **+m** to plot all beachballs with the same size. A text</span>
+<span class="sd">        string can be specified to appear near the beachball</span>
+<span class="sd">        (corresponding to column or parameter ``event_name``).</span>
+<span class="sd">        Append **+a**\ *angle* to change the angle of the text string;</span>
+<span class="sd">        append **+f**\ *font* to change its font (size,fontname,color);</span>
+<span class="sd">        append **+j**\ *justify* to change the text location relative</span>
+<span class="sd">        to the beachball [Default is ``&quot;TC&quot;``, i.e., Top Center];</span>
+<span class="sd">        append **+o** to offset the text string by *dx*\ /*dy*.</span>
+<span class="sd">    convention : str</span>
+<span class="sd">        Focal mechanism convention. Choose from:</span>
+
+<span class="sd">        - ``&quot;aki&quot;`` (Aki &amp; Richards)</span>
+<span class="sd">        - ``&quot;gcmt&quot;`` (global CMT)</span>
+<span class="sd">        - ``&quot;mt&quot;`` (seismic moment tensor)</span>
+<span class="sd">        - ``&quot;partial&quot;`` (partial focal mechanism)</span>
+<span class="sd">        - ``&quot;principal_axis&quot;`` (principal axis)</span>
+
+<span class="sd">        Ignored if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    component : str</span>
+<span class="sd">        The component of the seismic moment tensor to plot.</span>
+
+<span class="sd">        - ``&quot;full&quot;``: the full seismic moment tensor</span>
+<span class="sd">        - ``&quot;dc&quot;``: the closest double couple defined from the moment tensor</span>
+<span class="sd">          (zero trace and zero determinant)</span>
+<span class="sd">        - ``&quot;deviatoric&quot;``: deviatoric part of the moment tensor (zero trace)</span>
+<span class="sd">    longitude : float, list, or 1-D numpy array</span>
+<span class="sd">        Longitude(s) of event location(s). Must be the same length as the</span>
+<span class="sd">        number of events. Will override the ``longitude`` values</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    latitude : float, list, or 1-D numpy array</span>
+<span class="sd">        Latitude(s) of event location(s). Must be the same length as the</span>
+<span class="sd">        number of events. Will override the ``latitude`` values</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    depth : float, list, or 1-D numpy array</span>
+<span class="sd">        Depth(s) of event location(s) in kilometers. Must be the same length</span>
+<span class="sd">        as the number of events. Will override the ``depth`` values in ``spec``</span>
+<span class="sd">        if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    plot_longitude : float, str, list, or 1-D numpy array</span>
+<span class="sd">        Longitude(s) at which to place beachball(s). Must be the same length</span>
+<span class="sd">        as the number of events. Will override the ``plot_longitude`` values</span>
+<span class="sd">        in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    plot_latitude : float, str, list, or 1-D numpy array</span>
+<span class="sd">        Latitude(s) at which to place beachball(s). List must be the same</span>
+<span class="sd">        length as the number of events. Will override the ``plot_latitude``</span>
+<span class="sd">        values in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.</span>
+<span class="sd">    event_name : str, list of str, or 1-D numpy array</span>
+<span class="sd">        Text string(s), e.g., event name(s) to appear near the beachball(s).</span>
+<span class="sd">        List must be the same length as the number of events. Will override</span>
+<span class="sd">        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary</span>
+<span class="sd">        or pd.DataFrame.</span>
+<span class="sd">    labelbox : bool or str</span>
+<span class="sd">        [*fill*].</span>
+<span class="sd">        Draw a box behind the label if given. Use *fill* to give a fill color</span>
+<span class="sd">        [Default is ``&quot;white&quot;``].</span>
+<span class="sd">    offset : bool or str</span>
+<span class="sd">        [**+p**\ *pen*][**+s**\ *size*].</span>
+<span class="sd">        Offset beachball(s) to longitude(s) and latitude(s) specified in the</span>
+<span class="sd">        the last two columns of the input file or array, or by</span>
+<span class="sd">        ``plot_longitude`` and ``plot_latitude`` if provided. A small circle</span>
+<span class="sd">        is plotted at the initial location and a line connects the beachball</span>
+<span class="sd">        to the circle. Use **+s**\ *size* to set the diameter of the circle</span>
+<span class="sd">        [Default is no circle]. Use **+p**\ *pen* to set the pen attributes</span>
+<span class="sd">        for this feature [Default is set via ``pen``]. The fill of the</span>
+<span class="sd">        circle is set via ``compressionfill`` or ``cmap``, i.e.,</span>
+<span class="sd">        corresponds to the fill of the compressive quadrants.</span>
+<span class="sd">    compressionfill : str</span>
+<span class="sd">        Set color or pattern for filling compressive quadrants</span>
+<span class="sd">        [Default is ``&quot;black&quot;``]. This setting also applies to the fill of</span>
+<span class="sd">        the circle defined via ``offset``.</span>
+<span class="sd">    extensionfill : str</span>
+<span class="sd">        Set color or pattern for filling extensive quadrants</span>
+<span class="sd">        [Default is ``&quot;white&quot;``].</span>
+<span class="sd">    pen : str</span>
+<span class="sd">        Set pen attributes for all lines related to beachball [Default is</span>
+<span class="sd">        ``&quot;0.25p,black,solid&quot;``]. This setting applies to ``outline``,</span>
+<span class="sd">        ``nodal``, and ``offset``, unless overruled by arguments passed to</span>
+<span class="sd">        those parameters. Draws circumference of beachball.</span>
+<span class="sd">    outline : bool or str</span>
+<span class="sd">        [*pen*].</span>
+<span class="sd">        Draw circumference and nodal planes of beachball. Use *pen* to set</span>
+<span class="sd">        the pen attributes for this feature [Default is set via ``pen``].</span>
+<span class="sd">    nodal : bool, int, or str</span>
+<span class="sd">        [*nplane*][/*pen*].</span>
+<span class="sd">        Plot the nodal planes and outline the bubble which is transparent.</span>
+<span class="sd">        If *nplane* is</span>
+
+<span class="sd">        - ``0`` or ``True``: both nodal planes are plotted [Default].</span>
+<span class="sd">        - ``1``: only the first nodal plane is plotted.</span>
+<span class="sd">        - ``2``: only the second nodal plane is plotted.</span>
+
+<span class="sd">        Use /*pen* to set the pen attributes for this feature [Default is</span>
+<span class="sd">        set via ``pen``].</span>
+<span class="sd">        For double couple mechanisms, ``nodal`` renders the beachball</span>
+<span class="sd">        transparent by drawing only the nodal planes and the circumference.</span>
+<span class="sd">        For non-double couple mechanisms, ``nodal=0`` overlays best</span>
+<span class="sd">        double couple transparently.</span>
+<span class="sd">    cmap : str</span>
+<span class="sd">        File name of a CPT file or a series of comma-separated colors (e.g.,</span>
+<span class="sd">        *color1,color2,color3*) to build a linear continuous CPT from those</span>
+<span class="sd">        colors automatically. The color of the compressive quadrants is</span>
+<span class="sd">        determined by the z-value (i.e., event depth or the third column for</span>
+<span class="sd">        an input file). This setting also applies to the fill of the circle</span>
+<span class="sd">        defined via ``offset``.</span>
+<span class="sd">    no_clip : bool</span>
+<span class="sd">        Do **not** skip symbols that fall outside the frame boundaries</span>
+<span class="sd">        [Default is ``False``, i.e., plot symbols inside the frame</span>
+<span class="sd">        boundaries only].</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    {region}</span>
+<span class="sd">    {frame}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    {panel}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Convert spec to pandas.DataFrame unless it&#39;s a file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>  <span class="c1"># spec is a dict or pd.DataFrame</span>
+        <span class="c1"># determine convention from dict keys or pd.DataFrame column names</span>
+        <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;aki&quot;</span><span class="p">,</span> <span class="s2">&quot;gcmt&quot;</span><span class="p">,</span> <span class="s2">&quot;mt&quot;</span><span class="p">,</span> <span class="s2">&quot;partial&quot;</span><span class="p">,</span> <span class="s2">&quot;principal_axis&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">convention_params</span><span class="p">(</span><span class="n">conv</span><span class="p">))</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+                <span class="n">convention</span> <span class="o">=</span> <span class="n">conv</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Keys in dict &#39;spec&#39; do not match known conventions.&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Column names in pd.DataFrame &#39;spec&#39; do not match known conventions.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># convert dict to pd.DataFrame so columns can be reordered</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># convert values to ndarray so pandas doesn&#39;t complain about &quot;all</span>
+            <span class="c1"># scalar values&quot;. See</span>
+            <span class="c1"># https://github.com/GenericMappingTools/pygmt/pull/2174</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>  <span class="c1"># spec is a numpy array</span>
+        <span class="k">if</span> <span class="n">convention</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;convention&#39; must be specified for an array input.&quot;</span><span class="p">)</span>
+        <span class="c1"># make sure convention is a name, not a code</span>
+        <span class="n">convention</span> <span class="o">=</span> <span class="n">convention_name</span><span class="p">(</span><span class="n">convention</span><span class="p">)</span>
+
+        <span class="c1"># Convert array to pd.DataFrame and assign column names</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">spec</span><span class="p">))</span>
+        <span class="n">colnames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">convention_params</span><span class="p">(</span><span class="n">convention</span><span class="p">)]</span>
+        <span class="c1"># check if spec has the expected number of columns</span>
+        <span class="n">ncolsdiff</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">colnames</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;event_name&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">colnames</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ncolsdiff</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">colnames</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Input array must have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">colnames</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="si">}</span><span class="s2"> columns.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">colnames</span>
+
+    <span class="c1"># Now spec is a pd.DataFrame or a file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="c1"># override the values in pd.DataFrame if parameters are given</span>
+        <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">longitude</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">latitude</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">plot_longitude</span><span class="p">,</span> <span class="s2">&quot;plot_longitude&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">plot_latitude</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;event_name&quot;</span><span class="p">),</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">spec</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+        <span class="c1"># Due to the internal implementation of the meca module, we need to</span>
+        <span class="c1"># convert the following columns to strings if they exist</span>
+        <span class="k">if</span> <span class="s2">&quot;plot_longitude&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s2">&quot;plot_latitude&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;plot_latitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;plot_latitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;event_name&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;event_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;event_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+        <span class="c1"># Reorder columns in DataFrame to match convention if necessary</span>
+        <span class="c1"># expected columns are:</span>
+        <span class="c1"># longitude, latitude, depth, focal_parameters,</span>
+        <span class="c1">#   [plot_longitude, plot_latitude] [event_name]</span>
+        <span class="n">newcols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">convention_params</span><span class="p">(</span><span class="n">convention</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s2">&quot;plot_longitude&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s2">&quot;plot_latitude&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">newcols</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;plot_longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;plot_latitude&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="s2">&quot;event_name&quot;</span> <span class="ow">in</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">newcols</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;event_name&quot;</span><span class="p">]</span>
+        <span class="c1"># reorder columns in DataFrame</span>
+        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="n">newcols</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">newcols</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># determine data_format from convention and component</span>
+    <span class="n">data_format</span> <span class="o">=</span> <span class="n">convention_code</span><span class="p">(</span><span class="n">convention</span><span class="o">=</span><span class="n">convention</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">)</span>
+
+    <span class="c1"># Assemble -S flag</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data_format</span><span class="si">}{</span><span class="n">scale</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">spec</span><span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;meca&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">))</span>
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

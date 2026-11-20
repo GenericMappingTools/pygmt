@@ -1,0 +1,12 @@
+pygmt.datasets.load\_earth\_relief
+==================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_relief
+
+.. include:: backreferences/pygmt.datasets.load_earth_relief.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

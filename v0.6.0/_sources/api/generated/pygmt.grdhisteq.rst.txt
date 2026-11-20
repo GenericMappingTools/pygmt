@@ -1,0 +1,27 @@
+pygmt.grdhisteq
+===============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: grdhisteq
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    grdhisteq.compute_bins
+    
+    
+    
+    grdhisteq.equalize_grid
+    
+    
+
+.. include:: backreferences/pygmt.grdhisteq.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

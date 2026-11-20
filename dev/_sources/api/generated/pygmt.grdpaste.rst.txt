@@ -1,0 +1,13 @@
+pygmt.grdpaste
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdpaste
+
+.. minigallery:: pygmt.grdpaste
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

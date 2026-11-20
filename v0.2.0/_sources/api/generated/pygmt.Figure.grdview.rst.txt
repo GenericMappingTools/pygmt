@@ -1,0 +1,10 @@
+pygmt.Figure.grdview
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdview
+
+.. raw:: html
+
+      <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+pygmt.clib.Session.call\_module
+===============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.call_module
+
+.. include:: backreferences/pygmt.clib.Session.call_module.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

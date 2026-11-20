@@ -1,0 +1,13 @@
+pygmt.datasets.load\_earth\_geoid
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_earth_geoid
+
+.. minigallery:: pygmt.datasets.load_earth_geoid
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

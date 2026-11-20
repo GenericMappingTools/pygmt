@@ -1,0 +1,13 @@
+pygmt.Figure.meca
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.meca
+
+.. minigallery:: pygmt.Figure.meca
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

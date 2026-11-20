@@ -1,0 +1,31 @@
+r"""
+Cylindrical equal-area projection
+=================================
+
+This cylindrical projection is actually several projections, depending on what
+latitude is selected as the standard parallel. However, they are all equal area
+and hence non-conformal. All meridians and parallels are straight lines.
+
+**y**\ *lon0/lat0*\ */scale* or **Y**\ *lon0/lat0*\ */width*
+
+- **y** or **Y**: Sets the projection type.
+- *lon0/lat0*: Sets the projection center.
+- *scale* or *width*: Sets the map size.
+"""
+
+# %%
+import pygmt
+from pygmt.params import Axis
+
+fig = pygmt.Figure()
+# Use region "d" to specify global region (-180/180/-90/90)
+fig.coast(
+    region="d",
+    projection="Y35/30/12c",
+    frame=Axis(annot=True, tick=True, grid=True),
+    land="gray80",
+    water="steelblue",
+)
+fig.show()
+
+# sphinx_gallery_tags = ["equal-area"]

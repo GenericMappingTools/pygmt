@@ -1,0 +1,16 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_histograms_sg_execution_times:
+
+Computation times
+=================
+**00:06.474** total execution time for **gallery_histograms** files:
+
++--------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_histograms_blockm.py` (``blockm.py``)       | 00:04.124 | 0.0 MB |
++--------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``) | 00:01.279 | 0.0 MB |
++--------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)           | 00:01.070 | 0.0 MB |
++--------------------------------------------------------------------+-----------+--------+

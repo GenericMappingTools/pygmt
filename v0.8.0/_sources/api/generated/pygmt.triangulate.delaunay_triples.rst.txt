@@ -1,0 +1,12 @@
+pygmt.triangulate.delaunay\_triples
+===================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: triangulate.delaunay_triples
+
+.. include:: backreferences/pygmt.triangulate.delaunay_triples.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

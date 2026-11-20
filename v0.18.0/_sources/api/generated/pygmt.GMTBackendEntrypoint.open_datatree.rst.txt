@@ -1,0 +1,13 @@
+pygmt.GMTBackendEntrypoint.open\_datatree
+=========================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTBackendEntrypoint.open_datatree
+
+.. minigallery:: pygmt.GMTBackendEntrypoint.open_datatree
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

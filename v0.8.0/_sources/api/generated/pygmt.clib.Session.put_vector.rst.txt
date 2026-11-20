@@ -1,0 +1,12 @@
+pygmt.clib.Session.put\_vector
+==============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.put_vector
+
+.. include:: backreferences/pygmt.clib.Session.put_vector.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,13 @@
+pygmt.Figure.grdimage
+=====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdimage
+
+.. minigallery:: pygmt.Figure.grdimage
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

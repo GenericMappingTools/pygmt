@@ -1,0 +1,11 @@
+pygmt.x2sys\_init
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: x2sys_init
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

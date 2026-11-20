@@ -1,0 +1,13 @@
+pygmt.Figure.subplot
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.subplot
+
+.. minigallery:: pygmt.Figure.subplot
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

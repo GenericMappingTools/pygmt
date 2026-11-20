@@ -1,0 +1,12 @@
+pygmt.surface
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: surface
+
+.. include:: backreferences/pygmt.surface.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

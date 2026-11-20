@@ -1,0 +1,13 @@
+pygmt.grdtrack
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdtrack
+
+.. minigallery:: pygmt.grdtrack
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

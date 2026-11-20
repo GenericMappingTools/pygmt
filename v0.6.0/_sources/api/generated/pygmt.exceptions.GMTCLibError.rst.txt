@@ -1,0 +1,11 @@
+pygmt.exceptions.GMTCLibError
+=============================
+
+.. currentmodule:: pygmt.exceptions
+
+.. autoexception:: GMTCLibError
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
