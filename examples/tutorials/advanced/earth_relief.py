@@ -1,9 +1,9 @@
 """
-Plotting Earth relief
-=====================
+Plotting Earth's relief
+=======================
 
-PyGMT provides the :func:`pygmt.datasets.load_earth_relief` function to download the
-Earth relief data from the GMT remote server and load as an :class:`xarray.DataArray`
+PyGMT provides the :func:`pygmt.datasets.load_earth_relief` function to download
+Earth's relief data from the GMT remote server and load as an :class:`xarray.DataArray`
 object. The data can then be plotted using the :meth:`pygmt.Figure.grdimage` method.
 """
 
@@ -12,7 +12,7 @@ import pygmt
 from pygmt.params import Axis
 
 # %%
-# Load sample Earth relief data for the entire globe at a resolution of 1 arc-degree.
+# Load sample Earth's relief data for the entire globe at a resolution of 1 arc-degree.
 # Refer to :func:`pygmt.datasets.load_earth_relief` for the other available resolutions.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
@@ -46,8 +46,8 @@ fig.show()
 # --------------
 #
 # :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of the
-# figure. Examples of common CPTs for Earth relief are shown below. A full list of CPTs
-# can be found at :gmt-docs:`reference/cpts.html`.
+# figure. Examples of common CPTs for Earth's relief are shown below. A full list of
+# CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
 # %%
 # Using the *geo* CPT:

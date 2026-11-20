@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTParameterError, GMTValueError
 
 def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None):
     """
-    Wrapper for _load_remote_dataset using the earth age dataset as an example.
+    Wrapper for _load_remote_dataset using Earth's age dataset as an example.
     """
     return _load_remote_dataset(
         name="earth_age",
@@ -24,7 +24,7 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
 @pytest.mark.benchmark
 def test_load_remote_dataset_benchmark_with_region():
     """
-    Benchmark loading a remote dataset with 'region'.
+    Benchmark loading a remote dataset with "region".
     """
     data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
     assert data.name == "z"

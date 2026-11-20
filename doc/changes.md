@@ -161,9 +161,9 @@
 
 ### Documentation
 
-* Add example for geopandas point geometry: Use cities in Europe from Natural Earth ([#4231](https://github.com/GenericMappingTools/pygmt/pull/4231))
-* Update example for geopandas line geometry: Use Natural Earth dataset, change to Asia ([#4229](https://github.com/GenericMappingTools/pygmt/pull/4229))
-* Update example for geopandas polygon geometry: Use the Natural Earth dataset, change to Africa ([#4228](https://github.com/GenericMappingTools/pygmt/pull/4228))
+* Add example for geopandas point geometry: Use cities in Europe from Natural Earth's ([#4231](https://github.com/GenericMappingTools/pygmt/pull/4231))
+* Update example for geopandas line geometry: Use Natural Earth's dataset, change to Asia ([#4229](https://github.com/GenericMappingTools/pygmt/pull/4229))
+* Update example for geopandas polygon geometry: Use the Natural Earth's dataset, change to Africa ([#4228](https://github.com/GenericMappingTools/pygmt/pull/4228))
 * Advanced tutorial "Legends": Add example for adjusting line spacing ([#4265](https://github.com/GenericMappingTools/pygmt/pull/4265))
 * Tutorial "Plotting data points": Add legend for size coding ([#4214](https://github.com/GenericMappingTools/pygmt/pull/4214))
 
@@ -430,11 +430,11 @@
 * Add Figure.vlines for plotting vertical lines ([#3726](https://github.com/GenericMappingTools/pygmt/pull/3726))
 * Add load_black_marble to load "Black Marble" dataset ([#3469](https://github.com/GenericMappingTools/pygmt/pull/3469))
 * Add load_blue_marble to load "Blue Marble" dataset ([#2235](https://github.com/GenericMappingTools/pygmt/pull/2235))
-* Add load_earth_deflection to load "IGPP Earth east-west and north-south deflection" datasets ([#3728](https://github.com/GenericMappingTools/pygmt/pull/3728))
-* Add load_earth_dist to load "GSHHG Earth distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
-* Add load_earth_mean_dynamic_topography to load "CNES Earth Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
-* Add load_earth_mean_sea_surface to load "CNES Earth Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
-* load_earth_free_air_anomaly: Add "uncertainty" parameter to load the "IGPP Earth free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
+* Add load_earth_deflection to load "IGPP Earth's east-west and north-south deflection" datasets ([#3728](https://github.com/GenericMappingTools/pygmt/pull/3728))
+* Add load_earth_dist to load "GSHHG Earth's distance to shoreline" dataset ([#3706](https://github.com/GenericMappingTools/pygmt/pull/3706))
+* Add load_earth_mean_dynamic_topography to load "CNES Earth's Mean Dynamic Topography" dataset ([#3718](https://github.com/GenericMappingTools/pygmt/pull/3718))
+* Add load_earth_mean_sea_surface to load "CNES Earth's Mean Sea Surface" dataset ([#3717](https://github.com/GenericMappingTools/pygmt/pull/3717))
+* load_earth_free_air_anomaly: Add "uncertainty" parameter to load the "IGPP Earth's free-air anomaly uncertainty" dataset  ([#3727](https://github.com/GenericMappingTools/pygmt/pull/3727))
 
 
 ### Enhancements
@@ -906,7 +906,7 @@
 
 ### New Features
 
-* Add load_earth_mask function for GSHHG Global Earth Mask dataset ([#2310](https://github.com/GenericMappingTools/pygmt/pull/2310))
+* Add load_earth_mask function for GSHHG Global Earth's Mask dataset ([#2310](https://github.com/GenericMappingTools/pygmt/pull/2310))
 * Add Figure.timestamp to plot the GMT timestamp logo ([#2208](https://github.com/GenericMappingTools/pygmt/pull/2208), [#2425](https://github.com/GenericMappingTools/pygmt/pull/2425))
 
 ### Enhancements
@@ -992,10 +992,10 @@
 
 ### New Features
 
-* Add load_earth_free_air_anomaly function for Earth free-air anomaly dataset ([#2238](https://github.com/GenericMappingTools/pygmt/pull/2238))
-* Add load_earth_geoid function for Earth Geoid dataset ([#2236](https://github.com/GenericMappingTools/pygmt/pull/2236))
-* Add load_earth_magnetic_anomaly function for Earth magnetic anomaly dataset ([#2196](https://github.com/GenericMappingTools/pygmt/pull/2196), [#2239](https://github.com/GenericMappingTools/pygmt/pull/2239), [#2241](https://github.com/GenericMappingTools/pygmt/pull/2241))
-* Add load_earth_vertical_gravity_gradient function for Earth vertical gravity gradient dataset ([#2240](https://github.com/GenericMappingTools/pygmt/pull/2240))
+* Add load_earth_free_air_anomaly function for Earth's free-air anomaly dataset ([#2238](https://github.com/GenericMappingTools/pygmt/pull/2238))
+* Add load_earth_geoid function for Earth's Geoid dataset ([#2236](https://github.com/GenericMappingTools/pygmt/pull/2236))
+* Add load_earth_magnetic_anomaly function for Earth's magnetic anomaly dataset ([#2196](https://github.com/GenericMappingTools/pygmt/pull/2196), [#2239](https://github.com/GenericMappingTools/pygmt/pull/2239), [#2241](https://github.com/GenericMappingTools/pygmt/pull/2241))
+* Add load_earth_vertical_gravity_gradient function for Earth's vertical gravity gradient dataset ([#2240](https://github.com/GenericMappingTools/pygmt/pull/2240))
 * load_earth_relief: Add the support of data sources "gebco" , "gebcosi", and "synbath" ([#1818](https://github.com/GenericMappingTools/pygmt/pull/1818), [#2162](https://github.com/GenericMappingTools/pygmt/pull/2162), [#2192](https://github.com/GenericMappingTools/pygmt/pull/2192), [#2281](https://github.com/GenericMappingTools/pygmt/pull/2281))
 * Wrap ternary ([#1431](https://github.com/GenericMappingTools/pygmt/pull/1431))
 
@@ -1676,7 +1676,7 @@ Andrés Ignacio Torres,
 * Add authorship policy ([#726](https://github.com/GenericMappingTools/pygmt/pull/726))
 * Update PyGMT development installation instructions ([#865](https://github.com/GenericMappingTools/pygmt/pull/865))
 * Add a tutorial for adding a map title ([#720](https://github.com/GenericMappingTools/pygmt/pull/720))
-* Add a tutorial for plotting Earth relief ([#712](https://github.com/GenericMappingTools/pygmt/pull/712))
+* Add a tutorial for plotting Earth's relief ([#712](https://github.com/GenericMappingTools/pygmt/pull/712))
 * Add a tutorial for 3D perspective image ([#743](https://github.com/GenericMappingTools/pygmt/pull/743))
 * Add a tutorial for contour maps ([#705](https://github.com/GenericMappingTools/pygmt/pull/705))
 * Add a tutorial for plotting lines ([#741](https://github.com/GenericMappingTools/pygmt/pull/741))
@@ -1918,11 +1918,11 @@ Andrés Ignacio Torres,
 ### Maintenance
 
 * Temporarily expect failures for some grdcontour and grdview tests ([#503](https://github.com/GenericMappingTools/pygmt/pull/503))
-* Fix several failures due to updates of earth relief data ([#498](https://github.com/GenericMappingTools/pygmt/pull/498))
+* Fix several failures due to updates of Earth's relief data ([#498](https://github.com/GenericMappingTools/pygmt/pull/498))
 * Unpin pylint version and fix some lint warnings ([#484](https://github.com/GenericMappingTools/pygmt/pull/484))
 * Separate tests of gmtinfo and grdinfo ([#461](https://github.com/GenericMappingTools/pygmt/pull/461))
 * Fix the test for GMT_COMPATIBILITY=6 ([#454](https://github.com/GenericMappingTools/pygmt/pull/454))
-* Update baseline images for updates of earth relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
+* Update baseline images for updates of Earth's relief data ([#452](https://github.com/GenericMappingTools/pygmt/pull/452))
 * Simplify PyGMT Release process ([#446](https://github.com/GenericMappingTools/pygmt/pull/446))
 
 **Contributors**:
@@ -2027,7 +2027,7 @@ Andrés Ignacio Torres,
 * Quickfix Zeit Now miniconda installer link to anaconda.com ([#413](https://github.com/GenericMappingTools/pygmt/pull/413))
 * Fix GitHub Pages deployment from Travis ([#410](https://github.com/GenericMappingTools/pygmt/pull/410))
 * Update and clean TravisCI configuration ([#404](https://github.com/GenericMappingTools/pygmt/pull/404))
-* Quickfix min elevation for new SRTM15+V2.1 earth relief grids ([#401](https://github.com/GenericMappingTools/pygmt/pull/401))
+* Quickfix min elevation for new SRTM15+V2.1 Earth's relief grids ([#401](https://github.com/GenericMappingTools/pygmt/pull/401))
 * Wrap docstrings to 79 chars and check with flake8 ([#384](https://github.com/GenericMappingTools/pygmt/pull/384))
 * Update continuous integration scripts to 1.2.0 ([#355](https://github.com/GenericMappingTools/pygmt/pull/355))
 * Use Zeit Now to deploy doc builds from PRs ([#344](https://github.com/GenericMappingTools/pygmt/pull/344))

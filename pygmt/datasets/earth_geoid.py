@@ -1,6 +1,6 @@
 """
-Function to download the EGM2008 Earth geoid dataset from the GMT data server, and load
-as :class:`xarray.DataArray`.
+Function to download the EGM2008 Earth's geoid dataset from the GMT data server, and
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -22,13 +22,13 @@ def load_earth_geoid(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the EGM2008 Earth geoid dataset in various resolutions.
+    Load the EGM2008 Earth's geoid dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_geoid.jpg
        :width: 80 %
        :align: center
 
-       EGM2008 Earth geoid dataset.
+       EGM2008 Earth's geoid dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_geoid/``), and load the dataset
@@ -64,7 +64,7 @@ def load_earth_geoid(
     Returns
     -------
     grid
-        The Earth geoid grid. Coordinates are latitude and
+        Earth's geoid grid. Coordinates are latitude and
         longitude in degrees. Units are in meters.
 
     Note

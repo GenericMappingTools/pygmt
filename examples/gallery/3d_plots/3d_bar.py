@@ -23,7 +23,7 @@ from pygmt.params import Axis, Frame, Position
 # Define a study area around northern Japan with large elevation changes
 region = [141, 147, 36, 43]
 
-# Download a grid for the Earth relief with a resolution of 10 arc-minutes
+# Download a grid for Earth's relief with a resolution of 10 arc-minutes
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=region)
 
 # Convert the grid into a pandas DataFrame, with columns for longitude ("x"), latitude
