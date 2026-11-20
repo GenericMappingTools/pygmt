@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth seafloor crust age datasets.
+Test basic functionality for loading Earth's seafloor crust age datasets.
 """
 
 import numpy as np
@@ -10,12 +10,12 @@ from pygmt.enums import GridRegistration
 
 def test_earth_age_01d():
     """
-    Test some properties of the earth age 01d data.
+    Test some properties of Earth's age 01d data.
     """
     data = load_earth_age(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "ages (Myr)"
-    assert data.attrs["description"] == "EarthByte Earth seafloor crustal age"
+    assert data.attrs["description"] == "EarthByte Earth's seafloor crustal age"
     assert data.attrs["units"] == "Myr"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -28,7 +28,7 @@ def test_earth_age_01d():
 
 def test_earth_age_01d_with_region():
     """
-    Test loading low-resolution earth age with 'region'.
+    Test loading low-resolution Earth's age with 'region'.
     """
     data = load_earth_age(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

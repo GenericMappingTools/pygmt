@@ -57,7 +57,7 @@ class GMTRemoteDataset(NamedTuple):
 
 datasets = {
     "earth_age": GMTRemoteDataset(
-        description="EarthByte Earth seafloor crustal age",
+        description="EarthByte Earth's seafloor crustal age",
         kind="grid",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -97,7 +97,7 @@ datasets = {
         },
     ),
     "earth_dist": GMTRemoteDataset(
-        description="GSHHG Earth distance to shoreline",
+        description="GSHHG Earth's distance to shoreline",
         kind="grid",
         units="kilometers",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -116,7 +116,7 @@ datasets = {
         },
     ),
     "earth_edefl": GMTRemoteDataset(
-        description="IGPP Earth east-west deflection",
+        description="IGPP Earth's east-west deflection",
         kind="grid",
         units="micro-radians",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -135,7 +135,7 @@ datasets = {
         },
     ),
     "earth_faa": GMTRemoteDataset(
-        description="IGPP Earth free-air anomaly",
+        description="IGPP Earth's free-air anomaly",
         kind="grid",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -154,7 +154,7 @@ datasets = {
         },
     ),
     "earth_faaerror": GMTRemoteDataset(
-        description="IGPP Earth free-air anomaly errors",
+        description="IGPP Earth's free-air anomaly errors",
         kind="grid",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -173,7 +173,7 @@ datasets = {
         },
     ),
     "earth_gebco": GMTRemoteDataset(
-        description="GEBCO Earth relief",
+        description="GEBCO Earth's relief",
         kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
@@ -196,7 +196,7 @@ datasets = {
         },
     ),
     "earth_geoid": GMTRemoteDataset(
-        description="EGM2008 Earth geoid",
+        description="EGM2008 Earth's geoid",
         kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -215,7 +215,7 @@ datasets = {
         },
     ),
     "earth_igpp": GMTRemoteDataset(
-        description="IGPP Earth relief",
+        description="IGPP Earth's relief",
         kind="grid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
@@ -238,7 +238,7 @@ datasets = {
         },
     ),
     "earth_mag": GMTRemoteDataset(
-        description="EMAG2 Earth Magnetic Anomaly Model",
+        description="EMAG2 Earth's Magnetic Anomaly Model",
         kind="grid",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -256,7 +256,7 @@ datasets = {
         },
     ),
     "earth_mask": GMTRemoteDataset(
-        description="GSHHG Earth mask",
+        description="GSHHG Earth's mask",
         kind="grid",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -277,7 +277,7 @@ datasets = {
         },
     ),
     "earth_mss": GMTRemoteDataset(
-        description="CNES Earth mean sea surface",
+        description="CNES Earth's mean sea surface",
         kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -317,7 +317,7 @@ datasets = {
         },
     ),
     "earth_mdt": GMTRemoteDataset(
-        description="CNES Earth mean dynamic topography",
+        description="CNES Earth's mean dynamic topography",
         kind="grid",
         units="meters",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -331,7 +331,7 @@ datasets = {
         },
     ),
     "earth_ndefl": GMTRemoteDataset(
-        description="IGPP Earth north-south deflection",
+        description="IGPP Earth's north-south deflection",
         kind="grid",
         units="micro-radians",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -350,7 +350,7 @@ datasets = {
         },
     ),
     "earth_vgg": GMTRemoteDataset(
-        description="IGPP Earth vertical gravity gradient",
+        description="IGPP Earth's vertical gravity gradient",
         kind="grid",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -386,7 +386,7 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
-        description="NASA Mars (MOLA) relief",
+        description="NASA Mars' (MOLA) relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -408,7 +408,7 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
-        description="USGS Moon (LOLA) relief",
+        description="USGS Moon's (LOLA) relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -430,7 +430,7 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
-        description="USGS Mercury relief",
+        description="USGS Mercury's relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -450,7 +450,7 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
-        description="USGS Pluto relief",
+        description="USGS Pluto's relief",
         kind="grid",
         units="meters",
         extra_attributes={},
@@ -470,7 +470,7 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
-        description="NASA Magellan Venus relief",
+        description="NASA Magellan Venus' relief",
         kind="grid",
         units="meters",
         extra_attributes={},

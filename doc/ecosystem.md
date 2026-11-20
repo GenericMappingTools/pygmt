@@ -55,7 +55,7 @@ of PyGMT._
 :  A geospatial [xarray][] extension powered by [rasterio][], enabling seamless reading,
    writing, and manipulation of multi-dimensional arrays with geospatial attributes such
    as coordinate reference systems (CRS) and spatial extent (bounds). PyGMT relies on it
-   in in several aspects:
+   in several aspects:
 
    1. To save multi-band rasters to temporary files in GeoTIFF format, to support
       processing and plotting 3-D {class}`xarray.DataArray` images.
@@ -89,7 +89,7 @@ Below is an incomplete list (in no particular order) of these tools.
 ```{note}
 If your package relies on PyGMT, please
 [let us know](https://github.com/GenericMappingTools/pygmt/issues/new) or
-[add it by yourself](contributing.md).
+[add it yourself](contributing.md).
 ```
 
 *This page was adapted from [GeoPandas's Ecosystem](https://geopandas.org/en/latest/community/ecosystem.html) page.*
@@ -103,7 +103,6 @@ If your package relies on PyGMT, please
 [numpy]: https://numpy.org/
 [pandas]: https://pandas.pydata.org/
 [pyarrow]: https://arrow.apache.org/docs/python/
-[pyogrio]: https://pyogrio.readthedocs.io/
 [rasterio]: https://rasterio.readthedocs.io/
 [rioxarray]: https://vylor.github.io/rioxarray/
 [xarray]: https://xarray.dev/

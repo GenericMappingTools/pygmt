@@ -1,5 +1,5 @@
 """
-Function to download the CNES Earth mean sea surface dataset from the GMT data
+Function to download the CNES Earth's mean sea surface dataset from the GMT data
 server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -22,13 +22,13 @@ def load_earth_mean_sea_surface(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the CNES Earth mean sea surface dataset in various resolutions.
+    Load the CNES Earth's mean sea surface dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mss.jpg
        :width: 80 %
        :align: center
 
-       CNES Earth mean sea surface dataset.
+       CNES Earth's mean sea surface dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_mss/``), and load the dataset as
@@ -70,7 +70,7 @@ def load_earth_mean_sea_surface(
     Returns
     -------
     grid
-        The CNES Earth mean sea surface grid. Coordinates are latitude and
+        CNES Earth's mean sea surface grid. Coordinates are latitude and
         longitude in degrees. Values are in meters.
 
     Note

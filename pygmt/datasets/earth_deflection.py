@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth east-west and north-south deflection datasets from
+Function to download the IGPP Earth's east-west and north-south deflection datasets from
 the GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -23,15 +23,15 @@ def load_earth_deflection(
     component: Literal["east", "north"] = "east",
 ) -> xr.DataArray:
     r"""
-    Load the IGPP Earth east-west and north-south deflection datasets in various
+    Load the IGPP Earth's east-west and north-south deflection datasets in various
     resolutions.
 
     .. list-table::
        :widths: 50 50
        :header-rows: 1
 
-       * - IGPP Earth east-west deflection
-         - IGPP Earth north-south deflection
+       * - IGPP Earth's east-west deflection
+         - IGPP Earth's north-south deflection
        * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_edefl.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_ndefl.jpg
 
@@ -82,7 +82,7 @@ def load_earth_deflection(
     Returns
     -------
     grid
-        The Earth east-west or north-south deflection grid. Coordinates are latitude
+        Earth's east-west or north-south deflection grid. Coordinates are latitude
         and longitude in degrees. Deflection values are in micro-radians, where
         positive (negative) values indicate a deflection to the east or north (west
         or south).

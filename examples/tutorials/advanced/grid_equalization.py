@@ -14,7 +14,7 @@ from pygmt.params import Axis, Frame, Position
 # Load sample data
 # ----------------
 #
-# Load the sample Earth relief data for a region around Yosemite Valley
+# Load the sample Earth's relief data for a region around Yosemite Valley
 # and use :func:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
 # z-values.
 
