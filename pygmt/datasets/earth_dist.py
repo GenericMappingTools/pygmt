@@ -1,5 +1,5 @@
 """
-Function to download the GSHHG Earth distance to shoreline dataset from the GMT data
+Function to download the GSHHG Earth's distance to shoreline dataset from the GMT data
 server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -22,13 +22,13 @@ def load_earth_dist(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the GSHHG Earth distance to shoreline dataset in various resolutions.
+    Load the GSHHG Earth's distance to shoreline dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_dist.jpg
        :width: 80 %
        :align: center
 
-       GSHHG Earth distance to shoreline dataset.
+       GSHHG Earth's distance to shoreline dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_dist/``), and load the dataset
@@ -70,7 +70,7 @@ def load_earth_dist(
     Returns
     -------
     grid
-        The GSHHG Earth distance to shoreline grid. Coordinates are latitude and
+        The GSHHG Earth's distance to shoreline grid. Coordinates are latitude and
         longitude in degrees. Distances are in kilometers, where positive (negative)
         values mean land to coastline (ocean to coastline).
 

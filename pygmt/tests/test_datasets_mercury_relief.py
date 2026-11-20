@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Mercury relief datasets.
+Test basic functionality for loading Mercury's relief datasets.
 """
 
 import numpy as np
@@ -10,12 +10,12 @@ from pygmt.enums import GridRegistration
 
 def test_mercury_relief_01d():
     """
-    Test some properties of the Mercury relief 01d data.
+    Test some properties of Mercury's relief 01d data.
     """
     data = load_mercury_relief(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "USGS Mercury relief"
+    assert data.attrs["description"] == "USGS Mercury's relief"
     assert data.attrs["units"] == "meters"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE
@@ -27,7 +27,7 @@ def test_mercury_relief_01d():
 
 def test_mercury_relief_01d_with_region():
     """
-    Test loading low-resolution Mercury relief with 'region'.
+    Test loading low-resolution Mercury's relief with 'region'.
     """
     data = load_mercury_relief(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

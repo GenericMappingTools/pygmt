@@ -131,7 +131,7 @@ def dimfilter(
     Examples
     --------
     >>> import pygmt
-    >>> # Load a grid of Earth relief data
+    >>> # Load grid of Earth's relief data
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> # Create a filtered grid from an input grid.
     >>> filtered_grid = pygmt.dimfilter(

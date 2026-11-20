@@ -155,7 +155,7 @@ def load_static_earth_relief() -> xr.DataArray:
     Returns
     -------
     data
-        A grid of Earth relief for internal tests.
+        A grid of Earth's relief for internal tests.
     """
     return xr.load_dataarray(
         "@static_earth_relief.nc", engine="gmt", raster_kind="grid"
