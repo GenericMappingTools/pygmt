@@ -3,12 +3,55 @@ makecpt - Make GMT color palette tables.
 """
 
 from collections.abc import Sequence
+from contextlib import nullcontext
 from typing import Literal
 
+import numpy as np
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTInvalidInput, GMTParameterError
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    sequence_join,
+    use_alias,
+)
+
+
+def _explicit_series(series) -> np.ndarray:
+    """
+    Convert explicit color slice boundaries to a single column of doubles.
+    """
+    values = np.asanyarray(series)
+    if values.ndim != 1:
+        msg = "Parameter 'series' must be one-dimensional."
+        raise GMTInvalidInput(msg)
+    if isinstance(values, np.ma.MaskedArray):
+        values = values.compressed()
+    if values.size < 2:
+        msg = "Parameter 'series' must provide at least two unmasked boundaries."
+        raise GMTInvalidInput(msg)
+
+    msg = "Explicit color slice boundaries must be finite real numbers."
+    # NumPy can coerce complex and time scalars in object arrays to doubles.
+    if values.dtype.kind not in "biufOSU" or (
+        values.dtype.kind == "O"
+        and any(
+            isinstance(
+                value, complex | np.complexfloating | np.datetime64 | np.timedelta64
+            )
+            for value in values
+        )
+    ):
+        raise GMTInvalidInput(msg)
+    try:
+        boundaries = values.astype(np.float64, copy=False)
+    except (TypeError, ValueError, OverflowError) as error:
+        raise GMTInvalidInput(msg) from error
+    if not np.isfinite(boundaries).all():
+        raise GMTInvalidInput(msg)
+    return boundaries
 
 
 @fmt_docstring
@@ -22,7 +65,6 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     W="categorical",
     Ww="cyclic",
 )
-@kwargs_to_strings(T="sequence")
 def makecpt(
     cmap: str | bool = False,
     truncate: Sequence[float] | None = None,
@@ -113,14 +155,19 @@ def makecpt(
         *start*, where we automatically build monotonically increasing
         labels from *start* (a single letter or an integer). Additionally
         append **-** to build ranges *start*-*start+1* as labels instead.
-    series : list or str
+    series : str or array-like
         [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
-        Define the range of the new CPT by giving the lowest and highest
-        z-value (and optionally an interval). If this is not given, the
-        existing range in the master CPT will be used intact. The values
-        produced defines the color slice boundaries. If **+n** is used it
-        refers to the number of such boundaries and not the number of slices.
-        For details on array creation, see
+        A two-value sequence specifies *min* and *max*. A three-value sequence
+        adds *inc*. A one-dimensional sequence of four or more finite real
+        numbers specifies the boundaries directly. For example,
+        ``series=[0, 0.25, 0.9, 2]`` creates three color slices. Masked entries
+        are skipped when reading explicit boundaries. A string can contain a
+        file name, GMT's range syntax, or a comma-separated list of boundaries.
+        Use GMT's string syntax to specify two or three explicit boundaries or
+        a list of absolute times.
+        If ``series`` is omitted, use the range of the master CPT. The **+n**
+        modifier sets the number of boundaries, which is one more than the
+        number of color slices. For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
     truncate
         (*zlow*, *zhigh*).
@@ -185,9 +232,26 @@ def makecpt(
     ).add_common(
         V=verbose,
     )
+    series = kwargs.pop("T", None)
     aliasdict.merge(kwargs)
 
+    if is_nonstr_iter(series):
+        if not hasattr(series, "__len__"):
+            series = tuple(series)
+        if (size := len(series)) <= 3:
+            series = sequence_join(tuple(series), sep="/", ndim=1) if size else ""
+        else:
+            series = _explicit_series(series)
+
     with Session() as lib:
-        lib.call_module(
-            module="makecpt", args=build_arg_list(aliasdict, outfile=output)
+        series_context = (
+            # The LIST table header tells GMT to use comma-list color assignment.
+            lib._virtualfile_from_column(series, header="LIST")
+            if is_nonstr_iter(series)
+            else nullcontext(series)
         )
+        with series_context as vseries:
+            aliasdict["T"] = vseries
+            lib.call_module(
+                module="makecpt", args=build_arg_list(aliasdict, outfile=output)
+            )

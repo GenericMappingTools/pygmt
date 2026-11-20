@@ -1408,6 +1408,44 @@ class Session:
                 raise GMTCLibError(msg)
 
     @contextlib.contextmanager
+    def _virtualfile_from_column(
+        self, column: np.ndarray, header: str
+    ) -> Generator[str, None, None]:
+        """
+        Store a numeric column and its table header in a dataset virtual file.
+        """
+        family, geometry = "GMT_IS_DATASET", "GMT_IS_POINT"
+        dataset = self.create_data(
+            family, geometry, mode="GMT_CONTAINER_AND_DATA", dim=[1, 1, len(column), 1]
+        )
+        table = ctp.cast(dataset, ctp.POINTER(_GMT_DATASET)).contents.table[0].contents
+        values = np.ctypeslib.as_array(
+            table.segment[0].contents.data[0], (len(column),)
+        )
+        values[:] = column
+
+        c_set_comment = self.get_libgmt_func(
+            "GMT_Set_Comment",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_uint, ctp.c_char_p, ctp.c_void_p],
+            restype=ctp.c_int,
+        )
+        status = c_set_comment(
+            self.session_pointer,
+            self[family],
+            self["GMT_COMMENT_IS_TEXT"],
+            header.encode(),
+            dataset,
+        )
+        if status != 0:
+            msg = "Failed to set the GMT data table header."
+            raise GMTCLibError(msg)
+
+        with self.open_virtualfile(
+            family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
+        ) as name:
+            yield name
+
+    @contextlib.contextmanager
     def virtualfile_from_vectors(self, vectors: Sequence) -> Generator[str, None, None]:
         """
         Store a sequence of 1-D vectors as columns of a dataset inside a virtual file.

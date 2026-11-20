@@ -2,12 +2,19 @@
 Test pygmt.makecpt.
 """
 
+from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pytest
 from pygmt import Figure, makecpt
-from pygmt.exceptions import GMTParameterError, GMTValueError
+from pygmt.exceptions import (
+    GMTCLibError,
+    GMTInvalidInput,
+    GMTParameterError,
+    GMTValueError,
+)
 from pygmt.helpers import GMTTempFile
 
 POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
@@ -77,6 +84,133 @@ def test_makecpt_output_cpt_file():
     with GMTTempFile(suffix=".cpt") as cptfile:
         makecpt(output=cptfile.name)
         assert Path(cptfile.name).stat().st_size > 0
+
+
+@pytest.mark.parametrize(
+    ("series", "gmt_series"),
+    [
+        pytest.param([0, 0.25, 0.9, 2], "0,0.25,0.9,2", id="explicit-list"),
+        pytest.param((0, 0.25, 0.9, 2), "0,0.25,0.9,2", id="explicit-tuple"),
+        pytest.param(np.array([0, 0.25, 0.9, 2]), "0,0.25,0.9,2", id="explicit-array"),
+        pytest.param(
+            np.array([0, 0.25, 0.9, 2], dtype=np.dtype("float64").newbyteorder()),
+            "0,0.25,0.9,2",
+            id="non-native-array",
+        ),
+        pytest.param(pd.Series([0, 0.25, 0.9, 2]), "0,0.25,0.9,2", id="pandas-series"),
+        pytest.param(range(5), "0,1,2,3,4", id="explicit-range"),
+        pytest.param(
+            [Fraction(0), Fraction(1, 4), Fraction(9, 10), Fraction(2)],
+            "0,0.25,0.9,2",
+            id="fractions",
+        ),
+        pytest.param(
+            np.ma.array([0, 0.25, 89, 0.9, 2], mask=[0, 0, 1, 0, 0]),
+            "0,0.25,0.9,2",
+            id="masked-array",
+        ),
+        pytest.param([0, 2], "0/2", id="two-value-list"),
+        pytest.param(np.array([0, 2]), "0/2", id="two-value-array"),
+        pytest.param((0, 2, 0.5), "0/2/0.5", id="three-value-tuple"),
+        pytest.param(np.array([0, 2, 0.5]), "0/2/0.5", id="three-value-array"),
+        pytest.param(
+            np.array(["2020-01-01", "2020-01-15"], dtype="datetime64[s]"),
+            "2020-01-01T00:00:00/2020-01-15T00:00:00",
+            id="datetime-range",
+        ),
+    ],
+)
+def test_makecpt_series(tmp_path, series, gmt_series):
+    """
+    Match GMT's explicit boundaries or range syntax for sequence inputs.
+    """
+    expected = tmp_path / "expected.cpt"
+    actual = tmp_path / "actual.cpt"
+    makecpt(cmap="turbo", series=gmt_series, output=str(expected))
+    makecpt(cmap="turbo", series=series, output=str(actual))
+    assert actual.read_bytes() == expected.read_bytes()
+
+
+@pytest.mark.parametrize(
+    ("cmap", "continuous"),
+    [("red,green,blue", False), ("red,green,blue,white", True)],
+)
+def test_makecpt_series_with_colors(tmp_path, cmap, continuous):
+    """
+    Assign the requested colors to the explicit boundaries.
+    """
+    expected = tmp_path / "expected.cpt"
+    actual = tmp_path / "actual.cpt"
+    makecpt(cmap=cmap, continuous=continuous, series="0,0.25,0.9,2", output=expected)
+    makecpt(cmap=cmap, continuous=continuous, series=[0, 0.25, 0.9, 2], output=actual)
+    assert actual.read_bytes() == expected.read_bytes()
+
+
+def test_makecpt_series_color_count(tmp_path):
+    """
+    Ask GMT to validate the number of colors for explicit boundaries.
+    """
+    with pytest.raises(GMTCLibError, match="Mismatch between number of entries"):
+        makecpt(
+            cmap="red,green,blue,white",
+            series=[0, 0.25, 0.9, 2],
+            output=tmp_path / "invalid.cpt",
+        )
+
+
+def test_makecpt_long_series(tmp_path):
+    """
+    Match an input file for a long sequence of color slice boundaries.
+    """
+    boundaries = np.linspace(0, 1, 4097)
+    series_file = tmp_path / "boundaries.txt"
+    np.savetxt(series_file, boundaries)
+    expected = tmp_path / "expected.cpt"
+    actual = tmp_path / "actual.cpt"
+    makecpt(cmap="turbo", series=str(series_file), output=str(expected))
+    makecpt(cmap="turbo", series=boundaries, output=str(actual))
+    assert actual.read_bytes() == expected.read_bytes()
+
+
+@pytest.mark.parametrize(
+    "series",
+    [
+        pytest.param(np.datetime64("2020-01-01") + np.arange(4), id="datetime-array"),
+        pytest.param(
+            [
+                "2020-01-01T00:00:00",
+                "2020-01-03T00:00:00",
+                "2020-01-06T00:00:00",
+                "2020-01-15T00:00:00",
+            ],
+            id="iso-strings",
+        ),
+        pytest.param(
+            np.array([0, 0.25, np.complex128(0.9 + 1j), 2], dtype=object),
+            id="complex-objects",
+        ),
+    ],
+)
+def test_makecpt_nonnumeric_boundaries(tmp_path, series):
+    """
+    Reject non-real boundaries before passing the sequence to GMT.
+    """
+    output = tmp_path / "invalid.cpt"
+    with pytest.raises(GMTInvalidInput, match="must be finite real numbers"):
+        makecpt(cmap="turbo", series=series, output=output)
+    assert not output.exists()
+
+
+def test_makecpt_series_short_alias(tmp_path):
+    """
+    Accept a sequence through the short-form GMT option.
+    """
+    expected = tmp_path / "expected.cpt"
+    actual = tmp_path / "actual.cpt"
+    makecpt(cmap="turbo", series="0,0.25,0.9,2", output=str(expected))
+    with pytest.warns(SyntaxWarning, match=r"Short-form parameter \(T\)"):
+        makecpt(cmap="turbo", T=[0, 0.25, 0.9, 2], output=str(actual))
+    assert actual.read_bytes() == expected.read_bytes()
 
 
 def test_makecpt_blank_output():
