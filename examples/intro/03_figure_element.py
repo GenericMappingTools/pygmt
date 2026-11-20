@@ -10,12 +10,12 @@ The figure below shows the naming of figure elements in PyGMT.
   adding annotations, ticks, gridlines, and axis labels to each axis with
   :class:`pygmt.params.Axis`, e.g., in :meth:`pygmt.Figure.basemap`. Detailed examples
   can be found at :doc:`frame and axes attributes </tutorials/basics/frames>`
-- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on the parameters
-  ``pen`` or ``style``, respectively
+- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on the parameters ``pen``
+  or ``style``, respectively
 - :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font`` parameter
   adjusts fontsize, fontstyle, and color
-- :meth:`pygmt.Figure.legend`: showing the meaning of lines or symbols while
-  the ``label`` is given in :meth:`pygmt.Figure.plot`
+- :meth:`pygmt.Figure.legend`: showing the meaning of lines or symbols while the
+  ``label`` is given in :meth:`pygmt.Figure.plot`
 - :meth:`pygmt.Figure.show`: previewing the content added to the current figure instance
 """
 
@@ -48,7 +48,7 @@ minorexplain = {"font": "10p,8", "justify": "TC", "no_clip": True}
 fig.text(x=12, y=22, text="Figure", **mainexplain)
 fig.text(x=12, y=20.8, text="pygmt.Figure()", **minorexplain)
 # ============ Title
-fig.text(x=8.4, y=22, text='Frame(title="Title")', **minorexplain)
+fig.text(x=8.4, y=22, text='title="Title"', **minorexplain)
 # ============ xlabel
 fig.text(x=5, y=-3.9, text='xaxis=Axis(label="xlabel")', **minorexplain)
 # ============ ylabel
@@ -76,7 +76,7 @@ fig.text(x=2.4, y=18, text="yaxis=Axis(grid=5)", **minorexplain)
 # ============ Plot Boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(x=11.5, y=8, text="Plot Boundary", **mainexplain)
-fig.text(x=12, y=6.8, text='Frame(axes="WStr")', **minorexplain)
+fig.text(x=12, y=6.8, text='axes="WStr"', **minorexplain)
 # ============ fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.text(x=7, y=6.5, text="fig.plot(style)", **minorexplain)
