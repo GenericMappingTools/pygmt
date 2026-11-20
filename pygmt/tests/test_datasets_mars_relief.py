@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Mars relief datasets.
+Test basic functionality for loading Mars' relief datasets.
 """
 
 import numpy as np
@@ -10,12 +10,12 @@ from pygmt.enums import GridRegistration
 
 def test_mars_relief_01d():
     """
-    Test some properties of the Mars relief 01d data.
+    Test some properties of Mars' relief 01d data.
     """
     data = load_mars_relief(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "NASA Mars (MOLA) relief"
+    assert data.attrs["description"] == "NASA Mars' (MOLA) relief"
     assert data.attrs["units"] == "meters"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE
@@ -27,7 +27,7 @@ def test_mars_relief_01d():
 
 def test_mars_relief_01d_with_region():
     """
-    Test loading low-resolution Mars relief with 'region'.
+    Test loading low-resolution Mars' relief with 'region'.
     """
     data = load_mars_relief(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)

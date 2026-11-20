@@ -194,12 +194,12 @@ def _load_maunaloa_co2() -> pd.DataFrame:
 
 def _load_earth_relief_holes() -> xr.DataArray:
     """
-    Load the earth relief grid with some holes.
+    Load Earth's relief grid with some holes.
 
     Returns
     -------
     grid
-        The Earth relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Earth's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
     """
     fname = which("@earth_relief_20m_holes.grd", download="cache")
@@ -224,7 +224,7 @@ datasets = {
     ),
     "earth_relief_holes": GMTSampleData(
         func=_load_earth_relief_holes,
-        description="Regional 20 arc-minutes Earth relief grid with holes",
+        description="Regional 20 arc-minutes Earth's relief grid with holes",
     ),
     "fractures": GMTSampleData(
         func=_load_fractures_compilation,
@@ -327,7 +327,7 @@ def load_sample_data(
     >>> # use list_sample_data to see the available datasets
     >>> pprint(list_sample_data(), width=120)
     {'bathymetry': 'Table of ship bathymetric observations off Baja California',
-     'earth_relief_holes': 'Regional 20 arc-minutes Earth relief grid with holes',
+     'earth_relief_holes': "Regional 20 arc-minutes Earth's relief grid with holes",
      'fractures': 'Table of hypothetical fracture lengths and azimuths',
      'hotspots': 'Table of locations, names, and symbol sizes of hotpots from Müller et al. (1993)',
      'japan_quakes': 'Table of earthquakes around Japan from the NOAA NGDC database',

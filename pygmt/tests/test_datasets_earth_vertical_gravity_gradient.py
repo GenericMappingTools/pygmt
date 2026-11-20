@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth vertical gravity gradient datasets.
+Test basic functionality for loading Earth's vertical gravity gradient datasets.
 """
 
 import numpy as np
@@ -10,12 +10,12 @@ from pygmt.enums import GridRegistration
 
 def test_earth_vertical_gravity_gradient_01d():
     """
-    Test some properties of the earth vgg 01d data.
+    Test some properties of Earth's vgg 01d data.
     """
     data = load_earth_vertical_gravity_gradient(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "vgg (Eotvos)"
-    assert data.attrs["description"] == "IGPP Earth vertical gravity gradient"
+    assert data.attrs["description"] == "IGPP Earth's vertical gravity gradient"
     assert data.attrs["units"] == "Eotvos"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -29,7 +29,7 @@ def test_earth_vertical_gravity_gradient_01d():
 
 def test_earth_vertical_gravity_gradient_01d_with_region():
     """
-    Test loading low-resolution earth vgg with 'region'.
+    Test loading low-resolution Earth's vgg with "region".
     """
     data = load_earth_vertical_gravity_gradient(
         resolution="01d", region=[-10, 10, -5, 5]

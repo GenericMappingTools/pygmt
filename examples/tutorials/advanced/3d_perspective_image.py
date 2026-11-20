@@ -10,7 +10,7 @@ using :meth:`pygmt.Figure.grdview`.
 import pygmt
 from pygmt.params import Axis, Frame
 
-# Load sample earth relief data
+# Load sample Earth's relief data
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
 # %%

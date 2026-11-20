@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth free air anomaly datasets.
+Test basic functionality for loading Earth's free air anomaly datasets.
 """
 
 import numpy as np
@@ -10,12 +10,12 @@ from pygmt.enums import GridRegistration
 
 def test_earth_faa_01d():
     """
-    Test some properties of the free air anomaly 01d data.
+    Test some properties of Earth's free air anomaly 01d data.
     """
     data = load_earth_free_air_anomaly(resolution="01d")
     assert data.name == "z"
     assert data.attrs["long_name"] == "faa (mGal)"
-    assert data.attrs["description"] == "IGPP Earth free-air anomaly"
+    assert data.attrs["description"] == "IGPP Earth's free-air anomaly"
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -28,7 +28,7 @@ def test_earth_faa_01d():
 
 def test_earth_faa_01d_with_region():
     """
-    Test loading low-resolution earth free air anomaly with 'region'.
+    Test loading low-resolution Earth's free air anomaly with 'region'.
     """
     data = load_earth_free_air_anomaly(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
@@ -57,12 +57,12 @@ def test_earth_faa_01m_default_registration():
 
 def test_earth_faaerror_01d():
     """
-    Test some properties of the free air anomaly error 01d data.
+    Test some properties of Earth's free air anomaly error 01d data.
     """
     data = load_earth_free_air_anomaly(resolution="01d", uncertainty=True)
     assert data.name == "z"
     assert data.attrs["long_name"] == "faaerror (mGal)"
-    assert data.attrs["description"] == "IGPP Earth free-air anomaly errors"
+    assert data.attrs["description"] == "IGPP Earth's free-air anomaly errors"
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
@@ -75,7 +75,7 @@ def test_earth_faaerror_01d():
 
 def test_earth_faaerror_01d_with_region():
     """
-    Test loading low-resolution earth free air anomaly error with 'region'.
+    Test loading low-resolution Earth's free air anomaly error with 'region'.
     """
     data = load_earth_free_air_anomaly(
         resolution="01d", region=[-10, 10, -5, 5], uncertainty=True

@@ -1,5 +1,5 @@
 """
-Function to download the Earth seafloor crustal age dataset from the GMT data server,
+Function to download Earth's seafloor crustal age dataset from the GMT data server,
 and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -22,13 +22,13 @@ def load_earth_age(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the Earth seafloor crustal age dataset in various resolutions.
+    Load Earth's seafloor crustal age dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_age.jpg
        :width: 80 %
        :align: center
 
-       Earth seafloor crustal age dataset.
+       Earth's seafloor crustal age dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_age/``), and load the dataset as
@@ -70,7 +70,7 @@ def load_earth_age(
     Returns
     -------
     grid
-        The Earth seafloor crustal age grid. Coordinates are latitude and longitude in
+        Earth's seafloor crustal age grid. Coordinates are latitude and longitude in
         degrees. Age is in millions of years (Myr).
 
     Note

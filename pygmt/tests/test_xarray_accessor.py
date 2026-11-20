@@ -141,7 +141,7 @@ def test_xarray_accessor_tiled_grid_slice_and_add():
 
     Unit test to track https://github.com/GenericMappingTools/pygmt/issues/524
     """
-    # Load the 05m earth relief grid, which is stored as tiles.
+    # Load the 05m Earth's relief grid, which is stored as tiles.
     grid = load_earth_relief(
         resolution="05m", region=[0, 5, -5, 5], registration="pixel"
     )
