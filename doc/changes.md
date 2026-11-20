@@ -8,7 +8,7 @@
 
 * 🎉 Twentieth minor release of PyGMT 🎉
 * Redesign the PyGMT website
-* Refractor `Figure.histogram` for a more Pythonic interface
+* Refactor `Figure.histogram` for a more Pythonic interface
 * Add several new inline examples and two updated tutorials
 * Add support for Python 3.15
 
@@ -21,32 +21,30 @@
 * Figure.histogram: Add the parameter 'weights' for weighting data ([#4890](https://github.com/GenericMappingTools/pygmt/pull/4890))
 * Figure.histogram: Improve parameters 'distribution' and 'distribution_pen' to draw distribution curves ([#4894](https://github.com/GenericMappingTools/pygmt/pull/4894))
 * Figure.histogram: Improved syntax for filling bars by position/value ([#4886](https://github.com/GenericMappingTools/pygmt/pull/4886))
-* Figure.histogram: Let parameter 'cumulative' support Pythonic arguments ([#4881](https://github.com/GenericMappingTools/pygmt/pull/4881))
-* Figure.histogram: Let the parameter 'series' accept a sequence ([#4899](https://github.com/GenericMappingTools/pygmt/pull/4899))
-* Figure.histogram: Support Pythonic arguments for the parameter 'histtype' ([#4912](https://github.com/GenericMappingTools/pygmt/pull/4912))
+* Figure.histogram: Let parameters 'cumulative'/'histtype' support Pythonic arguments ([#4881](https://github.com/GenericMappingTools/pygmt/pull/4881), [#4912](https://github.com/GenericMappingTools/pygmt/pull/4912))
+* Figure.histogram: Let parameter 'series' accept a sequence ([#4899](https://github.com/GenericMappingTools/pygmt/pull/4899))
 * Figure.hlines/Figure.vlines: Add the parameter 'panel' to specify the subplot panel ([#4892](https://github.com/GenericMappingTools/pygmt/pull/4892))
 * Figure.image: Add parameter 'fgcolor'/'bgcolor'/'transparent_color' and deprecate 'bitcolor' [Will be removed in 0.24.0] ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
 * pygmt.blockmean/blockmedian/blockmode: Add parameter 'center' (-C) ([#4780](https://github.com/GenericMappingTools/pygmt/pull/4780))
 
 ### Deprecations
 
-* Figure.grdview: Remove the deprecated parameters '*pen'/'drapegrid' ([#4830](https://github.com/GenericMappingTools/pygmt/pull/4830))
+* Figure.grdview: Remove the deprecated parameters '*pen'/'drapegrid' [Deprecated since v0.18.0] ([#4830](https://github.com/GenericMappingTools/pygmt/pull/4830))
 * Figure.grdcontour: Remove the deprecated 'interval' parameter [Deprecated since v0.12.0] ([#4764](https://github.com/GenericMappingTools/pygmt/pull/4764))
-* Figure.histogram: Add parameter 'out_range' to handle extreme values and deprecate parameter 'extreme' ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882))
-* Figure.histogram: Add parameters to annotate bars and deprecate parameter 'annotate' ([#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
+* Figure.histogram: Deprecate parameters 'extreme' and 'annotate' ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882), [#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
 * Figure.histogram: Remove the deprecated parameter 'barwidth' [Deprecated since 0.18.0] ([#4827](https://github.com/GenericMappingTools/pygmt/pull/4827))
-* Figure.image: Add parameter 'fgcolor'/'bgcolor'/'transparent_color' and deprecate 'bitcolor' [Will be removed in 0.24.0] ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
+* Figure.image: Deprecate parameter 'bitcolor' [Will be removed in 0.24.0] ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
 * Figure.inset: Remove deprecated parameter 'margin' [Deprecated since 0.18.0] ([#4826](https://github.com/GenericMappingTools/pygmt/pull/4826))
-* Figure.meca: Remove the deprecated parameters 'label'/'*fill' ([#4829](https://github.com/GenericMappingTools/pygmt/pull/4829))
+* Figure.meca: Remove deprecated parameters 'label'/'*fill' ([#4829](https://github.com/GenericMappingTools/pygmt/pull/4829))
 * Figure.velo: Remove deprecated parameter 'uncertaintyfill' [Deprecated since 0.18.0] ([#4835](https://github.com/GenericMappingTools/pygmt/pull/4835))
-* Figure.wiggle: Remove the deprecated parameters 'fillpositive'/'fillnegative' [Deprecated since 0.18.0] ([#4831](https://github.com/GenericMappingTools/pygmt/pull/4831))
-* Session.virtualfile_in: Remove the deprecated parameters 'required_z'/'required_data'/'extra_arrays' [Deprecated since 0.16.0] ([#4828](https://github.com/GenericMappingTools/pygmt/pull/4828))
-* pygmt.grdfill: Remove the deprecated parameters '*fill' [Deprecated since 0.18.0] ([#4836](https://github.com/GenericMappingTools/pygmt/pull/4836))
-* pygmt.grdlandmask: Remove the deprecated parameters 'maskvalue'/'bordervalues' [Deprecated since 0.18.0] ([#4833](https://github.com/GenericMappingTools/pygmt/pull/4833))
-* pygmt.load_dataarray: Remove the deprecated function [Deprecated since v0.16.0] ([#4837](https://github.com/GenericMappingTools/pygmt/pull/4837))
-* pygmt.select: Remove the deprecated parameters 'mask'/'gridmask' [Deprecated since 0.18.0] ([#4825](https://github.com/GenericMappingTools/pygmt/pull/4825))
-* pygmt.surface: Remove the deprecated parameter 'maxradius' [Deprecated since 0.18.0] ([#4832](https://github.com/GenericMappingTools/pygmt/pull/4832))
-* pygmt.x2sys_cross: Remove the deprecated parameter 'trackvalues' [Deprecated since 0.18.0] ([#4834](https://github.com/GenericMappingTools/pygmt/pull/4834))
+* Figure.wiggle: Remove deprecated parameters 'fillpositive'/'fillnegative' [Deprecated since 0.18.0] ([#4831](https://github.com/GenericMappingTools/pygmt/pull/4831))
+* Session.virtualfile_in: Remove deprecated parameters 'required_z'/'required_data'/'extra_arrays' [Deprecated since 0.16.0] ([#4828](https://github.com/GenericMappingTools/pygmt/pull/4828))
+* pygmt.grdfill: Remove deprecated parameters '*fill' [Deprecated since 0.18.0] ([#4836](https://github.com/GenericMappingTools/pygmt/pull/4836))
+* pygmt.grdlandmask: Remove deprecated parameters 'maskvalue'/'bordervalues' [Deprecated since 0.18.0] ([#4833](https://github.com/GenericMappingTools/pygmt/pull/4833))
+* pygmt.load_dataarray: Remove deprecated function [Deprecated since v0.16.0] ([#4837](https://github.com/GenericMappingTools/pygmt/pull/4837))
+* pygmt.select: Remove deprecated parameters 'mask'/'gridmask' [Deprecated since 0.18.0] ([#4825](https://github.com/GenericMappingTools/pygmt/pull/4825))
+* pygmt.surface: Remove deprecated parameter 'maxradius' [Deprecated since 0.18.0] ([#4832](https://github.com/GenericMappingTools/pygmt/pull/4832))
+* pygmt.x2sys_cross: Remove deprecated parameter 'trackvalues' [Deprecated since 0.18.0] ([#4834](https://github.com/GenericMappingTools/pygmt/pull/4834))
 
 ### Bug Fixes
 
