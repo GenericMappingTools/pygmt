@@ -1,5 +1,5 @@
 """
-Function to download the Venus relief dataset from the GMT data server, and load as
+Function to download Venus' relief dataset from the GMT data server, and load as
 :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -22,13 +22,13 @@ def load_venus_relief(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the Venus relief dataset in various resolutions.
+    Load Venus' relief dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_venus_relief.jpg
        :width: 80%
        :align: center
 
-       Venus relief dataset.
+       Venus' relief dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/venus/venus_relief/``), and load the dataset
@@ -70,7 +70,7 @@ def load_venus_relief(
     Returns
     -------
     grid
-        The Venus relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Venus' relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
     Note

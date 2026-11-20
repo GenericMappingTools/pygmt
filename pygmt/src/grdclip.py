@@ -94,7 +94,7 @@ def grdclip(
     Examples
     --------
     >>> import pygmt
-    >>> # Load the 30 arc-minutes Earth relief grid, with a longitude range of 10° E to
+    >>> # Load 30 arc-minutes Earth's relief grid, with a longitude range of 10° E to
     >>> # 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]

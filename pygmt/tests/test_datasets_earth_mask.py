@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth mask datasets.
+Test basic functionality for loading Earth's mask datasets.
 """
 
 import numpy as np
@@ -10,11 +10,11 @@ from pygmt.enums import GridRegistration, GridType
 
 def test_earth_mask_01d():
     """
-    Test some properties of the Earth mask 01d data.
+    Test some properties of Earth's mask 01d data.
     """
     data = load_earth_mask(resolution="01d")
     assert data.name == "z"
-    assert data.attrs["description"] == "GSHHG Earth mask"
+    assert data.attrs["description"] == "GSHHG Earth's mask"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration is GridRegistration.GRIDLINE
@@ -29,7 +29,7 @@ def test_earth_mask_01d():
 
 def test_earth_mask_01d_with_region():
     """
-    Test loading low-resolution Earth mask with 'region'.
+    Test loading low-resolution Earth's mask with 'region'.
     """
     data = load_earth_mask(resolution="01d", region=[-7, 4, 13, 19])
     assert data.shape == (7, 12)

@@ -1,5 +1,5 @@
 """
-Function to download the CNES Earth mean dynamic topography dataset from the GMT data
+Function to download the CNES Earth's mean dynamic topography dataset from the GMT data
 server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -20,13 +20,13 @@ def load_earth_mean_dynamic_topography(
     registration: Literal["gridline", "pixel"] = "gridline",
 ) -> xr.DataArray:
     r"""
-    Load the CNES Earth mean dynamic topography dataset in various resolutions.
+    Load the CNES Earth's mean dynamic topography dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mdt.jpg
        :width: 80 %
        :align: center
 
-       CNES Earth mean dynamic topography dataset.
+       CNES Earth's mean dynamic topography dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/earth/earth_mdt/``), and load the dataset as
@@ -67,7 +67,7 @@ def load_earth_mean_dynamic_topography(
     Returns
     -------
     grid
-        The CNES Earth mean dynamic topography grid. Coordinates are latitude and
+        CNES Earth's mean dynamic topography grid. Coordinates are latitude and
         longitude in degrees. Values are in meters.
 
     Note

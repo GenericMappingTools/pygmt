@@ -160,7 +160,7 @@ def grdimage(
 
     Examples
     --------
-    Plot the global Earth relief using a Mollweide projection.
+    Plot global Earth's relief using a Mollweide projection.
 
     >>> import pygmt
     >>> from pygmt.params import Axis

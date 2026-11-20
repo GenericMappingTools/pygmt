@@ -25,7 +25,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="grid_360")
 def fixture_grid_360(grid):
     """
-    Earth relief grid with longitude range from 0 to 360 (instead of -180 to 180).
+    Earth's relief grid with longitude range from 0 to 360 (instead of -180 to 180).
     """
     _grid = grid.copy()  # get a copy of original earth_relief grid
     _grid.encoding.pop("source")  # unlink earth_relief netCDF source

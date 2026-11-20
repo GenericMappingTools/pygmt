@@ -1,5 +1,5 @@
 """
-Function to download the Moon relief dataset from the GMT data server, and load as
+Function to download Moon's relief dataset from the GMT data server, and load as
 :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -35,13 +35,13 @@ def load_moon_relief(
     registration: Literal["gridline", "pixel", None] = None,
 ) -> xr.DataArray:
     r"""
-    Load the Moon relief dataset in various resolutions.
+    Load Moon's relief dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_moon_relief.jpg
        :width: 80%
        :align: center
 
-       Moon relief dataset.
+       Moon's relief dataset.
 
     This function downloads the dataset from the GMT data server, caches it in a user
     data directory (usually ``~/.gmt/server/moon/moon_relief/``), and load the dataset
@@ -86,7 +86,7 @@ def load_moon_relief(
     Returns
     -------
     grid
-        The Moon relief grid. Coordinates are latitude and longitude in degrees. Relief
+        Moon's relief grid. Coordinates are latitude and longitude in degrees. Relief
         is in meters.
 
     Note

@@ -3,7 +3,7 @@ Perspective projection
 ======================
 
 The perspective projection imitates the view of the Earth from a finite
-point in space. In a full view of the earth one third of its surface area can
+point in space. In a full view of the Earth one third of its surface area can
 be seen.
 
 **g**\ *lon0/lat0*\ */scale*\ [**+a**\ *azimuth*]\
@@ -22,8 +22,8 @@ be seen.
 - **+v**\ *vwidth/vheight*: The viewport angle in degrees [Optional].
 - **+w**\ *twist*: The clockwise rotation of the image in degrees [Optional].
 - **+z**\ *altitude*: The height of the viewpoint above local sea level in km.
-  If altitude is less than 10, it is the distance from the center of the earth
-  to the viewpoint in earth radii [Optional].
+  If altitude is less than 10, it is the distance from the center of the Earth
+  to the viewpoint in Earth radii [Optional].
 
 The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the

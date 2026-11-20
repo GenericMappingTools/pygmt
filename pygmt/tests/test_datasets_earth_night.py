@@ -29,7 +29,7 @@ def test_black_marble_01d():
 
 def test_black_marble_01d_with_region():
     """
-    Test loading low-resolution Black Marble with 'region'.
+    Test loading low-resolution Black Marble with "region".
     """
     data = load_black_marble(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (3, 10, 20)

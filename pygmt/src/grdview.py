@@ -255,7 +255,7 @@ def grdview(
 
     Examples
     --------
-    Create a 3-D surface plot of the Earth's relief.
+    Create a 3-D surface plot of Earth's relief.
 
     >>> import pygmt
     >>> from pygmt.params import Axis, Frame
