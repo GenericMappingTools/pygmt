@@ -461,8 +461,8 @@ def colorbar(
 
         .. note::
            By default, the fontsizes of the colorbar annotations, label, and unit are
-           scaled based on the width of the colorbar following
-           :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize use the GMT
+           scaled based on the length of the colorbar following
+           :math:`\sqrt{colorbar\_length / 15}`. To set a desired fontsize use the GMT
            default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
            :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
            :gmt-term:`FONT`). For GMT >=6.7.0, users can use ``no_font_scaling = True``
