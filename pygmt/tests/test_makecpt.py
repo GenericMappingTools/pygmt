@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import Figure, makecpt
+from pygmt.clib import Session
 from pygmt.exceptions import (
     GMTCLibError,
     GMTInvalidInput,
@@ -167,6 +168,28 @@ def test_makecpt_series_color_count(tmp_path):
             series=[0, 0.25, 0.9, 2],
             output=tmp_path / "invalid.cpt",
         )
+
+
+def test_makecpt_series_header_failure(tmp_path, monkeypatch):
+    """
+    Raise an error when GMT fails to set the virtual dataset's table header.
+    """
+    get_libgmt_func = Session.get_libgmt_func
+
+    def fail_set_comment(self, name, *args, **kwargs):
+        if name == "GMT_Set_Comment":
+
+            def reject(*args):  # ruff: ignore[unused-function-argument]
+                return 1
+
+            return reject
+        return get_libgmt_func(self, name, *args, **kwargs)
+
+    monkeypatch.setattr(Session, "get_libgmt_func", fail_set_comment)
+    output = tmp_path / "invalid.cpt"
+    with pytest.raises(GMTCLibError):
+        makecpt(cmap="turbo", series=[0, 0.25, 0.9, 2], output=output)
+    assert not output.exists()
 
 
 def test_makecpt_long_series(tmp_path):

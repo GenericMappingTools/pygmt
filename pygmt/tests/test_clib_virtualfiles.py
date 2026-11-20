@@ -93,19 +93,6 @@ def test_open_virtualfile_fails():
                 pass
 
 
-def test_virtualfile_from_column_header_fails():
-    """
-    Raise an exception when GMT fails to set the virtual dataset's table header.
-    """
-    with (
-        clib.Session() as lib,
-        mock(lib, "GMT_Set_Comment", returns=1),
-        pytest.raises(GMTCLibError, match="Failed to set the GMT data table header"),
-        lib._virtualfile_from_column(np.arange(4, dtype=np.float64), header="LIST"),
-    ):
-        pass
-
-
 def test_open_virtualfile_bad_direction():
     """
     Test passing an invalid direction argument.
