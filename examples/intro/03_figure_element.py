@@ -53,19 +53,19 @@ fig.text(x=8.4, y=22, text='title="Title"', **minorexplain)
 fig.text(x=5, y=-3.9, text='xaxis=Axis(label="xlabel")', **minorexplain)
 # ============ ylabel
 fig.text(x=-1.7, y=10, text='yaxis=Axis(label="ylabel")', angle=90, **minorexplain)
-# ============ x-majorticks
+# ============ major x-ticks
 fig.plot(x=10, y=-0.2, style="c1c", pen="2p,darkblue", no_clip=True)
 fig.text(x=10, y=-1.6, text="Annotation", **mainexplain)
 fig.text(x=10, y=-2.8, text="xaxis=Axis(annot=2)", **minorexplain)
-# ============ y-majorticks
+# ============ major y-ticks
 fig.plot(x=-0.2, y=20, style="c1c", pen="2p,darkblue", no_clip=True)
 fig.text(x=0, y=23.4, text="Annotation", **mainexplain)
 fig.text(x=0, y=22.2, text="yaxis=Axis(annot=5)", **minorexplain)
-# ============ x-minorticks
+# ============ minor x-ticks
 fig.plot(x=1, y=-0.2, style="c0.7c", pen="2p,darkblue", no_clip=True)
 fig.text(x=1, y=-1.4, text="Frame", **mainexplain)
 fig.text(x=1, y=-2.6, text="xaxis=Axis(tick=1)", **minorexplain)
-# ============ y-minorticks
+# ============ minor y-ticks
 fig.plot(x=0, y=2, style="c0.7c", pen="2p,darkblue", no_clip=True)
 fig.text(x=-2.6, y=2.3, text="yaxis=Axis(tick=1)", **minorexplain)
 # ============ Grid
@@ -73,9 +73,9 @@ fig.plot(x=2, y=15, style="c0.5c", pen="2p,darkblue")
 fig.text(x=2, y=17, text="Grid", **mainexplain)
 fig.text(x=2.4, y=19, text="xaxis=Axis(grid=2)", **minorexplain)
 fig.text(x=2.4, y=18, text="yaxis=Axis(grid=5)", **minorexplain)
-# ============ Plot Boundaries
+# ============ Plot boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
-fig.text(x=11.5, y=8, text="Plot Boundary", **mainexplain)
+fig.text(x=11.5, y=8, text="Plot boundaries", **mainexplain)
 fig.text(x=12, y=6.8, text='axes="WStr"', **minorexplain)
 # ============ fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
