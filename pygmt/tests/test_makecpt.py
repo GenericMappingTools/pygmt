@@ -131,6 +131,17 @@ def test_makecpt_series(tmp_path, series, gmt_series):
     assert actual.read_bytes() == expected.read_bytes()
 
 
+def test_makecpt_series_iterator(tmp_path):
+    """
+    Match GMT's explicit boundaries for an iterator without a length.
+    """
+    expected = tmp_path / "expected.cpt"
+    actual = tmp_path / "actual.cpt"
+    makecpt(cmap="turbo", series="0,0.25,0.9,2", output=expected)
+    makecpt(cmap="turbo", series=iter([0, 0.25, 0.9, 2]), output=actual)
+    assert actual.read_bytes() == expected.read_bytes()
+
+
 @pytest.mark.parametrize(
     ("cmap", "continuous"),
     [("red,green,blue", False), ("red,green,blue,white", True)],
@@ -197,6 +208,36 @@ def test_makecpt_nonnumeric_boundaries(tmp_path, series):
     """
     output = tmp_path / "invalid.cpt"
     with pytest.raises(GMTInvalidInput, match="must be finite real numbers"):
+        makecpt(cmap="turbo", series=series, output=output)
+    assert not output.exists()
+
+
+@pytest.mark.parametrize(
+    ("series", "match"),
+    [
+        pytest.param(
+            np.arange(8).reshape(4, 2),
+            "must be one-dimensional",
+            id="two-dimensional",
+        ),
+        pytest.param(
+            np.ma.array([0, 0.25, 0.9, 2], mask=[False, True, True, True]),
+            "must provide at least two unmasked boundaries",
+            id="too-few-unmasked",
+        ),
+        pytest.param(
+            [0, 0.25, 0.9, np.inf],
+            "must be finite real numbers",
+            id="nonfinite",
+        ),
+    ],
+)
+def test_makecpt_invalid_numeric_boundaries(tmp_path, series, match):
+    """
+    Reject invalid numeric boundaries without writing a CPT.
+    """
+    output = tmp_path / "invalid.cpt"
+    with pytest.raises(GMTInvalidInput, match=match):
         makecpt(cmap="turbo", series=series, output=output)
     assert not output.exists()
 
