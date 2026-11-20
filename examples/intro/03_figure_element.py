@@ -4,8 +4,8 @@
 
 The figure below shows the naming of figure elements in PyGMT.
 
-- :meth:`pygmt.Figure()`: having a number of plotting methods. Every new figure must
-  start with the creation of a :meth:`pygmt.Figure()` instance
+- :meth:`pygmt.Figure`: having a number of plotting methods. Every new figure must
+  start with the creation of a :meth:`pygmt.Figure` instance
 - ``frame``: setting plot boundaries and the title with :class:`pygmt.params.Frame`, and
   adding annotations, ticks, gridlines, and axis labels to each axis with
   :class:`pygmt.params.Axis`, e.g., in :meth:`pygmt.Figure.basemap`. Detailed examples
