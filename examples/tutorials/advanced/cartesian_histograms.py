@@ -439,6 +439,7 @@ fig.show()
 binwidth = 10
 
 fig = pygmt.Figure()
+pygmt.config(MAP_GRID_PEN="0.01p,gray60,2_2")
 
 # Create histogram for data1
 fig.histogram(
