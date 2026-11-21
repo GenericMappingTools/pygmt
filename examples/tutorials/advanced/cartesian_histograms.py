@@ -76,7 +76,7 @@ fig.histogram(
     # Draw a 0.5-points thick, solid outline in "gray30" around the bars
     pen="0.5p,gray30,solid",
     # Choose counts via the "histtype" parameter
-    histtype=0,
+    histtype="count",
 )
 
 # Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
@@ -95,7 +95,7 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
     # plotted vertically and the y-axis plotted horizontally.
     horizontal=True,
@@ -158,8 +158,9 @@ fig.show()
 # Counts and frequency percent
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# By default, a histogram showing the counts in each bin is created (``histtype=0``).
-# To show the frequency percent set the ``histtype`` parameter to ``1``. For further
+# By default, a histogram showing the counts in each bin is created
+# (``histtype="count"``). To show the percentage of values in each bin, set the
+# ``histtype`` parameter to ``"percent"``. For further
 # options please have a look at the documentation of :meth:`pygmt.Figure.histogram`.
 
 fig = pygmt.Figure()
@@ -178,7 +179,7 @@ fig.histogram(
     fill="bisque",
     pen="0.5p,gray30,solid",
     # Choose counts via the "histtype" parameter
-    histtype=0,
+    histtype="count",
 )
 
 fig.shift_origin(xshift="w+1c")
@@ -197,8 +198,8 @@ fig.histogram(
     series=10,
     fill="bisque",
     pen="0.5p,gray30,solid",
-    # Choose frequency percent via the "histtype" parameter
-    histtype=1,
+    # Choose percentages via the "histtype" parameter
+    histtype="percent",
 )
 
 fig.show()
@@ -228,7 +229,7 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     # Annotate each bar with the counts it represents
     annot=True,
 )
@@ -249,7 +250,7 @@ fig.histogram(
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     cumulative=True,  # Show cumulative counts
     annot=True,
     annot_offset="-10p",  # Offset the annotations by 10 points in negative y-direction
@@ -321,7 +322,7 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     # Set legend entry
     label="data01",
 )
@@ -334,7 +335,7 @@ fig.histogram(
     # Fill bars with color "bisque", use a transparency of 50% ("@50")
     fill="bisque@50",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     label="data02",
 )
 
@@ -376,7 +377,7 @@ fig.histogram(
     series=10,
     fill="bisque",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     # The combined data set appears in the final histogram visually as data set data02
     label="data02",
 )
@@ -388,7 +389,7 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     label="data01",
 )
 
@@ -428,7 +429,7 @@ fig.histogram(
     series=binwidth,
     fill="pink3",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
     bar_width=binwidth / 2,
@@ -443,7 +444,7 @@ fig.histogram(
     series=binwidth,
     fill="bisque",
     pen="0.5p,gray30,solid",
-    histtype=0,
+    histtype="count",
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
     label="data02",
