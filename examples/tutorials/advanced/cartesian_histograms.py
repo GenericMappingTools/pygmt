@@ -78,6 +78,8 @@ fig.histogram(
     pen="0.5p,gray30",
 )
 
+fig.show()
+
 
 # %%
 # Histogram styles
