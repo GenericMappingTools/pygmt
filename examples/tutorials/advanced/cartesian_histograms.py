@@ -373,8 +373,9 @@ fig.show()
 # Distribution curve
 # ~~~~~~~~~~~~~~~~~~
 #
-# parameters ``distribution``  and ``distribution`_pen``
-# Add legend ?
+# Use the ``distribution`` parameter to plot equivalent normal distribution curves for mean,
+# median, or lms additional on top of the histogram. Via ``distribution_pen`` pass a list of
+# strings to adjust the pen used for the different curves.
 
 fig = pygmt.Figure()
 
