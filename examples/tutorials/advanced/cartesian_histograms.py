@@ -8,7 +8,7 @@ In this tutorial, different histogram related aspects are addressed:
 - General step: bin width and bar fill
 - Histogram styles: bar orientation, stair-steps
 - Histogram types: frequency percent, cumulative, distribution curve
-- Mulit-dataset histograms: grouped, stacked, overlayed bars
+- Multi-dataset histograms: grouped, stacked, overlayed bars
 """
 
 # %%
