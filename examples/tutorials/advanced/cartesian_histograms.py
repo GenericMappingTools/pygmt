@@ -102,40 +102,36 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data01
+# Use bars
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
     data=data01,
     series=10,
-    # Draw a 1-point thick, dotted outline in "pink3"
-    pen="1p,pink3,dotted",
-    histtype=0,
-    # Draw stair-steps in stead of bars
-    stairs=True,
+    fill="pink3",
+    pen="1p,gray50,solid",
 )
 
 fig.shift_origin(xshift="w+2c")
 
-# Create histogram for data02
+# Use stair-steps
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data02,
+    data=data01,
     series=10,
-    # Draw a 1.5-point thick, dashed outline in "bisque"
-    pen="1.5p,bisque,dashed",
-    histtype=0,
+    fill="pink3",
+    pen="1p,gray50,solid",
     stairs=True,
 )
 
