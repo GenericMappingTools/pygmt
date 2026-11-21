@@ -257,7 +257,6 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
-    histtype="count",
     # Annotate each bar with the counts it represents
     annot=True,
 )
@@ -278,7 +277,6 @@ fig.histogram(
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="0.5p,gray30",
-    histtype="count",
     cumulative=True,  # Show cumulative counts
     annot=True,
     annot_offset="-10p",  # Offset the annotations by 10 points in negative y-direction
@@ -350,7 +348,6 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
-    histtype="count",
     # Set legend entry
     label="data01",
 )
@@ -363,7 +360,6 @@ fig.histogram(
     # Fill bars with color "bisque", use a transparency of 50% ("@50")
     fill="bisque@50",
     pen="0.5p,gray30",
-    histtype="count",
     label="data02",
 )
 
@@ -405,7 +401,6 @@ fig.histogram(
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
-    histtype="count",
     # The combined data set appears in the final histogram visually as data set data02
     label="data02",
 )
@@ -417,7 +412,6 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
-    histtype="count",
     label="data01",
 )
 
@@ -457,7 +451,6 @@ fig.histogram(
     series=binwidth,
     fill="pink3",
     pen="0.5p,gray30",
-    histtype="count",
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
     bar_width=binwidth / 2,
@@ -472,7 +465,6 @@ fig.histogram(
     series=binwidth,
     fill="bisque",
     pen="0.5p,gray30",
-    histtype="count",
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
     label="data02",
