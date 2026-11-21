@@ -73,8 +73,8 @@ fig.histogram(
     series=10,
     # Fill the bars with color "pink3"
     fill="pink3",
-    # Draw a 0.5-points thick, solid outline in "gray50" around the bars
-    pen="0.5p,gray50,solid",
+    # Draw a 0.5-points thick, solid outline in "gray30" around the bars
+    pen="0.5p,gray30,solid",
     # Choose counts via the "histtype" parameter
     histtype=0,
 )
@@ -94,7 +94,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
     # plotted vertically and the y-axis plotted horizontally.
@@ -125,7 +125,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
 )
 
 fig.shift_origin(xshift="w+2c")
@@ -142,7 +142,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     stairs=True,
 )
 
@@ -176,7 +176,7 @@ fig.histogram(
     data=data02,
     series=10,
     fill="bisque",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     # Choose counts via the "histtype" parameter
     histtype=0,
 )
@@ -196,7 +196,7 @@ fig.histogram(
     data=data02,
     series=10,
     fill="bisque",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     # Choose frequency percent via the "histtype" parameter
     histtype=1,
 )
@@ -227,7 +227,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # Annotate each bar with the counts it represents
     annotate=True,
@@ -248,7 +248,7 @@ fig.histogram(
     series=10,
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # Show cumulative counts
     cumulative=True,
@@ -277,7 +277,7 @@ fig.histogram(
     data=data02,
     series=10,
     fill="bisque",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     distribution=["mean", "median"],
     distribution_pen=["1.5p,cyan2", "1.5p,steelblue,4_2"],
 )
@@ -318,7 +318,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # Set legend entry
     label="data01",
@@ -331,7 +331,7 @@ fig.histogram(
     series=10,
     # Fill bars with color "bisque", use a transparency of 50% ("@50")
     fill="bisque@50",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     label="data02",
 )
@@ -373,7 +373,7 @@ fig.histogram(
     data=data_merge,
     series=10,
     fill="bisque",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # The combined data set appears in the final histogram visually as data set data02
     label="data02",
@@ -385,7 +385,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     label="data01",
 )
@@ -425,7 +425,7 @@ fig.histogram(
     data=data01,
     series=binwidth,
     fill="pink3",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
@@ -440,7 +440,7 @@ fig.histogram(
     data=data02,
     series=binwidth,
     fill="bisque",
-    pen="0.5p,gray50,solid",
+    pen="0.5p,gray30,solid",
     histtype=0,
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
