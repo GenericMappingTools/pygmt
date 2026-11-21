@@ -291,14 +291,12 @@ def histogram(
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
     fill
-        Set color or pattern for filling bars [Default is no fill]. Set it to one of the
-        two special values to fill bars by looking up the color from a CPT instead of a
-        constant color:
+        Set color or pattern for filling bars [Default is no fill]. Set it to one of
+        two special values to fill the bars based on a CPT instead of a constant color:
 
         - ``"position"``: look up the color using the mid-coordinate of the bin. This is
           the default when ``cmap`` is set.
-        - ``"value"``: look up the color using the bin value, i.e., the bar count or
-          frequency.
+        - ``"value"``: look up the color using the bin value, i.e., count or frequency.
 
         The special values require a CPT (either the current CPT or explicitly set by
         ``cmap``).
