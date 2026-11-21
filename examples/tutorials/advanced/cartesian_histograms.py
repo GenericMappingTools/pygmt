@@ -5,7 +5,7 @@ Cartesian histograms
 Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram` method.
 In this tutorial, different histogram related aspects are addressed:
 
-- General step
+- General step: bin width and bar fill
 - Histogram styles: bar orientation, stair-steps
 - Histogram types: frequency percent, cumulative, distribution curve
 - Mulit-dataset histograms: grouped, stacked, overlayed bars
@@ -35,10 +35,11 @@ data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 # General step
 # ------------
 #
-# To define the width of the bins, the ``series`` parameter has to be specified. The
-# bars can be filled via the ``fill`` parameter with either a color or a pattern (see
-# later in this tutorial). Use the ``pen`` parameter to adjust width, color, and style
-# of the outlines.
+
+# Bin width: ``series`` parameter
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# To define the width of the bins, the ``series`` parameter has to be specified.
 
 fig = pygmt.Figure()
 
@@ -56,10 +57,7 @@ fig.histogram(
     data=data1,
     # Set the bin width via the "series" parameter based on region
     series=10,
-    # Fill the bars with color "lightbrown"
-    fill="lightbrown",
-    # Draw a 0.5-points thick, solid outline in "gray30" around the bars
-    pen="0.5p,gray30",
+    pen=True,
 )
 
 # Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
@@ -76,8 +74,7 @@ fig.histogram(
     data=data1,
     # Set minimum, maximum and bin with for the bins
     series=[75, 120, 10],
-    fill="lightbrown",
-    pen="0.5p,gray30",
+    pen=True,
 )
 
 fig.shift_origin(xshift="w+2c")
@@ -93,7 +90,72 @@ fig.histogram(
     data=data1,
     # Set bin boundaries explicitly
     series=np.array([50, 75, 80, 90, 100, 110, 120, 140, 180]),
+    pen=True,
+)
+
+fig.show()
+
+
+# %%
+# Bar fill: `fill`` and ``cmap`` parameters
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
+# Use the ``pen`` parameter to adjust width, color, and style of the outlines. Besides a
+# normal color, ``fill`` can take two specific arguments ``"position"`` and ``"value"``.
+# Both require to setup a colormap via :func:`pygmt.makecpt`.
+
+fig = pygmt.Figure()
+
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data1,
+    series=10,
     fill="lightbrown",
+    pen="0.5p,gray30",
+)
+
+fig.shift_origin(xshift="w+2c")
+
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 10])
+fig.colorbar(frame=True)
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data1,
+    series=10,
+    fill="position",
+    cmap=True,
+    pen="0.5p,gray30",
+)
+
+fig.shift_origin(xshift="w+2c")
+
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 15, 1])
+fig.colorbar(frame=True)
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data1,
+    series=10,
+    fill="value",
+    cmap=True,
     pen="0.5p,gray30",
 )
 
