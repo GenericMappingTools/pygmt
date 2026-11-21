@@ -211,7 +211,7 @@ fig.show()
 # To create a histogram showing the cumulative values set ``cumulative=True``. Here, the
 # bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern` via
 # the ``fill`` parameter. Annotate each bar with the counts it represents using the
-# ``annotate`` parameter.
+# ``annot`` parameter.
 
 fig = pygmt.Figure()
 
@@ -230,7 +230,7 @@ fig.histogram(
     pen="0.5p,gray30,solid",
     histtype=0,
     # Annotate each bar with the counts it represents
-    annotate=True,
+    annot=True,
 )
 
 fig.shift_origin(xshift="w+1c")
@@ -253,7 +253,7 @@ fig.histogram(
     # Show cumulative counts
     cumulative=True,
     # Offset ("+o") the label by 10 points in negative y-direction
-    annotate="+o-10p",
+    annot="+o-10p",
 )
 
 fig.show()
