@@ -250,11 +250,11 @@ fig.histogram(
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="0.5p,gray30,solid",
     histtype=0,
-    # Show cumulative counts
-    cumulative=True,
-    # Offset ("+o") the label by 10 points in negative y-direction
-    annot="+o-10p",
+    cumulative=True,  # Show cumulative counts
+    annot=True,
+    annot_offset="-10p",  # Offset the annotations by 10 points in negative y-direction
 )
+
 
 fig.show()
 
