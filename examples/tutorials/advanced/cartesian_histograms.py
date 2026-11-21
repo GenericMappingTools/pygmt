@@ -5,7 +5,7 @@ Cartesian histograms
 Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram` method.
 In this tutorial, different histogram related aspects are addressed:
 
-- General step: bin width and bar fill
+- General set up: bin width and bar fill
 - Histogram styles: bar orientation, stair-steps
 - Histogram types: frequency percent, cumulative, distribution curve
 - Multi-dataset histograms: grouped, stacked, overlayed bars
@@ -32,8 +32,8 @@ data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
-# General step
-# ------------
+# General set up
+# --------------
 #
 
 # Bin width: ``series`` parameter
