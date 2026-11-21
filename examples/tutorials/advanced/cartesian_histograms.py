@@ -102,7 +102,7 @@ fig.show()
 #
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
 # Use the ``pen`` parameter to adjust width, color, and style of the outlines. Besides a
-# normal color, ``fill`` can take two specific arguments ``"position"`` and ``"value"``.
+# constant color, ``fill`` can take two specific arguments, ``"position"`` and ``"value"``.
 # Both require to setup a colormap via :func:`pygmt.makecpt`.
 
 fig = pygmt.Figure()
