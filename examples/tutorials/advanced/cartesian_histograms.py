@@ -41,6 +41,7 @@ data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # To define the width of the bins, the ``series`` parameter has to be specified.
+# Use the ``pen`` parameter to adjust width, color, and style of the outlines.
 
 fig = pygmt.Figure()
 
@@ -58,7 +59,7 @@ fig.histogram(
     data=data1,
     # Set the bin width via the "series" parameter based on region
     series=10,
-    pen=True,
+    pen="0.5p,gray30",
 )
 
 # Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
@@ -75,7 +76,7 @@ fig.histogram(
     data=data1,
     # Set minimum, maximum and bin with for the bins
     series=[75, 120, 10],
-    pen=True,
+    pen="0.5p,gray30",
 )
 
 fig.shift_origin(xshift="w+2c")
@@ -91,7 +92,7 @@ fig.histogram(
     data=data1,
     # Set bin boundaries explicitly
     series=np.array([50, 75, 80, 90, 100, 110, 120, 140, 180]),
-    pen=True,
+    pen="0.5p,gray30",
 )
 
 fig.show()
@@ -102,8 +103,7 @@ fig.show()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
-# Use the ``pen`` parameter to adjust width, color, and style of the outlines. Besides a
-# constant color, ``fill`` can take two specific arguments, ``"position"`` and
+# Besides a constant color, ``fill`` can take two specific arguments, ``"position"`` and
 # ``"value"``. Both require to setup a colormap via :func:`pygmt.makecpt`.
 
 fig = pygmt.Figure()
