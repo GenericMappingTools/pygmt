@@ -5,7 +5,7 @@ Cartesian histograms
 Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram` method.
 In this tutorial, different histogram related aspects are addressed:
 
-- General step: bins vs. bars
+- General step
 - Histogram styles: bar orientation, stair-steps
 - Histogram types: frequency percent, cumulative, distribution curve
 - Mulit-dataset histograms: grouped, stacked, overlayed bars
@@ -32,10 +32,51 @@ data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
-# General step: bins vs. bars
-# ---------------------------
+# General step
+# ------------
 #
-# ``series`` parameter
+# To define the width of the bins, the ``series`` parameter has to be specified. The
+# bars can be filled via the ``fill`` parameter with either a color or a pattern (see
+# later in this tutorial). Use the ``pen`` parameter to adjust width, color, and style
+# of the outlines.
+
+fig = pygmt.Figure()
+
+fig.histogram(
+    # Define the plot range as a list of xmin, xmax, ymin, ymax
+    # Let ymin and ymax determined automatically by setting both to the same value
+    region=[0, 200, 0, 0],
+	# Cartesian projection with a width of 10 centimeters
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data01,
+	# Set the bin width via the "series" paramete
+	series=10,
+    # Fill the bars with color "pink3"
+    fill="pink3",
+    # Draw a 0.5-points thick, solid outline in "gray30" around the bars
+    pen="0.5p,gray30",
+)
+
+fig.shift_origin(xshift="w+2c")
+
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data01,
+    series=np.array([0, 60, 80, 90, 100, 110, 120, 140, 200]),
+    fill="pink3",
+    pen="0.5p,gray30",
+)
 
 
 # %%
@@ -47,35 +88,24 @@ data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 # Bar orientation
 # ~~~~~~~~~~~~~~~
 #
-# To define the width of the bins, the ``series`` parameter has to be specified. The
-# bars can be filled via the ``fill`` parameter with either a color or a pattern (see
-# later in this tutorial). Use the ``pen`` parameter to adjust width, color, and style
-# of the outlines. By default, a histogram with vertical bars is created. Horizontal
-# bars can be achieved via ``horizontal=True``.
+# By default, a histogram with vertical bars is created. Horizontal bars can be
+# achieved via ``horizontal=True``.
 
 fig = pygmt.Figure()
 
 # Create histogram for data01 with vertical bars
 fig.histogram(
-    # Define the plot range as a list of xmin, xmax, ymin, ymax
-    # Let ymin and ymax determined automatically by setting both to the same value
     region=[0, 200, 0, 0],
-    projection="X10c",  # Cartesian projection with a width of 10 centimeters
-    # Add frame, annotations, ticks, and y-axis label
+    projection="X10c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
     data=data01,
-    # Set the bin width via the "series" parameter
     series=10,
-    # Fill the bars with color "pink3"
     fill="pink3",
-    # Draw a 0.5-points thick, solid outline in "gray30" around the bars
     pen="0.5p,gray30",
-    # Choose counts via the "histtype" parameter
-    histtype="count",
 )
 
 # Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
@@ -94,7 +124,6 @@ fig.histogram(
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
-    histtype="count",
     # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
     # plotted vertically and the y-axis plotted horizontally.
     horizontal=True,
