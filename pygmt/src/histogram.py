@@ -287,7 +287,6 @@ def histogram(
         - ``"percent_log"``: natural logarithm of (1 + percent)
         - ``"count_log10"``: base-10 logarithm of (1 + count)
         - ``"percent_log10"``: base-10 logarithm of (1 + percent)
-    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
