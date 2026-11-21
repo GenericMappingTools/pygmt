@@ -32,8 +32,22 @@ data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
-# Vertical and horizontal bars
-# ----------------------------
+# General step: bins vs. bars
+# ---------------------------
+# TODO
+#
+
+
+
+# %%
+# Histogram styles
+# ----------------
+#
+
+
+# %%
+# Bar orientation
+# ~~~~~~~~~~~~~~~
 #
 # To define the width of the bins, the ``series`` parameter has to be specified. The
 # bars can be filled via the ``fill`` parameter with either a color or a pattern (see
@@ -94,7 +108,7 @@ fig.show()
 
 # %%
 # Stair-steps
-# -----------
+# ~~~~~~~~~~~
 #
 # A stair-step diagram can be created by setting ``stairs=True``. Then only the
 # outer outlines of the bars are drawn, and no internal bars are visible.
@@ -138,8 +152,13 @@ fig.show()
 
 
 # %%
+# Histogram types
+# ---------------
+#
+
+# %%
 # Counts and frequency percent
-# ----------------------------
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # By default, a histogram showing the counts in each bin is created (``histtype=0``).
 # To show the frequency percent set the ``histtype`` parameter to ``1``. For further
@@ -189,7 +208,7 @@ fig.show()
 
 # %%
 # Cumulative values
-# -----------------
+# ~~~~~~~~~~~~~~~~~
 #
 # To create a histogram showing the cumulative values set ``cumulative=True``. Here, the
 # bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern` via
@@ -243,8 +262,21 @@ fig.show()
 
 
 # %%
+# Distribution curve
+# ~~~~~~~~~~~~~~~~~~
+# TODO
+
+
+
+
+# %%
+# Multi-dataset histograms
+# ------------------------
+#
+
+# %%
 # Overlaid bars
-# -------------
+# ~~~~~~~~~~~~~
 #
 # Overlaid or overlapping bars can be achieved by plotting two or several histograms,
 # each for one data set, on top of each other. The legend entry can be specified via
@@ -296,7 +328,7 @@ fig.show()
 
 # %%
 # Stacked bars
-# ------------
+# ~~~~~~~~~~~~
 #
 # Histograms with stacked bars are not directly supported by PyGMT. Thus, before
 # plotting, combined data sets have to be created from the single data sets. Then,
@@ -350,7 +382,7 @@ fig.show()
 
 # %%
 # Grouped bars
-# ------------
+# ~~~~~~~~~~~~
 #
 # By setting the ``bar_width`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
