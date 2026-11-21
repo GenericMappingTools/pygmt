@@ -46,7 +46,7 @@ fig.histogram(
     # Define the plot range as a list of xmin, xmax, ymin, ymax
     # Let ymin and ymax determined automatically by setting both to the same value
     region=[0, 200, 0, 0],
-	# Cartesian projection with a width of 10 centimeters
+    # Cartesian projection with a width of 10 centimeters
     projection="X10c",
     frame=Frame(
         axes="WStr",
@@ -54,8 +54,8 @@ fig.histogram(
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
     data=data1,
-	# Set the bin width via the "series" paramete
-	series=10,
+    # Set the bin width via the "series" paramete
+    series=10,
     # Fill the bars with color "pink3"
     fill="pink3",
     # Draw a 0.5-points thick, solid outline in "gray30" around the bars
