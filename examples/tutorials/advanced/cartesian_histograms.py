@@ -143,7 +143,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Use bars
+# Create histogram for data1 using bars
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -160,7 +160,7 @@ fig.histogram(
 
 fig.shift_origin(xshift="w+2c")
 
-# Use stair-steps
+# Create histogram for data1 using stair-steps
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
