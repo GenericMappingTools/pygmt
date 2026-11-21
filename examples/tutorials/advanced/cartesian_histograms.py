@@ -62,6 +62,7 @@ fig.histogram(
     pen="0.5p,gray30",
 )
 
+# Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
 fig.shift_origin(xshift="w+2c")
 
 fig.histogram(
@@ -110,7 +111,6 @@ fig.histogram(
     pen="0.5p,gray30",
 )
 
-# Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
 fig.shift_origin(xshift="w+2c")
 
 # Create histogram for data1 with horizontal bars
@@ -200,7 +200,7 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSnr",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
@@ -212,7 +212,7 @@ fig.histogram(
     histtype="count",
 )
 
-fig.shift_origin(xshift="w+1c")
+fig.shift_origin(xshift="w+2c")
 
 # Create histogram for data2 showing frequency percent
 fig.histogram(
@@ -220,7 +220,7 @@ fig.histogram(
     projection="X10c",
     # Add suffix % (+u)
     frame=Frame(
-        axes="lSnE",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=2, tick=1, unit="%", label="Frequency percent"),
     ),
@@ -251,7 +251,7 @@ fig.histogram(
     region=[0, 200, 0, len(data1) + 1],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Counts"),
     ),
@@ -263,14 +263,14 @@ fig.histogram(
     annot=True,
 )
 
-fig.shift_origin(xshift="w+1c")
+fig.shift_origin(xshift="w+2c")
 
 # Create histogram for data1 showing the cumulative counts
 fig.histogram(
     region=[0, 200, 0, len(data1) + 1],
     projection="X10c",
     frame=Frame(
-        axes="wSnE",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Cumulative counts"),
     ),
@@ -301,7 +301,7 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, label="Counts"),
     ),
@@ -342,7 +342,7 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
@@ -395,7 +395,7 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
@@ -446,7 +446,7 @@ fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
     frame=Frame(
-        axes="WSne",
+        axes="WStr",
         xaxis=Axis(annot=True, tick=10, grid=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
