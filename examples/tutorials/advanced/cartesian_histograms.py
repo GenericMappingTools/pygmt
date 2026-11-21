@@ -54,7 +54,7 @@ fig.histogram(
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
     data=data1,
-    # Set the bin width via the "series" paramete
+    # Set the bin width via the "series" parameter based on region
     series=10,
     # Fill the bars with color "lightbrown"
     fill="lightbrown",
@@ -74,7 +74,25 @@ fig.histogram(
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
     data=data1,
-    series=np.array([0, 60, 80, 90, 100, 110, 120, 140, 200]),
+    # Set minimum, maximum and bin with for the bins
+    series=[75, 120, 10],
+    fill="lightbrown",
+    pen="0.5p,gray30",
+)
+
+fig.shift_origin(xshift="w+2c")
+
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, tick=1, label="Counts"),
+    ),
+    data=data1,
+    # Set bin boundaries explicitly
+    series=np.array([50, 75, 80, 90, 100, 110, 120, 140, 180]),
     fill="lightbrown",
     pen="0.5p,gray30",
 )
@@ -315,7 +333,7 @@ fig.histogram(
 
 # Create legend
 for pen, label in zip(["1.5p,cyan2", "1.5p,steelblue,4_2"], ["mean", "median"]):
-    fig.plot(x=[-2, -1], y= [-2, -1], pen=pen, label=label)
+    fig.plot(x=[-2, -1], y=[-2, -1], pen=pen, label=label)
 fig.legend()
 
 fig.show()
