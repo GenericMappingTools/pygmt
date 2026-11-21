@@ -301,7 +301,7 @@ def histogram(
           frequency.
 
         The special values require a CPT (either the current CPT or explicitly set by
-        ``cmap``), and can't be used with ``fill``.
+        ``cmap``).
     $cmap
     annot
         If ``True``, annotate each bar with the value it represents. The remaining
