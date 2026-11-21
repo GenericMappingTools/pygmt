@@ -567,4 +567,4 @@ fig.legend()
 
 fig.show()
 
-# sphinx_gallery_thumbnail_number = 4
+# sphinx_gallery_thumbnail_number = 6
