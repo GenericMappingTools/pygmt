@@ -332,7 +332,9 @@ fig.histogram(
 )
 
 # Create legend
-for pen, label in zip(["1.5p,cyan2", "1.5p,steelblue,4_2"], ["mean", "median"]):
+for pen, label in zip(
+    ["1.5p,cyan2", "1.5p,steelblue,4_2"], ["mean", "median"], strict=False
+):
     fig.plot(x=[-2, -1], y=[-2, -1], pen=pen, label=label)
 fig.legend()
 
