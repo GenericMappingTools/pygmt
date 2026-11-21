@@ -359,9 +359,10 @@ fig.histogram(
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
     pen="0.5p,gray30",
-    cumulative=True,  # Show cumulative counts
+    cumulative=True,
     annot=True,
-    annot_offset="-10p",  # Offset the annotations by 10 points in negative y-direction
+    # Offset the annotations by 10 points in negative y-direction
+    annot_offset="-10p",
 )
 
 
