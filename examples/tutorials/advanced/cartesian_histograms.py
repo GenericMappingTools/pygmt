@@ -38,7 +38,6 @@ data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 #
 
 
-
 # %%
 # Histogram styles
 # ----------------
@@ -265,8 +264,6 @@ fig.show()
 # Distribution curve
 # ~~~~~~~~~~~~~~~~~~
 # TODO
-
-
 
 
 # %%
