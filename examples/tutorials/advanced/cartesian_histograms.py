@@ -60,10 +60,10 @@ fig.histogram(
     data=data01,
     # Set the bin width via the "series" parameter
     series=10,
-    # Fill the bars with color "red3"
-    fill="red3",
-    # Draw a 1-point thick, solid outline in "darkgray" around the bars
-    pen="1p,darkgray,solid",
+    # Fill the bars with color "pink3"
+    fill="pink3",
+    # Draw a 1-point thick, solid outline in "gray50" around the bars
+    pen="1p,gray50,solid",
     # Choose counts via the "histtype" parameter
     histtype=0,
 )
@@ -82,8 +82,8 @@ fig.histogram(
     ),
     data=data01,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
+    fill="pink3",
+    pen="1p,gray50,solid",
     histtype=0,
     # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
     # plotted vertically and the y-axis plotted horizontally.
@@ -113,8 +113,8 @@ fig.histogram(
     ),
     data=data01,
     series=10,
-    # Draw a 1-point thick, dotted outline in "red3"
-    pen="1p,red3,dotted",
+    # Draw a 1-point thick, dotted outline in "pink3"
+    pen="1p,pink3,dotted",
     histtype=0,
     # Draw stair-steps in stead of bars
     stairs=True,
@@ -133,8 +133,8 @@ fig.histogram(
     ),
     data=data02,
     series=10,
-    # Draw a 1.5-point thick, dashed outline in "orange"
-    pen="1.5p,orange,dashed",
+    # Draw a 1.5-point thick, dashed outline in "bisque"
+    pen="1.5p,bisque,dashed",
     histtype=0,
     stairs=True,
 )
@@ -163,8 +163,8 @@ fig.histogram(
     ),
     data=data02,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="1p,gray50,solid",
     # Choose counts via the "histtype" parameter
     histtype=0,
 )
@@ -183,8 +183,8 @@ fig.histogram(
     ),
     data=data02,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="1p,gray50,solid",
     # Choose frequency percent via the "histtype" parameter
     histtype=1,
 )
@@ -214,8 +214,8 @@ fig.histogram(
     ),
     data=data01,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
+    fill="pink3",
+    pen="1p,gray50,solid",
     histtype=0,
     # Annotate each bar with the counts it represents
     annotate=True,
@@ -236,7 +236,7 @@ fig.histogram(
     series=10,
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
-    pen="1p,darkgray,solid",
+    pen="1p,gray50,solid",
     histtype=0,
     # Show cumulative counts
     cumulative=True,
@@ -274,8 +274,8 @@ fig.histogram(
     ),
     data=data01,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
+    fill="pink3",
+    pen="1p,gray50,solid",
     histtype=0,
     # Set legend entry
     label="data01",
@@ -286,9 +286,9 @@ fig.histogram(
 fig.histogram(
     data=data02,
     series=10,
-    # Fill bars with color "orange", use a transparency of 50% ("@50")
-    fill="orange@50",
-    pen="1p,darkgray,solid",
+    # Fill bars with color "bisque", use a transparency of 50% ("@50")
+    fill="bisque@50",
+    pen="1p,gray50,solid",
     histtype=0,
     label="data02",
 )
@@ -329,8 +329,8 @@ fig.histogram(
     ),
     data=data_merge,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="1p,gray50,solid",
     histtype=0,
     # The combined data set appears in the final histogram visually as data set data02
     label="data02",
@@ -341,8 +341,8 @@ fig.histogram(
 fig.histogram(
     data=data01,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
+    fill="pink3",
+    pen="1p,gray50,solid",
     histtype=0,
     label="data01",
 )
@@ -381,8 +381,8 @@ fig.histogram(
     ),
     data=data01,
     series=binwidth,
-    fill="red3",
-    pen="1p,darkgray,solid",
+    fill="pink3",
+    pen="1p,gray50,solid",
     histtype=0,
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
@@ -396,8 +396,8 @@ fig.histogram(
 fig.histogram(
     data=data02,
     series=binwidth,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="1p,gray50,solid",
     histtype=0,
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
