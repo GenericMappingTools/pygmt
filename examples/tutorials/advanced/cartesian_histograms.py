@@ -56,8 +56,8 @@ fig.histogram(
     data=data1,
     # Set the bin width via the "series" paramete
     series=10,
-    # Fill the bars with color "pink3"
-    fill="pink3",
+    # Fill the bars with color "lightbrown"
+    fill="lightbrown",
     # Draw a 0.5-points thick, solid outline in "gray30" around the bars
     pen="0.5p,gray30",
 )
@@ -74,7 +74,7 @@ fig.histogram(
     ),
     data=data1,
     series=np.array([0, 60, 80, 90, 100, 110, 120, 140, 200]),
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
 )
 
@@ -106,7 +106,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
 )
 
@@ -124,7 +124,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
     # plotted vertically and the y-axis plotted horizontally.
@@ -154,7 +154,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
 )
 
@@ -171,7 +171,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     stairs=True,
 )
@@ -257,7 +257,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     # Annotate each bar with the counts it represents
     annot=True,
@@ -348,7 +348,7 @@ fig.histogram(
     ),
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     # Set legend entry
     label="data1",
@@ -412,7 +412,7 @@ fig.histogram(
 fig.histogram(
     data=data1,
     series=10,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     label="data1",
 )
@@ -452,7 +452,7 @@ fig.histogram(
     ),
     data=data1,
     series=binwidth,
-    fill="pink3",
+    fill="lightbrown",
     pen="0.5p,gray30",
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
