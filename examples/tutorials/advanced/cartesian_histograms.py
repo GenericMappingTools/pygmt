@@ -12,7 +12,6 @@ In this tutorial, different histogram related aspects are addressed:
 """
 
 # %%
-# Import the required packages
 import numpy as np
 import pygmt
 from pygmt.params import Axis, Frame, Pattern
