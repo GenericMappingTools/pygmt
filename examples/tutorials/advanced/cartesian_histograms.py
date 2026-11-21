@@ -27,8 +27,8 @@ mean = 100
 stddev = 20
 
 # Create two data sets
-data01 = rng.normal(loc=mean, scale=stddev, size=42)
-data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
+data1 = rng.normal(loc=mean, scale=stddev, size=42)
+data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
@@ -53,7 +53,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
 	# Set the bin width via the "series" paramete
 	series=10,
     # Fill the bars with color "pink3"
@@ -72,7 +72,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=np.array([0, 60, 80, 90, 100, 110, 120, 140, 200]),
     fill="pink3",
     pen="0.5p,gray30",
@@ -93,7 +93,7 @@ fig.histogram(
 
 fig = pygmt.Figure()
 
-# Create histogram for data01 with vertical bars
+# Create histogram for data1 with vertical bars
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -102,7 +102,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
@@ -111,7 +111,7 @@ fig.histogram(
 # Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
 fig.shift_origin(xshift="w+2c")
 
-# Create histogram for data01 with horizontal bars
+# Create histogram for data1 with horizontal bars
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -120,7 +120,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
@@ -150,7 +150,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
@@ -167,7 +167,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
@@ -193,7 +193,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data02 showing counts
+# Create histogram for data2 showing counts
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -202,7 +202,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data02,
+    data=data2,
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
@@ -212,7 +212,7 @@ fig.histogram(
 
 fig.shift_origin(xshift="w+1c")
 
-# Create histogram for data02 showing frequency percent
+# Create histogram for data2 showing frequency percent
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -222,7 +222,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=2, tick=1, unit="%", label="Frequency percent"),
     ),
-    data=data02,
+    data=data2,
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
@@ -244,16 +244,16 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data01 showing the counts per bin
+# Create histogram for data1 showing the counts per bin
 fig.histogram(
-    region=[0, 200, 0, len(data01) + 1],
+    region=[0, 200, 0, len(data1) + 1],
     projection="X10c",
     frame=Frame(
         axes="WSne",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
@@ -263,16 +263,16 @@ fig.histogram(
 
 fig.shift_origin(xshift="w+1c")
 
-# Create histogram for data01 showing the cumulative counts
+# Create histogram for data1 showing the cumulative counts
 fig.histogram(
-    region=[0, 200, 0, len(data01) + 1],
+    region=[0, 200, 0, len(data1) + 1],
     projection="X10c",
     frame=Frame(
         axes="wSnE",
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Cumulative counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
@@ -303,7 +303,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, label="Counts"),
     ),
-    data=data02,
+    data=data2,
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
@@ -335,7 +335,7 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data01
+# Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -344,23 +344,23 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
     # Set legend entry
-    label="data01",
+    label="data1",
 )
 
-# Create histogram for data02
-# It is plotted on top of the histogram for data01
+# Create histogram for data2
+# It is plotted on top of the histogram for data1
 fig.histogram(
-    data=data02,
+    data=data2,
     series=10,
     # Fill bars with color "bisque", use a transparency of 50% ("@50")
     fill="bisque@50",
     pen="0.5p,gray30",
-    label="data02",
+    label="data2",
 )
 
 # Add legend
@@ -384,11 +384,11 @@ fig.show()
 # - Partly not directly clear whether overlaid or stacked bars
 
 # Combine the two data sets to one data set
-data_merge = np.concatenate((data01, data02), axis=None)
+data_merge = np.concatenate((data1, data2), axis=None)
 
 fig = pygmt.Figure()
 
-# Create histogram for data02 by using the combined data set
+# Create histogram for data2 by using the combined data set
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -401,18 +401,18 @@ fig.histogram(
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
-    # The combined data set appears in the final histogram visually as data set data02
-    label="data02",
+    # The combined data set appears in the final histogram visually as data set data2
+    label="data2",
 )
 
-# Create histogram for data01
-# It is plotted on top of the histogram for data02
+# Create histogram for data1
+# It is plotted on top of the histogram for data2
 fig.histogram(
-    data=data01,
+    data=data1,
     series=10,
     fill="pink3",
     pen="0.5p,gray30",
-    label="data01",
+    label="data1",
 )
 
 # Add legend
@@ -438,7 +438,7 @@ binwidth = 10
 
 fig = pygmt.Figure()
 
-# Create histogram for data01
+# Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -447,7 +447,7 @@ fig.histogram(
         xaxis=Axis(annot=True, tick=10, grid=10),
         yaxis=Axis(annot=1, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=binwidth,
     fill="pink3",
     pen="0.5p,gray30",
@@ -456,18 +456,18 @@ fig.histogram(
     bar_width=binwidth / 2,
     # Offset the bars to align each bar with the left limit of the corresponding bin
     bar_offset=-binwidth / 4,
-    label="data01",
+    label="data1",
 )
 
-# Create histogram for data02
+# Create histogram for data2
 fig.histogram(
-    data=data02,
+    data=data2,
     series=binwidth,
     fill="bisque",
     pen="0.5p,gray30",
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
-    label="data02",
+    label="data2",
 )
 
 # Add legend
