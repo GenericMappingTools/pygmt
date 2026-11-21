@@ -102,8 +102,8 @@ fig.show()
 #
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
 # Use the ``pen`` parameter to adjust width, color, and style of the outlines. Besides a
-# constant color, ``fill`` can take two specific arguments, ``"position"`` and ``"value"``.
-# Both require to setup a colormap via :func:`pygmt.makecpt`.
+# constant color, ``fill`` can take two specific arguments, ``"position"`` and
+# ``"value"``. Both require to setup a colormap via :func:`pygmt.makecpt`.
 
 fig = pygmt.Figure()
 
@@ -373,9 +373,9 @@ fig.show()
 # Distribution curve
 # ~~~~~~~~~~~~~~~~~~
 #
-# Use the ``distribution`` parameter to plot equivalent normal distribution curves for mean,
-# median, or lms additional on top of the histogram. Via ``distribution_pen`` pass a list of
-# strings to adjust the pen used for the different curves.
+# Use the ``distribution`` parameter to plot equivalent normal distribution curves for
+# mean, median, or lms additional on top of the histogram. Via ``distribution_pen`` pass
+# a list of strings to adjust the pen used for the different curves.
 
 fig = pygmt.Figure()
 
