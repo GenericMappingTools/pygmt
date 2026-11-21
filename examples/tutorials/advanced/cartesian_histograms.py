@@ -36,6 +36,7 @@ data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 # --------------
 #
 
+# %%
 # Bin width: ``series`` parameter
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -97,7 +98,7 @@ fig.show()
 
 
 # %%
-# Bar fill: `fill`` and ``cmap`` parameters
+# Bar fill: ``fill`` and ``cmap`` parameters
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
