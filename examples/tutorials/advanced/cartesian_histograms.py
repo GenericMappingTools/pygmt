@@ -34,15 +34,14 @@ data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 # %%
 # General step: bins vs. bars
 # ---------------------------
-# TODO
 #
+# ``series`` parameter
 
 
 # %%
 # Histogram styles
 # ----------------
 #
-
 
 # %%
 # Bar orientation
@@ -264,6 +263,26 @@ fig.show()
 # Distribution curve
 # ~~~~~~~~~~~~~~~~~~
 # TODO
+
+fig = pygmt.Figure()
+
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=Frame(
+        axes="WSne",
+        xaxis=Axis(annot=True, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
+    ),
+    data=data02,
+    series=10,
+    fill="bisque",
+    pen="0.5p,gray50,solid",
+    distribution=["mean", "median"],
+    distribution_pen=["1.5p,cyan2", "1.5p,steelblue,4_2"],
+)
+
+fig.show()
 
 
 # %%
