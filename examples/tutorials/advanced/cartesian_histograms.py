@@ -262,7 +262,9 @@ fig.show()
 # %%
 # Distribution curve
 # ~~~~~~~~~~~~~~~~~~
-# TODO
+#
+# parameters ``distribution``  and ``distribution`_pen``
+# Add legend ?
 
 fig = pygmt.Figure()
 
