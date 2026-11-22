@@ -178,12 +178,62 @@ def subplot(
         Number of vertical rows of the subplot grid.
     ncols
         Number of horizontal columns of the subplot grid.
-    figsize : list
-        Specify the final figure dimensions as [*width*, *height*].
-    subsize : list
-        Specify the dimensions of each subplot directly as [*width*, *height*].
-        Note that only one of ``figsize`` or ``subsize`` can be provided at
-        once.
+    figsize : tuple or str
+        Specify the final figure dimensions as (*width*, *height*). The subplot
+        dimensions are then calculated from the figure dimensions after accounting
+        for the space that optional tick marks, annotations, labels, and margins
+        occupy between subplots. As for other figures, annotations, ticks, and labels
+        along the outside perimeter are not counted as part of the figure dimensions.
+
+        To specify different subplot dimensions for each row (or column), append
+        **+f** followed by a comma-separated list of width fractions, a slash, and
+        then the list of height fractions. A single number means constant widths (or
+        heights) [Default]. For example, for a subplot grid with two rows and two
+        columns, ``figsize="10c/10c+f3,1/1,2"`` will make the first column three
+        times as wide as the second, while the second row will be twice as tall as the
+        first row.
+
+        The modifiers described for ``subsize`` below can be appended as well.
+    subsize : tuple or str
+        Specify the dimensions of each subplot directly as (*width*, *height*). Then,
+        the figure dimensions are computed from the subplot dimensions after adding
+        the space that optional tick marks, annotations, labels, and margins occupy
+        between subplots. As for other figures, annotations, ticks, and labels along
+        the outside perimeter are not counted as part of the figure dimensions.
+
+        To specify different subplot dimensions for each row (or column), give a
+        comma-separated list of widths, a slash, and then the comma-separated list of
+        heights. A single number means constant widths (or heights) [Default]. For
+        example, for a subplot grid with two columns, ``subsize="5c,8c/8c"`` will make
+        the first column 5 cm wide and the second column 8 cm wide, with all having a
+        constant height of 8 cm. The number of values must either be one (constant
+        across the rows or columns) or exactly match the number of rows (or columns).
+
+        For geographic maps, the height of each subplot depends on your map region and
+        projection. There are two options:
+
+        1. Specify both ``region`` and ``projection`` and they will be used to compute
+           the height of each subplot. All subplots must share the same region and
+           projection, and you specify a zero *height*, or
+        2. Select *height* based on trial and error to suit your plot layout.
+
+        Several modifiers can be appended to the ``figsize`` or ``subsize`` value to
+        adjust the layout. These are most useful if you supply ``frame="none"``,
+        meaning no ticks or annotations will take place in the subplots:
+
+        - **+a**\ [**f**\|\ **s**]: By default (**+af**), fonts and pens are
+          auto-scaled based on the geometric mean dimension of the entire figure.
+          Append **s** to instead determine the scaling from the geometric mean
+          subplot dimension.
+        - **+c**\ *dx*\ [/*dy*]: Expand the panels by the appended plot unit
+          increments *dx*\ [/*dy*].
+        - **+g**\ *fill*: Paint the figure rectangle behind the subplot panels with
+          the appended *fill*.
+        - **+p**\ *pen*: Draw the outline of the figure rectangle behind the subplot
+          panels with the appended *pen*.
+        - **+w**\ *pen*: Draw dividing lines between panels using the appended *pen*.
+
+        Note that only one of ``figsize`` or ``subsize`` can be provided at once.
     tag
         Specify automatic tagging of each subplot. It can accept a number, or a letter.
         The number or letter can be surrounded by parentheses on any side if these
