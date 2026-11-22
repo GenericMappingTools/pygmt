@@ -104,7 +104,8 @@ fig.show()
 #
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
 # Besides a constant color, ``fill`` can take two specific arguments, ``"position"`` and
-# ``"value"``. Both require to setup a colormap via :func:`pygmt.makecpt`.
+# ``"value"`` using the mid-coordinate or the value (count or percent) of the bin,
+# respectively. Both require to setup a colormap via :func:`pygmt.makecpt`.
 
 fig = pygmt.Figure()
 
@@ -125,7 +126,7 @@ fig.histogram(
 fig.shift_origin(xshift="w+2c")
 
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 10])
-fig.colorbar(frame=True)
+fig.colorbar(frame=Frame(xaxis=Axis(label="mid-coordinate of bin")))
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -144,7 +145,7 @@ fig.histogram(
 fig.shift_origin(xshift="w+2c")
 
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 15, 1])
-fig.colorbar(frame=True)
+fig.colorbar(frame=Frame(xaxis=Axis(label="count of bin")))
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
