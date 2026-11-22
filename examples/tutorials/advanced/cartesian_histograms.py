@@ -392,13 +392,15 @@ fig.histogram(
     series=10,
     fill="bisque",
     pen="0.5p,gray30",
-    distribution=["mean", "median"],
-    distribution_pen=["1.5p,cyan2", "1.5p,steelblue,4_2"],
+    distribution=["mean", "median", "lms"],
+    distribution_pen=["1.5p,cyan2", "1.5p,steelblue,4_2", "1.5p,darkblue,2_2"],
 )
 
 # Create legend
 for pen, label in zip(
-    ["1.5p,cyan2", "1.5p,steelblue,4_2"], ["mean", "median"], strict=False
+    ["1.5p,cyan2", "1.5p,steelblue,4_2", "1.5p,darkblue,2_2"],
+    ["mean", "median", "lms"],
+    strict=False,
 ):
     fig.plot(x=[-2, -1], y=[-2, -1], pen=pen, label=label)
 fig.legend()
