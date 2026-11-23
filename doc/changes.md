@@ -15,6 +15,7 @@
 ### Enhancements
 
 * BREAKING: Figure.coast: Add parameter 'river_lakes' for setting fills of river-lakes separately ([#4376](https://github.com/GenericMappingTools/pygmt/pull/4376))
+* Figure.colorbar: Add parameter 'no_font_scaling' (for -H option) [#4783](https://github.com/GenericMappingTools/pygmt/pull/4783)
 * Figure.directional_rose: Add parameter 'upright_labels' to force readable labels for rotated projections ([#4867](https://github.com/GenericMappingTools/pygmt/pull/4867))
 * Figure.histogram: Add parameter 'out_range' to handle extreme values ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882))
 * Figure.histogram: Add parameters to annotate bars ([#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
