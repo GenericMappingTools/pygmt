@@ -16,26 +16,26 @@
 
 * BREAKING: Figure.coast: Add parameter 'river_lakes' for setting fills of river-lakes separately ([#4376](https://github.com/GenericMappingTools/pygmt/pull/4376))
 * Figure.directional_rose: Add parameter 'upright_labels' to force readable labels for rotated projections ([#4867](https://github.com/GenericMappingTools/pygmt/pull/4867))
-* Figure.histogram: Add parameter 'out_range' to handle extreme values and deprecate parameter 'extreme' ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882))
-* Figure.histogram: Add parameters to annotate bars and deprecate parameter 'annotate' ([#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
-* Figure.histogram: Add the parameter 'weights' for weighting data ([#4890](https://github.com/GenericMappingTools/pygmt/pull/4890))
+* Figure.histogram: Add parameter 'out_range' to handle extreme values ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882))
+* Figure.histogram: Add parameters to annotate bars ([#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
+* Figure.histogram: Add parameter 'weights' for weighting data ([#4890](https://github.com/GenericMappingTools/pygmt/pull/4890))
 * Figure.histogram: Improve parameters 'distribution' and 'distribution_pen' to draw distribution curves ([#4894](https://github.com/GenericMappingTools/pygmt/pull/4894))
 * Figure.histogram: Improved syntax for filling bars by position/value ([#4886](https://github.com/GenericMappingTools/pygmt/pull/4886))
 * Figure.histogram: Let parameters 'cumulative'/'histtype' support Pythonic arguments ([#4881](https://github.com/GenericMappingTools/pygmt/pull/4881), [#4912](https://github.com/GenericMappingTools/pygmt/pull/4912))
 * Figure.histogram: Let parameter 'series' accept a sequence ([#4899](https://github.com/GenericMappingTools/pygmt/pull/4899))
 * Figure.hlines/Figure.vlines: Add the parameter 'panel' to specify the subplot panel ([#4892](https://github.com/GenericMappingTools/pygmt/pull/4892))
-* Figure.image: Add parameter 'fgcolor'/'bgcolor'/'transparent_color' and deprecate 'bitcolor' [Will be removed in 0.24.0] ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
+* Figure.image: Add parameter 'fgcolor'/'bgcolor'/'transparent_color' ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
 * pygmt.blockmean/blockmedian/blockmode: Add parameter 'center' (-C) ([#4780](https://github.com/GenericMappingTools/pygmt/pull/4780))
 
 ### Deprecations
 
-* Figure.grdview: Remove the deprecated parameters '*pen'/'drapegrid' [Deprecated since v0.18.0] ([#4830](https://github.com/GenericMappingTools/pygmt/pull/4830))
-* Figure.grdcontour: Remove the deprecated 'interval' parameter [Deprecated since v0.12.0] ([#4764](https://github.com/GenericMappingTools/pygmt/pull/4764))
-* Figure.histogram: Deprecate parameters 'extreme' and 'annotate' ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882), [#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
+* Figure.grdview: Remove deprecated parameters '*pen'/'drapegrid' [Deprecated since v0.18.0] ([#4830](https://github.com/GenericMappingTools/pygmt/pull/4830))
+* Figure.grdcontour: Remove deprecated 'interval' parameter [Deprecated since v0.12.0] ([#4764](https://github.com/GenericMappingTools/pygmt/pull/4764))
+* Figure.histogram: Deprecate parameters 'extreme' and 'annotate' [Will be removed in v0.22.0] ([#4882](https://github.com/GenericMappingTools/pygmt/pull/4882), [#4895](https://github.com/GenericMappingTools/pygmt/pull/4895))
 * Figure.histogram: Remove the deprecated parameter 'barwidth' [Deprecated since 0.18.0] ([#4827](https://github.com/GenericMappingTools/pygmt/pull/4827))
 * Figure.image: Deprecate parameter 'bitcolor' [Will be removed in 0.24.0] ([#4872](https://github.com/GenericMappingTools/pygmt/pull/4872))
 * Figure.inset: Remove deprecated parameter 'margin' [Deprecated since 0.18.0] ([#4826](https://github.com/GenericMappingTools/pygmt/pull/4826))
-* Figure.meca: Remove deprecated parameters 'label'/'*fill' ([#4829](https://github.com/GenericMappingTools/pygmt/pull/4829))
+* Figure.meca: Remove deprecated parameters 'label'/'*fill' [Deprecated since v0.18.0] ([#4829](https://github.com/GenericMappingTools/pygmt/pull/4829))
 * Figure.velo: Remove deprecated parameter 'uncertaintyfill' [Deprecated since 0.18.0] ([#4835](https://github.com/GenericMappingTools/pygmt/pull/4835))
 * Figure.wiggle: Remove deprecated parameters 'fillpositive'/'fillnegative' [Deprecated since 0.18.0] ([#4831](https://github.com/GenericMappingTools/pygmt/pull/4831))
 * Session.virtualfile_in: Remove deprecated parameters 'required_z'/'required_data'/'extra_arrays' [Deprecated since 0.16.0] ([#4828](https://github.com/GenericMappingTools/pygmt/pull/4828))
@@ -57,7 +57,7 @@
 
 ### Documentation
 
-* Add a separate documentation for supported plot and distance units ([#4359](https://github.com/GenericMappingTools/pygmt/pull/4359))
+* Document supported plot and distance units ([#4359](https://github.com/GenericMappingTools/pygmt/pull/4359))
 * Add blockmedian and surface gallery example ([#4771](https://github.com/GenericMappingTools/pygmt/pull/4771))
 * Demonstrate parameter 'straight_line' in tutorial "Plotting lines" ([#4971](https://github.com/GenericMappingTools/pygmt/pull/4971))
 * Improve tutorial "Cartesian histograms" ([#4965](https://github.com/GenericMappingTools/pygmt/pull/4965))
@@ -83,8 +83,7 @@
 * Follow Semantic Versioning and remove the leading v from version string ([#4838](https://github.com/GenericMappingTools/pygmt/pull/4838))
 * Migrate baseline images from DVC to Git LFS ([#4740](https://github.com/GenericMappingTools/pygmt/pull/4740))
 * PEP770: Package SBOM in CycloneDX format into wheels ([#4975](https://github.com/GenericMappingTools/pygmt/pull/4975))
-* Ruff: Enable RUF105 'noqa-comments' and bump to Ruff>=0.15.22 ([#4761](https://github.com/GenericMappingTools/pygmt/pull/4761))
-* Ruff: Enable RUF106 (rule-codes-in-suppression-comments) ([#4772](https://github.com/GenericMappingTools/pygmt/pull/4772))
+* Ruff: Enable RUF105 (noqa-comments) and RUF106 (rule-codes-in-suppression-comments) and bump to Ruff>=0.15.22 ([#4761](https://github.com/GenericMappingTools/pygmt/pull/4761), [#4772](https://github.com/GenericMappingTools/pygmt/pull/4772))
 * SPEC 0: Bump minimum supported version to NumPy 2.2 and xarray 2024.10 ([#4883](https://github.com/GenericMappingTools/pygmt/pull/4883))
 
 **Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.19.0...v0.20.0>
