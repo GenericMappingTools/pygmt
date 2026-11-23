@@ -101,9 +101,8 @@ fig.fill_between(
     x=track_df.p, y=track_df.elevation, y2=-8000, pen="1p,red", fill="gray"
 )
 
-# Add plot frame
-# Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
-# and south or bottom sides ("WSrt")
+# Add frame with annotations, ticks and labels at the left (West) and bottom (South)
+# sides ("WSrt")
 fig.basemap(
     frame=Frame(
         axes="WSrt",
