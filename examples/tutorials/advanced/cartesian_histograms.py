@@ -105,9 +105,10 @@ fig.show()
 # The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
 # Besides a constant color, ``fill`` can take two specific arguments, ``"position"`` and
 # ``"value"`` using the mid-coordinate or the value (count or percent) of the bin,
-# respectively. Both require to setup a colormap via :func:`pygmt.makecpt`. It's also
-# possible to pass a CPT filename (with extension) to ``cmap``, but it is not supported
-# to directly pass a GMT master CPT yet.
+# respectively. Both require creating a colormap via :func:`pygmt.makecpt` first and
+# setting ``cmap=True``. It's also possible to pass the filename (with extension) of a
+# CPT to ``cmap`` previsouly created and saved, but it is not supported to directly pass
+# a GMT master CPT yet.
 
 fig = pygmt.Figure()
 
