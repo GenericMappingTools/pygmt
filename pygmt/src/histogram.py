@@ -301,10 +301,10 @@ def histogram(
         The special values require a CPT (either the current CPT or explicitly set by
         ``cmap``).
     $cmap
-        .. note::
-            Directly using the master CPTs provided by GMT is not supported yet. Use
-            :func:`Figure.makecpt` to create an appropriate CPT file first and pass
-            it's filename (with extension).
+    .. note::
+        Directly using the master CPTs provided by GMT is not supported yet. Use
+        :func:`Figure.makecpt` to create an appropriate CPT file first and pass
+        it's filename (with extension).
 
     annot
         If ``True``, annotate each bar with the value it represents. The remaining
