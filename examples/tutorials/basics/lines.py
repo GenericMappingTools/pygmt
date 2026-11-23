@@ -53,51 +53,33 @@ fig.show()
 # ----------------------
 #
 # The line attributes can be set by the ``pen`` parameter which takes a string
-# argument with the optional values *width*,\ *color*,\ *style*.
+# argument with the optional values *width*,\ *color*,\ *style*. The line color is
+# added after the line width, and the line style is added after the line width or
+# color. Attributes that are not given keep their default values, i.e., a black,
+# solid line. For a gallery example showing other ``pen`` settings, see
+# :doc:`/gallery/lines/linestyles`.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
 
 # Set the pen width to "5p" (5 points), and use the default color "black" and the
 # default style "solid"
-fig.plot(x=[1, 8], y=[3, 9], pen="5p")
-
-fig.show()
-
-# %%
-# The line color can be set and is added after the line width to the ``pen``
-# parameter.
-
-fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
-
+fig.plot(x=[1, 6], y=[8, 8], pen="5p")
 # Set the line color to "red", use the default style "solid"
-fig.plot(x=[1, 8], y=[3, 9], pen="5p,red")
-
-fig.show()
-
-# %%
-# The line style can be set and is added after the line width or color to the
-# ``pen`` parameter.
-
-fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
-
+fig.plot(x=[1, 6], y=[6, 6], pen="5p,red")
 # Set the line style to "..-" (dot dot dash), use the default color "black"
-fig.plot(x=[1, 8], y=[3, 9], pen="5p,..-")
-
-fig.show()
-
-# %%
-# The line width, color, and style can all be set in the same ``pen`` parameter.
-# For a gallery example showing other ``pen`` settings, see
-# :doc:`/gallery/lines/linestyles`.
-
-fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
-
+fig.plot(x=[1, 6], y=[4, 4], pen="5p,..-")
 # Draw a 7-point thick, green line with style "-.-" (dash dot dash)
-fig.plot(x=[1, 8], y=[3, 9], pen="7p,green,-.-")
+fig.plot(x=[1, 6], y=[2, 2], pen="7p,green,-.-")
+
+# Annotate each line with the argument passed to the pen parameter
+fig.text(
+    x=[6.5] * 4,
+    y=[8, 6, 4, 2],
+    text=["5p", "5p,red", "5p,..-", "7p,green,-.-"],
+    justify="ML",
+    font="12p,Courier",
+)
 
 fig.show()
 
@@ -106,23 +88,26 @@ fig.show()
 # Connect points in different ways
 # --------------------------------
 #
-# By default, consecutive points are connected directly. The
-# ``straight_line`` parameter can instead create right-angle
-# connections. Use ``"x"`` to move along the x-axis first or
-# ``"y"`` to move along the y-axis first.
+# By default, consecutive points are connected directly by straight line segments
+# (linear spline). Appending the **+s** modifier to the ``pen`` argument draws a
+# smooth Bezier cubic spline through the points instead. The ``straight_line``
+# parameter can create right-angle (stair-like) connections. Use ``"x"`` to move
+# along the x-axis first or ``"y"`` to move along the y-axis first.
 
-x = [2, 8]
-y = [2, 8]
+x = [1, 1.5, 3, 6, 9]
+y = [2, 6, 7, 6, 9]
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 10], projection="X15c/10c", frame=True)
 
 # Connect the points directly
-fig.plot(x=x, y=y, pen="2p,black", label="Direct")
+fig.plot(x=x, y=y, pen="2p,black", label="Linear spline")
+# Draw a Bezier cubic spline through the points
+fig.plot(x=x, y=y, pen="2p,orange+s", label="Bezier cubic spline")
 # Move along the x-axis first, then the y-axis
-fig.plot(x=x, y=y, straight_line="x", pen="2p,red", label="X first")
+fig.plot(x=x, y=y, straight_line="x", pen="2p,red", label="Stairs via x first")
 # Move along the y-axis first, then the x-axis
-fig.plot(x=x, y=y, straight_line="y", pen="2p,blue", label="Y first")
+fig.plot(x=x, y=y, straight_line="y", pen="2p,blue", label="Stairs via y first")
 # Mark the original points
 fig.plot(x=x, y=y, style="c0.2c", fill="white", pen="0.5p,black")
 
@@ -130,4 +115,4 @@ fig.legend(position="BR")
 fig.show()
 
 
-# sphinx_gallery_thumbnail_number = 6
+# sphinx_gallery_thumbnail_number = 5
