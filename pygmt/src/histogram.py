@@ -303,8 +303,9 @@ def histogram(
     $cmap
     .. note::
         Directly using the master CPTs provided by GMT is not supported yet. Use
-        :func:`Figure.makecpt` to create an appropriate CPT file first and pass
-        it's filename (with extension).
+        :func:`Figure.makecpt` to set up an appropriate CPT and set ``cmap=True``, or
+        pass the filename (with extension) of a CPT previouly generated and saved via
+        :func:`Figure.makecpt` to ``cmap``.
 
     annot
         If ``True``, annotate each bar with the value it represents. The remaining
