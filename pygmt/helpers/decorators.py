@@ -57,7 +57,7 @@ COMMON_PARAMETERS = {
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
     "cmap": r"""
-        cmap : str
+        cmap
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",

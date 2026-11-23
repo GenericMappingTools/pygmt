@@ -301,7 +301,6 @@ def histogram(
         The special values require a CPT (either the current CPT or explicitly set by
         ``cmap``).
     $cmap
-
         Please note using the master CPTs provided by GMT is not supported yet. Use
         :func:`Figure.makecpt` to create an appropriate CPT file first and pass it's
         filename (with extension).
