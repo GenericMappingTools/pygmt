@@ -287,23 +287,26 @@ def histogram(
         - ``"percent_log"``: natural logarithm of (1 + percent)
         - ``"count_log10"``: base-10 logarithm of (1 + count)
         - ``"percent_log10"``: base-10 logarithm of (1 + percent)
-    $cmap
     pen
         Draw bar outline (or stair-case curve) using the specified pen thickness
         [Default is no outline].
     fill
-        Set color or pattern for filling bars [Default is no fill]. Set it to one of the
-        two special values to fill bars by looking up the color from a CPT instead of a
-        constant color:
+        Set color or pattern for filling bars [Default is no fill]. Set it to one of
+        two special values to fill the bars based on a CPT instead of a constant color:
 
         - ``"position"``: look up the color using the mid-coordinate of the bin. This is
           the default when ``cmap`` is set.
-        - ``"value"``: look up the color using the bin value, i.e., the bar count or
-          frequency.
+        - ``"value"``: look up the color using the bin value, i.e., count or frequency.
 
         The special values require a CPT (either the current CPT or explicitly set by
-        ``cmap``), and can't be used with ``fill``.
+        ``cmap``).
     $cmap
+        .. note::
+            Directly using the master CPTs provided by GMT is not supported yet. Use
+            :func:`Figure.makecpt` to set up an appropriate CPT and set ``cmap=True``,
+            or pass the filename (with extension) of a CPT previouly generated and saved
+            via :func:`Figure.makecpt` to ``cmap``.
+
     annot
         If ``True``, annotate each bar with the value it represents. The remaining
         ``annot_*`` parameters control how the annotations look and are ignored if
