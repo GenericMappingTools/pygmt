@@ -257,7 +257,7 @@ def grdgradient(
     )
     aliasdict.merge(kwargs)
 
-    with Session() as lib:
+    with Session(in_mode="GMT_IN|GMT_IS_REFERENCE") as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
