@@ -1,0 +1,11 @@
+pygmt.grdcut
+============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdcut
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

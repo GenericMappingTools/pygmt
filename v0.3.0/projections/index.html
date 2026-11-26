@@ -1,0 +1,688 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    
+        <title>Projections &mdash; PyGMT</title>
+    
+
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-rendered-html.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Azimuthal Equidistant" href="azim/azim_equidistant.html" />
+    <link rel="prev" title="Frames, ticks, titles, and labels" href="../tutorials/frames.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+    <a href="../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.3.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/first-figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Projections</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#azimuthal-projections">Azimuthal Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_equidistant.html">Azimuthal Equidistant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_general_perspective.html">General Perspective</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_general_stereographic.html">General Stereographic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_gnomonic.html">Gnomonic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_lambert.html">Lambert Azimuthal Equal Area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azim/azim_orthographic.html">Orthographic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#conic-projections">Conic Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_albers.html">Albers Conic Equal Area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_equidistant.html">Equidistant conic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/conic_lambert.html">Lambert Conic Conformal Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conic/polyconic.html">Polyconic Projection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cylindric-projections">Cylindric Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_cassini.html">Cassini Cylindrical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_equal_area.html">Cylindrical equal-area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_equidistant.html">Cylindrical equidistant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_mercator.html">Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_miller.html">Miller cylindrical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_stereographic.html">Cylindrical Stereographic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_transverse_mercator.html">Transverse Mercator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cyl/cyl_universal_transverse_mercator.html">Universal Transverse Mercator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous-projections">Miscellaneous Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_eckertIV.html">Eckert IV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_eckertVI.html">Eckert VI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_hammer.html">Hammer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_mollweide.html">Mollweide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_robinson.html">Robinson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_sinusoidal.html">Sinusoidal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_van_der_grinten.html">Van der Grinten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc/misc_winkel_tripel.html">Winkel Tripel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#non-geographic-projections">Non-geographic Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_linear.html">Cartesian linear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_logarithmic.html">Cartesian logarithmic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/cartesian_power.html">Cartesian power</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nongeo/polar.html">Polar</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#projection-table">Projection Table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/regions.html">Set the region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/lines.html">Plot lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/contour-map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/earth-relief.html">Plotting Earth relief</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/3d-perspective-image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/inset.html">Adding an inset to the figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/subplots.html">Making subplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+</ul>
+
+            
+          
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CONTRIBUTING.md"><i class="fa fa-users fa-fw"></i> Contributing</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/master/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyGMT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Projections</li>
+    
+    
+    <li class="source-link">
+        
+            
+                
+                
+                
+                    
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/master/doc/../examples/projections/README.txt"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+        
+    </li>
+
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="projections">
+<span id="sphx-glr-projections"></span><h1>Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h1>
+<p>PyGMT support many map projections. Use the <code class="docutils literal notranslate"><span class="pre">projection</span></code> argument to specify which one
+you want to use in all plotting modules. The projection is specified by a one letter
+code along with (sometimes optional) reference longitude and latitude and the width of
+the map (for example, <strong>A</strong><em>lon0/lat0</em>[<em>/horizon</em>]<em>/width</em>). The map height is
+determined based on the region and projection.</p>
+<p>These are all the available projections:</p>
+<div class="sphx-glr-clear"></div><div class="section" id="azimuthal-projections">
+<span id="sphx-glr-projections-azim"></span><h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><div class="figure align-default" id="id1">
+<img alt="Azimuthal Equidistant" src="../_images/sphx_glr_azim_equidistant_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><div class="figure align-default" id="id2">
+<img alt="General Perspective" src="../_images/sphx_glr_azim_general_perspective_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><div class="figure align-default" id="id3">
+<img alt="General Stereographic" src="../_images/sphx_glr_azim_general_stereographic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the earth. As a conse..."><div class="figure align-default" id="id4">
+<img alt="Gnomonic" src="../_images/sphx_glr_azim_gnomonic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapp..."><div class="figure align-default" id="id5">
+<img alt="Lambert Azimuthal Equal Area" src="../_images/sphx_glr_azim_lambert_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><div class="figure align-default" id="id6">
+<img alt="Orthographic" src="../_images/sphx_glr_azim_orthographic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="conic-projections">
+<span id="sphx-glr-projections-conic"></span><h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><div class="figure align-default" id="id7">
+<img alt="Albers Conic Equal Area" src="../_images/sphx_glr_conic_albers_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about ..."><div class="figure align-default" id="id8">
+<img alt="Equidistant conic" src="../_images/sphx_glr_conic_equidistant_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772)..."><div class="figure align-default" id="id9">
+<img alt="Lambert Conic Conformal Projection" src="../_images/sphx_glr_conic_lambert_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert Conic Conformal Projection</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, w..."><div class="figure align-default" id="id10">
+<img alt="Polyconic Projection" src="../_images/sphx_glr_polyconic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic Projection</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="cylindric-projections">
+<span id="sphx-glr-projections-cyl"></span><h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><div class="figure align-default" id="id11">
+<img alt="Cassini Cylindrical" src="../_images/sphx_glr_cyl_cassini_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is sele..."><div class="figure align-default" id="id12">
+<img alt="Cylindrical equal-area" src="../_images/sphx_glr_cyl_equal_area_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The ..."><div class="figure align-default" id="id13">
+<img alt="Cylindrical equidistant" src="../_images/sphx_glr_cyl_equidistant_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better know..."><div class="figure align-default" id="id14">
+<img alt="Mercator" src="../_images/sphx_glr_cyl_mercator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Soc..."><div class="figure align-default" id="id15">
+<img alt="Miller cylindrical" src="../_images/sphx_glr_cyl_miller_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical pro..."><div class="figure align-default" id="id16">
+<img alt="Cylindrical Stereographic" src="../_images/sphx_glr_cyl_stereographic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the..."><div class="figure align-default" id="id17">
+<img alt="Transverse Mercator" src="../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Mercator is the Universal Transverse Mercator (UTM) which..."><div class="figure align-default" id="id18">
+<img alt="Universal Transverse Mercator" src="../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="miscellaneous-projections">
+<span id="sphx-glr-projections-misc"></span><h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><div class="figure align-default" id="id19">
+<img alt="Eckert IV" src="../_images/sphx_glr_misc_eckertIV_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 190..."><div class="figure align-default" id="id20">
+<img alt="Eckert VI" src="../_images/sphx_glr_misc_eckertVI_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer ..."><div class="figure align-default" id="id21">
+<img alt="Hammer" src="../_images/sphx_glr_misc_hammer_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and as..."><div class="figure align-default" id="id22">
+<img alt="Mollweide" src="../_images/sphx_glr_misc_mollweide_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robins..."><div class="figure align-default" id="id23">
+<img alt="Robinson" src="../_images/sphx_glr_misc_robinson_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been u..."><div class="figure align-default" id="id24">
+<img alt="Sinusoidal" src="../_images/sphx_glr_misc_sinusoidal_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equ..."><div class="figure align-default" id="id25">
+<img alt="Van der Grinten" src="../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel a projection that was to strike a compromise be..."><div class="figure align-default" id="id26">
+<img alt="Winkel Tripel" src="../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="non-geographic-projections">
+<span id="sphx-glr-projections-nongeo"></span><h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*."><div class="figure align-default" id="id27">
+<img alt="Cartesian linear" src="../_images/sphx_glr_cartesian_linear_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and the optional *h..."><div class="figure align-default" id="id28">
+<img alt="Cartesian logarithmic" src="../_images/sphx_glr_cartesian_logarithmic_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nongeo/cartesian_logarithmic.html#sphx-glr-projections-nongeo-cartesian-logarithmic-py"><span class="std std-ref">Cartesian logarithmic</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the *width* of the figure..."><div class="figure align-default" id="id29">
+<img alt="Cartesian power" src="../_images/sphx_glr_cartesian_power_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nongeo/cartesian_power.html#sphx-glr-projections-nongeo-cartesian-power-py"><span class="std std-ref">Cartesian power</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="**P**\ *width*: Give the *width* of the figure."><div class="figure align-default" id="id30">
+<img alt="Polar" src="../_images/sphx_glr_polar_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="nongeo/polar.html#sphx-glr-projections-nongeo-polar-py"><span class="std std-ref">Polar</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div></div>
+<div class="section" id="projection-table">
+<span id="sphx-glr-projections-table"></span><h2>Projection Table<a class="headerlink" href="#projection-table" title="Permalink to this headline">¶</a></h2>
+<p>The below table shows the projection codes for the 31 GMT projections.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>PyGMT Projection Argument</p></th>
+<th class="head"><p>Projection Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>A</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p>Lambert azimuthal equal area</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>B</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p>Albers conic equal area</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>C</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>width</em></p></td>
+<td><p>Cassini cylindrical</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Cyl_stere/</strong>[lon<sub>0</sub>[/lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p>Cylindrical stereographic</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>D</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p>Equidistant conic</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>E</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p>Azimuthal equidistant</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>F</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p>Azimuthal gnomonic</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>G</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p>Azimuthal orthographic</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>G</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>alt</em>/<em>azim</em>/<em>tilt</em>/<em>twist</em>/<em>W</em>/<em>H</em>/<em>width</em></p></td>
+<td><p>General perspective</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>H</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Hammer equal area</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>I</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Sinusoidal equal area</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>J</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Miller cylindrical</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Kf</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Eckert IV equal area</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ks</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Eckert VI equal area</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>L</strong>lon<sub>0</sub>/lat<sub>0</sub>/lat<sub>1</sub>/lat<sub>2</sub>/<em>width</em></p></td>
+<td><p>Lambert conic conformal</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M</strong>[lon<sub>0</sub>[/lat<sub>0</sub>]/]<em>width</em></p></td>
+<td><p>Mercator cylindrical</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>N</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Robinson</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Oa</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>azim</em>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p>Oblique Mercator, 1: origin and azim</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Ob</strong>lon<sub>0</sub>/lat<sub>0</sub>/lon<sub>1</sub>/lat<sub>1</sub>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p>Oblique Mercator, 2: two points</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Oc</strong>lon<sub>0</sub>/lat<sub>0</sub>/lon<sub>p</sub>/lat<sub>p</sub>/<em>width</em>[<strong>+v</strong>]</p></td>
+<td><p>Oblique Mercator, 3: origin and pole</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>P</strong><em>width</em>[<strong>+a</strong>][<strong>+f</strong>[<strong>e</strong>|<strong>p</strong>|<em>radius</em>]][<strong>+r</strong><em>offset</em>][<strong>+t</strong><em>origin</em>][<strong>+z</strong>[<strong>p</strong>|<em>radius</em>]]</p></td>
+<td><p>Polar [azimuthal] (<span class="math notranslate nohighlight">\(\theta, r\)</span>) (or cylindrical)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Poly</strong>[lon<sub>0</sub>[/lat<sub>0</sub>]/]<em>width</em></p></td>
+<td><p>Polyconic</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Q</strong>[lon<sub>0</sub>[/lat<sub>0</sub>/]]<em>width</em></p></td>
+<td><p>Equidistant cylindrical</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>R</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Winkel Tripel</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>S</strong>lon<sub>0</sub>/lat<sub>0</sub>[/<em>horizon</em>]/<em>width</em></p></td>
+<td><p>General stereographic</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>T</strong>[lon<sub>0</sub>[/lat<sub>0</sub>]/]<em>width</em></p></td>
+<td><p>Transverse Mercator</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>U</strong><em>zone</em>/<em>width</em></p></td>
+<td><p>Universal Transverse Mercator (UTM)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>V</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Van der Grinten</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>W</strong>[lon<sub>0</sub>/]<em>width</em></p></td>
+<td><p>Mollweide</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>X</strong><em>width</em>[<strong>l</strong>|<strong>p</strong><em>exp</em>|<strong>T</strong>|<strong>t</strong>][/<em>height</em>[<strong>l</strong>|<strong>p</strong><em>exp</em>|<strong>T</strong>|<strong>t</strong>]][<strong>d</strong>]</p></td>
+<td><p>Linear, log<span class="math notranslate nohighlight">\(_{10}\)</span>, <span class="math notranslate nohighlight">\(x^a-y^b\)</span>, and time</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Y</strong>lon<sub>0</sub>/lat<sub>0</sub>/<em>width</em></p></td>
+<td><p>Cylindrical equal area</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          
+<footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="azim/azim_equidistant.html" class="btn btn-neutral float-right" title="Azimuthal Equidistant" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../tutorials/frames.html" class="btn btn-neutral float-left" title="Frames, ticks, titles, and labels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2021, The PyGMT Developers.
+      
+        <span class="commit">
+          Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/v0.3.0">v0.3.0</a></code>.
+        </span>
+      
+
+    </p>
+  </div>
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

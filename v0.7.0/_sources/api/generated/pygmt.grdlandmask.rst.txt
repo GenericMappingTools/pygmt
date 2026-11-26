@@ -1,0 +1,12 @@
+pygmt.grdlandmask
+=================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdlandmask
+
+.. include:: backreferences/pygmt.grdlandmask.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.subplot &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/subplot.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.subplot</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.subplot</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">subplot - Manage modern mode figure subplot configuration and selection.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
+
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span>
+    <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;subsize&quot;</span><span class="p">,</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;autolabel&quot;</span><span class="p">,</span>
+    <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">M</span><span class="o">=</span><span class="s2">&quot;margins&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">SC</span><span class="o">=</span><span class="s2">&quot;sharex&quot;</span><span class="p">,</span>
+    <span class="n">SR</span><span class="o">=</span><span class="s2">&quot;sharey&quot;</span><span class="p">,</span>
+    <span class="n">T</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">Ff</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">subplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create multi-panel subplot figures.</span>
+
+<span class="sd">    This method is used to split the current figure into a rectangular layout</span>
+<span class="sd">    of subplots that each may contain a single self-contained figure. Begin by</span>
+<span class="sd">    defining the layout of the entire multi-panel illustration. Several</span>
+<span class="sd">    parameters are available to specify the systematic layout, labeling,</span>
+<span class="sd">    dimensions, and more for the subplots.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`subplot.html#synopsis-begin-mode`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nrows : int</span>
+<span class="sd">        Number of vertical rows of the subplot grid.</span>
+<span class="sd">    ncols : int</span>
+<span class="sd">        Number of horizontal columns of the subplot grid.</span>
+<span class="sd">    figsize : list</span>
+<span class="sd">        Specify the final figure dimensions as [*width*, *height*].</span>
+<span class="sd">    subsize : list</span>
+<span class="sd">        Specify the dimensions of each subplot directly as [*width*, *height*].</span>
+<span class="sd">        Note that only one of ``figsize`` or ``subsize`` can be provided at</span>
+<span class="sd">        once.</span>
+
+<span class="sd">    autolabel : bool or str</span>
+<span class="sd">        [*autolabel*][**+c**\ *dx*\ [/*dy*]][**+g**\ *fill*][**+j**\|\ **J**\</span>
+<span class="sd">        *refpoint*][**+o**\ *dx*\ [/*dy*]][**+p**\ *pen*][**+r**\|\ **R**]</span>
+<span class="sd">        [**+v**].</span>
+<span class="sd">        Specify automatic tagging of each subplot. Append either a number or</span>
+<span class="sd">        letter [a]. This sets the tag of the first, top-left subplot and others</span>
+<span class="sd">        follow sequentially. Surround the number or letter by parentheses on</span>
+<span class="sd">        any side if these should be typeset as part of the tag. Use</span>
+<span class="sd">        **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed</span>
+<span class="sd">        in the subplot [TL]. **Note**: **+j** sets the justification of the</span>
+<span class="sd">        tag to *refpoint* (suitable for interior tags) while **+J** instead</span>
+<span class="sd">        selects the mirror opposite (suitable for exterior tags). Append</span>
+<span class="sd">        **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a</span>
+<span class="sd">        surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%</span>
+<span class="sd">        of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to</span>
+<span class="sd">        paint the tag&#39;s text box with *fill* [no painting]. Append</span>
+<span class="sd">        **+o**\ *dx*\ [/*dy*] to offset the tag&#39;s reference point in the</span>
+<span class="sd">        direction implied by the justification [4p/4p, i.e., 20% of the</span>
+<span class="sd">        :gmt-term:`FONT_TAG` size]. Append **+p**\ *pen* to draw the outline of</span>
+<span class="sd">        the tag&#39;s text box using selected *pen* [no outline]. Append **+r** to</span>
+<span class="sd">        typeset your tag numbers using lowercase Roman numerals; use **+R** for</span>
+<span class="sd">        uppercase Roman numerals [Arabic numerals]. Append **+v** to increase</span>
+<span class="sd">        tag numbers vertically down columns [horizontally across rows].</span>
+<span class="sd">    {frame}</span>
+<span class="sd">    clearance : str or list</span>
+<span class="sd">        [*side*]\ *clearance*.</span>
+<span class="sd">        Reserve a space of dimension *clearance* between the margin and the</span>
+<span class="sd">        subplot on the specified side, using *side* values from **w**, **e**,</span>
+<span class="sd">        **s**, or **n**; or **x** for both **w** and **e**; or **y** for both</span>
+<span class="sd">        **s** and **n**. No *side* means all sides (i.e. ``clearance=&quot;1c&quot;``</span>
+<span class="sd">        would set a clearance of 1 cm on all sides). The option is repeatable</span>
+<span class="sd">        to set aside space on more than one side (e.g.</span>
+<span class="sd">        ``clearance=[&quot;w1c&quot;, &quot;s2c&quot;]`` would set a clearance of 1 cm on west</span>
+<span class="sd">        side and 2 cm on south side). Such space will be left untouched by</span>
+<span class="sd">        the main map plotting but can be accessed by methods that plot</span>
+<span class="sd">        scales, bars, text, etc.</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    margins : str or list</span>
+<span class="sd">        This is margin space that is added between neighboring subplots (i.e.,</span>
+<span class="sd">        the interior margins) in addition to the automatic space added for tick</span>
+<span class="sd">        marks, annotations, and labels. The margins can be specified as either:</span>
+
+<span class="sd">        - a single value (for same margin on all sides). E.g. ``&quot;5c&quot;``.</span>
+<span class="sd">        - a pair of values (for setting separate horizontal and vertical</span>
+<span class="sd">          margins). E.g. ``[&quot;5c&quot;, &quot;3c&quot;]``.</span>
+<span class="sd">        - a set of four values (for setting separate left, right, bottom, and</span>
+<span class="sd">          top margins). E.g. ``[&quot;1c&quot;, &quot;2c&quot;, &quot;3c&quot;, &quot;4c&quot;]``.</span>
+
+<span class="sd">        The actual gap created is always a sum of the margins for the two</span>
+<span class="sd">        opposing sides (e.g., east plus west or south plus north margins)</span>
+<span class="sd">        [Default is half the primary annotation font size, giving the full</span>
+<span class="sd">        annotation font size as the default gap].</span>
+<span class="sd">    {region}</span>
+<span class="sd">    sharex : bool or str</span>
+<span class="sd">        Set subplot layout for shared x-axes. Use when all subplots in a column</span>
+<span class="sd">        share a common *x*-range. If ``sharex=True``, the first (i.e.,</span>
+<span class="sd">        **t**\ op) and the last (i.e., **b**\ ottom) rows will have</span>
+<span class="sd">        *x*-annotations; use ``sharex=&quot;t&quot;`` or ``sharex=&quot;b&quot;`` to select only</span>
+<span class="sd">        one of those two rows [both]. Append **+l** if annotated *x*-axes</span>
+<span class="sd">        should have a label [none]; optionally append the label if it is the</span>
+<span class="sd">        same for the entire subplot. Append **+t** to make space for subplot</span>
+<span class="sd">        titles for each row; use **+tc** for top row titles only [no subplot</span>
+<span class="sd">        titles].</span>
+<span class="sd">    sharey : bool or str</span>
+<span class="sd">        Set subplot layout for shared y-axes. Use when all subplots in a row</span>
+<span class="sd">        share a common *y*-range. If ``sharey=True``, the first (i.e.,</span>
+<span class="sd">        **l**\ eft) and the last (i.e., **r**\ ight) columns will have</span>
+<span class="sd">        *y*-annotations; use ``sharey=&quot;l&quot;`` or ``sharey=&quot;r&quot;`` to select only</span>
+<span class="sd">        one of those two columns [both]. Append **+l** if annotated *y*-axes</span>
+<span class="sd">        will have a label [none]; optionally, append the label if it is the</span>
+<span class="sd">        same for the entire subplot. Append **+p** to make all annotations</span>
+<span class="sd">        axis-parallel [horizontal]; if not used you may have to set</span>
+<span class="sd">        ``clearance`` to secure extra space for long horizontal annotations.</span>
+
+<span class="sd">        Notes for ``sharex``/``sharey``:</span>
+
+<span class="sd">        - Labels and titles that depends on which row or column are specified</span>
+<span class="sd">          as usual via a subplot&#39;s own ``frame`` setting.</span>
+<span class="sd">        - Append **+w** to the ``figsize`` or ``subsize`` parameter to draw</span>
+<span class="sd">          horizontal and vertical lines between interior panels using selected</span>
+<span class="sd">          pen [no lines].</span>
+<span class="sd">    title : str</span>
+<span class="sd">        While individual subplots can have titles (see ``sharex``/``sharey`` or</span>
+<span class="sd">        ``frame``), the entire figure may also have an overarching *heading*</span>
+<span class="sd">        [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nrows</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">ncols</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Please ensure that both &#39;nrows&#39;&gt;=1 and &#39;ncols&#39;&gt;=1.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Ff&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Fs&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="s2">&quot;Please provide either one of &#39;figsize&#39; or &#39;subsize&#39; only.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Need to use separate sessions for &quot;subplot begin&quot; and &quot;subplot end&quot;.</span>
+    <span class="c1"># Otherwise, &quot;subplot end&quot; will use the last session, which may cause</span>
+    <span class="c1"># strange positioning issues for later plotting calls.</span>
+    <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/2426.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span>
+                <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;begin&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">nrows</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">ncols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)],</span>
+            <span class="p">)</span>
+            <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">({</span><span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;V&quot;</span><span class="p">)})]</span>
+            <span class="p">)</span>
+
+
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="nd">@use_alias</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;fixedlabel&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="s2">&quot;clearance&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">panel</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">set_panel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the current subplot panel to plot on.</span>
+
+<span class="sd">    Before you start plotting you must first select the active subplot.</span>
+<span class="sd">    **Note**: If any *projection* option is passed with the question mark</span>
+<span class="sd">    **?** as scale or width when plotting subplots, then the dimensions of</span>
+<span class="sd">    the map are automatically determined by the subplot size and your</span>
+<span class="sd">    region. For Cartesian plots: If you want the scale to apply equally to</span>
+<span class="sd">    both dimensions then you must specify ``projection=&quot;x&quot;`` [The default</span>
+<span class="sd">    ``projection=&quot;X&quot;`` will fill the subplot by using unequal scales].</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    panel : str or list</span>
+<span class="sd">        *row,col*\|\ *index*.</span>
+<span class="sd">        Sets the current subplot until further notice. **Note**: First *row*</span>
+<span class="sd">        or *col* is 0, not 1. If not given we go to the next subplot by order</span>
+<span class="sd">        specified via ``autolabel`` in :meth:`pygmt.Figure.subplot`. As an</span>
+<span class="sd">        alternative, you may bypass using :meth:`pygmt.Figure.set_panel` and</span>
+<span class="sd">        instead supply the common option **panel**\ =[*row,col*] to the first</span>
+<span class="sd">        plot command you issue in that subplot. GMT maintains information about</span>
+<span class="sd">        the current figure and subplot. Also, you may give the one-dimensional</span>
+<span class="sd">        *index* instead which starts at 0 and follows the row or column order</span>
+<span class="sd">        set via ``autolabel`` in :meth:`pygmt.Figure.subplot`.</span>
+
+<span class="sd">    fixedlabel : str</span>
+<span class="sd">        Overrides the automatic labeling with the given string. No modifiers</span>
+<span class="sd">        are allowed. Placement, justification, etc. are all inherited from how</span>
+<span class="sd">        ``autolabel`` was specified by the initial :meth:`pygmt.Figure.subplot`</span>
+<span class="sd">        command.</span>
+
+<span class="sd">    clearance : str or list</span>
+<span class="sd">        [*side*]\ *clearance*.</span>
+<span class="sd">        Reserve a space of dimension *clearance* between the margin and the</span>
+<span class="sd">        subplot on the specified side, using *side* values from **w**, **e**,</span>
+<span class="sd">        **s**, or **n**. The option is repeatable to set aside space on more</span>
+<span class="sd">        than one side (e.g. ``clearance=[&quot;w1c&quot;, &quot;s2c&quot;]`` would set a clearance</span>
+<span class="sd">        of 1 cm on west side and 2 cm on south side). Such space will be left</span>
+<span class="sd">        untouched by the main map plotting but can be accessed by methods that</span>
+<span class="sd">        plot scales, bars, text, etc. This setting overrides the common</span>
+<span class="sd">        clearances set by ``clearance`` in the initial</span>
+<span class="sd">        :meth:`pygmt.Figure.subplot` call.</span>
+
+<span class="sd">    {verbose}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;subplot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;set&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">panel</span><span class="p">),</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="k">yield</span>
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

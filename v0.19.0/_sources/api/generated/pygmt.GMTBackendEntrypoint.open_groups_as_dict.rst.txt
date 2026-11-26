@@ -1,0 +1,13 @@
+pygmt.GMTBackendEntrypoint.open\_groups\_as\_dict
+=================================================
+
+.. currentmodule:: pygmt
+
+.. automethod:: GMTBackendEntrypoint.open_groups_as_dict
+
+.. minigallery:: pygmt.GMTBackendEntrypoint.open_groups_as_dict
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

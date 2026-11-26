@@ -1,0 +1,12 @@
+pygmt.grdvolume
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdvolume
+
+.. include:: backreferences/pygmt.grdvolume.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

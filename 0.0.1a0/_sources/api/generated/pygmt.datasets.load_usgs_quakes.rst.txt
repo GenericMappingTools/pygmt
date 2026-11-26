@@ -1,0 +1,11 @@
+pygmt.datasets.load\_usgs\_quakes
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_usgs_quakes
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>

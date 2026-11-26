@@ -1,0 +1,12 @@
+pygmt.triangulate.regular\_grid
+===============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: triangulate.regular_grid
+
+.. include:: backreferences/pygmt.triangulate.regular_grid.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

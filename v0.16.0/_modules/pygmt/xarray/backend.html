@@ -1,0 +1,356 @@
+
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.xarray.backend &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=2ba370f3" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org//latest/_modules/pygmt/xarray/backend.html" />
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=d6c21762"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+   
+   <a href="../../../index.html">
+     <h2 class="sidebar-title">PyGMT</h2>
+   </a>
+     <div class="version">
+       v0.16.0
+     </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../techref/index.html">Technical Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ecosystem.html">Ecosystem</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">PyGMT Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pygmt.xarray.backend</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.xarray.backend</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An xarray backend for reading raster grid/image files using the &#39;gmt&#39; engine.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt._typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathLike</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.clib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">kwargs_to_strings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pygmt.src.which</span><span class="w"> </span><span class="kn">import</span> <span class="n">which</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xarray.backends</span><span class="w"> </span><span class="kn">import</span> <span class="n">BackendEntrypoint</span>
+
+
+<div class="viewcode-block" id="GMTBackendEntrypoint">
+<a class="viewcode-back" href="../../../api/generated/pygmt.GMTBackendEntrypoint.html#pygmt.GMTBackendEntrypoint">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GMTBackendEntrypoint</span><span class="p">(</span><span class="n">BackendEntrypoint</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Xarray backend to read raster grid/image files using &#39;gmt&#39; engine.</span>
+
+<span class="sd">    Internally, GMT uses the netCDF C library to read netCDF files, and GDAL for GeoTIFF</span>
+<span class="sd">    and other raster formats. See :gmt-docs:`reference/features.html#grid-file-format`</span>
+<span class="sd">    for more details about supported formats. This GMT engine can also read</span>
+<span class="sd">    :gmt-docs:`GMT remote datasets &lt;datasets/remote-data.html&gt;` (file names starting</span>
+<span class="sd">    with an `@`) directly, and pre-loads :class:`pygmt.GMTDataArrayAccessor` properties</span>
+<span class="sd">    (in the &#39;.gmt&#39; accessor) for easy access to GMT-specific metadata and features.</span>
+
+<span class="sd">    When using :py:func:`xarray.open_dataarray` or :py:func:`xarray.load_dataarray` with</span>
+<span class="sd">    ``engine=&quot;gmt&quot;``, the ``raster_kind`` parameter is required and can be either:</span>
+
+<span class="sd">    - ``&quot;grid&quot;``: for reading single-band raster grids</span>
+<span class="sd">    - ``&quot;image&quot;``: for reading multi-band raster images</span>
+
+<span class="sd">    Optionally, you can pass in a ``region`` in the form of a sequence [*xmin*, *xmax*,</span>
+<span class="sd">    *ymin*, *ymax*] or an ISO country code.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Read a single-band netCDF file using ``raster_kind=&quot;grid&quot;``</span>
+
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; import xarray as xr</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; da_grid = xr.open_dataarray(</span>
+<span class="sd">    ...     &quot;@static_earth_relief.nc&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;grid&quot;</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; da_grid  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 14, lon: 8)&gt;...</span>
+<span class="sd">    [112 values with dtype=float32]</span>
+<span class="sd">    Coordinates:</span>
+<span class="sd">      * lat      (lat) float64... -23.5 -22.5 -21.5 -20.5 ... -12.5 -11.5 -10.5</span>
+<span class="sd">      * lon      (lon) float64... -54.5 -53.5 -52.5 -51.5 -50.5 -49.5 -48.5 -47.5</span>
+<span class="sd">    Attributes:...</span>
+<span class="sd">        Conventions:   CF-1.7</span>
+<span class="sd">        title:         Produced by grdcut</span>
+<span class="sd">        history:       grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_eart...</span>
+<span class="sd">        description:   Reduced by Gaussian Cartesian filtering (111.2 km fullwidt...</span>
+<span class="sd">        actual_range:  [190. 981.]</span>
+<span class="sd">        long_name:     elevation (m)</span>
+
+<span class="sd">    Read a multi-band GeoTIFF file using ``raster_kind=&quot;image&quot;``</span>
+
+<span class="sd">    &gt;&gt;&gt; da_image = xr.open_dataarray(</span>
+<span class="sd">    ...     &quot;@earth_night_01d&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;image&quot;</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; da_image  # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (band: 3, y: 180, x: 360)&gt;...</span>
+<span class="sd">    [194400 values with dtype=uint8]</span>
+<span class="sd">    Coordinates:</span>
+<span class="sd">      * y        (y) float64... 89.5 88.5 87.5 86.5 ... -86.5 -87.5 -88.5 -89.5</span>
+<span class="sd">      * x        (x) float64... -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5</span>
+<span class="sd">      * band     (band) uint8... 1 2 3</span>
+<span class="sd">    Attributes:...</span>
+<span class="sd">        long_name:  z</span>
+
+<span class="sd">    Load a single-band netCDF file using ``raster_kind=&quot;grid&quot;`` over a bounding box</span>
+<span class="sd">    region.</span>
+
+<span class="sd">    &gt;&gt;&gt; da_grid = xr.load_dataarray(</span>
+<span class="sd">    ...     &quot;@tut_bathy.nc&quot;, engine=&quot;gmt&quot;, raster_kind=&quot;grid&quot;, region=[-64, -62, 32, 33]</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; da_grid</span>
+<span class="sd">    &lt;xarray.DataArray &#39;z&#39; (lat: 13, lon: 25)&gt;...</span>
+<span class="sd">    array([[-4369., -4587., -4469., -4409., -4587., -4505., -4403., -4405.,</span>
+<span class="sd">            -4466., -4595., -4609., -4608., -4606., -4607., -4607., -4597.,</span>
+<span class="sd">    ...</span>
+<span class="sd">            -4667., -4642., -4677., -4795., -4797., -4800., -4803., -4818.,</span>
+<span class="sd">            -4820.]], dtype=float32)</span>
+<span class="sd">    Coordinates:</span>
+<span class="sd">      * lat      (lat) float64... 32.0 32.08 32.17 32.25 ... 32.83 32.92 33.0</span>
+<span class="sd">      * lon      (lon) float64... -64.0 -63.92 -63.83 ... -62.17 -62.08 -62.0</span>
+<span class="sd">    Attributes:...</span>
+<span class="sd">        Conventions:   CF-1.7</span>
+<span class="sd">        title:         ETOPO5 global topography</span>
+<span class="sd">        history:       grdreformat -fg bermuda.grd bermuda.nc=ns</span>
+<span class="sd">        description:   /home/elepaio5/data/grids/etopo5.i2</span>
+<span class="sd">        actual_range:  [-4968. -4315.]</span>
+<span class="sd">        long_name:     Topography</span>
+<span class="sd">        units:         m</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Open raster (.grd, .nc or .tif) files in Xarray via GMT.&quot;</span>
+    <span class="n">open_dataset_parameters</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;filename_or_obj&quot;</span><span class="p">,</span> <span class="s2">&quot;raster_kind&quot;</span><span class="p">,</span> <span class="s2">&quot;region&quot;</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://pygmt.org/dev/api/generated/pygmt.GMTBackendEntrypoint.html&quot;</span>
+
+<div class="viewcode-block" id="GMTBackendEntrypoint.open_dataset">
+<a class="viewcode-back" href="../../../api/generated/pygmt.GMTBackendEntrypoint.open_dataset.html#pygmt.GMTBackendEntrypoint.open_dataset">[docs]</a>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_dataset</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename_or_obj</span><span class="p">:</span> <span class="n">PathLike</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">drop_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG002</span>
+        <span class="n">raster_kind</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">],</span>
+        <span class="n">region</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># other backend specific keyword arguments</span>
+        <span class="c1"># `chunks` and `cache` DO NOT go here, they are handled by xarray</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backend open_dataset method used by Xarray in :py:func:`~xarray.open_dataset`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename_or_obj</span>
+<span class="sd">            File path to a netCDF (.nc), GeoTIFF (.tif) or other grid/image file format</span>
+<span class="sd">            that can be read by GMT via the netCDF or GDAL C libraries. See also</span>
+<span class="sd">            :gmt-docs:`reference/features.html#grid-file-format`.</span>
+<span class="sd">        raster_kind</span>
+<span class="sd">            Whether to read the file as a &quot;grid&quot; (single-band) or &quot;image&quot; (multi-band).</span>
+<span class="sd">        region</span>
+<span class="sd">            The subregion of the grid or image to load, in the form of a sequence</span>
+<span class="sd">            [*xmin*, *xmax*, *ymin*, *ymax*] or an ISO country code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">raster_kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">}:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid raster kind: &#39;</span><span class="si">{</span><span class="n">raster_kind</span><span class="si">}</span><span class="s2">&#39;. Valid values are &#39;grid&#39; or &#39;image&#39;.&quot;</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="n">raster_kind</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutfile</span><span class="p">:</span>
+                <span class="n">kwdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">region</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">}[</span><span class="n">raster_kind</span><span class="p">]}</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;read&quot;</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">filename_or_obj</span><span class="p">,</span> <span class="n">voutfile</span><span class="p">,</span> <span class="o">*</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwdict</span><span class="p">)],</span>
+                <span class="p">)</span>
+
+                <span class="n">raster</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span>
+                    <span class="n">vfname</span><span class="o">=</span><span class="n">voutfile</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">raster_kind</span>
+                <span class="p">)</span>
+                <span class="c1"># Add &quot;source&quot; encoding</span>
+                <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">filename_or_obj</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s2">&quot;q&quot;</span><span class="p">)</span>
+                <span class="n">raster</span><span class="o">.</span><span class="n">encoding</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="nb">sorted</span><span class="p">(</span><span class="n">source</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">source</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">raster</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2025, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.16.0">v0.16.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Jun 18, 2025.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

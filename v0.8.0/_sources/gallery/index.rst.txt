@@ -1,0 +1,973 @@
+:orphan:
+
+.. _gallery:
+
+Gallery
+=======
+
+This gallery contains examples of what PyGMT can do. Click on any example to see the
+code used to generate it.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    </div>
+
+Maps and map elements
+---------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat...">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_land_and_water_thumb.png
+    :alt: Color land and water
+
+  :ref:`sphx_glr_gallery_maps_land_and_water.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color land and water</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an...">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_borders_thumb.png
+    :alt: Political Boundaries
+
+  :ref:`sphx_glr_gallery_maps_borders.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Political Boundaries</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines.">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_shorelines_thumb.png
+    :alt: Shorelines
+
+  :ref:`sphx_glr_gallery_maps_shorelines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Shorelines</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/maps/land_and_water
+   /gallery/maps/borders
+   /gallery/maps/shorelines
+
+Lines and vectors
+-----------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_vector_styles_thumb.png
+    :alt: Cartesian, circular, and geographic vectors
+
+  :ref:`sphx_glr_gallery_lines_vector_styles.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_great_circles_thumb.png
+    :alt: Generate points along great circles
+
+  :ref:`sphx_glr_gallery_lines_great_circles.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_line_custom_cpt_thumb.png
+    :alt: Line colors with a custom CPT
+
+  :ref:`sphx_glr_gallery_lines_line_custom_cpt.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called *front* which allows to plot specif...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_linefronts_thumb.png
+    :alt: Line fronts
+
+  :ref:`sphx_glr_gallery_lines_linefronts.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Line fronts</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0....">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_linestyles_thumb.png
+    :alt: Line styles
+
+  :ref:`sphx_glr_gallery_lines_linestyles.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Line styles</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Roads">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_roads_thumb.png
+    :alt: Roads
+
+  :ref:`sphx_glr_gallery_lines_roads.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Roads</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_vector_heads_tails_thumb.png
+    :alt: Vector heads and tails
+
+  :ref:`sphx_glr_gallery_lines_vector_heads_tails.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_wiggle_thumb.png
+    :alt: Wiggle along tracks
+
+  :ref:`sphx_glr_gallery_lines_wiggle.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Wiggle along tracks</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/lines/vector_styles
+   /gallery/lines/great_circles
+   /gallery/lines/line_custom_cpt
+   /gallery/lines/linefronts
+   /gallery/lines/linestyles
+   /gallery/lines/roads
+   /gallery/lines/vector_heads_tails
+   /gallery/lines/wiggle
+
+Symbols and markers
+-------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_basic_symbols_thumb.png
+    :alt: Basic geometric symbols
+
+  :ref:`sphx_glr_gallery_symbols_basic_symbols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Color points by categories">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_points_categorical_thumb.png
+    :alt: Color points by categories
+
+  :ref:`sphx_glr_gallery_symbols_points_categorical.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Color points by categories</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_custom_symbols_thumb.png
+    :alt: Custom symbols
+
+  :ref:`sphx_glr_gallery_symbols_custom_symbols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Custom symbols</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_datetime_inputs_thumb.png
+    :alt: Datetime inputs
+
+  :ref:`sphx_glr_gallery_symbols_datetime_inputs.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Datetime inputs</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_multi_parameter_symbols_thumb.png
+    :alt: Multi-parameter symbols
+
+  :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-parameter symbols</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. The plot symbol and size is set with the style pa...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_points_thumb.png
+    :alt: Points
+
+  :ref:`sphx_glr_gallery_symbols_points.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Points</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array argument to the...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_points_transparency_thumb.png
+    :alt: Points with varying transparency
+
+  :ref:`sphx_glr_gallery_symbols_points_transparency.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Points with varying transparency</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ...">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_scatter_thumb.png
+    :alt: Scatter plots with a legend
+
+  :ref:`sphx_glr_gallery_symbols_scatter.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scatter plots with a legend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Text symbols">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_text_symbols_thumb.png
+    :alt: Text symbols
+
+  :ref:`sphx_glr_gallery_symbols_text_symbols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Text symbols</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_bars_thumb.png
+    :alt: Vertical or horizontal bars
+
+  :ref:`sphx_glr_gallery_symbols_bars.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/symbols/basic_symbols
+   /gallery/symbols/points_categorical
+   /gallery/symbols/custom_symbols
+   /gallery/symbols/datetime_inputs
+   /gallery/symbols/multi_parameter_symbols
+   /gallery/symbols/points
+   /gallery/symbols/points_transparency
+   /gallery/symbols/scatter
+   /gallery/symbols/text_symbols
+   /gallery/symbols/bars
+
+Images, contours, and fields
+----------------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_grdgradient_thumb.png
+    :alt: Calculating grid gradient and radiance
+
+  :ref:`sphx_glr_gallery_images_grdgradient.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_grdclip_thumb.png
+    :alt: Clipping grid values
+
+  :ref:`sphx_glr_gallery_images_grdclip.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1-D numpy.ndarray data columns. #. data 2-D numpy.ndarray data matrix with 3 columns...">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_contours_thumb.png
+    :alt: Contours
+
+  :ref:`sphx_glr_gallery_images_contours.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Contours</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_grdlandmask_thumb.png
+    :alt: Create 'wet-dry' mask grid
+
+  :ref:`sphx_glr_gallery_images_grdlandmask.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Images on figures">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_image_thumb.png
+    :alt: Images on figures
+
+  :ref:`sphx_glr_gallery_images_image.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Images on figures</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_track_sampling_thumb.png
+    :alt: Sampling along tracks
+
+  :ref:`sphx_glr_gallery_images_track_sampling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/images/grdgradient
+   /gallery/images/grdclip
+   /gallery/images/contours
+   /gallery/images/grdlandmask
+   /gallery/images/image
+   /gallery/images/track_sampling
+
+3D Plots
+--------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho...">
+
+.. only:: html
+
+  .. image:: /gallery/3d_plots/images/thumb/sphx_glr_scatter3d_thumb.png
+    :alt: 3-D Scatter plots
+
+  :ref:`sphx_glr_gallery_3d_plots_scatter3d.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ...">
+
+.. only:: html
+
+  .. image:: /gallery/3d_plots/images/thumb/sphx_glr_grdview_surface_thumb.png
+    :alt: Plotting a surface
+
+  :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/3d_plots/scatter3d
+   /gallery/3d_plots/grdview_surface
+
+Seismology and geodesy
+----------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms or beachballs. We can specify the focal ...">
+
+.. only:: html
+
+  .. image:: /gallery/seismology/images/thumb/sphx_glr_meca_thumb.png
+    :alt: Focal mechanisms
+
+  :ref:`sphx_glr_gallery_seismology_meca.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Focal mechanisms</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ...">
+
+.. only:: html
+
+  .. image:: /gallery/seismology/images/thumb/sphx_glr_velo_arrow_ellipse_thumb.png
+    :alt: Velocity arrows and confidence ellipses
+
+  :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Velocity arrows and confidence ellipses</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/seismology/meca
+   /gallery/seismology/velo_arrow_ellipse
+
+Base maps
+---------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes sh...">
+
+.. only:: html
+
+  .. image:: /gallery/basemaps/images/thumb/sphx_glr_double_y_axes_thumb.png
+    :alt: Double Y axes graph
+
+  :ref:`sphx_glr_gallery_basemaps_double_y_axes.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Double Y axes graph</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram">
+
+.. only:: html
+
+  .. image:: /gallery/basemaps/images/thumb/sphx_glr_ternary_thumb.png
+    :alt: Ternary diagram
+
+  :ref:`sphx_glr_gallery_basemaps_ternary.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/basemaps/double_y_axes
+   /gallery/basemaps/ternary
+
+Histograms
+----------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Blockmean">
+
+.. only:: html
+
+  .. image:: /gallery/histograms/images/thumb/sphx_glr_blockm_thumb.png
+    :alt: Blockmean
+
+  :ref:`sphx_glr_gallery_histograms_blockm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Blockmean</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Histogram">
+
+.. only:: html
+
+  .. image:: /gallery/histograms/images/thumb/sphx_glr_histogram_thumb.png
+    :alt: Histogram
+
+  :ref:`sphx_glr_gallery_histograms_histogram.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Histogram</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms.">
+
+.. only:: html
+
+  .. image:: /gallery/histograms/images/thumb/sphx_glr_rose_thumb.png
+    :alt: Rose diagram
+
+  :ref:`sphx_glr_gallery_histograms_rose.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Rose diagram</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/histograms/blockm
+   /gallery/histograms/histogram
+   /gallery/histograms/rose
+
+Plot embellishments
+-------------------
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_colorbar_thumb.png
+    :alt: Colorbar
+
+  :ref:`sphx_glr_gallery_embellishments_colorbar.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Colorbar</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_solar_thumb.png
+    :alt: Day-night terminator line and twilights
+
+  :ref:`sphx_glr_gallery_embellishments_solar.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_inset_thumb.png
+    :alt: Inset
+
+  :ref:`sphx_glr_gallery_embellishments_inset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Inset</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_inset_rectangle_region_thumb.png
+    :alt: Inset map showing a rectangular region
+
+  :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_legend_thumb.png
+    :alt: Legend
+
+  :ref:`sphx_glr_gallery_embellishments_legend.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Legend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map.">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_logo_thumb.png
+    :alt: Logo
+
+  :ref:`sphx_glr_gallery_embellishments_logo.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Logo</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_colorbars_multiple_thumb.png
+    :alt: Multiple colormaps
+
+  :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/embellishments/colorbar
+   /gallery/embellishments/solar
+   /gallery/embellishments/inset
+   /gallery/embellishments/inset_rectangle_region
+   /gallery/embellishments/legend
+   /gallery/embellishments/logo
+   /gallery/embellishments/colorbars_multiple
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

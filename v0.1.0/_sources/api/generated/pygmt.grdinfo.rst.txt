@@ -1,0 +1,11 @@
+pygmt.grdinfo
+=============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdinfo
+
+
+.. raw:: html
+
+     <div style='clear:both'></div>
