@@ -4,6 +4,7 @@ sphere.
 """
 
 from collections.abc import Sequence
+from os import fsdecode
 from typing import Literal
 
 import xarray as xr
@@ -57,7 +58,8 @@ def sphdistance(
     data
         Pass in (x, y) or (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2-D
-        $table_classes.
+        $table_classes. The coordinate table may be omitted when ``voronoi``
+        is provided.
     x/y : 1-D arrays
         Arrays of x and y coordinates.
     $outgrid
@@ -88,15 +90,16 @@ def sphdistance(
         Specify the unit used for distance calculations. Valid values are **d**, **e**,
         **f**, **k**, **M**, **n**, and **u**. See :ref:`distance-units` for meanings of
         the units.
-    node_table : str
+    node_table : str or pathlib.Path
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
         file [Default acquires this information from the ASCII segment
         headers of the output file]. Required if binary input via `voronoi`
         is used.
-    voronoi : str
-        Append the name of a file with pre-calculated Voronoi polygons
-        [Default performs the Voronoi construction on input data].
+    voronoi : str or pathlib.Path
+        File with precomputed Voronoi polygons, such as the output of
+        :gmt-docs:`sphtriangulate.html` with ``-Qv``. By default, Voronoi polygons
+        are constructed from the input coordinates.
     $region
     $verbose
 
@@ -133,13 +136,25 @@ def sphdistance(
     )
     aliasdict.merge(kwargs)
 
+    # Pass file paths directly to GMT to preserve characters such as apostrophes.
+    filenames = {
+        option: fsdecode(aliasdict.pop(option))
+        for option in ("N", "Q")
+        if isinstance(aliasdict.get(option), PathLike)
+    }
+    voronoi_only = bool(filenames.get("Q")) and data is None and x is None and y is None
+    aliasdict.pop("G", None)  # The output name comes from virtualfile_out.
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
+            lib.virtualfile_in(
+                check_kind="vector", data=data, x=x, y=y, required=not voronoi_only
+            ) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            aliasdict["G"] = voutgrd
-            lib.call_module(
-                module="sphdistance", args=build_arg_list(aliasdict, infile=vintbl)
+            args = build_arg_list(aliasdict, infile=vintbl)
+            args.extend(
+                f"-{option}{filename}" for option, filename in filenames.items()
             )
+            args.append(f"-G{fsdecode(voutgrd)}")
+            lib.call_module(module="sphdistance", args=args)
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

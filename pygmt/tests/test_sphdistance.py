@@ -2,15 +2,13 @@
 Test pygmt.sphdistance.
 """
 
-from pathlib import Path
-
 import numpy as np
 import numpy.testing as npt
 import pytest
 from pygmt import sphdistance
+from pygmt.clib import Session
 from pygmt.enums import GridRegistration, GridType
 from pygmt.exceptions import GMTParameterError
-from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="array")
@@ -38,16 +36,16 @@ def test_sphdistance_xy_inputs():
     npt.assert_allclose(temp_grid.mean(), 62469.17)
 
 
-def test_sphdistance_outgrid(array):
+def test_sphdistance_outgrid(array, tmp_path):
     """
     Test sphdistance with a set outgrid.
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        result = sphdistance(
-            data=array, outgrid=tmpfile.name, spacing=1, region=[82, 87, 22, 24]
-        )
-        assert result is None  # return value is None
-        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
+    outgrid = tmp_path / "voronoi cell's grid.nc"
+    result = sphdistance(
+        data=array, outgrid=outgrid, spacing=[1, 1], region=[82, 87, 22, 24]
+    )
+    assert result is None
+    assert outgrid.stat().st_size > 0
 
 
 @pytest.mark.benchmark
@@ -63,6 +61,33 @@ def test_sphdistance_no_outgrid(array):
     npt.assert_allclose(temp_grid.min(), 0)
     npt.assert_allclose(temp_grid.median(), 0)
     npt.assert_allclose(temp_grid.mean(), 62469.17)
+
+
+@pytest.mark.parametrize("with_node_table", [False, True])
+def test_sphdistance_voronoi(array, tmp_path, with_node_table):
+    """
+    Use precomputed Voronoi polygons in place of a coordinate table.
+    """
+    polygon_name = "voronoi polygons.txt" if with_node_table else "cell's polygons.txt"
+    polygons = tmp_path / polygon_name
+    nodes = tmp_path / "cell's nodes.txt" if with_node_table else None
+    with Session() as lib:
+        with lib.virtualfile_in(check_kind="vector", data=array) as vintbl:
+            args = [vintbl, "-Qv"]
+            if nodes is not None:
+                args.extend(["-A", f"-N{nodes}"])
+            lib.call_module("sphtriangulate", [*args, f"->{polygons}"])
+
+    expected = sphdistance(data=array, spacing=[1, 1], region=[82, 87, 22, 24])
+    actual = sphdistance(
+        voronoi=polygons, node_table=nodes, spacing=[1, 1], region=[82, 87, 22, 24]
+    )
+    assert actual is not None
+    assert expected is not None
+    assert actual.dims == expected.dims
+    for dim in actual.dims:
+        npt.assert_array_equal(actual.coords[dim], expected.coords[dim])
+    npt.assert_allclose(actual, expected, rtol=1e-6)
 
 
 def test_sphdistance_fails(array):
