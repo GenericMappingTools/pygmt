@@ -5,19 +5,13 @@ Cartesian histograms
 Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram` method.
 In this tutorial, different histogram related aspects are addressed:
 
-- Choosing the bins with ``series``
-- Comparing histogram styles
-- Showing counts and frequency percent
-- Adding annotations to the bars
-- Showing cumulative values
-- Using color and pattern as fill for the bars
-- Adding distribution curves
-- Using overlaid, stacked, and grouped bars
-- Using vertical and horizontal bars
+- General set up: bin width, bar fill
+- Histogram styles: bar orientation, stair-steps
+- Histogram types: count and frequency percent, cumulative values, distribution curve
+- Multi-dataset histograms: grouped bars, stacked bars, overlayed bars
 """
 
 # %%
-# Import the required packages
 import numpy as np
 import pygmt
 from pygmt.params import Axis, Frame, Pattern
@@ -33,90 +27,142 @@ mean = 100
 stddev = 20
 
 # Create two data sets
-data01 = rng.normal(loc=mean, scale=stddev, size=42)
-data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
+data1 = rng.normal(loc=mean, scale=stddev, size=42)
+data2 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
-# Choosing the bins
-# -----------------
+# General set up
+# --------------
 #
-# The ``series`` parameter controls how the data are grouped into bins. Changing
-# the bin width can reveal or hide features in the same data set, so choosing the
-# bins is an important first step when creating a histogram.
+
+# %%
+# Bin width: ``series`` parameter
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# A single number sets the bin width. The binning range is determined from the
-# data or from ``region``. For example, ``series=10`` gives bins that are 10 units
-# wide. Use ``region`` to set the displayed range as
-# [*xmin*, *xmax*, *ymin*, *ymax*]. Setting both y-limits to the same value lets GMT
-# determine them automatically.
+# To define the width of the bins, the ``series`` parameter has to be specified.
+# Use the ``pen`` parameter to adjust width, color, and style of the outlines.
 
 fig = pygmt.Figure()
 
 fig.histogram(
-    data=data01,
+    # Define the plot range as a list of xmin, xmax, ymin, ymax
+    # Let ymin and ymax determined automatically by setting both to the same value
+    region=[0, 200, 0, 0],
+    # Cartesian projection with a width of 8 centimeters
+    projection="X8c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
+    ),
+    data=data1,
+    # Set the bin width via the "series" parameter based on region
     series=10,
-    region=[0, 200, 0, 0],
-    projection="X6c",
-    frame=Frame(
-        axes="WSne",
-        title="Bin width: 10",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=True, label="Counts"),
-    ),
-    fill="red3",
-    pen="1p,darkgray",
+    pen="0.5p,gray30",
 )
 
-# %%
-# A list or tuple of three numbers specifies the minimum, maximum, and increment
-# of the binning. Here, ``series=[0, 200, 20]`` uses bins from 0 to 200 with a width
-# of 20. This is equivalent to the GMT-style string ``series="0/200/20"``.
-# ``region`` controls the plot limits, while ``series`` controls the bin boundaries.
-
-fig.shift_origin(xshift="w+1.5c")
+# Shift plot origin by the previous plot's width ("+w") plus 2 centimeters to the right
+fig.shift_origin(xshift="w+2c")
 
 fig.histogram(
-    data=data01,
-    series=[0, 200, 20],
     region=[0, 200, 0, 0],
-    projection="X6c",
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Bin width: 20",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=True, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    fill="red3",
-    pen="1p,darkgray",
+    data=data1,
+    # Set minimum, maximum and bin with for the bins
+    series=[75, 120, 10],
+    pen="0.5p,gray30",
 )
 
+fig.shift_origin(xshift="w+2c")
+
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X8c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
+    ),
+    data=data1,
+    # Set bin boundaries explicitly
+    series=np.array([50, 75, 80, 90, 100, 110, 120, 140, 180]),
+    pen="0.5p,gray30",
+)
+
+fig.show()
+
+
 # %%
-# To set the bin boundaries explicitly, pass a sequence of boundary values. These
-# bins can have different widths. Here, the boundaries are closer together near
-# the center of the distribution. The bar heights still show counts, so a wider
-# bin can contain more observations even where the data are less concentrated.
+# Bar fill: ``fill`` and ``cmap`` parameters
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# A list or tuple with exactly three elements is always interpreted as
-# [*minimum*, *maximum*, *increment*], rather than three boundaries. To give exactly
-# three boundaries, use a NumPy array, e.g., ``series=np.array([0, 100, 200])``.
+# The bars can be filled via the ``fill`` parameter with either a color (or a pattern).
+# Besides a constant color, ``fill`` can take two specific arguments, ``"position"`` and
+# ``"value"`` using the mid-coordinate or the value (count or percent) of the bin,
+# respectively. Both require creating a colormap via :func:`pygmt.makecpt` first and
+# setting ``cmap=True``. It's also possible to pass the filename (with extension) of a
+# CPT to ``cmap`` previsouly created and saved, but it is not supported to directly pass
+# a GMT master CPT yet.
 
-fig.shift_origin(xshift="w+1.5c")
+fig = pygmt.Figure()
 
 fig.histogram(
-    data=data01,
-    series=np.array([0, 60, 80, 90, 100, 110, 120, 140, 200]),
     region=[0, 200, 0, 0],
-    projection="X6c",
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Explicit boundaries",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=True, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    fill="red3",
-    pen="1p,darkgray",
+    data=data1,
+    series=10,
+    fill="lightbrown",
+    pen="0.5p,gray30",
 )
+
+fig.shift_origin(xshift="w+2c")
+
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 10])
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X8c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
+    ),
+    data=data1,
+    series=10,
+    fill="position",
+    cmap=True,
+    pen="0.5p,gray30",
+)
+fig.colorbar(label="mid-coordinate of bin")
+
+fig.shift_origin(xshift="w+3.5c")
+
+pygmt.makecpt(cmap="SCM/batlow", series=[0, 15, 1])
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X8c",
+    frame=Frame(
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
+    ),
+    data=data1,
+    series=10,
+    fill="value",
+    cmap=True,
+    pen="0.5p,gray30",
+)
+fig.colorbar(label="count of bin")
 
 fig.show()
 
@@ -125,80 +171,93 @@ fig.show()
 # Histogram styles
 # ----------------
 #
-# Combine ``fill``, ``pen``, and ``stairs`` to change the appearance of a histogram
-# without changing its bins or counts. ``fill`` sets the color or pattern inside
-# the bars, and ``pen`` sets the width, color, and style of their outlines.
-# With ``stairs=True``, only the outer outline is drawn, without internal bars.
-# The four plots below use the same data, bins, and axis limits for comparison.
+
+# %%
+# Bar orientation
+# ~~~~~~~~~~~~~~~
+#
+# By default, a histogram with vertical bars is created. Horizontal bars can be
+# achieved via ``horizontal=True``.
 
 fig = pygmt.Figure()
 
-# Filled bars
+# Create histogram for data1 with vertical bars
 fig.histogram(
-    data=data01,
-    series=10,
-    region=[0, 200, 0, 12],
-    projection="X5c",
+    region=[0, 200, 0, 0],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Filled bars",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=2, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    fill="red3",
+    data=data1,
+    series=10,
+    fill="lightbrown",
+    pen="0.5p,gray30",
 )
 
-fig.shift_origin(xshift="w+1.5c")
+fig.shift_origin(xshift="w+2c")
 
-# Outlined bars
+# Create histogram for data1 with horizontal bars
 fig.histogram(
-    data=data01,
-    series=10,
-    region=[0, 200, 0, 12],
-    projection="X5c",
+    region=[0, 200, 0, 0],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Outlined bars",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=2, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    pen="1p,red3",
+    data=data1,
+    series=10,
+    fill="lightbrown",
+    pen="0.5p,gray30",
+    # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
+    # plotted vertically and the y-axis plotted horizontally.
+    horizontal=True,
 )
 
-fig.shift_origin(xshift="w+1.5c")
+fig.show()
 
-# Stair-step outline
+
+# %%
+# Stair-steps
+# ~~~~~~~~~~~
+#
+# A stair-step diagram can be created by setting ``stairs=True``. Then only the
+# outer outlines of the bars are drawn, and no internal bars are visible.
+
+fig = pygmt.Figure()
+
+# Create histogram for data1 using bars
 fig.histogram(
-    data=data01,
-    series=10,
-    region=[0, 200, 0, 12],
-    projection="X5c",
+    region=[0, 200, 0, 0],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Stair-step outline",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=2, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    pen="1p,red3",
-    stairs=True,
+    data=data1,
+    series=10,
+    fill="lightbrown",
+    pen="0.5p,gray30",
 )
 
-fig.shift_origin(xshift="w+1.5c")
+fig.shift_origin(xshift="w+2c")
 
-# Filled stair-steps
+# Create histogram for data1 using stair-steps
 fig.histogram(
-    data=data01,
-    series=10,
-    region=[0, 200, 0, 12],
-    projection="X5c",
+    region=[0, 200, 0, 0],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        title="Filled stair-steps",
-        xaxis=Axis(annot=50, tick=10),
-        yaxis=Axis(annot=2, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    fill="red3",
-    pen="1p,darkgray",
+    data=data1,
+    series=10,
+    fill="lightbrown",
+    pen="0.5p,gray30",
     stairs=True,
 )
 
@@ -206,8 +265,13 @@ fig.show()
 
 
 # %%
+# Histogram types
+# ---------------
+#
+
+# %%
 # Counts and frequency percent
-# ----------------------------
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 # By default, a histogram showing the counts in each bin is created
 # (``histtype="count"``). To show the percentage of values in each bin, set the
@@ -216,39 +280,39 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data02 showing counts
+# Create histogram for data2 showing counts
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
-        axes="WSnr",
-        xaxis=Axis(annot=True, tick=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    data=data02,
+    data=data2,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="0.5p,gray30",
     # Choose counts via the "histtype" parameter
     histtype="count",
 )
 
-fig.shift_origin(xshift="w+1c")
+fig.shift_origin(xshift="w+2c")
 
-# Create histogram for data02 showing frequency percent
+# Create histogram for data2 showing frequency percent
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     # Add suffix % (+u)
     frame=Frame(
-        axes="lSnE",
-        xaxis=Axis(annot=True, tick=10),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
         yaxis=Axis(annot=2, tick=1, unit="%", label="Frequency percent"),
     ),
-    data=data02,
+    data=data2,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
+    fill="bisque",
+    pen="0.5p,gray30",
     # Choose percentages via the "histtype" parameter
     histtype="percent",
 )
@@ -258,7 +322,7 @@ fig.show()
 
 # %%
 # Cumulative values
-# -----------------
+# ~~~~~~~~~~~~~~~~~
 #
 # To create a histogram showing the cumulative values set ``cumulative=True``. Here, the
 # bars of the cumulative histogram are filled with a :class:`pygmt.params.Pattern` via
@@ -267,89 +331,95 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data01 showing the counts per bin
+# Create histogram for data1 showing the counts per bin
 fig.histogram(
-    region=[0, 200, 0, len(data01) + 1],
-    projection="X10c",
+    region=[0, 200, 0, len(data1) + 1],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        xaxis=Axis(annot=True, tick=10),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
-    histtype="count",
+    fill="lightbrown",
+    pen="0.5p,gray30",
+    # Annotate each bar with the counts it represents
     annot=True,
 )
 
-fig.shift_origin(xshift="w+1c")
+fig.shift_origin(xshift="w+2c")
 
-# Create histogram for data01 showing the cumulative counts
+# Create histogram for data1 showing the cumulative counts
 fig.histogram(
-    region=[0, 200, 0, len(data01) + 1],
-    projection="X10c",
+    region=[0, 200, 0, len(data1) + 1],
+    projection="X8c",
     frame=Frame(
-        axes="wSnE",
-        xaxis=Axis(annot=True, tick=10),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
         yaxis=Axis(annot=5, tick=1, label="Cumulative counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
     # Fill bars with GMT pattern 8, with white background and black foreground.
     fill=Pattern(8, bgcolor="white", fgcolor="black"),
-    pen="1p,darkgray,solid",
-    histtype="count",
-    cumulative=True,  # Show cumulative counts
+    pen="0.5p,gray30",
+    cumulative=True,
     annot=True,
-    annot_offset="-10p",  # Offset the annotations by 10 points in negative y-direction
+    # Offset the annotations by 10 points in negative y-direction
+    annot_offset="-10p",
 )
+
 
 fig.show()
 
 
 # %%
-# Distribution curves
-# -------------------
+# Distribution curve
+# ~~~~~~~~~~~~~~~~~~
 #
-# Use ``distribution`` to add an equivalent normal distribution curve calculated
-# from the data. Set it to ``"mean"`` to use the mean and standard deviation, or
-# ``"median"`` to use the median and a scale based on the median absolute deviation.
-# A third option, ``"lms"``, uses the least median of squares mode and scale.
-# These curves summarize the data; they do not imply that the data are normally
-# distributed.
-#
-# Pass a list to compare several curves. ``distribution_pen`` controls their
-# appearance: a single pen applies to every curve, while a list of pens matches
-# the order of the modes in ``distribution``. Below, the mean-based curve is solid
-# red, and the median-based curve is dashed blue. GMT scales the curves to the
-# histogram, so no separate probability density calculation is needed.
+# Use the ``distribution`` parameter to plot equivalent normal distribution curves for
+# mean, median, or lms additional on top of the histogram. Via ``distribution_pen`` pass
+# a list of strings to adjust the pen used for the different curves.
 
 fig = pygmt.Figure()
 
 fig.histogram(
-    data=data01,
-    series=10,
-    region=[0, 200, 0, 12],
-    projection="X10c",
+    region=[0, 200, 0, 0],
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        xaxis=Axis(annot=True, tick=10),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
         yaxis=Axis(annot=1, label="Counts"),
     ),
-    fill="lightgray",
-    pen="1p,darkgray",
-    distribution=["mean", "median"],
-    distribution_pen=["1.5p,red3", "1.5p,blue,dashed"],
+    data=data2,
+    series=10,
+    fill="bisque",
+    pen="0.5p,gray30",
+    distribution=["mean", "median", "lms"],
+    distribution_pen=["1.5p,cyan2", "1.5p,steelblue,4_2", "1.5p,darkblue,2_2"],
 )
+
+# Create legend
+for pen, label in zip(
+    ["1.5p,cyan2", "1.5p,steelblue,4_2", "1.5p,darkblue,2_2"],
+    ["mean", "median", "lms"],
+    strict=False,
+):
+    fig.plot(x=[-2, -1], y=[-2, -1], pen=pen, label=label)
+fig.legend()
 
 fig.show()
 
 
 # %%
+# Multi-dataset histograms
+# ------------------------
+#
+
+# %%
 # Overlaid bars
-# -------------
+# ~~~~~~~~~~~~~
 #
 # Overlaid or overlapping bars can be achieved by plotting two or several histograms,
 # each for one data set, on top of each other. The legend entry can be specified via
@@ -363,34 +433,32 @@ fig.show()
 
 fig = pygmt.Figure()
 
-# Create histogram for data01
+# Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        xaxis=Axis(annot=True, tick=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
-    histtype="count",
+    fill="lightbrown",
+    pen="0.5p,gray30",
     # Set legend entry
-    label="data01",
+    label="data1",
 )
 
-# Create histogram for data02
-# It is plotted on top of the histogram for data01
+# Create histogram for data2
+# It is plotted on top of the histogram for data1
 fig.histogram(
-    data=data02,
+    data=data2,
     series=10,
-    # Fill bars with color "orange", use a transparency of 50% ("@50")
-    fill="orange@50",
-    pen="1p,darkgray,solid",
-    histtype="count",
-    label="data02",
+    # Fill bars with color "bisque", use a transparency of 50% ("@50")
+    fill="bisque@50",
+    pen="0.5p,gray30",
+    label="data2",
 )
 
 # Add legend
@@ -401,7 +469,7 @@ fig.show()
 
 # %%
 # Stacked bars
-# ------------
+# ~~~~~~~~~~~~
 #
 # Histograms with stacked bars are not directly supported by PyGMT. Thus, before
 # plotting, combined data sets have to be created from the single data sets. Then,
@@ -414,37 +482,35 @@ fig.show()
 # - Partly not directly clear whether overlaid or stacked bars
 
 # Combine the two data sets to one data set
-data_merge = np.concatenate((data01, data02), axis=None)
+data_merge = np.concatenate((data1, data2), axis=None)
 
 fig = pygmt.Figure()
 
-# Create histogram for data02 by using the combined data set
+# Create histogram for data2 by using the combined data set
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        xaxis=Axis(annot=True, tick=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
     data=data_merge,
     series=10,
-    fill="orange",
-    pen="1p,darkgray,solid",
-    histtype="count",
-    # The combined data set appears in the final histogram visually as data set data02
-    label="data02",
+    fill="bisque",
+    pen="0.5p,gray30",
+    # The combined data set appears in the final histogram visually as data set data2
+    label="data2",
 )
 
-# Create histogram for data01
-# It is plotted on top of the histogram for data02
+# Create histogram for data1
+# It is plotted on top of the histogram for data2
 fig.histogram(
-    data=data01,
+    data=data1,
     series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
-    histtype="count",
-    label="data01",
+    fill="lightbrown",
+    pen="0.5p,gray30",
+    label="data1",
 )
 
 # Add legend
@@ -455,7 +521,7 @@ fig.show()
 
 # %%
 # Grouped bars
-# ------------
+# ~~~~~~~~~~~~
 #
 # By setting the ``bar_width`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
@@ -469,39 +535,38 @@ fig.show()
 binwidth = 10
 
 fig = pygmt.Figure()
+pygmt.config(MAP_GRID_PEN="0.01p,gray60,2_2")
 
-# Create histogram for data01
+# Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
-        axes="WSne",
-        xaxis=Axis(annot=True, tick=10, grid=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
+        axes="WStr",
+        xaxis=Axis(annot=20, tick=10, grid=10),
+        yaxis=Axis(annot=1, label="Counts"),
     ),
-    data=data01,
+    data=data1,
     series=binwidth,
-    fill="red3",
-    pen="1p,darkgray,solid",
-    histtype="count",
+    fill="lightbrown",
+    pen="0.5p,gray30",
     # Calculate the bar width in respect to the bin width, here for two data sets half
     # of the bin width
     bar_width=binwidth / 2,
     # Offset the bars to align each bar with the left limit of the corresponding bin
     bar_offset=-binwidth / 4,
-    label="data01",
+    label="data1",
 )
 
-# Create histogram for data02
+# Create histogram for data2
 fig.histogram(
-    data=data02,
+    data=data2,
     series=binwidth,
-    fill="orange",
-    pen="1p,darkgray,solid",
-    histtype="count",
+    fill="bisque",
+    pen="0.5p,gray30",
     bar_width=binwidth / 2,
     bar_offset=binwidth / 4,
-    label="data02",
+    label="data2",
 )
 
 # Add legend
@@ -509,65 +574,4 @@ fig.legend()
 
 fig.show()
 
-# %%
-# Vertical and horizontal bars
-# ----------------------------
-#
-# To define the width of the bins, the ``series`` parameter has to be specified. The
-# bars can be filled via the ``fill`` parameter with either a color or a pattern.
-# Use the ``pen`` parameter to adjust width, color, and style
-# of the outlines. By default, a histogram with vertical bars is created. Horizontal
-# bars can be achieved via ``horizontal=True``.
-
-fig = pygmt.Figure()
-
-# Create histogram for data01 with vertical bars
-fig.histogram(
-    # Define the plot range as a list of xmin, xmax, ymin, ymax
-    # Let ymin and ymax determined automatically by setting both to the same value
-    region=[0, 200, 0, 0],
-    projection="X10c",  # Cartesian projection with a width of 10 centimeters
-    # Add frame, annotations ("a"), ticks ("f"), and y-axis label ("+l") "Counts"; the
-    # numbers give the steps of annotations and ticks
-    frame=Frame(
-        axes="WStr",
-        xaxis=Axis(annot=True, tick=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
-    ),
-    data=data01,
-    # Set the bin width via the "series" parameter
-    series=10,
-    # Fill the bars with color "red3"
-    fill="red3",
-    # Draw a 1-point thick, solid outline in "darkgray" around the bars
-    pen="1p,darkgray,solid",
-    # Choose counts via the "histtype" parameter
-    histtype="count",
-)
-
-# Shift plot origin by the previous plot's width ("w") plus 2 centimeters to the right
-fig.shift_origin(xshift="w+2c")
-
-# Create histogram for data01 with horizontal bars
-fig.histogram(
-    region=[0, 200, 0, 0],
-    projection="X10c",
-    frame=Frame(
-        axes="WStr",
-        xaxis=Axis(annot=True, tick=10),
-        yaxis=Axis(annot=1, tick=1, label="Counts"),
-    ),
-    data=data01,
-    series=10,
-    fill="red3",
-    pen="1p,darkgray,solid",
-    histtype="count",
-    # Use horizontal bars. Note that the x- and y-axes are flipped, with the x-axis
-    # plotted vertically and the y-axis plotted horizontally.
-    horizontal=True,
-)
-
-fig.show()
-
-
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 6
