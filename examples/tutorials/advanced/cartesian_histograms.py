@@ -129,7 +129,6 @@ fig.histogram(
 fig.shift_origin(xshift="w+2c")
 
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 10])
-fig.colorbar(frame=Frame(xaxis=Axis(label="mid-coordinate of bin")))
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
@@ -144,6 +143,7 @@ fig.histogram(
     cmap=True,
     pen="0.5p,gray30",
 )
+fig.colorbar(label="mid-coordinate of bin")
 
 fig.shift_origin(xshift="w+2c")
 
