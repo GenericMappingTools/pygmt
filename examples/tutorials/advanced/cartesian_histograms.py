@@ -49,8 +49,8 @@ fig.histogram(
     # Define the plot range as a list of xmin, xmax, ymin, ymax
     # Let ymin and ymax determined automatically by setting both to the same value
     region=[0, 200, 0, 0],
-    # Cartesian projection with a width of 10 centimeters
-    projection="X10c",
+    # Cartesian projection with a width of 8 centimeters
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -67,7 +67,7 @@ fig.shift_origin(xshift="w+2c")
 
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -83,7 +83,7 @@ fig.shift_origin(xshift="w+2c")
 
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -114,7 +114,7 @@ fig = pygmt.Figure()
 
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -131,7 +131,7 @@ fig.shift_origin(xshift="w+2c")
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 200, 10])
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -150,7 +150,7 @@ fig.shift_origin(xshift="w+4c")
 pygmt.makecpt(cmap="SCM/batlow", series=[0, 15, 1])
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -184,7 +184,7 @@ fig = pygmt.Figure()
 # Create histogram for data1 with vertical bars
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -201,7 +201,7 @@ fig.shift_origin(xshift="w+2c")
 # Create histogram for data1 with horizontal bars
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -231,7 +231,7 @@ fig = pygmt.Figure()
 # Create histogram for data1 using bars
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -248,7 +248,7 @@ fig.shift_origin(xshift="w+2c")
 # Create histogram for data1 using stair-steps
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -283,7 +283,7 @@ fig = pygmt.Figure()
 # Create histogram for data2 showing counts
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -302,7 +302,7 @@ fig.shift_origin(xshift="w+2c")
 # Create histogram for data2 showing frequency percent
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     # Add suffix % (+u)
     frame=Frame(
         axes="WStr",
@@ -334,7 +334,7 @@ fig = pygmt.Figure()
 # Create histogram for data1 showing the counts per bin
 fig.histogram(
     region=[0, 200, 0, len(data1) + 1],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -353,7 +353,7 @@ fig.shift_origin(xshift="w+2c")
 # Create histogram for data1 showing the cumulative counts
 fig.histogram(
     region=[0, 200, 0, len(data1) + 1],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -386,7 +386,7 @@ fig = pygmt.Figure()
 
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -436,7 +436,7 @@ fig = pygmt.Figure()
 # Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -489,7 +489,7 @@ fig = pygmt.Figure()
 # Create histogram for data2 by using the combined data set
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10),
@@ -540,7 +540,7 @@ pygmt.config(MAP_GRID_PEN="0.01p,gray60,2_2")
 # Create histogram for data1
 fig.histogram(
     region=[0, 200, 0, 0],
-    projection="X10c",
+    projection="X8c",
     frame=Frame(
         axes="WStr",
         xaxis=Axis(annot=20, tick=10, grid=10),
