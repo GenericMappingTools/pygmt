@@ -97,8 +97,8 @@ def fill_between(
 
     Examples
     --------
-    Fill between two curves with specified colors and draw the curves with custom pen
-    styles.
+    Fill the area between two curves with specified colors and draw the curves with
+    custom pen styles.
 
     >>> import numpy as np
     >>> import pygmt
