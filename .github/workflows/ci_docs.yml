@@ -142,6 +142,14 @@ jobs:
           fi
           exit "${exit_code}"
 
+      - name: Upload the documentation to ReadTheDocs for previewing on pull request
+        uses: readthedocs/upload-action@80f3c6547919b97858e61ffbe3a4990a25959f9a # v1
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && matrix.os == 'ubuntu-latest'
+        with:
+          token: ${{ secrets.READTHEDOCS_TOKEN }}
+          project-slug: pygmt-dev
+          html: doc/_build/html
+
       - name: Cache tectonic packages
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0 # zizmor: ignore[cache-poisoning]
         with:
