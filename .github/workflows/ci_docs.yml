@@ -142,7 +142,7 @@ jobs:
           fi
           exit "${exit_code}"
 
-      - name: Upload the documentation to ReadTheDocs for PR preview
+      - name: Upload the documentation to ReadTheDocs for previewing on pull request
         uses: readthedocs/upload-action@80f3c6547919b97858e61ffbe3a4990a25959f9a # v1
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && matrix.os == 'ubuntu-latest'
         with:
