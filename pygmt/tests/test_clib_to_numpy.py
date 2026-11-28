@@ -2,7 +2,7 @@
 Tests for the _to_numpy function in the clib.conversion module.
 """
 
-import datetime
+import datetime as dt
 
 import numpy as np
 import numpy.testing as npt
@@ -75,10 +75,10 @@ def test_to_numpy_python_types(data, expected_dtype):
     [
         pytest.param(
             [
-                datetime.date(2018, 1, 1),
-                datetime.datetime(2018, 2, 1),
-                datetime.date(2018, 3, 1),
-                datetime.datetime(2018, 4, 1, 1, 2, 3),
+                dt.date(2018, 1, 1),
+                dt.datetime(2018, 2, 1),
+                dt.date(2018, 3, 1),
+                dt.datetime(2018, 4, 1, 1, 2, 3),
             ],
             id="datetime",
         ),
@@ -104,7 +104,7 @@ def test_to_numpy_python_types(data, expected_dtype):
             [
                 "2018-01-01",
                 np.datetime64("2018-02-01"),
-                datetime.datetime(2018, 3, 1),
+                dt.datetime(2018, 3, 1),
                 pd.Timestamp("2018-04-01T01:02:03"),
             ],
             id="mixed",
@@ -629,9 +629,9 @@ def test_to_numpy_pyarrow_date(dtype, expected_dtype):
     Here we explicitly check the dtype and date unit of the result.
     """
     data = [
-        datetime.date(2024, 1, 1),
-        datetime.datetime(2024, 1, 2),
-        datetime.datetime(2024, 1, 3),
+        dt.date(2024, 1, 1),
+        dt.datetime(2024, 1, 2),
+        dt.datetime(2024, 1, 3),
     ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)
@@ -676,8 +676,8 @@ def test_to_numpy_pyarrow_timestamp(dtype, expected_dtype):
     Reference: https://arrow.apache.org/docs/python/generated/pyarrow.timestamp.html
     """
     data = [
-        datetime.datetime(2024, 1, 2, 3, 4, 5),
-        datetime.datetime(2024, 1, 2, 3, 4, 6),
+        dt.datetime(2024, 1, 2, 3, 4, 5),
+        dt.datetime(2024, 1, 2, 3, 4, 6),
     ]
     array = pa.array(data, type=dtype)
     result = _to_numpy(array)

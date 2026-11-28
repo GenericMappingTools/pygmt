@@ -10,7 +10,7 @@ information.
 """
 
 # %%
-import datetime
+import datetime as dt
 
 import pygmt
 
@@ -21,18 +21,16 @@ fig.basemap(region="d", projection="W15c", frame=True)
 fig.coast(land="darkgreen", water="lightblue")
 
 # Set a time for the day-night terminator and twilights to 17:00 UTC on January 1, 2000
-reference_time = datetime.datetime(
-    year=2000, month=1, day=1, hour=17, minute=0, second=0
-)
+reference_time = dt.datetime(year=2000, month=1, day=1, hour=17, minute=0, second=0)
 
 # Plot the day-night terminator and twilights
 for terminator in ["day_night", "civil", "nautical", "astronomical"]:
     fig.solar(
         terminator=terminator,
         terminator_datetime=reference_time,
-        # Set the fill for the night area to navy blue with 85 % transparency
+        # Set the fill for the night area to navy blue with 85% transparency
         fill="navyblue@85",
-        pen="0.5p",  # Set the outline to be 0.5-point thick
+        pen="0.5p",  # Set the terminator line to be 0.5-point thick
     )
 
 fig.show()

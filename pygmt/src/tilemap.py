@@ -17,6 +17,8 @@ try:
 except ImportError:
     TileProvider = None
 
+__doctest_skip__ = ["tilemap"]
+
 
 @fmt_docstring
 @use_alias(E="dpi", I="shading", Q="nan_transparent")
@@ -117,8 +119,46 @@ def tilemap(
 
         .. note::
            Requires ``contextily>=1.7.0``.
+    monochrome
+        Force conversion to monochrome image using the (television) YIQ transformation.
+    no_clip
+        Do **not** clip the tiles at the frame boundaries, so that the full extent of
+        the downloaded tiles is plotted [Default is ``False``].
+    $projection
+    $frame
+    $verbose
+    $panel
+    $perspective
+    $transparency
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
+
+    Examples
+    --------
+    >>> import contextily
+    >>> import pygmt
+
+    Plot a tile map of Honolulu, Hawaii using the default OpenStreetMap Humanitarian web
+    tiles:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.tilemap(
+    ...     region=[-157.84, -157.8, 21.255, 21.285], projection="M12c", frame=True
+    ... )
+    >>> fig.show()
+
+    Use the Esri World Imagery satellite tiles provided via the
+    :doc:`contextily <contextily:index>` library at a specified zoom level:
+
+    >>> fig = pygmt.Figure()
+    >>> fig.tilemap(
+    ...     region=[-157.84, -157.8, 21.255, 21.285],
+    ...     projection="M12c",
+    ...     zoom=14,
+    ...     source=contextily.providers.Esri.WorldImagery,
+    ...     frame=True,
+    ... )
+    >>> fig.show()
     """
     raster = load_tile_map(
         region=region,

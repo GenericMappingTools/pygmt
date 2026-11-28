@@ -5,10 +5,12 @@ colorbar - Plot gray scale or color scale bar.
 from collections.abc import Sequence
 from typing import Literal
 
+from packaging.version import Version
 from pygmt._typing import AnchorCode
 from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.exceptions import GMTValueError
+from pygmt.clib.session import __gmt_version__
+from pygmt.exceptions import GMTValueError, GMTVersionError
 from pygmt.helpers import build_arg_list, fmt_docstring, is_given, use_alias
 from pygmt.helpers.utils import is_nonstr_iter
 from pygmt.params import Axis, Box, Frame, Position
@@ -272,6 +274,7 @@ def colorbar(
     scale: float | None = None,
     monochrome: bool = False,
     dpi: int | None = None,
+    no_font_scaling: bool = False,
     projection: str | None = None,
     region: Sequence[float | str] | str | None = None,
     frame: Frame | Axis | Literal["none"] | str | Sequence[str] | bool = False,
@@ -293,23 +296,13 @@ def colorbar(
     linear scale, all be equal size, or by providing a file with individual
     tile widths.
 
-    .. note::
-       For GMT >=6.5.0, the fontsizes of the colorbar x-label, x-annotations,
-       and y-label are scaled based on the width of the colorbar following
-       :math:`\sqrt{colorbar\_width / 15}`. To set a desired fontsize via the
-       GMT default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
-       :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
-       :gmt-term:`FONT`) users have to divide the desired fontsize by the value
-       calculated with the formula given above before passing it to the default
-       parameters. To only affect fontsizes related to the colorbar, the
-       defaults can be changed locally only using ``with pygmt.config(...):``.
-
     Full GMT docs at :gmt-docs:`colorbar.html`.
 
     $aliases
        - C = cmap
        - F = box
        - G = truncate
+       - H = no_font_scaling
        - I = shading
        - J = projection
        - M = monochrome
@@ -463,6 +456,23 @@ def colorbar(
 
         If not specified, GMT uses its default encoding behavior, and the default dpi
         is 600 if the colorbar is drawn as image.
+    no_font_scaling
+        By default, the font sizes used for the colorbar are scaled automatically
+        based on the length of the colorbar. Set this parameter to ``True`` to
+        turn off the automatic scaling [Requires GMT>=6.7.0].
+
+        .. note::
+           By default, the fontsizes of the colorbar annotations, label, and unit are
+           scaled based on the length of the colorbar following
+           :math:`\sqrt{colorbar\_length / 15}`. To set a desired fontsize use the GMT
+           default parameters :gmt-term:`FONT_ANNOT_PRIMARY`,
+           :gmt-term:`FONT_ANNOT_SECONDARY`, and :gmt-term:`FONT_LABEL` (or jointly
+           :gmt-term:`FONT`). For GMT 6.5.0 - 6.6.0, users have to divide the desired
+           fontsize by the value calculated with the formula given above before passing
+           it to the default parameters. For GMT >=6.7.0, users can use
+           ``no_font_scaling = True`` to turn off the automatic fontsize scaling; this
+           reverts also the changes regarding frame thickness and tick length.
+
     $projection
     $region
     $verbose
@@ -470,16 +480,14 @@ def colorbar(
     $perspective
     $transparency
 
-    Example
-    -------
+    Examples
+    --------
+    Add a colorbar with a specified colormap, label, and unit on a plot.
+
     >>> import pygmt
-    >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create a basemap
     >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
-    >>> # Call the colorbar method for the plot
     >>> fig.colorbar(cmap="SCM/roma", label="Velocity", unit="m/s")
-    >>> # Show the plot
     >>> fig.show()
     """
     position = _parse_position(
@@ -500,6 +508,16 @@ def colorbar(
         },
     )
 
+    # -H was introduced in GMT 6.7.0.
+    # Raise GMT version error in case no_font_scaling is used with GMT < 6.7.0.
+    gmt_version_cb_h = "6.7.0"
+    if (Version(__gmt_version__) < Version(gmt_version_cb_h)) and no_font_scaling:
+        msg = (
+            f"Using parameter 'no_font_scaling' requires GMT version >= {gmt_version_cb_h}. "
+            f"The currently installed GMT version is {__gmt_version__}."
+        )
+        raise GMTVersionError(msg)
+
     aliasdict = AliasSystem(
         C=Alias(cmap, name="cmap"),
         D=_alias_option_D(
@@ -518,6 +536,7 @@ def colorbar(
         ),
         F=Alias(box, name="box"),
         G=Alias(truncate, name="truncate", sep="/", size=2),
+        H=Alias(no_font_scaling, name="no_font_scaling"),
         I=Alias(shading, name="shading", sep="/", size=2),
         M=Alias(monochrome, name="monochrome"),
         N=_alias_option_N(dpi=dpi),

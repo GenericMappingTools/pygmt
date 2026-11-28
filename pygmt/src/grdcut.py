@@ -101,8 +101,8 @@ def grdcut(
         - ``None`` if ``outgrid`` is set (grid output will be stored in the file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N

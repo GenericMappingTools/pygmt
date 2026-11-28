@@ -30,7 +30,7 @@ fig = pygmt.Figure()
 # Set up basic map using a Mercator projection with a width of 12 centimeters
 fig.basemap(region=region_map, projection="M12c", frame=Axis(annot=True, tick=True))
 
-# Download grid for Earth relief with a resolution of 10 arc-minutes and gridline
+# Download grid for Earth's relief with a resolution of 10 arc-minutes and gridline
 # registration [Default]
 grid_map = pygmt.datasets.load_earth_relief(resolution="10m", region=region_map)
 
@@ -101,9 +101,8 @@ fig.fill_between(
     x=track_df.p, y=track_df.elevation, y2=-8000, pen="1p,red", fill="gray"
 )
 
-# Add plot frame
-# Add annotations ("a") and ticks ("f") as well as labels ("+l") at the west or left
-# and south or bottom sides ("WSrt")
+# Add frame with annotations, ticks and labels at the left (West) and bottom (South)
+# sides ("WSrt")
 fig.basemap(
     frame=Frame(
         axes="WSrt",

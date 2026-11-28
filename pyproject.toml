@@ -1,5 +1,9 @@
 [build-system]
-requires = ["setuptools>=80", "setuptools-scm>=9.2"]
+requires = [
+    "python-sbom[setuptools]>=0.3",
+    "setuptools>=80",
+    "setuptools-scm>=10.0.4"
+]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -33,6 +37,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
     "numpy>=2.2",
@@ -61,6 +66,22 @@ gmt = "pygmt.xarray:GMTBackendEntrypoint"
 "Changelog" = "https://www.pygmt.org/latest/changes.html"
 "Issue Tracker" = "https://github.com/GenericMappingTools/pygmt/issues"
 
+[dependency-groups]
+style = [
+    "prek",
+    "ruff>=0.15.22",
+]
+test=[
+    "netCDF4",
+    "pytest>=6.0",
+    "pytest-cov",
+    "pytest-doctestplus",
+    "pytest-mpl",
+    "pytest-rerunfailures",
+    "sphinx-gallery"
+]
+typing = ["mypy", "pandas-stubs", "pyarrow-stubs"]
+
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
@@ -69,6 +90,9 @@ exclude = ["doc"]
 version_scheme = "release-branch-semver"
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
+
+[tool.setuptools_scm.scm.git]
+pre_parse = "fetch_on_shallow"
 
 [tool.codespell]
 ignore-words-list = "astroid,te,tripel,trough"
@@ -95,6 +119,10 @@ omit = ["*/tests/*", "*pygmt/__init__.py"]
 [tool.mypy]
 exclude = ["pygmt/tests/"]
 ignore_missing_imports = true
+
+[tool.python-sbom]
+supplier = { name = "The PyGMT Developers", url = ["https://pygmt.org"] }
+repository = "https://github.com/GenericMappingTools/pygmt"
 
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)

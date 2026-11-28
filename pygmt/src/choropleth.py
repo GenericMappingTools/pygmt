@@ -41,8 +41,8 @@ def choropleth(
     as an attribute field (e.g. a :class:`geopandas.GeoDataFrame`), or an OGR_GMT file
     containing the geometry and data to plot.
 
-    **Aliases:**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -87,6 +87,8 @@ def choropleth(
 
     Examples
     --------
+    Plot a choropleth map of the world based on population estimates.
+
     >>> import geopandas
     >>> import pygmt
     >>> world = geopandas.read_file(

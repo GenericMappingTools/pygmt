@@ -109,8 +109,8 @@ def sphdistance(
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import numpy as np
     >>> import pygmt
     >>> # Create an array of longitude/latitude coordinates

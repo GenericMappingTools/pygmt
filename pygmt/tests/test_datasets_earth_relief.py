@@ -1,5 +1,5 @@
 """
-Test basic functionality for loading Earth relief datasets.
+Test basic functionality for loading Earth's relief datasets.
 """
 
 import numpy as np
@@ -16,12 +16,12 @@ from pygmt.exceptions import GMTValueError
 @pytest.mark.parametrize("data_source", ["igpp", "synbath"])
 def test_earth_relief_01d_igpp_synbath(data_source):
     """
-    Test some properties of the earth relief 01d data with IGPP and SYNBATH data.
+    Test some properties of Earth's relief 01d data with IGPP and SYNBATH data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "IGPP Earth relief"
+    assert data.attrs["description"] == "IGPP Earth's relief"
     assert data.attrs["units"] == "meters"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
@@ -36,12 +36,12 @@ def test_earth_relief_01d_igpp_synbath(data_source):
 @pytest.mark.parametrize("data_source", ["gebco", "gebcosi"])
 def test_earth_relief_01d_gebco(data_source):
     """
-    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI data.
+    Test some properties of Earth's relief 01d data with GEBCO and GEBOCSI data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "z"
     assert data.attrs["long_name"] == "elevation (m)"
-    assert data.attrs["description"] == "GEBCO Earth relief"
+    assert data.attrs["description"] == "GEBCO Earth's relief"
     assert data.attrs["units"] == "meters"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
@@ -55,7 +55,7 @@ def test_earth_relief_01d_gebco(data_source):
 
 def test_earth_relief_01d_with_region_srtm():
     """
-    Test loading low-resolution earth relief with 'region' with IGPP data.
+    Test loading low-resolution Earth's relief with 'region' with IGPP data.
     """
     data = load_earth_relief(
         resolution="01d",
@@ -72,7 +72,7 @@ def test_earth_relief_01d_with_region_srtm():
 
 def test_earth_relief_01d_with_region_gebco():
     """
-    Test loading low-resolution earth relief with 'region' with GEBCO data.
+    Test loading low-resolution Earth's relief with 'region' with GEBCO data.
     """
     data = load_earth_relief(
         resolution="01d",
@@ -89,7 +89,7 @@ def test_earth_relief_01d_with_region_gebco():
 
 def test_earth_relief_30m():
     """
-    Test some properties of the earth relief 30m data.
+    Test some properties of Earth's relief 30m data.
     """
     data = load_earth_relief(resolution="30m")
     assert data.shape == (361, 721)
@@ -120,7 +120,7 @@ def test_earth_gebcosi_15m_with_region():
 
 def test_earth_relief_30s_synbath():
     """
-    Test some properties of the earth relief 30s data with SYNBATH data.
+    Test some properties of Earth's relief 30s data with SYNBATH data.
     """
     data = load_earth_relief(
         region=[-95, -94, -1.5, -1],
@@ -154,7 +154,7 @@ def test_earth_relief_03s_landonly_srtm():
 
 def test_earth_relief_invalid_data_source():
     """
-    Test loading earth relief with invalid data_source argument.
+    Test loading Earth's relief with invalid data_source argument.
     """
     with pytest.raises(GMTValueError):
         load_earth_relief(
@@ -164,7 +164,7 @@ def test_earth_relief_invalid_data_source():
 
 def test_earth_relief_invalid_data_source_with_use_srtm():
     """
-    Test loading earth relief with use_srtm=True and an incompatible data_source
+    Test loading Earth's relief with use_srtm=True and an incompatible data_source
     argument.
     """
     with pytest.raises(GMTValueError):
@@ -179,7 +179,7 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
 
 def test_earth_relief_03s_but_not_igpp():
     """
-    Test loading earth relief with resolution "03s" but data_source not "igpp".
+    Test loading Earth's relief with resolution "03s" but data_source not "igpp".
     """
     for data_source in ["gebco", "gebcosi", "synbath"]:
         with pytest.raises(GMTValueError):

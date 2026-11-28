@@ -38,7 +38,7 @@ def load_blue_marble(
        :width: 80%
        :align: center
 
-       Earth day/night dataset.
+       Earth's day/night dataset.
 
 
     This function downloads the dataset from the GMT data server, caches it in a user

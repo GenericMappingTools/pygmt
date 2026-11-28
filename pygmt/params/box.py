@@ -70,7 +70,7 @@ class Box(BaseParam):
             )
 
         # shade_offset must be a sequence of two values or None.
-        if self.shade_offset and not (
+        if self.shade_offset is not None and not (
             is_nonstr_iter(self.shade_offset) and len(self.shade_offset) == 2
         ):
             raise GMTValueError(
@@ -91,7 +91,7 @@ class Box(BaseParam):
         """
         Shading for the box, formatted as a list of 1-3 values, or None.
         """
-        _shade_offset = self.shade_offset or []
+        _shade_offset = [] if self.shade_offset is None else self.shade_offset
         return [v for v in (*_shade_offset, self.shade_fill) if v is not None] or None
 
     @property

@@ -65,4 +65,13 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    {# The PDF and zipped HTML files are copied to the HTML root by the ci_docs workflow #}
+    <p class="caption">
+        <span class="caption-text">Offline documentation</span>
+    </p>
+    <ul>
+        <li class="toctree-l1"><a href="{{ pathto('pygmt-docs.pdf', 1) }}"><i class="fa fa-file-pdf-o fa-fw"></i> PDF</a></li>
+        <li class="toctree-l1"><a href="{{ pathto('pygmt-docs.zip', 1) }}"><i class="fa fa-file-archive-o fa-fw"></i> HTML (zip)</a></li>
+    </ul>
 {% endblock %}

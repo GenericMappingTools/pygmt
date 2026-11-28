@@ -90,6 +90,8 @@ def magnetic_rose(
 
     Examples
     --------
+    Plot a magnetic rose with custom position, width, labels, intervals, and pen styles.
+
     >>> import pygmt
     >>> from pygmt.params import Position
     >>> fig = pygmt.Figure()

@@ -97,6 +97,8 @@ def scalebar(
 
     Examples
     --------
+    Add a scale bar to a map with specified length, position, and styling options.
+
     >>> import pygmt
     >>> from pygmt.params import Position
     >>> fig = pygmt.Figure()

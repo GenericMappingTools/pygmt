@@ -67,7 +67,6 @@ def shift_origin(
 
     Examples
     --------
-
     Shifting the plot origin permanently:
 
     >>> import pygmt

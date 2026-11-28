@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 
+import contextlib
 import io
 import os
 import shutil
@@ -920,14 +921,13 @@ def sequence_join(
         # or integer number for timedelta64.
         _values = []
         for item in value:
+            _value = str(item)
             if isinstance(item, np.timedelta64):  # Convert timedelta64 to numeric value
-                _values.append(str(item.astype(int)))
-            elif " " in str(item):
-                _values.append(
-                    np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[arg-type]
-                )
-            else:
-                _values.append(str(item))
+                _value = str(item.astype(int))
+            elif " " in _value:  # Likely a datetime-like object.
+                with contextlib.suppress(ValueError):
+                    _value = np.datetime_as_string(np.asarray(item, dtype="datetime64"))  # type: ignore[assignment]
+            _values.append(_value)
         return sep.join(_values)  # type: ignore[arg-type]
 
     # Now it must be a 2-D sequence.

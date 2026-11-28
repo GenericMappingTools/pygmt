@@ -1,7 +1,3 @@
-/* To stick the footer to the bottom of the page */
-html {
-}
-
 body {
     font-family: "Atkinson Hyperlegible", sans-serif;
     font-size: 1.05em;
@@ -42,8 +38,9 @@ p {
     max-width: 1000px;
 }
 
-/* Compatibility with sphinx_rtd_theme v3.x.x */
-/* https://github.com/TexasInstruments/processor-sdk-doc/commit/4fa6276ddcf7f9db919af2e5b3aec7e70a1afa16 */
+/* Workaround for the upstream bug that version section is not shown for self-hosted documentation */
+/* Upstream bug: https://github.com/readthedocs/sphinx_rtd_theme/issues/1624
+/* Workaround from https://github.com/TexasInstruments/processor-sdk-doc/commit/4fa6276ddcf7f9db919af2e5b3aec7e70a1afa16 */
 .wy-side-nav-search>div.version {
     margin-top: -.4045em;
     margin-bottom: .809em;
@@ -74,12 +71,12 @@ p {
     margin-bottom: 10px;
 }
 
-/* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
+/* Format parameters section similar to sphinx_rtd_theme v0.4.x (not a grid) */
 html.writer-html5 .rst-content dl.field-list {
     display: initial;
 }
 
-/* Add a grey box around parameters similar to sphinx_rtd_theme v4.x.x) */
+/* Add a grey box around parameters similar to sphinx_rtd_theme v0.4.x */
 .rst-content dl:not(.docutils) dl dt {
     margin-bottom: 4px;
     border: none;
@@ -98,20 +95,6 @@ html.writer-html5 .rst-content dl.field-list {
     border-top: solid 3px #6ab0de;
     padding: 6px;
     position: relative;
-}
-
-/* Remove the padding from the Parameters table */
-.rst-content table.field-list .field-name {
-    padding-left: 0px;
-}
-
-/* Lign up the Parameters section with the descriptions */
-.rst-content table.field-list td {
-    padding-top: 8px;
-}
-
-.rst-content .highlight > pre {
-    font-size: 14px;
 }
 
 .source-link {

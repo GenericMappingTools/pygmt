@@ -2,6 +2,7 @@
 Test the Box class.
 """
 
+import numpy as np
 import pytest
 from pygmt.exceptions import GMTParameterError, GMTValueError
 from pygmt.params import Box
@@ -57,3 +58,13 @@ def test_params_box_invalid_innerborder():
     """
     with pytest.raises(GMTParameterError):
         _ = str(Box(inner_gap="2p"))
+
+
+def test_params_box_shade_offset_array_like():
+    """
+    Test that shade_offset accepts numpy arrays and rejects empty sequences.
+    """
+    assert str(Box(shade_offset=np.array([1, 2]))) == "+s1/2"
+    assert str(Box(shade_offset=np.array([1, 2]), shade_fill="red")) == "+s1/2/red"
+    with pytest.raises(GMTValueError):
+        Box(shade_offset=[])

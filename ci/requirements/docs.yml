@@ -4,7 +4,7 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - python=3.14
+    - python=3.15
     - gmt=6.7.0
     - ghostscript=10.08.0
     - numpy

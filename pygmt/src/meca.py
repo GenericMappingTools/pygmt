@@ -20,6 +20,8 @@ from pygmt.helpers import (
 from pygmt.params import Axis, Frame, Pattern
 from pygmt.src._common import _FocalMechanismConvention
 
+__doctest_skip__ = ["meca"]
+
 
 def _get_focal_convention(spec, convention, component) -> _FocalMechanismConvention:
     """
@@ -337,6 +339,13 @@ def meca(
         automatically. The color of the compressive quadrants is determined by the
         z-value (i.e., event depth or the third column for an input file). This setting
         also applies to the fill of the circle defined via ``offset``.
+
+        .. note::
+           For GMT 6.7.0, a colormap set up via ``pygmt.makecpt`` and applied as
+           ``cmap=True`` is ignored. For details, please see the upstream GMT
+           `issue 9176 <https://github.com/GenericMappingTools/gmt/issues/9176>`_ and
+           `PR 9177 <https://github.com/GenericMappingTools/gmt/pull/9177>`_.
+
     no_clip
         Do **not** skip symbols that fall outside the frame boundaries [Default is
         ``False``, i.e., plot symbols inside the frame boundaries only].
@@ -347,6 +356,23 @@ def meca(
     $panel
     $perspective
     $transparency
+
+    Examples
+    --------
+    Plot a single focal mechanism using the Aki and Richards convention:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[-124, -122, 47, 49], projection="M10c", frame=True)
+    >>> fig.coast(land="gray80", water="lightblue", shorelines="0.5p,gray30")
+    >>> fig.meca(
+    ...     spec={"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+    ...     scale="1c",
+    ...     longitude=-124.3,
+    ...     latitude=48.1,
+    ...     depth=12.0,
+    ... )
+    >>> fig.show()
     """
     # Determine the focal mechanism convention from the input data or parameters.
     _convention = _get_focal_convention(spec, convention, component)

@@ -58,8 +58,8 @@ def basemap(
 
     Full GMT docs at :gmt-docs:`basemap.html`.
 
-    **Aliases**
-
+    Aliases
+    -------
     .. hlist::
        :columns: 3
 
@@ -142,6 +142,8 @@ def basemap(
 
     Examples
     --------
+    Plot a basic map with a specified region, projection, and frame settings.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region="g", projection="H15c", frame=True)

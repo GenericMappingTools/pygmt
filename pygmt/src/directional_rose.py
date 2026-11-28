@@ -81,6 +81,8 @@ def directional_rose(
 
     Examples
     --------
+    Add a directional rose to a map with default settings on a map.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 80, 0, 30], projection="M10c", frame=True)
